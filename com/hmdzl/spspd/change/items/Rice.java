@@ -130,7 +130,7 @@ public class Rice extends Item {
 					mob.beckon(Dungeon.hero.pos);
 				}
 
-				GLog.w("The denizens awake and they are hungry! Here come the Oni!");
+				GLog.w("The denizens awake and they are hungry! Here come the Orc!");
 				CellEmitter.center(Dungeon.hero.pos).start(
 						Speck.factory(Speck.SCREAM), 0.3f, 3);
 				Sample.INSTANCE.play(Assets.SND_CHALLENGE);

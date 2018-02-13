@@ -302,7 +302,7 @@ public class DewVial extends Item {
 			GameScene.selectItem(itemSelector, WndBag.Mode.UPGRADEDEW,	Messages.get(this, "select"));
 													
 		} else if (action.equals(AC_LIGHT)) {	
-			Buff.affect(hero, Light.class, 100f);
+			Buff.affect(hero, Light.class, 80f);
 			Buff.affect(hero, Invisibility.class, 20f);
 			GLog.i(Messages.get(this, "invisible"));
 			GLog.i(Messages.get(this, "light"));

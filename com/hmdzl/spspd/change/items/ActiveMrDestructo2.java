@@ -74,7 +74,7 @@ public class ActiveMrDestructo2 extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (charge >= 500){
+		if (charge >= 250){
 		actions.add(AC_ACTIVATETHROW);
 		}
 		return actions;
@@ -83,7 +83,7 @@ public class ActiveMrDestructo2 extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_ACTIVATETHROW)) {
-		    if (charge < 500)
+		    if (charge < 250)
 				GLog.i(Messages.get(this, "rest"));
             else {			
 			activate = true;

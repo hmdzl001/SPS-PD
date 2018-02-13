@@ -25,6 +25,7 @@ import java.util.HashMap;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Ghost;
+import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.change.items.eggs.BeeEgg;
 import com.hmdzl.spspd.change.items.eggs.BlueDragonEgg;
 import com.hmdzl.spspd.change.items.eggs.CocoCatEgg;
@@ -46,6 +47,10 @@ import com.hmdzl.spspd.change.items.food.PetFood;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
+import com.hmdzl.spspd.change.items.weapon.melee.Club;
+import com.hmdzl.spspd.change.items.weapon.melee.FightGloves;
+import com.hmdzl.spspd.change.items.weapon.melee.Lance;
+import com.hmdzl.spspd.change.items.weapon.melee.Rapier;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.change.items.weapon.melee.special.RunicBlade;
@@ -235,7 +240,7 @@ public class Generator {
 
 	private static HashMap<Category, Float> categoryProbs = new HashMap<Generator.Category, Float>();
 	
-	private static final float[] INITIAL_ARTIFACT_PROBS = new float[]{  0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1};
+	private static final float[] INITIAL_ARTIFACT_PROBS = new float[]{  0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 	static {
 
@@ -275,19 +280,19 @@ public class Generator {
 
 		Category.WEAPON.classes = new Class<?>[] { ErrorW.class,Pumpkin.class,TekkoKagi.class,
 				Dagger.class, Knuckles.class,  ShortSword.class, MageBook.class,
-				Handaxe.class, Spear.class, Dualknive.class,WraithBreath.class,
-				Nunchakus.class, Scimitar.class,Whip.class,Spork.class,
-				AssassinsBlade.class,BattleAxe.class,Glaive.class,Handcannon.class,
-                Gsword.class, Halberd.class, WarHammer.class, RunicBlade.class,
+				Handaxe.class, Spear.class, Dualknive.class,WraithBreath.class, FightGloves.class,
+				Nunchakus.class, Scimitar.class,Whip.class,Spork.class, Rapier.class,
+				AssassinsBlade.class,BattleAxe.class,Glaive.class,Handcannon.class,Club.class,
+                Gsword.class, Halberd.class, WarHammer.class, RunicBlade.class, Lance.class,
 				Bola.class ,Knive.class,PoisonDart.class,Shuriken.class,IncendiaryDart.class,Tamahawk.class,
 				Boomerang.class,ErrorT.class};
 		Category.WEAPON.probs = new float[] {
 				0,0,0,
 				1,1,1,0,
-				1,1,1,0,
-				1,1,1,0,
-				1,1,1,0,
-				1,1,1,0,
+				1,1,1,0,1,
+				1,1,1,0,1,
+				1,1,1,0,1,
+				1,1,1,0,1,
 				1,1,1,1,1,1,
 				0,0
 		};
@@ -314,7 +319,7 @@ public class Generator {
 				MasterThievesArmband.class, SandalsOfNature.class,
 				TalismanOfForesight.class, TimekeepersHourglass.class,
 				UnstableSpellbook.class, AlchemistsToolkit.class, RingOfDisintegration.class,
-				EyeOfSkadi.class,
+				EyeOfSkadi.class, EtherealChains.class,
 				DriedRose.class // starts with no chance of spawning, chance is
 								// set directly after beating ghost quest.
 		};
