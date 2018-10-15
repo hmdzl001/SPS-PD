@@ -15,6 +15,6 @@ Idea from Easier Sprouted PD: https://github.com/G2159687/ESPD
 Idea from Pioneer: https://github.com/udawos/pioneer
 Idea from LCPD: https://github.com/TypedScroll
 Idea from Goblins Pixel Dungeon: https://github.com/locastan/goblins-pixel-dungeon-master
-Idea from Moonshine Pixel Dungeon : ???
+Idea from Moonshine Pixel Dungeon : https://bitbucket.org/juh9870/moonshine
 
 And... more...
