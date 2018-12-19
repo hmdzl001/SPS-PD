@@ -1,0 +1,693 @@
+/*
+ * Pixel Dungeon
+ * Copyright (C) 2012-2014  Oleg Dolya
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+package com.hmdzl.spspd.change.actors.hero;
+
+import com.hmdzl.spspd.change.Assets;
+import com.hmdzl.spspd.change.Badges;
+import com.hmdzl.spspd.change.Challenges;
+import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.items.Ankh;
+import com.hmdzl.spspd.change.items.ArmorKit;
+import com.hmdzl.spspd.change.items.BossRush;
+import com.hmdzl.spspd.change.items.ChallengeBook;
+import com.hmdzl.spspd.change.items.Elevator;
+import com.hmdzl.spspd.change.items.SoulCollect;
+import com.hmdzl.spspd.change.items.Torch;
+import com.hmdzl.spspd.change.items.armor.normalarmor.MachineArmor;
+import com.hmdzl.spspd.change.items.armor.normalarmor.VestArmor;
+import com.hmdzl.spspd.change.items.armor.normalarmor.WoodenArmor;
+import com.hmdzl.spspd.change.items.artifacts.DriedRose;
+import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.change.items.bags.ScrollHolder;
+import com.hmdzl.spspd.change.items.challengelists.CaveChallenge;
+import com.hmdzl.spspd.change.items.challengelists.ChallengeList;
+import com.hmdzl.spspd.change.items.challengelists.CityChallenge;
+import com.hmdzl.spspd.change.items.challengelists.PrisonChallenge;
+import com.hmdzl.spspd.change.items.challengelists.SewerChallenge;
+import com.hmdzl.spspd.change.items.food.ToastedNut;
+import com.hmdzl.spspd.change.items.food.completefood.Honey;
+import com.hmdzl.spspd.change.items.food.staplefood.NormalRation;
+import com.hmdzl.spspd.change.items.food.staplefood.Pasty;
+import com.hmdzl.spspd.change.items.journalpages.SafeSpotPage;
+import com.hmdzl.spspd.change.items.journalpages.Sokoban2;
+import com.hmdzl.spspd.change.items.journalpages.Sokoban3;
+import com.hmdzl.spspd.change.items.journalpages.Sokoban4;
+import com.hmdzl.spspd.change.items.misc.Ankhshield;
+import com.hmdzl.spspd.change.items.armor.normalarmor.ClothArmor;
+import com.hmdzl.spspd.change.items.artifacts.CloakOfShadows;
+import com.hmdzl.spspd.change.items.bags.KeyRing;
+import com.hmdzl.spspd.change.items.eggs.RandomEgg;
+import com.hmdzl.spspd.change.items.food.completefood.PetFood;
+import com.hmdzl.spspd.change.items.journalpages.JournalPage;
+import com.hmdzl.spspd.change.items.journalpages.Sokoban1;
+import com.hmdzl.spspd.change.items.journalpages.Town;
+import com.hmdzl.spspd.change.items.misc.JumpP;
+import com.hmdzl.spspd.change.items.misc.Shovel;
+import com.hmdzl.spspd.change.items.potions.PotionOfExperience;
+import com.hmdzl.spspd.change.items.potions.PotionOfMight;
+import com.hmdzl.spspd.change.items.potions.PotionOfMindVision;
+import com.hmdzl.spspd.change.items.potions.PotionOfStrength;
+import com.hmdzl.spspd.change.items.scrolls.Scroll;
+import com.hmdzl.spspd.change.items.scrolls.ScrollOfIdentify;
+import com.hmdzl.spspd.change.items.scrolls.ScrollOfLullaby;
+import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicMapping;
+import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicalInfusion;
+import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.change.items.wands.Wand;
+import com.hmdzl.spspd.change.items.wands.WandOfDisintegration;
+import com.hmdzl.spspd.change.items.wands.WandOfLightning;
+import com.hmdzl.spspd.change.items.wands.WandOfMagicMissile;
+import com.hmdzl.spspd.change.items.weapon.melee.Dagger;
+import com.hmdzl.spspd.change.items.weapon.melee.Knuckles;
+import com.hmdzl.spspd.change.items.weapon.melee.ShortSword;
+import com.hmdzl.spspd.change.items.weapon.melee.MageBook;
+import com.hmdzl.spspd.change.items.weapon.melee.Triangolo;
+import com.hmdzl.spspd.change.items.weapon.melee.special.Goei;
+import com.hmdzl.spspd.change.items.weapon.melee.special.TestWeapon;
+import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.items.weapon.missiles.ErrorAmmo;
+import com.hmdzl.spspd.change.items.weapon.missiles.Knive;
+import com.hmdzl.spspd.change.items.weapon.melee.special.ErrorW;
+import com.hmdzl.spspd.change.items.armor.normalarmor.ErrorArmor;
+import com.hmdzl.spspd.change.items.wands.WandOfError;
+import com.hmdzl.spspd.change.items.misc.JumpW;
+import com.hmdzl.spspd.change.items.misc.JumpH;
+import com.hmdzl.spspd.change.items.misc.JumpM;
+import com.hmdzl.spspd.change.items.misc.JumpR;
+import com.hmdzl.spspd.change.items.weapon.missiles.MissileShield;
+import com.hmdzl.spspd.change.items.weapon.missiles.PocketBall;
+import com.hmdzl.spspd.change.plants.Dewcatcher;
+import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.utils.Bundle;
+import com.hmdzl.spspd.change.messages.Messages;
+
+public enum HeroClass {
+
+	WARRIOR( "warrior" , "warrior_name"),
+	MAGE( "mage", "mage_name"),
+	ROGUE( "rogue","rogue_name" ),
+	HUNTRESS( "huntress", "huntress_name"),
+	PERFORMER( "performer", "performer_name");
+
+	private String title;
+	private String title2;
+
+	private HeroClass(String title, String title2) {
+		this.title = title;
+		this.title2 = title2;
+	}
+
+
+	public void initHero(Hero hero) {
+
+		hero.heroClass = this;
+
+		initCommon( hero );
+
+		switch (this) {
+		case WARRIOR:
+			initWarrior( hero );
+			break;
+
+		case MAGE:
+			initMage( hero );
+			break;
+
+		case ROGUE:
+			initRogue( hero );
+			break;
+
+		case HUNTRESS:
+			initHuntress( hero );
+			break;
+
+		case PERFORMER:
+			initPerformer( hero );
+			break;
+		}		
+
+		/*if (Badges.isUnlocked(masteryBadge())) {
+			new TomeOfMastery().collect();
+		}*/
+		
+		hero.updateAwareness();
+	}
+
+	private static void initCommon(Hero hero) {
+
+		new NormalRation().identify().collect();
+		new PocketBall().collect();
+		new KeyRing().collect();
+		new RandomEgg().collect();
+		new PetFood().collect();
+		new Ankhshield().collect();
+		if (Dungeon.isChallenged(Challenges.ITEM_PHOBIA)){
+			Dungeon.gold += 1000;
+		}
+		if (Dungeon.isChallenged(Challenges.LISTLESS)){
+			new PotionOfMight().collect();
+			new PotionOfMight().setKnown();
+			new Honey().collect();
+		}
+		if (Dungeon.isChallenged(Challenges.NIGHTMARE_VIRUS)){
+			new Ankh().collect();
+		}
+		if (Dungeon.isChallenged(Challenges.ENERGY_LOST)){
+			new Pasty().collect();
+		}
+		if (Dungeon.isChallenged(Challenges.DEW_REJECTION)){
+			new Dewcatcher.Seed().collect();
+			new Dewcatcher.Seed().collect();
+		}
+		if (Dungeon.isChallenged(Challenges.DARKNESS)){
+		    new ScrollOfMagicMapping().collect();
+		    new ScrollOfMagicMapping().collect();
+			new ScrollOfMagicMapping().setKnown();
+		}
+		if (Dungeon.isChallenged(Challenges.ABRASION)){
+			new ScrollOfUpgrade().collect();
+			new ScrollOfUpgrade().setKnown();
+			new ScrollOfMagicalInfusion().collect();
+			new ScrollOfMagicalInfusion().setKnown();
+		}
+		if (Dungeon.isChallenged(Challenges.TEST_TIME)){
+			//hero.STR = hero.STR + 10;
+			//JupitersWraith JW = new JupitersWraith(); JW.identify().collect();
+		//DolyaStale jn = new DolyaStale(); jn.collect();
+			Torch torch = new Torch();torch.collect();
+
+		    TestWeapon tw = new TestWeapon(); tw.collect();
+			Elevator elevator = new Elevator(); elevator.collect();
+			ArmorKit kit = new ArmorKit();kit.collect();
+			JournalPage saveroom = new SafeSpotPage(); saveroom.collect();
+		    JournalPage town = new Town(); town.collect();
+			ChallengeBook cbook = new ChallengeBook(); cbook.collect();
+			ChallengeList cl1 = new SewerChallenge(); cl1.collect();
+			ChallengeList cl2 = new PrisonChallenge(); cl2.collect();
+			ChallengeList cl3 = new CaveChallenge(); cl3.collect();
+			ChallengeList cl4 = new CityChallenge(); cl4.collect();
+			ScrollHolder sh = new ScrollHolder(); sh.collect();
+			JournalPage sk1 = new Sokoban1(); sk1.collect();
+			JournalPage sk2 = new Sokoban2(); sk2.collect();
+			JournalPage sk3 = new Sokoban3(); sk3.collect();
+			JournalPage sk4 = new Sokoban4(); sk4.collect();
+			//ChallengeList cl5 = new CourageChallenge(); cl5.collect();
+			//ChallengeList cl6 = new PowerChallenge(); cl6.collect();
+			//ChallengeList cl7 = new WisdomChallenge(); cl7.collect();
+			//new MachineArmor().identify().collect();
+			//VestArmor va = new VestArmor();va.identify().collect();
+			new SoulCollect().collect();
+			//new Goei().collect();
+			//new Palantir().collect();
+			//RingOfEnergy ros = new RingOfEnergy();
+			//ros.upgrade(10).collect();
+			ErrorAmmo ammo = new ErrorAmmo(20);
+			ammo.identify().collect();
+			//TomeOfMastery TOM = new TomeOfMastery();TOM.collect();
+			//GnollClothes clothes = new GnollClothes(); clothes.collect();
+		   /*PotionOfStrength PoM4 = new PotionOfStrength();PoM4.identify().collect();
+			PotionOfStrength PoM5 = new PotionOfStrength(); PoM5.identify().collect();
+			PotionOfStrength PoM6 = new PotionOfStrength();PoM6.identify().collect();
+			PotionOfStrength PoM7 = new PotionOfStrength(); PoM7.identify().collect();*/
+
+			//OrbOfZot zot = new OrbOfZot(); zot.collect();
+		ScrollOfMagicMapping scroll = new ScrollOfMagicMapping();scroll.identify().collect();
+			//AresSword aresSword = new AresSword();aresSword.identify().collect();
+		for(int i=0; i<199; i++){
+			Scroll scroll2 = new ScrollOfMagicalInfusion();
+			scroll2.identify().collect();
+			Scroll scroll3 = new ScrollOfUpgrade();
+			scroll3.identify().collect();
+			PotionOfExperience PoE = new PotionOfExperience();PoE.identify().collect();
+			PotionOfStrength PoM = new PotionOfStrength();PoM.identify().collect();
+			//new ToastedNut().collect();
+	   }
+			for(int i=0; i<10; i++){
+				//PocketBall pball = new PocketBall();pball.collect();
+				//Seedpod.Seed Seed11 = new Seedpod.Seed(); Seed11.collect();
+				//Dewcatcher.Seed Seed3 = new Dewcatcher.Seed(); Seed3.collect();
+				//Honeypot hpot = new Honeypot(); hpot.collect();
+				//WaterItem water = new WaterItem(); water.collect();
+				//StoneOre ore = new StoneOre();ore.collect();
+				//Bomb bomb = new Bomb(); bomb.collect();
+				//RandomEgg egg = new RandomEgg(); egg.collect();
+				//StoneOre ore = new StoneOre(); ore.collect();
+				//PotionOfMight PoM = new PotionOfMight();PoM.identify().collect();
+
+				//PotionOfHealing PoH = new PotionOfHealing();PoH.identify().collect();
+				//PotionOfExperience PoE = new PotionOfExperience();PoE.identify().collect();
+				//PotionOfLiquidFlame PoF = new PotionOfLiquidFlame();PoF.identify().collect();
+				//PotionOfLevitation PoL = new PotionOfLevitation();PoL.identify().collect();
+				//PotionOfToxicGas PoT = new PotionOfToxicGas();PoT.identify().collect();
+				PotionOfMindVision PoM = new PotionOfMindVision();PoM.identify().collect();
+				//PotionOfParalyticGas PoPa = new PotionOfParalyticGas();PoPa.identify().collect();
+				//PotionOfPurity PoP = new PotionOfPurity();PoP.identify().collect();
+				//PotionOfInvisibility PoI = new PotionOfInvisibility();PoI.identify().collect();
+				//PotionOfFrost PoIce = new PotionOfFrost();PoIce.identify().collect();
+				//PotionOfMending PoMend = new PotionOfMending();PoMend.identify().collect();
+				//ScrollOfMirrorImage somi = new ScrollOfMirrorImage(); somi.identify().collect();
+
+			}
+			//RobotDMT dnt = new RobotDMT(); dnt.collect();
+			//RobotDMT dnt2 = new RobotDMT(); dnt2.upgrade(8).collect();
+			//EtherealChains chains = new EtherealChains(); chains.collect();
+			//Wand wand = new WandOfDisintegration(); wand.upgrade(2).collect();
+			//Wand wand2 = new WandOfFlock(); wand2.upgrade(10).collect();
+			//Wand wand3 = new WandOfFlow(); wand3.upgrade(2).collect();
+			//Wand wand4 = new WandOfAcid(); wand4.upgrade(2).collect();
+			//Wand wand5 = new WandOfBlood(); wand5.upgrade(2).collect();
+			//Wand wand6 = new WandOfFirebolt(); wand6.upgrade(2).collect();
+			//Wand wand7 = new WandOfLightning(); wand7.upgrade(2).collect();
+		    //Wand wand8 = new WandOfMeteorite();wand8.upgrade(2).collect();
+			//Wand wand9 = new WandOfCharm();wand9.upgrade(2).collect();
+			//Wand wand10 = new WandOfLight();wand10.upgrade(2).collect();
+			//Wand wand11 = new WandOfMagicMissile();wand11.upgrade(2).collect();
+			//Wand wand12 = new WandOfPoison();wand12.upgrade(2).collect();
+            //Wand wand13 = new WandOfTCloud();wand13.upgrade(10).collect();
+
+		BossRush BR = new BossRush(); BR.collect();
+			//Lance lance = new Lance();lance.collect();
+			//Scimitar sci = new Scimitar();sci.upgrade(3).collect();
+			//FightGloves FG = new FightGloves();FG.collect();
+			//Rapier rapier = new Rapier();rapier.collect();
+			//Club club = new Club(); club.collect();
+			/*BlandfruitBush.Seed Seed1 = new BlandfruitBush.Seed(); Seed1.collect();
+			Blindweed.Seed Seed2 = new Blindweed.Seed(); Seed2.collect();*/
+			/*Dreamfoil.Seed Seed4 = new Dreamfoil.Seed(); Seed4.collect();
+			Earthroot.Seed Seed5 = new Earthroot.Seed(); Seed5.collect();
+			Fadeleaf.Seed Seed6 = new Fadeleaf.Seed(); Seed6.collect();
+			Firebloom.Seed Seed7 = new Firebloom.Seed(); Seed7.collect();
+			Flytrap.Seed Seed8 = new Flytrap.Seed(); Seed8.collect();
+			Icecap.Seed Seed9 = new Icecap.Seed(); Seed9.collect();
+			Phaseshift.Seed Seed10 = new Phaseshift.Seed(); Seed10.collect();
+			Sorrowmoss.Seed Seed12 = new Sorrowmoss.Seed(); Seed12.collect();
+			Starflower.Seed Seed13 = new Starflower.Seed(); Seed13.collect();
+			Stormvine.Seed Seed14 = new Stormvine.Seed(); Seed14.collect();
+			Sungrass.Seed Seed15 = new Sungrass.Seed(); Seed15.collect();*/
+      // AlchemistsToolkit af1 = new AlchemistsToolkit();af1.upgrade(0).collect();
+		//CapeOfThorns af2 = new CapeOfThorns(); af2.collect();
+		//ChaliceOfBlood af3 = new ChaliceOfBlood(); af3.collect();
+		//DriedRose af4 = new DriedRose(); af4.collect();
+		//EyeOfSkadi af5 = new EyeOfSkadi(); af5.collect();
+		//HornOfPlenty af6 = new HornOfPlenty(); af6.collect();
+		//MasterThievesArmband af7 = new MasterThievesArmband(); af7.upgrade(10).collect();
+		//GlassTotem af8 = new GlassTotem(); af8.collect();
+		//SandalsOfNature af9 = new SandalsOfNature(); af9.collect();
+		//TimekeepersHourglass af10 = new TimekeepersHourglass(); af10.collect();
+		//TalismanOfForesight af11 = new TalismanOfForesight(); af11.collect();
+		//UnstableSpellbook af12 = new UnstableSpellbook(); af12.collect();
+
+		Dungeon.gold = 10000;
+		//hero.HT=hero.HP=1000;
+		//hero.STR = hero.STR + 20;
+		Dungeon.depth = 14;
+			//Statistics.archersKilled = 101;
+		}
+	}
+
+	public Badges.Badge masteryBadge() {
+		switch (this) {
+			case WARRIOR:
+				return Badges.Badge.MASTERY_WARRIOR;
+			case MAGE:
+				return Badges.Badge.MASTERY_MAGE;
+			case ROGUE:
+				return Badges.Badge.MASTERY_ROGUE;
+			case HUNTRESS:
+				return Badges.Badge.MASTERY_HUNTRESS;
+			case PERFORMER:
+				return Badges.Badge.MASTERY_PERFORMER;
+		}
+
+		return null;
+	}
+
+
+	private static void initWarrior(Hero hero) {
+
+		(hero.belongings.weapon = new ShortSword()).identify();
+		(hero.belongings.armor = new WoodenArmor()).identify();
+		MissileShield missileShield = new MissileShield(); missileShield.collect();
+		JumpW JW = new JumpW(); JW.collect();
+
+	/*if (Random.Int(10) < 1){
+		ErrorArmor ea = new ErrorArmor(); 
+		ea.identify().collect();
+		}*/
+		new PotionOfStrength().setKnown();
+	}
+
+	private static void initMage(Hero hero) {
+		(hero.belongings.weapon = new MageBook()).identify();
+		(hero.belongings.armor = new ClothArmor()).identify();
+
+		WandOfMagicMissile wand = new WandOfMagicMissile();
+		wand.identify().collect();
+		WandOfDisintegration wand2 = new WandOfDisintegration();
+		wand2.identify().collect();
+
+		JumpM JM = new JumpM(); JM.collect();
+		/*if (Random.Int(10) < 1){
+		WandOfError woe = new WandOfError(); 
+		woe.identify().collect();
+		}*/
+
+		hero.magicSkill = hero.magicSkill + 3;
+
+		new ScrollOfIdentify().setKnown();
+	
+	}
+
+	private static void initRogue(Hero hero) {
+		(hero.belongings.weapon = new Dagger()).identify();
+		(hero.belongings.armor = new VestArmor()).identify();
+
+		CloakOfShadows cloak = new CloakOfShadows();
+		(hero.belongings.misc1 = cloak).identify();
+		hero.belongings.misc1.activate(hero);
+
+		Knive darts = new Knive(10);
+		darts.identify().collect();
+
+		JumpR JR = new JumpR(); JR.collect();
+
+				
+		/*if (Random.Int(10) < 1){
+		ErrorW ew = new ErrorW(); 
+		ew.identify().collect();
+		}*/
+		new ScrollOfMagicMapping().setKnown();		
+	}
+
+	private static void initHuntress(Hero hero) {
+		(hero.belongings.weapon = new Knuckles()).identify();
+		(hero.belongings.armor = new ClothArmor()).identify();
+
+		Boomerang boomerang = new Boomerang();
+		boomerang.identify().collect();
+
+		JumpH JH = new JumpH(); JH.collect();
+
+		/*if (Random.Int(10) < 1){
+			ErrorAmmo ammo = new ErrorAmmo(3);
+			ammo.identify().collect();
+		}*/
+		new PotionOfMindVision().setKnown();	
+	}
+
+	private static void initPerformer(Hero hero) {
+		(hero.belongings.weapon = new Triangolo()).identify();
+		(hero.belongings.armor = new ClothArmor()).identify();
+
+		Shovel shovel = new Shovel();
+		shovel.identify().collect();
+
+		JumpP JP = new JumpP(); JP.collect();
+
+		/*if (Random.Int(10) < 1){
+			ErrorAmmo ammo = new ErrorAmmo(3);
+			ammo.identify().collect();
+		}*/
+
+		new ScrollOfLullaby().setKnown();
+	}
+
+	public String title() {
+		return Messages.get(HeroClass.class, title);
+	}
+
+	public String title2() {
+		return Messages.get(HeroClass.class, title2);
+	}
+
+
+	public String spritesheet() {
+		
+		switch (this) {
+		case WARRIOR:
+			return Assets.WARRIOR;
+		case MAGE:
+			return Assets.MAGE;
+		case ROGUE:
+			return Assets.ROGUE;
+		case HUNTRESS:
+			return Assets.HUNTRESS;
+		case PERFORMER:
+			return Assets.PERFORMER;			
+		}
+		
+		return null;
+	}
+	
+	public String[] perks() {
+		
+		switch (this) {
+		case WARRIOR:
+			return new String[]{
+					Messages.get(HeroClass.class, "warrior_perk1"),
+					Messages.get(HeroClass.class, "warrior_perk2"),
+					Messages.get(HeroClass.class, "warrior_perk3"),
+					Messages.get(HeroClass.class, "warrior_perk4"),
+					Messages.get(HeroClass.class, "warrior_perk5"),
+			};
+		case MAGE:
+			return new String[]{
+					Messages.get(HeroClass.class, "mage_perk1"),
+					Messages.get(HeroClass.class, "mage_perk2"),
+					Messages.get(HeroClass.class, "mage_perk3"),
+					Messages.get(HeroClass.class, "mage_perk4"),
+					Messages.get(HeroClass.class, "mage_perk5"),
+			};
+		case ROGUE:
+			return new String[]{
+					Messages.get(HeroClass.class, "rogue_perk1"),
+					Messages.get(HeroClass.class, "rogue_perk2"),
+					Messages.get(HeroClass.class, "rogue_perk3"),
+					Messages.get(HeroClass.class, "rogue_perk4"),
+					Messages.get(HeroClass.class, "rogue_perk5"),
+			};
+		case HUNTRESS:
+			return new String[]{
+					Messages.get(HeroClass.class, "huntress_perk1"),
+					Messages.get(HeroClass.class, "huntress_perk2"),
+					Messages.get(HeroClass.class, "huntress_perk3"),
+					Messages.get(HeroClass.class, "huntress_perk4"),
+					Messages.get(HeroClass.class, "huntress_perk5"),
+			};
+		case PERFORMER:
+			return new String[]{
+					Messages.get(HeroClass.class, "performer_perk1"),
+					Messages.get(HeroClass.class, "performer_perk2"),
+					Messages.get(HeroClass.class, "performer_perk3"),
+					Messages.get(HeroClass.class, "performer_perk4"),
+					Messages.get(HeroClass.class, "performer_perk5"),
+			};			
+		}
+		return null;
+	}
+
+	private static final String CLASS	= "class";
+	
+	public void playtest(Hero hero) {
+		if (!Dungeon.playtest){
+		    //Playtest
+		    //TomeOfMastery tome = new TomeOfMastery(); tome.collect();
+				
+			//hero.HT=hero.HP=999;
+			//hero.STR = hero.STR + 20;
+			//PlateArmor armor1 = new PlateArmor();
+		    //armor1.reinforce().upgrade(140).identify().collect();
+		    //PlateArmor armor2 = new PlateArmor();
+		    //armor2.upgrade(14).identify().collect();
+		    //WarHammer hammer = new WarHammer();
+		   //hammer.reinforce().upgrade(115).identify().collect();
+		    //Spectacles specs = new Spectacles(); specs.collect();
+		    //Whistle whistle = new Whistle(); whistle.collect();
+		    //Dewcatcher.Seed seed3 = new Dewcatcher.Seed(); seed3.collect();
+		    //Flytrap.Seed seed1 = new Flytrap.Seed(); seed1.collect();
+		    //Phaseshift.Seed seed2 = new Phaseshift.Seed(); seed2.collect();
+		    //Starflower.Seed seed4 = new Starflower.Seed(); seed4.collect();
+			//BlueNornStone stone1 = new BlueNornStone(); stone1.collect();
+			//YellowNornStone stone2 = new YellowNornStone(); stone2.collect();
+			//PurpleNornStone stone3 = new PurpleNornStone(); stone3.collect();
+			//PotionBandolier bag1 = new PotionBandolier(); bag1.collect();
+			//ScrollHolder bag2 = new ScrollHolder(); bag2.collect();
+			//OrbOfZot zot = new OrbOfZot(); zot.collect();
+			//Wand wand = new WandOfDisintegration(); wand.upgrade(50); wand.collect();
+		    //Wand wand3 = new WandOfFlock(); wand3.upgrade(15); wand3.collect();
+			//Wand wand2 = new WandOfTelekinesis(); wand2.upgrade(15); wand2.collect();
+		    //Wand wand3 = new WandOfAcid(); wand3.upgrade(15); wand3.collect();
+			//Wand wand4 = new WandOfBlood(); wand4.upgrade(15); wand4.collect();
+			//Wand wand2 = new WandOfFirebolt(); wand2.upgrade(15); wand2.collect();
+			//Wand wand3 = new WandOfLightning(); wand3.upgrade(15); wand3.collect();
+			//WandOfFreeze wand2 = new WandOfFreeze();wand2.identify().collect();
+			//Ring ring = new RingOfHaste(); ring.upgrade(25); ring.collect();
+			//ConchShell conch = new ConchShell(); conch.collect();
+			//AncientCoin coin = new AncientCoin(); coin.collect();
+			//TenguKey key = new TenguKey(); key.collect();
+			//DolyaStale jn = new DolyaStale(); jn.collect();
+			//JournalPage sk1 = new Sokoban1(); sk1.collect();
+			//JournalPage sk2 = new Sokoban2(); sk2.collect();
+			//JournalPage sk3 = new Sokoban3(); sk3.collect();
+			//JournalPage sk4 = new Sokoban4(); sk4.collect();
+			//JournalPage town = new Town(); town.collect();
+			//JournalPage cave = new DragonCave(); cave.collect();
+			//NeptunusTrident trident = new NeptunusTrident(); trident.enchantNeptune(); trident.upgrade(200); trident.collect();
+			//CromCruachAxe axe = new CromCruachAxe(); axe.enchantLuck(); axe.collect();
+			//AresSword sword = new AresSword(); sword.enchantAres(); sword.collect();
+			//JupitersWraith wraith = new JupitersWraith(); wraith.enchantJupiter(); wraith.collect();
+			//LokisFlail flail = new LokisFlail(); flail.enchantLoki(); flail.collect();
+			//JournalPage sk5 = new Town(); sk5.collect();
+			//Wand wand = new WandOfCharm(); wand.upgrade(15); wand.collect();
+			//Bone bone = new Bone(); bone.collect();
+			//ConchShell conch = new ConchShell(); conch.collect();
+			//AncientCoin coin = new AncientCoin(); coin.collect();
+			//TenguKey key = new TenguKey(); key.collect();
+			//CavesKey key2 = new CavesKey(); key2.collect();
+			//TriForce san = new TriForce(); san.collect();
+			//PowerTrial lbook = new PowerTrial(); lbook.collect();
+			//CourageTrial dbook = new CourageTrial(); dbook.collect();
+			//ReturnBeacon beacon = new ReturnBeacon(); beacon.collect();
+			//TriforceOfCourage san = new TriforceOfCourage(); san.collect();	
+			//Blueberry berry = new Blueberry(60); berry.collect();
+			//PotionOfMindVision potion4 = new PotionOfMindVision(); potion4.collect();
+			//Dewcatcher.Seed seed3 = new Dewcatcher.Seed(); seed3.collect();
+			//ActiveMrDestructo mrd = new ActiveMrDestructo(); mrd.collect();
+			//ActiveMrDestructo2 mrd2 = new ActiveMrDestructo2(); mrd2.collect();
+			//RingOfDisintegration ar = new RingOfDisintegration(); ar.collect();
+		    //PotionOfFrost pot = new PotionOfFrost(); pot.collect();
+			//Egg egg = new Egg(); egg.collect();
+			//EasterEgg egg2 = new EasterEgg(); egg2.collect();
+			//ShadowDragonEgg egg3 = new ShadowDragonEgg(); egg3.collect();
+			//GoldenSkeletonKey key = new GoldenSkeletonKey(0); key.collect(); 
+			//Flytrap.Seed seed1 = new Flytrap.Seed(); seed1.collect();
+			//Phaseshift.Seed seed2 = new Phaseshift.Seed(); seed2.collect();
+			//Starflower.Seed seed3 = new Starflower.Seed(); seed3.collect();
+			//BlandfruitBush.Seed seed4 = new BlandfruitBush.Seed(); seed4.collect();
+
+			//Handcannon saw = new Handcannon(); saw.enchantBuzz(); saw.collect();
+			//PotionBandolier bag1 = new PotionBandolier(); bag1.collect();
+			//ScrollHolder bag2 = new ScrollHolder(); bag2.collect();
+			//AnkhChain chain = new AnkhChain(); chain.collect();
+			//WandHolster holster = new WandHolster(); holster.collect();
+			//AutoPotion apot = new AutoPotion(); apot.collect();
+			//AdamantArmor aArmor = new AdamantArmor(); aArmor.collect();
+			//AdamantWand aWand = new AdamantWand(); aWand.collect();
+			//AdamantRing aRing = new AdamantRing(); aRing.collect();
+			//AdamantWeapon aWeapon = new AdamantWeapon(); aWeapon.collect();
+			//PotionOfLiquidFlame potion5 = new PotionOfLiquidFlame(); potion5.collect();
+				
+		    //PuddingCup cup = new PuddingCup(); cup.collect();
+			
+            ErrorW ew = new ErrorW(); 
+		    ew.identify().collect();
+		    ErrorArmor ea = new ErrorArmor(); 
+		    ea.identify().collect();
+		    WandOfError woe = new WandOfError(); 
+		    woe.identify().collect();
+			ErrorAmmo et = new ErrorAmmo(5);
+			et.collect();
+			
+			Dungeon.playtest=true;
+			GLog.i("Playtest Activated");
+				
+		 		/*for(int i=0; i<199; i++){
+					Scroll scroll = new ScrollOfMagicalInfusion();
+			        scroll.identify().collect();
+			        Scroll scroll2 = new ScrollOfUpgrade();
+			        scroll2.identify().collect();  
+			       
+			        Scroll scroll3 = new ScrollOfIdentify();
+			        scroll3.identify().collect();  
+			        Scroll scroll4 = new ScrollOfRemoveCurse();
+			        scroll4.identify().collect(); 
+			        Scroll scroll5 = new ScrollOfPsionicBlast();
+			        scroll5.identify().collect(); 
+			        
+			        hero.earnExp(hero.maxExp() - hero.exp);
+			    }*/	
+				
+				/*
+				for(int i=1; i<61; i++){
+			     PotionOfExperience potion1 = new PotionOfExperience(); potion1.collect();
+			     PotionOfInvisibility potion2 = new PotionOfInvisibility(); potion2.collect();
+			     PotionOfHealing potion3 = new PotionOfHealing(); potion3.collect();
+			     PotionOfMindVision potion4 = new PotionOfMindVision(); potion4.collect();
+			     PotionOfLevitation potion6 = new PotionOfLevitation(); potion6.collect();
+			     //PotionOfFrost potion6 = new PotionOfFrost(); potion6.collect();
+			     PotionOfLiquidFlame potion5 = new PotionOfLiquidFlame(); potion5.collect();
+			     // Bomb bomb = new Bomb(); bomb.collect();
+			     //DarkGold darkgold = new DarkGold(); darkgold.collect();
+			    }
+				*/
+				
+		}
+		
+				/*
+
+				  Blueberry berry = new Blueberry(10); berry.collect();
+				  ClusterBomb cbomb = new ClusterBomb(); cbomb.collect();
+				  DizzyBomb dbomb = new DizzyBomb(); dbomb.collect();
+				  SmartBomb smbomb = new SmartBomb(); smbomb.collect();
+				  SeekingBombItem sbomb = new SeekingBombItem(); sbomb.collect();
+				  SeekingClusterBombItem scbomb = new SeekingClusterBombItem(); scbomb.collect();
+				  
+				  
+				//  Bomb bomb = new Bomb(); bomb.collect();
+				//DeathCap mush1 = new DeathCap(); mush1.collect();
+				//GoldenJelly mush2 = new GoldenJelly(); mush2.collect();
+				//BlueMilk mush3 = new BlueMilk(); mush3.collect();
+				//JackOLantern mush4 = new JackOLantern(); mush4.collect();
+				//Earthstar mush5 = new Earthstar(); mush5.collect();
+				//Lichen mush6 = new Lichen(); mush6.collect();
+				//PixieParasol mush7 = new PixieParasol(); mush7.collect();
+				
+				ActiveMrDestructo mrd = new ActiveMrDestructo(); mrd.collect();
+				//OrbOfZot orb = new OrbOfZot(); orb.collect();
+				        
+				//Phaseshift.Seed seed = new Phaseshift.Seed(); seed.collect();
+				//Phaseshift.Seed seed2 = new Phaseshift.Seed(); seed2.collect();
+				//Starflower.Seed seed3 = new Starflower.Seed(); seed3.collect();
+				
+								
+				//PotionOfLiquidFlame potion5 = new PotionOfLiquidFlame(); potion5.collect();
+				//CourageTrial dbook = new CourageTrial(); dbook.collect();
+				///PowerTrial lbook = new PowerTrial(); lbook.collect();
+				//WisdomTrial tbook = new WisdomTrial(); tbook.collect();
+				//TriForce san = new TriForce(); san.collect();	
+				
+		        //SewersKey key1 = new SewersKey(); key1.collect();
+		        //PrisonKey key2 = new PrisonKey(); key2.collect();
+		        //CavesKey key3 = new CavesKey(); key3.collect();
+		        //CityKey key4 = new CityKey(); key4.collect();
+		      // HallsKey key5 = new HallsKey(); key5.collect();
+		        FullMoonberry berry2 = new FullMoonberry(10); berry2.collect();		
+*/
+	}
+	
+	public void storeInBundle(Bundle bundle) {
+		bundle.put(CLASS, toString());
+	}
+
+	public static HeroClass restoreInBundle(Bundle bundle) {
+		String value = bundle.getString(CLASS);
+		return value.length() > 0 ? valueOf(value) : ROGUE;
+	}
+
+
+}
