@@ -137,7 +137,7 @@ public class AresLeech extends Weapon.Enchantment {
 		}
 
 		public void prolong(int damage) {
-			this.damage += damage;
+			this.damage = damage;
 		};
 
 		@Override
@@ -164,7 +164,7 @@ public class AresLeech extends Weapon.Enchantment {
 				
 				damage -= damageThisTick;
 				
-				if (--damage <= 0 || target.HP == target.HT) {
+				if (--damage <= 0 || target.HP > target.HT) {
 					detach();
 				}
 

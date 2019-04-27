@@ -6,7 +6,9 @@ import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.buffs.Awareness;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Notice;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -37,12 +39,15 @@ public class TalismanOfForesight extends Artifact {
 	}
 
 	public static final String AC_SCRY = "SCRY";
+	public static final String AC_NOTICE = "NOTICE";
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && charge == 100 && !cursed && !Dungeon.sokobanLevel(Dungeon.depth))
 			actions.add(AC_SCRY);
+		if (isEquipped(hero) && level > 2 && !cursed)
+		actions.add(AC_NOTICE);		
 		return actions;
 	}
 
@@ -77,6 +82,19 @@ public class TalismanOfForesight extends Artifact {
 
 				Buff.affect(hero, Awareness.class, Awareness.DURATION);
 				Dungeon.observe();
+			}
+		} else if (action.equals(AC_NOTICE)) {
+			if (!isEquipped(hero))
+				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
+			else {	
+                if (level > 2 )level-=2;
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				Buff.affect(hero, Notice.class,(level+2)*10f);
+				hero.spend(1f);
+				hero.busy();
+				hero.sprite.operate(hero.pos);
+				updateQuickslot();	
 			}
 		}
 	}

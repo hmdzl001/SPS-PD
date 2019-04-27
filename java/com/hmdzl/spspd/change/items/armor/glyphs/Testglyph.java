@@ -29,6 +29,7 @@ import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.GasesImmunity;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -54,6 +55,7 @@ public class Testglyph extends Glyph {
 		GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 
 		if (defender.isAlive() && (gdark != null || gice != null || glight != null || gfire != null || gearth != null || gelect != null ))
 		{
@@ -67,7 +69,7 @@ public class Testglyph extends Glyph {
 		
 		int level = Math.max(0, armor.level);
 			
-		if (Random.Int(level + 5) >= 4) {
+		if (Random.Int(level + 5) >= 4 || (fcb != null && Random.Int(level + 5) >= 2)) {
 			Buff.prolong(defender, GasesImmunity.class, GasesImmunity.DURATION);
 			
 			switch (Random.Int (6)) {

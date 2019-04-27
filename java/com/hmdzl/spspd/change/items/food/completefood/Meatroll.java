@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.food.Food;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -38,7 +39,12 @@ public class Meatroll extends CompleteFood {
 		hornValue = 2;
 	}
 
+	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing(0xCC6600);
 
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return BROWN;
+	}
 
 	@Override
 	public int price() {

@@ -5,12 +5,16 @@ import java.util.Collections;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.blobs.Blob;
+import com.hmdzl.spspd.change.actors.blobs.Water;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Roots;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.particles.EarthParticle;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.plants.Earthroot;
 import com.hmdzl.spspd.change.plants.Plant;
@@ -41,6 +45,7 @@ public class SandalsOfNature extends Artifact {
 
 	public static final String AC_FEED = "FEED";
 	public static final String AC_ROOT = "ROOT";
+	public static final String AC_SPROUT = "SPROUT";
 
 	//protected String inventoryTitle = "Select a seed";
 	protected WndBag.Mode mode = WndBag.Mode.SEED;
@@ -54,6 +59,8 @@ public class SandalsOfNature extends Artifact {
 			actions.add(AC_FEED);
 		if (isEquipped(hero) && charge > 0)
 			actions.add(AC_ROOT);
+		if (level > 0 && !isEquipped(hero) )
+			actions.add(AC_SPROUT);
 		return actions;
 	}
 
@@ -65,7 +72,7 @@ public class SandalsOfNature extends Artifact {
 		} else if (action.equals(AC_ROOT) && level > 0) {
 
 			if (!isEquipped(hero))
-				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
+				GLog.i(Messages.get(Artifact.class, "need_to_equip"));
 			else if (charge == 0)
 				GLog.i(Messages.get(this, "no_charge"));
 			else {
@@ -77,6 +84,19 @@ public class SandalsOfNature extends Artifact {
 				charge = 0;
 				updateQuickslot();
 			}
+		} else if (action.equals(AC_SPROUT)) {
+			curUser = hero;
+			int length = Level.getLength();
+
+			for (int i = 0; i < length; i++) {
+
+				GameScene.add(Blob.seed(i, (2) * 20 * level, Water.class));
+
+			}
+			detach(curUser.belongings.backpack);
+			Sample.INSTANCE.play(Assets.SND_BURNING);
+			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+            curUser.spendAndNext(2f);
 		}
 	}
 

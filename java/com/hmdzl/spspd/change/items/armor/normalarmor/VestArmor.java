@@ -37,6 +37,7 @@ public class VestArmor extends NormalArmor {
 	{
 		//name = "vest armor";
 		image = ItemSpriteSheet.VEST_ARMOR;
+		STR -= 1;
 		MAX = 2;
 		MIN = 0;
 	}

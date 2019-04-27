@@ -17,12 +17,11 @@
  */
 package com.hmdzl.spspd.change.levels.painters;
 
-import com.hmdzl.spspd.change.Challenges;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.blobs.Foliage;
 import com.hmdzl.spspd.change.items.Ankh;
 import com.hmdzl.spspd.change.items.eggs.EasterEgg;
-import com.hmdzl.spspd.change.items.bombs.Honeypot;
+import com.hmdzl.spspd.change.items.summon.Honeypot;
 import com.hmdzl.spspd.change.items.bags.ShoppingCart;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Room;

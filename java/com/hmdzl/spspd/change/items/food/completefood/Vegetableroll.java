@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.food.Food;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -36,6 +37,11 @@ public class Vegetableroll extends CompleteFood {
 		bones = true;
 		energy = 170;
 		hornValue = 2;
+	}
+	private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing(0x22CC44);
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return GREEN;
 	}
 
 	@Override

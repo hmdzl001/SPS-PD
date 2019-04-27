@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.change.sprites.DM300Sprite;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
@@ -84,7 +85,7 @@ public class UDM300 extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 2;
+		return Random.NormalIntRange(0, 2);
 	}
 	
 	@Override
@@ -286,7 +287,7 @@ public class UDM300 extends Mob {
 	    public int attackProc(Char enemy, int damage) {
 		    int dmg = super.attackProc(enemy, damage);
 
-		    Bomb bomb = new Bomb();
+		    DungeonBomb bomb = new DungeonBomb();
 		    bomb.explode(pos);
 		    yell("KA-BOOM!!!");
 		
@@ -298,7 +299,7 @@ public class UDM300 extends Mob {
 		
 		@Override
 		public void die(Object cause) {
-			Bomb bomb = new Bomb();
+			DungeonBomb bomb = new DungeonBomb();
 		    bomb.explode(pos);
 			super.die(cause);
 
@@ -323,7 +324,7 @@ public class UDM300 extends Mob {
 		public boolean act() {
 			yell(""+timeToBomb+"!");
             if (timeToBomb == 0){
-		    Bomb bomb = new Bomb();
+		    DungeonBomb bomb = new DungeonBomb();
 		    bomb.explode(pos);
 		    yell("KA-BOOM!!!");
 		    destroy();

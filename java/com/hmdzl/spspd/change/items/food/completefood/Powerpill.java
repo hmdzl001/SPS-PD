@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.actors.buffs.Muscle;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.food.Food;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 
 public class Powerpill extends CompleteFood {
@@ -34,6 +35,14 @@ public class Powerpill extends CompleteFood {
 		hornValue = 1;
 		bones = false;
 	}
+
+	private static final ItemSprite.Glowing BLACK = new ItemSprite.Glowing(0x00000);
+
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return BLACK;
+	}
+
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);

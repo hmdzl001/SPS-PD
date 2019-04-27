@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
@@ -47,7 +48,7 @@ public class Shell extends Mob implements Callback {
 	private static final float TIME_TO_ZAP = 2f;
 
 	private static final String TXT_LIGHTNING_KILLED = "%s's lightning bolt killed you...";
-	public static int shellCharge;
+	public static int shellCharge = 0;
 
 	{
 		spriteClass = ShellSprite.class;
@@ -92,7 +93,7 @@ public class Shell extends Mob implements Callback {
 
 	@Override
 	public int drRoll() {
-		return 10;
+		return 0;
 	}
 	
 	@Override
@@ -111,7 +112,9 @@ public class Shell extends Mob implements Callback {
 	
 
 	@Override
-	protected boolean canAttack(Char enemy) {
+	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 
@@ -301,7 +304,7 @@ public void zapAround(int dmg){
 	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
 	static {
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 		RESISTANCES.add(LightningTrap.Electricity.class);
 	}
 

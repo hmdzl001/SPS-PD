@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.particles.EarthParticle;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -45,8 +46,9 @@ public class EnchantmentEarth2 extends Weapon.Enchantment {
 		// lvl 0 - 33%
 		// lvl 1 - 50%
 		// lvl 2 - 60%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.max(0, weapon.level);
-		if (Random.Int(level + 15) >= 15 && defender.isAlive()) {
+		if ((Random.Int(level + 15) >= 15 || (fcb != null && Random.Int(level + 15) >= 10) )&& defender.isAlive()) {
 			Buff.prolong(defender, Roots.class,5f);
 			Buff.affect(defender, Ooze.class);
 			CellEmitter.bottom(defender.pos).start(EarthParticle.FACTORY, 0.05f, 8);

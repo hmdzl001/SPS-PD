@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Blacksmith;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Tinkerer2;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.change.items.quest.Mushroom;
 import com.hmdzl.spspd.change.levels.Room.Type;
 import com.hmdzl.spspd.change.levels.painters.Painter;
@@ -114,7 +115,7 @@ public class CavesLevel extends RegularLevel {
 			addItemToSpawn(new Mushroom());
 		}
 
-		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(3) == 0){addItemToSpawn(new Bomb());}
+		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(3) == 0){addItemToSpawn(new DungeonBomb());}
 		super.createItems();
 	}
 	

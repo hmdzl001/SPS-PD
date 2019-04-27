@@ -182,7 +182,7 @@ public class LitTower extends Mob implements Callback {
 	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
 	static {
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 		RESISTANCES.add(LightningTrap.Electricity.class);
 	}
 

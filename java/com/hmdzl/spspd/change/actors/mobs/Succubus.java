@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.actors.Actor;
@@ -92,7 +93,7 @@ public class Succubus extends Mob {
 	@Override
 	protected boolean getCloser(int target) {
 		if (Level.fieldOfView[target] && Level.distance(pos, target) > 2
-				&& delay <= 0) {
+				&& delay <= 0 &&(buff(Silent.class) == null) ) {
 
 			blink(target);
 			spend(-1 / speed());
@@ -143,7 +144,7 @@ public class Succubus extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 10+adj(1);
+		return Random.NormalIntRange(5, 10);
 	}
 
 	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();

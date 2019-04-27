@@ -1,12 +1,20 @@
 package com.hmdzl.spspd.change.items.artifacts;
 
+import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Needling;
+import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.ui.BuffIndicator;
 import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 /**
  * Created by debenhame on 03/09/2014.
@@ -24,9 +32,39 @@ public class CapeOfThorns extends Artifact {
 		chargeCap = 100;
 		cooldown = 0;
 
-		defaultAction = "NONE";
+		defaultAction = AC_NEEDLING;
 	}
 
+	public static final String AC_NEEDLING = "NEEDLING";
+	
+	@Override
+	public ArrayList<String> actions(Hero hero) {
+		ArrayList<String> actions = super.actions(hero);
+		if (isEquipped(hero) && level > 1 && !cursed)
+		actions.add(AC_NEEDLING);
+		return actions;
+	}	
+	
+	@Override
+	public void execute(Hero hero, String action) {
+		super.execute(hero, action);
+		if (action.equals(AC_NEEDLING)) {
+			if (!isEquipped(hero))
+				GLog.i(Messages.get(Artifact.class, "need_to_equip"));
+			else if (cursed)
+				GLog.i(Messages.get(Artifact.class, "cursed"));
+			else {
+				if (level > 1) level--;
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				Buff.affect(hero, Needling.class, (level + 1) * 10f);
+				hero.spend(1f);
+				hero.busy();
+				hero.sprite.operate(hero.pos);
+				updateQuickslot();
+			}
+		}
+	}
 	@Override
 	protected ArtifactBuff passiveBuff() {
 		return new Thorns();

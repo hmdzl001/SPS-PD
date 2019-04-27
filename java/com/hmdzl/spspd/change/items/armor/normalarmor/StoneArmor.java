@@ -37,6 +37,7 @@ public class StoneArmor extends NormalArmor {
 	{
 		//name = "Stone Armor";
 		image = ItemSpriteSheet.STONE_ARMOR;
+		STR += 1;
 		MAX = 26;
 		MIN = 6;
 	}

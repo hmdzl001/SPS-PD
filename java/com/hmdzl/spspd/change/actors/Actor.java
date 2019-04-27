@@ -103,6 +103,10 @@ public abstract class Actor implements Bundlable {
 
 	private static Char[] chars = new Char[Level.getLength()];
 
+	public static float now(){
+		return now;
+	}	
+	
 	public static void clear() {
 
 		now = 0;

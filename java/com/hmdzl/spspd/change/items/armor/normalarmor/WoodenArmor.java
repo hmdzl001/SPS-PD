@@ -37,6 +37,7 @@ public class WoodenArmor extends NormalArmor {
 	{
 		//name = "wooden armor";
 		image = ItemSpriteSheet.WOODEN_ARMOR;
+		STR += 1;
 		MAX = 6;
 		MIN = 2;
 	}

@@ -24,8 +24,11 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.pets.PET;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.utils.GLog;
+
+import java.text.DecimalFormat;
 
 public class RingOfHaste extends Ring {
 
@@ -34,6 +37,15 @@ public class RingOfHaste extends Ring {
 		initials = 5;
 	}
 
+	public String statsInfo() {
+		if (isIdentified()){
+			return Messages.get(this, "stats",new DecimalFormat("#.##").format(10f * Math.min(4,1+0.1*level)));
+		} else {
+			return "???";
+		}
+	}	
+		
+	
 	@Override
 	protected RingBuff buff() {
 		return new Haste();

@@ -131,7 +131,7 @@ public class ShadowYog extends Mob  {
 
 	@Override
 	public int defenseProc(Char enemy, int damage) {
-                return super.defenseProc(enemy, damage);
+        return super.defenseProc(enemy, damage);
 	}
 	
 

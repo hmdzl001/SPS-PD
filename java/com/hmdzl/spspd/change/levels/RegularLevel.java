@@ -31,6 +31,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.items.Generator;
@@ -244,8 +245,7 @@ public abstract class RegularLevel extends Level {
 
 						r.type = Type.LABORATORY;
 
-					} else if (Dungeon.depth >= Dungeon.transmutation
-							&& specials.contains(Type.MAGIC_WELL)) {
+					} else if (specials.contains(Type.MAGIC_WELL)) {
 
 						r.type = Type.MAGIC_WELL;
 
@@ -669,6 +669,8 @@ public abstract class RegularLevel extends Level {
 		for (Buff buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
 			bonus += ((LuckyBadge.GreatLucky) buff).level;
 		}
+		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
+			bonus += 5;
 		// just incase someone gets a ridiculous ring, cap this at 80%
 		bonus = Math.min(bonus, 10);
 		while (Random.Float() < (0.3f + bonus * 0.05f)) {

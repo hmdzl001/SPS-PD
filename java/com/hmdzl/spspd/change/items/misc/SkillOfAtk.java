@@ -27,7 +27,7 @@ import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.bombs.DumplingBomb;
+
 import com.hmdzl.spspd.change.items.weapon.missiles.RiceBall;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
@@ -82,7 +82,7 @@ public class SkillOfAtk extends Item {
 
 	@Override
 	public int price() {
-		return 10 * quantity;
+		return 50 * quantity;
 	}
 
 }

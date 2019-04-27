@@ -31,8 +31,11 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.blobs.GooWarn;
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.change.actors.buffs.Bleeding;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Cripple;
+import com.hmdzl.spspd.change.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.change.actors.buffs.Ooze;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
@@ -53,6 +56,7 @@ import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.GooSprite;
 import com.hmdzl.spspd.change.sprites.SewerHeartSprite;
+import com.hmdzl.spspd.change.sprites.SewerLasherSprite;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
@@ -290,6 +294,9 @@ public class SewerHeart extends Mob {
 			case PERFORMER:
 				badgeToCheck = Badge.MASTERY_PERFORMER;
 				break;
+			case SOLDIER:
+					badgeToCheck = Badge.MASTERY_SOLDIER;
+					break;	
 		}		
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
 	}
@@ -309,7 +316,7 @@ public class SewerHeart extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 5;
+		return Random.NormalIntRange(0, 2);
 	}
 	
 	protected boolean spawnedLasher = false;
@@ -399,6 +406,129 @@ public class SewerHeart extends Mob {
 			super.restoreFromBundle(bundle);
 			spawnPower = bundle.getInt( SPAWNPOWER );
 		}
-	}	
+	}
+	public static class SewerLasher extends Mob {
+
+		protected static final float SPAWN_DELAY = 2f;
+
+		{
+			spriteClass = SewerLasherSprite.class;
+
+			HP = HT = 60;
+			evadeSkill = 0;
+
+			EXP = 1;
+
+			loot = Generator.Category.SEED;
+			lootChance = 0.2f;
+
+			state = HUNTING;
+
+			properties.add(Property.PLANT);
+			properties.add(Property.MINIBOSS);
+			//properties.add(Property.IMMOVABLE);
+		}
+
+		@Override
+		protected boolean act() {
+			if (enemy == null || !Level.adjacent(pos, enemy.pos)) {
+				HP = Math.min(HT, HP + 3);
+			}
+			return super.act();
+		}
+
+		@Override
+		public void damage(int dmg, Object src) {
+			if (src instanceof Burning) {
+				destroy();
+				sprite.die();
+			} else {
+
+				super.damage(dmg, src);
+			}
+		}
+
+		@Override
+		public int attackProc( Char enemy, int damage) {
+			damage = super.attackProc(enemy, damage);
+			if (Random.Int(5) < 1) {
+				Buff.affect(enemy, Cripple.class, 2f);
+			} else
+			if (Random.Int(4) < 1) {
+				Buff.affect(enemy, GrowSeed.class).reignite(enemy);
+			} else
+			if (Random.Int(3) < 1) {
+				Buff.affect(enemy, Bleeding.class).set(damage);}
+
+			return super.attackProc(enemy, damage);
+
+		}
+		@Override
+		protected boolean getCloser(int target) {
+			return true;
+		}
+
+		@Override
+		protected boolean getFurther(int target) {
+			return true;
+		}
+
+		@Override
+		public int damageRoll() {
+			return Random.NormalIntRange(4, 12);
+		}
+
+		@Override
+		public int hitSkill( Char target ) {
+			return 15;
+		}
+
+		@Override
+		public int drRoll() {
+			return Random.NormalIntRange(2, 8);
+		}
+
+		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+		static {
+			IMMUNITIES.add( ToxicGas.class );
+		}
+
+		@Override
+		public HashSet<Class<?>> immunities() {
+			return IMMUNITIES;
+		}
+
+		public static void spawnAround(int pos) {
+			for (int n : Level.NEIGHBOURS8) {
+				int cell = pos + n;
+				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+					spawnAt(cell);
+				}
+			}
+		}
+
+		public static void spawnAroundChance(int pos) {
+			for (int n : Level.NEIGHBOURS4) {
+				int cell = pos + n;
+				if (Level.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
+					spawnAt(cell);
+				}
+			}
+		}
+
+		public static SewerLasher spawnAt(int pos) {
+
+			SewerLasher b = new SewerLasher();
+
+			b.pos = pos;
+			b.state = b.HUNTING;
+			GameScene.add(b, SPAWN_DELAY);
+
+			return b;
+
+		}
+
+
+	}
 
 }

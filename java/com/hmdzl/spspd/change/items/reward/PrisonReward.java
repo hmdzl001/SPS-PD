@@ -28,9 +28,10 @@ import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
-import com.hmdzl.spspd.change.items.bombs.DumplingBomb;
+
 import com.hmdzl.spspd.change.items.food.fruit.FullMoonberry;
 import com.hmdzl.spspd.change.items.weapon.missiles.RiceBall;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -40,6 +41,12 @@ public class PrisonReward extends Item {
 	public static final String AC_USE = "USE";
 
 	public static final float TIME_TO_USE = 1;
+	private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing(0x0000FF);
+
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return BLUE;
+	}
 
 	{
 		//name = "reward";
@@ -66,7 +73,7 @@ public class PrisonReward extends Item {
 			hero.sprite.operate(hero.pos);
 
 			FullMoonberry berry = new FullMoonberry();
-			berry.doPickUp(Dungeon.hero);
+			Dungeon.level.drop(berry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 
 			detach(hero.belongings.backpack);
 		} else {

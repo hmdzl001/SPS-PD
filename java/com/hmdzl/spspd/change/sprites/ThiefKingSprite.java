@@ -23,7 +23,7 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Poison;
 import com.hmdzl.spspd.change.actors.buffs.Slow;
-import com.hmdzl.spspd.change.items.weapon.missiles.Knive;
+import com.hmdzl.spspd.change.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.watabou.noosa.TextureFilm;
@@ -99,7 +99,7 @@ public class ThiefKingSprite extends MobSprite {
 		if (!Level.adjacent(cell, ch.pos)) {
 			Char enemy = Actor.findChar(cell);
 				  ((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
-					cell, new Knive(), new Callback() {
+					cell, new EscapeKnive(), new Callback() {
 						@Override
 						public void call() {
 							ch.onAttackComplete();

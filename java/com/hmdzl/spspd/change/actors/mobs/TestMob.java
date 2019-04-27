@@ -19,8 +19,11 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.change.actors.buffs.Amok;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
 import com.hmdzl.spspd.change.actors.buffs.Charm;
+import com.hmdzl.spspd.change.actors.buffs.Levitation;
+import com.hmdzl.spspd.change.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.change.actors.buffs.Sleep;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
@@ -66,7 +69,8 @@ public class TestMob extends Mob {
 	public void damage(int dmg, Object src) {
 
 		super.damage(dmg, src);
-		//Buff.prolong(this,ArmorBreak.class,10f).level(50);
+		//if (dmg >5) Buff.affect(this,ShieldArmor.class).level(20);
+		//Buff.prolong(this,Levitation.class,10f);
 	}
 
 	@Override

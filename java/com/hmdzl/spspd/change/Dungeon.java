@@ -32,6 +32,7 @@ import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.items.artifacts.DriedRose;
+import com.hmdzl.spspd.change.levels.SokobanSPLevel;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
@@ -143,7 +144,6 @@ public class Dungeon {
 	public static int[] pars;
 	
 	public static boolean earlygrass = false;
-	public static boolean playtest = false;
 	public static boolean gnollspawned = false;
 	public static boolean skeletonspawned = false;
 	public static boolean goldthiefspawned = false;
@@ -200,7 +200,7 @@ public class Dungeon {
 	    version = Game.versionCode;
 		challenges = ShatteredPixelDungeon.challenges();
 
-		Generator.initArtifacts();
+		//Generator.initArtifacts();
 
 		Actor.clear();
 		Actor.resetNextID();
@@ -243,7 +243,6 @@ public class Dungeon {
 		StartScene.curClass.initHero(hero);
 		
 		earlygrass = false;
-		playtest = false;
 		gnollspawned = false;
 		skeletonspawned = false;
 		goldthiefspawned = false;
@@ -644,7 +643,7 @@ public static Level newJournalLevel(int page, Boolean first){
 		level = new TownLevel();
 		break;
 	case 6:
-		level = new SokobanVaultLevel();
+		level = new SokobanSPLevel();
 		break;
 	case 7:
 		level = new MinesBossLevel();
@@ -997,6 +996,9 @@ public static Level newChallengeLevel(int list, Boolean first){
 	
 	private static final String PE_GAME_FILE	= "performer.dat";
 	private static final String PE_DEPTH_FILE	= "performer%d.dat";
+		
+	private static final String SO_GAME_FILE	= "soldier.dat";
+	private static final String SO_DEPTH_FILE	= "soldier%d.dat";
 	
 	private static final String VERSION = "version";
 	private static final String CHALLENGES = "challenges";
@@ -1040,7 +1042,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String ONEDAY = "oneDay";
     private static final String ERROR = "error";
 	private static final String WINGS = "wings";
-	private static final String PLAYTEST = "playtest";
 	private static final String PARS = "pars";
 	
 	//private static final String SECONDQUEST = "secondQuest";
@@ -1062,6 +1063,8 @@ public static Level newChallengeLevel(int list, Boolean first){
 			return RN_GAME_FILE;		
 		case PERFORMER:
 			return PE_GAME_FILE;
+		case SOLDIER:
+			return SO_GAME_FILE;			
 		default:
 			return RG_GAME_FILE;
 		}
@@ -1074,11 +1077,13 @@ public static Level newChallengeLevel(int list, Boolean first){
 		case MAGE:
 			return MG_DEPTH_FILE;
 		//case ROUGE:
-          //  return RG_DEPTH_FILE;
+           // return RG_DEPTH_FILE;
 		case HUNTRESS:
 			return RN_DEPTH_FILE;
 		case PERFORMER:
 			return PE_DEPTH_FILE;
+		case SOLDIER:
+			return SO_DEPTH_FILE;			
 		default:
 			return RG_DEPTH_FILE;
 		}
@@ -1124,7 +1129,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 			bundle.put(GNOLLMISSION, gnollmission);
 			bundle.put(ONEDAY, oneDay);
 			bundle.put(ERROR, error);
-			bundle.put(PLAYTEST, playtest);
 			bundle.put(PARS, pars);
 	
 			for (int d : droppedItems.keyArray()) {
@@ -1156,7 +1160,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 			
 			Statistics.storeInBundle(bundle);
 			Journal.storeInBundle(bundle);
-			Generator.storeInBundle(bundle);
+			//Generator.storeInBundle(bundle);
 
 			Scroll.save(bundle);
 			Potion.save(bundle);
@@ -1328,12 +1332,11 @@ public static Level newChallengeLevel(int list, Boolean first){
 		gnollmission = bundle.getBoolean(GNOLLMISSION);
 		oneDay = bundle.getBoolean(ONEDAY);
 		error = bundle.getBoolean(ERROR);
-		playtest = bundle.getBoolean(PLAYTEST);
 		pars = bundle.getIntArray(PARS);
 		
 		Statistics.restoreFromBundle(bundle);
 		Journal.restoreFromBundle(bundle);
-		Generator.restoreFromBundle(bundle);
+		//Generator.restoreFromBundle(bundle);
 
 		droppedItems = new SparseArray<ArrayList<Item>>();
 		for (int i = 2; i <= Statistics.realdeepestFloor + 1; i++) {

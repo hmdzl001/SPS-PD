@@ -204,7 +204,7 @@ public class ChasmLevel extends RegularLevel {
 					
 			if (map[i]==Terrain.ENTRANCE){map[i] = Terrain.EMPTY;}
 			if (map[i]==Terrain.EXIT){map[i] = Terrain.PEDESTAL;  if (!Dungeon.triforceofwisdom){drop(new TriforceOfWisdom(), i);}}
-			if (map[i]==Terrain.EMPTY_SP && heaps.get(i) == null && Random.Float()<.25){map[i] = Terrain.CHASM;}
+			if (map[i]==Terrain.EMPTY_SP && heaps.get(i) == null && Random.Float()<.25){map[i] = Terrain.TRAP_AIR;}
 			if (map[i]==Terrain.EMPTY_SP && heaps.get(i) == null && Random.Float()<.05){
 				Sentinel sentinel = new Sentinel();
 				sentinel.pos = i;

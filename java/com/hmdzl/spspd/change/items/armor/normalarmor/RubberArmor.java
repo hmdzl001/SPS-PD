@@ -36,6 +36,7 @@ public class RubberArmor extends NormalArmor {
 	{
 		//name = "rubber armor";
 		image = ItemSpriteSheet.RUBBER_ARMOR;
+		STR -= 1;
 		MAX = 8;
 		MIN = 0;
 	}

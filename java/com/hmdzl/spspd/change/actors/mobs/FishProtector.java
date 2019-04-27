@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.effects.particles.SparkParticle;
 import com.hmdzl.spspd.change.items.VioletDewdrop;
 import com.hmdzl.spspd.change.levels.Level;
@@ -71,12 +72,14 @@ public class FishProtector extends Mob implements Callback {
 
 	@Override
 	public int drRoll() {
-		return 15;
+		return Random.NormalIntRange(0, 15);
 	}
 
 		
 	@Override
-	protected boolean canAttack(Char enemy) {
+	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 

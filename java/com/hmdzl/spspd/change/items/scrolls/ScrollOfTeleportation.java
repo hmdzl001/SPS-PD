@@ -23,13 +23,13 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
 import com.hmdzl.spspd.change.actors.hero.Hero;
-import com.hmdzl.spspd.change.actors.mobs.npcs.MagicSheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanCorner;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanSwitch;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.items.wands.WandOfBlood;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Sheep;
+import com.hmdzl.spspd.change.items.wands.WandOfFlock;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.scenes.CellSelector;
@@ -130,7 +130,7 @@ public class ScrollOfTeleportation extends Scroll {
 		Char ch = Actor.findChar(spot);
 		boolean sheepchk = false;
 		
-		if (ch!=null && (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof MagicSheep)){
+		if (ch!=null && (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof WandOfFlock.MagicSheep)){
 			sheepchk = true;
 		}
 

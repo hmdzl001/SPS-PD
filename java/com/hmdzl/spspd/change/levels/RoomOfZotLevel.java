@@ -25,7 +25,6 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.WellWater;
-import com.hmdzl.spspd.change.actors.mobs.npcs.MagicSheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Sheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanBlack;
@@ -37,6 +36,7 @@ import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.change.items.misc.LuckyBadge;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.change.items.wands.WandOfFlock;
 import com.hmdzl.spspd.change.levels.features.Chasm;
 import com.hmdzl.spspd.change.levels.features.Door;
 import com.hmdzl.spspd.change.levels.features.HighGrass;
@@ -197,7 +197,7 @@ public class RoomOfZotLevel extends Level {
 			
 		case Terrain.CHANGE_SHEEP_TRAP:
 			
-			if (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof MagicSheep){
+			if (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof WandOfFlock.MagicSheep){
 				trap = true;
 				ChangeSheepTrap.trigger(cell, ch);
 			}						

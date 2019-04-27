@@ -38,7 +38,6 @@ import com.hmdzl.spspd.change.actors.mobs.Bestiary;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.SokobanSentinel;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Blacksmith;
-import com.hmdzl.spspd.change.actors.mobs.npcs.MagicSheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Sheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanBlack;
@@ -59,6 +58,7 @@ import com.hmdzl.spspd.change.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.change.items.wands.WandOfFlock;
 import com.hmdzl.spspd.change.levels.features.Chasm;
 import com.hmdzl.spspd.change.levels.features.Door;
 import com.hmdzl.spspd.change.levels.features.HighGrass;
@@ -240,7 +240,7 @@ public class DragonCaveLevel extends Level {
 			
 		case Terrain.CHANGE_SHEEP_TRAP:
 			
-			if (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof MagicSheep){
+			if (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof WandOfFlock.MagicSheep){
 				trap = true;
 				ChangeSheepTrap.trigger(cell, ch);
 			}						

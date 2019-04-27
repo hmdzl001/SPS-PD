@@ -24,7 +24,7 @@ public class Crystalnucleus extends CompleteFood {
 
 	{
 		//name = "crystalnucleus";
-		image = ItemSpriteSheet.ERROR_FOOD;
+		image = ItemSpriteSheet.NORNORANGE;
 		energy = 1;
 		hornValue = 1;
 		bones = false;

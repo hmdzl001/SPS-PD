@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.items.potions;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.buffs.Awareness;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
 import com.hmdzl.spspd.change.actors.buffs.MindVision;
@@ -42,6 +43,7 @@ public class PotionOfMindVision extends Potion {
 		setKnown();
 
 		Buff.affect(hero, MindVision.class, Dungeon.hero.buff(MagicSight.class) != null ? MindVision.DURATION*4 : MindVision.DURATION);
+		Buff.affect(hero, Awareness.class, Dungeon.hero.buff(MagicSight.class) != null ? 20f : 5f);
 		Dungeon.observe();
 
 		if (Dungeon.level.mobs.size() > 0) {

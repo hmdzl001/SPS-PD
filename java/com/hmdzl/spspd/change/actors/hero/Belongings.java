@@ -31,6 +31,7 @@ import com.hmdzl.spspd.change.items.keys.IronKey;
 import com.hmdzl.spspd.change.items.keys.Key;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.change.items.wands.Wand;
+import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -179,6 +180,12 @@ public class Belongings implements Iterable<Item> {
 		}
 	}
 
+	public void observeS() {
+		for (Item item : backpack) {
+			item.cursedKnown = true;
+		}
+	}	
+	
 	public void uncurseEquipped() {
 		ScrollOfRemoveCurse.uncurse(owner, armor, weapon, misc1, misc2, misc3);
 	}
@@ -247,6 +254,21 @@ public class Belongings implements Iterable<Item> {
 			}
 		}
 
+		return count;
+	}
+	
+	public int relord() {
+
+		int count = 0;
+
+		for (Item item : this) {
+			if (item instanceof GunWeapon) {
+				GunWeapon gunweapon = (GunWeapon) item;
+				gunweapon.charge =  gunweapon.charge  + 1;
+				count++;
+				gunweapon.updateQuickslot();
+				}
+			}
 		return count;
 	}
 

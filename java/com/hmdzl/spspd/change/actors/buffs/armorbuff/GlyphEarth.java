@@ -8,7 +8,6 @@ import com.hmdzl.spspd.change.actors.buffs.Roots;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.mobs.DwarfLich;
 import com.hmdzl.spspd.change.actors.mobs.Fiend;
-import com.hmdzl.spspd.change.actors.mobs.ShadowRat;
 import com.hmdzl.spspd.change.actors.mobs.Warlock;
 
 	public class GlyphEarth extends Buff {

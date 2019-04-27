@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.change.items.food.completefood;
 
 import com.hmdzl.spspd.change.items.food.Food;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 
 public class Kebab extends CompleteFood {
@@ -29,7 +30,12 @@ public class Kebab extends CompleteFood {
 		hornValue = 3;
 		bones = false;
 	}
+	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing(0xCC6600);
 
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return BROWN;
+	}
 	@Override
 	public int price() {
 		return 5 * quantity;

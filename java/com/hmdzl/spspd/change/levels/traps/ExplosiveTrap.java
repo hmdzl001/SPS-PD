@@ -22,6 +22,7 @@ package com.hmdzl.spspd.change.levels.traps;
 
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
+import com.hmdzl.spspd.change.items.bombs.BuildBomb;
 import com.hmdzl.spspd.change.items.bombs.MiniBomb;
 import com.hmdzl.spspd.change.sprites.TrapSprite;
 
@@ -35,7 +36,7 @@ public class ExplosiveTrap extends Trap {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		new MiniBomb().explode(pos);
+		new BuildBomb().explode(pos);
 	}
 
 }

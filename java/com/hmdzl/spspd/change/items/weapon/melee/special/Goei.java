@@ -89,7 +89,7 @@ public class Goei extends MeleeWeapon {
 	
     @Override
     public void proc(Char attacker, Char defender, int damage) {
-		if (charge > 10) {
+		if (charge > 50) {
             defender.damage(damage ,this);
             charge = 0;
         }

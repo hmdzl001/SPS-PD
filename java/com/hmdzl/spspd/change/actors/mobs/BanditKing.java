@@ -54,7 +54,7 @@ public class BanditKing extends Mob {
 	
 	@Override
 	public int drRoll() {
-		return 20; //20
+		return Random.NormalIntRange(10, 20);
 	}
 
 	@Override

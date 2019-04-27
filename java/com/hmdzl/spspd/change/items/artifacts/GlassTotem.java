@@ -2,15 +2,19 @@ package com.hmdzl.spspd.change.items.artifacts;
 
 import java.util.ArrayList;
 
+import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Cripple;
+import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.change.actors.buffs.GlassShield;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 /**
@@ -64,6 +68,8 @@ public class GlassTotem extends Artifact {
 				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
 			else {	
                 if (level > 1 )level--;
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 				Buff.detach(hero, AttackUp.class);
 				Buff.affect(hero, GlassShield.class).turns(2);
 				hero.spend(3f);
@@ -95,6 +101,9 @@ public class GlassTotem extends Artifact {
 		public boolean act() {
 			if (cursed && Random.Int(100) == 0){
 				Buff.affect( target, ArmorBreak.class, 10f).level(100);
+			} else if (Random.Int(1000/(level+1)) == 0){
+				Buff.affect( target, AttackUp.class, 5f).level(20);
+				Buff.affect( target, DefenceUp.class, 5f).level(20);
 			}
 			spend( TICK );
 			return true;

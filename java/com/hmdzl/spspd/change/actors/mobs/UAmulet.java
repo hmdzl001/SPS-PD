@@ -77,7 +77,7 @@ public class UAmulet extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 2;
+		return Random.NormalIntRange(0, 2);
 	}
 	
 	@Override

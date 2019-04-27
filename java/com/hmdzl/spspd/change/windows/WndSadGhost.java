@@ -98,11 +98,7 @@ public class WndSadGhost extends Window {
 
 		hide();
 
-		if (reward.doPickUp(Dungeon.hero)) {
-			GLog.i( Messages.get(Dungeon.hero, "you_now_have", reward.name()));
-		} else {
-			Dungeon.level.drop(reward, ghost.pos).sprite.drop();
-		}
+		Dungeon.level.drop(reward, ghost.pos).sprite.drop();
 
 		ghost.yell(Messages.get(this, "farewell"));
 		ghost.die(null);

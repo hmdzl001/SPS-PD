@@ -23,6 +23,8 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.change.items.rings.RingOfAccuracy;
+import com.hmdzl.spspd.change.items.rings.RingOfElements;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentDark2;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentEarth;
@@ -73,7 +75,7 @@ public class Weapon extends KindOfWeapon {
 	public int   RCH = 1;  // Reach modifier
 	//public int   DUR = 10;  // durable modifier
 	
-	public int durable = 150;
+	public int durable = 100;
 
 	public Enchantment enchantment;
 	//private int hitsToKnow = HITS_TO_KNOW;
@@ -101,7 +103,7 @@ public class Weapon extends KindOfWeapon {
     {
         if(Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.ROGUE && (this instanceof MeleeWeapon || this instanceof RelicMeleeWeapon ) && Dungeon.hero.belongings.weapon == this && STR > 2)
             return STR - 2;
-        return STR;
+        else return STR;
     }
 
 	public boolean durable(){
@@ -168,7 +170,7 @@ public class Weapon extends KindOfWeapon {
 			bonus += ((RingOfFuror.Furor) buff).level;
 		}
 
-		DLY = (float) (0.20 + (DLY - 0.20) * Math.pow(0.9, bonus));
+		DLY = (float) (0.25 + (DLY - 0.25) * Math.pow(0.9, bonus));
 
 		return (encumrance > 0 ? (float) (DLY * Math.pow(1.5, encumrance))
 				: DLY);
@@ -181,8 +183,8 @@ public class Weapon extends KindOfWeapon {
 	    int RCH = this.RCH;
 		
 		int bonus = 0;
-		for (Buff buff : hero.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += ((RingOfSharpshooting.Aim) buff).level;
+		for (Buff buff : hero.buffs(RingOfAccuracy.Accuracy.class)) {
+			bonus += ((RingOfAccuracy.Accuracy) buff).level;
 		}
         if (Dungeon.hero.subClass == HeroSubClass.JOKER){
 			bonus += 10;
@@ -196,10 +198,14 @@ public class Weapon extends KindOfWeapon {
 
 		int damage = super.damageRoll(hero);
 
-		if (this instanceof MeleeWeapon || (this instanceof MissileWeapon && hero.heroClass == HeroClass.HUNTRESS)) {
-			int exStr = hero.STR() - STR();
+		int exStr = hero.STR() - STR();
+		if (exStr > 0) {
+			damage += exStr;
+		}
+
+		if (this instanceof MissileWeapon && hero.heroClass == HeroClass.HUNTRESS) {
 			if (exStr > 0) {
-				damage += exStr;
+				damage += 2*exStr;
 			}
 		}
 
@@ -209,7 +215,6 @@ public class Weapon extends KindOfWeapon {
 				bonus += ((RingOfSharpshooting.Aim) buff).level;
 			}
 			damage = (int)(damage*(1 + 0.1*bonus));
-
 		}
 
 		return Math.round(damage);
@@ -399,6 +404,11 @@ public class Weapon extends KindOfWeapon {
 		public String name( String weaponName ) {
 			return Messages.get(this, "name", weaponName);
 		}
+
+		public String desc() {
+			return Messages.get(this, "desc");
+		}
+
 
 		@Override
 		public void restoreFromBundle(Bundle bundle) {

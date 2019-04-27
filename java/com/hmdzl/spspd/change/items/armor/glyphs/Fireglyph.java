@@ -33,6 +33,7 @@ import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.FlameParticle;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
@@ -60,8 +61,9 @@ public class Fireglyph extends Glyph {
 	    GlyphLight glight = defender.buff(GlyphLight.class);
 	    GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
-		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);	
-	
+		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
+
 		if (defender.isAlive() && gfire == null)
 		{
 			Buff.detach(defender,GlyphIce.class);
@@ -74,7 +76,7 @@ public class Fireglyph extends Glyph {
 	
 		int level = Math.max(0, armor.level);
 
-		if (Random.Int(level + 6) >= 5) {
+		if (Random.Int(level + 6) >= 5 || (fcb != null && Random.Int(level + 6) >= 3)) {
 			Buff.affect(attacker, Burning.class).reignite( attacker );
 			defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		}

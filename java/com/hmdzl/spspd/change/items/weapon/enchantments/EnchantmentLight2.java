@@ -27,6 +27,7 @@ import com.hmdzl.spspd.change.actors.buffs.Cripple;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -47,8 +48,12 @@ private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 		// lvl 0 - 20%
 		// lvl 1 - 33%
 		// lvl 2 - 43%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int lvl = Math.max(0, weapon.level);		
 		Buff.prolong(defender, Blindness.class,Math.min(50,lvl+5));
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage(Random.Int(damage/6), this);
+		}		
 		defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6);
 		return true;
 

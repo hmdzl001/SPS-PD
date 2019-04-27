@@ -17,6 +17,10 @@
  */
 package com.hmdzl.spspd.change.items.weapon.missiles;
 
+import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.Amok;
+import com.hmdzl.spspd.change.actors.buffs.Blindness;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -27,8 +31,9 @@ public class Wave extends MissileWeapon {
 		//name = "wave";
 		image = ItemSpriteSheet.WAVE;
 
+		STR = 10;
 		MIN = 1;
-		MAX = 4;
+		MAX = 3;
 
 		bones = false; // Finding them in bones would be semi-frequent and
 						// disappointing.
@@ -43,15 +48,21 @@ public class Wave extends MissileWeapon {
 		quantity = number;
 	}
 
-
+	@Override
+	public void proc(Char attacker, Char defender, int damage) {
+		super.proc(attacker, defender, damage);
+		Buff.affect(defender, Amok.class,10f);
+		Buff.affect(defender, Blindness.class,2f);
+	}	
+	
 	@Override
 	public Item random() {
-		quantity = Random.Int(5, 15);
+		quantity = Random.Int(2, 7);
 		return this;
 	}
 
 	@Override
 	public int price() {
-		return quantity * 2;
+		return quantity * 10;
 	}
 }

@@ -26,7 +26,7 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
-import com.hmdzl.spspd.change.items.bombs.DumplingBomb;
+
 import com.hmdzl.spspd.change.items.weapon.missiles.RiceBall;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;

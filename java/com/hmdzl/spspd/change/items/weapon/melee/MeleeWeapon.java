@@ -126,15 +126,15 @@ public class MeleeWeapon extends Weapon {
 		//Messages.get(MeleeWeapon.class, "stats_known", tier, MIN, MAX,STR,ACU,DLY,RCH )
 
 		if (enchantment != null) {
-			info += "\n\n" + Messages.get(MeleeWeapon.class, "enchanted");
+			info += "\n" + Messages.get(MeleeWeapon.class, "enchanted", enchantment.desc());
 		}
 		
 		if (reinforced) {
-			info += "\n\n" + Messages.get(Item.class, "reinforced");
+			info += "\n" + Messages.get(Item.class, "reinforced");
 		}
 		
-		if (levelKnown && STR > Dungeon.hero.STR()) {
-			info += "\n\n" + Messages.get(MeleeWeapon.class, "too_heavy");
+		if (levelKnown && STR() > Dungeon.hero.STR()) {
+			info += "\n" + Messages.get(MeleeWeapon.class, "too_heavy");
 		}		
 
 		if (cursed && isEquipped( Dungeon.hero )) {

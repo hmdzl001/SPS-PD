@@ -34,6 +34,7 @@ import com.hmdzl.spspd.change.actors.blobs.DarkGas;
 import com.hmdzl.spspd.change.actors.blobs.GooWarn;
 import com.hmdzl.spspd.change.actors.blobs.ParalyticGas;
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.change.actors.buffs.AttackDown;
 import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.Bleeding;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
@@ -52,6 +53,7 @@ import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.items.Generator;
+import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.change.items.eggs.EasterEgg;
 import com.hmdzl.spspd.change.items.eggs.Egg;
@@ -59,6 +61,7 @@ import com.hmdzl.spspd.change.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.change.items.keys.SkeletonKey;
 import com.hmdzl.spspd.change.items.potions.PotionOfMight;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.change.items.wands.WandOfLight;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.SewerBossLevel;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
@@ -68,6 +71,7 @@ import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.GooSprite;
 import com.hmdzl.spspd.change.sprites.PlagueDoctorSprite;
 import com.hmdzl.spspd.change.sprites.SewerHeartSprite;
+import com.hmdzl.spspd.change.sprites.ShadowRatSprite;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
@@ -254,7 +258,10 @@ public class PlagueDoctor extends Mob {
 				break;
 			case PERFORMER:
 				badgeToCheck = Badge.MASTERY_PERFORMER;
-				break;				
+				break;	
+				case SOLDIER:
+					badgeToCheck = Badge.MASTERY_SOLDIER;
+					break;					
 		}
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
 	}
@@ -274,7 +281,7 @@ public class PlagueDoctor extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 3;
+		return Random.NormalIntRange(0, 5);
 	}
 
 	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
@@ -347,4 +354,105 @@ public class PlagueDoctor extends Mob {
 			spawnPower = bundle.getInt(SPAWNPOWER);
 		}
 	}
+
+	public static class ShadowRat extends Mob {
+
+
+		private static final float SPAWN_DELAY = 2f;
+
+		{
+			spriteClass = ShadowRatSprite.class;
+
+			HP = HT = 60;
+			evadeSkill = 3;
+
+			loot = new StoneOre();
+			lootChance = 0.2f;
+
+			properties.add(Property.ELEMENT);
+			properties.add(Property.MINIBOSS);
+		}
+
+
+		@Override
+		public void damage(int dmg, Object src) {
+			if (src instanceof WandOfLight) {
+				destroy();
+				sprite.die();
+			} else {
+
+				super.damage(dmg, src);
+			}
+		}
+
+		@Override
+		public int attackProc( Char enemy, int damage) {
+			damage = super.attackProc(enemy, damage);
+			if (Random.Int(3) < 1) {
+				Buff.prolong(enemy, AttackDown.class, 10f).level(25);
+			} else
+			if (Random.Int(3) < 1) {
+				Buff.prolong(enemy, Vertigo.class, 5f);
+			}
+			return super.attackProc(enemy, damage);
+		}
+
+		@Override
+		public int damageRoll() {
+			return Random.NormalIntRange(6, 9);
+		}
+
+		@Override
+		public int hitSkill(Char target) {
+			return 25;
+		}
+
+		@Override
+		public int drRoll() {
+			return 0;
+		}
+
+		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+		static {
+			IMMUNITIES.add( ToxicGas.class );
+			IMMUNITIES.add(Poison.class);
+			IMMUNITIES.add(Burning.class);
+		}
+
+		@Override
+		public HashSet<Class<?>> immunities() {
+			return IMMUNITIES;
+		}
+
+		public static void spawnAround(int pos) {
+			for (int n : Level.NEIGHBOURS8) {
+				int cell = pos + n;
+				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+					spawnAt(cell);
+				}
+			}
+		}
+
+		public static void spawnAroundChance(int pos) {
+			for (int n : Level.NEIGHBOURS4) {
+				int cell = pos + n;
+				if (Level.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
+					spawnAt(cell);
+				}
+			}
+		}
+
+		public static ShadowRat spawnAt(int pos) {
+
+			ShadowRat b = new ShadowRat();
+
+			b.pos = pos;
+			b.state = b.HUNTING;
+			GameScene.add(b, SPAWN_DELAY);
+
+			return b;
+
+		}
+	}
+
 }

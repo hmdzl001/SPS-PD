@@ -19,8 +19,14 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
-import com.hmdzl.spspd.change.items.DolyaStale;
+import com.hmdzl.spspd.change.Badges;
+import com.hmdzl.spspd.change.items.ArmorKit;
+import com.hmdzl.spspd.change.items.DolyaSlate;
+import com.hmdzl.spspd.change.items.Gold;
+import com.hmdzl.spspd.change.items.RedDewdrop;
+import com.hmdzl.spspd.change.items.keys.SkeletonKey;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfTeleportation;
+import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
@@ -40,6 +46,7 @@ import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.change.levels.CityBossLevel;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
+import com.hmdzl.spspd.change.sprites.DwarfKingTombSprite;
 import com.hmdzl.spspd.change.sprites.KingSprite;
 import com.hmdzl.spspd.change.sprites.UndeadSprite;
 import com.hmdzl.spspd.change.utils.GLog;
@@ -57,7 +64,7 @@ public class King extends Mob {
 	{
 		spriteClass = KingSprite.class;
 
-		HP = HT = 1000;
+		HP = HT = 1500;
 		EXP = 40;
 		evadeSkill = 25; 
 		baseSpeed = 0.75f;
@@ -69,8 +76,21 @@ public class King extends Mob {
 	}
 
 	private boolean nextPedestal = true;
-
+	
+    private int tombAlive = 0;
+	
 	private static final String PEDESTAL = "pedestal";
+	
+	public void spawnTomb() {
+		DwarfKingTomb a = new DwarfKingTomb();
+
+		a.pos = Terrain.EMPTY_WELL;
+		do {
+			a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
+		} while (Dungeon.level.map[a.pos] != Terrain.EMPTY_WELL
+				|| Actor.findChar(a.pos) != null);
+		GameScene.add(a);
+	}		
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -91,12 +111,12 @@ public class King extends Mob {
 
 	@Override
 	public int hitSkill(Char target) {
-		return 32;
+		return 62;
 	}
 
 	@Override
 	public int drRoll() {
-		return 14; //14
+		return Random.NormalIntRange(0, 14);
 	}
 
 	@Override
@@ -136,13 +156,18 @@ public class King extends Mob {
 
 	@Override
 	protected boolean act() {
-		boolean result = super.act();
-
+		
+		if (tombAlive < 1){
+			spawnTomb();
+			tombAlive++;
+		}		
+		
 		if (HP < HT) {
 			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 			HP = HP + REGEN;
 		}
-		return result;
+		
+		return super.act();
 	}
 	
 	
@@ -156,13 +181,13 @@ public class King extends Mob {
 		int findTomb=Dungeon.hero.pos;
 		yell(Messages.get(this, "cannot"));
 		 for (Mob mob : Dungeon.level.mobs) {
-				if (mob instanceof DwarfKingTomb){findTomb=mob.pos;}
+			if (mob instanceof DwarfKingTomb){findTomb=mob.pos;}
 		 }
 		 
 		 Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
 		 
 		 if (!Dungeon.limitedDrops.journal.dropped()){ 
-			  Dungeon.level.drop(new DolyaStale(), pos).sprite.drop();
+			  Dungeon.level.drop(new DolyaSlate(), pos).sprite.drop();
 			  Dungeon.limitedDrops.journal.drop();
 			}
 		 
@@ -234,7 +259,7 @@ public class King extends Mob {
 	static {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 		RESISTANCES.add(WandOfDisintegration.class);
 	}
 
@@ -268,6 +293,10 @@ public class King extends Mob {
 			EXP = 0;
 
 			state = WANDERING;
+			
+
+		properties.add(Property.UNDEAD);
+		properties.add(Property.BOSS);			
 		}
 
 		@Override
@@ -289,7 +318,7 @@ public class King extends Mob {
 
 		@Override
 		public int hitSkill(Char target) {
-			return 16;
+			return 49;
 		}
 
 		@Override
@@ -334,4 +363,102 @@ public class King extends Mob {
 			return IMMUNITIES;
 		}
 	}
+	
+    public static class DwarfKingTomb extends Mob  {
+
+	{
+		spriteClass = DwarfKingTombSprite.class;
+
+		HP = HT = 1000;
+		evadeSkill = 5;
+
+		EXP = 10;
+		
+		hostile = false;
+		state = PASSIVE;
+		
+		loot = new RedDewdrop();
+		lootChance = 0.05f;
+
+		properties.add(Property.MECH);
+		properties.add(Property.BOSS);
+	}
+	
+	@Override
+	public void beckon(int cell) {
+		// Do nothing
+	}
+	
+	@Override
+	public void add(Buff buff) {
+	}
+	
+	
+	@Override
+	public int damageRoll() {
+		return 0;
+	}
+	
+	@Override
+	public int hitSkill(Char target) {
+		return 0;
+	}
+
+	@Override
+	public int drRoll() {
+		return 0;
+		
+	}
+	
+	
+	public boolean checkKing(){
+		
+		int kingAlive=0;
+		if(Dungeon.level.mobs!=null){
+       for (Mob mob : Dungeon.level.mobs) {
+			if (mob instanceof King){
+				kingAlive++;
+			   }
+			}
+		}
+       if (kingAlive>0){
+		return true;
+       } else {
+      return false;
+       }
+	}
+	
+	@Override
+	public void damage(int dmg, Object src) {
+		if(checkKing()){
+			yell(Messages.get(this , "impossible"));
+		} else {
+		super.damage(dmg, src);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void die(Object cause) {
+		
+        super.die(cause);
+		
+		for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
+			if (mob instanceof DwarfLich || mob instanceof King || mob instanceof King.Undead || mob instanceof Wraith) {
+				mob.die(cause);
+			}
+		}
+		
+		GameScene.bossSlain();
+		((CityBossLevel) Dungeon.level).unseal();
+		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
+		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+		Dungeon.level.drop(new Gold(Random.Int(4000, 5000)), pos).sprite.drop();
+
+		Badges.validateBossSlain();
+	
+	}
+
+		
+}	
 }

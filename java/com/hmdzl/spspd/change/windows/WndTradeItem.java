@@ -35,7 +35,7 @@ import com.hmdzl.spspd.change.items.bags.SeedPouch;
 import com.hmdzl.spspd.change.items.bags.WandHolster;
 import com.hmdzl.spspd.change.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.change.items.journalpages.JournalPage;
-import com.hmdzl.spspd.change.items.DolyaStale;
+import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.PixelScene;
@@ -233,7 +233,7 @@ public class WndTradeItem extends Window {
 
 		if (item instanceof SeedPouch || item instanceof KeyRing || item instanceof ShoppingCart || item instanceof HeartOfScarecrow
 		|| item instanceof PotionBandolier || item instanceof WandHolster || item instanceof ScrollHolder
-		|| item instanceof JournalPage || item instanceof DolyaStale || item instanceof ChallengeList || item instanceof ChallengeBook){
+		|| item instanceof JournalPage || item instanceof DolyaSlate || item instanceof ChallengeList || item instanceof ChallengeBook){
 			GLog.w( Messages.get(this, "donot") );
 			return ;
 		} else if (item.isEquipped(hero)

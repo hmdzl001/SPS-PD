@@ -20,8 +20,10 @@ package com.hmdzl.spspd.change.actors.mobs;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import com.hmdzl.spspd.change.items.DolyaStale;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
+import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.Elevator;
+import com.hmdzl.spspd.change.items.journalpages.Vault;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
@@ -204,10 +206,11 @@ public class Yog extends Mob {
 		}
 		
 		if (!Dungeon.limitedDrops.journal.dropped()){ 
-			  Dungeon.level.drop(new DolyaStale(), pos).sprite.drop();
+			  Dungeon.level.drop(new DolyaSlate(), pos).sprite.drop();
 			  Dungeon.limitedDrops.journal.drop();
 			}
 		Dungeon.level.drop(new Elevator(), pos).sprite.drop();
+		//Dungeon.level.drop(new Vault(), pos).sprite.drop();
 		GameScene.bossSlain();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		//Dungeon.level.drop(new Gold(Random.Int(6000, 8000)), pos).sprite.drop();
@@ -247,7 +250,7 @@ public class Yog extends Mob {
 		private static final int REGENERATION = 50;
 
 		{
-			name = "rotting fist";
+			//name = "rotting fist";
 			spriteClass = RottingFistSprite.class;
 
 			HP = HT = 1500;
@@ -311,7 +314,7 @@ public class Yog extends Mob {
 		static {
 			RESISTANCES.add(ToxicGas.class);
 			RESISTANCES.add(EnchantmentDark.class);
-			RESISTANCES.add(ScrollOfPsionicBlast.class);
+			
 		}
 
 		@Override
@@ -377,7 +380,9 @@ public class Yog extends Mob {
 		}
 
 		@Override
-		protected boolean canAttack(Char enemy) {
+		protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}
 
@@ -514,7 +519,7 @@ public class Yog extends Mob {
 		static {
 			RESISTANCES.add(ToxicGas.class);
 			RESISTANCES.add(EnchantmentDark.class);
-			RESISTANCES.add(ScrollOfPsionicBlast.class);
+			
 		}
 
 		@Override
@@ -581,7 +586,9 @@ public class Yog extends Mob {
 		}
 
 		@Override
-		protected boolean canAttack(Char enemy) {
+		protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}
 		

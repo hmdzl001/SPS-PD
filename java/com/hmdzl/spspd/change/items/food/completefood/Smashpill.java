@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.hero.HeroAction;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.food.Food;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 
 public class Smashpill extends CompleteFood {
@@ -35,7 +36,12 @@ public class Smashpill extends CompleteFood {
 		hornValue = 1;
 		bones = false;
 	}
+	private static ItemSprite.Glowing ORANGE = new ItemSprite.Glowing( 0xFF4400 );
 
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return ORANGE;
+	}
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);

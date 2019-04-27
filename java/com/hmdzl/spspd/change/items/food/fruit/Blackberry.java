@@ -48,7 +48,7 @@ public class Blackberry extends Fruit {
 			case 1:
 				Buff.affect(hero, MindVision.class, MindVision.DURATION);
 				Dungeon.observe();
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT+hero.HT);
+				Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
 				GLog.w("The berry releases energy your body!");
 				break;
 			case 0: case 2: case 3: case 4: case 5: 

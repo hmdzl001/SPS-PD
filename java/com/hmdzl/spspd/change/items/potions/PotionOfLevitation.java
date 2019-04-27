@@ -22,6 +22,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.blobs.ConfusionGas;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.change.actors.buffs.Levitation;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -53,21 +54,8 @@ public class PotionOfLevitation extends Potion {
 	public void apply(Hero hero) {
 		setKnown();
 		Buff.affect(hero, Levitation.class, Levitation.DURATION);
+		Buff.affect(hero, DefenceUp.class, 10f).level(20);
 		GLog.i(Messages.get(this, "float"));
-	}
-	
-	@Override
-	public void execute(final Hero hero, String action) {
-		if (action.equals(AC_DRINK)) {
-			
-		  if (Dungeon.depth>50) {
-				GLog.w(Messages.get(Potion.class, "stop"));
-				return;		
-		   } 
-		}
-		
-	   super.execute(hero, action);
-		 	
 	}
 
 	@Override

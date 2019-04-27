@@ -21,7 +21,6 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.hero.Hero;
-import com.hmdzl.spspd.change.actors.mobs.npcs.MagicSheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Sheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanBlack;
@@ -32,6 +31,7 @@ import com.hmdzl.spspd.change.items.KindOfArmor;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.keys.IronKey;
 
+import com.hmdzl.spspd.change.items.wands.WandOfFlock;
 import com.hmdzl.spspd.change.levels.traps.LightningTrap.Electricity;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.InterlevelScene;
@@ -47,8 +47,8 @@ public class FleecingTrap {
 
 	public static void trigger(int pos, Char ch) {
 
-		if (ch instanceof SheepSokoban || ch instanceof SheepSokobanCorner || ch instanceof SheepSokobanSwitch || ch instanceof Sheep || ch instanceof MagicSheep 
-		|| ch instanceof SheepSokobanBlack || ch instanceof MagicSheep){
+		if (ch instanceof SheepSokoban || ch instanceof SheepSokobanCorner || ch instanceof SheepSokobanSwitch || ch instanceof Sheep || ch instanceof WandOfFlock.MagicSheep
+		|| ch instanceof SheepSokobanBlack){
 			Camera.main.shake(2, 0.3f);
 			ch.destroy();
 			ch.sprite.killAndErase();

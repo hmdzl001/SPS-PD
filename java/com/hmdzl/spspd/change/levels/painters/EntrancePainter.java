@@ -17,6 +17,9 @@
  */
 package com.hmdzl.spspd.change.levels.painters;
 
+import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.Actor;
+import com.hmdzl.spspd.change.actors.mobs.GoldCollector;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Room;
 import com.hmdzl.spspd.change.levels.Terrain;
@@ -34,6 +37,14 @@ public class EntrancePainter extends Painter {
 
 		level.entrance = room.random(1);
 		set(level, level.entrance, Terrain.ENTRANCE);
+
+		if (Dungeon.gold > (2000000/(Math.max(1,20-Dungeon.depth)))){
+			GoldCollector gc = new GoldCollector();
+			gc.pos = room.random();
+			level.mobs.add(gc);
+			Actor.occupyCell(gc);
+		}
+
 	}
 
 }

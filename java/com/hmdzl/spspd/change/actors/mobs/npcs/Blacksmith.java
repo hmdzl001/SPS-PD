@@ -88,12 +88,8 @@ public class Blacksmith extends NPC {
 		if (checksan()){
             tell(Messages.get(this, "triforce"));	
             TriForce san = new TriForce();
-               Dungeon.triforce = true;	
-				if (san.doPickUp(Dungeon.hero)) {
-					GLog.i(Messages.get(Dungeon.hero, "you_now_have",san.name()));
-				} else {
-					Dungeon.level.drop(san, Dungeon.hero.pos).sprite.drop();
-				}
+            Dungeon.triforce = true;	
+			Dungeon.level.drop(san, Dungeon.hero.pos).sprite.drop();
            }
 
 		if (!Quest.given) {
@@ -109,12 +105,9 @@ public class Blacksmith extends NPC {
 					Quest.completed = false;
 
 					Pickaxe pick = new Pickaxe();
-					if (pick.doPickUp(Dungeon.hero)) {
-						GLog.i(Messages.get(Dungeon.hero, "you_now_have", pick.name()));
-					} else {
-						Dungeon.level.drop(pick, Dungeon.hero.pos).sprite
-								.drop();
-					}
+
+					Dungeon.level.drop(pick, Dungeon.hero.pos).sprite.drop();
+	
 				};
 			});
 
@@ -133,6 +126,7 @@ public class Blacksmith extends NPC {
 					//	pick.doUnequip(Dungeon.hero, false);
 					//}
 					//pick.detach(Dungeon.hero.belongings.backpack);
+					yell( Messages.get(this, "keeppickaxe"));
 					tell(Messages.get(this, "completed"));
 
 					Quest.completed = true;

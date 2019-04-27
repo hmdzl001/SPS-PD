@@ -1,0 +1,86 @@
+/*
+ * Pixel Dungeon
+ * Copyright (C) 2012-2014  Oleg Dolya
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+package com.hmdzl.spspd.change.items.weapon.guns;
+
+import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.Actor;
+import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.Splash;
+import com.hmdzl.spspd.change.items.KindOfWeapon;
+import com.hmdzl.spspd.change.items.weapon.Weapon;
+import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.change.items.weapon.spammo.SpAmmo;
+import com.hmdzl.spspd.change.messages.Messages;
+import com.hmdzl.spspd.change.scenes.CellSelector;
+import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.utils.Random;
+
+public class Sling extends GunWeapon {
+
+	private SpAmmo spammo;
+	
+	/*@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		if (ammo != null) bundle.put( AMMO, ammo );
+	}
+	
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		if (bundle.contains(AMMO)) ammo = (Ammo)bundle.get( AMMO );
+	}	*/
+
+	{
+		//name = "Sling";
+		image = ItemSpriteSheet.SLING;
+	}
+
+	public Sling() {
+		super(0, 1);
+		spammo = null;
+		STR = 8;
+		MIN = 3;
+		MAX = 7;
+	}
+
+	public Sling(SpAmmo spammo) {
+		this();
+		this.spammo = spammo;
+		name = Messages.get(spammo, "spammo_name");
+	}
+
+	public Item upgrade() {
+		//MIN++;
+		MAX += 1;
+		return super.upgrade();
+	}
+
+	@Override
+	public int damageRoll(Hero owner) {
+		return Random.Int(MIN, MAX) / 2;
+	}
+}
+
+
+

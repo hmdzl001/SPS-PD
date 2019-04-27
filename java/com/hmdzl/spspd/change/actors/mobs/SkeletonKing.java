@@ -68,7 +68,7 @@ public class SkeletonKing extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 25;
+		return Random.NormalIntRange(10, 25);
 	}
 
 	@Override

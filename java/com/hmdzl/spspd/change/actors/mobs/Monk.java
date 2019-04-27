@@ -75,7 +75,7 @@ public class Monk extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 2+adj(0);
+		return Random.NormalIntRange(2, 12);
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class Monk extends Mob {
 					&& !weapon.cursed) {
 				hero.belongings.weapon = null;
 				Dungeon.level.drop(weapon, hero.pos).sprite.drop();
-				GLog.w(Messages.get(this, "knock",weapon.name()));
+				GLog.w(Messages.get(this, "disarm"));
 				weapon.updateQuickslot();
 			}
 		}

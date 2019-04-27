@@ -32,13 +32,14 @@ import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.effects.BannerSprites;
 import com.hmdzl.spspd.change.effects.BlobEmitter;
+import com.hmdzl.spspd.change.effects.CircleArc;
 import com.hmdzl.spspd.change.effects.EmoIcon;
 import com.hmdzl.spspd.change.effects.Flare;
 import com.hmdzl.spspd.change.effects.FloatingText;
 import com.hmdzl.spspd.change.effects.Ripple;
 import com.hmdzl.spspd.change.effects.SpellSprite;
 import com.hmdzl.spspd.change.items.Heap;
-import com.hmdzl.spspd.change.items.bombs.Honeypot;
+import com.hmdzl.spspd.change.items.summon.Honeypot;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.bags.PotionBandolier;
 import com.hmdzl.spspd.change.items.bags.ScrollHolder;
@@ -114,6 +115,7 @@ public class GameScene extends PixelScene {
 	private GameLog log;
 
 	private BusyIndicator busy;
+	private CircleArc counter;
 
 	private static CellSelector cellSelector;
 
@@ -298,6 +300,11 @@ public class GameScene extends PixelScene {
 		busy.x = 1;
 		busy.y = sb.bottom() + 1;
 		add(busy);
+		
+		/*counter = new CircleArc(18, 4.25f);
+		counter.color( 0x808080, true );
+		counter.camera = uiCamera;
+		counter.show(this, busy.center(), 0f);*/
 
 		switch (InterlevelScene.mode) {
 		case RESURRECT:
@@ -545,7 +552,8 @@ public class GameScene extends PixelScene {
 		banner.camera = uiCamera;
 		banner.x = align(uiCamera, (uiCamera.width - banner.width) / 2);
 		banner.y = align(uiCamera, (uiCamera.height - banner.height) / 3);
-		add(banner);
+		//add(banner);
+		addToFront( banner );
 	}
 
 	// -------------------------------------------------------
@@ -658,8 +666,12 @@ public class GameScene extends PixelScene {
 	}
 
 	public static void show(Window wnd) {
-		cancelCellSelector();
-		scene.add(wnd);
+		//cancelCellSelector();
+		//scene.add(wnd);
+		if (scene != null) {
+			cancelCellSelector();
+			scene.addToFront(wnd);
+		}
 	}
 	
 	public static void afterObserve() {
@@ -738,8 +750,10 @@ public class GameScene extends PixelScene {
 		mode == Mode.WAND ? WndBag.getBag(WandHolster.class, listener, mode, title) : 
 		WndBag.lastBag(listener, mode, title);
 
-		scene.add(wnd);
+		//scene.add(wnd);
 
+		if (scene != null) scene.addToFront( wnd );
+		
 		return wnd;
 	}
 

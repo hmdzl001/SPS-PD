@@ -36,6 +36,7 @@ public class BulletArmor extends NormalArmor {
 	{
 		//name = "bulletproof armor";
 		image = ItemSpriteSheet.BULLET_ARMOR;
+		STR += 1;
 		MAX = 46;
 		MIN = 10;
 	}

@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.mobs.GoldThief;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Imp;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.change.levels.Room.Type;
 import com.hmdzl.spspd.change.levels.traps.*;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -119,7 +120,7 @@ public class CityLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
-		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(1) == 0){addItemToSpawn(new Bomb());}
+		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(1) == 0){addItemToSpawn(new DungeonBomb());}
 		super.createItems();
 
 		Imp.Quest.spawn(this);

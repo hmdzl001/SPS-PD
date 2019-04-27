@@ -72,7 +72,7 @@ public class Zombie extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 7+adj(0);
+		return Random.NormalIntRange(3, 8);
 	}
 	
 	@Override

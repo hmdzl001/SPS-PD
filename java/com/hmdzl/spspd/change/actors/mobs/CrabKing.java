@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Poison;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
@@ -73,7 +74,7 @@ public class CrabKing extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 10;
+		return Random.NormalIntRange(5, 10);
 	}
 
 	@Override
@@ -118,6 +119,9 @@ public class CrabKing extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
+				if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
 
@@ -164,7 +168,7 @@ public class CrabKing extends Mob {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(Poison.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

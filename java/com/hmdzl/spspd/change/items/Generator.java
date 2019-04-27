@@ -40,6 +40,18 @@ import com.hmdzl.spspd.change.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.change.items.artifacts.GlassTotem;
 import com.hmdzl.spspd.change.items.artifacts.RobotDMT;
+import com.hmdzl.spspd.change.items.bombs.Bomb;
+import com.hmdzl.spspd.change.items.bombs.BuildBomb;
+import com.hmdzl.spspd.change.items.bombs.DarkBomb;
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
+import com.hmdzl.spspd.change.items.bombs.EarthBomb;
+import com.hmdzl.spspd.change.items.bombs.FireBomb;
+import com.hmdzl.spspd.change.items.bombs.FishingBomb;
+import com.hmdzl.spspd.change.items.bombs.HugeBomb;
+import com.hmdzl.spspd.change.items.bombs.IceBomb;
+import com.hmdzl.spspd.change.items.bombs.LightBomb;
+import com.hmdzl.spspd.change.items.bombs.MiniBomb;
+import com.hmdzl.spspd.change.items.bombs.StormBomb;
 import com.hmdzl.spspd.change.items.eggs.BlueDragonEgg;
 import com.hmdzl.spspd.change.items.eggs.CocoCatEgg;
 import com.hmdzl.spspd.change.items.eggs.EasterEgg;
@@ -95,6 +107,15 @@ import com.hmdzl.spspd.change.items.weapon.melee.Wardurm;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.change.items.weapon.melee.special.RunicBlade;
+import com.hmdzl.spspd.change.items.weapon.missiles.EmpBola;
+import com.hmdzl.spspd.change.items.weapon.missiles.EscapeKnive;
+import com.hmdzl.spspd.change.items.weapon.missiles.HugeShuriken;
+import com.hmdzl.spspd.change.items.weapon.missiles.NormalBomb;
+import com.hmdzl.spspd.change.items.weapon.missiles.RiceBall;
+import com.hmdzl.spspd.change.items.weapon.missiles.ShatteredAmmo;
+import com.hmdzl.spspd.change.items.weapon.missiles.Skull;
+import com.hmdzl.spspd.change.items.weapon.missiles.Smoke;
+import com.hmdzl.spspd.change.items.weapon.missiles.Wave;
 import com.hmdzl.spspd.change.plants.Rotberry;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.ClothArmor;
@@ -214,10 +235,7 @@ import com.hmdzl.spspd.change.items.weapon.melee.special.TekkoKagi;
 import com.hmdzl.spspd.change.items.weapon.melee.special.WraithBreath;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.change.items.weapon.missiles.PoisonDart;
-import com.hmdzl.spspd.change.items.weapon.missiles.Knive;
 import com.hmdzl.spspd.change.items.weapon.missiles.IncendiaryDart;
-import com.hmdzl.spspd.change.items.weapon.missiles.Bola;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
 import com.hmdzl.spspd.change.items.weapon.missiles.Tamahawk;
 import com.hmdzl.spspd.change.plants.BlandfruitBush;
 import com.hmdzl.spspd.change.plants.Blindweed;
@@ -241,12 +259,11 @@ import com.watabou.utils.Random;
 public class Generator {
 
 	public static enum Category {
-		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),ARMOR(100, Armor.class), POTION(500,
-				Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(
-				15, Ring.class), ARTIFACT(20, Artifact.class), SEED(5,
-				Plant.Seed.class), SEED2(0,	Plant.Seed.class), SEEDRICH(0,	Plant.Seed.class),
-				FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(50, Food.class),
-				NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class);
+		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),ARMOR(100, Armor.class),
+		POTION(500, Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
+		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),
+		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(50, Food.class), BOMBS(20, Bomb.class),
+		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class);
 
 		public Class<?>[] classes;
 		public float[] probs;
@@ -273,7 +290,7 @@ public class Generator {
 
 	private static HashMap<Category, Float> categoryProbs = new HashMap<Generator.Category, Float>();
 	
-	private static final float[] INITIAL_ARTIFACT_PROBS = new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+	//private static final float[] INITIAL_ARTIFACT_PROBS = new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 	static {
 
@@ -317,9 +334,7 @@ public class Generator {
 				Nunchakus.class, Scimitar.class,Whip.class,Spork.class, Rapier.class,
 				AssassinsBlade.class,BattleAxe.class,Glaive.class,Handcannon.class,Club.class,
                 Gsword.class, Halberd.class, WarHammer.class, RunicBlade.class, Lance.class,
-				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class,
-				Bola.class ,Knive.class,PoisonDart.class,Shuriken.class,IncendiaryDart.class,Tamahawk.class,
-				Boomerang.class};
+				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class};
 		Category.WEAPON.probs = new float[] {
 				0,0,0,
 				1,1,1,1,
@@ -328,7 +343,15 @@ public class Generator {
 				1,1,1,0,1,
 				1,1,1,0,1,
 				1,1,1,1,1,
+		};
+
+		Category.RANGEWEAPON.classes = new Class<?>[] {
+				EmpBola.class ,EscapeKnive.class,PoisonDart.class,Smoke.class,IncendiaryDart.class,Tamahawk.class,
+				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, NormalBomb.class,
+				Boomerang.class};
+		Category.RANGEWEAPON.probs = new float[] {
 				1,1,1,1,1,1,
+                1,1,1,1,1,1,
 				0
 		};
 
@@ -399,7 +422,7 @@ public class Generator {
 				DriedRose.class, GlassTotem.class // starts with no chance of spawning, chance is
 								// set directly after beating ghost quest.
 		};
-		Category.ARTIFACT.probs =  INITIAL_ARTIFACT_PROBS;
+		Category.ARTIFACT.probs =  new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};;
 
 		Category.SEED.classes = new Class<?>[] { 
 				Firebloom.Seed.class, Icecap.Seed.class, Sorrowmoss.Seed.class, Blindweed.Seed.class, Sungrass.Seed.class,
@@ -418,16 +441,7 @@ public class Generator {
 				Stormvine.Seed.class, Starflower.Seed.class};
 		
 		Category.SEED2.probs = new float[] { 8, 4, 6, 4, 3, 1 };
-		
-		Category.SEEDRICH.classes = new Class<?>[] { Firebloom.Seed.class,
-				Icecap.Seed.class, Sorrowmoss.Seed.class, Blindweed.Seed.class,
-				Sungrass.Seed.class, Earthroot.Seed.class, Fadeleaf.Seed.class,
-				Rotberry.Seed.class, BlandfruitBush.Seed.class,
-				Dreamfoil.Seed.class, Stormvine.Seed.class,
-				Starflower.Seed.class, Phaseshift.Seed.class, Flytrap.Seed.class,
-				Dewcatcher.Seed.class, Seedpod.Seed.class};
-		
-		Category.SEEDRICH.probs = new float[] { 1, 1, 1, 1, 2, 1, 1, 0, 4, 1, 1, 4, 4, 8, 6, 1};
+
 		
 		Category.BERRY.classes = new Class<?>[] {Blackberry.class, Blueberry.class, Cloudberry.class, Moonberry.class};
 		Category.BERRY.probs = new float[] {6,3,2,1};	
@@ -454,6 +468,15 @@ public class Generator {
 		1,1,1,1,
 		1,1,1,
 		1,1,1,1,1};
+		Category.BOMBS.classes = new Class<?>[] { BuildBomb.class,DungeonBomb.class,
+				HugeBomb.class,MiniBomb.class,
+				FireBomb.class,IceBomb.class,EarthBomb.class,StormBomb.class,
+				LightBomb.class,DarkBomb.class,FishingBomb.class
+		};
+		Category.BOMBS.probs = new float[] { 0,3,
+				0,1,
+				1,1,1,1,
+				1,1,1,};
 	}
 
 	public static void reset() {
@@ -477,9 +500,9 @@ public class Generator {
 			case WEAPON:
 				return randomWeapon();
 			case ARTIFACT:
-				Item item = randomArtifact();
-				// if we're out of artifacts, return a ring instead.
-				return item != null ? item : random(Category.RING);
+				return randomArtifact();
+			case RING:	
+				return randomRing();
 			default:
 				return ((Item) cat.classes[Random.chances(cat.probs)]
 						.newInstance()).random();
@@ -563,31 +586,45 @@ public class Generator {
 
 		try {
 			Category cat = Category.ARTIFACT;
-			int i = Random.chances(cat.probs);
 
-			// if no artifacts are left, return null
-			if (i == -1) {
-				return null;
-			}
+			Artifact t1 = (Artifact) cat.classes[Random.chances(cat.probs)]
+					.newInstance();
+			Artifact t2 = (Artifact) cat.classes[Random.chances(cat.probs)]
+					.newInstance();
 
-			Artifact artifact = (Artifact) cat.classes[i].newInstance();
-
-			if ((cat.probs[i] > 0) && (!spawnedArtifacts.contains(cat.classes[i].getSimpleName()))) {
-				//remove the chance of spawning this artifact.
-				cat.probs[i] = 0;
-				spawnedArtifacts.add(cat.classes[i].getSimpleName());
-			}
-			artifact.random();
-
-			return artifact;
+			t1.random();
+			t2.random();
+			
+			return Random.Int(6) > 2 ? t1 : t2;			
 
 		} catch (Exception e) {
-			Log.e("PD", Log.getStackTraceString(e));
+			//Log.e("PD", Log.getStackTraceString(e));
 			return null;
 		}
 	}
+	
+	public static Ring randomRing() {
 
-	public static boolean removeArtifact(Artifact artifact) {
+		try {
+			Category cat = Category.RING;
+
+			Ring r1 = (Ring) cat.classes[Random.chances(cat.probs)]
+					.newInstance();
+			Ring r2 = (Ring) cat.classes[Random.chances(cat.probs)]
+					.newInstance();
+
+			r1.random();
+			r2.random();
+			
+			return Random.Int(6) > 2 ? r1 : r2;			
+
+		} catch (Exception e) {
+			//Log.e("PD", Log.getStackTraceString(e));
+			return null;
+		}
+	}	
+
+	/*public static boolean removeArtifact(Artifact artifact) {
 		if (spawnedArtifacts.contains(artifact.getClass().getSimpleName()))
 			return false;
 
@@ -603,27 +640,27 @@ public class Generator {
 			}
 
 		return false;
-	}
+	}*/
 
 	// resets artifact probabilities, for new dungeons
-	public static void initArtifacts() {
+	/*public static void initArtifacts() {
 		spawnedArtifacts.clear();
 		Category.ARTIFACT.probs = INITIAL_ARTIFACT_PROBS;
 		//checks for dried rose quest completion, adds the rose in accordingly.
 		if (Ghost.Quest.processed) Category.ARTIFACT.probs[12] = 1;
-	}
+	}*/
 
-	private static ArrayList<String> spawnedArtifacts = new ArrayList<String>();
+	//private static ArrayList<String> spawnedArtifacts = new ArrayList<String>();
 
-	private static final String ARTIFACTS = "artifacts";
+	//private static final String ARTIFACTS = "artifacts";
 
 	// used to store information on which artifacts have been spawned.
-	public static void storeInBundle(Bundle bundle) {
+/*	public static void storeInBundle(Bundle bundle) {
 		bundle.put(ARTIFACTS,
 				spawnedArtifacts.toArray(new String[spawnedArtifacts.size()]));
-	}
+	}*/
 
-	public static void restoreFromBundle(Bundle bundle) {
+	/*public static void restoreFromBundle(Bundle bundle) {
 		initArtifacts();
 
 		if (bundle.contains(ARTIFACTS)) {
@@ -636,5 +673,5 @@ public class Generator {
 						spawnedArtifacts.add(artifact);
 					}
 		}
-	}
+	}*/
 }

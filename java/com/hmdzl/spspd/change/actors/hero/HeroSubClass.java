@@ -37,7 +37,10 @@ public enum HeroSubClass {
 	WARDEN( "warden" ),
 
 	SUPERSTAR( "superstar" ),
-	JOKER( "joker" );
+	JOKER( "joker" ),
+	
+    AGENT( "agent" ),
+	LEADER( "leader" );
 	
 	private String title;
 	

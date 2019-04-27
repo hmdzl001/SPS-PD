@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.effects.Lightning;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.traps.LightningTrap;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -55,6 +56,7 @@ public class Revivalglyph extends Glyph {
 	    GlyphFire gfire = defender.buff(GlyphFire.class); 
 		GlyphEarth gearth = defender.buff(GlyphEarth.class); 
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class); 
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 		
 		if (defender.isAlive() && (gdark != null || gice != null || glight != null || gfire != null || gearth != null || gelect != null ))
 		{
@@ -67,7 +69,7 @@ public class Revivalglyph extends Glyph {
 		}		
 		
 		int level = Math.max(0, armor.level);
-        if (damage > defender.HP && Math.min(level,30) > Random.Int(100)){
+        if (damage > defender.HP && (Math.min(level*1.5,45) > Random.Int(100) || (fcb != null && Math.min(level*1.5,45) > Random.Int(90)))){
 			defender.HP = defender.HT;
 			CellEmitter.get(defender.pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
 			GLog.w(Messages.get(this, "revive"));

@@ -81,9 +81,7 @@ public class WndChallengeBook extends Window {
 				item.returnDepth = Dungeon.depth;
 				item.returnPos = Dungeon.hero.pos;
 				port(0, item.firsts[0]);
-				if (!Dungeon.playtest){
-				   item.firsts[0]=false;
-				}
+				item.firsts[0]=false;
 			}
 		};
 		btn1.setRect(0, message.top() + message.height() + GAP, WIDTH, BTN_HEIGHT);

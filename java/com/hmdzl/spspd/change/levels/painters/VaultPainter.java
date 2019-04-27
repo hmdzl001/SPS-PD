@@ -42,8 +42,7 @@ public class VaultPainter extends Painter {
 
 		switch (Random.Int(3)) {
 
-		case 0:
-		case 1:
+		case 0: case 1: case 2:
 			Item i1,i2;
 			do {
 				i1 = prizeUncursed(level);
@@ -54,10 +53,10 @@ public class VaultPainter extends Painter {
 			level.addItemToSpawn(new GoldenKey(Dungeon.depth));
 			break;
 
-		case 2:
+		/*
 			level.drop(prizeUncursed(level), c);
 			set(level, c, Terrain.PEDESTAL);
-			break;
+			break;*/
 		}
 
 		room.entrance().set(Room.Door.Type.LOCKED);

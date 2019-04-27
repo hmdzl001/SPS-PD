@@ -26,6 +26,7 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.npcs.MirrorImage;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.change.items.wands.WandOfBlood;
 import com.hmdzl.spspd.change.levels.Level;
@@ -55,6 +56,7 @@ public class Changeglyph extends Glyph {
 		GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 		if (defender.isAlive() && (gdark != null || gice != null || glight != null || gfire != null || gearth != null || gelect != null ))
 		{
 			Buff.detach(defender,GlyphIce.class);
@@ -67,7 +69,7 @@ public class Changeglyph extends Glyph {
 	
 		int level = Math.max(0, armor.level);
 
-		if (Random.Int(level / 2 + 6) >= 5) {
+		if (Random.Int(level / 2 + 6) >= 5 || (fcb != null && Random.Int(level / 2 + 6) >= 3)) {
 
 			ArrayList<Integer> respawnPoints = new ArrayList<Integer>();
 

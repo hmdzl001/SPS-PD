@@ -32,7 +32,6 @@ import com.hmdzl.spspd.change.actors.buffs.Awareness;
 import com.hmdzl.spspd.change.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.sprites.MissileSprite;
@@ -102,7 +101,7 @@ public class HuntressSkill extends ClassSkill {
 		    Buff.affect(curUser, Awareness.class,10);
 			break;
 			case 3:
-	        Buff.affect(curUser, BerryRegeneration.class);
+	        Buff.affect(curUser, BerryRegeneration.class).level(curUser.HP/2);
 			break;
 		}
 	}

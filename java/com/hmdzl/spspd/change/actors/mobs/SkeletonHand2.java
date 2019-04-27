@@ -66,7 +66,7 @@ public class SkeletonHand2 extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 15;
+		return Random.NormalIntRange(0, 15);
 	}
 
 	@Override

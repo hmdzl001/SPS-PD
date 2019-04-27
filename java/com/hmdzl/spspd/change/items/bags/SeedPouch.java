@@ -19,9 +19,10 @@ package com.hmdzl.spspd.change.items.bags;
 
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.Rice;
+
 import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.items.nornstone.NornStone;
+import com.hmdzl.spspd.change.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.change.plants.Plant;
 import com.hmdzl.spspd.change.items.TriforceOfCourage;
 import com.hmdzl.spspd.change.items.TriforceOfPower;
@@ -41,12 +42,12 @@ public class SeedPouch extends Bag {
 	@Override
 	public boolean grab(Item item) {
 		if (item instanceof Plant.Seed
-			|| item instanceof Rice
 			|| item instanceof TriforceOfCourage
 			|| item instanceof TriforceOfPower
 			|| item instanceof TriforceOfWisdom
 			|| item instanceof StoneOre
-			|| item instanceof NornStone){
+			|| item instanceof NornStone
+			|| item instanceof SpAmmo){
 		return true;
 		} else {
 		return false;

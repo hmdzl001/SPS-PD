@@ -36,6 +36,7 @@ public class PhantomArmor extends NormalArmor {
 	{
 		//name = "phantom armor";
 		image = ItemSpriteSheet.PHANTOM_ARMOR;
+		STR -= 1;
 		MAX = 35;
 		MIN = 0;
 	}

@@ -91,7 +91,7 @@ public class Dragonking extends Mob {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(Poison.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

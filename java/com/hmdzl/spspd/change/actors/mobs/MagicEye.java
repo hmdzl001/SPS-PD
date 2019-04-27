@@ -69,7 +69,7 @@ public class MagicEye extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 20+adj(1);
+		return Random.NormalIntRange(0, 20);
 	}
 
 	@Override

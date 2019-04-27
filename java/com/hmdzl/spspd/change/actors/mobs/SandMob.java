@@ -76,7 +76,7 @@ public class SandMob extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 10+adj(0);
+		return Random.NormalIntRange(0, 10);
 	}
 
 

@@ -68,7 +68,7 @@ public class WandOfCharm extends Wand {
 
 	@Override
 	protected int chargesPerCast() {
-		return Math.max(1, 5);
+		return Math.max(1, (int)Math.ceil(curCharges*0.5f));
 	}
 
 	@Override

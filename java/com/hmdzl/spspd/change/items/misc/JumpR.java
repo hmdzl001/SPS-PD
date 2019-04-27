@@ -46,7 +46,7 @@ public class JumpR extends Item {
 		//name = "Jump Shoes";
 		image = ItemSpriteSheet.JUMP;
 		defaultAction = AC_JUMP;
-unique = true;
+        unique = true;
 		bones = false;
 	}
 	

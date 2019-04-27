@@ -5,9 +5,14 @@ import java.util.ArrayList;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.AttackUp;
+import com.hmdzl.spspd.change.actors.buffs.Bless;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.change.actors.buffs.Hunger;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -19,6 +24,8 @@ import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.change.items.scrolls.ScrollOfRecharging.charge;
 
 /**
  * Created by debenhame on 01/12/2014.
@@ -47,6 +54,7 @@ public class TimekeepersHourglass extends Artifact {
 	}
 
 	public static final String AC_ACTIVATE = "ACTIVATE";
+	public static final String AC_RESTART = "RESTART";
 
 	// keeps track of generated sandbags.
 	public int sandBags = 0;
@@ -56,6 +64,8 @@ public class TimekeepersHourglass extends Artifact {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && charge > 0 && !cursed)
 			actions.add(AC_ACTIVATE);
+		if (isEquipped(hero) && level > 1 && !cursed)
+			actions.add(AC_RESTART);		
 		return actions;
 	}
 
@@ -95,7 +105,20 @@ public class TimekeepersHourglass extends Artifact {
 						}
 					};
 				});
-		} else
+		} else  if (action.equals(AC_RESTART)){
+
+			level--;
+			curUser = hero;
+            curUser.HP = curUser.HT;
+			Buff.affect(curUser,AttackUp.class,50f).level(20);
+			Buff.affect(curUser,DefenceUp.class,50f).level(20);
+			Buff.affect(curUser,Bless.class,50f);
+			curUser.belongings.charge( true );
+			Sample.INSTANCE.play(Assets.SND_BURNING);
+			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+            curUser.spendAndNext(1f);
+			
+        } else
 			super.execute(hero, action);
 	}
 

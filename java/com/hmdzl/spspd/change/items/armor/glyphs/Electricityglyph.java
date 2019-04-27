@@ -33,6 +33,7 @@ import com.hmdzl.spspd.change.effects.Pushing;
 import com.hmdzl.spspd.change.effects.particles.EnergyParticle;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
 import com.hmdzl.spspd.change.items.wands.WandOfLightning;
@@ -65,6 +66,7 @@ public class Electricityglyph extends Glyph {
 	    GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 	
 		if (defender.isAlive() && gelect == null)
 		{
@@ -85,7 +87,7 @@ public class Electricityglyph extends Glyph {
 		  }
 	    }
 		
-		if (Random.Int(level + 6) >= 5) {
+		if (Random.Int(level + 6) >= 5 || (fcb != null && Random.Int(level + 6) >= 3)) {
             Buff.prolong(attacker, Paralysis.class, 2f);
 			CellEmitter.get(attacker.pos).start(EnergyParticle.FACTORY, 0.2f, 6);
 		}		

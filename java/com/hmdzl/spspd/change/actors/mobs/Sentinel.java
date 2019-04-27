@@ -19,6 +19,8 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Levitation;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Journal;
@@ -105,7 +107,7 @@ public class Sentinel extends Mob {
 
 	@Override
 	public int drRoll() {
-		return Dungeon.depth;
+		return Random.NormalIntRange(0,  Dungeon.depth);
 	}
 
 	@Override
@@ -116,6 +118,8 @@ public class Sentinel extends Mob {
 		}
 
 		super.damage(dmg, src);
+
+		Buff.prolong(this,Levitation.class,10f);
 	}
 
 	@Override

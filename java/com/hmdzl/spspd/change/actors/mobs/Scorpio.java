@@ -24,11 +24,13 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Cripple;
 import com.hmdzl.spspd.change.actors.buffs.Light;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Poison;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.change.items.potions.PotionOfHealing;
 
+import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.sprites.ScorpioSprite;
 import com.watabou.utils.Random;
 
@@ -65,11 +67,14 @@ public class Scorpio extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 16+adj(1);
+		return Random.NormalIntRange(10, 20);
 	}
 
     @Override
 	protected boolean canAttack(Char enemy) {
+		if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
 	}
 	

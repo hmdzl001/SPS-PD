@@ -35,7 +35,7 @@ public class PerfectFood extends CompleteFood {
 	
 	{
 		//name = "perfect food";
-		image = ItemSpriteSheet.ERROR_FOOD;
+		image = ItemSpriteSheet.PERFECT_FOOD;
 		energy = 600;
 		hornValue = 10;
 	}
@@ -46,8 +46,8 @@ public class PerfectFood extends CompleteFood {
 
 		if (action.equals(AC_EAT)){
 			hero.HT = hero.HT + (Random.Int(4, 8));
-			Buff.affect(hero, BerryRegeneration.class).level(5);
-			Buff.affect(hero, Bless.class,5f);
+			Buff.affect(hero, BerryRegeneration.class).level(10);
+			Buff.affect(hero, Bless.class,10f);
 			Buff.affect(hero, Light.class,50f);
 			hero.HP = Math.min(hero.HP + hero.HT/10, hero.HT);
 			Buff.affect(hero, Haste.class,5f);

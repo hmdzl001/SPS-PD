@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.items.potions;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
 import com.hmdzl.spspd.change.actors.hero.Hero;
@@ -42,6 +43,7 @@ public class PotionOfInvisibility extends Potion {
 	public void apply(Hero hero) {
 		setKnown();
 		Buff.affect(hero, Invisibility.class,  Dungeon.hero.buff(AutoHealPotion.class) != null ? Invisibility.DURATION*2 : Invisibility.DURATION);
+		Buff.affect(hero,AttackUp.class, 10f).level(20);
 		GLog.i(Messages.get(this, "invisible"));
 		Sample.INSTANCE.play(Assets.SND_MELD);
 	}

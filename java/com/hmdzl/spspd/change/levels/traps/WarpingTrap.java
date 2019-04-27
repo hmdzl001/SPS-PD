@@ -32,8 +32,11 @@ import com.hmdzl.spspd.change.items.Heap;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.artifacts.DriedRose;
 import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.change.items.scrolls.ScrollOfTeleportation;
+import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.InterlevelScene;
 import com.hmdzl.spspd.change.sprites.TrapSprite;
+import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -82,9 +85,26 @@ public class WarpingTrap extends Trap {
 				InterlevelScene.returnPos = -1;
 				Game.switchScene(InterlevelScene.class);
 			} else if (ch != null) {
-				ch.destroy();
-				ch.sprite.killAndErase();
-				Dungeon.level.mobs.remove(ch);
+			int count = 10;
+			int pos;
+			do {
+				pos = Dungeon.level.randomRespawnCell();
+				if (count-- <= 0) {
+					break;
+				}
+			} while (pos == -1);
+
+			if (pos == -1 || Dungeon.bossLevel()) {
+
+				GLog.w( Messages.get(ScrollOfTeleportation.class, "no_tele") );
+
+			} else {
+
+				ch.pos = pos;
+				ch.sprite.place(ch.pos);
+				ch.sprite.visible = Dungeon.visible[pos];
+
+			}
 			}
 
 		}

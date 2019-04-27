@@ -26,7 +26,6 @@ import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 import com.hmdzl.spspd.change.actors.buffs.Slow;
 import com.hmdzl.spspd.change.effects.particles.FlameParticle;
 import com.hmdzl.spspd.change.items.weapon.missiles.HugeShuriken;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.watabou.noosa.TextureFilm;

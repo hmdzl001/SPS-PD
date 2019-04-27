@@ -27,6 +27,7 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.Wandmaker;
 import com.hmdzl.spspd.change.effects.Halo;
 import com.hmdzl.spspd.change.effects.particles.FlameParticle;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.change.levels.Room.Type;
 import com.hmdzl.spspd.change.levels.traps.*;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -96,7 +97,7 @@ public class PrisonLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
-		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(1) == 0){addItemToSpawn(new Bomb());}
+		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(1) == 0){addItemToSpawn(new DungeonBomb());}
 		
 		super.createItems();
 

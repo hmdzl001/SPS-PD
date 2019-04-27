@@ -18,15 +18,23 @@
 package com.hmdzl.spspd.change.actors.mobs;
 
 import com.hmdzl.spspd.change.actors.blobs.ElectriShock;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Levitation;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
+import com.hmdzl.spspd.change.actors.buffs.Shocked;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.items.bags.HeartOfScarecrow;
 import com.hmdzl.spspd.change.items.wands.WandOfLightning;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentShock;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentShock2;
+import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.sprites.ScarecrowSprite;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.util.HashSet;
 
@@ -64,7 +72,14 @@ public class TestMob2 extends Mob {
 			state = HUNTING;
 		}
 		super.damage(dmg, src);
+		//Buff.prolong(this,Levitation.class,10f);
 		//Buff.prolong(this,ArmorBreak.class,10f).level(50);
+	}
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		Buff.prolong(enemy,Shocked.class,2f);
+		return damage;
 	}
 
 	@Override
@@ -84,8 +99,11 @@ public class TestMob2 extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
+				if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
-	}	
+	}
 
 	@Override
 	public void die(Object cause) {

@@ -19,6 +19,8 @@ package com.hmdzl.spspd.change.items.scrolls;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.buffs.ArmorBreak;
+import com.hmdzl.spspd.change.actors.buffs.AttackDown;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Drowsy;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
@@ -48,12 +50,16 @@ public class ScrollOfLullaby extends Scroll {
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 			if (Level.fieldOfView[mob.pos]) {
 				Buff.affect(mob, Drowsy.class);
+				Buff.affect(mob, AttackDown.class,10f).level(50);
+				Buff.affect(mob, ArmorBreak.class,10f).level(50);
 				mob.sprite.centerEmitter().start(Speck.factory(Speck.NOTE),
 						0.3f, 5);
 			}
 		}
 
 		Buff.affect(curUser, Drowsy.class);
+		Buff.affect(curUser, AttackDown.class,10f).level(20);
+		Buff.affect(curUser, ArmorBreak.class,10f).level(20);
 
 		GLog.i(Messages.get(this, "sooth"));
 

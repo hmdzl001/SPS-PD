@@ -26,6 +26,7 @@ import com.hmdzl.spspd.change.actors.blobs.StenchGas;
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.GasesImmunity;
+import com.hmdzl.spspd.change.actors.buffs.HighLight;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
@@ -116,6 +117,7 @@ public class PotionOfPurity extends Potion {
 	public void apply(Hero hero) {
 		GLog.w(Messages.get(this, "no_smell"));
 		Buff.prolong(hero, GasesImmunity.class, GasesImmunity.DURATION);
+		Buff.prolong(hero, HighLight.class, 10f);
 		setKnown();
 	}
 

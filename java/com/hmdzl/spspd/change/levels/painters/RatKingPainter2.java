@@ -18,13 +18,13 @@
 package com.hmdzl.spspd.change.levels.painters;
 
 import com.hmdzl.spspd.change.actors.mobs.npcs.RatKingDen;
-import com.hmdzl.spspd.change.items.ActiveMrDestructo;
+import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.change.items.eggs.Egg;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.Heap;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.bombs.SeekingClusterBombItem;
+
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Room;
 import com.hmdzl.spspd.change.levels.Terrain;
@@ -93,7 +93,7 @@ public class RatKingPainter2 extends Painter {
 			prize =  new ActiveMrDestructo();
 			break;
 		case 6:
-			prize =  new SeekingClusterBombItem();
+			prize =  Generator.random(Generator.Category.BOMBS);
 			break;
 		default:
 			prize = new Gold(Random.IntRange(1, 5));

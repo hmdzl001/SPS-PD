@@ -30,11 +30,14 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Amok;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Dewcharge;
+import com.hmdzl.spspd.change.actors.buffs.Disarm;
+import com.hmdzl.spspd.change.actors.buffs.Feed;
 import com.hmdzl.spspd.change.actors.buffs.Hunger;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.change.actors.buffs.Sleep;
 import com.hmdzl.spspd.change.actors.buffs.SoulMark;
+import com.hmdzl.spspd.change.actors.buffs.Taunt;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
@@ -50,6 +53,7 @@ import com.hmdzl.spspd.change.items.VioletDewdrop;
 import com.hmdzl.spspd.change.items.YellowDewdrop;
 import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.change.items.misc.LuckyBadge;
+import com.hmdzl.spspd.change.items.misc.Shovel;
 import com.hmdzl.spspd.change.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Level.Feeling;
@@ -222,9 +226,16 @@ public abstract class Mob extends Char {
 
 			HashSet<Char> enemies = new HashSet<Char>();
 
-			// if the mob is amoked...
-			if (buff(Amok.class) != null) {
+			/*if(buff(Taunt.class)!=null){
+				Char ch;
+                if( isTauntedBy(enemy) && enemy.isAlive() ){
+				return enemy;
+                }
+				else return null;
+			} else*/
 
+            // if the mob is amoked...
+			if (buff(Amok.class) != null) {
 				// try to find an enemy mob to attack first.
 				for (Mob mob : Dungeon.level.mobs)
 					if (mob != this && Level.fieldOfView[mob.pos]
@@ -302,7 +313,7 @@ public abstract class Mob extends Char {
 	}
 
 	protected boolean canAttack(Char enemy) {
-		return Level.adjacent(pos, enemy.pos) && !isCharmedBy(enemy);
+        return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy) && (buff(Disarm.class) == null));
 	}
 
 	protected boolean getCloser(int target) {
@@ -398,7 +409,7 @@ public abstract class Mob extends Char {
 	public int defenseProc(Char enemy, int damage) {
 		if (!enemySeen && enemy == Dungeon.hero) {
 			if (((Hero)enemy).subClass == HeroSubClass.ASSASSIN) {
-				damage *= 1.6f;
+				damage *= 1.5f;
 				Wound.hit(this);
 			} else {
 				Surprise.hit(this);
@@ -479,6 +490,9 @@ public abstract class Mob extends Char {
 			
 			if(Dungeon.hero.heroClass == HeroClass.PERFORMER){
 			Buff.affect(Dungeon.hero,Rhythm.class,10);
+			
+		   Shovel shovel = Dungeon.hero.belongings.getItem(Shovel.class);
+		   if (shovel!=null && shovel.charge<shovel.fullCharge) {shovel.charge+=5;}
 			//Buff.affect(Dungeon.hero,GlassShield.class).turns(3)
 			}
 		if(Dungeon.hero.subClass == HeroSubClass.SUPERSTAR){
@@ -486,12 +500,21 @@ public abstract class Mob extends Char {
 			Buff.affect(Dungeon.hero,Rhythm2.class,10);
 			
 		}
-
+		if(Dungeon.hero.buff(Feed.class)!=null){
+			Dungeon.hero.HT++;
+			//Buff.affect(Dungeon.hero,GlassShield.class).turns(3)
+		}
+		int exp1 = EXP;
+	
 			//if (Dungeon.hero.lvl <= maxLvl && EXP > 0) {
-				if (EXP > 0) {
-				Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "exp", EXP));
-				Dungeon.hero.earnExp(EXP);
-			}
+		if (EXP > 0) {	
+		
+		if (exp1 < EXP ) {
+			EXP = 0;
+		}
+			Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "exp", EXP));
+			Dungeon.hero.earnExp(EXP);
+		}
 		}
 	}
 	
@@ -549,7 +572,9 @@ public abstract class Mob extends Char {
 		for (Buff buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
 			bonus += ((LuckyBadge.GreatLucky) buff).level;
 		}
-
+		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
+			bonus += 5;
+		
 		lootChance += 0.02*bonus;
 		lootChanceOther += 0.02*bonus;
 

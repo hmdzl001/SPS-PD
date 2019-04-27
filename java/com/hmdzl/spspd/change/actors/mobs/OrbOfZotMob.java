@@ -61,7 +61,7 @@ public class OrbOfZotMob extends Mob {
     
 	@Override
 	public int drRoll() {
-		return 55;
+		return 0;
 	}
 
 	

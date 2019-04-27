@@ -32,7 +32,6 @@ import com.hmdzl.spspd.change.items.TenguKey;
 import com.hmdzl.spspd.change.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentLight;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
 import com.hmdzl.spspd.change.levels.PrisonBossLevel;
 import com.hmdzl.spspd.change.levels.traps.PoisonTrap;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -100,13 +99,13 @@ public class DemonFlower extends Mob {
 	
 	@Override
 	public int drRoll() {
-		return 1;
+		return Random.NormalIntRange(0, 5);
 	}
 
 	@Override
 	protected boolean doAttack(Char enemy) {
 		addDebuff--;
-		if (addDebuff <= 0 && Level.adjacent(pos, enemy.pos)) {
+		if (addDebuff <= 0 && Level.adjacent(pos, enemy.pos) && (buff(Silent.class) == null)) {
 			debuffadd();
 			return true;
 		} else {

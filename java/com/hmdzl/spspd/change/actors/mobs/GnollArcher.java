@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.TenguKey;
 import com.hmdzl.spspd.change.items.TreasureMap;
@@ -64,6 +65,10 @@ public class GnollArcher extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		Ballistica attack = new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE);
+				if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
+		
 		return !Level.adjacent(pos, enemy.pos) && attack.collisionPos == enemy.pos;
 	}
 

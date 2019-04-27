@@ -36,6 +36,7 @@ public class ProtectiveclothingArmor extends NormalArmor {
 	{
 		//name = "protectiveclothing armor";
 		image = ItemSpriteSheet.PRO_ARMOR;
+		STR -= 1;
 		MAX = 30;
 		MIN = 0;
 	}

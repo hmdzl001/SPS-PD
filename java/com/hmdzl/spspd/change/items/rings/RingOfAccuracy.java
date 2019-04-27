@@ -17,6 +17,10 @@
  */
 package com.hmdzl.spspd.change.items.rings;
 
+import com.hmdzl.spspd.change.messages.Messages;
+
+import java.text.DecimalFormat;
+
 public class RingOfAccuracy extends Ring {
 
 	{
@@ -24,6 +28,15 @@ public class RingOfAccuracy extends Ring {
 		initials = 0;
 	}
 
+	public String statsInfo() {
+		if (isIdentified()){
+			return Messages.get(this, "stats",level,new DecimalFormat("#.##").format(10f * (0.01*level)));
+		} else {
+			return "???";
+		}
+	}	
+		
+	
 	@Override
 	protected RingBuff buff() {
 		return new Accuracy();

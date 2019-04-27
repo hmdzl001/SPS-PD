@@ -3,6 +3,7 @@ package com.hmdzl.spspd.change.items.artifacts;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.BerryRegeneration;
@@ -14,6 +15,7 @@ import com.hmdzl.spspd.change.actors.buffs.Invisibility;
 import com.hmdzl.spspd.change.actors.buffs.MindVision;
 import com.hmdzl.spspd.change.actors.buffs.Strength;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.armor.normalarmor.ErrorArmor;
 import com.hmdzl.spspd.change.items.wands.WandOfError;
 import com.hmdzl.spspd.change.items.weapon.melee.special.ErrorW;
@@ -23,6 +25,7 @@ import com.hmdzl.spspd.change.scenes.LoadSaveScene;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -94,7 +97,7 @@ public class RobotDMT extends Artifact {
 						GLog.w(Messages.get(this,"preseverance"));
 						break;
 					case 4:
-						Buff.affect(hero, BerryRegeneration.class).level(5);
+						Buff.affect(hero, BerryRegeneration.class).level(20);
 						GLog.w(Messages.get(this,"kindness"));
 						break;
 					case 5:
@@ -136,9 +139,11 @@ public class RobotDMT extends Artifact {
 			Game.switchScene(LoadSaveScene.class);
 		} 	else if (action.equals(AC_ERROR)) {
 			curUser = hero;
+            curUser.spendAndNext(1f);
 			detach(curUser.belongings.backpack);
 			Dungeon.error = false;
-
+			Sample.INSTANCE.play(Assets.SND_BURNING);
+			hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 			switch (Random.Int(4)){
 				case 0:
 					Dungeon.level.drop(new ErrorW() ,Dungeon.hero.pos).sprite.drop();

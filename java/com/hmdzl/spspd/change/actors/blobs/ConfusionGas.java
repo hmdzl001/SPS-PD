@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.actors.blobs;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
 import com.hmdzl.spspd.change.effects.BlobEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
@@ -36,6 +37,7 @@ public class ConfusionGas extends Blob {
 			if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
 				if (!ch.immunities().contains(this.getClass()))
 					Buff.prolong(ch, Vertigo.class, 2);
+				    Buff.prolong(ch, Locked.class,2f);
 			}
 		}
 	}

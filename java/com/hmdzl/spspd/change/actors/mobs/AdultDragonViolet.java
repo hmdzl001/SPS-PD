@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
@@ -81,7 +82,7 @@ public class AdultDragonViolet extends Mob implements Callback{
 
 	@Override
 	public int drRoll() {
-		return 45;
+		return Random.NormalIntRange(20, 50);
 	}
 
 	
@@ -96,7 +97,9 @@ public class AdultDragonViolet extends Mob implements Callback{
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		  return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
+		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 
 	@Override
@@ -155,7 +158,7 @@ public class AdultDragonViolet extends Mob implements Callback{
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(Poison.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

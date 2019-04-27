@@ -33,6 +33,7 @@ abstract public class ClassSkill extends Item {
 	
 	{
 		defaultAction = AC_SPECIAL;
+		unique = true;
 		bones = false;
 	}
 
@@ -55,7 +56,10 @@ abstract public class ClassSkill extends Item {
 			break;
 		case PERFORMER:
 			classSkill = new PerformerSkill();
-			break;			
+			break;
+		case SOLDIER:
+			classSkill = new SoldierSkill();
+			break;
 		}
 
 		return classSkill;

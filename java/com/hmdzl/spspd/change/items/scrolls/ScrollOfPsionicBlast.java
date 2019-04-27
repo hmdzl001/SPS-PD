@@ -21,6 +21,7 @@ import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.Statistics;
+import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Blindness;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
@@ -55,9 +56,9 @@ public class ScrollOfPsionicBlast extends Scroll {
 		Invisibility.dispel();
 
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			if (Level.fieldOfView[mob.pos]) {
+			if (Level.fieldOfView[mob.pos] && !mob.properties().contains(Char.Property.BOSS)) {
 				mob.damage(mob.HT, this);
-			}
+			} else mob.damage(1, this);
 		}
 
 		curUser.damage(Math.max(curUser.HT / 5, curUser.HP / 2), this);

@@ -23,11 +23,12 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.Generator;
+import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.messages.Messages;
-import com.hmdzl.spspd.change.items.weapon.missiles.Knive;
 import com.hmdzl.spspd.change.sprites.BruteSprite;
 import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.utils.GLog;
@@ -50,7 +51,7 @@ public class Brute extends Mob {
 		loot = Gold.class;
 		lootChance = 0.5f;
 
-		lootOther = Generator.random(Knive.class);
+		lootOther = Generator.random(Generator.Category.RANGEWEAPON);
 		lootChanceOther = 0.5f; // by default, see die()
 		
 		properties.add(Property.GNOLL);
@@ -66,7 +67,7 @@ public class Brute extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return enraged ? Random.NormalIntRange(30+adj(0), 70+adj(0)) : Random.NormalIntRange(15+adj(0), 40+adj(0));
+		return enraged ? Random.NormalIntRange(25+adj(0), 60+adj(0)) : Random.NormalIntRange(10+adj(0), 35+adj(0));
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class Brute extends Mob {
 	}
 	@Override
 	public int drRoll() {
-		return 10+adj(0);
+		return Random.NormalIntRange(0, 10);
 	}
 
 	@Override
@@ -98,10 +99,12 @@ public class Brute extends Mob {
 		}
 	}
 	
-	@Override
-	protected boolean canAttack(Char enemy) {
+	/*@Override
+	protected boolean canAttack(Char enemy) {if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
-	}	
+	}	*/
 
 	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
 	static {

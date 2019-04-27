@@ -39,7 +39,7 @@ public class WeatherOfDead extends Blob {
 
 		Hero hero = Dungeon.hero;
 		if (hero.isAlive() && cur[hero.pos] > 0) {
-			Buff.prolong( hero, DeadRaise.class, DeadRaise.DURATION );
+			Buff.prolong( hero, DeadRaise.class, 2f );
 			Buff.detach(hero,Hot.class);
 		}
 

@@ -30,7 +30,7 @@ public class Herbmeat extends CompleteFood {
 
 	{
 		//name = "Herbmeat";
-		image = ItemSpriteSheet.ERROR_FOOD;
+		image = ItemSpriteSheet.HERB_MEAT;
 		energy = 180;
 		hornValue = 3;
 		bones = false;

@@ -23,9 +23,9 @@ import java.util.HashSet;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
-import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.change.actors.buffs.Amok;
+import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
 import com.hmdzl.spspd.change.actors.buffs.Charm;
@@ -34,33 +34,37 @@ import com.hmdzl.spspd.change.actors.buffs.Roots;
 import com.hmdzl.spspd.change.actors.buffs.Sleep;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
+import com.hmdzl.spspd.change.effects.Speck;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.change.levels.Level;
+import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.scenes.GameScene;
-import com.hmdzl.spspd.change.sprites.ErrorSprite;
 
+import com.hmdzl.spspd.change.sprites.SewerLasherSprite;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.change.actors.blobs.CorruptGas;
-import com.hmdzl.spspd.change.actors.buffs.Cripple;
-import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.buffs.Bleeding;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 
 public class UKing extends Mob {
 
 	protected static final float SPAWN_DELAY = 2f;
-	private static final String TXT_UNKNOW = "??? I know nothing about it ???";
 	
 	{
-		spriteClass = ErrorSprite.class;
+		spriteClass = SewerLasherSprite.class;
 		baseSpeed = 1f;
 
 		HP = HT = 1000;
 		EXP = 20;
 		evadeSkill = 5;
+		flying = true;
 
-		properties.add(Property.DWARF);
+		loot = new FourClover();
+		lootChance = 1f;
+
+		properties.add(Property.PLANT);
 		properties.add(Property.BOSS);
 	}
 
@@ -78,9 +82,51 @@ public class UKing extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 2;
+		return Random.NormalIntRange(0, 2);
 	}
-	
+
+	@Override
+	public boolean act() {
+
+		if (Level.flamable[pos] && HP < HT) {
+			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+			HP++;
+		}
+
+		if( 3 - breaks > 4 * HP / HT ) {
+			breaks++;
+			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
+				if (i == Terrain.EMPTY || i == Terrain.EMBERS
+						|| i == Terrain.EMPTY_DECO || i == Terrain.GRASS) {
+
+					Level.set(i, Terrain.HIGH_GRASS);
+
+				}
+			}
+			return true;
+		}
+
+		return super.act();
+	}
+
+	@Override
+	public void move(int step) {
+		super.move(step);
+
+		int[] cells = { step - 1, step + 1, step - Level.getWidth(),
+				step + Level.getWidth(), step - 1 - Level.getWidth(),
+				step - 1 + Level.getWidth(), step + 1 - Level.getWidth(),
+				step + 1 + Level.getWidth() };
+		int cell = cells[Random.Int(cells.length)];
+
+		if (cell == Terrain.EMPTY || cell == Terrain.EMBERS
+				|| cell == Terrain.EMPTY_DECO) {
+
+			Level.set(cell, Terrain.GRASS);
+
+		}
+	}
+
 	@Override
 	public float speed() {
 		if (breaks == 3) return 2*super.speed();
@@ -88,54 +134,27 @@ public class UKing extends Mob {
 	}
 
 	@Override
-    public boolean act() {
-
-        if( 3 - breaks > 4 * HP / HT ) {
-			breaks++;
-            return true;
-        } 
-		
-        return super.act();
-    }	
+	protected boolean canAttack(Char enemy) {
+		if (breaks >2){
+			return Dungeon.level.distance( pos, enemy.pos ) <= 3;}
+		else return Dungeon.level.distance( pos, enemy.pos ) <= 1;
+	}
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-	
-		if (breaks == 0){
-		    if (Random.Int(2) == 0) {
-			    if(enemy == Dungeon.hero){
-			      Buff.prolong(enemy, Cripple.class, 3 );
-			    }
-		    }
+		if (breaks >2){
+			if(Random.Int(5)>2){
+				Buff.prolong(enemy, Roots.class,2f);
+			} else Buff.affect(enemy, Poison.class).set(5);
 		}
-	
-		
-		if (breaks == 2){
-			if (Random.Int(2) == 0) {
-			    if(enemy == Dungeon.hero){
-			       Buff.prolong(enemy, Roots.class, 3 );
-			    }
-		    }
-		}
-		
-		if (breaks == 3){
-			if (Random.Int(2) == 0) {
-			    if(enemy == Dungeon.hero){
-			    Buff.prolong(enemy, Weakness.class, 3);
-			    }
-		    }
-		}
-
 		return damage;
 	}		
 	
 	@Override
 	public void damage(int dmg, Object src) {
 	
-        dmg = Random.Int(10,20);
-		if (dmg > 15){
-			GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
-		}
+        dmg = (int)(dmg*0.85);
+        Buff.affect(this, AttackUp.class,3f).level((int)(15*dmg/85));
 		super.damage(dmg, src);
 	}		
 	

@@ -273,7 +273,8 @@ public class InterlevelScene extends PixelScene {
 			}
 			GameLog.wipe();
 		} else {
-			DriedRose.holdGhostHero( Dungeon.level );
+			//DriedRose.holdGhostHero( Dungeon.level );
+			DriedRose.clearHeldGhostHero();
 			//Dungeon.saveLevel();
 			Dungeon.saveAll();
 		}
@@ -295,7 +296,8 @@ public class InterlevelScene extends PixelScene {
 	private void fall() throws IOException {
 
 		Actor.fixTime();
-		DriedRose.holdGhostHero( Dungeon.level );
+		DriedRose.clearHeldGhostHero();
+		//DriedRose.holdGhostHero( Dungeon.level );
 		//Dungeon.saveLevel();
 		Dungeon.saveAll();
 
@@ -312,8 +314,8 @@ public class InterlevelScene extends PixelScene {
 
 	private void ascend() throws IOException {
 		Actor.fixTime();
-		DriedRose.holdGhostHero( Dungeon.level );
-
+		//DriedRose.holdGhostHero( Dungeon.level );
+        DriedRose.clearHeldGhostHero();
 		Dungeon.saveAll();
 		//Dungeon.saveLevel();
 		if (Dungeon.depth == 41) {
@@ -334,8 +336,9 @@ public class InterlevelScene extends PixelScene {
 	private void returnTo() throws IOException {
 		checkPetPort();
 		Actor.fixTime();
-		DriedRose.holdGhostHero( Dungeon.level );
-       // Dungeon.hero.invisible=0;
+		DriedRose.clearHeldGhostHero();
+		//DriedRose.holdGhostHero( Dungeon.level );
+       //Dungeon.hero.invisible=0;
         Dungeon.saveAll();
 		Dungeon.depth = returnDepth;
 		Level level = Dungeon.loadLevel(Dungeon.hero.heroClass);
@@ -409,7 +412,8 @@ public class InterlevelScene extends PixelScene {
 	private void resurrect() throws IOException {
 
 		Actor.fixTime();
-        DriedRose.holdGhostHero( Dungeon.level );
+		DriedRose.clearHeldGhostHero();
+        //DriedRose.holdGhostHero( Dungeon.level );
 		
 		if (Dungeon.level.locked) {
 			Dungeon.hero.resurrect(Dungeon.depth);
@@ -425,8 +429,8 @@ public class InterlevelScene extends PixelScene {
 	private void reset() throws IOException {
 
 		Actor.fixTime();
-		DriedRose.holdGhostHero( Dungeon.level );
-
+		//DriedRose.holdGhostHero( Dungeon.level );
+        DriedRose.clearHeldGhostHero();
 		//SpecialRoom.resetPitRoom(Dungeon.depth+1);
 
 		Dungeon.depth--;
@@ -438,7 +442,8 @@ public class InterlevelScene extends PixelScene {
 
 	    checkPetPort();
 		Actor.fixTime();
-		DriedRose.holdGhostHero( Dungeon.level );
+		DriedRose.clearHeldGhostHero();
+		//DriedRose.holdGhostHero( Dungeon.level );
 		Dungeon.saveAll();
 				
 		Level level;
@@ -500,6 +505,7 @@ public class InterlevelScene extends PixelScene {
 	private void journalPortal(int branch) throws IOException {
 	    //checkPetPort();
 		Actor.fixTime();
+		DriedRose.clearHeldGhostHero();
 		//DriedRose.holdGhostHero( Dungeon.level );
 		Dungeon.saveAll();
 				
@@ -526,6 +532,7 @@ public class InterlevelScene extends PixelScene {
 	private void challengePortal(int branch) throws IOException {
 	    //checkPetPort();
 		Actor.fixTime();
+		DriedRose.clearHeldGhostHero();
 		//DriedRose.holdGhostHero( Dungeon.level );
 		Dungeon.saveAll();
 		Level level;

@@ -19,6 +19,8 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.buffs.Locked;
+import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
@@ -64,11 +66,14 @@ public class ThiefKing extends Mob implements Callback {
 
 	@Override
 	public int drRoll() {
-		return 14;
+		return Random.NormalIntRange(6, 14);
 	}
 
 	@Override
 	protected boolean canAttack(Char enemy) {
+		if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
 

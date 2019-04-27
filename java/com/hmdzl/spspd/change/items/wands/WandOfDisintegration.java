@@ -89,7 +89,7 @@ public class WandOfDisintegration extends DamageWand {
 			Dungeon.observe();
 		}
 		
-		int lvl = level + chars.size() + terrainBonus;
+		int lvl = Math.max(level - chars.size() , 1);
 		for (Char ch : chars) {
 			processSoulMark(ch, chargesPerCast());
 			ch.damage( (int)( damageRoll(lvl) * (1 + 0.1 * Dungeon.hero.magicSkill())), this );
@@ -99,7 +99,7 @@ public class WandOfDisintegration extends DamageWand {
 	}
 
 	private int distance() {
-		return level() + 2;
+		return Math.min(8,level() + 2);
 	}
 
 	@Override

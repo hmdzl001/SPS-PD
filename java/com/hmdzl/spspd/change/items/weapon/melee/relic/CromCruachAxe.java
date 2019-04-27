@@ -101,7 +101,7 @@ public class CromCruachAxe extends RelicMeleeWeapon {
 		@Override
 		public boolean act() {
 			if (charge < chargeCap) {
-				charge+=level;
+				charge+=Math.min(level, 10);
 				updateQuickslot();
 			}
 			spend(TICK);

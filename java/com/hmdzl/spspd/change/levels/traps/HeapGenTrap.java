@@ -17,23 +17,11 @@
  */
 package com.hmdzl.spspd.change.levels.traps;
 
-import com.hmdzl.spspd.change.Dungeon;
-import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.actors.Char;
-import com.hmdzl.spspd.change.actors.mobs.MrDestructo;
-import com.hmdzl.spspd.change.actors.mobs.npcs.MagicSheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanCorner;
-import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanStop;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanSwitch;
-import com.hmdzl.spspd.change.effects.CellEmitter;
-import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.change.items.armor.Armor;
-import com.hmdzl.spspd.change.scenes.GameScene;
-import com.hmdzl.spspd.change.utils.GLog;
- 
-import com.watabou.noosa.Camera;
+import com.hmdzl.spspd.change.items.wands.WandOfFlock;
 
 public class HeapGenTrap {
 
@@ -43,7 +31,7 @@ public class HeapGenTrap {
 
 	public static void trigger(int pos, Char ch) {
 
-		if (ch instanceof SheepSokoban || ch instanceof SheepSokobanCorner || ch instanceof SheepSokobanSwitch || ch instanceof MagicSheep){
+		if (ch instanceof SheepSokoban || ch instanceof SheepSokobanCorner || ch instanceof SheepSokobanSwitch || ch instanceof WandOfFlock.MagicSheep){
 			gen = true;		
 		}
 	}

@@ -30,6 +30,7 @@ import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.GasesImmunity;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
@@ -57,6 +58,7 @@ public class RecoilGlyph extends Glyph {
 		GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 
 		if (defender.isAlive() && (gdark != null || gice != null || glight != null || gfire != null || gearth != null || gelect != null ))
 		{
@@ -70,7 +72,7 @@ public class RecoilGlyph extends Glyph {
 		
 		int level = Math.max(0, armor.level);
 			
-		if (Random.Int( level + 5 ) >= 4){
+		if (Random.Int( level + 5 ) >= 4 || (fcb != null && Random.Int(level + 5) >= 2)){
 			int oppositeHero = attacker.pos + (attacker.pos - defender.pos);
 			Ballistica trajectory = new Ballistica(attacker.pos, oppositeHero, Ballistica.MAGIC_BOLT);
 			WandOfFlow.throwChar(attacker, trajectory, 2);

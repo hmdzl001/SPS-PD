@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.change.items.weapon.melee;
 
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.buffs.Vertigo;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.KindOfWeapon;
 import com.hmdzl.spspd.change.actors.Actor;
@@ -81,7 +82,7 @@ public class Wardurm extends MeleeWeapon {
 
 		
 		int p = defender.pos;
-		for (int n : Level.NEIGHBOURS8DIST2) {
+		for (int n : Level.NEIGHBOURS8) {
 			Char ch = Actor.findChar(n+p);
 			if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
 
@@ -90,6 +91,9 @@ public class Wardurm extends MeleeWeapon {
 				int effectiveDamage = Math.max( dmg - dr, 0 );
 
 				ch.damage( effectiveDamage/2, this );
+
+				Buff.prolong(ch, Vertigo.class, 3f);
+				Buff.prolong(ch, Terror.class, 3f).object = attacker.id();
 			}
 		}		
 

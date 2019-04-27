@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.items.scrolls;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Haste;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
@@ -51,6 +52,7 @@ public class ScrollOfTerror extends Scroll {
 			if (Level.fieldOfView[mob.pos]) {
 				Buff.affect(mob, Terror.class, Terror.DURATION).object = curUser
 						.id();
+				Buff.affect(mob, Haste.class, Terror.DURATION*.5f);
 
 				count++;
 				affected = mob;
@@ -81,6 +83,7 @@ public class ScrollOfTerror extends Scroll {
 				if (t != null){
 					Buff.prolong(mob, Terror.class, Terror.DURATION*1.5f);
 					Buff.affect(mob, Paralysis.class, Terror.DURATION*.5f);
+					Buff.affect(mob, Haste.class, Terror.DURATION*.5f);
 				}
 			}
 		}

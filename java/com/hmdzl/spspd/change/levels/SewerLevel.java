@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.mobs.GnollArcher;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Tinkerer1;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
 import com.hmdzl.spspd.change.items.DewVial;
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.change.items.quest.Mushroom;
 import com.hmdzl.spspd.change.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.change.items.food.fruit.Blueberry;
@@ -188,7 +189,7 @@ public class SewerLevel extends RegularLevel {
 		Ghost.Quest.spawn(this);
 		spawnGnoll(this);
 
-		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(3) == 0){addItemToSpawn(new Bomb());}
+		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(3) == 0){addItemToSpawn(new DungeonBomb());}
 		super.createItems();
 	}
 	

@@ -19,7 +19,7 @@ package com.hmdzl.spspd.change.items.bags;
 
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.ChallengeBook;
-import com.hmdzl.spspd.change.items.DolyaStale;
+import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.TenguKey;
 import com.hmdzl.spspd.change.items.keys.Key;
@@ -48,7 +48,7 @@ public class KeyRing extends Bag {
 			||  item instanceof ConchShell
 			||  item instanceof Bone
 			||  item instanceof TriForce
-			||  item instanceof DolyaStale
+			||  item instanceof DolyaSlate
 		    ||  item instanceof Ring 
 			||  item instanceof TreasureMap
 			||  item instanceof ChallengeBook

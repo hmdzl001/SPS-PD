@@ -67,7 +67,7 @@ public class FireElemental extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 5;
+		return Random.NormalIntRange(0, 5);
 	}
 
 	@Override

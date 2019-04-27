@@ -34,8 +34,8 @@ public class PoisonDart extends MissileWeapon {
 
 		STR = 10;
 
-		MIN = 2;
-		MAX = 4;
+		MIN = 1;
+		MAX = 5;
 	}
 
 	public PoisonDart() {
@@ -49,7 +49,7 @@ public class PoisonDart extends MissileWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		Buff.prolong(defender, Paralysis.class, DURATION);
+		Buff.prolong(defender, Paralysis.class, 30);
 		super.proc(attacker, defender, damage);
 	}
 
@@ -61,6 +61,6 @@ public class PoisonDart extends MissileWeapon {
 
 	@Override
 	public int price() {
-		return 8 * quantity;
+		return 10 * quantity;
 	}
 }

@@ -21,6 +21,7 @@ import java.util.HashSet;
 
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 import com.hmdzl.spspd.change.actors.buffs.Slow;
 import com.hmdzl.spspd.change.effects.particles.FlameParticle;
@@ -76,7 +77,7 @@ public class TenguDen extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 20;
+		return Random.NormalIntRange(10, 20);
 	}
 
 	
@@ -108,6 +109,9 @@ public class TenguDen extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
+				if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
 
@@ -196,7 +200,7 @@ public class TenguDen extends Mob {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(Poison.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

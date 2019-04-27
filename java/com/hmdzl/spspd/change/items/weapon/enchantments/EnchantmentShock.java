@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.effects.Lightning;
 import com.hmdzl.spspd.change.effects.particles.SparkParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.levels.Level;
@@ -45,6 +46,7 @@ public class EnchantmentShock extends Weapon.Enchantment {
 		// lvl 0 - 25%
 		// lvl 1 - 40%
 		// lvl 2 - 50%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.max(0, weapon.level);
 
 		if (Random.Int(level + 4) >= 3) {
@@ -56,6 +58,10 @@ public class EnchantmentShock extends Weapon.Enchantment {
 			affected.add(attacker);
 
 			hit(defender, Random.Int(1, damage / 2));
+			
+			if(fcb != null && Random.Int(2) == 1){
+			hit(defender, Random.Int(1, damage / 2));
+		    }
 
 			attacker.sprite.parent.add(new Lightning( attacker.pos, defender.pos, null ));
 

@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.SnipersMark;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.bags.Bag;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
@@ -109,7 +110,11 @@ public class Item implements Bundlable {
 
 			GameScene.pickUp(this);
 			Sample.INSTANCE.play(Assets.SND_ITEM);
+		    if (hero.heroClass == HeroClass.SOLDIER){
+				hero.belongings.observeS();
+			}
 			hero.spendAndNext(TIME_TO_PICK_UP);
+			
 			return true;
 
 		} else {
@@ -536,10 +541,15 @@ public class Item implements Bundlable {
 			}
 		}
 	}
+	
+	public int throwPos( Hero user, int dst){
+		return new Ballistica( user.pos, dst, Ballistica.PROJECTILE ).collisionPos;
+	}	
 
 	public void cast(final Hero user, int dst) {
 
-		final int cell = new Ballistica( user.pos, dst, Ballistica.PROJECTILE ).collisionPos;
+		final int cell = throwPos( user, dst );
+		//final int cell = new Ballistica( user.pos, dst, Ballistica.PROJECTILE ).collisionPos;
 		user.sprite.zap(cell);
 		user.busy();
 

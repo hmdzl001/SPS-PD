@@ -30,7 +30,6 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.AncientCoin;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
 import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.GoldThiefSprite;
 import com.hmdzl.spspd.change.messages.Messages;

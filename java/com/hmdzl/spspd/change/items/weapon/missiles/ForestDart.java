@@ -23,7 +23,6 @@ import com.hmdzl.spspd.change.actors.mobs.Bat;
 import com.hmdzl.spspd.change.actors.mobs.Brute;
 import com.hmdzl.spspd.change.actors.mobs.Gnoll;
 import com.hmdzl.spspd.change.actors.mobs.GoldThief;
-import com.hmdzl.spspd.change.actors.mobs.PoisonGoo;
 import com.hmdzl.spspd.change.actors.mobs.Rat;
 import com.hmdzl.spspd.change.actors.mobs.RatBoss;
 import com.hmdzl.spspd.change.actors.mobs.GnollShaman;
@@ -61,20 +60,14 @@ public class ForestDart extends MissileWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 		
 		
-       if (    defender instanceof Gnoll 
-    		|| defender instanceof GnollArcher  
-    		|| defender instanceof GnollShaman
-    		|| defender instanceof Brute
-    		|| defender instanceof Bat
-    		|| defender instanceof Rat
-    		|| defender instanceof RatBoss
-    		|| defender instanceof Assassin 
-    		|| defender instanceof Thief 
-    		|| defender instanceof GoldThief 
-    		|| defender instanceof PoisonGoo 
-    		|| defender instanceof Fiend
+       if (    defender.properties().contains(Char.Property.BOSS)
+    		|| defender.properties().contains(Char.Property.HUMAN)
+    		|| defender.properties().contains(Char.Property.GNOLL)
+    		|| defender.properties().contains(Char.Property.ORC)
+    		|| defender.properties().contains(Char.Property.BEAST)
+    		|| defender.properties().contains(Char.Property.PLANT)
     		){
-    	   defender.damage(Random.Int(damage*2,damage*5), this);
+    	   defender.damage(Random.Int(damage*5,damage*8), this);
        } else {
     	   defender.damage(Random.Int(damage,damage*2), this); 
        }

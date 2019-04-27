@@ -164,7 +164,10 @@ public class WndClass extends WndTabbed {
 					break;
 				case PERFORMER:
 					message = HeroSubClass.SUPERSTAR.desc() + "\n\n" + HeroSubClass.JOKER.desc();
-					break;					
+					break;
+				case SOLDIER:
+					message = HeroSubClass.AGENT.desc() + "\n\n" + HeroSubClass.LEADER.desc();
+					break;								
 			}
 
 			RenderedTextMultiline text = PixelScene.renderMultiline( 6 );

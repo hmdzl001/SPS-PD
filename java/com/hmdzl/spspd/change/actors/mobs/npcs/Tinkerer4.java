@@ -21,6 +21,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.scenes.GameScene;
+import com.hmdzl.spspd.change.sprites.NoodlemireSprite;
 import com.hmdzl.spspd.change.sprites.VillagerSprite;
  
 import com.hmdzl.spspd.change.windows.WndQuest;
@@ -31,7 +32,7 @@ public class Tinkerer4 extends NPC {
 
 	{
 		//name = "villager";
-		spriteClass = VillagerSprite.class;
+		spriteClass = NoodlemireSprite.class;
 		properties.add(Property.HUMAN);
 	}
 

@@ -31,11 +31,11 @@ import com.hmdzl.spspd.change.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.change.actors.buffs.armorbuff.GlyphLight;
 import com.hmdzl.spspd.change.actors.mobs.DwarfLich;
 import com.hmdzl.spspd.change.actors.mobs.Fiend;
-import com.hmdzl.spspd.change.actors.mobs.ShadowRat;
 import com.hmdzl.spspd.change.actors.mobs.Warlock;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
@@ -57,6 +57,7 @@ public class Darkglyph extends Glyph {
 	    GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 		
 		if (defender.isAlive() && gdark == null)
 		{
@@ -69,14 +70,14 @@ public class Darkglyph extends Glyph {
 		}
 	
 		int level = Math.max(0, armor.level);
-		if (Random.Int(level / 2 + 5) >= 4) {
+		if (Random.Int(level / 2 + 5) >= 8 || (fcb != null && Random.Int(level/2 + 5) >= 6)) {
 
 			int healing = Random.Int(attacker.HP/10);
 
 			if (healing > 0) {
-			defender.HP += Math.min(healing, defender.HT - defender.HP);
+			defender.HP += Random.Int(Math.min(healing, defender.HT - defender.HP)/2);
 			defender.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
-			defender.sprite.showStatus(CharSprite.POSITIVE,Integer.toString(healing));
+			//defender.sprite.showStatus(CharSprite.POSITIVE,Integer.toString(healing));
 			attacker.damage(healing, this);
 			}
 		}

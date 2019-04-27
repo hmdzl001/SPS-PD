@@ -119,7 +119,7 @@ import com.watabou.utils.SparseArray;
 public abstract class Level implements Bundlable {
 
 	public static enum Feeling {
-		NONE, CHASM, WATER, GRASS, DARK
+		NONE, CHASM, WATER, GRASS, DARK, TRAP
 	};
 
 	
@@ -133,6 +133,10 @@ public abstract class Level implements Bundlable {
 	public static int WIDTH = 48;
 	public static int HEIGHT = 48;
 	public static int LENGTH = WIDTH * HEIGHT;
+	
+	//public static int WIDTH = 50;
+	//public static int HEIGHT = 50;
+	//public static int LENGTH = (WIDTH-2) * (HEIGHT-2);	
 
 	public static final int[] NEIGHBOURS4 = { -getWidth(), +1, +getWidth(), -1 };
 	public static final int[] NEIGHBOURS8 = { +1, -1, +getWidth(), -getWidth(),
@@ -284,6 +288,8 @@ public abstract class Level implements Bundlable {
 			for (Buff buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
 				bonus += ((LuckyBadge.GreatLucky) buff).level;
 			}
+			if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
+			bonus += 5;
 			if (Random.Float() > Math.pow(0.95, bonus)) {
 				if (Random.Int(2) == 0)
 					addItemToSpawn(new ScrollOfMagicalInfusion());
@@ -321,7 +327,7 @@ public abstract class Level implements Bundlable {
 				  case 1:
 					feeling = Feeling.WATER;
 					break;
-				  case 2: case 3: case 4: 
+				  case 2: case 3: case 4:
 					feeling = Feeling.GRASS;
 					Dungeon.earlygrass = true;
 					break;
@@ -383,7 +389,7 @@ public abstract class Level implements Bundlable {
 			}else if (Dungeon.depth==32) {
 				feeling = Feeling.WATER;
 			} else if (Dungeon.depth==33) {
-				feeling = Feeling.CHASM;			
+				feeling = Feeling.TRAP;
 			}
 			
 		}
@@ -392,7 +398,7 @@ public abstract class Level implements Bundlable {
 
 		do {
 			Arrays.fill(map, feeling == Feeling.CHASM ? Terrain.CHASM
-					: Terrain.WALL);
+					: (feeling == Feeling.TRAP ? Terrain.TRAP_AIR : Terrain.WALL));
 
 			pitRoomNeeded = pitNeeded;
 			weakFloorCreated = false;
@@ -536,7 +542,7 @@ public abstract class Level implements Bundlable {
 	}
 
 	public int tunnelTile() {
-		return feeling == Feeling.CHASM ? Terrain.EMPTY_SP : Terrain.EMPTY;
+		return feeling == Feeling.CHASM ? Terrain.EMPTY_SP : (feeling == Feeling.TRAP  ? Terrain.EMPTY_SP : Terrain.EMPTY );
 	}
 
 	private void adjustMapSize() {
@@ -1390,6 +1396,11 @@ public abstract class Level implements Bundlable {
 			}						
 			break;
 
+		case Terrain.TRAP_AIR:
+		    trap = null;
+		    if (ch != null)
+            	AirTrap.trigger(cell,ch);
+            break;				
 			
 		case Terrain.HIGH_GRASS:
 			HighGrass.trample(this, cell, ch);
@@ -1554,6 +1565,11 @@ public abstract class Level implements Bundlable {
 		case Terrain.TRAP:
 			trap = traps.get( cell );
 			break;			
+			
+		case Terrain.TRAP_AIR:
+		    trap = null;
+            AirTrap.trigger(cell,mob);
+            break;				
 
 		case Terrain.DOOR:
 			Door.enter(cell);
@@ -1729,11 +1745,12 @@ public abstract class Level implements Bundlable {
 
 	public static boolean insideMap( int tile ){
 				//outside map array
-		return !((tile <= -1 || tile >= LENGTH) ||
+	    return !((tile <= -1 || tile >= LENGTH) ||
 				//top and bottom row
 				 (tile <= 47 || tile >= LENGTH - WIDTH) ||
 				//left and right column
 				(tile % WIDTH == 0 || tile % WIDTH == 47));
+			
 	}	
 	
 	public String tileName(int tile) {
@@ -1829,7 +1846,9 @@ public abstract class Level implements Bundlable {
 		//case Terrain.GRIPPING_TRAP:
 			//return "Gripping trap";
 		//case Terrain.SUMMONING_TRAP:
-			//return "Summoning trap";
+			//return "Summoning trap"
+        case Terrain.TRAP_AIR:
+        	return Messages.get(Level.class, "trap_air_name");
 		case Terrain.INACTIVE_TRAP:
 			return Messages.get(Level.class, "inactive_trap_name");
 		case Terrain.BOOKSHELF:
@@ -1878,7 +1897,8 @@ public abstract class Level implements Bundlable {
 		//case Terrain.ALARM_TRAP:
 		//case Terrain.LIGHTNING_TRAP:
 		//case Terrain.GRIPPING_TRAP:
-		//case Terrain.SUMMONING_TRAP:
+		case Terrain.TRAP_AIR:
+			return Messages.get(Level.class, "trap_air_desc");
 		case Terrain.FLEECING_TRAP:
 			return Messages.get(Level.class, "fleecing_trap_desc");
 	    case Terrain.CHANGE_SHEEP_TRAP:

@@ -62,7 +62,7 @@ public class Spinner extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 6+adj(0);
+		return Random.NormalIntRange(6, 10);
 	}
 
 	@Override

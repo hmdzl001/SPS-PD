@@ -10,6 +10,7 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.RedWraith;
@@ -17,6 +18,7 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.change.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.effects.particles.ShaftParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.armor.Armor;
@@ -29,6 +31,7 @@ import com.hmdzl.spspd.change.messages.Languages;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.scenes.PixelScene;
+import com.hmdzl.spspd.change.sprites.BeeSprite;
 import com.hmdzl.spspd.change.sprites.GhostSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
@@ -75,6 +78,7 @@ public class DriedRose extends Artifact {
 
 	public static final String AC_SUMMON = "SUMMON";
 	public static final String AC_OUTFIT = "OUTFIT";
+	public static final String AC_SOULBLESS = "SOULBLESS";
 
 	public DriedRose() {
 		super();
@@ -94,6 +98,8 @@ public class DriedRose extends Artifact {
 		if (isIdentified() && !cursed){
 			actions.add(AC_OUTFIT);
 		}
+		if (level > 0 && !isEquipped(hero) )
+			actions.add(AC_SOULBLESS);		
 		
 		return actions;
 	}
@@ -147,7 +153,15 @@ public class DriedRose extends Artifact {
 
 		} else if (action.equals(AC_OUTFIT)){
 			GameScene.show( new WndGhostHero(this) );
+		} else if (action.equals(AC_SOULBLESS)) {
+			curUser = hero;
+			Sample.INSTANCE.play(Assets.SND_BURNING);
+			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+            Buff.affect(curUser, Dewcharge.class,level*100f);
+			curUser.spendAndNext(1f);
+			detach(curUser.belongings.backpack);
 		}
+			
 	}
 
 	public int ghostStrength(){
@@ -279,7 +293,7 @@ public class DriedRose extends Artifact {
 			}
 
 			if (charge < chargeCap && !cursed ) {
-				partialCharge += 1/5f; //500 turns to a full charge
+				partialCharge += 2/5f; //250 turns to a full charge
 				if (partialCharge > 1){
 					charge++;
 					partialCharge--;
@@ -329,6 +343,7 @@ public class DriedRose extends Artifact {
 			}
 			if (rose.level >= rose.levelCap) {
 				GLog.i(Messages.get(this, "no_room"));
+				hero.spendAndNext(TIME_TO_PICK_UP);
 				return true;
 			} else {
 
@@ -489,11 +504,7 @@ public class DriedRose extends Artifact {
 		
 		@Override
 		public int defenseProc(Char enemy, int damage) {
-			//if (rose != null && rose.armor != null) {
-				//return rose.armor.proc( enemy, this, damage );
-			//} else {
 				return super.defenseProc(enemy, damage);
-			//}
 		}
 		
 		@Override
@@ -510,14 +521,14 @@ public class DriedRose extends Artifact {
 		
 		@Override
 		public int evadeSkill(Char enemy) {
-			int defense = super.evadeSkill(enemy);
-			return defense;
-		}
-		
-		@Override
-		public int stealth() {
-			int stealth = super.stealth();
-			return stealth;
+
+			int eva = Dungeon.hero.lvl + 4;
+
+			if (rose != null && rose.armor != null){
+				eva *= rose.armor.DEX;
+			}
+			//int defense = super.evadeSkill(enemy);
+			return eva;
 		}
 		
 		@Override
@@ -839,5 +850,6 @@ public class DriedRose extends Artifact {
 			resize(WIDTH, (int)(btnArmor.bottom() + GAP));
 		}
 	
-	}	
+	}
+
 }

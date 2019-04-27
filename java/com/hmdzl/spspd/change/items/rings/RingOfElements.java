@@ -26,6 +26,7 @@ import com.hmdzl.spspd.change.actors.blobs.ElectriShock;
 import com.hmdzl.spspd.change.actors.blobs.FrostGas;
 import com.hmdzl.spspd.change.actors.blobs.ParalyticGas;
 import com.hmdzl.spspd.change.actors.blobs.ShockWeb;
+import com.hmdzl.spspd.change.actors.blobs.SlowWeb;
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.change.actors.blobs.VenomGas;
 import com.hmdzl.spspd.change.actors.blobs.Web;
@@ -33,8 +34,12 @@ import com.hmdzl.spspd.change.actors.blobs.weather.WeatherOfRain;
 import com.hmdzl.spspd.change.actors.blobs.weather.WeatherOfSand;
 import com.hmdzl.spspd.change.actors.blobs.weather.WeatherOfSnow;
 import com.hmdzl.spspd.change.actors.blobs.weather.WeatherOfSun;
+import com.hmdzl.spspd.change.actors.buffs.Blindness;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Disarm;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Poison;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.actors.mobs.BrokenRobot;
 import com.hmdzl.spspd.change.actors.mobs.DM300;
 import com.hmdzl.spspd.change.actors.mobs.Eye;
@@ -46,6 +51,7 @@ import com.hmdzl.spspd.change.actors.mobs.Warlock;
 import com.hmdzl.spspd.change.actors.mobs.Yog;
 import com.hmdzl.spspd.change.levels.traps.LightningTrap;
 import com.hmdzl.spspd.change.levels.traps.SpearTrap;
+import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.utils.Random;
 
 public class RingOfElements extends Ring {
@@ -55,6 +61,15 @@ public class RingOfElements extends Ring {
 		initials = 1;
 	}
 
+	public String statsInfo() {
+		if (isIdentified()){
+			return Messages.get(this, "stats");
+		} else {
+			return "???";
+		}
+	}	
+		
+	
 	@Override
 	protected RingBuff buff() {
 		return new Resistance();
@@ -75,7 +90,12 @@ public class RingOfElements extends Ring {
 		FULL.add(FrostGas.class);
 		FULL.add(ConfusionGas.class);
 		FULL.add(ShockWeb.class);
+		FULL.add(SlowWeb.class);
 		FULL.add(Web.class);
+		FULL.add(Blindness.class);
+		FULL.add(Disarm.class);
+		FULL.add(Locked.class);
+		FULL.add(Silent.class);
 		FULL.add(WeatherOfRain.class);
 		FULL.add(WeatherOfSand.class);
 		FULL.add(WeatherOfSnow.class);

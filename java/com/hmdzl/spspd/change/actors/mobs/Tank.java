@@ -35,7 +35,6 @@ import com.hmdzl.spspd.change.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentLight;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
 import com.hmdzl.spspd.change.levels.PrisonBossLevel;
 import com.hmdzl.spspd.change.levels.traps.PoisonTrap;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -264,7 +263,7 @@ public class Tank extends Mob {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(Poison.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

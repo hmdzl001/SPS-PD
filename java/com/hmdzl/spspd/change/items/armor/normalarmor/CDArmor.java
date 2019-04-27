@@ -36,6 +36,8 @@ public class CDArmor extends NormalArmor {
 	{
 		//name = "cd armor";
 		image = ItemSpriteSheet.CD_ARMOR;
+		STR -= 1;
+		STR -= 1;
 		MAX = 15;
 		MIN = 0;
 	}

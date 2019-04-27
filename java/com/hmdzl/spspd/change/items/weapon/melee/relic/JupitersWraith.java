@@ -124,8 +124,8 @@ public class JupitersWraith extends RelicMeleeWeapon {
 				if (ch != null && ch!=Dungeon.hero) {
 					// those not at the center of the blast take damage less
 					// consistently.
-					int minDamage = MIN*2;
-					int maxDamage = MAX*4;
+					int minDamage = MIN;
+					int maxDamage = MAX;
 					                    
 					
 					int dmg = Random.NormalIntRange(minDamage, maxDamage) - Random.Int(ch.drRoll());
@@ -147,10 +147,7 @@ public class JupitersWraith extends RelicMeleeWeapon {
 		@Override
 		public boolean act() {
 			if (charge < chargeCap) {
-				charge+=level;
-				if (charge >= chargeCap) {
-					GLog.w(Messages.get(RelicMeleeWeapon.class,"fullcharge"));
-				}
+				charge+=Math.min(level, 10);
 				updateQuickslot();
 			}
 			spend(TICK);

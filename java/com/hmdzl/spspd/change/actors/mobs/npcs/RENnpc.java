@@ -79,7 +79,7 @@ public class RENnpc extends NPC {
 			Dungeon.challengebookdrop = true;
 			yell(Messages.get(this, "yell3"));	
 			
-		} else if(Dungeon.goeidrop == false && Statistics.archersKilled > 50 && Statistics.skeletonsKilled > 50 && Statistics.piranhasKilled > 50 && Statistics.goldThievesKilled > 50){
+		} else if(Dungeon.goeidrop == false && (Statistics.archersKilled > 50 && Statistics.skeletonsKilled > 50 && Statistics.albinoPiranhasKilled > 50 && Statistics.goldThievesKilled > 50)){
 			Dungeon.level.drop(new Goei(), Dungeon.hero.pos).sprite.drop();
 			Dungeon.goeidrop = true;
 			yell(Messages.get(this, "yell5"));

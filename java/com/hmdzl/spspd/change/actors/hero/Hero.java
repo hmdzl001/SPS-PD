@@ -23,19 +23,34 @@ import java.util.HashSet;
 
 import com.hmdzl.spspd.change.Challenges;
 import com.hmdzl.spspd.change.actors.buffs.Arcane;
+import com.hmdzl.spspd.change.actors.buffs.ArmorBreak;
+import com.hmdzl.spspd.change.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.change.actors.buffs.DeadRaise;
+import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.Dry;
 import com.hmdzl.spspd.change.actors.buffs.GlassShield;
+import com.hmdzl.spspd.change.actors.buffs.GoldTouch;
 import com.hmdzl.spspd.change.actors.buffs.HighLight;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Muscle;
+import com.hmdzl.spspd.change.actors.buffs.Notice;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
+import com.hmdzl.spspd.change.actors.buffs.Shocked;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
+import com.hmdzl.spspd.change.actors.buffs.Terror;
+import com.hmdzl.spspd.change.actors.buffs.WarGroove;
 import com.hmdzl.spspd.change.actors.mobs.SommonSkeleton;
-import com.hmdzl.spspd.change.items.DolyaStale;
+import com.hmdzl.spspd.change.effects.Lightning;
+import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.KindOfArmor;
 import com.hmdzl.spspd.change.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.change.items.misc.FourClover;
+import com.hmdzl.spspd.change.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.change.items.misc.JumpP;
+import com.hmdzl.spspd.change.items.misc.JumpS;
+import com.hmdzl.spspd.change.items.misc.PotionOfMage;
 import com.hmdzl.spspd.change.items.misc.Shovel;
 import com.hmdzl.spspd.change.items.rings.RingOfMagic;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
@@ -75,7 +90,6 @@ import com.hmdzl.spspd.change.effects.Flare;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Amulet;
 import com.hmdzl.spspd.change.items.Ankh;
-import com.hmdzl.spspd.change.items.DewVial;
 import com.hmdzl.spspd.change.items.Dewdrop;
 import com.hmdzl.spspd.change.items.eggs.Egg;
 import com.hmdzl.spspd.change.items.Heap;
@@ -114,7 +128,6 @@ import com.hmdzl.spspd.change.items.misc.JumpR;
 import com.hmdzl.spspd.change.items.misc.JumpH;
 import com.hmdzl.spspd.change.items.misc.Ankhshield;
 import com.hmdzl.spspd.change.items.OrbOfZot;
-import com.hmdzl.spspd.change.items.ActiveMrDestructo2;
 import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
@@ -166,6 +179,7 @@ public class Hero extends Char {
 	private static final String TXT_WAIT = "...";
 	private static final String TXT_SEARCH = "search";
 	//private static final String TXT_JUMP = "jump";
+	private static final String TXT_VALUE = "%+d";
 
 	public static final int STARTING_STR = 10;
 	public static final int STARTING_MAGIC = 0;
@@ -444,7 +458,7 @@ public class Hero extends Char {
 							+ bonus, (int) (str * 0.5f * bonus) + str * 2) : 1
 							: 0;
 		}
-		if (bonus > 0){ dmg *= Math.min(3f,(1f + (bonus/15)*1f));}
+		if (bonus > 0){ dmg *= Math.min(3f,(1f + (bonus*1.00/15)*1f));}
 		
 		if (dmg < 0)
 			dmg = 0;
@@ -453,8 +467,13 @@ public class Hero extends Char {
 		
 		if (buff(Strength.class) != null){ dmg *= 3f; Buff.detach(this, Strength.class);}
 		
+        if (buff(WarGroove.class) != null){ dmg *= 1.5f; Buff.detach(this, WarGroove.class);}
+		
 		if (buff(Dry.class) != null){ dmg *= 0.80f; }
 
+		if (buff(BloodAngry.class) != null){ dmg *= 1.50f; }
+
+		if (buff(Rhythm2.class) != null){ dmg *= 1.20f; }
 		/*AttackUp atkup = buff(AttackUp.class);
 		if (atkup != null) {
 			dmg *=(1f+atkup.level()*0.01f);
@@ -488,7 +507,7 @@ public class Hero extends Char {
 		
 		if (hasteLevel != 0) {
 			if (hasteLevel < 30){
-			    speed *= (1+(hasteLevel/10));
+			    speed *= (1+(hasteLevel*1.00/10));
 				}
             else speed *=4;
 	    }			
@@ -542,7 +561,7 @@ public class Hero extends Char {
 			for (Buff buff : buffs(RingOfFuror.Furor.class)) {
 				bonus += ((RingOfFuror.Furor) buff).level;
 			}
-			return (float) (0.20 + (1 - 0.20) * Math.pow(0.9, bonus));
+			return (float) (0.25 + (1 - 0.25) * Math.pow(0.9, bonus));
 		}
 	}
 
@@ -583,9 +602,9 @@ public class Hero extends Char {
 
 		Light light = buff(Light.class);
 		if (buff(HighLight.class) != null){
-            viewDistance = 8;
-            Dungeon.observe();
-        } else if ((Statistics.time > 360 && Statistics.time <601 ) || (Statistics.time > 840 && Statistics.time < 1081 )) {
+			viewDistance = 8;
+			Dungeon.observe();
+		} else if ((Statistics.time > 360 && Statistics.time <601 ) || (Statistics.time > 840 && Statistics.time < 1081 )) {
 			viewDistance = 6;
 			Dungeon.observe();
 		} else if (Statistics.time < 841 && Statistics.time > 600) {
@@ -616,7 +635,7 @@ public class Hero extends Char {
 			egg.moves++;
 		}
 		
-		DolyaStale journal = belongings.getItem(DolyaStale.class);
+		DolyaSlate journal = belongings.getItem(DolyaSlate.class);
 		if (journal!=null && (Dungeon.depth < 26) 
 				&& (journal.level>1 || journal.rooms[0]) 
 				&& journal.charge<journal.fullCharge){
@@ -643,7 +662,10 @@ public class Hero extends Char {
 
 		JumpP jumpp = belongings.getItem(JumpP.class);
 		if (jumpp!=null && jumpp.charge<jumpp.fullCharge) {jumpp.charge++;}
-						
+
+		JumpS jumps = belongings.getItem(JumpS.class);
+		if (jumps!=null && jumps.charge<jumps.fullCharge) {jumps.charge++;}
+		
 		Shovel shovel = belongings.getItem(Shovel.class);
 		if (shovel!=null && shovel.charge<shovel.fullCharge) {shovel.charge++;}		
 		
@@ -653,13 +675,17 @@ public class Hero extends Char {
          MissileShield missileshield = belongings.getItem(MissileShield.class);
 		if (missileshield!=null && missileshield.charge<missileshield.fullCharge) {missileshield.charge++;}
 
+		PotionOfMage pom = belongings.getItem(PotionOfMage.class);
+		if (pom!=null && pom.charge<pom.fullCharge) {pom.charge++;}
+
+		GunOfSoldier gos = belongings.getItem(GunOfSoldier.class);
+		if (gos!=null && gos.charge<gos.fullCharge) {gos.charge++;}
+
+
 		KindOfWeapon weapon = hero.belongings.weapon;
 		Goei goei = belongings.getItem(Goei.class);
 		if (weapon !=null && weapon instanceof Goei && goei.charge<goei.fullCharge) {goei.charge++;}
-	
-		ActiveMrDestructo2 ad2 = belongings.getItem(ActiveMrDestructo2.class);
-		if (ad2!=null && ad2.charge<ad2.fullCharge) {ad2.charge++;}
-	
+
         OrbOfZot ofz = belongings.getItem(OrbOfZot.class);
 		if (ofz!=null && ofz.charge<ofz.fullCharge) {ofz.charge++;}
 
@@ -1290,7 +1316,7 @@ public class Hero extends Char {
 
 		enemy = action.target;
 
-		if (enemy.isAlive() && canAttack( enemy ) && !isCharmedBy( enemy )) {
+		if (enemy.isAlive() && canAttack( enemy ) && !isCharmedBy( enemy ) && (buff(Disarm.class) == null)) {
 
 			Invisibility.dispel();
 			spend( attackDelay());
@@ -1298,7 +1324,7 @@ public class Hero extends Char {
 
 			return false;
 
-		} else {
+		} else  {
 
 			if (Level.fieldOfView[enemy.pos] && getCloser( enemy.pos )) {
 
@@ -1350,14 +1376,43 @@ public class Hero extends Char {
 			break;
 		case JOKER:
 			if ((wep instanceof MeleeWeapon || wep == null) && Random.Int(3)==1) {
+				switch (Random.Int (4)){
+					case 0:
 				int oppositeDefender = enemy.pos + (enemy.pos - pos);
 				Ballistica trajectory = new Ballistica(enemy.pos, oppositeDefender, Ballistica.MAGIC_BOLT);
 				WandOfFlow.throwChar(enemy, trajectory, 1);
+				break;
+					case 1:
+						Buff.prolong(enemy,Silent.class,5f);
+						break;
+					case 2:
+						Buff.prolong(enemy,Disarm.class,5f);
+						break;
+					case 3:
+						Buff.prolong(enemy,Locked.class,5f);
+						break;
+
+						default:
+							break;
+
 				}
+			}
 				break;
 		default:
 		}
-		
+		if (buff(Shocked.class)!=null){
+			Buff.detach(this,Shocked.class);
+			Buff.affect(this, Disarm.class,5f);
+			damage(this.HP/10,this);
+			ArrayList<Lightning.Arc> arcs = new ArrayList<>();
+			arcs.add(new Lightning.Arc(pos - Level.WIDTH, pos + Level.WIDTH));
+			arcs.add(new Lightning.Arc(pos - 1, pos + 1));
+			sprite.parent.add( new Lightning( arcs, null ) );
+		}
+		if (buff(GoldTouch.class)!=null){
+			Dungeon.gold+= damage;
+			hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, damage);
+		}
 		return damage;		
 
 	}
@@ -1386,6 +1441,35 @@ public class Hero extends Char {
 			arm.proc(enemy, this, damage);
 		}
 
+		switch (subClass) {
+			case LEADER:
+				switch (Random.Int (10)){
+					case 0:
+						int oppositeDefender = enemy.pos + (enemy.pos - pos);
+						Ballistica trajectory = new Ballistica(enemy.pos, oppositeDefender, Ballistica.MAGIC_BOLT);
+						WandOfFlow.throwChar(enemy, trajectory, 1);
+						break;
+					case 1:
+						Buff.prolong(enemy,Silent.class,5f);
+						break;
+					case 2:
+						Buff.prolong(enemy,Disarm.class,5f);
+						break;
+					case 3:
+						Buff.prolong(enemy,Terror.class,5f);
+						break;
+					case 4:
+						Buff.prolong(enemy,ArmorBreak.class,5f).level(35);
+						break;
+					case 5:
+						Buff.prolong(enemy,Locked.class,5f);
+						break;
+
+					default:
+						break;
+
+				}
+		}
 		return damage;
 	}
 
@@ -1411,10 +1495,11 @@ public class Hero extends Char {
 		}
 		
 		if (tenacity != 0) // (HT - HP)/HT = heroes current % missing health.
-			dmg = (int) Math.ceil(dmg * Math.max(0.60, (1-1/75*tenacity)));
+			dmg = (int) Math.ceil(dmg * Math.max(0.60, (1- 1.00*tenacity/75)));
 			
         if (buff(Fury.class) != null){dmg = (int) Math.ceil(dmg * 0.80);}
-		
+		if (buff(BloodAngry.class) != null){dmg = (int) Math.ceil(dmg * 0.80);}
+		if (buff(Rhythm2.class) != null){dmg = (int) Math.ceil(dmg * 0.90);}
 		//if (buff(Hot.class) != null){dmg = (int) Math.ceil(dmg * 1.20);}
 
 		/*DefenceUp drup = buff(DefenceUp.class);
@@ -1611,7 +1696,11 @@ public class Hero extends Char {
 
 	public void earnExp(int exp) {
 
+		int exp1 = this.exp;
 		this.exp += exp;
+		if (this.exp -exp != exp1 ) {
+			this.exp = 0;
+		}
 		float percent = exp/(float)maxExp();
 
 		EtherealChains.chainsRecharge chains = buff(EtherealChains.chainsRecharge.class);
@@ -1637,7 +1726,17 @@ public class Hero extends Char {
 			HP += 5;
 			hitSkill++;
 			evadeSkill++;}
-			
+			FourClover.FourCloverBless fcb = buff(FourClover.FourCloverBless.class);
+			if (fcb != null){
+				HT+=5;
+				magicSkill++;
+				Dungeon.gold+=1000;
+				hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, 1000);
+				
+			}
+			if (heroClass == HeroClass.SOLDIER){
+				HT+=3;
+			}
 			if (lvl < 10) {
 				updateAwareness();
 			}
@@ -1991,7 +2090,7 @@ public class Hero extends Char {
 		}
 
 		TalismanOfForesight.Foresight foresight = buff(TalismanOfForesight.Foresight.class);
-
+		boolean notice = buff(Notice.class) != null;
 		// cursed talisman of foresight makes unintentionally finding things
 		// impossible.
 		if (foresight != null && foresight.isCursed()) {
@@ -2008,7 +2107,7 @@ public class Hero extends Char {
 					}
 
 					if (Level.secret[p]
-							&& (intentional || Random.Float() < level)) {
+							&& (intentional || Random.Float() < level || notice)) {
 
 						int oldValue = Dungeon.level.map[p];
 

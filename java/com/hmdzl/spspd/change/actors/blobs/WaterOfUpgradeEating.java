@@ -30,6 +30,7 @@ import com.hmdzl.spspd.change.items.potions.Potion;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.plants.Plant;
+import com.hmdzl.spspd.change.plants.Seedpod;
 import com.watabou.utils.Random;
 
 public class WaterOfUpgradeEating extends WellWater {
@@ -77,7 +78,7 @@ public class WaterOfUpgradeEating extends WellWater {
 		
 		} else {
 			
-			n = (Plant.Seed) Generator.random(Category.SEEDRICH);
+			n =new Seedpod.Seed() ;
 		}
 		
 		return n;
@@ -90,7 +91,7 @@ public class WaterOfUpgradeEating extends WellWater {
 		if (Random.Float()<0.1f){
 			n = new UpgradeBlobYellow();
 		} else {
-			n = (Plant.Seed) Generator.random(Category.SEEDRICH);
+			n = new Seedpod.Seed() ;
 		}
 		
 		return n;

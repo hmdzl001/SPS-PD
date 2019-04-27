@@ -19,8 +19,11 @@ package com.hmdzl.spspd.change.ui;
 
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.DungeonTilemap;
+import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.levels.Level;
+import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.scenes.PixelScene;
 import com.hmdzl.spspd.change.windows.WndBag;
@@ -72,7 +75,15 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 			@Override
 			protected void onClick() {
 				if (targeting) {
-					GameScene.handleCell(lastTarget.pos);
+					int cell = autoAim(lastTarget);
+
+					if (cell != -1){
+						GameScene.handleCell(cell);
+					} else {
+						//couldn't auto-aim, just target the position and hope for the best.
+						GameScene.handleCell( lastTarget.pos );
+					}						
+					//GameScene.handleCell(lastTarget.pos);
 				} else {
 					Item item = select(slotNum);
 					if (item.usesTargeting)
@@ -114,8 +125,12 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 
 		slot.fill(this);
 
-		crossB.x = PixelScene.align(x + (width - crossB.width) / 2);
-		crossB.y = PixelScene.align(y + (height - crossB.height) / 2);
+		//crossB.x = PixelScene.align(x + (width - crossB.width) / 2);
+		//crossB.y = PixelScene.align(y + (height - crossB.height) / 2);
+		crossB.x = x + (width - crossB.width) / 2;
+		crossB.y = y + (height - crossB.height) / 2;
+		PixelScene.align(crossB);		
+		
 	}
 
 	@Override
@@ -161,7 +176,19 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 
 	private void useTargeting() {
 
-		if (lastTarget != null && lastTarget.isAlive() &&
+		//if (lastTarget != null && lastTarget.isAlive() &&
+				//Dungeon.visible[lastTarget.pos]) {
+
+			//targeting = true;
+			//lastTarget.sprite.parent.add( crossM );
+			//crossM.point( DungeonTilemap.tileToWorld( lastTarget.pos ) );
+			//crossB.x = x + (width - crossB.width) / 2;
+			//crossB.y = y + (height - crossB.height) / 2;
+			//crossB.visible = true;
+
+		if (lastTarget != null &&
+				//Actor.chars().contains( lastTarget ) &&
+				lastTarget.isAlive() &&
 				Dungeon.visible[lastTarget.pos]) {
 
 			targeting = true;
@@ -177,6 +204,25 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 			targeting = false;
 
 		}
+
+	
+	}
+		
+	public static int autoAim(Char target){
+		//first try to directly target
+		if (new Ballistica(Dungeon.hero.pos, target.pos, Ballistica.PROJECTILE).collisionPos == target.pos) {
+			return target.pos;
+		}
+
+		//Otherwise pick nearby tiles to try and 'angle' the shot, auto-aim basically.
+		for (int i : Level.NEIGHBOURS9DIST2) {
+			if (new Ballistica(Dungeon.hero.pos, target.pos+i, Ballistica.PROJECTILE).collisionPos == target.pos){
+				return target.pos+i;
+			}
+		}
+
+		//couldn't find a cell, give up.
+		return -1;
 	}
 	
 	public static void refresh() {

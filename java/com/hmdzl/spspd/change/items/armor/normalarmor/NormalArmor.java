@@ -105,7 +105,7 @@ import com.watabou.utils.Random;
 	}
 	
 	public int typicalSTR() {
-		return 7 + tier * 2;
+		return 8 + tier * 2;
 	}
 	
 	@Override
@@ -115,31 +115,31 @@ import com.watabou.utils.Random;
 		String info = desc();
 
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(Armor.class, "stats_known", tier, MIN, MAX, STR);
-			info += "\n\n" + Messages.get(Armor.class, "stats_known2",new DecimalFormat("#.##").format(DEX), new DecimalFormat("#.##").format(STE), ENG);
+			info += "\n\n" + Messages.get(NormalArmor.class, "stats_known", tier, MIN, MAX, STR);
+			info += "\n\n" + Messages.get(NormalArmor.class, "stats_known2",new DecimalFormat("#.##").format(DEX), new DecimalFormat("#.##").format(STE), ENG);
 		} else {
-			info += "\n\n" + Messages.get(Armor.class, "stats_unknown", tier, min(), max(), typicalSTR());
+			info += "\n\n" + Messages.get(NormalArmor.class, "stats_unknown", tier, min(), max(), typicalSTR());
 		}
 
 		String stats_desc = Messages.get(this, "stats_desc");
 		if (!stats_desc.equals("")) info+= "\n\n" + stats_desc;
 
 		if (glyph != null) {
-			info += "\n\n" +  Messages.get(Armor.class, "inscribed");
+			info += "\n\n" +  Messages.get(NormalArmor.class, "inscribed",glyph.desc());
 		}
 
 		if (reinforced) {
 			info += "\n\n" +  Messages.get(Item.class, "reinforced");
 		}
 
-		if (levelKnown && STR > Dungeon.hero.STR()) {
-			info += "\n\n" + Messages.get(Armor.class, "too_heavy");
+		if (levelKnown && STR() > Dungeon.hero.STR()) {
+			info += "\n\n" + Messages.get(NormalArmor.class, "too_heavy");
 		}
 
 		if (cursed && isEquipped( Dungeon.hero )) {
-			info += "\n\n" + Messages.get(Armor.class, "cursed_worn");
+			info += "\n\n" + Messages.get(NormalArmor.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
-			info += "\n\n" + Messages.get(Armor.class, "cursed");
+			info += "\n\n" + Messages.get(NormalArmor.class, "cursed");
 		}
 
 		return info;

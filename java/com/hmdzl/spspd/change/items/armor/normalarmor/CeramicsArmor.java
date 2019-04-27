@@ -36,6 +36,7 @@ public class CeramicsArmor extends NormalArmor {
 	{
 		//name = "ceramics armor";
 		image = ItemSpriteSheet.CERAMICS_ARMOR;
+		STR += 1;
 		MAX = 18;
 		MIN = 4;
 	}

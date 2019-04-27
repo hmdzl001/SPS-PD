@@ -101,7 +101,7 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
 
 	@Override
 	public int drRoll() {
-		return 20+adj(1);
+		return Random.NormalIntRange(10, 15);
 		//10
 	}
 
@@ -192,7 +192,7 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
 	static {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

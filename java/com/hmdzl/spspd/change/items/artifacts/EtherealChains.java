@@ -20,14 +20,20 @@
  */
 package com.hmdzl.spspd.change.items.artifacts;
 
+import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.AttackDown;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Cripple;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
+import com.hmdzl.spspd.change.actors.buffs.Slow;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.Chains;
 import com.hmdzl.spspd.change.effects.Pushing;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -35,6 +41,7 @@ import com.hmdzl.spspd.change.scenes.CellSelector;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
@@ -43,6 +50,7 @@ import java.util.ArrayList;
 public class EtherealChains extends Artifact {
 
 	public static final String AC_CAST       = "CAST";
+	public static final String AC_LOCKED = "LOCKED";
 
 	{
 		image = ItemSpriteSheet.ARTIFACT_CHAINS;
@@ -61,6 +69,8 @@ public class EtherealChains extends Artifact {
 		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped(hero) && charge > 0 && !cursed)
 			actions.add(AC_CAST);
+		if (isEquipped(hero) && level > 1 && !cursed)
+			actions.add(AC_LOCKED);		
 		return actions;
 	}
 
@@ -75,6 +85,17 @@ public class EtherealChains extends Artifact {
 			else if (cursed)                    GLog.w( Messages.get(this, "cursed") );
 			else {
 				GameScene.selectCell(caster);
+			}
+
+		} else if (action.equals(AC_LOCKED)){
+
+			curUser = hero;
+
+			if      (!isEquipped( hero ))       GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+			else if (charge < 1)                GLog.i( Messages.get(this, "no_charge") );
+			else if (cursed)                    GLog.w( Messages.get(this, "cursed") );
+			else {
+				GameScene.selectCell(locker);
 			}
 
 		} else
@@ -183,6 +204,38 @@ public class EtherealChains extends Artifact {
 		}
 	};
 
+	private CellSelector.Listener locker = new CellSelector.Listener(){
+
+		@Override
+		public void onSelect(Integer target) {
+			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
+
+				if (Actor.findChar( target ) != null){
+					Char mob = Actor.findChar(target);
+				Buff.affect(mob,Locked.class,level*4f);
+				Buff.affect(mob,Silent.class,level*4f);
+				Buff.affect(mob,AttackDown.class,level*4f).level(90);
+				Buff.affect(mob,Slow.class,level*4f);
+				level--;
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+                curUser.spendAndNext(1f);
+				updateQuickslot();	
+				
+				} else {
+					GLog.i( Messages.get(EtherealChains.class, "nothing_to_grab") );
+				}
+
+			}
+
+		}
+
+		@Override
+		public String prompt() {
+			return Messages.get(EtherealChains.class, "prompt");
+		}
+	};	
+	
 	@Override
 	protected ArtifactBuff passiveBuff() {
 		return new chainsRecharge();

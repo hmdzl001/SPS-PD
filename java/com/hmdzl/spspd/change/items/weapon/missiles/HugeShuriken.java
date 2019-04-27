@@ -21,11 +21,14 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.blobs.Fire;
+import com.hmdzl.spspd.change.actors.buffs.AttackDown;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class HugeShuriken extends MissileWeapon {
 
@@ -37,8 +40,6 @@ public class HugeShuriken extends MissileWeapon {
 
 		MIN = 2;
 		MAX = 6;
-
-		DLY = 0.5f;
 	}
 
 	public HugeShuriken() {
@@ -51,19 +52,18 @@ public class HugeShuriken extends MissileWeapon {
 	}
 
 	@Override
-	protected void onThrow(int cell) {
-		Char enemy = Actor.findChar(cell);
-		if ((enemy == null || enemy == curUser) && Level.flamable[cell])
-			GameScene.add(Blob.seed(cell, 4, Fire.class));
-		
-		else
-			super.onThrow(cell);
+	public void proc(Char attacker, Char defender, int damage) {
+		Buff.affect(defender, AttackDown.class,10f).level(30);
+		super.proc(attacker, defender, damage);
+	}
+	@Override
+	public Item random() {
+		quantity = Random.Int(3, 7);
+		return this;
 	}
 
 	@Override
-	public void proc(Char attacker, Char defender, int damage) {
-		Buff.affect(defender, Burning.class).reignite(defender);
-		super.proc(attacker, defender, damage);
+	public int price() {
+		return 10 * quantity;
 	}
-		
 }

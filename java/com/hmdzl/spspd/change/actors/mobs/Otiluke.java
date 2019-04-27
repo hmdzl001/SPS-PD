@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.items.food.completefood.Crystalnucleus;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
@@ -83,7 +84,7 @@ public class Otiluke extends Mob implements Callback {
 
 	@Override
 	public int drRoll() {
-		return 40;
+		return Random.NormalIntRange(20, 40);
 	}
 	
 	@Override
@@ -113,7 +114,9 @@ public class Otiluke extends Mob implements Callback {
 
 	
 	@Override
-	protected boolean canAttack(Char enemy) {
+	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 

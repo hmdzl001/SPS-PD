@@ -45,7 +45,7 @@ public class PatrolUAV extends Mob {
 	{
 		spriteClass = MrDestructoSprite.class;
 
-		HP = HT = 55+(Dungeon.depth*Random.NormalIntRange(1, 3));
+		HP = HT = 50+(Dungeon.depth*Random.NormalIntRange(1, 3));
 		evadeSkill = adj(1);
 		
 		EXP = 5;
@@ -74,7 +74,7 @@ public class PatrolUAV extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 10;
+		return Random.NormalIntRange(5, 10);
 	}
 	
 	@Override

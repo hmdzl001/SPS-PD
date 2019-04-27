@@ -7,9 +7,12 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.DungeonTilemap;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Chill;
 import com.hmdzl.spspd.change.actors.buffs.Cripple;
 import com.hmdzl.spspd.change.actors.buffs.Frost;
+import com.hmdzl.spspd.change.actors.buffs.Poison;
 import com.hmdzl.spspd.change.actors.buffs.Strength;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
@@ -25,6 +28,7 @@ import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.messages.Messages;
+import com.hmdzl.spspd.change.scenes.CellSelector;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
@@ -52,7 +56,7 @@ public class EyeOfSkadi extends Artifact {
 		chargeCap = 100;
 		
 
-		defaultAction = AC_BLAST;
+		defaultAction = AC_CURSE;
 	}
 
 	protected WndBag.Mode mode = WndBag.Mode.ALL;
@@ -61,15 +65,17 @@ public class EyeOfSkadi extends Artifact {
 	
 	public static final String AC_BLAST = "BLAST";
 	public static final String AC_ADD = "ADD";
-
+    public static final String AC_CURSE = "CURSE";
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && charge == 100 && !cursed)
-			actions.add(AC_BLAST);
+			actions.add(AC_CURSE);
 		if (isEquipped(hero) && level < levelCap && !cursed)
 			actions.add(AC_ADD);
+		if (isEquipped(hero) && level > 1 && !cursed)
+			actions.add(AC_BLAST);
 		return actions;
 	}
 
@@ -80,12 +86,12 @@ public class EyeOfSkadi extends Artifact {
    
 			if (!isEquipped(hero))
 				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
-			else if (charge != chargeCap)
-				GLog.i(Messages.get(this, "no_charge"));
 			else {
 				
 				blast(hero.pos);
-				charge = 0;
+				level--;
+				exp -=level;
+				Sample.INSTANCE.play(Assets.SND_BURNING);
 				updateQuickslot();
 				//GLog.p("Blast!");
 				CellEmitter.get(hero.pos).start(SnowParticle.FACTORY, 0.2f, 6);
@@ -94,32 +100,61 @@ public class EyeOfSkadi extends Artifact {
 			
 		} else if (action.equals(AC_ADD)) {
 			GameScene.selectItem(itemSelector, mode,Messages.get(this, "prompt"));
+		} else if (action.equals(AC_CURSE)) {
+			if (charge != chargeCap) {GLog.i(Messages.get(this, "no_charge"));}
+			else GameScene.selectCell(curser);
 		}
 	}
 	
-	private int distance() {
-		return (level() * 2)+1;
-	}
-	
+	private CellSelector.Listener curser = new CellSelector.Listener(){
+
+		@Override
+		public void onSelect(Integer target) {
+			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
+
+				if (Actor.findChar( target ) != null){
+					Char mob = Actor.findChar(target);
+				Buff.affect(mob,Poison.class).set(level*2f);
+				Buff.affect(mob,Frost.class,level*4f);
+				Buff.affect(mob,ArmorBreak.class,level*4f).level(80);
+				Buff.affect(mob,Chill.class,level*4f);
+				charge = 0;
+				curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				curUser.spendAndNext(1f);
+				updateQuickslot();	
+				
+				} else {
+					GLog.i( Messages.get(EtherealChains.class, "nothing_to_grab") );
+				}
+
+			}
+
+		}
+
+		@Override
+		public String prompt() {
+			return Messages.get(EtherealChains.class, "prompt");
+		}
+	};	
+
 	public int level(){
 		return level;
 	}
 	
 	public void blast(int cell) {
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			int dist = Level.distance(cell, mob.pos);
-			 if (dist<=distance()){
-			    mob.damage(Random.Int(level(),level()*level()+1), this);
-			    Buff.prolong(mob, Frost.class, Frost.duration(mob)* Random.Float(1f*level(), 1.5f*level()));
-				CellEmitter.get(mob.pos).start(SnowParticle.FACTORY, 0.2f, 6);
-			 } 
+
+			mob.damage(Random.Int(mob.HP/4,mob.HP/2 ), this);
+			Buff.prolong(mob, Frost.class, Frost.duration(mob)* Random.Float(1f*level(), 1.5f*level()));
+			CellEmitter.get(mob.pos).start(SnowParticle.FACTORY, 0.2f, 6);
+
 		}	
-		ringUsed();
+		eyeUsed();
 	}
 	
 	
 	
-	protected void ringUsed() {
+	protected void eyeUsed() {
 		
 		updateQuickslot();
 

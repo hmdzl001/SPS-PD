@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.change.items.food.staplefood;
 
+import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.change.actors.buffs.Bless;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
@@ -31,10 +32,14 @@ import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.FlameParticle;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.change.messages.Messages;
+import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.particles.Emitter;
 
 import java.util.Calendar;
+
+import static com.hmdzl.spspd.change.Dungeon.hero;
 
 public class Pasty extends StapleFood {
 
@@ -47,7 +52,8 @@ public class Pasty extends StapleFood {
 		EASTER, //TBD
 		HWEEN,//2nd week of october though first day of november
 		THANK,
-		XMAS //3rd week of december through first week of january
+		XMAS, //3rd week of december through first week of january
+		WORKER
 	}
 
 	private static Holiday holiday;
@@ -70,6 +76,9 @@ public class Pasty extends StapleFood {
 				break;
 			case Calendar.APRIL:
 					holiday = Holiday.EASTER;
+				break;
+			case Calendar.MAY:
+				holiday = Holiday.WORKER;
 				break;
 			case Calendar.JUNE:
 			case Calendar.JULY:
@@ -124,6 +133,10 @@ public class Pasty extends StapleFood {
 				name = Messages.get(this, "cane");
 				image = ItemSpriteSheet.CANDY_CANE;
 				break;
+			case WORKER:
+				name = Messages.get(this, "bread");
+				image = ItemSpriteSheet.BRICK;
+				break;
 		}
 
 		energy = 400;
@@ -164,6 +177,10 @@ public class Pasty extends StapleFood {
 					Buff.affect( hero, Recharging.class, 2f ); //half of a charge
 					ScrollOfRecharging.charge( hero );
 					break;
+				case WORKER:
+					Dungeon.gold +=1000;
+					GLog.p(Messages.get(Pasty.class,"worker"));
+					break;
 			}
 		}
 	}
@@ -185,6 +202,8 @@ public class Pasty extends StapleFood {
 			    return Messages.get(this, "turkey_desc");
 			case XMAS:
 				return Messages.get(this, "cane_desc");
+			case WORKER:
+				return Messages.get(this, "bread_desc");
 		}
 	}
 	

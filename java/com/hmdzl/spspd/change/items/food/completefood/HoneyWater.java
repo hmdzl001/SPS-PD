@@ -57,6 +57,6 @@ public class HoneyWater extends CompleteFood {
 
 	@Override
 	public int price() {
-		return 500 * quantity;
+		return 100 * quantity;
 	}
 }

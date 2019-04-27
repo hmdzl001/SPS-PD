@@ -25,7 +25,6 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.WellWater;
-import com.hmdzl.spspd.change.actors.mobs.npcs.MagicSheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Sheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanBlack;
@@ -37,6 +36,7 @@ import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.change.items.misc.LuckyBadge;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.change.items.wands.WandOfFlock;
 import com.hmdzl.spspd.change.levels.features.Chasm;
 import com.hmdzl.spspd.change.levels.features.Door;
 import com.hmdzl.spspd.change.levels.features.HighGrass;
@@ -197,7 +197,7 @@ public class SafeLevel extends Level {
 			
 		case Terrain.CHANGE_SHEEP_TRAP:
 			
-			if (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof MagicSheep){
+			if (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof WandOfFlock.MagicSheep){
 				trap = true;
 				ChangeSheepTrap.trigger(cell, ch);
 			}						
@@ -383,11 +383,11 @@ public class SafeLevel extends Level {
         int goldmin=1; int goldmax=10;
 		boolean ringDrop = false;
 		if (first){
-			goldmin=50; goldmax=100;
+			goldmin=25; goldmax=50;
 		}
 		 for (int i = 0; i < LENGTH; i++) {				
 				if (map[i]==Terrain.EMPTY && heaps.get(i) == null && Random.Int(100)>70){
-					if (first && !ringDrop){drop(new LuckyBadge(), i).type = Heap.Type.CHEST; ringDrop=true;}
+					if (first && !ringDrop){drop(new LuckyBadge().identify(), i).type = Heap.Type.CHEST; ringDrop=true;}
 				    else if (first && Random.Int(50)==0){drop(new ScrollOfUpgrade(), i).type = Heap.Type.CHEST;}
 					else {drop(new Gold(Random.Int(goldmin, goldmax)), i).type = Heap.Type.CHEST;}
 				}

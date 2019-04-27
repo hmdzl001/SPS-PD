@@ -26,12 +26,14 @@ import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.npcs.ImpShopkeeper;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Shopkeeper;
 import com.hmdzl.spspd.change.items.Ankh;
-import com.hmdzl.spspd.change.items.bombs.Bomb;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Heap;
-import com.hmdzl.spspd.change.items.bombs.Honeypot;
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
+import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
+import com.hmdzl.spspd.change.items.summon.CallCoconut;
+import com.hmdzl.spspd.change.items.summon.Honeypot;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.DolyaStale;
+import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.Stylus;
 import com.hmdzl.spspd.change.items.Torch;
 import com.hmdzl.spspd.change.items.Weightstone;
@@ -54,20 +56,17 @@ import com.hmdzl.spspd.change.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfIdentify;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicMapping;
+import com.hmdzl.spspd.change.items.scrolls.ScrollOfRemoveCurse;
+import com.hmdzl.spspd.change.items.summon.Mobile;
 import com.hmdzl.spspd.change.items.wands.Wand;
-import com.hmdzl.spspd.change.items.weapon.melee.Nunchakus;
-import com.hmdzl.spspd.change.items.weapon.melee.AssassinsBlade;
-import com.hmdzl.spspd.change.items.weapon.melee.Scimitar;
-import com.hmdzl.spspd.change.items.weapon.melee.Handaxe;
-import com.hmdzl.spspd.change.items.weapon.melee.Spear;
-import com.hmdzl.spspd.change.items.weapon.melee.Glaive;
-import com.hmdzl.spspd.change.items.weapon.melee.special.Pumpkin;
-import com.hmdzl.spspd.change.items.weapon.melee.special.Tree;
+import com.hmdzl.spspd.change.items.weapon.guns.GunA;
+import com.hmdzl.spspd.change.items.weapon.guns.GunB;
+import com.hmdzl.spspd.change.items.weapon.guns.GunC;
+import com.hmdzl.spspd.change.items.weapon.guns.GunD;
+import com.hmdzl.spspd.change.items.weapon.guns.GunE;
+import com.hmdzl.spspd.change.items.weapon.melee.special.Brick;
+import com.hmdzl.spspd.change.items.weapon.missiles.MiniMoai;
 import com.hmdzl.spspd.change.items.weapon.missiles.PocketBall;
-import com.hmdzl.spspd.change.items.weapon.missiles.PoisonDart;
-import com.hmdzl.spspd.change.items.weapon.missiles.IncendiaryDart;
-import com.hmdzl.spspd.change.items.weapon.missiles.Bola;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
 import com.hmdzl.spspd.change.levels.LastShopLevel;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Room;
@@ -127,8 +126,10 @@ public class ShopPainter extends Painter {
 
 		switch (Dungeon.depth) {
 		case 1:
-			itemsToSpawn.add(new Tree().identify());
-		    itemsToSpawn.add(new DolyaStale().identify());
+			itemsToSpawn.add(new GunA().identify());
+			//itemsToSpawn.add(new MiniMoai().identify());
+			itemsToSpawn.add(new Brick().identify());
+		    itemsToSpawn.add(new DolyaSlate().identify());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());
 			Dungeon.limitedDrops.journal.drop();
@@ -137,31 +138,19 @@ public class ShopPainter extends Painter {
 		case 6:
 			itemsToSpawn.add(new SafeSpotPage().identify());
 			Dungeon.limitedDrops.safespotpage.drop();
-			itemsToSpawn.add((Random.Int(2) == 0 ? new Handaxe()
-					: new Spear()) .identify());
-			itemsToSpawn.add(Random.Int(2) == 0 ? new IncendiaryDart()
-					.quantity(Random.NormalIntRange(2, 4)) : new PoisonDart()
-					.quantity(Random.NormalIntRange(1, 3)));
+			itemsToSpawn.add(new GunB().identify());
 			itemsToSpawn.add(new DiscArmor().identify());
 			break;
 
 		case 11:
 			itemsToSpawn.add(new Town().identify());
 			Dungeon.limitedDrops.town.drop();
-			itemsToSpawn.add((Random.Int(2) == 0 ?  new Scimitar() : new Nunchakus() )
-					.identify());
-			itemsToSpawn.add(Random.Int(2) == 0 ? new PoisonDart()
-					.quantity(Random.NormalIntRange(2, 5)) : new Shuriken()
-					.quantity(Random.NormalIntRange(3, 6)));
+			itemsToSpawn.add(new GunC().identify());
 			itemsToSpawn.add(new MailArmor().identify());
 			break;
 
 		case 16:
-			itemsToSpawn.add((Random.Int(2) == 0 ? new AssassinsBlade()
-					: new Glaive()).identify());
-			itemsToSpawn.add(Random.Int(2) == 0 ? new Shuriken()
-					.quantity(Random.NormalIntRange(4, 7)) : new Bola()
-					.quantity(Random.NormalIntRange(3, 6)));
+			itemsToSpawn.add(new GunD().identify());
 			itemsToSpawn.add(new ScaleArmor().identify());
 			break;
 
@@ -173,7 +162,7 @@ public class ShopPainter extends Painter {
 			//		.NormalIntRange(4, 7)));
 			//itemsToSpawn.add(new PlateArmor().identify());
 			//itemsToSpawn.add(new Torch());
-			itemsToSpawn.add(new Torch());
+			itemsToSpawn.add(new GunE().identify());
 			itemsToSpawn.add(new Torch());
 			itemsToSpawn.add(new CourageChallenge());
 			itemsToSpawn.add(new PowerChallenge());
@@ -184,41 +173,51 @@ public class ShopPainter extends Painter {
 		ChooseBag(Dungeon.hero.belongings);
 
 		itemsToSpawn.add(new PotionOfHealing());
-		for (int i = 0; i < 3; i++)
-			itemsToSpawn.add(Generator.random(Generator.Category.POTION));
+		for (int i = 0; i < 2; i++)
+		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
 
-		itemsToSpawn.add(new ScrollOfIdentify());
+		//itemsToSpawn.add(new ScrollOfIdentify());
 		//itemsToSpawn.add(new ScrollOfRemoveCurse());
 		itemsToSpawn.add(new ScrollOfMagicMapping());
+		for (int i = 0; i < 2; i++)
 		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
 		itemsToSpawn.add(new PocketBall());
-
+		itemsToSpawn.add(Generator.random(Generator.Category.BOMBS));
+		//for (int i = 0; i < 2; i++)
+		itemsToSpawn.add(Random.Int(2) == 0 ?
+				Generator.random(Generator.Category.POTION):
+		        Generator.random(Generator.Category.SCROLL));
 		for (int i = 0; i < 2; i++)
-			itemsToSpawn.add(Random.Int(2) == 0 ? Generator
-					.random(Generator.Category.POTION) : Generator
-					.random(Generator.Category.SCROLL));
-		
-		itemsToSpawn.add(new Bomb().random());
-		switch (Random.Int(5)) {
+		itemsToSpawn.add(Generator.random(Generator.Category.RANGEWEAPON));
+		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON));
+		//itemsToSpawn.add(new DungeonBomb().random());
+		switch (Random.Int(8)) {
 		case 1:
-			itemsToSpawn.add(new Bomb());
+			itemsToSpawn.add(new ActiveMrDestructo());
 			break;
 		case 2:
-			itemsToSpawn.add(new Bomb().random());
+			itemsToSpawn.add(new CallCoconut());
 			break;
 		case 3:
+			itemsToSpawn.add(new Mobile());
+			break;
 		case 4:
 			itemsToSpawn.add(new Honeypot());
 			break;
+		case 5:
+		case 6:
+		case 7:
+			itemsToSpawn.add(new DungeonBomb().random());
+			break;
 		}
 
-		if (Dungeon.depth == 6) {
+		//if (Dungeon.depth == 6) {
 			itemsToSpawn.add(new Ankh());
 			itemsToSpawn.add(new Weightstone());
-		} else {
-			itemsToSpawn.add(Random.Int(2) == 0 ? new Ankh()
-					: new Weightstone());
-		}
+		//} else {
+			//itemsToSpawn.add(Random.Int(2) == 0 ? new Ankh()
+					//: new Weightstone());
+		//}
 
 		TimekeepersHourglass hourglass = Dungeon.hero.belongings
 				.getItem(TimekeepersHourglass.class);
@@ -250,7 +249,7 @@ public class ShopPainter extends Painter {
 		}
 
 		Item rare;
-		switch (Random.Int(5)) {
+		switch (Random.Int(4)) {
 		case 0:
 			rare = Generator.random(Generator.Category.WAND);
 			rare.level = 0;

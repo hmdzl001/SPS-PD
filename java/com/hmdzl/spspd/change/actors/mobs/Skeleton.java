@@ -118,7 +118,7 @@ public class Skeleton extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 4+adj(0);
+	    return Random.NormalIntRange(2, 5);
 	}
 
 	@Override

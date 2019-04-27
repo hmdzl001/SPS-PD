@@ -30,10 +30,10 @@ public class Tamahawk extends MissileWeapon {
 		//name = "tomahawk";
 		image = ItemSpriteSheet.TOMAHAWK;
 
-		STR = 14;
+		STR = 16;
 
-		MIN = 10;
-		MAX = 15;
+		MIN = 70;
+		MAX = 140;
 	}
 
 	public Tamahawk() {
@@ -53,7 +53,7 @@ public class Tamahawk extends MissileWeapon {
 
 	@Override
 	public Item random() {
-		quantity = Random.Int(5, 12);
+		quantity = Random.Int(4, 8);
 		return this;
 	}
 

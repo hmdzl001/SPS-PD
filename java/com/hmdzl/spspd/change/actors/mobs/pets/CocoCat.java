@@ -22,7 +22,7 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.MagicalSleep;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
-import com.hmdzl.spspd.change.items.bombs.SmartBomb;
+import com.hmdzl.spspd.change.items.bombs.BuildBomb;
 import com.hmdzl.spspd.change.sprites.CoconutSprite;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.utils.Random;
@@ -110,7 +110,7 @@ public class CocoCat extends PET {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (cooldown==0) {
-		SmartBomb bomb = new SmartBomb();
+		BuildBomb bomb = new BuildBomb();
 		bomb.explode(enemy.pos);
 		cooldown=500;
 		}

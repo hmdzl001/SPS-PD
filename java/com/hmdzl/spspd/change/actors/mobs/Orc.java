@@ -62,7 +62,7 @@ public class Orc extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 32;
+		return Random.NormalIntRange(16, 32);
 	}
 	
 	@Override

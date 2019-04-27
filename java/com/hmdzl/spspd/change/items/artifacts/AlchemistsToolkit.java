@@ -6,6 +6,7 @@ import java.util.Collections;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.potions.Potion;
@@ -33,9 +34,11 @@ public class AlchemistsToolkit extends Artifact {
 
 		level = 0;
 		levelCap = 10;
+		defaultAction = AC_BREW;
 	}
 
 	public static final String AC_BREW = "BREW";
+	public static final String AC_CREATE = "CREATE";
 
 	// arrays used in containing potion collections for mix logic.
 	public final ArrayList<Class> combination = new ArrayList<>();
@@ -73,6 +76,8 @@ public class AlchemistsToolkit extends Artifact {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && level < levelCap && !cursed)
 			actions.add(AC_BREW);
+		if (level > 0 && !isEquipped(hero) )
+			actions.add(AC_CREATE);
 		return actions;
 	}
 
@@ -80,7 +85,16 @@ public class AlchemistsToolkit extends Artifact {
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_BREW)) {
 			GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
-		} else {
+		} else if (action.equals(AC_CREATE)) {
+			curUser = hero;
+			Sample.INSTANCE.play(Assets.SND_BURNING);
+			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+			curUser.spendAndNext(1f);
+			for(int i=0; i<level; i++) {
+            Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
+			}
+			detach(curUser.belongings.backpack);
+			} else {
 			super.execute(hero, action);
 		}
 	}

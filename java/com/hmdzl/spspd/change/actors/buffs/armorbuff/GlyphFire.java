@@ -10,7 +10,6 @@ import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.mobs.DwarfLich;
 import com.hmdzl.spspd.change.actors.mobs.Fiend;
 import com.hmdzl.spspd.change.actors.mobs.FireElemental;
-import com.hmdzl.spspd.change.actors.mobs.ShadowRat;
 import com.hmdzl.spspd.change.actors.mobs.Warlock;
 import com.hmdzl.spspd.change.actors.mobs.Yog;
 

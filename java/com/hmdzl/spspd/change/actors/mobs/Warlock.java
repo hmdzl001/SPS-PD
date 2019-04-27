@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
@@ -73,11 +74,13 @@ public class Warlock extends Mob implements Callback {
 
 	@Override
 	public int drRoll() {
-		return 8+adj(1);
+		return Random.NormalIntRange(4, 8);
 	}
 
 	@Override
-	protected boolean canAttack(Char enemy) {
+	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 

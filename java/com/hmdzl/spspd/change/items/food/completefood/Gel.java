@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.food.Food;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -38,7 +39,12 @@ public class Gel extends CompleteFood {
 		hornValue = 0;
 	}
 
+	private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing(0x0000FF);
 
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return BLUE;
+	}
 	@Override
 	public int price() {
 		return 50 * quantity;

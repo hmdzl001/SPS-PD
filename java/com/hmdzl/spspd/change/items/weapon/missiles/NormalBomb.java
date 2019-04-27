@@ -26,16 +26,15 @@ import com.watabou.utils.Random;
 
 public class NormalBomb extends MissileWeapon {
 	
-	public static final float DURATION = 3f;
 
 	{
 		//name = "Normal Bomb";
 		image = ItemSpriteSheet.BOMB;
 
-		STR = 13;
+		STR = 10;
 
-		MIN = 2;
-		MAX = 6;
+		MIN = 1;
+		MAX = 1;
 	}
 
 	public NormalBomb() {
@@ -49,18 +48,20 @@ public class NormalBomb extends MissileWeapon {
 	
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		Buff.prolong(defender, Paralysis.class, DURATION);
 		super.proc(attacker, defender, damage);
+		if(defender.properties().contains(Char.Property.BOSS)){
+			defender.damage(defender.HT/2,this);
+		}		
 	}
 
 	@Override
 	public Item random() {
-		quantity = Random.Int(5, 15);
+		quantity = Random.Int(1, 2);
 		return this;
 	}
 
 	@Override
 	public int price() {
-		return 6 * quantity;
+		return 20 * quantity;
 	}
 }

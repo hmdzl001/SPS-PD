@@ -78,7 +78,7 @@ public class SommonSkeleton extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 4+adj(0);
+		return Random.NormalIntRange(0, 4);
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class Spork extends MeleeWeapon {
 	}
 
 	public Spork() {
-		super(3, 1.0f, 0.4f, 1);
+		super(3, 1.0f, 0.5f, 1);
 	}
 
     @Override
@@ -47,7 +47,7 @@ public class Spork extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 		
         if (attacker.HP < attacker.HT){
-	        attacker.HP += Random.Int((attacker.HT)/15);
+	        attacker.HP += Random.Int((attacker.HT)/20);
 			attacker.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f,1);
 	    }
 	 	if (enchantment != null) {

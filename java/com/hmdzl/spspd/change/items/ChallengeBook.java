@@ -110,7 +110,7 @@ public class ChallengeBook extends Item {
 		actions.add(AC_RETURN);
 		}
 		//charge >= reqCharges() &&		
-		if (Dungeon.depth<26 && !hero.petfollow && (rooms[0])){
+		if (Dungeon.depth<26 && !hero.petfollow /*&& (rooms[0])*/){
 		actions.add(AC_PORT);
 		}
 				

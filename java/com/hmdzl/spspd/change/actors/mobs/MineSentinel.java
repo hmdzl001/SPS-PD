@@ -191,7 +191,7 @@ public class MineSentinel extends Mob {
 	@Override
 	public int drRoll() {
 		//return Dungeon.depth*3;
-		return 3;
+		return Random.NormalIntRange(3, 30);
 	}
 
 	@Override

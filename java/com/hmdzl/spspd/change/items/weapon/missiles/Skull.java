@@ -17,6 +17,9 @@
  */
 package com.hmdzl.spspd.change.items.weapon.missiles;
 
+import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.SoulMark;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -30,8 +33,7 @@ public class Skull extends MissileWeapon {
 		MIN = 1;
 		MAX = 4;
 
-		bones = false; // Finding them in bones would be semi-frequent and
-						// disappointing.
+		
 	}
 
 	public Skull() {
@@ -42,15 +44,21 @@ public class Skull extends MissileWeapon {
 		super();
 		quantity = number;
 	}
+	
+	@Override
+	public void proc(Char attacker, Char defender, int damage) {
+		super.proc(attacker, defender, damage);
+		Buff.affect(defender, SoulMark.class,10f);
+	}	
 
 	@Override
 	public Item random() {
-		quantity = Random.Int(5, 15);
+		quantity = Random.Int(3, 5);
 		return this;
 	}
 
 	@Override
 	public int price() {
-		return quantity * 2;
+		return quantity * 10;
 	}
 }

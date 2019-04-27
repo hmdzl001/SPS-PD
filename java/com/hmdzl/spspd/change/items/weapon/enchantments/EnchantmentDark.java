@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -46,9 +47,13 @@ public class EnchantmentDark extends Weapon.Enchantment {
 		// lvl 0 - 8%
 		// lvl 1 ~ 9%
 		// lvl 2 ~ 10%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.max(0, weapon.level);
 		int dmg = damage;
 		defender.damage(Random.Int(dmg/6), this);
+				if(fcb != null && Random.Int(2) == 1){
+			defender.damage(Random.Int(dmg/6), this);
+		}
 		if (Random.Int(level + 15) >= 15) {
             Buff.prolong(defender, Terror.class,5f);
             defender.sprite.emitter().burst(ShadowParticle.UP, 5);

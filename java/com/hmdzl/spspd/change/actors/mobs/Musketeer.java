@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.effects.particles.EnergyParticle;
 import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.sprites.MusketeerSprite;
@@ -53,7 +54,7 @@ public class Musketeer extends Mob {
 		loot = new StoneOre();
 		lootChance = 0.2f;
 		
-		lootOther = new Bomb();
+		lootOther = new DungeonBomb();
 		lootChanceOther = 0.1f; // by default, see die()
 		
 		properties.add(Property.DWARF);
@@ -112,7 +113,7 @@ public class Musketeer extends Mob {
 	
 	@Override
 	public int drRoll() {
-		return 1+adj(0);
+		return Random.NormalIntRange(5, 10);
 	}
 
     @Override

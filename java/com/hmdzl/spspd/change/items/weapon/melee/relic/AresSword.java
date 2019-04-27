@@ -92,7 +92,7 @@ public class AresSword extends RelicMeleeWeapon {
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_REGEN)) {
 			charge = 0;
-			Buff.affect(hero, BerryRegeneration.class).level(level*2);
+			Buff.affect(hero, BerryRegeneration.class).level(level);
 		} else
 			super.execute(hero, action);
 	}
@@ -103,7 +103,7 @@ public class AresSword extends RelicMeleeWeapon {
 		@Override
 		public boolean act() {
 			if (charge < chargeCap) {
-				charge+=level;
+				charge+=Math.min(level, 10);
 				updateQuickslot();
 			}
 			spend(TICK);

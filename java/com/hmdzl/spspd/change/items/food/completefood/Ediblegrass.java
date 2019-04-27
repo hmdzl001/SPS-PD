@@ -31,7 +31,7 @@ public class Ediblegrass extends CompleteFood {
 
 	{
 		//name = "ediblegrass";
-		image = ItemSpriteSheet.ERROR_FOOD;
+		image = ItemSpriteSheet.EAT_GRASS;
 		energy = 60;
 		hornValue = 3;
 		bones = false;

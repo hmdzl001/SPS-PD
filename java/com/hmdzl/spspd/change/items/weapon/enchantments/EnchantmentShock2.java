@@ -27,6 +27,7 @@ import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 import com.hmdzl.spspd.change.actors.buffs.Shocked;
 import com.hmdzl.spspd.change.effects.Lightning;
 import com.hmdzl.spspd.change.effects.particles.SparkParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.levels.Level;
@@ -48,10 +49,11 @@ private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing( 0x00FF00 );
 		// lvl 0 - 25%
 		// lvl 1 - 40%
 		// lvl 2 - 50%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.max(0, weapon.level);
 
-		if (Random.Int(level + 15) >= 15) {
-		Buff.affect(defender, Shocked.class);
+		if (Random.Int(level + 15) >= 15 || (fcb != null && Random.Int(level + 15) >= 10)) {
+		Buff.prolong(defender, Shocked.class,2f);
 		return true;
 		} else {
 			return false;

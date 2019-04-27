@@ -72,7 +72,7 @@ public class Eye extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 20+adj(1);
+		return Random.NormalIntRange(10, 20);
 	}
 
 	private int hitCell;

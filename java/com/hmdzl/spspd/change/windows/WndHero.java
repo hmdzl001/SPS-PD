@@ -37,8 +37,8 @@ import com.hmdzl.spspd.change.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.change.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfRecharging;
-import com.hmdzl.spspd.change.items.weapon.missiles.Knive;
 import com.hmdzl.spspd.change.items.food.completefood.Garbage;
+import com.hmdzl.spspd.change.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.items.food.meatfood.Meat;
 import com.hmdzl.spspd.change.items.food.meatfood.MysteryMeat;
@@ -216,14 +216,6 @@ public class WndHero extends WndTabbed {
 				    hide();
 					GameScene.show(new WndCatalogus());
 				};
-				@Override
-				protected boolean onLongClick() {
-					Hero heroToBuff = Dungeon.hero;
-					if (Level.water[heroToBuff.pos] && heroToBuff.belongings.armor == null ){
-					heroToBuff.heroClass.playtest(heroToBuff);
-					}
-					return true;
-				};
 			};
 			btnCatalogus.setRect(0, title.height(),
 					btnCatalogus.reqWidth() + 2, btnCatalogus.reqHeight() + 2);
@@ -315,13 +307,6 @@ public class WndHero extends WndTabbed {
 				protected void onClick() {
 					hide();
 					GameScene.show(new WndCatalogus());
-				};
-				@Override
-				protected boolean onLongClick() {
-					Hero heroToBuff = Dungeon.hero;
-					heroToBuff.heroClass.playtest(heroToBuff);
-					GLog.i("Playtest Activated");			
-					return true;
 				};
 			};
 			btnCatalogus.setRect(0, title.height(),
@@ -556,7 +541,7 @@ public class WndHero extends WndTabbed {
 			statSlot(Messages.get(this, "pet_attack"), heropet.hitSkill(null));
 			statSlot(Messages.get(this, "pet_hp"), heropet.HP + "/" + heropet.HT);
 			statSlot(Messages.get(this, "pet_kill"), heropet.kills);
-			statSlot(Messages.get(this, "pet_exp"), heropet.level<30 ? heropet.experience + "/" + (heropet.level*(heropet.level+1) ): Messages.get(this, "pet_level_max"));
+			statSlot(Messages.get(this, "pet_exp"), heropet.level<30 ? heropet.experience + "/" + (heropet.level*(heropet.level+1) ): "MAX");
 			statSlot(Messages.get(this, "pet_skills"), heropet.cooldown==0 ? Messages.get(this, "pet_skills_ready") : heropet.cooldown + Messages.get(this, "pet_skills_turn"));
 		
 			pos += GAP;
@@ -756,7 +741,7 @@ public class WndHero extends WndTabbed {
 			}
 		}	
 		if (petType==18){//stone
-			if (item instanceof Knive
+			if (item instanceof EscapeKnive
 				|| item instanceof PetFood
 				|| item instanceof StoneOre
 				|| item instanceof Garbage){

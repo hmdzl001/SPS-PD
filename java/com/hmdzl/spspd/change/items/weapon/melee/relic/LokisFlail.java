@@ -32,6 +32,7 @@ import com.hmdzl.spspd.change.actors.buffs.GasesImmunity;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
 import com.hmdzl.spspd.change.actors.buffs.MagicImmunity;
 import com.hmdzl.spspd.change.actors.buffs.Poison;
+import com.hmdzl.spspd.change.actors.buffs.Shadows;
 import com.hmdzl.spspd.change.actors.buffs.Slow;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Eye;
@@ -93,7 +94,7 @@ public class LokisFlail extends RelicMeleeWeapon {
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_STEALTH)) {
 			charge = 0;
-			Buff.affect(hero, Invisibility.class, Invisibility.DURATION);
+			Buff.affect(hero, Shadows.class, 10f);
 			Sample.INSTANCE.play(Assets.SND_MELD);
 
 		} else
@@ -106,7 +107,7 @@ public class LokisFlail extends RelicMeleeWeapon {
 		@Override
 		public boolean act() {
 			if (charge < chargeCap) {
-				charge+=level;
+				charge+=Math.min(level, 10);
 				updateQuickslot();
 			}
 			spend(TICK);

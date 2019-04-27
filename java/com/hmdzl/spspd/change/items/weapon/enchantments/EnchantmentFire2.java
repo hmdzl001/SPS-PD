@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.buffs.Tar;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.effects.particles.FlameParticle;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -45,7 +46,11 @@ public class EnchantmentFire2 extends Weapon.Enchantment {
 		// lvl 0 - 33%
 		// lvl 1 - 50%
 		// lvl 2 - 60%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int lvl = Math.max(0, weapon.level);
+				if(fcb != null && Random.Int(2) == 1){
+			defender.damage(Random.Int(damage/6), this);
+		}
 		if (defender.isAlive()){
 		Buff.prolong(defender, Hot.class,Math.min(30,lvl+1));
 		Buff.affect(defender, Tar.class);

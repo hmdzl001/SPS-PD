@@ -71,7 +71,7 @@ public class Sufferer extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 10;
+		return Random.NormalIntRange(0, 10);
 	}
 
 	@Override

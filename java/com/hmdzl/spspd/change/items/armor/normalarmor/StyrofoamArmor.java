@@ -37,6 +37,7 @@ public class StyrofoamArmor extends NormalArmor {
 	{
 		//name = "styrofoam armor";
 		image = ItemSpriteSheet.STY_ARMOR;
+		STR -= 1;
 		MAX = 22;
 		MIN = 0;
 	}

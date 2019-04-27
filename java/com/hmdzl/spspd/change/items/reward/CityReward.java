@@ -28,9 +28,10 @@ import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
-import com.hmdzl.spspd.change.items.bombs.DumplingBomb;
+
 import com.hmdzl.spspd.change.items.food.completefood.Crystalnucleus;
 import com.hmdzl.spspd.change.items.weapon.missiles.RiceBall;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -40,7 +41,12 @@ public class CityReward extends Item {
 	public static final String AC_USE = "USE";
 
 	public static final float TIME_TO_USE = 1;
+	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return YELLOW;
+	}
 	{
 		//name = "reward";
 		image = ItemSpriteSheet.PETFOOD;
@@ -66,7 +72,11 @@ public class CityReward extends Item {
 			hero.sprite.operate(hero.pos);
 
 			Crystalnucleus cry = new Crystalnucleus();
-			cry.doPickUp(Dungeon.hero);
+			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			detach(hero.belongings.backpack);
 

@@ -36,6 +36,7 @@ import com.hmdzl.spspd.change.actors.buffs.Levitation;
 import com.hmdzl.spspd.change.actors.buffs.Recharging;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -62,6 +63,7 @@ public class AdaptGlyph extends Glyph {
 		GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 
 		if (defender.isAlive() && (gdark != null || gice != null || glight != null || gfire != null || gearth != null || gelect != null ))
 		{
@@ -75,7 +77,7 @@ public class AdaptGlyph extends Glyph {
 		
 		int level = Math.max(0, armor.level);
 			
-		if (Random.Int(level + 5) >= 4) {
+		if (Random.Int(level + 5) >= 4 || (fcb != null && Random.Int(level + 5) >= 2)) {
 
 		if (Dungeon.level.map[defender.pos] == Terrain.GRASS) {
 			Buff.prolong(defender, EarthImbue.class,5f);

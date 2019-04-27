@@ -22,6 +22,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.buffs.Amok;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.actors.mobs.Mimic;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.effects.Speck;
@@ -46,6 +47,7 @@ public class ScrollOfRage extends Scroll {
 			mob.beckon(curUser.pos);
 			if (Level.fieldOfView[mob.pos]) {
 				Buff.prolong(mob, Amok.class, 5f);
+				Buff.affect(mob, Silent.class, 20f);
 			}
 		}
 
@@ -74,7 +76,8 @@ public class ScrollOfRage extends Scroll {
 	public void empoweredRead() {
 		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 			if (Level.fieldOfView[mob.pos]) {
-				Buff.prolong(mob, Amok.class, 5f);
+				Buff.prolong(mob, Amok.class, 10f);
+				Buff.affect(mob, Silent.class, 40f);
 			}
 		}
 		

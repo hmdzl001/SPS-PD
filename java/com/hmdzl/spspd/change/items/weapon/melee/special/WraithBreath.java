@@ -34,7 +34,7 @@ public class WraithBreath extends MeleeWeapon {
 	}
 
 	public WraithBreath() {
-		super(2, 0.8f, 1f, 5);
+		super(2, 0.75f, 1f, 4);
 	}
 
 	@Override

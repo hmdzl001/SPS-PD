@@ -33,6 +33,7 @@ import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.particles.SnowParticle;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
@@ -64,6 +65,7 @@ public class Iceglyph extends Glyph {
 	    GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);	
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 	
 		if (defender.isAlive() && gice == null)
 		{
@@ -81,7 +83,7 @@ public class Iceglyph extends Glyph {
 
 		int level = Math.max(0, armor.level);
 		
-		if (Random.Int(level + 6) >= 5) {
+		if (Random.Int(level + 6) >= 5 || (fcb != null && Random.Int(level + 6) >= 3)) {
             Buff.prolong(attacker, Frost.class, Frost.duration(attacker)* Random.Float(1f, 1.5f));
 			CellEmitter.get(attacker.pos).start(SnowParticle.FACTORY, 0.2f, 6);
 		}

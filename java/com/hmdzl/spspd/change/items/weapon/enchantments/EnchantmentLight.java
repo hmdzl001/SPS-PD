@@ -27,6 +27,7 @@ import com.hmdzl.spspd.change.actors.buffs.Cripple;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -47,10 +48,19 @@ private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 		// lvl 0 - 20%
 		// lvl 1 - 33%
 		// lvl 2 - 43%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.max(0, weapon.level);
 
 		int dmg = damage;
-		defender.damage(Random.Int(dmg/6), this);
+		defender.damage(Random.Int(dmg/6), this);		
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage(Random.Int(dmg/6), this);
+		}
+		if (Random.Int(level + 15) >= 30) {
+		if (defender.properties().contains(Char.Property.DEMONIC) || defender.properties().contains(Char.Property.UNDEAD)){
+			defender.damage((int)(damage*0.5),this);
+		    }
+		}
 
 		//if (Random.Int(level + 15) >= 15) {
 			//Buff.prolong(defender, Blindness.class,5f);

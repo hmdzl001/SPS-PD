@@ -48,6 +48,7 @@ public class Rapier extends MeleeWeapon {
     @Override
 	public Item upgrade(boolean enchant) {
         MIN+=2;
+        MAX+=2;
 		return super.upgrade(enchant);
     }	
 	

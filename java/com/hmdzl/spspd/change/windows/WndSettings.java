@@ -26,7 +26,6 @@ import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.scenes.PixelScene;
 import com.hmdzl.spspd.change.ui.CheckBox;
 import com.hmdzl.spspd.change.ui.RedButton;
-import com.hmdzl.spspd.change.ui.RedButton;
 import com.hmdzl.spspd.change.ui.Toolbar;
 import com.hmdzl.spspd.change.ui.Window;
 import com.watabou.noosa.Game;

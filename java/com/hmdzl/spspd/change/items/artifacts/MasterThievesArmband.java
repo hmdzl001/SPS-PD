@@ -1,9 +1,21 @@
 package com.hmdzl.spspd.change.items.artifacts;
 
+import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.GoldTouch;
+import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.CellEmitter;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.change.effects.particles.MemoryParticle;
+import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 /**
  * Created by debenhame on 03/09/2014.
@@ -18,10 +30,41 @@ public class MasterThievesArmband extends Artifact {
 		levelCap = 10;
 
 		charge = 0;
+		
+		defaultAction = AC_GOLDTOUCH;
 	}
 
 	private int exp = 0;
 
+	public static final String AC_GOLDTOUCH = "GOLDTOUCH";
+	
+	@Override
+	public ArrayList<String> actions(Hero hero) {
+		ArrayList<String> actions = super.actions(hero);
+		if (isEquipped(hero) && level > 1 && !cursed)
+		actions.add(AC_GOLDTOUCH);		
+		return actions;
+	}	
+	
+	@Override
+	public void execute(Hero hero, String action) {
+		super.execute(hero, action);
+        if (action.equals(AC_GOLDTOUCH)) {
+			if (!isEquipped(hero))
+				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
+			else {
+				Buff.affect(hero, GoldTouch.class,level*10f);
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+                level = 0;
+				hero.spend(1f);
+				hero.busy();
+				hero.sprite.operate(hero.pos);
+				updateQuickslot();	
+			}
+		}
+	}	
+	
 	@Override
 	protected ArtifactBuff passiveBuff() {
 		return new Thievery();
@@ -82,8 +125,8 @@ public class MasterThievesArmband extends Artifact {
 					exp += value;
 				//}
 			}
-			while (exp >= 600 && level < levelCap) {
-				exp -= 600;
+			while (exp >= 1000 && level < levelCap) {
+				exp -= 1000;
 				upgrade();
 			}
 			return true;

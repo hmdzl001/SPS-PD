@@ -31,10 +31,11 @@ import com.hmdzl.spspd.change.actors.blobs.WellWater;
 import com.hmdzl.spspd.change.actors.mobs.AdultDragonViolet;
 import com.hmdzl.spspd.change.actors.mobs.Piranha;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
-import com.hmdzl.spspd.change.actors.mobs.SandMob;
 import com.hmdzl.spspd.change.actors.mobs.TestMob;
 import com.hmdzl.spspd.change.actors.mobs.TestMob2;
+import com.hmdzl.spspd.change.actors.mobs.npcs.ARealMan;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Juh9870;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Kostis12345;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Lynn;
 import com.hmdzl.spspd.change.actors.mobs.npcs.OldNewStwist;
 import com.hmdzl.spspd.change.actors.mobs.npcs.OtilukeNPC;
@@ -50,6 +51,7 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.G2159687;
 import com.hmdzl.spspd.change.actors.mobs.npcs.ConsideredHamster;
 import com.hmdzl.spspd.change.actors.mobs.npcs.NYRDS;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Evan;
+import com.hmdzl.spspd.change.actors.mobs.npcs.UncleS;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Watabou;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Bilboldev;
 import com.hmdzl.spspd.change.actors.mobs.npcs.HBB;
@@ -70,7 +72,8 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.StormAndRain;
 import com.hmdzl.spspd.change.actors.mobs.npcs.HateSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.AliveFish;
 import com.hmdzl.spspd.change.actors.mobs.npcs.LaJi;
-import com.hmdzl.spspd.change.items.ActiveMrDestructo;
+import com.hmdzl.spspd.change.actors.mobs.npcs.WhiteGhost;
+import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.change.items.eggs.Egg;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Heap;
@@ -80,22 +83,17 @@ import com.hmdzl.spspd.change.items.AdamantArmor;
 import com.hmdzl.spspd.change.items.AdamantRing;
 import com.hmdzl.spspd.change.items.AdamantWand;
 import com.hmdzl.spspd.change.items.AdamantWeapon;
-import com.hmdzl.spspd.change.items.ArmorKit;
 import com.hmdzl.spspd.change.items.food.completefood.PetFood;
 import com.hmdzl.spspd.change.items.misc.SkillOfAtk;
 import com.hmdzl.spspd.change.items.misc.SkillOfDef;
 import com.hmdzl.spspd.change.items.misc.SkillOfMig;
 import com.hmdzl.spspd.change.items.quest.DarkGold;
-import com.hmdzl.spspd.change.items.bombs.Bomb;
-import com.hmdzl.spspd.change.items.bombs.ClusterBomb;
-import com.hmdzl.spspd.change.items.bombs.DizzyBomb;
-import com.hmdzl.spspd.change.items.bombs.DumplingBomb;
-import com.hmdzl.spspd.change.items.bombs.FishingBomb;
-import com.hmdzl.spspd.change.items.bombs.HolyHandGrenade;
-import com.hmdzl.spspd.change.items.bombs.Honeypot;
-import com.hmdzl.spspd.change.items.bombs.SeekingBombItem;
-import com.hmdzl.spspd.change.items.bombs.SeekingClusterBombItem;
-import com.hmdzl.spspd.change.items.bombs.SmartBomb;
+
+
+import com.hmdzl.spspd.change.items.summon.Honeypot;
+
+
+
 import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.change.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.change.items.potions.PotionOfMending;
@@ -103,7 +101,10 @@ import com.hmdzl.spspd.change.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfRegrowth;
+import com.hmdzl.spspd.change.items.weapon.guns.ToyGun;
+import com.hmdzl.spspd.change.items.weapon.melee.special.Brick;
 import com.hmdzl.spspd.change.items.weapon.melee.special.FireCracker;
+import com.hmdzl.spspd.change.items.weapon.melee.special.HookHam;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.change.items.weapon.melee.special.RunicBlade;
 import com.hmdzl.spspd.change.items.weapon.melee.special.TestWeapon;
@@ -344,7 +345,7 @@ public class TownLevel extends Level {
 			prize = new ScrollOfUpgrade();
 			break;
 		case 1:
-			prize = new ScrollOfUpgrade();
+			prize = new ScrollOfMagicalInfusion();
 			break;
 		case 2:
 			prize = new ScrollOfRegrowth();
@@ -368,7 +369,7 @@ public class TownLevel extends Level {
 			prize = new RunicBlade();
 			break;
 		case 9:
-			prize = new ScrollOfMagicalInfusion();
+			prize = Generator.random(Generator.Category.RANGEWEAPON);
 			break;
 		default:
 			prize = new ScrollOfUpgrade();
@@ -386,34 +387,18 @@ public class TownLevel extends Level {
 			prize = new Ankh();
 			break;
 		case 1:
-			prize = new Bomb();
-			break;
 		case 2:
-			prize = new ClusterBomb();
-			break;
 		case 3:
-			prize = new DizzyBomb();
-			break;
-		case 4:
-			prize = new DumplingBomb();
-			break;			
+		case 4:		
 		case 5:
-			prize = new FishingBomb();  
-			break;
 		case 6:
-			prize = new HolyHandGrenade();
-			break;
 		case 7:
-			prize = new Honeypot();
-			break;
 		case 8:
-			prize = new SeekingBombItem();
-			break;			
-		case 9:
-			prize = new SeekingClusterBombItem();
-			break;			
+		case 9:	
+            prize = Generator.random(Generator.Category.BOMBS);
+            break;					
 		case 10:
-			prize = new SmartBomb();
+			prize =  new Honeypot();
 			break;			
 		default:
 			prize = new Ankh();
@@ -478,7 +463,7 @@ public class TownLevel extends Level {
 
 	public Item storeItem7 (){
 		Item prize;
-		switch (Random.Int(5)) {
+		switch (Random.Int(8)) {
 			case 0:
 				prize = new Pumpkin();
 				break;
@@ -493,6 +478,15 @@ public class TownLevel extends Level {
 				break;
 			case 4:
 				prize = new TestWeapon();
+				break;
+			case 5:
+				prize = new ToyGun();
+				break;
+			case 6:
+				prize = new HookHam();
+				break;
+			case 7:
+				prize = new Brick();
 				break;
 			default:
 				prize = new PetFood();
@@ -564,10 +558,19 @@ public class TownLevel extends Level {
 	  bilboldev.pos = 24 + WIDTH * 10;
 	  mobs.add(bilboldev);  
 	  
-      if(Badges.checkTombRescued()){
+      if(Badges.checkTombRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)){
 	  Mob watabou = new Watabou();
 	  watabou.pos = 42 + WIDTH * 42;
-	  mobs.add(watabou); 
+	  mobs.add(watabou);
+
+		  Mob realman = new ARealMan();
+		  realman.pos = 44 + WIDTH * 45;
+		  mobs.add(realman);
+
+		  Mob wg = new WhiteGhost();
+		  wg.pos = 45 + WIDTH * 44;
+		  mobs.add(wg);
+
 	  }
 
       Mob nyrds = new NYRDS();
@@ -589,6 +592,10 @@ public class TownLevel extends Level {
       Mob jinkeloid = new Jinkeloid();
 	  jinkeloid.pos = 43 + WIDTH * 14;
 	  mobs.add(jinkeloid);
+
+	  Mob uncles = new UncleS();
+	  uncles.pos = 43 + WIDTH * 19;
+	  mobs.add(uncles);
 
       Mob rustyblade = new Rustyblade();
 	  rustyblade.pos = 40 + WIDTH * 15;
@@ -667,6 +674,10 @@ public class TownLevel extends Level {
 	  Mob REN = new RENnpc();
 	  REN.pos = 28 + WIDTH * 27;
 	  mobs.add(REN);
+
+	  Mob KOSTIS = new Kostis12345();
+	  KOSTIS.pos = 20 + WIDTH * 25;
+	  mobs.add(KOSTIS);
 
 	  Mob JUH = new Juh9870();
 	  JUH.pos = 35 + WIDTH * 6;

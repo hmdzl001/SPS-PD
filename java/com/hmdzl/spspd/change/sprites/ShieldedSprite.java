@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.change.sprites;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.items.weapon.missiles.Knive;
+import com.hmdzl.spspd.change.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.change.levels.Level;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;
@@ -55,7 +55,7 @@ public class ShieldedSprite extends MobSprite {
 		if (!Level.adjacent(cell, ch.pos)) {
 
 			((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
-					cell, new Knive(), new Callback() {
+					cell, new EscapeKnive(), new Callback() {
 						@Override
 						public void call() {
 							ch.onAttackComplete();

@@ -45,7 +45,9 @@ public class TownLayouts {
     private static final int G = Terrain.STATUE_SP;
 	private static final int C = Terrain.TENT;
 	private static final int H = Terrain.BED;
-	private static final int I =Terrain.EMBERS;
+	private static final int I = Terrain.EMBERS;
+	
+	//private static final int V = Terrain.TRAP_AIR;
 	
 	
 	public static final int[] TOWN_LAYOUT =	{     
@@ -93,8 +95,8 @@ public class TownLayouts {
 		M, 	M, 	W, 	I, 	F, 	F, 	F, 	F, 	W, 	F, 	F, 	W, 	M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	Z, 	Z, 	Z, 	Z, 	Z, 	Z, 	Z, 	W, 	W, 	W, 	M,
 		M, 	M, 	W, 	F, 	F, 	F, 	F, 	I, 	F, 	F, 	F, 	S, 	T, 	T, 	T, 	T, 	M, 	I, 	I, 	I, 	I, 	I, 	I, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	C, 	E, 	E, 	Z, 	Z, 	Z, 	Z, 	Z, 	W, 	S, 	W, 	Z, 	W, 	M,
 		M, 	M, 	W, 	F, 	F, 	F, 	F, 	F, 	W, 	F, 	F, 	W, 	M, 	M, 	M, 	M, 	M, 	O, 	I, 	I, 	I, 	I, 	O, 	E, 	E, 	E, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	Z, 	Z, 	Z, 	Z, 	Z, 	S, 	Z, 	Z, 	Z, 	W, 	M,
-		M, 	M, 	W, 	F, 	F, 	F, 	F, 	F, 	W, 	F, 	I, 	W, 	M, 	M, 	M, 	M, 	M, 	O, 	I, 	I, 	I, 	I, 	O, 	E, 	E, 	M, 	M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	Z, 	Z, 	Z, 	W, 	M,
-		M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M, 	M, 	M, 	M, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	E, 	E, 	E, 	M, 	M, 	M, 	M, 	M, 	M, 	W, 	Z, 	Z, 	Z, 	Z, 	W, 	M,
+		M, 	M, 	W, 	F, 	F, 	F, 	F, 	F, 	W, 	F, 	I, 	W, 	M, 	M, 	M, 	M, 	M, 	O, 	I, 	I, 	I, 	I, 	O, 	E, 	E, 	M, 	M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	Z, 	O, 	O, 	W, 	M,
+		M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M, 	M, 	M, 	M, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	E, 	E, 	E, 	M, 	M, 	M, 	M, 	M, 	M, 	W, 	Z, 	Z, 	O, 	O, 	W, 	M,
 		M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	M,
 		M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M 
 

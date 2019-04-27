@@ -26,6 +26,7 @@ import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.buffs.Wet;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.effects.particles.SnowParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -46,7 +47,11 @@ public class EnchantmentIce2 extends Weapon.Enchantment {
 		// lvl 0 - 25%
 		// lvl 1 - 40%
 		// lvl 2 - 50%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int lvl = Math.max(0, weapon.level);
+				if(fcb != null && Random.Int(2) == 1){
+			defender.damage(Random.Int(damage/6), this);
+		}
 		Buff.prolong(defender, Wet.class, Math.min(30,lvl+2));
 		Buff.prolong(defender, Cold.class, Math.min(30,lvl+2));
 		defender.sprite.emitter().burst(SnowParticle.FACTORY, 5);

@@ -24,7 +24,7 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.items.Heap;
-import com.hmdzl.spspd.change.items.bombs.HolyHandGrenade;
+import com.hmdzl.spspd.change.items.bombs.LightBomb;
 import com.hmdzl.spspd.change.levels.painters.Painter;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -153,7 +153,7 @@ public class BattleLevel extends Level {
 	protected void createItems() {
 
 		int pos = randomDestination();
-	    drop(new HolyHandGrenade(50), pos).type = Heap.Type.CHEST;
+	    drop(new LightBomb(50), pos).type = Heap.Type.CHEST;
 	
 	}
 	

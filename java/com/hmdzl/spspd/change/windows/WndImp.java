@@ -74,11 +74,8 @@ public class WndImp extends Window {
 		tokens.detachAll(Dungeon.hero.belongings.backpack);
 
 		reward.identify();
-		if (reward.doPickUp(Dungeon.hero)) {
-			GLog.i(Messages.get(Hero.class, "have"), reward.name());
-		} else {
-			Dungeon.level.drop(reward, imp.pos).sprite.drop();
-		}
+
+		Dungeon.level.drop(reward, imp.pos).sprite.drop();
 
 		imp.flee();
 

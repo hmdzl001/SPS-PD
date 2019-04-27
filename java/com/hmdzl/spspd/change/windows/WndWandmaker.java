@@ -94,11 +94,7 @@ public class WndWandmaker extends Window {
 		item.detach(Dungeon.hero.belongings.backpack);
 
 		reward.identify();
-		if (reward.doPickUp(Dungeon.hero)) {
-			GLog.i(Messages.get(Hero.class, "have"), reward.name());
-		} else {
-			Dungeon.level.drop(reward, wandmaker.pos).sprite.drop();
-		}	
+		Dungeon.level.drop(reward, wandmaker.pos).sprite.drop();
 		wandmaker.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
 		Dungeon.level.drop(new AdamantWand(), wandmaker.pos).sprite.drop();
 		wandmaker.destroy();

@@ -40,17 +40,10 @@ public class MissileShield extends MissileWeapon {
 	{
 		//name = "MissileShield";
 		image = ItemSpriteSheet.WARRIORSHIELD;
-
-		STR = 10;
-
-		MIN = 0;
-		MAX = 0;
-		
+	
 		stackable = false;
 		unique = true;
-
-		
-		
+		defaultAction = AC_SHIELD;
 		bones = false;
 	}
 
@@ -58,11 +51,6 @@ public class MissileShield extends MissileWeapon {
 	public final int fullCharge = 10;
 	public int charge = 0;
 	private static final String CHARGE = "charge";	
-	
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -79,7 +67,10 @@ public class MissileShield extends MissileWeapon {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
-		if (charge >= 10){
+		if (charge < 10){
+		actions.remove(AC_THROW);
+		}
+		if (charge > 5){
 		actions.add(AC_SHIELD);
 		}
 		return actions;
@@ -87,18 +78,20 @@ public class MissileShield extends MissileWeapon {
 
 	@Override
 	public void execute(final Hero hero, String action) {
-		if (action.equals(AC_SHIELD)) {
-			if (charge < 10)
-				GLog.i(Messages.get(this, "rest"));
-            else {				
-			    curUser = hero;
-				Buff.prolong(hero, DefenceUp.class, 3f).level(50);
-				Buff.prolong(hero, AttackDown.class, 3f).level(25);
-		        }
-				charge -= 10;
-		} else 
-			
 		super.execute(hero, action);
+		if (action.equals(AC_THROW)) {
+
+		} else if (action.equals(AC_SHIELD)) {
+			if (charge < 5) {
+				GLog.i(Messages.get(this, "rest"));
+				return;
+			} else {
+			curUser = hero;
+			Buff.prolong(hero, DefenceUp.class, 3f).level(50);
+			charge -= 5;
+			}
+		}
+
 	}
 
 
@@ -107,10 +100,9 @@ public class MissileShield extends MissileWeapon {
 		super.proc(attacker, defender, damage);
 		if (attacker instanceof Hero && ((Hero) attacker).rangedWeapon == this) {
 			circleBack(defender.pos, (Hero) attacker);
-			if (charge > 3) {
-				Buff.prolong(defender, Paralysis.class, 2f);
-				charge -= 3;
-			}
+			Buff.prolong(defender, Paralysis.class, 2f);
+            defender.damage((int)(0.25*attacker.damageRoll()),attacker);
+            charge-=10;
 		}
 	}
 
@@ -122,22 +114,9 @@ public class MissileShield extends MissileWeapon {
 	private void circleBack(int from, Hero owner) {
 		((MissileSprite) curUser.sprite.parent.recycle(MissileSprite.class))
 				.reset(from, curUser.pos, curItem, null);
-		if (throwEquiped) {
-			owner.belongings.weapon = this;
-			owner.spend(-TIME_TO_EQUIP);
-			Dungeon.quickslot.replaceSimilar(this);
-			updateQuickslot();
-		} else if (!collect(curUser.belongings.backpack)) {
+		if (!collect(curUser.belongings.backpack)) {
 			Dungeon.level.drop(this, owner.pos).sprite.drop();
 		}
-	}
-
-	private boolean throwEquiped;
-
-	@Override
-	public void cast(Hero user, int dst) {
-		throwEquiped = isEquipped(user);
-		super.cast(user, dst);
 	}
 
 	@Override
@@ -147,4 +126,26 @@ public class MissileShield extends MissileWeapon {
 		info += "\n\n" + Messages.get(MissileShield.class, "charge",charge,fullCharge);
 		return info;
 	}
+
+	public int level() {
+		return Dungeon.hero == null ? 0 : Dungeon.hero.lvl/5;
+	}
+
+	@Override
+	public int visiblyUpgraded() {
+		return level();
+	}
+	
+	@Override
+	public boolean isUpgradable() {
+		return false;
+	}	
+
+	public int min() {
+		return 1 + Dungeon.hero.lvl/6;
+	}
+
+	public int max() {
+		return 1 + Dungeon.hero.lvl/3;
+	}	
 }

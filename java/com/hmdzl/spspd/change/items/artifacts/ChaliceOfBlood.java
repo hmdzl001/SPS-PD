@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
+import com.hmdzl.spspd.change.actors.buffs.BloodAngry;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.plants.Earthroot;
@@ -36,15 +39,20 @@ public class ChaliceOfBlood extends Artifact {
 
 		level = 0;
 		levelCap = 10;
+		
+		defaultAction = AC_BLOODANGRY;
 	}
 
 	public static final String AC_PRICK = "PRICK";
+	public static final String AC_BLOODANGRY = "BLOODANGRY";
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && level < levelCap && !cursed)
 			actions.add(AC_PRICK);
+		if (isEquipped(hero) && level > 3 && !cursed)
+		actions.add(AC_BLOODANGRY);
 		return actions;
 	}
 
@@ -70,6 +78,19 @@ public class ChaliceOfBlood extends Artifact {
 
 			} else {
 				prick(hero);
+			}
+		} else if (action.equals(AC_BLOODANGRY)) {
+			if (!isEquipped(hero) || level < 4)
+				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
+			else {	
+                if (level > 4 )level-=3;
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				Buff.affect(hero, BloodAngry.class).set(100);
+				hero.spend(1f);
+				hero.busy();
+				hero.sprite.operate(hero.pos);
+				updateQuickslot();	
 			}
 		}
 	}

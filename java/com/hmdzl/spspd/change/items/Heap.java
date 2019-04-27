@@ -40,13 +40,6 @@ import com.hmdzl.spspd.change.effects.particles.FlameParticle;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
-import com.hmdzl.spspd.change.items.bombs.ClusterBomb;
-import com.hmdzl.spspd.change.items.bombs.DizzyBomb;
-import com.hmdzl.spspd.change.items.bombs.DumplingBomb;
-import com.hmdzl.spspd.change.items.bombs.HolyHandGrenade;
-import com.hmdzl.spspd.change.items.bombs.SeekingBombItem;
-import com.hmdzl.spspd.change.items.bombs.SeekingClusterBombItem;
-import com.hmdzl.spspd.change.items.bombs.SmartBomb;
 import com.hmdzl.spspd.change.items.eggs.Egg;
 import com.hmdzl.spspd.change.items.food.fruit.Blandfruit;
 import com.hmdzl.spspd.change.items.food.meatfood.ChargrilledMeat;
@@ -280,12 +273,12 @@ public class Heap implements Bundlable {
 			} else if (item instanceof Nut) {
 				replace(item, ToastedNut.cook((Nut) item));
 				burnt = true;
-			} else if (item instanceof Bomb) {
-				items.remove(item);
-				((Bomb) item).explode(pos);
+			//} else if (item instanceof Bomb) {
+				//items.remove(item);
+				//((Bomb) item).explode(pos);
 				// stop processing the burning, it will be replaced by the
 				// explosion.
-				return;
+				//return;
 			}
 		}
 
@@ -308,15 +301,6 @@ public class Heap implements Bundlable {
 		}
 	}
 
-	public void removeSeekingBomb(){
-		for (Item item : items.toArray(new Item[0])) {
-			if (item instanceof SeekingBombItem) {
-				items.remove(item);
-			}
-			
-		}
-	}
-	
 	// Note: should not be called to initiate an explosion, but rather by an
 	// explosion that is happening.
 	public void explode() {
@@ -337,56 +321,25 @@ public class Heap implements Bundlable {
 
 			for (Item item : items.toArray(new Item[0])) {
 
-				if (item instanceof Potion && Random.Float() < 0.10f ) {
-					items.remove(item);
-					((Potion) item).shatter(pos);
+				 if (item instanceof Bomb) {
 
-				} else if (item instanceof Bomb) {
-					items.remove(item);
+					 items.remove(item);
 					((Bomb) item).explode(pos);
-					// stop processing current explosion, it will be replaced by
-					// the new one.
-					return;
-				} else if (item instanceof DizzyBomb) {
-					items.remove(item);
-					((DizzyBomb) item).explode(pos);
-					// stop processing current explosion, it will be replaced by
-					// the new one.
-					return;
-				} else if (item instanceof SmartBomb) {
-					items.remove(item);
-					((SmartBomb) item).explode(pos);
-					// stop processing current explosion, it will be replaced by
-					// the new one.
-					return;
-				} else if (item instanceof SeekingBombItem) {
-					items.remove(item);
-					((Bomb) item).explode(pos);
-					// stop processing current explosion, it will be replaced by
-					// the new one.
-					return;
-				} else if (item instanceof SeekingClusterBombItem) {
-					items.remove(item);
-					((ClusterBomb) item).explode(pos);
-					// stop processing current explosion, it will be replaced by
-					// the new one.
-					return;
-				} else if (item instanceof ClusterBomb) {
-					items.remove(item);
-					((ClusterBomb) item).explode(pos);
-					// stop processing current explosion, it will be replaced by
-					// the new one.
-					return;
 
+					if (((Bomb) item).explodesDestructively()) {
+						//stop processing current explosion, it will be replaced by the new one.
+						return;
+					}
 					// unique and upgraded items can endure the blast
-				} else if (!(item.level > 0 || item.unique) && Random.Float() < 0.10f)
+				} else if (!(item.level > 0 || item.unique))
 					items.remove(item);
 
 			}
 
 			if (items.isEmpty())
 				destroy();
-		}
+			}
+
 	}
 	
 	/*
@@ -404,105 +357,6 @@ public class Heap implements Bundlable {
 		}
 	}
 	*/
-	
-	// Note: should not be called to initiate an explosion, but rather by an
-		// explosion that is happening.
-		public void holyexplode() {
-			
-				for (Item item : items.toArray(new Item[0])) {
-
-					if (item.cursed) {
-						item.cursed = false;
-						if(item.isUpgradable() && item.level<0){item.upgrade(-item.level);} //upgrade to even
-					}
-					
-					if (item instanceof HolyHandGrenade) {
-						items.remove(item);
-						((HolyHandGrenade) item).explode(pos);
-						// stop processing current explosion, it will be replaced by
-						// the new one.
-						return;
-						// unique and upgraded items can endure the blast
-					} 
-
-				}
-
-				
-				if (items.isEmpty())
-					destroy();
-					}
-	
-	// Note: should not be called to initiate an explosion, but rather by an
-		// explosion that is happening.
-		public void dumpexplode() {
-
-			
-			if (type != Type.HEAP) {
-
-				return;
-
-			} else {
-
-				for (Item item : items.toArray(new Item[0])) {
-
-					
-				   if (item instanceof DumplingBomb) {
-						items.remove(item);
-						((DumplingBomb) item).explode(pos);
-						// stop processing current explosion, it will be replaced by
-						// the new one.
-						return;
-						// unique and upgraded items can endure the blast
-					} 
-				}
-
-				if (items.isEmpty())
-					destroy();
-			}
-	}
-		
-	/*public void dryup(){
-					
-		if (type != Type.HEAP) {
-			return;
-		}
-		
-		boolean evaporated = false;
-
-		for (Item item : items.toArray(new Item[0])) {
-			 if (item instanceof Dewdrop) {
-				items.remove(item);
-				evaporated = true;
-			} else if (item instanceof VioletDewdrop) {
-				items.remove(item);
-				evaporated = true;
-			} else if (item instanceof RedDewdrop) {
-				items.remove(item);
-				evaporated = true;
-			} else if (item instanceof YellowDewdrop) {
-				items.remove(item);
-				evaporated = true;
-			} 
-		}
-
-		if (evaporated) {
-
-			if (Dungeon.visible[pos]) {
-				
-					evaporateFX(pos);
-				
-			}
-
-			if (isEmpty()) {
-				destroy();
-			} else if (sprite != null) {
-				sprite.view(image(), glowing());
-			}
-
-		}
-	}*/
-	
-	
 	public int dewdrops(){
 		
 		if (type != Type.HEAP) {

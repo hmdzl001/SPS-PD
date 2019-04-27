@@ -33,6 +33,7 @@ import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.TenguKey;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
+import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentLight;
@@ -88,7 +89,7 @@ public class PrisonWander extends Mob {
 		loot = new EtherealChains();
 		lootChance = 0.2f;
 
-		lootOther = new Bomb();
+		lootOther = new DungeonBomb();
 		lootChanceOther = 1f;
 
 	}
@@ -196,7 +197,7 @@ public class PrisonWander extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 12;
+		return Random.NormalIntRange(7, 12);
 	}
 
 
@@ -286,7 +287,7 @@ public class PrisonWander extends Mob {
 		IMMUNITIES.add(Blindness.class);
 		IMMUNITIES.add(Vertigo.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 
 		IMMUNITIES.add(Icecap.class);
 		IMMUNITIES.add(Firebloom.class);
@@ -333,7 +334,7 @@ public class PrisonWander extends Mob {
 		public int attackProc(Char enemy, int damage) {
 			int dmg = super.attackProc(enemy, damage);
 
-			Bomb bomb = new Bomb();
+			DungeonBomb bomb = new DungeonBomb();
 			bomb.explode(pos);
 			yell("KA-BOOM!!!");
 
@@ -345,7 +346,7 @@ public class PrisonWander extends Mob {
 
 		@Override
 		public void die(Object cause) {
-			Bomb bomb = new Bomb();
+			DungeonBomb bomb = new DungeonBomb();
 			bomb.explode(pos);
 			super.die(cause);
 
@@ -370,7 +371,7 @@ public class PrisonWander extends Mob {
 		public boolean act() {
 			yell(""+timeToBomb+"!");
 			if (timeToBomb == 0){
-				Bomb bomb = new Bomb();
+				DungeonBomb bomb = new DungeonBomb();
 				bomb.explode(pos);
 				yell("KA-BOOM!!!");
 				destroy();

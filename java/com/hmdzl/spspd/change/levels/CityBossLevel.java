@@ -23,15 +23,18 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
-import com.hmdzl.spspd.change.actors.mobs.DwarfKingTomb;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
+import com.hmdzl.spspd.change.effects.CellEmitter;
+import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Heap;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.keys.SkeletonKey;
 import com.hmdzl.spspd.change.levels.painters.Painter;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.Scene;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -52,8 +55,8 @@ public class CityBossLevel extends Level {
 	private static final int CENTER = LEFT + HALL_WIDTH / 2;
 
 	private int arenaDoor;
+	private int stairs = -1;
 	private boolean enteredArena = false;
-	private boolean keyDropped = false;
 
 	@Override
 	public String tilesTex() {
@@ -67,14 +70,12 @@ public class CityBossLevel extends Level {
 
 	private static final String DOOR = "door";
 	private static final String ENTERED = "entered";
-	private static final String DROPPED = "droppped";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(DOOR, arenaDoor);
 		bundle.put(ENTERED, enteredArena);
-		bundle.put(DROPPED, keyDropped);
 	}
 
 	@Override
@@ -82,7 +83,6 @@ public class CityBossLevel extends Level {
 		super.restoreFromBundle(bundle);
 		arenaDoor = bundle.getInt(DOOR);
 		enteredArena = bundle.getBoolean(ENTERED);
-		keyDropped = bundle.getBoolean(DROPPED);
 	}
 
 	@Override
@@ -90,7 +90,9 @@ public class CityBossLevel extends Level {
 
 		Painter.fill(this, LEFT, TOP, HALL_WIDTH, HALL_HEIGHT, Terrain.EMPTY);
 		Painter.fill(this, CENTER, TOP, 1, HALL_HEIGHT, Terrain.EMPTY_SP);
-
+  
+        map[(TOP + 1) * getWidth() + CENTER] = Terrain.EMPTY_WELL;
+  
 		int y = TOP + 1;
 		while (y < TOP + HALL_HEIGHT) {
 			map[y * getWidth() + CENTER - 2] = Terrain.STATUE_SP;
@@ -184,20 +186,20 @@ public class CityBossLevel extends Level {
 		if (!enteredArena && outsideEntraceRoom(cell) && hero == Dungeon.hero) {
 
 			enteredArena = true;
-			locked = true;
+			seal();
 
 			Mob boss = Bestiary.mob(Dungeon.depth);
-			Mob tomb = new DwarfKingTomb();
+			//Mob tomb = new DwarfKingTomb();
 			boss.state = boss.HUNTING;
 			int count = 0;
 			do {
 				boss.pos = Random.Int(getLength());
-				tomb.pos = (TOP + 1) * getWidth() + CENTER;
+				//tomb.pos = (TOP + 1) * getWidth() + CENTER;
 			} while (!passable[boss.pos] 
 					|| !outsideEntraceRoom(boss.pos)
 					|| (Dungeon.visible[boss.pos] && count++ < 20));
 			GameScene.add(boss);
-			GameScene.add(tomb);
+			//GameScene.add(tomb);
 
 			if (Dungeon.visible[boss.pos]) {
 				boss.notice();
@@ -205,26 +207,39 @@ public class CityBossLevel extends Level {
 				boss.sprite.parent.add(new AlphaTweener(boss.sprite, 1, 0.1f));
 			}
 
-			set(arenaDoor, Terrain.LOCKED_DOOR);
+			set(arenaDoor, Terrain.WALL);
 			GameScene.updateMap(arenaDoor);
 			Dungeon.observe();
 		}
 	}
 
-	@Override
-	public Heap drop(Item item, int cell) {
+	public void seal() {
+		if (entrance != 0) {
 
-		if (!keyDropped && item instanceof SkeletonKey) {
+			locked = true;
 
-			keyDropped = true;
-			locked = false;
-
-			set(arenaDoor, Terrain.DOOR);
+			set(arenaDoor, Terrain.WALL);
 			GameScene.updateMap(arenaDoor);
 			Dungeon.observe();
-		}
 
-		return super.drop(item, cell);
+			CellEmitter.get(arenaDoor).start(Speck.factory(Speck.ROCK), 0.07f,
+					10);
+			Camera.main.shake(3, 0.7f);
+			Sample.INSTANCE.play(Assets.SND_ROCKS);
+
+		}
+	}
+
+	public void unseal() {
+		if (stairs != 0) {
+			locked = false;
+			CellEmitter.get(arenaDoor).start(Speck.factory(Speck.ROCK), 0.07f,
+					10);
+			set(arenaDoor, Terrain.EMPTY_DECO);
+			GameScene.updateMap(arenaDoor);
+			Dungeon.observe();
+
+		}
 	}
 
 	private boolean outsideEntraceRoom(int cell) {

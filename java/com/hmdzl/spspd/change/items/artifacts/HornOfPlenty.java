@@ -7,11 +7,13 @@ import com.hmdzl.spspd.change.Badges;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Feed;
 import com.hmdzl.spspd.change.actors.buffs.Recharging;
 import com.hmdzl.spspd.change.actors.buffs.Hunger;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.SpellSprite;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.food.fruit.Blandfruit;
 import com.hmdzl.spspd.change.items.food.Food;
@@ -48,6 +50,7 @@ public class HornOfPlenty extends Artifact {
 
 	public static final String AC_EAT = "EAT";
 	public static final String AC_STORE = "STORE";
+	public static final String AC_FEED = "FEED";
 
 	protected String inventoryTitle = "Select a piece of food";
 	protected WndBag.Mode mode = WndBag.Mode.FOOD;
@@ -59,6 +62,8 @@ public class HornOfPlenty extends Artifact {
 			actions.add(AC_EAT);
 		if (isEquipped(hero) && level < 30 && !cursed)
 			actions.add(AC_STORE);
+	    if (isEquipped(hero) && level > 0 && !cursed)
+			actions.add(AC_FEED);
 		return actions;
 	}
 
@@ -92,6 +97,7 @@ public class HornOfPlenty extends Artifact {
 					case ROGUE:
 					case HUNTRESS:
 					case PERFORMER:
+					case SOLDIER:
 						break;
 					}
 
@@ -117,6 +123,19 @@ public class HornOfPlenty extends Artifact {
 		} else if (action.equals(AC_STORE)) {
 
 			GameScene.selectItem(itemSelector, mode,Messages.get(this, "prompt"));
+		} else if (action.equals(AC_FEED)) {
+			if (!isEquipped(hero))
+				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
+			else {	
+				Buff.affect(hero, Feed.class,level*3f);
+				hero.spend(1f);
+				hero.busy();
+				hero.sprite.operate(hero.pos);
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				level = 0;
+				updateQuickslot();	
+			}
 		}
 	}
 
@@ -198,9 +217,9 @@ public class HornOfPlenty extends Artifact {
 					curItem.upgrade(((Food) item).hornValue);
 					if (curItem.level >= 30) {
 						curItem.level = 30;
-						GLog.p( Messages.get(this, "maxlevel") );
+						GLog.p( Messages.get(HornOfPlenty.class, "maxlevel") );
 					} else
-						GLog.p(Messages.get(this, "levelup"));
+						GLog.p(Messages.get(HornOfPlenty.class, "levelup"));
 					item.detach(hero.belongings.backpack);
 				}
 

@@ -87,7 +87,8 @@ public class DewVial extends Item {
 	private static final float TIME_TO_DRINK = 2f;
 	private static final float TIME_TO_WATER = 3f;
 
-	private static final String TXT_STATUS = "%d/%d";
+	private static final String TXT_STATUS = "%d";
+	private static final String TXT_STATUS2 = "%d/%d";
 
 	{
 		//name = "dew vial";
@@ -289,7 +290,7 @@ public class DewVial extends Item {
 				GLog.i(Messages.get(this, "curse"));
 			}
 													
-			volume = volume - 60 - rejection;
+			volume = volume - 70 - rejection;
 			 updateQuickslot();
 			
 		} else if (action.equals(AC_BLESS) && Dungeon.dewDraw) {	
@@ -362,7 +363,7 @@ public class DewVial extends Item {
 	public static boolean uncurse(Hero hero, Item... items) {
 		
 		
-        int levelLimit = Math.max(3, 3+Math.round(Statistics.deepestFloor/3));
+        int levelLimit = Math.max(2, 2+Math.round(Statistics.deepestFloor/3));
         if (hero.heroClass == HeroClass.MAGE){levelLimit++;}
         
         float lvlchance = 0.33f;
@@ -422,11 +423,14 @@ public class DewVial extends Item {
 	};
 	
 	private void upgrade(Item item) {
+        int n = Random.Int(Math.min(1,(int)(Statistics.deepestFloor/24)) , Math.max(2,(int)(Statistics.deepestFloor/6)));
 
 		//GLog.w(Messages.get(this, "looks_better", item.name()));
-
-		item.upgrade();item.identify();
-		
+		for(int i=0; i<n; i++) {
+			item.upgrade();
+		}
+		item.upgrade();
+		item.identify();
 		curUser.sprite.operate(curUser.pos);
 		curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 		Badges.validateItemLevelAquired(item);
@@ -530,12 +534,15 @@ public class DewVial extends Item {
 
 	@Override
 	public String status() {
-		return Messages.format(TXT_STATUS, volume, MAX_VOLUME());
+		return Messages.format(TXT_STATUS, volume);
 	}
 
+	public String status2() {
+		return Messages.format(TXT_STATUS2, volume, MAX_VOLUME());
+	}
 	@Override
 	public String toString() {
-		return super.toString() + " (" + status() + ")";
+		return super.toString() + " (" + status2() + ")";
 	}
 
 	@Override

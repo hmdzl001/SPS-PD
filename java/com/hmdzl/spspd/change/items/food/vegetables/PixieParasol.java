@@ -63,7 +63,7 @@ public class PixieParasol extends Vegetable {
 					Buff.prolong(mob, Paralysis.class, Random.IntRange(10, 16));
 					mob.sprite.centerEmitter().start(Speck.factory(Speck.NOTE),	0.3f, 5);
 				}
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
+				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
 				break;
 			case 0: case 2: case 3: case 4: case 5: 
 			case 6: case 7: case 8: case 9: case 10:
@@ -73,7 +73,7 @@ public class PixieParasol extends Vegetable {
 					mob.sprite.centerEmitter().start(Speck.factory(Speck.NOTE),	0.3f, 5);
 				}
 				Buff.affect(hero, Vertigo.class, 5f);
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
+				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
 				break;
 			}
 		}

@@ -18,22 +18,20 @@
 package com.hmdzl.spspd.change.items.bags;
 
 import com.hmdzl.spspd.change.actors.hero.Hero;
-import com.hmdzl.spspd.change.items.ActiveMrDestructo;
-import com.hmdzl.spspd.change.items.ActiveMrDestructo2;
+import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
-import com.hmdzl.spspd.change.items.bombs.ClusterBomb;
-import com.hmdzl.spspd.change.items.bombs.DizzyBomb;
-import com.hmdzl.spspd.change.items.bombs.HolyHandGrenade;
-import com.hmdzl.spspd.change.items.InactiveMrDestructo;
-import com.hmdzl.spspd.change.items.InactiveMrDestructo2;
+
+
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.OrbOfZot;
-import com.hmdzl.spspd.change.items.bombs.SeekingBombItem;
-import com.hmdzl.spspd.change.items.bombs.SeekingClusterBombItem;
-import com.hmdzl.spspd.change.items.bombs.SmartBomb;
+
+
+
 import com.hmdzl.spspd.change.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.change.items.journalpages.JournalPage;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
+import com.hmdzl.spspd.change.items.summon.CallCoconut;
+import com.hmdzl.spspd.change.items.summon.Mobile;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 
 public class ScrollHolder extends Bag {
@@ -49,17 +47,10 @@ public class ScrollHolder extends Bag {
 	public boolean grab(Item item) {
 		if (item instanceof Scroll 
 				||  item instanceof Bomb
-				||  item instanceof DizzyBomb
-				||  item instanceof SmartBomb
-				||  item instanceof SeekingBombItem
-				||  item instanceof ClusterBomb
-				||  item instanceof SeekingClusterBombItem
 				||  item instanceof ActiveMrDestructo
-				||  item instanceof ActiveMrDestructo2
-				||  item instanceof InactiveMrDestructo
-				||  item instanceof InactiveMrDestructo2
+				||  item instanceof CallCoconut
+				||  item instanceof Mobile
 				||  item instanceof OrbOfZot
-				||  item instanceof HolyHandGrenade
 				||  item instanceof JournalPage
 				||  item instanceof ChallengeList
 				){

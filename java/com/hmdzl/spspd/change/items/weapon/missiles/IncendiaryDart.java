@@ -37,8 +37,8 @@ public class IncendiaryDart extends MissileWeapon {
 
 		STR = 10;
 
-		MIN = 2;
-		MAX = 4;
+		MIN = 3;
+		MAX = 5;
 	}
 
 	public IncendiaryDart() {
@@ -73,6 +73,6 @@ public class IncendiaryDart extends MissileWeapon {
 
 	@Override
 	public int price() {
-		return 5 * quantity;
+		return 10 * quantity;
 	}
 }

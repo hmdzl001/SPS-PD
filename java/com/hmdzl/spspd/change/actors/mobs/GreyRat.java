@@ -82,7 +82,7 @@ public class GreyRat extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 3;
+		return Random.NormalIntRange(0, 3);
 	}
 	
 	public static void spawnAround(int pos) {

@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.items.food.completefood;
 
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.food.Food;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -30,6 +31,14 @@ public class Honeyrice extends CompleteFood {
 		energy = 400;
 		hornValue = 3;
 		bones = false;
+	}
+
+
+	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
+
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return YELLOW;
 	}
 
 	public void execute(Hero hero, String action) {

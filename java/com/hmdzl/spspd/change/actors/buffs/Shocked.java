@@ -38,9 +38,11 @@ import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.change.Statistics.duration;
 
-public class Shocked extends Buff implements Hero.Doom {
+public class Shocked extends FlavourBuff {
 
     //private static final String TXT_DISARMED = "Sudden shock have made you drop your %s on the ground!";
+	 public static final float DURATION = 5f;
+	
 	{
 		type = buffType.NEGATIVE;
 	}
@@ -58,10 +60,10 @@ public class Shocked extends Buff implements Hero.Doom {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc");
+		return Messages.get(this, "desc", dispTurns());
 	}
 
-    @Override
+    /*@Override
     public boolean act(){
 
 	    Wet wet =  target.buff(Wet.class);
@@ -105,7 +107,7 @@ public class Shocked extends Buff implements Hero.Doom {
 
         /*if (target.sprite.visible) {
             target.sprite.centerEmitter().burst( SparkParticle.FACTORY, (int)Math.ceil( duration ) + 1 );
-        }*/
+        }
 
         detach();
     };
@@ -117,6 +119,6 @@ public class Shocked extends Buff implements Hero.Doom {
 
         Dungeon.fail(Messages.format(ResultDescriptions.POISON));
         //GLog.n(TXT_BURNED_TO_DEATH);
-    }
+    }*/
 
 }

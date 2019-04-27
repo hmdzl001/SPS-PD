@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.change.actors;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.change.Assets;
@@ -28,6 +29,7 @@ import com.hmdzl.spspd.change.actors.buffs.AttackDown;
 import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.Bleeding;
 import com.hmdzl.spspd.change.actors.buffs.Bless;
+import com.hmdzl.spspd.change.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
 import com.hmdzl.spspd.change.actors.buffs.Charm;
@@ -35,14 +37,19 @@ import com.hmdzl.spspd.change.actors.buffs.Cold;
 import com.hmdzl.spspd.change.actors.buffs.Cripple;
 import com.hmdzl.spspd.change.actors.buffs.Chill;
 import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.change.actors.buffs.FireImbue;
 import com.hmdzl.spspd.change.actors.buffs.Frost;
 import com.hmdzl.spspd.change.actors.buffs.GlassShield;
 import com.hmdzl.spspd.change.actors.buffs.Haste;
 import com.hmdzl.spspd.change.actors.buffs.Hot;
+import com.hmdzl.spspd.change.actors.buffs.Needling;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
+import com.hmdzl.spspd.change.actors.buffs.Shield;
+import com.hmdzl.spspd.change.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.change.actors.buffs.Shocked;
 import com.hmdzl.spspd.change.actors.buffs.Tar;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
 import com.hmdzl.spspd.change.actors.buffs.Levitation;
@@ -67,6 +74,7 @@ import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
 import com.hmdzl.spspd.change.actors.mobs.Yog;
 import com.hmdzl.spspd.change.effects.CellEmitter;
+import com.hmdzl.spspd.change.effects.Lightning;
 import com.hmdzl.spspd.change.effects.particles.PoisonParticle;
 import com.hmdzl.spspd.change.items.artifacts.CloakOfShadows;
 import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
@@ -187,7 +195,7 @@ public abstract class Char extends Actor {
 				dmg *=(1f-atkdown.level()*0.01f);
 			}			
 
-			int effectiveDamage = Math.max(dmg - dr, 0);
+			int effectiveDamage = Math.max(dmg - dr, 1);
 
 			effectiveDamage = attackProc(enemy, effectiveDamage);
 			effectiveDamage = enemy.defenseProc(this, effectiveDamage);
@@ -220,6 +228,8 @@ public abstract class Char extends Actor {
 				buff(EarthImbue.class).proc(enemy);
 			if (buff(BloodImbue.class) != null)
 				buff(BloodImbue.class).proc(enemy);
+			if (buff(Needling.class) != null)
+				buff(Needling.class).proc(enemy);			
 
 			enemy.sprite.bloodBurstA(sprite.center(), effectiveDamage);
 			enemy.sprite.flash();
@@ -286,6 +296,15 @@ public abstract class Char extends Actor {
 	}
 
 	public int attackProc(Char enemy, int damage) {
+		if (buff(Shocked.class)!=null){
+			Buff.detach(this,Shocked.class);
+			Buff.affect(this, Disarm.class,5f);
+            damage(this.HP/10,this);
+			ArrayList<Lightning.Arc> arcs = new ArrayList<>();
+			arcs.add(new Lightning.Arc(pos - Level.WIDTH, pos + Level.WIDTH));
+			arcs.add(new Lightning.Arc(pos - 1, pos + 1));
+			sprite.parent.add( new Lightning( arcs, null ) );
+		}
 		return damage;
 	}
 
@@ -300,6 +319,8 @@ public abstract class Char extends Actor {
 			return baseSpeed * 2.5f;
 		} else if (buff(Poison.class) != null) {
 			return baseSpeed * 0.9f;
+		} else if (buff(BloodAngry.class) != null) {
+			return baseSpeed * 1.2f;
 		} else	{
 			return baseSpeed;
 		}
@@ -332,6 +353,12 @@ public abstract class Char extends Actor {
 			dmg = (int) Math.ceil(dmg *(-drup.level()*0.01+1));
 		}
 
+		ShieldArmor sarmor = buff(ShieldArmor.class);
+		if (sarmor != null) {
+			dmg = sarmor.absorb(dmg);
+		}
+
+
 		if (HP <= 0 || dmg < 0) {
 			return;
 		}
@@ -354,7 +381,7 @@ public abstract class Char extends Actor {
 			}
 		}
 
-		GlassShield glass = buff(GlassShield.class);
+		//GlassShield glass = buff(GlassShield.class);
 		if (buff(GlassShield.class) != null) {
 			if (dmg >= 10) {
 				dmg = 10;
@@ -492,18 +519,7 @@ public abstract class Char extends Actor {
 		buffs.remove(buff);
 		Actor.remove(buff);
 
-		/*if (buff instanceof Burning) {
-			sprite.remove(CharSprite.State.BURNING);
-		} else if (buff instanceof Levitation) {
-			sprite.remove(CharSprite.State.LEVITATING);
-		} else if ((buff instanceof Invisibility || buff instanceof CloakOfShadows.cloakStealth)
-				&& invisible <= 0) {
-			sprite.remove(CharSprite.State.INVISIBLE);
-		} else if (buff instanceof Stun || buff instanceof Shieldblock ) {
-			sprite.remove(CharSprite.State.PARALYSED);
-		} else if (buff instanceof Frost) {
-			sprite.remove(CharSprite.State.FROZEN);
-		}*/
+
 	}
 
 	public void remove(Class<? extends Buff> buffClass) {
@@ -622,6 +638,7 @@ public abstract class Char extends Actor {
 
 		MECH,
 		UNDEAD,
+		ALIEN,
 		UNKNOW
 	}
 }

@@ -40,6 +40,7 @@ public class AutoPotion extends MiscEquippable {
 	{
 		image = ItemSpriteSheet.ARTIFACT;
 		unique = true;
+		bones = false;
 	}
 	
 	@Override
@@ -60,4 +61,8 @@ public class AutoPotion extends MiscEquippable {
 		return false;
 	}
 
+	@Override
+	public int price() {
+		return 500 * quantity;
+	}
 }

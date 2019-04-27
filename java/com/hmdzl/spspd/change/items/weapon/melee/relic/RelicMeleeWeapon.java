@@ -25,7 +25,6 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.hero.Hero;
-import com.hmdzl.spspd.change.actors.mobs.DwarfKingTomb;
 import com.hmdzl.spspd.change.actors.mobs.MineSentinel;
 import com.hmdzl.spspd.change.actors.mobs.Otiluke;
 import com.hmdzl.spspd.change.actors.mobs.Zot;
@@ -193,21 +192,17 @@ public class RelicMeleeWeapon extends Weapon {
 	@Override
 	public String info() {
 
+	    String name = name();
         String info = desc();
 
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, MIN, MAX, STR);
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known2", ACU, DLY, RCH);
-			if (typicalSTR() > Dungeon.hero.STR()) {
-				info += " " + Messages.get(MeleeWeapon.class, "too_heavy");
-			} else if (Dungeon.hero.STR() > typicalSTR()){
+;           if (Dungeon.hero.STR() > typicalSTR()){
 				info += " " + Messages.get(MeleeWeapon.class, "excess_str", Dungeon.hero.STR() - typicalSTR());
 			}
 		} else {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(), max(), typicalSTR());
-			if (typicalSTR() > Dungeon.hero.STR()) {
-				info += " " + Messages.get(MeleeWeapon.class, "probably_too_heavy");
-			}
 		}
 
 		String stats_desc = Messages.get(this, "stats_desc");
@@ -216,19 +211,23 @@ public class RelicMeleeWeapon extends Weapon {
 		//Messages.get(MeleeWeapon.class, "stats_known", tier, MIN, MAX,STR,ACU,DLY,RCH )
 
 		if (enchantment != null) {
-			info += " " + Messages.get(Weapon.class, "enchanted");
+			info += "\n" + Messages.get(Weapon.class, "enchanted");
 		}
 		
 		if (reinforced) {
-			info += " " + Messages.get(Item.class, "reinforced");
+			info += "\n" + Messages.get(Item.class, "reinforced");
 		}
 
 		if (charge>=chargeCap) {
-			info += " " + Messages.get(RelicMeleeWeapon.class, "fullcharge");
+			info += "\n" + Messages.get(RelicMeleeWeapon.class, "fullcharge");
 		} else {
-			info += " " + Messages.get(RelicMeleeWeapon.class, "charge", charge, chargeCap);
+			info += "\n " + Messages.get(RelicMeleeWeapon.class, "charge", charge, chargeCap);
 		}
 
+		if (levelKnown && STR > Dungeon.hero.STR()) {
+			info += "\n" + Messages.get(MeleeWeapon.class, "too_heavy");
+		}				
+	
 		if (cursed && isEquipped( Dungeon.hero )) {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {

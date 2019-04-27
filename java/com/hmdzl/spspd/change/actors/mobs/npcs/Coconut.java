@@ -30,7 +30,7 @@ public class Coconut extends NPC {
 	{
 		//name = Messages.get(this,"name");
 		spriteClass = CoconutSprite.class;
-		properties.add(Property.BEAST);
+		properties.add(Property.MECH);
 		
 	}
 

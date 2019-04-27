@@ -36,13 +36,18 @@ import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.items.WaterItem;
 import com.hmdzl.spspd.change.items.bags.HeartOfScarecrow;
-import com.hmdzl.spspd.change.items.bombs.Honeypot;
+import com.hmdzl.spspd.change.items.summon.Honeypot;
+import com.hmdzl.spspd.change.items.bombs.BuildBomb;
 import com.hmdzl.spspd.change.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.change.items.misc.JumpH;
 import com.hmdzl.spspd.change.items.misc.JumpM;
 import com.hmdzl.spspd.change.items.misc.JumpR;
+import com.hmdzl.spspd.change.items.misc.JumpS;
 import com.hmdzl.spspd.change.items.misc.JumpW;
 import com.hmdzl.spspd.change.items.misc.Jumpshoes;
+import com.hmdzl.spspd.change.items.weapon.melee.special.Handcannon;
+import com.hmdzl.spspd.change.items.weapon.missiles.MissileShield;
+import com.hmdzl.spspd.change.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.bags.ShoppingCart;
@@ -59,7 +64,6 @@ import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.items.wands.Wand;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
-import com.hmdzl.spspd.change.items.weapon.melee.relic.JupitersWraith;
 import com.hmdzl.spspd.change.plants.Plant;
 import com.hmdzl.spspd.change.plants.Plant.Seed;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -75,12 +79,35 @@ import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 
+import java.util.ArrayList;
+
 public class WndBag extends WndTabbed {
 
 	public static enum Mode {
-		ALL, UNIDENTIFED, UPGRADEABLE, QUICKSLOT, FOR_SALE, WEAPON, ARMOR, ENCHANTABLE, 
-		WAND, SEED, FOOD, POTION, SCROLL, EQUIPMENT, ADAMANT, REINFORCED, UPGRADEABLESIMPLE,
-		NOTREINFORCED, UPGRADEDEW, JOURNALPAGES, SHOES, COOKING, CHALLENGELIST;
+		ALL, 
+		UNIDENTIFED, 
+		UPGRADEABLE, 
+		QUICKSLOT, 
+		FOR_SALE, 
+		WEAPON, 
+		ARMOR, 
+		ENCHANTABLE, 
+		WAND, 
+		SEED, 
+		FOOD, 
+		POTION, 
+		SCROLL, 
+		EQUIPMENT, 
+		ADAMANT, 
+		REINFORCED, 
+		UPGRADEABLESIMPLE,
+		NOTREINFORCED, 
+		UPGRADEDEW, 
+		JOURNALPAGES, 
+		SHOES, 
+		COOKING, 
+		CHALLENGELIST, 
+		AMMO;
 	}
 
 	protected static final int COLS_P = 5;
@@ -136,7 +163,31 @@ public class WndBag extends WndTabbed {
 		resize(slotsWidth, slotsHeight + TITLE_HEIGHT);
 
 		Belongings stuff = Dungeon.hero.belongings;
-		Bag[] bags = { stuff.backpack, stuff.getItem(SeedPouch.class),
+		
+		ArrayList<Bag> bags = new ArrayList<>();
+		
+        bags.add( stuff.backpack );
+        bags.add( stuff.getItem(SeedPouch.class));
+        bags.add( stuff.getItem(ScrollHolder.class));
+        bags.add( stuff.getItem(PotionBandolier.class) );
+        bags.add( stuff.getItem(WandHolster.class) );
+        bags.add( stuff.getItem(KeyRing.class));
+        bags.add( stuff.getItem(ShoppingCart.class));
+        bags.add( stuff.getItem(HeartOfScarecrow.class));	
+
+        while(bags.remove(null));
+
+        int tabWidth = ( slotsWidth + 12 ) / bags.size() ;
+
+		for (Bag b : bags) {
+            BagTab tab = new BagTab( b );
+            tab.setSize( tabWidth, tabHeight() );
+            add( tab );
+
+            tab.select( b == bag );
+		}
+			
+		/*Bag[] bags = { stuff.backpack, stuff.getItem(SeedPouch.class),
 				stuff.getItem(ScrollHolder.class),
 				stuff.getItem(PotionBandolier.class),
 				stuff.getItem(WandHolster.class), 
@@ -152,7 +203,7 @@ public class WndBag extends WndTabbed {
 			}
 		}
 
-		layoutTabs();
+		layoutTabs();*/
 	}
 
 	public static WndBag lastBag(Listener listener, Mode mode, String title) {
@@ -395,47 +446,54 @@ public class WndBag extends WndTabbed {
 					 int levelLimit = Math.max(2, 2+Math.round(Statistics.deepestFloor/3));
 				     if (Dungeon.hero.heroClass == HeroClass.MAGE){levelLimit++;}
 					
-					enable(mode == Mode.FOR_SALE
-							&& (item.price() > 0) && (!item.isEquipped(Dungeon.hero) || !item.cursed)
-							|| mode == Mode.UPGRADEABLE
-							&& ((item.isUpgradable() && item.level<15 && !item.isReinforced())
-									||  item.isUpgradable() && item.isReinforced())
-							|| mode == Mode.UPGRADEDEW
-							&& (item.isUpgradable() && item.level < levelLimit)	
-							|| mode == Mode.UPGRADEABLESIMPLE
-							&& item.isUpgradable()			
-							|| mode == Mode.ADAMANT
-							&& (item instanceof AdamantArmor || item instanceof AdamantRing || item instanceof AdamantWand || item instanceof AdamantWeapon)
-							|| mode == Mode.REINFORCED
-							&& item.isReinforced()
-							|| mode == Mode.NOTREINFORCED
-							&& (!item.isReinforced() && item.isUpgradable())
-							|| mode == Mode.UNIDENTIFED
-							&& !item.isIdentified()
-							|| mode == Mode.QUICKSLOT
-							&& (item.defaultAction != null)
-							|| mode == Mode.WEAPON
-							&& (item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof JupitersWraith )
-							|| mode == Mode.ARMOR
-							&& (item instanceof Armor)
-							|| mode == Mode.ENCHANTABLE
-							&& (item instanceof MeleeWeapon	|| item instanceof Boomerang || item instanceof Armor )
-							|| mode == Mode.JOURNALPAGES
-							&& (item instanceof JournalPage)
-							|| mode == Mode.SHOES
-							&& (item instanceof JumpW || item instanceof JumpM || item instanceof JumpR || item instanceof JumpH || item instanceof Jumpshoes)
-							|| mode == Mode.WAND && (item instanceof Wand)
-							|| mode == Mode.SEED && (item instanceof Seed)
-							|| mode == Mode.FOOD && (item instanceof Food)
-							|| mode == Mode.POTION && (item instanceof Potion)
-							|| mode == Mode.SCROLL && (item instanceof Scroll)
-							|| mode == Mode.EQUIPMENT
-							&& (item instanceof EquipableItem)
-							|| mode == Mode.COOKING
-							&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof WaterItem ||item instanceof StoneOre || item instanceof Honeypot || item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll)
-							|| mode == Mode.CHALLENGELIST
-							&& (item instanceof ChallengeList)
-							|| mode == Mode.ALL);
+					enable(
+					mode == Mode.FOR_SALE 
+					    && (item.price() > 0) && (!item.isEquipped(Dungeon.hero) || !item.cursed)
+				 || mode == Mode.UPGRADEABLE
+			            && ((item.isUpgradable() && item.level<15 && !item.isReinforced()) || item.isUpgradable() && item.isReinforced())
+				 || mode == Mode.UPGRADEDEW
+						&& (item.isUpgradable() && item.level < levelLimit)	
+				 || mode == Mode.UPGRADEABLESIMPLE
+						&& item.isUpgradable()			
+				 || mode == Mode.ADAMANT
+						&& (item instanceof AdamantArmor || item instanceof AdamantRing || item instanceof AdamantWand || item instanceof AdamantWeapon)
+				 || mode == Mode.REINFORCED
+						&& item.isReinforced()
+				 || mode == Mode.NOTREINFORCED
+						&& (!item.isReinforced() && item.isUpgradable())
+				 || mode == Mode.UNIDENTIFED
+						&& !item.isIdentified()
+				 || mode == Mode.QUICKSLOT
+						&& (item.defaultAction != null)
+				 || mode == Mode.WEAPON
+						&& ((item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof MissileShield)&& !(item instanceof Handcannon))
+				 || mode == Mode.ARMOR
+						&& (item instanceof Armor)
+				 || mode == Mode.ENCHANTABLE
+						&& (item instanceof MeleeWeapon	|| item instanceof Boomerang || item instanceof Armor )
+				 || mode == Mode.JOURNALPAGES
+						&& (item instanceof JournalPage)
+				 || mode == Mode.SHOES
+						&& (item instanceof JumpW || item instanceof JumpM || item instanceof JumpR || item instanceof JumpH || item instanceof JumpS || item instanceof Jumpshoes)
+				 || mode == Mode.WAND 
+				        && (item instanceof Wand)
+				 || mode == Mode.SEED 
+				        && (item instanceof Seed)
+				 || mode == Mode.FOOD 
+				        && (item instanceof Food)
+				 || mode == Mode.POTION 
+				        && (item instanceof Potion)
+				 || mode == Mode.SCROLL 
+				        && (item instanceof Scroll)
+				 || mode == Mode.EQUIPMENT
+						&& (item instanceof EquipableItem)
+				 || mode == Mode.COOKING
+						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof WaterItem ||item instanceof StoneOre || item instanceof Honeypot || item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof BuildBomb)
+				 || mode == Mode.CHALLENGELIST
+						&& (item instanceof ChallengeList)
+				 || mode == Mode.AMMO
+						&& (item instanceof SpAmmo)
+				 || mode == Mode.ALL);
 				}
 			} else {
 				bg.color(NORMAL);

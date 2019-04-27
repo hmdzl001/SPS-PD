@@ -31,6 +31,7 @@ import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.particles.EarthParticle;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.plants.Earthroot;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
@@ -60,6 +61,7 @@ public class Earthglyph extends Glyph {
 	    GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 	
 		if (defender.isAlive() && gearth == null)
 		{
@@ -74,7 +76,7 @@ public class Earthglyph extends Glyph {
 		int level = Math.max(0, armor.level);
 		int levelRoots = Math.min(4, armor.level);
 		
-		if (Random.Int(4) == 0) {
+		if (Random.Int(4) == 0 ) {
 
 			Buff.affect(defender, Earthroot.Armor.class).level(5 * (level + 1));
 			CellEmitter.bottom(defender.pos).start(EarthParticle.FACTORY,
@@ -83,7 +85,7 @@ public class Earthglyph extends Glyph {
 
 		}
 
-		if (Random.Int(level + 6) >= 5) {
+		if (Random.Int(level + 6) >= 5 || (fcb != null && Random.Int(level + 6) >= 3)) {
 			Buff.prolong(defender, DefenceUp.class,5f).level(20);
 		}
 

@@ -154,27 +154,6 @@ public class Bones {
 				Game.instance.deleteFile(BONES_FILE);
 				depth = 0;
 
-				if (item instanceof Artifact) {
-					if (Generator.removeArtifact((Artifact) item)) {
-						try {
-							Artifact artifact = (Artifact) item.getClass()
-									.newInstance();
-							artifact.cursed = true;
-							artifact.cursedKnown = true;
-							// caps displayed artifact level
-							artifact.transferUpgrade(Math.min(
-									item.visiblyUpgraded(),
-									1 + ((Dungeon.depth * 3) / 10)));
-
-							return item;
-						} catch (Exception e) {
-							return new Gold(item.price());
-						}
-					} else {
-						return new Gold(item.price());
-					}
-				}
-
 				if (item.isUpgradable()) {
 					item.cursed = true;
 					item.cursedKnown = true;

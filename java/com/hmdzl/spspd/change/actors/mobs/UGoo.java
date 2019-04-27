@@ -36,6 +36,7 @@ import com.hmdzl.spspd.change.actors.buffs.Charm;
 import com.hmdzl.spspd.change.actors.buffs.Ooze;
 import com.hmdzl.spspd.change.actors.buffs.Poison;
 import com.hmdzl.spspd.change.actors.buffs.Roots;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.actors.buffs.Sleep;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
@@ -118,7 +119,7 @@ public class UGoo extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 2;
+		return Random.NormalIntRange(0, 2);
 	}
 	
 	@Override
@@ -287,7 +288,7 @@ public class UGoo extends Mob {
 		static {
 			RESISTANCES.add(ToxicGas.class);
 			RESISTANCES.add(EnchantmentDark.class);
-			RESISTANCES.add(ScrollOfPsionicBlast.class);
+			
 		}
 
 		@Override
@@ -356,7 +357,9 @@ public class UGoo extends Mob {
 		}
 
 		@Override
-		protected boolean canAttack(Char enemy) {
+		protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}
 
@@ -495,7 +498,7 @@ public class UGoo extends Mob {
 		static {
 			RESISTANCES.add(ToxicGas.class);
 			RESISTANCES.add(EnchantmentDark.class);
-			RESISTANCES.add(ScrollOfPsionicBlast.class);
+			
 		}
 
 		@Override
@@ -567,7 +570,9 @@ public class UGoo extends Mob {
 		}
 
 		@Override
-		protected boolean canAttack(Char enemy) {
+		protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}
 

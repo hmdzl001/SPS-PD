@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.items.SoulCollect;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Assets;
@@ -88,7 +89,7 @@ public class Zot extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 45;
+		return Random.NormalIntRange(25, 45);
 		//return 0;
 	}
 
@@ -109,7 +110,7 @@ public class Zot extends Mob {
 					}
 				}
 
-				if (spawnPoints.size() > 0 && Random.Int(5) == 0) {
+				if (spawnPoints.size() > 0 && Random.Int(10) == 0) {
 					MagicEye eye = new MagicEye();
 					eye.pos = Random.element(spawnPoints);
 
@@ -168,6 +169,9 @@ public class Zot extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
+		if (buff(Silent.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 

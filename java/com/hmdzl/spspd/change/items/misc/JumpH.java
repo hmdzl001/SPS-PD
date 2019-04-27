@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.weapon.missiles.Smoke;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.effects.CellEmitter;
@@ -37,7 +38,6 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.Bundle;
 import java.util.HashMap;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
 import com.hmdzl.spspd.change.sprites.MissileSprite;
 import com.watabou.utils.Random;
 
@@ -121,7 +121,7 @@ unique = true;
 						charge -= 15;
 						updateQuickslot();
 						if (Random.Int(10) > 3 ){
-	Item proto = new Shuriken();
+	               Item proto = new Smoke();
 
 	for (Mob mob : Dungeon.level.mobs) {
 		if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 7)) {
@@ -131,7 +131,8 @@ unique = true;
 						curUser.attack(targets.get(this));
 						targets.remove(this);
 						if (targets.isEmpty()) {
-							curUser.spendAndNext(curUser.attackDelay());
+							//curUser.spendAndNext(curUser.attackDelay());
+							curUser.spendAndNext(0f);
 						}
 					}
 				};

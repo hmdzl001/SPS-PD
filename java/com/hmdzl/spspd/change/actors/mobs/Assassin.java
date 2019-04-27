@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.change.Statistics;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.items.StoneOre;
@@ -69,7 +70,7 @@ public class Assassin extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 5;
+		return Random.NormalIntRange(0, 5);
 	}
 	@Override
 	protected float attackDelay() {
@@ -90,6 +91,9 @@ public class Assassin extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
+				if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
 	
@@ -116,7 +120,7 @@ public class Assassin extends Mob {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(Poison.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

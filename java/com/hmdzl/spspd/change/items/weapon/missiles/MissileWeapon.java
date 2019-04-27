@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
+import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.JupitersWraith;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.utils.Random;
@@ -39,13 +40,14 @@ public class MissileWeapon extends Weapon {
 		defaultAction = AC_THROW;
 		usesTargeting = true;
 		stackable = true;
+		bones = false; 
 	}
 
 	protected boolean sticky = true;
 	
 	protected static final float MAX_DURABILITY = 100;
-	protected float durability = MAX_DURABILITY;	
-	
+	protected float durability = MAX_DURABILITY;
+
 	//used to reduce durability from the source weapon stack, rather than the one being thrown.
 	protected MissileWeapon parent;	
 	
@@ -61,7 +63,7 @@ public class MissileWeapon extends Weapon {
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
-			if (this instanceof Boomerang )
+			if (this instanceof Boomerang  || this instanceof MissileShield)
 				super.onThrow(cell);
 			else
 				miss(cell);
@@ -70,17 +72,13 @@ public class MissileWeapon extends Weapon {
 				miss(cell);
 			} else if (this instanceof  MiniMoai){
 				Dungeon.level.drop( this, enemy.pos).sprite.drop();
-			} else if (!(this instanceof Boomerang || this instanceof ErrorAmmo || this instanceof MissileShield)) {
+			} else if (!(this instanceof Boomerang || this instanceof MissileShield)) {
 				int bonus = 0;
-
 				for (Buff buff : curUser.buffs(RingOfSharpshooting.Aim.class))
 					bonus += ((RingOfSharpshooting.Aim) buff).level;
 
 				if (curUser.heroClass == HeroClass.HUNTRESS)
 					bonus += 3;
-
-				if (Random.Float() > Math.pow(0.7, bonus))
-					Dungeon.level.drop( this, enemy.pos).sprite.drop();
 			}
 		}
 	}
@@ -135,6 +133,14 @@ public class MissileWeapon extends Weapon {
 
 		if (STR > Dungeon.hero.STR()) {
 			info += Messages.get(Weapon.class, "too_heavy");
+		} else if (Dungeon.hero.heroClass == HeroClass.HUNTRESS){
+			info += " " + Messages.get(MeleeWeapon.class, "excess_str", 3*(Dungeon.hero.STR() - STR));
+		} else {
+			info += " " + Messages.get(MeleeWeapon.class, "excess_str", Dungeon.hero.STR() - STR);
+		}
+
+		if (enchantment != null) {
+			info += "\n" + Messages.get(MeleeWeapon.class, "enchanted", enchantment.desc());
 		}
 		
 		return info;

@@ -136,6 +136,7 @@ public class Blandfruit extends Fruit {
 				case ROGUE:
 				case HUNTRESS:
 				case PERFORMER:
+				case SOLDIER:
 					break;
 				}
 			}

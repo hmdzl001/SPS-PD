@@ -97,7 +97,7 @@ public class ShatteredPixelDungeon extends Game {
 			RenderedText.setFont("pixelfont.ttf");
 		} else {
 			RenderedText.setFont( null );
-		}		
+		}
 	}
 
 	@Override

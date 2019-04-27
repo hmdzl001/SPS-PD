@@ -77,7 +77,7 @@ public class BlueWraith extends Wraith  {
 	
 	@Override
 	public int drRoll() {
-		return 25;
+		return Random.NormalIntRange(10, 25);
 	}
 
 	@Override

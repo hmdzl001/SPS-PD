@@ -22,7 +22,7 @@ import com.watabou.utils.Random;
 public class SokobanLayouts2 {
 	
 	//32X32
-	private static final int W = Terrain.WALL;
+	private static final int W = Terrain.WALL_DECO;
 	private static final int T = Terrain.SHRUB;
 	private static final int Z = Terrain.HIGH_GRASS;
 	private static final int D = Terrain.DOOR;
@@ -36,67 +36,71 @@ public class SokobanLayouts2 {
 	//private static final int M = Terrain.WALL_DECO;
 	//private static final int P = Terrain.PEDESTAL;
 	
-	private static final int A = Terrain.SOKOBAN_SHEEP;
-	private static final int X = Terrain.CORNER_SOKOBAN_SHEEP;
-	private static final int C = Terrain.SWITCH_SOKOBAN_SHEEP;
-	private static final int B = Terrain.BLACK_SOKOBAN_SHEEP;
+	private static final int A = Terrain.WALL;
+	private static final int C = Terrain.EMPTY_DECO;
+	private static final int X = Terrain.EMPTY_SP;
+	private static final int B = Terrain.BOOKSHELF;
 	private static final int H = Terrain.SOKOBAN_HEAP;
-    private static final int I = Terrain.SOKOBAN_ITEM_REVEAL;
+    private static final int I = Terrain.EMBERS;
     private static final int F = Terrain.FLEECING_TRAP;
     private static final int U = Terrain.STATUE;
-    private static final int G = Terrain.CHANGE_SHEEP_TRAP;
+    private static final int G = Terrain.TENT;
     private static final int S = Terrain.SECRET_DOOR;
-    private static final int R = Terrain.PORT_WELL;
-    private static final int V = Terrain.SOKOBAN_PORT_SWITCH;
+    private static final int R = Terrain.BED;
+    private static final int V = Terrain.ALCHEMY;
+	
+	private static final int J = Terrain.STATUE_SP;
+	private static final int K = Terrain.WATER;
+	//  M N O P
 
 		
 	public static final int[] SOKOBAN_VAULT_LEVEL = {
 		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
 		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	I, 	I, 	I, 	I, 	I, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	I, 	I, 	I, 	I, 	I, 	E, 	W, 	W, 	W, 	W, 	A, 	A, 	A, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	A, 	A, 	A, 	A, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	X, 	X, 	X, 	X, 	X, 	I, 	I, 	I, 	E, 	E, 	E, 	W, 	W, 	W, 	A, 	B, 	B, 	B, 	B, 	B, 	A, 	W, 	W, 	A, 	A, 	A, 	X, 	X, 	X, 	J, 	Z, 	Z, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	X, 	K, 	K, 	K, 	X, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	A, 	A, 	A, 	X, 	X, 	X, 	X, 	R, 	A, 	W, 	W, 	A, 	X, 	X, 	X, 	X, 	X, 	J, 	Z, 	Z, 	A, 	A, 	W, 	W, 	W, 	W, 	W,
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	X, 	K, 	U, 	K, 	X, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	A, 	X, 	X, 	X, 	X, 	X, 	X, 	X, 	A, 	W, 	W, 	A, 	X, 	X, 	J, 	X, 	X, 	J, 	Z, 	Z, 	Z, 	A, 	W, 	W, 	W, 	W, 	W,
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	X,  K, 	K, 	K, 	X, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	A, 	V, 	X, 	X, 	X, 	X, 	X, 	X, 	A, 	W, 	W, 	A, 	X, 	X, 	J, 	J, 	J, 	J, 	Z, 	Z, 	Z, 	A, 	W, 	W, 	W, 	W, 	W,
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	G, 	E, 	X, 	X, 	X, 	X, 	X, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	A, 	A, 	A, 	X, 	X, 	X, 	X, 	X, 	A, 	W, 	W, 	A, 	X, 	X, 	X, 	X, 	X, 	J, 	Z, 	Z, 	Z, 	A, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	X, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	A, 	A, 	A, 	D, 	A, 	A, 	A, 	W, 	W, 	A, 	X, 	X, 	X, 	X, 	X, 	J, 	D, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	X, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E,  X, 	X, 	X, 	X, 	X, 	X, 	X, 	A, 	K, 	K, 	A, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	X, 	X, 	X, 	X, 	X, 	X, 	X, 	A, 	K, 	K, 	A, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	K, 	J, 	K, 	K, 	J, 	J, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	X, 	X, 	X, 	X, 	X, 	X, 	X, 	J, 	K, 	K, 	A, 	W, 	W, 	W, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	K, 	K, 	J, 	K, 	J, 	K, 	J, 	K, 	J, 	J, 	K, 	K, 	J, 	K, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	X, 	X, 	X, 	X, 	X, 	X, 	X, 	A, 	K, 	K, 	A, 	W, 	W, 	W, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	J, 	J, 	K, 	J, 	K, 	J, 	K, 	K, 	J, 	K, 	K, 	J, 	J, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	A, 	A, 	A, 	D, 	A, 	A, 	A, 	A, 	A, 	D, 	A, 	A, 	W, 	W, 	W, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	K, 	K, 	K, 	J, 	K, 	J, 	K, 	K, 	J, 	K, 	K, 	K, 	K, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
 		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	W, 	W, 
-		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	W, 	W, 
-		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 
-		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
-		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
-		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 
-		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 
-		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
-		W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
-		W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C,  C, 	C, 	C, 	C, 	C, 	C, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	C, 	C, 	T, 	T, 	C, 	T, 	T, 	C, 	C, 	T, 	T, 	C, 	C, 	T, 	T, 	T, 	C, 	T, 	C, 	C, 	T, 	C, 	C, 	T, 	T, 	T, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	Z, 	Z, 	W, 	W, 
+		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	T, 	C, 	T, 	C, 	T, 	C, 	C, 	T, 	C, 	C, 	T, 	T, 	C, 	T, 	C, 	T, 	C, 	C, 	C, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	Z, 	Z, 	Z, 	Z, 	Z, 	W, 	W, 
+		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	C, 	C, 	T, 	C, 	C, 	T, 	T, 	C, 	C, 	T, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	T, 	T, 	T, 	T, 	C, 	T, 	C, 	T, 	T, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	Z, 	Z, 	Z, 	Z, 	Z, 	W, 	W, 
+		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	C, 	C, 	C, 	T, 	C, 	T, 	C, 	C, 	C, 	T, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	T, 	C, 	T, 	T, 	C, 	T, 	C, 	C, 	T, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	Z, 	Z, 	Z, 	Z, 	Z, 	Z, 	W, 
+		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	C, 	T, 	T, 	C, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	T, 	C, 	T, 	T, 	T, 	C, 	T, 	C, 	C, 	T, 	C, 	T, 	T, 	T, 	T, 	C, 	E, 	E, 	E, 	X, 	X, 	X, 	X, 	X, 	Z, 	Z, 	Z, 	Z, 	W, 
+		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	E, 	E, 	E, 	X, 	G, 	X, 	G, 	X, 	Z, 	Z, 	Z, 	W, 	W, 
+		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	X, 	X, 	X, 	X, 	X, 	Z, 	Z, 	W, 	W, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	E, 	X, 	G, 	X, 	G, 	X, 	Z, 	W, 	W, 	W, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	C, 	T, 	T, 	T, 	C, 	T, 	T, 	T, 	C, 	C, 	T, 	T, 	C, 	T, 	T, 	T, 	C, 	T, 	T,  T, 	C, 	T, 	C, 	T, 	C, 	C, 	T, 	C, 	C, 	T, 	C, 	E, 	X, 	X, 	X, 	X, 	X, 	Z, 	W, 	W, 	W, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	C, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	T, 	C, 	T, 	C, 	T, 	C, 	T, 	C, 	T, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	C, 	T, 	T, 	C, 	C, 	T, 	T, 	T, 	C, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	T, 	C, 	T, 	C, 	T, 	T, 	T, 	C, 	T, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	C, 	C, 	C, 	T, 	C, 	C, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	T, 	C, 	T, 	C, 	T, 	C, 	T, 	C, 	T, 	C, 	C, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	C, 	T, 	C, 	C, 	C, 	T, 	T, 	T, 	C, 	T, 	T, 	C, 	C, 	C, 	T, 	C, 	C, 	T, 	T, 	T, 	C, 	C, 	T, 	C, 	C, 	T, 	C, 	T, 	C, 	T, 	T, 	T, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	C, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
+		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	X, 	X, 	X, 	X, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 
 		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
-		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	T, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	A, 	A, 	A, 	A, 	W, 	W, 	T, 	W, 	W, 	W, 	A, 	A, 	A, 	A, 	A, 	A, 	A, 	A, 	D, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	Z, 	Z, 	A, 	B, 	B, 	X, 	A, 	W, 	T, 	W, 	W, 	W, 	W, 	A, 	B, 	B, 	B, 	B, 	A, 	X, 	X, 	X, 	X, 	R, 	B, 	A, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	K, 	K, 	K, 	K, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	Z, 	Z, 	A, 	R, 	X, 	X, 	A, 	T, 	W, 	W, 	W, 	W, 	W, 	A, 	B, 	X, 	X, 	X, 	A, 	X, 	X, 	X, 	X, 	X, 	B, 	A, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	K, 	W, 	W, 	K, 	K, 	W, 	W, 	W, 	K, 	K, 	K, 	Z, 	Z, 	D, 	X, 	X, 	X, 	D, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	B, 	X, 	X, 	X, 	D, 	X, 	X, 	X, 	X, 	X, 	B, 	A, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	W, 	K, 	W, 	W, 	W, 	K, 	K, 	K, 	W, 	K, 	W, 	W, 	Z, 	Z, 	A, 	X, 	X, 	V, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	B, 	X, 	X, 	X, 	A, 	X, 	X, 	X, 	X, 	X, 	A, 	A, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	K, 	K, 	K, 	W, 	W, 	W, 	W, 	K, 	K, 	K, 	W, 	W, 	Z, 	Z, 	A, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	B, 	X, 	G, 	A, 	A, 	A, 	A, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	K, 	K, 	K, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
+		W, 	W, 	W, 	W, 	W, 	K, 	U, 	K, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
 		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 
 		W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W
 	};

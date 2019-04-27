@@ -114,7 +114,7 @@ public class Armor extends KindOfArmor {
 	{
 		if(Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.WARRIOR &&  Dungeon.hero.belongings.armor == this && STR > 2)
 			return STR - 2;
-		return STR;
+		else return STR;
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class Armor extends KindOfArmor {
 		
 		int bonus = 0;
 		for (Buff buff : hero.buffs(RingOfEvasion.Evasion.class)) {
-			bonus += ((RingOfEvasion.Evasion) buff).effectiveLevel;
+			bonus += ((RingOfEvasion.Evasion) buff).level;
 		}
 		
 		 DEX+= (float) (Math.min(2,bonus/15));
@@ -154,13 +154,6 @@ public class Armor extends KindOfArmor {
 		int encumbrance = STR() - hero.STR();
 
 		float STE = this.STE;
-
-		int bonus = 0;
-		for (Buff buff : hero.buffs(RingOfEvasion.Evasion.class)) {
-			bonus += ((RingOfEvasion.Evasion) buff).effectiveLevel;
-		}
-
-		STE+= (float) (Math.min(30,bonus));
 
 		return encumbrance > 0 ? (float) (STE / Math.pow(1.5, encumbrance)) : STE;
 	}		
@@ -287,6 +280,10 @@ public class Armor extends KindOfArmor {
 
 		public String name(String armorName) {
 			return Messages.get(this, "name", armorName);
+		}
+
+		public String desc() {
+			return Messages.get(this, "desc");
 		}
 
 		@Override

@@ -60,16 +60,16 @@ public class BlueMilk extends Vegetable {
 					Buff.affect(mob, Slow.class, Slow.duration(mob));
 				}
 				Buff.affect(hero, Haste.class, 20f);
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
+				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
 				break;
 			case 0: case 2: case 3: case 4: case 5: 
 			case 6: case 7: case 8: case 9: case 10:
 				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 					Buff.affect(mob, Slow.class, Slow.duration(mob));
-					Buff.affect(mob, BerryRegeneration.class).level(mob.HT);
+					Buff.affect(mob, BerryRegeneration.class).level(mob.HP/2);
 				}
 				Buff.affect(hero, Haste.class, 20f);
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
+				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
 				break;
 			}
 		}

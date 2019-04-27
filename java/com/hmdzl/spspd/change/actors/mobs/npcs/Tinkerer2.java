@@ -20,8 +20,7 @@ package com.hmdzl.spspd.change.actors.mobs.npcs;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
-import com.hmdzl.spspd.change.items.ActiveMrDestructo;
-import com.hmdzl.spspd.change.items.InactiveMrDestructo;
+import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.quest.Mushroom;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -75,11 +74,8 @@ public class Tinkerer2 extends NPC {
 
 		sprite.turnTo(pos, Dungeon.hero.pos);
 		Item item = Dungeon.hero.belongings.getItem(Mushroom.class);
-		Item inmrd = Dungeon.hero.belongings.getItem(InactiveMrDestructo.class);
 		Item acmrd = Dungeon.hero.belongings.getItem(ActiveMrDestructo.class);
-			if (item != null && inmrd != null) {
-				GameScene.show(new WndTinkerer2(this, item, inmrd));
-			} else if (item != null && acmrd != null) {
+		if (item != null && acmrd != null) {
 				GameScene.show(new WndTinkerer2(this, item, acmrd));
 			} else if (item != null) {
 				GameScene.show(new WndTinkerer2(this, item, null));

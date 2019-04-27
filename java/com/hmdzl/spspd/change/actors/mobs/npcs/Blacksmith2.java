@@ -30,6 +30,7 @@ import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.quest.DarkGold;
 import com.hmdzl.spspd.change.items.rings.Ring;
 import com.hmdzl.spspd.change.items.wands.Wand;
+import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -125,6 +126,10 @@ public class Blacksmith2 extends NPC {
 		}
 		
 		if(item1 instanceof Boomerang && item2 instanceof AdamantWeapon){
+			return null;
+		}
+
+		if(item1 instanceof GunWeapon && item2 instanceof AdamantWeapon){
 			return null;
 		}
 		

@@ -29,7 +29,7 @@ import com.hmdzl.spspd.change.actors.buffs.Ooze;
 import com.hmdzl.spspd.change.actors.buffs.Bleeding;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Bat;
-import com.hmdzl.spspd.change.actors.mobs.DwarfKingTomb;
+import com.hmdzl.spspd.change.actors.mobs.King;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Item;
@@ -178,13 +178,13 @@ public class Pickaxe extends Weapon {
 			bloodStained = true;
 			updateQuickslot();
 		}
-		if (defender instanceof DwarfKingTomb){	
+		if (defender instanceof King.DwarfKingTomb){
 			defender.damage(Random.Int(100,200), this);
 		}
 		
 		switch (Random.Int (10)) {
         case 1 :
-            Buff.affect(defender, Bleeding.class);
+            Buff.affect(defender, Bleeding.class).set(10);
 			break;
 		case 2 :
             Buff.affect(defender, Ooze.class);

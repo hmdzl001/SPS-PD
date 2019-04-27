@@ -36,6 +36,7 @@ public class MachineArmor extends NormalArmor {
 	{
 		//name = "machine armor";
 		image = ItemSpriteSheet.MECH_ARMOR;
+		STR += 1;
 		MAX = 60;
 		MIN = 15;
 	}

@@ -228,11 +228,19 @@ public class Ring extends KindofMisc {
 			desc += "\n\n" + Messages.get(Item.class, "reinforced");
 		}
 
+		if (isKnown()) {
+			desc += "\n\n" + statsInfo();
+		}		
+		
 		return desc;
 	}
 
 	public Integer initials(){
 		return isKnown() ? initials : null;
+	}	
+	
+	protected String statsInfo(){
+		return "";
 	}	
 	
 	@Override
@@ -334,12 +342,12 @@ public class Ring extends KindofMisc {
 		@Override
 		public boolean act() {
 
-			if (!isIdentified() && --ticksToKnow <= 0) {
-				String gemName = name();
-				identify();
-				GLog.w(Messages.get(Ring.class, "identify", gemName, Ring.this.toString()));
-				Badges.validateItemLevelAquired(Ring.this);
-			}
+			//if (!isIdentified() && --ticksToKnow <= 0) {
+				//String gemName = name();
+				//identify();
+				//GLog.w(Messages.get(Ring.class, "identify", gemName, Ring.this.toString()));
+				//Badges.validateItemLevelAquired(Ring.this);
+			//}
 
 			spend(TICK);
 

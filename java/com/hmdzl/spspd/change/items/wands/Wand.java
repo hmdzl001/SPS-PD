@@ -258,13 +258,13 @@ public abstract class Wand extends Item {
 
 	protected void wandUsed() {
         curCharges -= chargesPerCast();
-		if (!isIdentified() && usagesToKnow <= 0) {
-			identify();
-			GLog.w( Messages.get(Wand.class, "identify", name()) );
-		} else {
+		//if (!isIdentified() && usagesToKnow <= 0) {
+		//	identify();
+		//	GLog.w( Messages.get(Wand.class, "identify", name()) );
+		//} else {
 			if (curUser.heroClass == HeroClass.MAGE) levelKnown = true;
 			updateQuickslot();
-		}
+	//	}
 
 		if (Dungeon.hero.heroClass == HeroClass.MAGE && Dungeon.hero.subClass == HeroSubClass.BATTLEMAGE){
 			curUser.spendAndNext(TIME_TO_ZAP/3);

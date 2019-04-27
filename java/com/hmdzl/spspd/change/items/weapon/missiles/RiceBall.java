@@ -48,7 +48,7 @@ public class RiceBall extends MissileWeapon {
 
 	{
 		//name = "rice dumpling";
-		image = ItemSpriteSheet.RICEBALL;
+		image = ItemSpriteSheet.DUST;
 
 		MIN = 1;
 		MAX = 2;
@@ -67,31 +67,18 @@ public class RiceBall extends MissileWeapon {
 		quantity = number;
 	}
 
-	@Override
-	public String desc() {
-		return "A satisfying dumpling lovingly crafted from magic rice. "
-		       +"Anything that eats would gladly take a dumpling. ";
-	}
 	
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 		
-		
-			
 		if (defender != null 
 				&& !(defender instanceof NPC)
-				&& !(defender instanceof BlueWraith)
-				&& !(defender instanceof Wraith)
-				&& !(defender instanceof RedWraith)
-				&& !(defender instanceof Sentinel)
-				&& !(defender instanceof FlyingProtector)
-				&& !(defender instanceof Golem)
-				&& !(defender instanceof Skeleton)
-				&& !(defender instanceof DwarfLich)
-				&& !(defender instanceof Statue)
-				&& !(defender instanceof Yog)
-				&& !(defender instanceof ShadowYog)
-				&& !(defender instanceof Fiend)
+				&& !defender.properties().contains(Char.Property.UNDEAD)
+				&& !defender.properties().contains(Char.Property.BOSS)
+				&& !defender.properties().contains(Char.Property.DEMONIC)
+				&& !defender.properties().contains(Char.Property.UNKNOW)
+				&& !defender.properties().contains(Char.Property.ELEMENT)
+				&& !defender.properties().contains(Char.Property.MECH)
 				) {
   
 			Buff.affect(defender, Drowsy.class);
@@ -133,12 +120,12 @@ public class RiceBall extends MissileWeapon {
 
 	@Override
 	public Item random() {
-		quantity = Random.Int(5, 15);
+		quantity = Random.Int(3, 5);
 		return this;
 	}
 
 	@Override
 	public int price() {
-		return quantity * 2;
+		return quantity * 10;
 	}
 }

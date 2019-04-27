@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.change.items.rings;
 
+import com.hmdzl.spspd.change.messages.Messages;
+
 public class RingOfMagic extends Ring {
 
 	{
@@ -24,6 +26,15 @@ public class RingOfMagic extends Ring {
 		initials = 6;
 	}
 
+	public String statsInfo() {
+		if (isIdentified()){
+			return Messages.get(this, "stats", level);
+		} else {
+			return "???";
+		}
+	}	
+		
+	
 	@Override
 	protected RingBuff buff() {
 		return new Magic();

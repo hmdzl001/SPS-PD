@@ -21,17 +21,10 @@ import com.hmdzl.spspd.change.Journal;
 import com.hmdzl.spspd.change.Journal.Feature;
 import com.hmdzl.spspd.change.effects.BlobEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
-import com.hmdzl.spspd.change.items.ActiveMrDestructo;
-import com.hmdzl.spspd.change.items.ActiveMrDestructo2;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Generator.Category;
-import com.hmdzl.spspd.change.items.bombs.Honeypot.ShatteredPot;
-import com.hmdzl.spspd.change.items.InactiveMrDestructo;
-import com.hmdzl.spspd.change.items.InactiveMrDestructo2;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.artifacts.Artifact;
-import com.hmdzl.spspd.change.items.food.Food;
-import com.hmdzl.spspd.change.items.food.completefood.Honey;
 import com.hmdzl.spspd.change.items.potions.Potion;
 import com.hmdzl.spspd.change.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.change.items.potions.PotionOfMending;
@@ -43,29 +36,8 @@ import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.change.items.wands.Wand;
 import com.hmdzl.spspd.change.items.armor.Armor;
-import com.hmdzl.spspd.change.items.weapon.melee.Club;
-import com.hmdzl.spspd.change.items.weapon.melee.FightGloves;
-import com.hmdzl.spspd.change.items.weapon.melee.Lance;
-import com.hmdzl.spspd.change.items.weapon.melee.MageBook;
-import com.hmdzl.spspd.change.items.weapon.melee.Rapier;
-import com.hmdzl.spspd.change.items.weapon.melee.ShortSword;
-import com.hmdzl.spspd.change.items.weapon.melee.Dualknive;
-import com.hmdzl.spspd.change.items.weapon.melee.Nunchakus;
-import com.hmdzl.spspd.change.items.weapon.melee.BattleAxe;
-import com.hmdzl.spspd.change.items.weapon.melee.Dagger;
-import com.hmdzl.spspd.change.items.weapon.melee.Glaive;
-import com.hmdzl.spspd.change.items.weapon.melee.Knuckles;
-import com.hmdzl.spspd.change.items.weapon.melee.AssassinsBlade;
-import com.hmdzl.spspd.change.items.weapon.melee.Scimitar;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.change.items.weapon.melee.Handaxe;
-import com.hmdzl.spspd.change.items.weapon.melee.Spear;
-import com.hmdzl.spspd.change.items.weapon.melee.Whip;
-import com.hmdzl.spspd.change.items.weapon.melee.WarHammer;
-import com.hmdzl.spspd.change.items.weapon.melee.Gsword;
-import com.hmdzl.spspd.change.items.weapon.melee.Halberd;
 import com.hmdzl.spspd.change.messages.Messages;
-import com.hmdzl.spspd.change.plants.Plant;
 
 public class WaterOfTransmutation extends WellWater {
 
@@ -86,14 +58,6 @@ public class WaterOfTransmutation extends WellWater {
 			item = changeWand((Wand) item);
 		}  else if (item instanceof Artifact) {
 			item = changeArtifact((Artifact) item);
-		} else if (item instanceof ShatteredPot) {
-			item = changeHoneypot((ShatteredPot) item);
-		} else if (item instanceof InactiveMrDestructo) {
-			item = rechargeDestructo((InactiveMrDestructo) item);
-		} else if (item instanceof ActiveMrDestructo) {
-			item = upgradeDestructo((ActiveMrDestructo) item);
-		} else if (item instanceof InactiveMrDestructo2) {
-			item = rechargeDestructo2((InactiveMrDestructo2) item);
 		} else {
 			item = null;
 		}
@@ -129,6 +93,7 @@ public class WaterOfTransmutation extends WellWater {
 			}
 
 			n.enchantment = w.enchantment;
+		    n.reinforced = w.reinforced;
 			n.levelKnown = w.levelKnown;
 			n.cursedKnown = w.cursedKnown;
 			n.cursed = w.cursed;
@@ -151,7 +116,8 @@ public class WaterOfTransmutation extends WellWater {
 		} else if (level < 0) {
 			n.degrade(-level);
 		}
-
+		n.glyph = r.glyph;
+		n.reinforced = r.reinforced;
 		n.levelKnown = r.levelKnown;
 		n.cursedKnown = r.cursedKnown;
 		n.cursed = r.cursed;
@@ -174,7 +140,7 @@ public class WaterOfTransmutation extends WellWater {
 		} else if (level < 0) {
 			n.degrade(-level);
 		}
-
+		n.reinforced = r.reinforced;
 		n.levelKnown = r.levelKnown;
 		n.cursedKnown = r.cursedKnown;
 		n.cursed = r.cursed;
@@ -183,7 +149,10 @@ public class WaterOfTransmutation extends WellWater {
 	}
 
 	private Artifact changeArtifact(Artifact a) {
-		Artifact n = Generator.randomArtifact();
+		Artifact n ;
+		do {
+			n = (Artifact) Generator.random(Category.ARTIFACT);
+		} while (n.getClass() == a.getClass());
 
 		if (n != null) {
 			n.cursedKnown = a.cursedKnown;
@@ -206,6 +175,7 @@ public class WaterOfTransmutation extends WellWater {
 		n.updateLevel();
 		n.upgrade(w.level);
 
+		n.reinforced = w.reinforced;
 		n.levelKnown = w.levelKnown;
 		n.cursedKnown = w.cursedKnown;
 		n.cursed = w.cursed;
@@ -250,26 +220,8 @@ public class WaterOfTransmutation extends WellWater {
 			return n;
 		}
 	}
+	
 
-
-	private Food changeHoneypot(ShatteredPot s) {
-		return new Honey();
-	}
-
-	private Item rechargeDestructo(InactiveMrDestructo d) {
-		return new ActiveMrDestructo();
-	}
-	
-	private Item upgradeDestructo(ActiveMrDestructo d) {
-		return new ActiveMrDestructo2();
-	}
-	
-	private Item rechargeDestructo2(InactiveMrDestructo2 d) {
-		return new ActiveMrDestructo2();
-	}
-	
-	
-	
 	@Override
 	public String tileDesc() {
 		return Messages.get(this, "desc");

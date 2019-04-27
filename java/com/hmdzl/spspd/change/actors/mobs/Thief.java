@@ -23,16 +23,11 @@ import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
-import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Gold;
-import com.hmdzl.spspd.change.items.bombs.Honeypot;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.ThiefSprite;
-import com.hmdzl.spspd.change.utils.GLog;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Thief extends Mob {
@@ -96,7 +91,7 @@ public class Thief extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 3;
+		return Random.NormalIntRange(0, 3);
 	}
 
 	@Override

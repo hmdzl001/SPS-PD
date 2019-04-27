@@ -21,6 +21,7 @@ import java.util.HashSet;
 
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.buffs.Cripple;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.effects.Chains;
 import com.hmdzl.spspd.change.effects.Pushing;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
@@ -84,7 +85,7 @@ public class Guard extends Mob {
 				enemy.invisible == 0 &&
 				Level.fieldOfView[enemy.pos] &&
 				Level.distance( pos, enemy.pos ) < 5 && !Level.adjacent( pos, enemy.pos ) &&
-				Random.Int(3) == 0 &&
+				Random.Int(3) == 0 && (buff(Silent.class) == null) &&
 
 				chain(enemy.pos)) {
 
@@ -183,7 +184,7 @@ public class Guard extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 5+adj(0);
+		return Random.NormalIntRange(5, 10);
 	}
 	
 	private final String CHAINSUSED = "chainsused";

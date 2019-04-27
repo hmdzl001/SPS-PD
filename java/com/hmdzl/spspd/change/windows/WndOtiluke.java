@@ -21,7 +21,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.messages.Messages;
-import com.hmdzl.spspd.change.items.DolyaStale;
+import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.change.scenes.InterlevelScene;
 import com.hmdzl.spspd.change.scenes.PixelScene;
@@ -45,7 +45,7 @@ public class WndOtiluke extends Window {
 	private static final int BTN_HEIGHT = 20;
 	private static final float GAP = 2;
 
-	public WndOtiluke(final boolean[] rooms, final DolyaStale item) {
+	public WndOtiluke(final boolean[] rooms, final DolyaSlate item) {
 
 		super();
 		
@@ -81,10 +81,8 @@ public class WndOtiluke extends Window {
 				item.returnDepth = Dungeon.depth;
 				item.returnPos = Dungeon.hero.pos;
 				port(0, item.firsts[0]);
-				if (!Dungeon.playtest){
-				   item.firsts[0]=false;
-				}
-				item.charge-=500;
+				item.firsts[0]=false;
+				if (item.charge> 500) {item.charge-=500;}
 			}
 		};
 		btn1.setRect(0, message.top() + message.height() + GAP, WIDTH, BTN_HEIGHT);

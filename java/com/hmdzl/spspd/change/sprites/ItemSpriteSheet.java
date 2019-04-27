@@ -43,6 +43,8 @@ public class ItemSpriteSheet {
 	private static final int ROW21 = 20 * 16;
 	private static final int ROW22 = 21 * 16;
 	private static final int ROW23 = 22 * 16;
+	private static final int ROW24 = 23 * 16;
+
 
 	// Row One: Items which can't be obtained
 	// null warning occupies space 0, should only show up if there's a bug.
@@ -89,13 +91,6 @@ public class ItemSpriteSheet {
 	public static final int DBL_BOMB = ROW2 + 13;
 	public static final int HONEYPOT = ROW2 + 14;
 	public static final int SHATTPOT = ROW2 + 15;
-	public static final int RICEBOMB = ROW13 + 10;
-	public static final int HOLY_HAND_GRENADE = ROW13 + 13;
-	public static final int CLUSTER_BOMB = ROW15 + 11;
-	public static final int SEEKING_BOMB = ROW15 + 12;
-	public static final int DIZZY_BOMB = ROW15 + 13;
-	public static final int SMART_BOMB = ROW15 + 14;
-	public static final int SEEKING_CLUSTER_BOMB = ROW15 + 15;
 	public static final int SHELL = ROW5 + 10;
 	public static final int BONE = ROW5 + 11;
 	
@@ -286,7 +281,6 @@ public class ItemSpriteSheet {
 	public static final int RATION = ROW13 + 5;
 	public static final int PASTY = ROW13 + 6;
 	public static final int MYSTERYMEAT = ROW13 + 7;
-	public static final int RICEBALL = ROW13 + 8;
 
 	// Row Fourteen: Quest Items
 	public static final int SKULL = ROW14 + 0;
@@ -313,12 +307,22 @@ public class ItemSpriteSheet {
 	public static final int HOLSTER = ROW15 + 4;
 	public static final int SHOPCART = ROW15 + 5;
 	public static final int ACTIVEMRD = ROW15 + 6;
-	public static final int INACTIVEMRD = ROW15 + 7;
-	public static final int ACTIVEMRD2 = ROW15 + 8;
-	public static final int INACTIVEMRD2 = ROW15 + 9;
+	public static final int ACTIVEMRD2 = ROW15 + 7;
 	public static final int ORBOFZOT = ROW15 + 10;
 	public static final int KEYRING = ROW4 + 10;
 
+	//Bombs
+	public static final int DARK_BOMB = ROW13 + 8;
+	public static final int FISH_BOMB = ROW13 + 10;
+	public static final int LIGHT_BOMB = ROW13 + 13;
+	public static final int FIRE_BOMB = ROW15 + 11;
+	public static final int STORM_BOMB = ROW15 + 12;
+	public static final int EARTH_BOMB = ROW15 + 13;
+	public static final int ICE_BOMB = ROW15 + 14;
+	public static final int HUGE_BOMB = ROW15 + 15;	
+	public static final int MINI_BOMB = ROW15 + 8;
+    public static final int BUILD_BOMB = ROW15 + 9;
+	
 	// Row Sixteen: Random OP Stuff
 	public static final int UPGRADEGOO_YELLOW = ROW16 + 0;
 	public static final int UPGRADEGOO_RED = ROW16 + 1;
@@ -403,6 +407,7 @@ public class ItemSpriteSheet {
 
 	public static final int MOAI = ROW20 + 6;
 	public static final int POCKETBALL_EMPTY = ROW20 + 7;
+	public static final int SPAMMO = ROW20 + 9;
 
 	public static final int ERROR_WEAPON = ROW18 + 7;
 	public static final int ERROR_ARMOR = ROW18 + 8;
@@ -444,6 +449,9 @@ public class ItemSpriteSheet {
 	public static final int VEGETABLESOUP = ROW22 + 10;
 	public static final int RICE = ROW22 + 11;
 	public static final int FRUITSALAD = ROW22 + 12;
+	public static final int FOAMED = ROW22 + 13;
+	public static final int EAT_GRASS = ROW22 + 14;
+	public static final int PERFECT_FOOD = ROW22 + 15;
 
 	public static final int CHALLENGE_BOOK = ROW21 + 14;
 	public static final int GOEI = ROW21 + 15;
@@ -462,6 +470,21 @@ public class ItemSpriteSheet {
 	public static final int BULLET_ARMOR = ROW23 + 10;
 	public static final int MECH_ARMOR = ROW23 + 11;
 
+	public static final int ARMOR_SOLDIER = ROW23 + 13;
 
+	public static final int HERB_MEAT = ROW23 + 12;
 
+	public static final int GUN_A = ROW24 + 0;
+	public static final int GUN_B = ROW24 + 1;
+	public static final int GUN_C = ROW24 + 2;
+	public static final int GUN_D = ROW24 + 3;
+	public static final int GUN_E = ROW24 + 4;
+	public static final int GUN_S = ROW24 + 5;
+	public static final int TOYGUN = ROW24 + 6;
+	public static final int SLING = ROW24 + 7;
+	public static final int MOBS = ROW24 + 8;
+	public static final int BRICK = ROW24 + 9;
+
+	public static final int FOURCLOVER = ROW23 + 14;
+	public static final int POTION_OF_MAGE = ROW23 + 15;
 }

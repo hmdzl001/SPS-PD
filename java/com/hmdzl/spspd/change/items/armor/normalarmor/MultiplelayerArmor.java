@@ -36,6 +36,7 @@ public class MultiplelayerArmor extends NormalArmor {
 	{
 		//name = "Multiplelayer Armor";
 		image = ItemSpriteSheet.MUL_ARMOR;
+		STR += 1;
 		MAX = 36;
 		MIN = 8;
 	}

@@ -29,6 +29,7 @@ import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.SnowParticle;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
@@ -56,6 +57,7 @@ public class Lightglyph extends Glyph {
 	    GlyphFire gfire = defender.buff(GlyphFire.class);
 		GlyphEarth gearth = defender.buff(GlyphEarth.class);
 		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 	
 		if (defender.isAlive() && glight == null)
 		{
@@ -78,7 +80,7 @@ public class Lightglyph extends Glyph {
 			attacker.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
 		} 
 		
-		else if (Random.Int(level / 2 + 5) >= 3) {
+		else if (Random.Int(level / 2 + 5) >= 3 || (fcb != null && Random.Int(level/2 + 5) >= 1)) {
 			Buff.affect(attacker, Terror.class, 10f).object = defender.id();
 		} 		
 

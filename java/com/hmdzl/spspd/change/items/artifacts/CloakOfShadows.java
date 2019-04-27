@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.ForeverShadow;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.sprites.CharSprite;
@@ -41,12 +44,15 @@ public class CloakOfShadows extends Artifact {
 	private boolean stealthed = false;
 
 	public static final String AC_STEALTH = "STEALTH";
+	public static final String AC_SHADOW = "SHADOW";
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && charge > 1)
 			actions.add(AC_STEALTH);
+		if (isEquipped(hero) && level > 3 && !cursed)
+		actions.add(AC_SHADOW);		
 		return actions;
 	}
 
@@ -83,7 +89,19 @@ public class CloakOfShadows extends Artifact {
 				hero.spend( 1f );
 				hero.sprite.operate(hero.pos);
 			}
-
+		} else if (action.equals(AC_SHADOW)) {
+			if (!isEquipped(hero))
+				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
+			else {	
+                if (level > 3 )level-=3;
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				Buff.affect(hero, ForeverShadow.class,(level+3)*10f);
+				hero.spend(1f);
+				hero.busy();
+				hero.sprite.operate(hero.pos);
+				updateQuickslot();	
+			}
 		} else
 			super.execute(hero, action);
 	}

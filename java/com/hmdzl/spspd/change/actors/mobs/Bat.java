@@ -64,7 +64,7 @@ public class Bat extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 4+adj(0);
+		return adj(0);
 	}
 
 	@Override

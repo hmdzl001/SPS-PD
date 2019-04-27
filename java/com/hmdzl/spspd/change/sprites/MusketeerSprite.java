@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.change.sprites;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.items.weapon.missiles.Ammo;
+import com.hmdzl.spspd.change.items.weapon.missiles.ShatteredAmmo;
 import com.hmdzl.spspd.change.levels.Level;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;
@@ -57,7 +57,7 @@ public class MusketeerSprite extends MobSprite {
 		if (!Level.adjacent(cell, ch.pos)) {
 
 			((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
-					cell, new Ammo(), new Callback() {
+					cell, new ShatteredAmmo(), new Callback() {
 						@Override
 						public void call() {
 							ch.onAttackComplete();

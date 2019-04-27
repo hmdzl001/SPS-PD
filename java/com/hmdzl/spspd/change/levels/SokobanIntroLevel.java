@@ -38,7 +38,6 @@ import com.hmdzl.spspd.change.actors.mobs.Bestiary;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.SokobanSentinel;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Blacksmith;
-import com.hmdzl.spspd.change.actors.mobs.npcs.MagicSheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Sheep;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanBlack;
@@ -57,6 +56,7 @@ import com.hmdzl.spspd.change.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
 
+import com.hmdzl.spspd.change.items.wands.WandOfFlock;
 import com.hmdzl.spspd.change.levels.features.Chasm;
 import com.hmdzl.spspd.change.levels.features.Door;
 import com.hmdzl.spspd.change.levels.features.HighGrass;
@@ -239,7 +239,7 @@ public class SokobanIntroLevel extends Level {
 			
 		case Terrain.CHANGE_SHEEP_TRAP:
 			
-			if (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof MagicSheep){
+			if (ch instanceof SheepSokoban || ch instanceof SheepSokobanSwitch || ch instanceof SheepSokobanCorner || ch instanceof Sheep || ch instanceof WandOfFlock.MagicSheep){
 				trap = true;
 				ChangeSheepTrap.trigger(cell, ch);
 			}						
@@ -374,7 +374,7 @@ public class SokobanIntroLevel extends Level {
 		switch (map[cell]) {
 			
 		case Terrain.FLEECING_TRAP:
-			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner || mob instanceof SheepSokobanBlack || mob instanceof Sheep){
+			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner || mob instanceof SheepSokobanBlack || mob instanceof Sheep || mob instanceof WandOfFlock.MagicSheep){
 				fleece=true;
 			}
 			FleecingTrap.trigger(cell, mob);
@@ -382,7 +382,7 @@ public class SokobanIntroLevel extends Level {
 			
 		case Terrain.CHANGE_SHEEP_TRAP:
 			trap=false;
-			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner || mob instanceof Sheep){
+			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner || mob instanceof Sheep || mob instanceof WandOfFlock.MagicSheep){
 				trap=true;
 				ChangeSheepTrap.trigger(cell, mob);
 			}						
@@ -390,7 +390,7 @@ public class SokobanIntroLevel extends Level {
 			
 		case Terrain.SOKOBAN_ITEM_REVEAL:
 			trap=false;
-			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner || mob instanceof SheepSokobanBlack || mob instanceof Sheep){
+			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner || mob instanceof SheepSokobanBlack || mob instanceof Sheep || mob instanceof WandOfFlock.MagicSheep){
 				HeapGenTrap.trigger(cell, mob);
 				drop(genPrizeItem(IronKey.class),heapgenspots[prizeNo]);
 				prizeNo++;
@@ -401,7 +401,7 @@ public class SokobanIntroLevel extends Level {
 			
 		case Terrain.SOKOBAN_PORT_SWITCH:
 			trap=false;
-			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner || mob instanceof SheepSokobanBlack || mob instanceof Sheep){
+			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner || mob instanceof SheepSokobanBlack || mob instanceof Sheep || mob instanceof WandOfFlock.MagicSheep){
 				ActivatePortalTrap.trigger(cell, mob);
 				
 				/*

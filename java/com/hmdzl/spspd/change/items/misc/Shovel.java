@@ -23,8 +23,10 @@ package com.hmdzl.spspd.change.items.misc;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Hunger;
 import com.hmdzl.spspd.change.actors.buffs.Invisibility;
+import com.hmdzl.spspd.change.actors.buffs.WarGroove;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
@@ -94,7 +96,7 @@ public class Shovel extends Item {
 				if(charge < 50){
 					GLog.i(Messages.get(Shovel.class, "break"));
 					return;
-				} else if (Dungeon.level.map[pos] == Terrain.WALL) {
+				} else if (Dungeon.level.map[pos] == Terrain.WALL && Level.insideMap(pos)) {
 					hero.spend(TIME_TO_DIG);
 					hero.busy();
 					hero.sprite.attack(pos, new Callback() {
@@ -111,6 +113,7 @@ public class Shovel extends Item {
 								hunger.satisfy(-10);
 								BuffIndicator.refreshHero();
 							}
+							Buff.affect(hero,WarGroove.class);
 							charge-=50;
 							updateQuickslot();
 							hero.onOperateComplete();

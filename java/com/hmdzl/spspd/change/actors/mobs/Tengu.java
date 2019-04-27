@@ -27,7 +27,7 @@ import com.hmdzl.spspd.change.items.TenguKey;
 import com.hmdzl.spspd.change.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentLight;
-import com.hmdzl.spspd.change.items.weapon.missiles.Shuriken;
+import com.hmdzl.spspd.change.items.weapon.missiles.HugeShuriken;
 import com.hmdzl.spspd.change.levels.PrisonBossLevel;
 import com.hmdzl.spspd.change.levels.traps.PoisonTrap;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -72,7 +72,7 @@ public class Tengu extends Mob {
 		loot =  new MasterThievesArmband().identify();
 		lootChance = 0.2f;
 
-		lootOther = new Shuriken(20);
+		lootOther = new HugeShuriken(20);
 		lootChanceOther = 1f; // by default, see die()
 
 	}
@@ -92,7 +92,7 @@ public class Tengu extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 5;
+		return Random.NormalIntRange(0, 5);
 	}
 
 	@Override
@@ -120,6 +120,9 @@ public class Tengu extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
+		if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
 
@@ -206,7 +209,7 @@ public class Tengu extends Mob {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(Poison.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

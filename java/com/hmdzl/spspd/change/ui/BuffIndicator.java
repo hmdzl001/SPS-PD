@@ -103,7 +103,12 @@ public class BuffIndicator extends Component {
 	public static final int RHYTHM2 = 64;
 	public static final int ARCANE = 65;
 	public static final int DEPRESSED = 66;
-
+	public static final int GOLDTOUCH = 67;
+	public static final int NEEDLING = 68;
+	public static final int FEED = 69;
+	public static final int NOTICE = 70;
+	public static final int BLOODANGRY = 71;
+	public static final int WARGROOVE = 72;
 
 	public static final int SIZE = 7;
 

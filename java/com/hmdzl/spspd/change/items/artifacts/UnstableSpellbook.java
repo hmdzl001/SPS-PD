@@ -27,6 +27,9 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.misc.SkillOfAtk;
+import com.hmdzl.spspd.change.items.misc.SkillOfDef;
+import com.hmdzl.spspd.change.items.misc.SkillOfMig;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfIdentify;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicMapping;
@@ -63,6 +66,7 @@ public class UnstableSpellbook extends Artifact {
 
 	public static final String AC_READ = "READ";
 	public static final String AC_ADD = "ADD";
+	public static final String AC_SONG = "SONG";
 	public static int consumedpts = 0;
 
 	private final ArrayList<Class> scrolls = new ArrayList<>();
@@ -91,6 +95,8 @@ public class UnstableSpellbook extends Artifact {
 			actions.add(AC_READ);
 		if (isEquipped( hero ) && level< levelCap && !cursed)
 			actions.add(AC_ADD);
+		if (isEquipped(hero) && level > 3 && !cursed)
+			actions.add(AC_SONG);			
 		return actions;
 	}
 
@@ -128,6 +134,28 @@ public class UnstableSpellbook extends Artifact {
 
 		} else if (action.equals( AC_ADD )) {
 			GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
+		} else if (action.equals( AC_SONG )) {
+			curUser = hero;
+            level-=4;
+			exp-=100;
+			switch (Random.Int(3)){
+				case 0:
+					Dungeon.hero.hitSkill++;
+					GLog.w(Messages.get(SkillOfAtk.class, "skillup"));
+					break;
+				case 1:
+					Dungeon.hero.evadeSkill++;
+					GLog.w(Messages.get(SkillOfDef.class, "skillup"));
+					break;
+				case 2:
+					Dungeon.hero.magicSkill++;
+					GLog.w(Messages.get(SkillOfMig.class, "skillup"));
+					break;
+			}
+			curUser.spendAndNext(1f);
+			updateQuickslot();
+			Sample.INSTANCE.play(Assets.SND_BURNING);
+			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 		} else
 			super.execute( hero, action );
 	}
@@ -222,7 +250,7 @@ public class UnstableSpellbook extends Artifact {
 				item.detach(hero.belongings.backpack);
 				GLog.h(Messages.get(UnstableSpellbook.class, "exp",consumedpts));
 				
-				int levelChk = ((level*level/2)+1)*10;
+				int levelChk = ((level*2)+1)*10;
 								
 				if (consumedpts > levelChk && level<10) {
 					upgrade();

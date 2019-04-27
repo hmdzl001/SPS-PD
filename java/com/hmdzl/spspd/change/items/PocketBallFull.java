@@ -312,7 +312,7 @@ public class PocketBallFull extends Item {
 
     @Override
     public int price() {
-        return 2000 * quantity;
+        return 1000 * quantity;
     }
 
 }

@@ -35,7 +35,7 @@ public class Shielded extends Brute {
 
 	@Override
 	public int drRoll() {
-		return 20+adj(0);
+		return Random.NormalIntRange(10, 30);
 	}
 
 	@Override

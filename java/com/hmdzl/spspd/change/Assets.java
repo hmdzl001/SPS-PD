@@ -45,6 +45,7 @@ public class Assets {
 	public static final String ROGUE = "rogue.png";
 	public static final String HUNTRESS = "ranger.png";
 	public static final String PERFORMER = "performer.png";
+	public static final String SOLDIER = "soldier.png";
 	public static final String AVATARS = "avatars.png";
 	public static final String PET = "pet.png";
 
@@ -158,6 +159,7 @@ public class Assets {
 	public static final String TILES_VAULT = "tiles_vault.png";
 	public static final String TILES_FOREST = "tiles_forest.png";
 	public static final String TILES_TOWN = "tiles_town.png";
+	public static final String TILES_SP = "tiles_sp.png";
 	
 	public static final String WATER_SEWERS = "water0.png";
 	public static final String WATER_PRISON = "water1.png";
@@ -299,5 +301,21 @@ public class Assets {
 	public static final String SPIDERMIND = "spider_mind.png";
 	public static final String SPIDEREGG = "spider_egg.png";
 
+	public static final String KOSTIS = "kostis12345.png";
+	public static final String NOODLEMIRE = "noodlemire.png";
+	public static final String RAVEBWOLF = "ravenwolf.png";
+	public static final String HMDZL = "hmdzl001.png";
+	public static final String NEW_PLAYER = "newplayer.png";
+	public static final String THANK_LIST = "thanklist.png";
+
+	public static final String CELL_MOB = "cellmob.png";
+	public static final String MOBILE = "mobile.png";
+	public static final String HYBRID = "hybrid.png";
+	
+	public static final String OBELISK = "obelisk.png";
+	public static final String ELDER_AVATAR = "elderavatar.png";
+
+	public static final String M_AMD_W = "mandw.png";
+    public static final String UNCLE_S = "sibaoluodeti.png";
 }
 

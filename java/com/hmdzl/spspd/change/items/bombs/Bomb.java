@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.hero.Hero;
@@ -41,16 +42,18 @@ import com.hmdzl.spspd.change.utils.GLog;
  
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
-
-import static com.hmdzl.spspd.change.actors.hero.HeroClass.PERFORMER;
 
 public class Bomb extends Item {
 
 	{
 		//name = "bomb";
 		image = ItemSpriteSheet.BOMB;
+		
 		defaultAction = AC_LIGHTTHROW;
+		usesTargeting = true;
+		
 		stackable = true;
 	}
 
@@ -62,12 +65,15 @@ public class Bomb extends Item {
 
 	private static final String AC_LIGHTTHROW = "LIGHTTHROW";
 	
-	public static final float TIME_TO_COOK_BOMB = 4;
 
 	@Override
 	public boolean isSimilar(Item item) {
-		return item instanceof Bomb && this.fuse == ((Bomb) item).fuse;
+		return super.isSimilar(item) && this.fuse == ((Bomb) item).fuse;
 	}
+	
+	public boolean explodesDestructively(){
+		return true;
+	}	
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
@@ -89,21 +95,20 @@ public class Bomb extends Item {
 	}
 
 	@Override
-	protected void onThrow(int cell) {
-		if (!Level.pit[cell] && lightingFuse) {
+	protected void onThrow( int cell ) {
+		if (!Dungeon.level.pit[ cell ] && lightingFuse) {
 			Actor.addDelayed(fuse = new Fuse().ignite(this), 2);
 		}
-		if (Actor.findChar(cell) != null
-				&& !(Actor.findChar(cell) instanceof Hero)) {
+		if (Actor.findChar( cell ) != null && !(Actor.findChar( cell ) instanceof Hero) ){
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : Level.NEIGHBOURS8)
-				if (Level.passable[cell + i])
-					candidates.add(cell + i);
-			int newCell = candidates.isEmpty() ? cell : Random
-					.element(candidates);
-			Dungeon.level.drop(this, newCell).sprite.drop(cell);
+			//for (int i : PathFinder.NEIGHBOURS8)
+				//if (Dungeon.level.passable[cell + i])
+					//candidates.add(cell + i);
+			//int newCell = candidates.isEmpty() ? cell : Random.element(candidates);
+			int newCell = cell;
+			Dungeon.level.drop( this, newCell ).sprite.drop( cell );
 		} else
-			super.onThrow(cell);
+			super.onThrow( cell );
 	}
 
 	@Override
@@ -116,68 +121,57 @@ public class Bomb extends Item {
 	}
 
 	public void explode(int cell) {
-		// We're blowing up, so no need for a fuse anymore.
 		this.fuse = null;
 
-		Sample.INSTANCE.play(Assets.SND_BLAST, 2);
+		Sample.INSTANCE.play(Assets.SND_BLAST);
 
 		if (Dungeon.visible[cell]) {
 			CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
 		}
 
-		boolean terrainAffected = false;
-		for (int n : Level.NEIGHBOURS9) {
-			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
-				if (Dungeon.visible[c]) {
-					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
-				}
+	//	boolean terrainAffected = false;
+	//	for (int n : Level.NEIGHBOURS9) {
+		//	int c = cell + n;
+		//	if (c >= 0 && c < Level.getLength()) {
+			//	if (Dungeon.visible[c]) {
+			//		CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
+			//	}
 
-				if (Level.flamable[c]) {
-					Level.set(c, Terrain.EMBERS);
-					GameScene.updateMap(c);
-					terrainAffected = true;
-				}
+			//	if (Level.flamable[c]) {
+			//		Level.set(c, Terrain.EMBERS);
+			//		GameScene.updateMap(c);
+			//		terrainAffected = true;
+			//	}
 
-				if (Dungeon.level.map[c] == Terrain.WALL ){
-					Level.set(c, Terrain.EMPTY);
-					GameScene.updateMap(c);
-					terrainAffected = true;
-				}
-
-
-
-				// destroys items / triggers bombs caught in the blast.
-				Heap heap = Dungeon.level.heaps.get(c);
-				if (heap != null)
-					heap.explode();
-
-				Char ch = Actor.findChar(c);
-				if (ch != null) {
+			//	Heap heap = Dungeon.level.heaps.get(c);
+			//	if (heap != null) heap.explode();
+									
+				
+			//	Char ch = Actor.findChar(c);
+			//	if (ch != null) {
 					// those not at the center of the blast take damage less
 					// consistently.
-					int minDamage = ch.HT/20;
-					int maxDamage = ch.HT/10;
+				//	int minDamage = c == cell ? Dungeon.depth + 5 : 1;
+				//	int maxDamage = 10 + Dungeon.depth * 2;
 
-					int dmg = Random.NormalIntRange(minDamage, maxDamage)
-							- Random.Int(ch.drRoll());
-					if (dmg > 0) {
-						ch.damage(dmg, this);
-					}
-				}
-			}
-		}
+				//	int dmg = Random.NormalIntRange(minDamage, maxDamage)
+				//			- Random.Int(ch.drRoll());
+					//if (dmg > 0) {
+				//		ch.damage(dmg, this);
+				//	}
 
-		if (terrainAffected) {
-			Dungeon.observe();
-		}
+				//	if (ch == Dungeon.hero && !ch.isAlive())
+						// constant is used here in the rare instance a player
+						// is killed by a double bomb.
+						//Dungeon.fail(ResultDescriptions.ITEM);
+				//}
+			//}
+		//}
+
+		//if (terrainAffected) {
+			//Dungeon.observe();
+	//	}
 		
-	}
-	
-	public void genBomb(){
-		if (Random.Int(4) == 1 && Dungeon.hero.heroClass == HeroClass.PERFORMER){
-			Dungeon.level.drop(new Bomb(), Dungeon.level.randomDestination()).sprite.drop();
-		}
 	}
 
 	@Override
@@ -191,24 +185,13 @@ public class Bomb extends Item {
 	}
 
 	@Override
-	public Item random() {
-		switch (Random.Int(2)) {
-		case 0:
-		default:
-			return this;
-		case 1:
-			return new DoubleBomb();
-		}
-	}
-
-	@Override
 	public ItemSprite.Glowing glowing() {
 		return fuse != null ? new ItemSprite.Glowing(0xFF0000, 0.6f) : null;
 	}
 
 	@Override
 	public int price() {
-		return 10 * quantity;
+		return 20 * quantity;
 	}
 
 	@Override
@@ -258,8 +241,11 @@ public class Bomb extends Item {
 				if (heap.items.contains(bomb)) {
 					heap.items.remove(bomb);
 
+					if (heap.items.isEmpty()){
+						heap.destroy();
+					}
+					
 					bomb.explode(heap.pos);
-					bomb.genBomb();
 
 					Actor.remove(this);
 					return true;
@@ -268,29 +254,9 @@ public class Bomb extends Item {
 
 			// can't find our bomb, this should never happen, throw an
 			// exception.
-			throw new RuntimeException(
-					"Something caused a lit bomb to not be present in a heap on the level!");
-		}
-	}
-
-	public static class DoubleBomb extends Bomb {
-
-		{
-			//name = "two bombs";
-			image = ItemSpriteSheet.DBL_BOMB;
-			stackable = false;
-		}
-
-		@Override
-		public boolean doPickUp(Hero hero) {
-			Bomb bomb = new Bomb();
-			bomb.quantity(2);
-			if (bomb.doPickUp(hero)) {
-				// isaaaaac....
-				hero.sprite.showStatus(CharSprite.NEUTRAL, "1+1 free!");
-				return true;
-			}
-			return false;
+			bomb.fuse = null;
+			Actor.remove( this );
+			return true;
 		}
 	}
 }

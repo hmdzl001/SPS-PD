@@ -32,7 +32,7 @@ public class Foamedbeverage extends CompleteFood {
 
 	{
 		//name = "foamedbeverage";
-		image = ItemSpriteSheet.ERROR_FOOD;
+		image = ItemSpriteSheet.FOAMED;
 		energy = 20;
 		hornValue = 1;
 		bones = false;

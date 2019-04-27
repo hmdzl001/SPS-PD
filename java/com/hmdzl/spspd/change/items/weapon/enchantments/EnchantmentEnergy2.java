@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -45,12 +46,16 @@ public class EnchantmentEnergy2 extends Weapon.Enchantment {
 		// lvl 0 - 13%
 		// lvl 1 - 22%
 		// lvl 2 - 30%
+		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int lvl = Math.max(0, weapon.level);
 
 		//int dmg = damage;
 		//defender.damage(Random.Int(dmg/6), this);
 
 		//if (Random.Int(level + 15) >= 15) {
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage(Random.Int(damage/6), this);
+		}
 			Buff.affect(attacker, DefenceUp.class,5f).level(Math.min(30,lvl+1));
 			attacker.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 			return true;

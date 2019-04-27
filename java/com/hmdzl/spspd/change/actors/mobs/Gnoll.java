@@ -18,10 +18,11 @@
 package com.hmdzl.spspd.change.actors.mobs;
 
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.items.Gold;
-import com.hmdzl.spspd.change.items.weapon.missiles.Knive;
+import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.sprites.GnollSprite;
 import com.watabou.utils.Random;
 
@@ -40,7 +41,7 @@ public class Gnoll extends Mob {
 		loot = Gold.class;
 		lootChance = 0.5f;
 
-		lootOther = Generator.random(Knive.class);
+		lootOther = Generator.random(Generator.Category.RANGEWEAPON);
 		lootChanceOther = 0.5f; // by default, see die()
 		
 		properties.add(Property.GNOLL);
@@ -53,7 +54,9 @@ public class Gnoll extends Mob {
 
 	
 	@Override
-	protected boolean canAttack(Char enemy) {
+	protected boolean canAttack(Char enemy) {if (buff(Locked.class) != null){
+			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		} else
 		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
 	}	
 	
@@ -64,7 +67,7 @@ public class Gnoll extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 5+adj(0);
+		return Random.NormalIntRange(5, 8);
 	}
 	
 }

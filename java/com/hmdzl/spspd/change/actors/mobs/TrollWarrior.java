@@ -84,7 +84,7 @@ public class TrollWarrior extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 7;
+		return Random.NormalIntRange(5, 7);
 	}
 	@Override
 	protected float attackDelay() {
@@ -96,7 +96,7 @@ public class TrollWarrior extends Mob {
 		RESISTANCES.add(ToxicGas.class);
 		RESISTANCES.add(Poison.class);
 		RESISTANCES.add(EnchantmentDark.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
+		
 	}
 
 	@Override

@@ -28,7 +28,7 @@ import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.bombs.DumplingBomb;
+
 import com.hmdzl.spspd.change.items.weapon.missiles.RiceBall;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
@@ -40,9 +40,7 @@ public class SoulCollect extends Item {
 	{
 		//name = "Soul collect";
 		image = ItemSpriteSheet.SOUL_COLLECT;
-
 		stackable = false;
-
 	}
 
 	
@@ -60,13 +58,17 @@ public class SoulCollect extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action.equals(AC_BREAK)) {
-           Badges.validateOtilukeRescued();
+
 		   GLog.w(Messages.get(this, "win"));
-		  // Statistics.archersKilled += 51;
-			//Statistics.skeletonsKilled += 51;
-			//Statistics.piranhasKilled += 51;
-			//Statistics.goldThievesKilled += 51;
+		   //Statistics.archersKilled += 51;
+		   //Statistics.skeletonsKilled += 51;
+		   //Statistics.piranhasKilled += 51;
+		   //Statistics.goldThievesKilled += 51;
+			 Badges.validateOtilukeRescued();
+			curUser.sprite.operate(curUser.pos);
 			detach(hero.belongings.backpack);
+			curUser.spendAndNext(1f);
+			curUser.busy();
 
 		} else {
 			super.execute(hero, action);

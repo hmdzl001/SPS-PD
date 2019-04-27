@@ -28,12 +28,13 @@ import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
-import com.hmdzl.spspd.change.items.bombs.DumplingBomb;
+
 import com.hmdzl.spspd.change.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.change.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.change.items.food.fruit.Cloudberry;
 import com.hmdzl.spspd.change.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.change.items.weapon.missiles.RiceBall;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -43,7 +44,12 @@ public class CaveReward extends Item {
 	public static final String AC_USE = "USE";
 
 	public static final float TIME_TO_USE = 1;
+	private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing(0xFFFFFF);
 
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return WHITE;
+	}
 	{
 		//name = "reward";
 		image = ItemSpriteSheet.PETFOOD;
@@ -69,13 +75,13 @@ public class CaveReward extends Item {
 			hero.sprite.operate(hero.pos);
 
 			Moonberry berry1 = new Moonberry(10);
-			berry1.doPickUp(Dungeon.hero);	
+			Dungeon.level.drop(berry1, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			Cloudberry berry2 = new Cloudberry(10);
-			berry2.doPickUp(Dungeon.hero);	
+			Dungeon.level.drop(berry2, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			Blueberry berry3 = new Blueberry(10);
-			berry3.doPickUp(Dungeon.hero);	
+			Dungeon.level.drop(berry3, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			Blackberry berry4 = new Blackberry(10);
-			berry4.doPickUp(Dungeon.hero);
+			Dungeon.level.drop(berry4, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			detach(hero.belongings.backpack);
 

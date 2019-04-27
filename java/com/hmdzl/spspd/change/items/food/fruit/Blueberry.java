@@ -53,15 +53,6 @@ public class Blueberry extends Fruit {
 	public void execute(Hero hero, String action) {
 
 		super.execute(hero, action);
-		
-         if (action.equals(AC_EAT)) {
-			
-			if (Dungeon.depth>50 && Dungeon.hero.buff(MagicSight.class) == null ){
-				GLog.w(TXT_PREVENTING);
-				return;
-			}
-
-		}
 
 		if (action.equals(AC_EAT)) {
 
