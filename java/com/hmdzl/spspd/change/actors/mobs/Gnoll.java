@@ -35,8 +35,8 @@ public class Gnoll extends Mob {
 		evadeSkill = 9+adj(1);
 
 
-		EXP = 5;
-		maxLvl = 10;
+		EXP = 10;
+		maxLvl = 18;
 
 		loot = Gold.class;
 		lootChance = 0.5f;

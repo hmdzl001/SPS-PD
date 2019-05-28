@@ -78,7 +78,7 @@ public class Bleeding extends Buff {
 				}
 
 				if (target == Dungeon.hero && !target.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+					Dungeon.fail(Messages.format(ResultDescriptions.BLEEDING));
 					//GLog.n("You bled to death...");
 				}
 

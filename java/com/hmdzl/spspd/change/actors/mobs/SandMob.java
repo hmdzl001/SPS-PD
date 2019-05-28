@@ -17,32 +17,20 @@
  */
 package com.hmdzl.spspd.change.actors.mobs;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.change.actors.buffs.Dry;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 import com.hmdzl.spspd.change.actors.buffs.Slow;
-import com.hmdzl.spspd.change.items.WaterItem;
+import com.hmdzl.spspd.change.items.food.WaterItem;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentEarth;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentEarth2;
-import com.hmdzl.spspd.change.messages.Messages;
-import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
-import com.hmdzl.spspd.change.actors.buffs.Burning;
-import com.hmdzl.spspd.change.actors.buffs.Poison;
-import com.hmdzl.spspd.change.effects.Pushing;
-import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.potions.PotionOfMending;
 import com.hmdzl.spspd.change.levels.Level;
-import com.hmdzl.spspd.change.levels.Terrain;
-import com.hmdzl.spspd.change.levels.features.Door;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.SandmobSprite;
-import com.hmdzl.spspd.change.sprites.SwarmSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class SandMob extends Mob {
@@ -54,8 +42,8 @@ public class SandMob extends Mob {
 		evadeSkill = 5+adj(0);
 		baseSpeed = 0.5f;
 
-		EXP = 9;
-		maxLvl = 15;
+		EXP = 10;
+		maxLvl = 25;
 
 		loot = new WaterItem();
 		//loot = new PotionOfMending(); potential nerf

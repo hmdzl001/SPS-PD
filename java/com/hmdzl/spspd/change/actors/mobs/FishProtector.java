@@ -47,7 +47,7 @@ public class FishProtector extends Mob implements Callback {
 	{
 		spriteClass = FishProtectorSprite.class;
 
-		EXP = 15;
+		EXP = 1;
 		state = HUNTING;
 		flying = true;
 		

@@ -41,7 +41,7 @@ public class Dragonking extends Mob {
 		baseSpeed = 1f;
 
 		HP = HT = 100;
-		EXP = 0;
+		EXP = 1;
 		evadeSkill = 0;
 
 		properties.add(Property.DRAGON);

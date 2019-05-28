@@ -73,6 +73,8 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.HateSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.AliveFish;
 import com.hmdzl.spspd.change.actors.mobs.npcs.LaJi;
 import com.hmdzl.spspd.change.actors.mobs.npcs.WhiteGhost;
+import com.hmdzl.spspd.change.items.food.Nut;
+import com.hmdzl.spspd.change.items.food.Vegetable;
 import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.change.items.eggs.Egg;
 import com.hmdzl.spspd.change.items.Generator;
@@ -105,6 +107,7 @@ import com.hmdzl.spspd.change.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Brick;
 import com.hmdzl.spspd.change.items.weapon.melee.special.FireCracker;
 import com.hmdzl.spspd.change.items.weapon.melee.special.HookHam;
+import com.hmdzl.spspd.change.items.weapon.melee.special.Lollipop;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.change.items.weapon.melee.special.RunicBlade;
 import com.hmdzl.spspd.change.items.weapon.melee.special.TestWeapon;
@@ -148,6 +151,7 @@ public class TownLevel extends Level {
 	public int[] eggpots;
 	public int[] gnollpots;
 	public int[] skillpots;
+	public int[] pillpots;
 	
 	private static final String MINEDEPTH = "mineDepth";
 	private static final String SCROLLSPOTS = "scrollspots";
@@ -158,7 +162,7 @@ public class TownLevel extends Level {
 	private static final String EGGPOTS = "eggpots";
 	private static final String GNOLLPOTS = "gnollpots";
 	private static final String SKILLPOTS = "skillpots";
-	
+	private static final String PILLPOTS = "pillpots";
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
@@ -171,6 +175,7 @@ public class TownLevel extends Level {
 		bundle.put(EGGPOTS, eggpots);
 		bundle.put(GNOLLPOTS, gnollpots);
 		bundle.put(SKILLPOTS, skillpots);
+		bundle.put(PILLPOTS, pillpots);
 	}
 		
 	@Override
@@ -185,6 +190,7 @@ public class TownLevel extends Level {
 		eggpots = bundle.getIntArray(EGGPOTS);
 		gnollpots = bundle.getIntArray(GNOLLPOTS);
 		skillpots = bundle.getIntArray(SKILLPOTS);
+		pillpots = bundle.getIntArray(PILLPOTS);
 	}
 	
 	private boolean checkOtiluke(){
@@ -296,14 +302,23 @@ public class TownLevel extends Level {
 					}
 				}
 			}
+			if (Badges.checkUncleRescued()) {
+				for (int i : pillpots) {
+					Heap heap = heaps.get(i);
+					if (heap == null) {
+						Item storeitem9 = storeItem9();
+						drop(storeitem9, i).type = Heap.Type.FOR_SALE;
+					}
+				}
+			}
 		}	
 	}
 	
 	public Item storeItem (){
 		Item prize;
-		switch (Random.Int(12)) {
+		switch (Random.Int(10)) {
 		case 0:
-			prize = new PotionOfHealing();
+			prize = Generator.random(Generator.Category.MUSHROOM);
 			break;
 		case 1:
 			prize = Generator.random(Generator.Category.POTION);
@@ -315,22 +330,22 @@ public class TownLevel extends Level {
 			prize = Generator.random(Generator.Category.SCROLL);
 			break;
 		case 4:
-			prize = new PotionOfMending();
+			prize = Generator.random(Generator.Category.SEED);
 			break;			
 		case 5:
 			prize = Generator.random(Generator.Category.BERRY);  
 			break;
 		case 6:
-			prize = new ActiveMrDestructo();
+			prize = Generator.random(Generator.Category.SUMMONED);
 			break;
 		case 7:
-			prize = new Phaseshift.Seed();
+			prize = new PetFood();
 			break;
 		case 8:
-			prize = new PotionOfOverHealing();
+			prize = new Vegetable();
 			break;
 		default:
-			prize = new PetFood();
+			prize = new Nut();
 			break;
 		}
 
@@ -348,7 +363,7 @@ public class TownLevel extends Level {
 			prize = new ScrollOfMagicalInfusion();
 			break;
 		case 2:
-			prize = new ScrollOfRegrowth();
+			prize = Generator.random(Generator.Category.RANGEWEAPON);
 			break;
 		case 3:
 			prize = Generator.random(Generator.Category.WAND);
@@ -394,11 +409,12 @@ public class TownLevel extends Level {
 		case 6:
 		case 7:
 		case 8:
-		case 9:	
-            prize = Generator.random(Generator.Category.BOMBS);
-            break;					
+		case 9:
 		case 10:
-			prize =  new Honeypot();
+            prize = Generator.random(Generator.Category.BOMBS);
+            break;
+         case 11:
+			prize =  new ScrollOfRegrowth();
 			break;			
 		default:
 			prize = new Ankh();
@@ -463,7 +479,7 @@ public class TownLevel extends Level {
 
 	public Item storeItem7 (){
 		Item prize;
-		switch (Random.Int(8)) {
+		switch (Random.Int(9)) {
 			case 0:
 				prize = new Pumpkin();
 				break;
@@ -488,6 +504,9 @@ public class TownLevel extends Level {
 			case 7:
 				prize = new Brick();
 				break;
+			case 8:
+				prize = new Lollipop();
+				break;
 			default:
 				prize = new PetFood();
 				break;
@@ -511,6 +530,12 @@ public class TownLevel extends Level {
 				prize = new ScrollOfUpgrade();
 				break;
 		}
+		return prize;
+	}
+
+	public Item storeItem9 (){
+		Item prize;
+		prize = Generator.random(Generator.Category.PILL);
 		return prize;
 	}
 
@@ -563,10 +588,6 @@ public class TownLevel extends Level {
 	  watabou.pos = 42 + WIDTH * 42;
 	  mobs.add(watabou);
 
-		  Mob realman = new ARealMan();
-		  realman.pos = 44 + WIDTH * 45;
-		  mobs.add(realman);
-
 		  Mob wg = new WhiteGhost();
 		  wg.pos = 45 + WIDTH * 44;
 		  mobs.add(wg);
@@ -592,11 +613,15 @@ public class TownLevel extends Level {
       Mob jinkeloid = new Jinkeloid();
 	  jinkeloid.pos = 43 + WIDTH * 14;
 	  mobs.add(jinkeloid);
+	  if (Badges.checkUncleRescued()) {
+		  Mob uncles = new UncleS();
+		  uncles.pos = 43 + WIDTH * 22;
+		  mobs.add(uncles);
 
-	  Mob uncles = new UncleS();
-	  uncles.pos = 43 + WIDTH * 19;
-	  mobs.add(uncles);
-
+		  Mob realman = new ARealMan();
+		  realman.pos = 44 + WIDTH * 45;
+		  mobs.add(realman);
+	  }
       Mob rustyblade = new Rustyblade();
 	  rustyblade.pos = 40 + WIDTH * 15;
 	  mobs.add(rustyblade);
@@ -799,6 +824,9 @@ public class TownLevel extends Level {
 	  skillpots = new int[2];
 	  skillpots[0] =  19 + WIDTH * 44;
 	  skillpots[1] =  20 + WIDTH * 44;
+
+	  pillpots = new int[1];
+	  pillpots[0] =  43 + WIDTH * 23;
 
       storeStock();
 	  if (Dungeon.dewNorn == true) {

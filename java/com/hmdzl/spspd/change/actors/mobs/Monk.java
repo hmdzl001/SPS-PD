@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.Imp;
 import com.hmdzl.spspd.change.items.KindOfWeapon;
 import com.hmdzl.spspd.change.items.food.Food;
 import com.hmdzl.spspd.change.items.food.staplefood.NormalRation;
+import com.hmdzl.spspd.change.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.change.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.change.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.change.items.weapon.melee.Knuckles;
@@ -46,14 +47,14 @@ public class Monk extends Mob {
 		HP = HT = 160+(adj(0)*Random.NormalIntRange(3, 5));
 		evadeSkill = 30+adj(1);
 
-		EXP = 11;
-		maxLvl = 21;
+		EXP = 14;
+		maxLvl = 30;
 
 		loot = new NormalRation();
-		lootChance = 0.2f;
+		lootChance = 0.1f;
 		
-		lootOther = new Pasty();
-		lootChanceOther = 0.1f; // by default, see die()
+		lootOther = new OverpricedRation();
+		lootChanceOther = 0.4f; // by default, see die()
 		
 		properties.add(Property.DWARF);
 	}

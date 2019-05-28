@@ -49,8 +49,8 @@ public class GnollShaman extends Mob implements Callback {
 		HP = HT = 80+(adj(0)*Random.NormalIntRange(2, 5));
 		evadeSkill = 15+adj(0);
 
-		EXP = 7;
-		maxLvl = 15;
+		EXP = 10;
+		maxLvl = 25;
 
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.15f;

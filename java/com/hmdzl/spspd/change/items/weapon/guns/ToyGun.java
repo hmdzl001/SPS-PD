@@ -26,6 +26,7 @@ import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.change.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.scenes.CellSelector;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -33,6 +34,7 @@ import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
@@ -177,6 +179,20 @@ public class ToyGun extends Weapon {
 
 			}
 		}
+	}
+
+	private static final String CHARGE = "charge";
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put( CHARGE, charge );
+	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		charge = bundle.getInt( CHARGE );
 	}
 
 	@Override

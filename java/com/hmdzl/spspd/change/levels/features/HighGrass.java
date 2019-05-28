@@ -33,6 +33,8 @@ import com.hmdzl.spspd.change.items.RedDewdrop;
 import com.hmdzl.spspd.change.items.VioletDewdrop;
 import com.hmdzl.spspd.change.items.YellowDewdrop;
 import com.hmdzl.spspd.change.items.artifacts.SandalsOfNature;
+import com.hmdzl.spspd.change.items.food.Nut;
+import com.hmdzl.spspd.change.items.food.Vegetable;
 import com.hmdzl.spspd.change.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.change.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.change.items.food.fruit.Cloudberry;
@@ -69,17 +71,20 @@ public class HighGrass {
 
 			if (naturalismLevel >= 0) {
 				// Seed
-				if (Random.Int(18 - ((int) (naturalismLevel * 3.34))) == 0) {
+				if (Random.Int(20 - ((int) (naturalismLevel * 3.34))) == 0) {
 					Item seed = Generator.random(Generator.Category.SEED);
 					level.drop(seed, pos).sprite.drop();
 				}
 				
-				// Mushroom
+				// Vegetable
 				if (Dungeon.growLevel(Dungeon.depth) && Random.Int(40 - ((int) (naturalismLevel * 3.34))) == 0) {
-					Item mushroom = Generator.random(Generator.Category.MUSHROOM);
-					level.drop(mushroom, pos).sprite.drop();
+					level.drop(new Vegetable(), pos).sprite.drop();
 				}
-				
+
+				if (Dungeon.growLevel(Dungeon.depth) && Random.Int(30 - ((int) (naturalismLevel * 3.34))) == 0) {
+					level.drop(new Nut(), pos).sprite.drop();
+				}
+
 				// Dew
 				if (Random.Int(3 - naturalismLevel) == 0) {
 					if (Random.Int(30 - naturalismLevel) == 0 && naturalismLevel>0) {

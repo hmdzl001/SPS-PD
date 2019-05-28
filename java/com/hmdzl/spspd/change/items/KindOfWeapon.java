@@ -94,7 +94,7 @@ public class KindOfWeapon extends EquipableItem {
 	}
 
 	public int damageRoll(Hero owner) {
-		return Random.Int(MIN, MAX);
+		return Random.NormalIntRange(MIN, MAX);
 	}
 
 	public float acuracyFactor(Hero hero) {

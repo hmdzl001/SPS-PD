@@ -19,6 +19,9 @@ package com.hmdzl.spspd.change.levels.painters;
 
 import com.hmdzl.spspd.change.Challenges;
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.Actor;
+import com.hmdzl.spspd.change.actors.mobs.GoldCollector;
+import com.hmdzl.spspd.change.actors.mobs.LevelChecker;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Room;
 import com.hmdzl.spspd.change.levels.Terrain;
@@ -32,6 +35,13 @@ public class ExitPainter extends Painter {
 
 		for (Room.Door door : room.connected.values()) {
 			door.set(Room.Door.Type.REGULAR);
+		}
+
+		if ((Dungeon.hero.lvl > 14 + Dungeon.depth) && Dungeon.depth < 25 &&  !Dungeon.isChallenged(Challenges.TEST_TIME)){
+			LevelChecker lc = new LevelChecker();
+			lc.pos = room.random();
+			level.mobs.add(lc);
+			Actor.occupyCell(lc);
 		}
 
 		level.exit = room.random(1);

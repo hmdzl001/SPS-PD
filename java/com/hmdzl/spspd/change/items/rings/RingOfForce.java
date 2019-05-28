@@ -17,7 +17,7 @@ public class RingOfForce extends Ring {
 	
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(10f * Math.min(3f,(1f + (level*1.00/15)*1f))));
+			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * Math.min(3f,((level*1.00/10)*1f))));
 		} else {
 			return "???";
 		}

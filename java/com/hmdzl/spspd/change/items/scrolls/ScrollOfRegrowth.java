@@ -42,44 +42,14 @@ public class ScrollOfRegrowth extends Scroll {
 
 	@Override
 	public void doRead() {
-
 		int length = Level.getLength();
-		int[] map = Dungeon.level.map;
-		boolean[] mapped = Dungeon.level.mapped;
-		boolean[] discoverable = Level.discoverable;
-
-		boolean noticed = false;
 
 		for (int i = 0; i < length; i++) {
 			
 			GameScene.add(Blob.seed(i, (2) * 20, Water.class));
-		
-			int terr = map[i];
 
-			if (discoverable[i]) {
-
-				mapped[i] = true;
-				if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
-
-					Level.set(i, Terrain.discover(terr));
-					GameScene.updateMap(i);
-
-					if (Dungeon.visible[i]) {
-						GameScene.discoverTile(i, terr);
-						discover(i);
-
-						noticed = true;
-					}
-				}
-			}
-		}
-		Dungeon.observe();
-		
-		if (noticed) {
-			Sample.INSTANCE.play(Assets.SND_SECRET);
 		}
 
-		SpellSprite.show(curUser, SpellSprite.MAP);
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Invisibility.dispel();
 
@@ -98,7 +68,4 @@ public class ScrollOfRegrowth extends Scroll {
 		return isKnown() ? 100 * quantity : super.price();
 	}
 
-	public static void discover(int cell) {
-		CellEmitter.get(cell).start(Speck.factory(Speck.DISCOVER), 0.1f, 4);
-	}
 }

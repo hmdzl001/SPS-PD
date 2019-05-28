@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.change.sprites;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.actors.mobs.pets.SugarplumFairy;
+
 import com.hmdzl.spspd.change.effects.Lightning;
 import com.watabou.noosa.TextureFilm;
 
@@ -43,8 +43,6 @@ public class SugarplumFairySprite extends MobSprite {
 
 		attack = new Animation(8, false);
 		attack.frames(frames, 16, 19, 20, 17);
-
-		zap = attack.clone();
 		
 		die = new Animation(8, false);
 		die.frames(frames, 21, 22, 23, 23);
@@ -52,15 +50,6 @@ public class SugarplumFairySprite extends MobSprite {
 		play(idle);
 	}
 
-	@Override
-	public void zap(int pos) {
-
-		parent.add( new Lightning( ch.pos, pos, (SugarplumFairy) ch));
-
-		turnTo(ch.pos, pos);
-		play(zap);
-	}
-	
 	@Override
 	public int blood() {
 		return 0xFFcdcdb7;

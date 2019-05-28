@@ -38,7 +38,7 @@ public class GoldOrc extends Mob {
 		HP = HT = 500;
 		evadeSkill = 35;
 
-		EXP = 22;
+		EXP = 25;
 
 		properties.add(Property.ORC);
 		properties.add(Property.DEMONIC);

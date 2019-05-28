@@ -41,8 +41,8 @@ public class FireElemental extends Mob {
 		HP = HT = 120+(adj(0)*Random.NormalIntRange(4, 7));
 		evadeSkill = 20+adj(0);
 
-		EXP = 10;
-		maxLvl = 20;
+		EXP = 15;
+		maxLvl = 30;
 
 		flying = true;
 

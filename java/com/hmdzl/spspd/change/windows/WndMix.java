@@ -22,94 +22,14 @@
 package com.hmdzl.spspd.change.windows;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.Badges;
 import com.hmdzl.spspd.change.Dungeon;
-import com.hmdzl.spspd.change.ShatteredPixelDungeon;
-import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.StoneOre;
-import com.hmdzl.spspd.change.items.Torch;
-import com.hmdzl.spspd.change.items.WaterItem;
-import com.hmdzl.spspd.change.items.Weightstone;
-import com.hmdzl.spspd.change.items.artifacts.AlchemistsToolkit;
-import com.hmdzl.spspd.change.items.bombs.BuildBomb;
 import com.hmdzl.spspd.change.items.rings.Ring;
-import com.hmdzl.spspd.change.items.summon.Honeypot;
-import com.hmdzl.spspd.change.items.bombs.HugeBomb;
-import com.hmdzl.spspd.change.items.food.completefood.Chickennugget;
-import com.hmdzl.spspd.change.items.food.completefood.Crystalnucleus;
-import com.hmdzl.spspd.change.items.food.completefood.Ediblegrass;
-import com.hmdzl.spspd.change.items.food.completefood.Foamedbeverage;
-import com.hmdzl.spspd.change.items.food.completefood.Fruitsalad;
 import com.hmdzl.spspd.change.items.food.completefood.Garbage;
-import com.hmdzl.spspd.change.items.food.completefood.Gel;
-import com.hmdzl.spspd.change.items.food.completefood.Hamburger;
-import com.hmdzl.spspd.change.items.food.completefood.Hardpill;
-import com.hmdzl.spspd.change.items.food.completefood.Herbmeat;
-import com.hmdzl.spspd.change.items.food.completefood.HoneyGel;
-import com.hmdzl.spspd.change.items.food.completefood.HoneyWater;
-import com.hmdzl.spspd.change.items.food.completefood.Honeymeat;
-import com.hmdzl.spspd.change.items.food.completefood.Honeyrice;
-import com.hmdzl.spspd.change.items.food.completefood.Icecream;
-import com.hmdzl.spspd.change.items.food.completefood.Kebab;
-import com.hmdzl.spspd.change.items.food.completefood.Meatroll;
-import com.hmdzl.spspd.change.items.food.completefood.Porksoup;
-import com.hmdzl.spspd.change.items.food.completefood.Powerpill;
-import com.hmdzl.spspd.change.items.food.completefood.Ricefood;
-import com.hmdzl.spspd.change.items.food.completefood.Smashpill;
-import com.hmdzl.spspd.change.items.food.completefood.Vegetablekebab;
-import com.hmdzl.spspd.change.items.food.completefood.Vegetableroll;
-import com.hmdzl.spspd.change.items.food.completefood.Vegetablesoup;
-import com.hmdzl.spspd.change.items.food.fruit.Blandfruit;
-import com.hmdzl.spspd.change.items.food.fruit.Fruit;
-import com.hmdzl.spspd.change.items.food.meatfood.MeatFood;
-import com.hmdzl.spspd.change.items.food.Nut;
-import com.hmdzl.spspd.change.items.food.completefood.PerfectFood;
-import com.hmdzl.spspd.change.items.food.completefood.PetFood;
-import com.hmdzl.spspd.change.items.food.completefood.Honey;
-import com.hmdzl.spspd.change.items.food.staplefood.OverpricedRation;
-import com.hmdzl.spspd.change.items.food.staplefood.StapleFood;
-import com.hmdzl.spspd.change.items.food.vegetables.Vegetable;
-import com.hmdzl.spspd.change.items.potions.Potion;
-import com.hmdzl.spspd.change.items.scrolls.Scroll;
-import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicalInfusion;
-import com.hmdzl.spspd.change.items.weapon.spammo.BattleAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.BlindAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.DewAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.DreamAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.EmptyAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.EvolveAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.FireAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.GoldAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.HeavyAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.IceAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.MossAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.RotAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.SandAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.StarAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.StormAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.SunAmmo;
-import com.hmdzl.spspd.change.items.weapon.spammo.ThornAmmo;
+import com.hmdzl.spspd.change.items.wands.Wand;
 import com.hmdzl.spspd.change.messages.Messages;
-import com.hmdzl.spspd.change.plants.BlandfruitBush;
-import com.hmdzl.spspd.change.plants.Blindweed;
-import com.hmdzl.spspd.change.plants.Dewcatcher;
-import com.hmdzl.spspd.change.plants.Dreamfoil;
-import com.hmdzl.spspd.change.plants.Earthroot;
-import com.hmdzl.spspd.change.plants.Fadeleaf;
-import com.hmdzl.spspd.change.plants.Firebloom;
-import com.hmdzl.spspd.change.plants.Flytrap;
-import com.hmdzl.spspd.change.plants.Icecap;
-import com.hmdzl.spspd.change.plants.Phaseshift;
-import com.hmdzl.spspd.change.plants.Plant;
-import com.hmdzl.spspd.change.plants.Rotberry;
-import com.hmdzl.spspd.change.plants.Seedpod;
-import com.hmdzl.spspd.change.plants.Sorrowmoss;
-import com.hmdzl.spspd.change.plants.Starflower;
-import com.hmdzl.spspd.change.plants.Stormvine;
-import com.hmdzl.spspd.change.plants.Sungrass;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.scenes.PixelScene;
 import com.hmdzl.spspd.change.sprites.HeroSprite;
@@ -123,7 +43,6 @@ import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -179,7 +98,7 @@ public class WndMix extends Window {
 						item = null;
 						slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
 					}
-					GameScene.selectItem( itemSelector, WndBag.Mode.EQUIPMENT, Messages.get(WndAlchemy.class, "select") );
+					GameScene.selectItem( itemSelector, WndBag.Mode.CANBEMIX, Messages.get(WndAlchemy.class, "select") );
 				}
 			};
 			inputs[i].setRect(15, h, BTN_SIZE, BTN_SIZE);
@@ -260,6 +179,9 @@ public class WndMix extends Window {
 			if (item != null) {
 				for (int i = 0; i < (inputs.length); i++) {
 					if (inputs[i].item == null){
+						//inputs[i].item(hero.belongings.misc1 = null);
+						//inputs[i].item(hero.belongings.misc2 = null);
+						//inputs[i].item(hero.belongings.misc3 = null);
 						inputs[i].item(item.detach(hero.belongings.backpack));
 						break;
 					}
@@ -282,7 +204,7 @@ public class WndMix extends Window {
 
 	private void updateState(){
 		//potion creation
-        if(filterInput(Item.class).size() > 0){
+        if(filterInput(Item.class).size() > 0 && Dungeon.gold > 1000){
 			output.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
 			output.visible = true;
 			btnCombine.enable(true);
@@ -294,13 +216,46 @@ public class WndMix extends Window {
 
 	private void combine(){
 		ArrayList<Ring> rings = filterInput(Ring.class);
+		ArrayList<Wand> wands = filterInput(Wand.class);
 		Item result = null;
 
 		if (rings.size() == 3){
 
 			result = Generator.random( Generator.Category.ARTIFACT );
 
-	    } else result = new Garbage();
+	    } else if (wands.size() == 3){
+
+			result = Generator.random( Generator.Category.ARTIFACT );
+
+		} else if (rings.size() == 2 && wands.size() == 1){
+
+			result = Generator.random( Generator.Category.EGGS );
+
+		} else if (rings.size() == 1 && wands.size() == 2){
+
+			result = Generator.random( Generator.Category.EGGS );
+
+		} else if (rings.size() == 1 && wands.size() == 1){
+
+			result = Generator.random( Generator.Category.SUMMONED);
+
+		} else  if (rings.size() == 2){
+
+			result = Generator.random( Generator.Category.RING);
+
+		} else 	if (rings.size() == 1){
+
+			result = Generator.random( Generator.Category.WAND);
+
+		} else if (wands.size() == 2){
+
+			result = Generator.random( Generator.Category.WAND );
+
+		} else if (wands.size() == 1){
+
+			result = Generator.random( Generator.Category.RING );
+
+		} else result = new Garbage();
 
 		if (result != null){
 			bubbleEmitter.start(Speck.factory( Speck.BUBBLE ), 0.2f, 10 );

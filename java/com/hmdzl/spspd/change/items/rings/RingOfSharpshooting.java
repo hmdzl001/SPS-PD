@@ -16,7 +16,7 @@ public class RingOfSharpshooting extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", level, new DecimalFormat("#.##").format(100f * (0.1*level)));
+			return Messages.get(this, "stats", level, new DecimalFormat("#.##").format(100f * (0.05*level)));
 		} else {
 			return "???";
 		}

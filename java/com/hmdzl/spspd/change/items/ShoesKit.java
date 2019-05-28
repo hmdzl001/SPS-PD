@@ -57,7 +57,7 @@ public class ShoesKit extends Item {
 	public void execute(Hero hero, String action) {
 		if (action == AC_APPLY) {
 
-			//curUser = hero;
+			curUser = hero;
 			//GameScene.selectItem(itemSelector, WndBag.Mode.SHOES,
 					//TXT_SELECT_SHOES);
 

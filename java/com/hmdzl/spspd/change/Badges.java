@@ -773,6 +773,10 @@ public class Badges {
 		return local.contains(Badge.LEVEL_REACHED_4);
 	}
 
+	public static boolean checkUncleRescued()  {
+		return local.contains(Badge.POTIONS_COOKED_1);
+	}
+
 	public static void validateMastery() {
 
 		Badge badge = null;

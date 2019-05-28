@@ -130,11 +130,11 @@ public class CallCoconut extends Item {
 
 		{
 			spriteClass = CoconutSprite.class;
+			hostile = false;
 			state = HUNTING;
 			HP = HT = 200;
 			evadeSkill = 0;
 			ally=true;
-
 			properties.add(Property.BEAST);
 		}
 

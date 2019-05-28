@@ -48,7 +48,7 @@ public class ForestProtector extends Mob implements Callback {
 		spriteClass = ForestProtectorSprite.class;
 		
 
-		EXP = 5;
+		EXP = 1;
 		state = HUNTING;
 		flying = true;
 		

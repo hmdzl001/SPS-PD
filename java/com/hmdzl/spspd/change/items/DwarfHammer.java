@@ -54,18 +54,12 @@ public class DwarfHammer extends Item {
 
 		if (action == AC_BREAK) {
 
-			if (Dungeon.bossLevel()) {
+			if (Dungeon.bossLevel() || Dungeon.depth > 25 || Dungeon.depth < 22) {
 				hero.spend(DwarfHammer.TIME_TO_USE);
 				GLog.w(Messages.get(this, "prevent"));
 				return;
 			}
-			
-		//	if (Dungeon.depth > 24 || Dungeon.depth < 22) {
-		//		hero.spend(DwarfHammer.TIME_TO_USE);
-		//		GLog.w(Messages.get(this, "prevent"));
-		//		return;
-		//	}
-			
+
 			if (!Dungeon.visible[Dungeon.level.exit]) {
 				hero.spend(DwarfHammer.TIME_TO_USE);
 				GLog.w(Messages.get(this, "prevent"));

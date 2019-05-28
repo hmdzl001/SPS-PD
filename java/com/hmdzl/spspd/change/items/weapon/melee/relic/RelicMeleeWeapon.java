@@ -179,7 +179,6 @@ public class RelicMeleeWeapon extends Weapon {
 	
 	@Override
 	public Item degrade() {
-		STR++;
 		MIN--;
 		MAX -= tier;
 		return super.degrade();
@@ -211,20 +210,16 @@ public class RelicMeleeWeapon extends Weapon {
 		//Messages.get(MeleeWeapon.class, "stats_known", tier, MIN, MAX,STR,ACU,DLY,RCH )
 
 		if (enchantment != null) {
-			info += "\n" + Messages.get(Weapon.class, "enchanted");
+			info += "\n" + Messages.get(MeleeWeapon.class, "enchanted");
 		}
 		
 		if (reinforced) {
 			info += "\n" + Messages.get(Item.class, "reinforced");
 		}
 
-		if (charge>=chargeCap) {
-			info += "\n" + Messages.get(RelicMeleeWeapon.class, "fullcharge");
-		} else {
-			info += "\n " + Messages.get(RelicMeleeWeapon.class, "charge", charge, chargeCap);
-		}
+		info += "\n " + Messages.get(Weapon.class, "charge", charge, chargeCap);	
 
-		if (levelKnown && STR > Dungeon.hero.STR()) {
+		if (levelKnown && STR() > Dungeon.hero.STR()) {
 			info += "\n" + Messages.get(MeleeWeapon.class, "too_heavy");
 		}				
 	
@@ -239,7 +234,7 @@ public class RelicMeleeWeapon extends Weapon {
 
 	@Override
 	public int price() {
-		int price = 20 * (1 << (tier - 1));
+		int price = 150;
 		if (enchantment != null) {
 			price *= 1.5;
 		}

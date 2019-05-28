@@ -79,7 +79,7 @@ public class PrisonWander extends Mob {
 		spriteClass = PrisonWanderSprite.class;
 
 		HP = HT = 800;
-		EXP = 20;
+		EXP = 40;
 		evadeSkill = 20;
 		viewDistance = 7;
 
@@ -260,17 +260,20 @@ public class PrisonWander extends Mob {
 	}
 	
 	private final String CHAINSUSED = "chainsused";
+    private static final String BREAKS	= "breaks";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(CHAINSUSED, chainsUsed);
+		bundle.put( BREAKS, breaks );
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		chainsUsed = bundle.getBoolean(CHAINSUSED);
+		breaks = bundle.getInt( BREAKS );
 	}	
 
 	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();

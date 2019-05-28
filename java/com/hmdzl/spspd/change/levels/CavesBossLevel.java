@@ -262,6 +262,10 @@ public class CavesBossLevel extends Level {
 					10);
 			Camera.main.shake(3, 0.7f);
 			Sample.INSTANCE.play(Assets.SND_ROCKS);
+			
+			set(entrance, Terrain.WALL_DECO);
+			GameScene.updateMap(entrance);
+			GameScene.ripple(entrance);			
 
 		}
 	}
@@ -274,6 +278,8 @@ public class CavesBossLevel extends Level {
 			set(arenaDoor, Terrain.EMPTY_DECO);
 			GameScene.updateMap(arenaDoor);
 			Dungeon.observe();
+		    set(entrance, Terrain.ENTRANCE);
+			GameScene.updateMap(entrance);			
 
 		}
 	}			

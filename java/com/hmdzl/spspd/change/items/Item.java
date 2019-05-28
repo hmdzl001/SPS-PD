@@ -33,7 +33,7 @@ import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.bags.Bag;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.JupitersWraith;
-import com.hmdzl.spspd.change.items.weapon.missiles.MissileShield;
+import com.hmdzl.spspd.change.items.misc.MissileShield;
 import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.mechanics.Ballistica;

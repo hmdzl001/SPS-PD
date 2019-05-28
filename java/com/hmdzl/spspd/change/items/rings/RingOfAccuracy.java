@@ -30,7 +30,7 @@ public class RingOfAccuracy extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",level,new DecimalFormat("#.##").format(10f * (0.01*level)));
+			return Messages.get(this, "stats",level,level/10);
 		} else {
 			return "???";
 		}

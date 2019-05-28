@@ -21,13 +21,17 @@ import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.effects.Speck;
+import com.hmdzl.spspd.change.items.weapon.missiles.EscapeKnive;
+import com.hmdzl.spspd.change.items.weapon.missiles.ShatteredAmmo;
 import com.hmdzl.spspd.change.levels.Level;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
+import com.watabou.utils.Callback;
 
 public class ElderAvatarSprite extends MobSprite {
 
+    private Animation cast;
 	public ElderAvatarSprite() {
 		super();
 
@@ -44,11 +48,33 @@ public class ElderAvatarSprite extends MobSprite {
         attack = new Animation( 12, false );
         attack.frames( frames, 0, 2, 3 );
 
+        cast = attack.clone();
+
         die = new Animation( 20, false );
         die.frames( frames, 0 );
 
         play( idle );
     }
 
+    @Override
+    public void attack(int cell) {
+        if (!Level.adjacent(cell, ch.pos)) {
 
+            ((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
+                    cell, new ShatteredAmmo(), new Callback() {
+                        @Override
+                        public void call() {
+                            ch.onAttackComplete();
+                        }
+                    });
+
+            play(cast);
+            turnTo(ch.pos, cell);
+
+        } else {
+
+            super.attack(cell);
+
+        }
+    }
 }

@@ -167,7 +167,7 @@ public class PotionOfMage extends Item {
 
 	@Override
 	public String status() {
-		return Messages.format("%d", (int)charge/75);
+		return Messages.format("%d", (int)charge/100);
 	}
 	
 	@Override
@@ -210,6 +210,9 @@ public class PotionOfMage extends Item {
 					GameScene.add(Blob.seed(target, 15, DarkGas.class));
 					GameScene.add(Blob.seed(target, 15, TarGas.class));
 					GameScene.add(Blob.seed(target, 15, StenchGas.class));
+					charge-= 100;
+					Dungeon.hero.spendAndNext(1f);
+					updateQuickslot();
 				}
 			} else GLog.i( Messages.get(PotionOfMage.class, "not_mob") );
 		}

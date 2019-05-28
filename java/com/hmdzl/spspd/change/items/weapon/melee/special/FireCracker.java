@@ -109,7 +109,7 @@ public class FireCracker extends MeleeWeapon {
 						int maxDamage = ch.HT/20;
 
 						int dmg = Random.NormalIntRange(minDamage, maxDamage)
-								- Random.Int(ch.drRoll());
+								- Math.max(ch.drRoll(),0);
 						if (dmg > 0) {
 							ch.damage(dmg, this);
 						}

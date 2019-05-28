@@ -71,7 +71,7 @@ public class ThankList extends NPC {
 	public boolean interact() {
 		
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		switch (Random.Int (45)) {
+		switch (Random.Int (46)) {
             case 0:
 			yell("SuperSaiyan99");
 			break;
@@ -205,6 +205,10 @@ public class ThankList extends NPC {
 				yell("BlankDriver");
 				break;
 			case 44:
+				yell("Millilitre");
+				break;
+
+			case 45:
 				yell(Messages.get(this, "yell1"));
 				break;
 		}

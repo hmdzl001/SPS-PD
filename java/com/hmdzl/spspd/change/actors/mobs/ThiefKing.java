@@ -43,8 +43,7 @@ public class ThiefKing extends Mob implements Callback {
 		HP = HT = 2000;
 		evadeSkill = 28;
 
-		EXP = 16;
-		maxLvl = 14;
+		EXP = 60;
 		flying = true;
 
 		loot = Generator.Category.SCROLL;

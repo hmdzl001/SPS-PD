@@ -58,13 +58,13 @@ public class SoulCollect extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action.equals(AC_BREAK)) {
-
+			curUser = hero;
 		   GLog.w(Messages.get(this, "win"));
 		   //Statistics.archersKilled += 51;
 		   //Statistics.skeletonsKilled += 51;
 		   //Statistics.piranhasKilled += 51;
 		   //Statistics.goldThievesKilled += 51;
-			 Badges.validateOtilukeRescued();
+			Badges.validateOtilukeRescued();
 			curUser.sprite.operate(curUser.pos);
 			detach(hero.belongings.backpack);
 			curUser.spendAndNext(1f);

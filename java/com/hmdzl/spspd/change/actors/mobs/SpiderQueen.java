@@ -71,7 +71,7 @@ public class SpiderQueen extends Mob {
 		spriteClass = SpiderQueenSprite.class;
 
 		HP = HT = 1000;
-		EXP = 35;
+		EXP = 50;
 		evadeSkill = 35;
 		baseSpeed = 0.8f;
 

@@ -35,13 +35,13 @@ public class MasterThievesArmband extends Artifact {
 	}
 
 	private int exp = 0;
-
+	private int goldtouchused = 0;
 	public static final String AC_GOLDTOUCH = "GOLDTOUCH";
 	
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && level > 1 && !cursed)
+		if (isEquipped(hero) && level > 1 && !cursed && goldtouchused == 0)
 		actions.add(AC_GOLDTOUCH);		
 		return actions;
 	}	
@@ -52,11 +52,14 @@ public class MasterThievesArmband extends Artifact {
         if (action.equals(AC_GOLDTOUCH)) {
 			if (!isEquipped(hero))
 				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
+			else if (goldtouchused > 0)
+				GLog.i(Messages.get(Artifact.class, "need_to_change") );
 			else {
 				Buff.affect(hero, GoldTouch.class,level*10f);
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
                 level = 0;
+				goldtouchused ++;
 				hero.spend(1f);
 				hero.busy();
 				hero.sprite.operate(hero.pos);

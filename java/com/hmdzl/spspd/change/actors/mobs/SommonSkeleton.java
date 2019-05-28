@@ -53,9 +53,6 @@ public class SommonSkeleton extends Mob {
 		HP = HT = 80+(adj(0)*Random.NormalIntRange(2, 5));
 		evadeSkill = 15+adj(0);
 		baseSpeed = 0.8f;
-
-		EXP = 5;
-		maxLvl = 10;
 		
 		properties.add(Property.UNDEAD);
 	}

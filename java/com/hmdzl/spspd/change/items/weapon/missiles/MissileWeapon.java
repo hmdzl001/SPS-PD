@@ -26,10 +26,10 @@ import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.misc.MissileShield;
 import com.hmdzl.spspd.change.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.change.items.weapon.melee.relic.JupitersWraith;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.utils.Random;
 
@@ -63,7 +63,7 @@ public class MissileWeapon extends Weapon {
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
-			if (this instanceof Boomerang  || this instanceof MissileShield)
+			if (this instanceof Boomerang )
 				super.onThrow(cell);
 			else
 				miss(cell);
@@ -72,7 +72,7 @@ public class MissileWeapon extends Weapon {
 				miss(cell);
 			} else if (this instanceof  MiniMoai){
 				Dungeon.level.drop( this, enemy.pos).sprite.drop();
-			} else if (!(this instanceof Boomerang || this instanceof MissileShield)) {
+			} else if (!(this instanceof Boomerang )) {
 				int bonus = 0;
 				for (Buff buff : curUser.buffs(RingOfSharpshooting.Aim.class))
 					bonus += ((RingOfSharpshooting.Aim) buff).level;

@@ -38,6 +38,7 @@ import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ErrorSprite;
 
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.change.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.change.actors.buffs.Bleeding;
@@ -106,6 +107,20 @@ public class UYog extends Mob {
 
 		}
         return super.act();
+    }	
+	
+    private static final String BREAKS	= "breaks";
+
+    @Override
+    public void storeInBundle( Bundle bundle ) {
+        super.storeInBundle(bundle);
+        bundle.put( BREAKS, breaks );
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+        super.restoreFromBundle(bundle);
+        breaks = bundle.getInt( BREAKS );
     }	
 	
 	@Override

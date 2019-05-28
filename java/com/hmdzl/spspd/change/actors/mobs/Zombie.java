@@ -46,6 +46,7 @@ public class Zombie extends Mob {
 		
 		
 		EXP = 7;
+		maxLvl = 18;
 		
 	    state = WANDERING;	
 		

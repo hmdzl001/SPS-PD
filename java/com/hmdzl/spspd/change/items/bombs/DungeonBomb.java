@@ -84,7 +84,7 @@ public class DungeonBomb extends Bomb {
 					int maxDamage = ch.HT/5;
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
-							- Random.Int(ch.drRoll());
+							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
 						ch.damage(dmg, this);
 					}

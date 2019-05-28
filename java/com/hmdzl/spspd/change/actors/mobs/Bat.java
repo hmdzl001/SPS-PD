@@ -38,8 +38,8 @@ public class Bat extends Mob {
 		evadeSkill = 15+adj(0);
 		baseSpeed = 2f;
 
-		EXP = 7;
-		maxLvl = 15;
+		EXP = 9;
+		maxLvl = 25;
 
 		flying = true;
 

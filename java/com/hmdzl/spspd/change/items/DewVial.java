@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Badges;
 import com.hmdzl.spspd.change.Challenges;
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.blobs.Water;
@@ -45,17 +46,16 @@ import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.items.bags.Bag;
+import com.hmdzl.spspd.change.items.food.WaterItem;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.scenes.GameScene;
-import com.hmdzl.spspd.change.scenes.InterlevelScene;
 import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.utils.GLog;
  
 import com.hmdzl.spspd.change.windows.WndBag;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
@@ -178,7 +178,12 @@ public class DewVial extends Item {
 	public void execute(final Hero hero, String action) {
 		
          if (action.equals(AC_DRINK)) {
-			 
+			 if (volume > 350 ){
+				 hero.damage(hero.HT,this);
+				 if (!hero.isAlive()) {
+					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				 }
+			 }
 			if (volume > 0) {
 
 				//20 drops for a full heal normally, 15 for the warden
@@ -213,7 +218,12 @@ public class DewVial extends Item {
 			}
 
 		} else if (action.equals(AC_WATER)) {
-			
+			 if (volume > 350 ){
+				 hero.damage(hero.HT,this);
+				 if (!hero.isAlive()) {
+					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				 }
+			 }
 			Statistics.waters++;			
 			int positive = 0;
 			int negative = 0;
@@ -264,7 +274,13 @@ public class DewVial extends Item {
 			hero.spend(TIME_TO_WATER);
 			 updateQuickslot();
 		
-		} else if (action.equals(AC_SPLASH)) {	
+		} else if (action.equals(AC_SPLASH)) {
+         	if (volume > 350 ){
+			 hero.damage(hero.HT,this);
+			 if (!hero.isAlive()) {
+				 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+			 }
+		 }
 			Buff.affect(hero, Haste.class, Haste.DURATION);
 			//Buff.affect(hero, Invisibility.class, Invisibility.DURATION);
 			if(Dungeon.wings && Dungeon.depth<51 ){
@@ -276,8 +292,13 @@ public class DewVial extends Item {
 			volume = volume - 15 - rejection;
 			 updateQuickslot();
 			
-		} else if (action.equals(AC_BLESS) && !Dungeon.dewDraw) {	
-
+		} else if (action.equals(AC_BLESS) && !Dungeon.dewDraw) {
+			 if (volume > 350 ){
+				 hero.damage(hero.HT,this);
+				 if (!hero.isAlive()) {
+					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				 }
+			 }
 			boolean procced = uncurse(hero, hero.belongings.backpack.items.toArray(new Item[0]));
 			procced = uncurse(hero, hero.belongings.weapon,
 					hero.belongings.armor, hero.belongings.misc1,
@@ -293,13 +314,24 @@ public class DewVial extends Item {
 			volume = volume - 70 - rejection;
 			 updateQuickslot();
 			
-		} else if (action.equals(AC_BLESS) && Dungeon.dewDraw) {	
-
+		} else if (action.equals(AC_BLESS) && Dungeon.dewDraw) {
+			 if (volume > 350 ){
+				 hero.damage(hero.HT,this);
+				 if (!hero.isAlive()) {
+					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				 }
+			 }
 			curUser = hero;
 			GameScene.selectItem(itemSelector, WndBag.Mode.UPGRADEDEW,	Messages.get(DewVial.class, "select"));
 			 //updateQuickslot();
 													
-		} else if (action.equals(AC_LIGHT)) {	
+		} else if (action.equals(AC_LIGHT)) {
+			 if (volume > 350 ){
+				 hero.damage(hero.HT,this);
+				 if (!hero.isAlive()) {
+					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				 }
+			 }
 			Buff.affect(hero, Light.class, 80f);
 			Buff.affect(hero, Invisibility.class, 20f);
 			GLog.i(Messages.get(this, "light"));
@@ -308,6 +340,12 @@ public class DewVial extends Item {
 			 updateQuickslot();
 							
 		} else if (action.equals(AC_POUR)) {
+			 if (volume > 350 ){
+				 hero.damage(hero.HT,this);
+				 if (!hero.isAlive()) {
+					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				 }
+			 }
              Buff.detach(hero, Burning.class);
              Buff.detach(hero, Ooze.class);
              Buff.detach(hero, Tar.class);
@@ -328,6 +366,12 @@ public class DewVial extends Item {
 			 updateQuickslot();
 
 		} else if (action.equals(AC_PEEK)) {
+         	if (volume > 350 ){
+         		hero.damage(hero.HT,this);
+				if (!hero.isAlive()) {
+					Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				}
+			}
 			Buff.affect(hero, MindVision.class, 2f);
 			Buff.affect(hero, ExitFind.class, 2f);
 			volume = volume - 5  - rejection;
@@ -336,6 +380,12 @@ public class DewVial extends Item {
 			hero.spend(TIME_TO_LIGHT);
 			 updateQuickslot();
 		} else if (action.equals(AC_REFINE)) {
+			 if (volume > 350 ){
+				 hero.damage(hero.HT,this);
+				 if (!hero.isAlive()) {
+					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				 }
+			 }
 			 volume = volume - 10 - rejection;
 			 hero.sprite.operate(hero.pos);
 			 hero.busy();

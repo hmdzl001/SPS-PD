@@ -231,7 +231,7 @@ public class BrokenRobot extends Mob {
 					int maxDamage = 10 + Dungeon.depth * 2;
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
-							- Random.Int(ch.drRoll());
+							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
 						ch.damage(dmg, this);
 					}

@@ -63,6 +63,7 @@ public class DarkBomb extends Bomb {
 	@Override
 	public void explode(int cell) {
 		super.explode(cell);
+		curUser = Dungeon.hero;
 		 for (int n: Level.NEIGHBOURS9) {
 			int c = cell + n;
 			if (c >= 0 && c < Level.getLength()) {

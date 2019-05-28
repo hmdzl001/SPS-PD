@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.items.food.staplefood;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.change.actors.buffs.Bless;
+import com.hmdzl.spspd.change.actors.buffs.Blindness;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Haste;
 import com.hmdzl.spspd.change.actors.buffs.Hunger;
@@ -27,6 +28,7 @@ import com.hmdzl.spspd.change.actors.buffs.Levitation;
 import com.hmdzl.spspd.change.actors.buffs.Light;
 import com.hmdzl.spspd.change.actors.buffs.Recharging;
 import com.hmdzl.spspd.change.actors.buffs.Regeneration;
+import com.hmdzl.spspd.change.actors.buffs.Vertigo;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.FlameParticle;
@@ -48,11 +50,12 @@ public class Pasty extends StapleFood {
 	private enum Holiday{
 		NONE,
 		SPRING,
-		RUSSIA,
+		STUDENT,
 		EASTER, //TBD
 		HWEEN,//2nd week of october though first day of november
 		THANK,
 		XMAS, //3rd week of december through first week of january
+		CHILD,
 		WORKER
 	}
 
@@ -78,11 +81,16 @@ public class Pasty extends StapleFood {
 					holiday = Holiday.EASTER;
 				break;
 			case Calendar.MAY:
-				holiday = Holiday.WORKER;
+				if(calendar.get(Calendar.DAY_OF_MONTH)<=7)
+					holiday = Holiday.WORKER;
 				break;
 			case Calendar.JUNE:
+				if(calendar.get(Calendar.DAY_OF_MONTH)<=3)
+					holiday = Holiday.CHILD;
+				break;
 			case Calendar.JULY:
-				   holiday = Holiday.RUSSIA;
+			case Calendar.AUGUST:
+				   holiday = Holiday.STUDENT;
 				   break;
 			case Calendar.OCTOBER:
 				if (calendar.get(Calendar.WEEK_OF_MONTH) >= 2)
@@ -117,7 +125,7 @@ public class Pasty extends StapleFood {
 				name = Messages.get(this,"egg");
 				image = ItemSpriteSheet.EASTER_EGG;
 				break;
-			case RUSSIA:
+			case STUDENT:
 				name = Messages.get(this,"book");
 				image = ItemSpriteSheet.KNOWNLADGE_FOOD;
 				break;
@@ -136,6 +144,10 @@ public class Pasty extends StapleFood {
 			case WORKER:
 				name = Messages.get(this, "bread");
 				image = ItemSpriteSheet.BRICK;
+				break;
+			case CHILD:
+				name = Messages.get(this, "jelly");
+				image = ItemSpriteSheet.JELLY_SWORD;
 				break;
 		}
 
@@ -160,7 +172,7 @@ public class Pasty extends StapleFood {
 					Buff.affect(hero, Bless.class,5f);
 					hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 					break;
-				case RUSSIA:
+				case STUDENT:
 					Buff.affect(hero, Light.class,50f);
 					hero.sprite.emitter().start(FlameParticle.FACTORY, 0.2f, 3);
 					break;
@@ -178,8 +190,14 @@ public class Pasty extends StapleFood {
 					ScrollOfRecharging.charge( hero );
 					break;
 				case WORKER:
-					Dungeon.gold +=1000;
+					Dungeon.gold +=500;
 					GLog.p(Messages.get(Pasty.class,"worker"));
+					break;
+				case CHILD:
+					hero.HP = hero.HT;
+					hero.HT +=3;
+					Buff.affect(hero,Blindness.class, 20f);
+					Buff.affect(hero,Vertigo.class, 20f);
 					break;
 			}
 		}
@@ -194,7 +212,7 @@ public class Pasty extends StapleFood {
 				return Messages.get(this, "assorted_desc");
 			case EASTER:
 				return Messages.get(this, "egg_desc");
-			case RUSSIA:
+			case STUDENT:
 				return Messages.get(this, "book_desc");
 			case HWEEN:
 				return Messages.get(this, "pie_desc");
@@ -204,11 +222,13 @@ public class Pasty extends StapleFood {
 				return Messages.get(this, "cane_desc");
 			case WORKER:
 				return Messages.get(this, "bread_desc");
+			case CHILD:
+				return Messages.get(this, "jelly_desc");
 		}
 	}
 	
 	@Override
 	public int price() {
-		return 7 * quantity;
+		return 100 * quantity;
 	}
 }

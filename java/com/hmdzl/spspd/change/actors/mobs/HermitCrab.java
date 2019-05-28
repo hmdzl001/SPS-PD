@@ -56,7 +56,7 @@ public class HermitCrab extends Mob implements Callback {
 		HP = HT = 200;
 		evadeSkill = 22;
 
-		EXP = 6;
+		EXP = 60;
 
 		loot = Generator.Category.BERRY;
 		lootChance = 0.33f;

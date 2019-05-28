@@ -84,7 +84,7 @@ public class JupitersHorror extends Weapon.Enchantment {
 						int maxDamage = 10 + Dungeon.depth * 3;
 						                    
 						
-						int dmg = Random.NormalIntRange(minDamage, maxDamage) - Random.Int(ch.drRoll());
+						int dmg = Random.NormalIntRange(minDamage, maxDamage) - Math.max(ch.drRoll(),0);
 						
 						
 						if (dmg > 0) {

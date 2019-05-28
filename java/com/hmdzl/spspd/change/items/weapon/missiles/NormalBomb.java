@@ -21,6 +21,7 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -44,6 +45,13 @@ public class NormalBomb extends MissileWeapon {
 	public NormalBomb(int number) {
 		super();
 		quantity = number;
+	}
+
+	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing(0xCC6600);
+
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return BROWN;
 	}
 	
 	@Override

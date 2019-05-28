@@ -54,8 +54,7 @@ public class MagicEye extends Mob {
 		viewDistance = Light.DISTANCE;
 
 		EXP = 16;
-		maxLvl = 25;
-
+	
 		flying = true;
 
 		loot = new PotionOfMending();

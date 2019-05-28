@@ -34,8 +34,9 @@ import com.hmdzl.spspd.change.items.EquipableItem;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
-import com.hmdzl.spspd.change.items.WaterItem;
+import com.hmdzl.spspd.change.items.food.WaterItem;
 import com.hmdzl.spspd.change.items.bags.HeartOfScarecrow;
+import com.hmdzl.spspd.change.items.rings.Ring;
 import com.hmdzl.spspd.change.items.summon.Honeypot;
 import com.hmdzl.spspd.change.items.bombs.BuildBomb;
 import com.hmdzl.spspd.change.items.challengelists.ChallengeList;
@@ -46,7 +47,7 @@ import com.hmdzl.spspd.change.items.misc.JumpS;
 import com.hmdzl.spspd.change.items.misc.JumpW;
 import com.hmdzl.spspd.change.items.misc.Jumpshoes;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Handcannon;
-import com.hmdzl.spspd.change.items.weapon.missiles.MissileShield;
+import com.hmdzl.spspd.change.items.misc.MissileShield;
 import com.hmdzl.spspd.change.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.items.armor.Armor;
@@ -81,6 +82,8 @@ import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
 
+import static com.hmdzl.spspd.change.Dungeon.hero;
+
 public class WndBag extends WndTabbed {
 
 	public static enum Mode {
@@ -106,7 +109,8 @@ public class WndBag extends WndTabbed {
 		JOURNALPAGES, 
 		SHOES, 
 		COOKING, 
-		CHALLENGELIST, 
+		CHALLENGELIST,
+		CANBEMIX,
 		AMMO;
 	}
 
@@ -162,7 +166,7 @@ public class WndBag extends WndTabbed {
 
 		resize(slotsWidth, slotsHeight + TITLE_HEIGHT);
 
-		Belongings stuff = Dungeon.hero.belongings;
+		Belongings stuff = hero.belongings;
 		
 		ArrayList<Bag> bags = new ArrayList<>();
 		
@@ -209,13 +213,13 @@ public class WndBag extends WndTabbed {
 	public static WndBag lastBag(Listener listener, Mode mode, String title) {
 
 		if (mode == lastMode && lastBag != null
-				&& Dungeon.hero.belongings.backpack.contains(lastBag)) {
+				&& hero.belongings.backpack.contains(lastBag)) {
 
 			return new WndBag(lastBag, listener, mode, title);
 
 		} else {
 
-			return new WndBag(Dungeon.hero.belongings.backpack, listener, mode,
+			return new WndBag(hero.belongings.backpack, listener, mode,
 					title);
 
 		}
@@ -223,7 +227,7 @@ public class WndBag extends WndTabbed {
 
 	public static WndBag getBag(Class<? extends Bag> bagClass,
 			Listener listener, Mode mode, String title) {
-		Bag bag = Dungeon.hero.belongings.getItem(bagClass);
+		Bag bag = hero.belongings.getItem(bagClass);
 		return bag != null ? new WndBag(bag, listener, mode, title) : lastBag(
 				listener, mode, title);
 	}
@@ -231,7 +235,7 @@ public class WndBag extends WndTabbed {
 	protected void placeItems(Bag container) {
 
 		// Equipped items
-		Belongings stuff = Dungeon.hero.belongings;
+		Belongings stuff = hero.belongings;
 		placeItem(stuff.weapon != null ? stuff.weapon : new Placeholder(
 				ItemSpriteSheet.WEAPON_HOLDER));
 		placeItem(stuff.armor != null ? stuff.armor : new Placeholder(
@@ -243,7 +247,7 @@ public class WndBag extends WndTabbed {
 		placeItem(stuff.misc3 != null ? stuff.misc3 : new Placeholder(
 				ItemSpriteSheet.RING_HOLDER));
 
-		boolean backpack = (container == Dungeon.hero.belongings.backpack);
+		boolean backpack = (container == hero.belongings.backpack);
 		if (!backpack) {
 			count = nCols;
 			col = 0;
@@ -261,7 +265,7 @@ public class WndBag extends WndTabbed {
 		}
 
 		// Gold
-		if (container == Dungeon.hero.belongings.backpack) {
+		if (container == hero.belongings.backpack) {
 			row = nRows - 1;
 			col = nCols - 1;
 			placeItem(new Gold(Dungeon.gold));
@@ -430,7 +434,7 @@ public class WndBag extends WndTabbed {
 			if (item != null) {
 
 				bg.texture(TextureCache.createSolid(item
-						.isEquipped(Dungeon.hero) ? EQUIPPED : NORMAL));
+						.isEquipped(hero) ? EQUIPPED : NORMAL));
 				if (item.cursed && item.cursedKnown) {
 					bg.ra = +0.2f;
 					bg.ga = -0.1f;
@@ -444,11 +448,11 @@ public class WndBag extends WndTabbed {
 				} else {
 					
 					 int levelLimit = Math.max(2, 2+Math.round(Statistics.deepestFloor/3));
-				     if (Dungeon.hero.heroClass == HeroClass.MAGE){levelLimit++;}
+				     if (hero.heroClass == HeroClass.MAGE){levelLimit++;}
 					
 					enable(
 					mode == Mode.FOR_SALE 
-					    && (item.price() > 0) && (!item.isEquipped(Dungeon.hero) || !item.cursed)
+					    && (item.price() > 0) && (!item.isEquipped(hero) || !item.cursed)
 				 || mode == Mode.UPGRADEABLE
 			            && ((item.isUpgradable() && item.level<15 && !item.isReinforced()) || item.isUpgradable() && item.isReinforced())
 				 || mode == Mode.UPGRADEDEW
@@ -491,6 +495,8 @@ public class WndBag extends WndTabbed {
 						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof WaterItem ||item instanceof StoneOre || item instanceof Honeypot || item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof BuildBomb)
 				 || mode == Mode.CHALLENGELIST
 						&& (item instanceof ChallengeList)
+				 || mode == Mode.CANBEMIX
+							&& ( !item.isEquipped(hero) && (item instanceof Ring || item instanceof Wand))
 				 || mode == Mode.AMMO
 						&& (item instanceof SpAmmo)
 				 || mode == Mode.ALL);

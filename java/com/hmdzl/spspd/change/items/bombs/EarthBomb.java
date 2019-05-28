@@ -85,28 +85,9 @@ public class EarthBomb extends Bomb {
 				if (ch != null){
 					Buff.prolong(ch, Roots.class,5f);
 					Buff.affect(ch, Ooze.class);
-				} else if ( Dungeon.level.map[i] == Terrain.EMPTY ||
-						Dungeon.level.map[i] == Terrain.EMBERS ||
-						Dungeon.level.map[i] == Terrain.EMPTY_DECO ||
-						Dungeon.level.map[i] == Terrain.GRASS ||
-						Dungeon.level.map[i] == Terrain.HIGH_GRASS ){
-					plantCandidates.add(i);
 				}
-				GameScene.add( Blob.seed( i, 10, Regrowth.class ) );
 			}
 		}
-
-		Integer plantPos = Random.element(plantCandidates);
-		if (plantPos != null){
-			Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos);
-			plantCandidates.remove(plantPos);
-		}
-
-		plantPos = Random.element(plantCandidates);
-		if (plantPos != null){
-				Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos);
-			}
-			plantCandidates.remove(plantPos);
 	}
 
 

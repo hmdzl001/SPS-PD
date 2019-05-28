@@ -35,6 +35,8 @@ public class RatBoss extends Mob {
 		HP = HT = 50+(Dungeon.depth*Random.NormalIntRange(2, 5));
 		evadeSkill = 5+(Dungeon.depth/4);
 		
+		EXP = 10;
+		
 		loot = Generator.Category.BERRY;
 		lootChance = 0.5f;
 		

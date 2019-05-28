@@ -26,16 +26,17 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.GoldThief;
 import com.hmdzl.spspd.change.actors.mobs.pets.BlueDragon;
-import com.hmdzl.spspd.change.actors.mobs.pets.Fairy;
+import com.hmdzl.spspd.change.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.GreenDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.LeryFire;
+import com.hmdzl.spspd.change.actors.mobs.pets.LightDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.PET;
 import com.hmdzl.spspd.change.actors.mobs.pets.RedDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Scorpion;
 import com.hmdzl.spspd.change.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Spider;
-import com.hmdzl.spspd.change.actors.mobs.pets.SugarplumFairy;
+
 import com.hmdzl.spspd.change.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.change.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.change.effects.Pushing;
@@ -75,7 +76,7 @@ public class Egg extends Item {
 	public static final int SPIDER = 1000;
 	public static final int SCORPION = 2000;
 	public static final int VELOCIROOSTER = 5;
-	public static final int FAIRY = 20;
+	public static final int LIGHT_DRAGON = 20;
 	public static final int SHADOW_DRAGON = 20;
 	
 
@@ -185,22 +186,16 @@ public class Egg extends Item {
 			
 			boolean hatch = false;
 			if (checkFreezes()>=BLUE_DRAGON && checkPoisons()>=VIOLET_DRAGON && checkBurns()>=RED_DRAGON && checkLits()>=GREEN_DRAGON 
-			          && checkLight()>=SHADOW_DRAGON && checkSummons()>=FAIRY && checkMoves()>=SCORPION){
-				GoldDragon pet = new GoldDragon();
-				eggHatch(pet);
-				hatch=true;
-				//spawn leryfire
-			} else if (checkSummons()>=FAIRY) {
-				if (Dungeon.getMonth()==11){
-				   SugarplumFairy pet = new SugarplumFairy();
+			          && checkLight()>=SHADOW_DRAGON && checkSummons()>=LIGHT_DRAGON && checkMoves()>=SCORPION){
+				if (Dungeon.getMonth()==11 || Random.Int(50) == 0){
+				   BugDragon pet = new BugDragon();
 				   eggHatch(pet);
 					  hatch=true;
 				 } else {
-				  Fairy pet = new Fairy();
+				  GoldDragon pet = new GoldDragon();
 				  eggHatch(pet);
 				  hatch=true;
-				 }				 
-				//spawn fairy	
+				 }		
 			 } else if (checkLight()>= 20 ){
                   ShadowDragon pet = new ShadowDragon();
                   eggHatch(pet);
@@ -216,7 +211,11 @@ public class Egg extends Item {
 				  BlueDragon pet = new BlueDragon();
 				  eggHatch(pet);
 				  hatch=true;
-				  //spawn ice dragon			
+				  //spawn ice dragon	
+			  } else if (checkLight()>=LIGHT_DRAGON) {
+				  LightDragon pet = new LightDragon();
+				  eggHatch(pet);
+				  hatch=true;				  
 			  } else if (checkPoisons()>=VIOLET_DRAGON) {
 				  VioletDragon pet = new VioletDragon();
 				  eggHatch(pet);
@@ -267,33 +266,21 @@ public class Egg extends Item {
 						            
 			 boolean alive = false;
 			  
-			  if (checkSummons()>=FAIRY) {
+
+			  
+			  if (checkFreezes()>=BLUE_DRAGON && checkPoisons()>=VIOLET_DRAGON && checkBurns()>=RED_DRAGON && checkLits()>=GREEN_DRAGON 
+			          && checkLight()>=SHADOW_DRAGON && checkSummons()>=LIGHT_DRAGON && checkMoves()>=SCORPION) {
 				   GLog.w(Messages.get(Egg.class,"zap"));
 				   Dungeon.hero.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				   Dungeon.hero.sprite.flash();
 				   Dungeon.hero.damage(1, this);	
 				   alive = true;
-				  //spawn fairy
-			  } else if (checkFreezes()>=SHADOW_DRAGON) {
+
+			  } else if (checkSummons()>=SHADOW_DRAGON || checkLight()>=LIGHT_DRAGON || checkFreezes()>=BLUE_DRAGON
+			  || checkPoisons()>=VIOLET_DRAGON || checkLits()>=GREEN_DRAGON || checkBurns()>=RED_DRAGON) {
 				 GLog.w(Messages.get(Egg.class,"kick"));
 				 alive = true;
-				  //spawn ice dragon				  
-			  } else if (checkFreezes()>=BLUE_DRAGON) {
-				 GLog.w(Messages.get(Egg.class,"kick"));
-				 alive = true;
-				  //spawn ice dragon
-			  } else if (checkPoisons()>=VIOLET_DRAGON) {
-				   GLog.w(Messages.get(Egg.class,"kick"));
-				   alive = true;
-				  //spawn green dragon
-			  } else if (checkLits()>=GREEN_DRAGON) {
-				  GLog.w(Messages.get(Egg.class,"kick"));
-				  alive = true;
-				  //spawn lit dragon
-			  } else if (checkBurns()>=RED_DRAGON) {
-				  GLog.w(Messages.get(Egg.class,"kick"));
-				  alive = true;
-				  //spawn dragon
+
 			  } else if (checkBurns()>=VELOCIROOSTER) {
 				  GLog.w(Messages.get(Egg.class,"scratch"));
 				  alive = true;

@@ -42,6 +42,7 @@ public class ResultDescriptions {
 	public static final String OOZE = Messages.get(ResultDescriptions.class, "ooze");
 	public static final String FALL = Messages.get(ResultDescriptions.class, "fall");
 	public static final String COUNTDOWN = Messages.get(ResultDescriptions.class, "countdown");
+	public static final String CHEAT = Messages.get(ResultDescriptions.class, "cheat");
 
 	public static final String WIN = Messages.get(ResultDescriptions.class, "win");
 }

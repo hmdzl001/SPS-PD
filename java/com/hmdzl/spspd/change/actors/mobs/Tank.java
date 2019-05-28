@@ -73,7 +73,7 @@ public class Tank extends Mob {
 		spriteClass = TankSprite.class;
 
 		HP = HT = 1000;
-		EXP = 30;
+		EXP = 40;
 		evadeSkill = 5;
 		viewDistance = 4;
 

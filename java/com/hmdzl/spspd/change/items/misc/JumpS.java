@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Arcane;
+import com.hmdzl.spspd.change.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.change.actors.buffs.WarGroove;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
@@ -120,9 +121,10 @@ public class JumpS extends Item {
 						//CellEmitter.center(dest).burst(
 						//Speck.factory(Speck.DUST), 10);
 						curUser.spendAndNext(JUMP_TIME);
-						curUser.belongings.relord();
+
 						if (Random.Int(10) > 3 ){
-							Buff.affect(curUser, WarGroove.class);
+							curUser.belongings.relord();
+							Buff.affect(curUser, TargetShoot.class, 10f);
 						}
 						charge -= 10;
 						updateQuickslot();

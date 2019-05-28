@@ -28,9 +28,11 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.Shopkeeper;
 import com.hmdzl.spspd.change.items.Ankh;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Heap;
+import com.hmdzl.spspd.change.items.armor.normalarmor.PlateArmor;
 import com.hmdzl.spspd.change.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.change.items.summon.CallCoconut;
+import com.hmdzl.spspd.change.items.summon.FairyCard;
 import com.hmdzl.spspd.change.items.summon.Honeypot;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.DolyaSlate;
@@ -65,6 +67,7 @@ import com.hmdzl.spspd.change.items.weapon.guns.GunC;
 import com.hmdzl.spspd.change.items.weapon.guns.GunD;
 import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Brick;
+import com.hmdzl.spspd.change.items.weapon.melee.special.Lollipop;
 import com.hmdzl.spspd.change.items.weapon.missiles.MiniMoai;
 import com.hmdzl.spspd.change.items.weapon.missiles.PocketBall;
 import com.hmdzl.spspd.change.levels.LastShopLevel;
@@ -128,7 +131,7 @@ public class ShopPainter extends Painter {
 		case 1:
 			itemsToSpawn.add(new GunA().identify());
 			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new Brick().identify());
+			itemsToSpawn.add(new Lollipop().identify());
 		    itemsToSpawn.add(new DolyaSlate().identify());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());
@@ -163,7 +166,7 @@ public class ShopPainter extends Painter {
 			//itemsToSpawn.add(new PlateArmor().identify());
 			//itemsToSpawn.add(new Torch());
 			itemsToSpawn.add(new GunE().identify());
-			itemsToSpawn.add(new Torch());
+			itemsToSpawn.add(new PlateArmor().identify());
 			itemsToSpawn.add(new CourageChallenge());
 			itemsToSpawn.add(new PowerChallenge());
 			itemsToSpawn.add(new WisdomChallenge());
@@ -196,7 +199,7 @@ public class ShopPainter extends Painter {
 			itemsToSpawn.add(new ActiveMrDestructo());
 			break;
 		case 2:
-			itemsToSpawn.add(new CallCoconut());
+			itemsToSpawn.add(new FairyCard());
 			break;
 		case 3:
 			itemsToSpawn.add(new Mobile());
@@ -207,7 +210,7 @@ public class ShopPainter extends Painter {
 		case 5:
 		case 6:
 		case 7:
-			itemsToSpawn.add(new DungeonBomb().random());
+			itemsToSpawn.add(new Torch());
 			break;
 		}
 

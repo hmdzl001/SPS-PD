@@ -17,14 +17,10 @@
  */
 package com.hmdzl.spspd.change.items;
 
-import android.util.Log;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.hero.Hero;
-import com.hmdzl.spspd.change.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.change.items.armor.normalarmor.BulletArmor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.CDArmor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.CeramicsArmor;
@@ -37,6 +33,7 @@ import com.hmdzl.spspd.change.items.armor.normalarmor.StoneArmor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.StyrofoamArmor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.VestArmor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.WoodenArmor;
+import com.hmdzl.spspd.change.items.artifacts.AlienBag;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.change.items.artifacts.GlassTotem;
 import com.hmdzl.spspd.change.items.artifacts.RobotDMT;
@@ -56,20 +53,18 @@ import com.hmdzl.spspd.change.items.eggs.BlueDragonEgg;
 import com.hmdzl.spspd.change.items.eggs.CocoCatEgg;
 import com.hmdzl.spspd.change.items.eggs.EasterEgg;
 import com.hmdzl.spspd.change.items.eggs.Egg;
-import com.hmdzl.spspd.change.items.eggs.FairyEgg;
 import com.hmdzl.spspd.change.items.eggs.GoldDragonEgg;
 import com.hmdzl.spspd.change.items.eggs.GreenDragonEgg;
 import com.hmdzl.spspd.change.items.eggs.LeryFireEgg;
+import com.hmdzl.spspd.change.items.eggs.LightDragonEgg;
 import com.hmdzl.spspd.change.items.eggs.RandomEgg;
 import com.hmdzl.spspd.change.items.eggs.RedDragonEgg;
 import com.hmdzl.spspd.change.items.eggs.ScorpionEgg;
 import com.hmdzl.spspd.change.items.eggs.ShadowDragonEgg;
 import com.hmdzl.spspd.change.items.eggs.SpiderEgg;
-import com.hmdzl.spspd.change.items.eggs.SugarplumFairyEgg;
 import com.hmdzl.spspd.change.items.eggs.VelociroosterEgg;
 import com.hmdzl.spspd.change.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.change.items.food.completefood.Chickennugget;
-import com.hmdzl.spspd.change.items.food.completefood.Ediblegrass;
 import com.hmdzl.spspd.change.items.food.completefood.Foamedbeverage;
 import com.hmdzl.spspd.change.items.food.completefood.Fruitsalad;
 import com.hmdzl.spspd.change.items.food.completefood.Gel;
@@ -89,8 +84,25 @@ import com.hmdzl.spspd.change.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.change.items.food.completefood.Vegetableroll;
 import com.hmdzl.spspd.change.items.food.completefood.Vegetablesoup;
 import com.hmdzl.spspd.change.items.food.staplefood.NormalRation;
+import com.hmdzl.spspd.change.items.medicine.Hardpill;
+import com.hmdzl.spspd.change.items.medicine.Magicpill;
+import com.hmdzl.spspd.change.items.medicine.Musicpill;
+import com.hmdzl.spspd.change.items.medicine.Pill;
+import com.hmdzl.spspd.change.items.medicine.Powerpill;
+import com.hmdzl.spspd.change.items.medicine.Shootpill;
+import com.hmdzl.spspd.change.items.medicine.Smashpill;
+import com.hmdzl.spspd.change.items.medicine.PixieParasol;
+import com.hmdzl.spspd.change.items.medicine.GreenSpore;
+import com.hmdzl.spspd.change.items.medicine.GoldenJelly;
+import com.hmdzl.spspd.change.items.medicine.Earthstar;
+import com.hmdzl.spspd.change.items.medicine.DeathCap;
+import com.hmdzl.spspd.change.items.medicine.JackOLantern;
+import com.hmdzl.spspd.change.items.medicine.BlueMilk;
 import com.hmdzl.spspd.change.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfSacrifice;
+import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
+import com.hmdzl.spspd.change.items.summon.FairyCard;
+import com.hmdzl.spspd.change.items.summon.Mobile;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
 import com.hmdzl.spspd.change.items.wands.WandOfMeteorite;
@@ -140,19 +152,11 @@ import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.change.items.artifacts.UnstableSpellbook;
 import com.hmdzl.spspd.change.items.bags.Bag;
 import com.hmdzl.spspd.change.items.food.fruit.Blackberry;
-import com.hmdzl.spspd.change.items.food.vegetables.BlueMilk;
 import com.hmdzl.spspd.change.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.change.items.food.fruit.Cloudberry;
-import com.hmdzl.spspd.change.items.food.vegetables.DeathCap;
-import com.hmdzl.spspd.change.items.food.vegetables.Earthstar;
 import com.hmdzl.spspd.change.items.food.Food;
-import com.hmdzl.spspd.change.items.food.vegetables.GoldenJelly;
-import com.hmdzl.spspd.change.items.food.vegetables.JackOLantern;
 import com.hmdzl.spspd.change.items.food.fruit.Moonberry;
-import com.hmdzl.spspd.change.items.food.vegetables.GreenSpore;
-import com.hmdzl.spspd.change.items.food.Nut;
 import com.hmdzl.spspd.change.items.food.staplefood.Pasty;
-import com.hmdzl.spspd.change.items.food.vegetables.PixieParasol;
 import com.hmdzl.spspd.change.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.change.items.nornstone.BlueNornStone;
 import com.hmdzl.spspd.change.items.nornstone.GreenNornStone;
@@ -253,7 +257,6 @@ import com.hmdzl.spspd.change.plants.Sorrowmoss;
 import com.hmdzl.spspd.change.plants.Starflower;
 import com.hmdzl.spspd.change.plants.Stormvine;
 import com.hmdzl.spspd.change.plants.Sungrass;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Generator {
@@ -263,7 +266,7 @@ public class Generator {
 		POTION(500, Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
 		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),
 		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(50, Food.class), BOMBS(20, Bomb.class),
-		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class);
+		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(1, Pill.class);
 
 		public Class<?>[] classes;
 		public float[] probs;
@@ -419,20 +422,19 @@ public class Generator {
 				TalismanOfForesight.class, TimekeepersHourglass.class,
 				UnstableSpellbook.class, AlchemistsToolkit.class, RobotDMT.class,
 				EyeOfSkadi.class, EtherealChains.class,
-				DriedRose.class, GlassTotem.class // starts with no chance of spawning, chance is
-								// set directly after beating ghost quest.
+				DriedRose.class, GlassTotem.class, AlienBag.class
 		};
-		Category.ARTIFACT.probs =  new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};;
+		Category.ARTIFACT.probs =  new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 		Category.SEED.classes = new Class<?>[] { 
 				Firebloom.Seed.class, Icecap.Seed.class, Sorrowmoss.Seed.class, Blindweed.Seed.class, Sungrass.Seed.class,
 				Earthroot.Seed.class, Fadeleaf.Seed.class, Rotberry.Seed.class, BlandfruitBush.Seed.class, Dreamfoil.Seed.class,
-				Stormvine.Seed.class, Nut.class, /*Blackberry.class, Blueberry.class, Cloudberry.class,
+				Stormvine.Seed.class, /*Nut.class, Vegetable.class,Blackberry.class, Blueberry.class, Cloudberry.class,
 				Moonberry.class,*/ Starflower.Seed.class, Phaseshift.Seed.class, Flytrap.Seed.class, Dewcatcher.Seed.class, Seedpod.Seed.class};
 		
 		Category.SEED.probs = new float[] { 12, 12, 12, 12, 12,
 				                            12, 12, 0, 4, 12,
-				                            12, 48, /*20, 4, 16,
+				                            12,/* 48, 36, 20, 4, 16,
 				                            4,*/ 3, 3, 4, 8, 2};
 		
 		
@@ -453,12 +455,12 @@ public class Generator {
 		Category.NORNSTONE.probs = new float[] {2,2,2,2,2};
 
 		Category.EGGS.classes = new Class<?>[] { BlueDragonEgg.class, CocoCatEgg.class, EasterEgg.class,Egg.class,
-                FairyEgg.class, GreenDragonEgg.class, LeryFireEgg.class, RedDragonEgg.class, ScorpionEgg.class,
-                ShadowDragonEgg.class, SpiderEgg.class, SugarplumFairyEgg.class, VelociroosterEgg.class, VioletDragonEgg.class,
+                LightDragonEgg.class, GreenDragonEgg.class, LeryFireEgg.class, RedDragonEgg.class, ScorpionEgg.class,
+                ShadowDragonEgg.class, SpiderEgg.class, VelociroosterEgg.class, VioletDragonEgg.class,
 				GoldDragonEgg.class, RandomEgg.class };
-		Category.EGGS.probs = new float[] {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+		Category.EGGS.probs = new float[] {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-		Category.HIGHFOOD.classes = new Class<?>[] { Chickennugget.class,Ediblegrass.class,Foamedbeverage.class,Fruitsalad.class,
+		Category.HIGHFOOD.classes = new Class<?>[] { Chickennugget.class,Foamedbeverage.class,Fruitsalad.class,
 				Hamburger.class,Herbmeat.class,Honeymeat.class,Honeyrice.class,
 				Icecream.class,Kebab.class,PerfectFood.class,Porksoup.class,
 				Ricefood.class,Vegetablekebab.class,Vegetablesoup.class,
@@ -476,7 +478,16 @@ public class Generator {
 		Category.BOMBS.probs = new float[] { 0,3,
 				0,1,
 				1,1,1,1,
-				1,1,1,};
+				1,1,1};
+		Category.SUMMONED.classes = new Class<?>[] {ActiveMrDestructo.class,Mobile.class,FairyCard.class
+
+		};
+		Category.SUMMONED.probs = new float[] { 1,1,1};
+
+		Category.PILL.classes = new Class<?>[] {Hardpill.class, Magicpill.class,Musicpill.class,
+				Powerpill.class, Shootpill.class, Smashpill.class
+		};
+		Category.PILL.probs = new float[] { 1,1,1,1,1,1};
 	}
 
 	public static void reset() {

@@ -43,8 +43,8 @@ public class Scorpio extends Mob {
 		evadeSkill = 24+adj(1);
 		viewDistance = Light.DISTANCE;
 
-		EXP = 14;
-		maxLvl = 25;
+		EXP = 17;
+		maxLvl = 35;
 
 		loot = new PotionOfHealing();
 		lootChance = 0.2f;

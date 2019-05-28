@@ -83,7 +83,7 @@ public class EyeOfSkadi extends Artifact {
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
 		if (action.equals(AC_BLAST)) {
-   
+            curUser = hero;
 			if (!isEquipped(hero))
 				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
 			else {
@@ -101,6 +101,7 @@ public class EyeOfSkadi extends Artifact {
 		} else if (action.equals(AC_ADD)) {
 			GameScene.selectItem(itemSelector, mode,Messages.get(this, "prompt"));
 		} else if (action.equals(AC_CURSE)) {
+			curUser = hero;
 			if (charge != chargeCap) {GLog.i(Messages.get(this, "no_charge"));}
 			else GameScene.selectCell(curser);
 		}

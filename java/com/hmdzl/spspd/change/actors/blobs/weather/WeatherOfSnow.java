@@ -46,7 +46,7 @@ public class WeatherOfSnow extends Blob {
 	@Override
 	public void use(BlobEmitter emitter) {
 		super.use(emitter);
-		emitter.start(SnowParticle.FACTORY, 0.1f, 0);
+		emitter.start(SnowParticle.FACTORY, 0.5f, 0);
 	}
 	
 	@Override

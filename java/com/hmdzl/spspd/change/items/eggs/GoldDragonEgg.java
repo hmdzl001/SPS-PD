@@ -23,8 +23,8 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.pets.BlueDragon;
+import com.hmdzl.spspd.change.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Bunny;
-import com.hmdzl.spspd.change.actors.mobs.pets.Fairy;
 import com.hmdzl.spspd.change.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.GreenDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.LeryFire;
@@ -33,7 +33,7 @@ import com.hmdzl.spspd.change.actors.mobs.pets.RedDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Scorpion;
 import com.hmdzl.spspd.change.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Spider;
-import com.hmdzl.spspd.change.actors.mobs.pets.SugarplumFairy;
+
 import com.hmdzl.spspd.change.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.change.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.change.effects.Pushing;
@@ -169,10 +169,13 @@ public class GoldDragonEgg extends Egg {
 		*/
 
 		if (action.equals(AC_BREAK)) {
-
-			GoldDragon pet = new GoldDragon();
-			eggHatch(pet);
-		  
+			if (Dungeon.getMonth()==9 || Random.Int(50) == 0){
+				BugDragon pet = new BugDragon();
+				eggHatch(pet);
+			} else {
+				GoldDragon pet = new GoldDragon();
+				eggHatch(pet);
+			}
 		  hero.next();
 		
 		}

@@ -35,11 +35,11 @@ public class LiveMoss extends Mob {
 		HP = HT = 50+(adj(0)*Random.NormalIntRange(1, 3));
 		evadeSkill = 5+adj(1);
 
-		EXP = 3;
+		EXP = 5;
 		maxLvl = 9;
 
 		loot = Generator.random(Generator.Category.MUSHROOM);
-		lootChance = 0.3f;
+		lootChance = 0.2f;
 		
 		properties.add(Property.PLANT);
 	}

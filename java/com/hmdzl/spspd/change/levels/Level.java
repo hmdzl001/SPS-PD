@@ -46,14 +46,15 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanCorner;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SheepSokobanSwitch;
 import com.hmdzl.spspd.change.actors.mobs.pets.BlueDragon;
+import com.hmdzl.spspd.change.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Bunny;
 import com.hmdzl.spspd.change.actors.mobs.pets.CocoCat;
-import com.hmdzl.spspd.change.actors.mobs.pets.Fairy;
 import com.hmdzl.spspd.change.actors.mobs.pets.Fly;
 import com.hmdzl.spspd.change.actors.mobs.pets.GentleCrab;
 import com.hmdzl.spspd.change.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.GreenDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.LeryFire;
+import com.hmdzl.spspd.change.actors.mobs.pets.LightDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Monkey;
 import com.hmdzl.spspd.change.actors.mobs.pets.PET;
 import com.hmdzl.spspd.change.actors.mobs.pets.RedDragon;
@@ -63,7 +64,7 @@ import com.hmdzl.spspd.change.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Snake;
 import com.hmdzl.spspd.change.actors.mobs.pets.Spider;
 import com.hmdzl.spspd.change.actors.mobs.pets.Stone;
-import com.hmdzl.spspd.change.actors.mobs.pets.SugarplumFairy;
+
 import com.hmdzl.spspd.change.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.change.actors.mobs.pets.VioletDragon;
 
@@ -732,11 +733,11 @@ public abstract class Level implements Bundlable {
 						  spawnPet(pet,petpos,heropos);					 
 				   }
 				   if (Dungeon.hero.petType==10){
-					   Fairy pet = new Fairy();
+					   LightDragon pet = new LightDragon();
 						  spawnPet(pet,petpos,heropos);					 
 				   }
 				   if (Dungeon.hero.petType==11){
-					   SugarplumFairy pet = new SugarplumFairy();
+					   BugDragon pet = new BugDragon();
 						  spawnPet(pet,petpos,heropos);					 
 				   }
 				   if (Dungeon.hero.petType==12){
@@ -976,7 +977,7 @@ public abstract class Level implements Bundlable {
 		int cell;
 		do {
 			cell = Random.Int(getLength());
-		} while (!passable[cell] || Actor.findChar(cell) != null || map[cell]!=Terrain.EMPTY);
+		} while (!passable[cell] || Actor.findChar(cell) != null || (map[cell]!=Terrain.EMPTY  && map[cell]!=Terrain.EMPTY_SP && map[cell]!=Terrain.GRASS && map[cell]!=Terrain.HIGH_GRASS) );
 		return cell;
 	}
 
@@ -1239,8 +1240,10 @@ public abstract class Level implements Bundlable {
 			plant.wither();
 		}
 
-		if (map[pos] == Terrain.HIGH_GRASS || map[pos] == Terrain.EMPTY
-				|| map[pos] == Terrain.EMBERS || map[pos] == Terrain.EMPTY_DECO) {
+		if (map[pos] == Terrain.HIGH_GRASS || 
+		    map[pos] == Terrain.EMPTY  || 
+		    map[pos] == Terrain.EMBERS || 
+			map[pos] == Terrain.EMPTY_DECO) {
 			map[pos] = Terrain.GRASS;
 			GameScene.updateMap(pos);
 		}
@@ -1254,7 +1257,7 @@ public abstract class Level implements Bundlable {
 	}
 
 	public void uproot(int pos) {
-		plants.delete(pos);
+		plants.remove(pos);
 	}
 
 	public Trap setTrap( Trap trap, int pos ){

@@ -45,8 +45,8 @@ public class Golem extends Mob {
 		HP = HT = 180+(adj(0)*Random.NormalIntRange(4, 7));
 		evadeSkill = 18+adj(1);
 
-		EXP = 12;
-		maxLvl = 22;
+		EXP = 15;
+		maxLvl = 30;
 		
 		loot = new StoneOre();
 		lootChance = 0.5f;

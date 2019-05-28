@@ -6,14 +6,17 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.effects.Splash;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.items.artifacts.EyeOfSkadi;
+import com.hmdzl.spspd.change.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.ShatteredAmmo;
@@ -75,17 +78,20 @@ public class GunWeapon extends Weapon {
 	}
 	
     private static final String SPAMMO =  "spammo";
+	private static final String CHARGE = "charge";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		if (spammo != null) bundle.put( SPAMMO, spammo );
+		bundle.put( CHARGE, charge );
 	}
 	
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		if (bundle.contains(SPAMMO)) spammo = (SpAmmo) bundle.get( SPAMMO );
+		charge = bundle.getInt( CHARGE );
 	}
 
 	public GunWeapon(SpAmmo spammo) {
@@ -203,7 +209,16 @@ public class GunWeapon extends Weapon {
 	}
 
 	public int damageRoll2(Hero owner) {
-		return Random.Int(MIN, MAX);
+		int damage = Random.Int(MIN, MAX);
+
+		float bonus = 0;
+		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
+				bonus += ((RingOfSharpshooting.Aim) buff).level;
+		}
+		if (Dungeon.hero.buff(TargetShoot.class)!= null)
+			bonus += 10;
+		damage = (int)(damage*(1 + 0.05*bonus));
+		return Math.round(damage);
 	}	
 	
    @Override

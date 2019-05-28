@@ -48,6 +48,7 @@ public class Assassin extends Mob {
 
 		HP = HT = 80+(5*Random.NormalIntRange(2, 5));
 		EXP = 10;
+		maxLvl = 18;
 		evadeSkill = 15;
 		
 		loot = new StoneOre();

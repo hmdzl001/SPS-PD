@@ -65,7 +65,7 @@ public class King extends Mob {
 		spriteClass = KingSprite.class;
 
 		HP = HT = 1500;
-		EXP = 40;
+		EXP = 60;
 		evadeSkill = 25; 
 		baseSpeed = 0.75f;
 

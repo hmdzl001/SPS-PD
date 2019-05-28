@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.items.food.Vegetable;
 import com.hmdzl.spspd.change.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.change.items.reward.CaveReward;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfSacrifice;
@@ -49,7 +50,7 @@ public class AlbinoPiranha extends Mob {
 
 		baseSpeed = 1f;
 
-		EXP = 0;
+		EXP = 5;
 		
 		loot = new Meat();
 		lootChance = 0.1f;	
@@ -126,8 +127,7 @@ public class AlbinoPiranha extends Mob {
 		
 		explodeDew(pos);
 		if(Random.Int(105-Math.min(Statistics.albinoPiranhasKilled,100))==0){
-		  Item mushroom = Generator.random(Generator.Category.MUSHROOM);
-		  Dungeon.level.drop(mushroom, pos).sprite.drop();	
+		  Dungeon.level.drop(new Vegetable(), pos).sprite.drop();
 		}
 		
 	if(Statistics.albinoPiranhasKilled == 25) {

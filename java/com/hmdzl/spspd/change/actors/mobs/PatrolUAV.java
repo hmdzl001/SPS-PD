@@ -49,6 +49,7 @@ public class PatrolUAV extends Mob {
 		evadeSkill = adj(1);
 		
 		EXP = 5;
+		maxLvl = 10;
 		
 		state = WANDERING;
 		

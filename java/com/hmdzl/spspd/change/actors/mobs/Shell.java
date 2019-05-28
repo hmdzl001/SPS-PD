@@ -56,7 +56,7 @@ public class Shell extends Mob implements Callback {
 		HP = HT = 500;
 		evadeSkill = 0;
 
-		EXP = 25;
+		EXP = 50;
 		
 		hostile = false;
 		state = PASSIVE;

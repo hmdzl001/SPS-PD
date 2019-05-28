@@ -106,9 +106,9 @@ public class Hybrid extends Mob {
 		evadeSkill = 10;
 		baseSpeed = 1.5f;
 
-		EXP = 35;
+		EXP = 50;
 
-		loot = new GoldDragonEgg();
+		loot =  Generator.Category.EGGS;
 		lootChance = 0.2f;
 
 		lootOther = new PotionOfExperience();
@@ -131,7 +131,7 @@ public class Hybrid extends Mob {
 		if (3 - breaks > 4 * HP / HT) {
 			breaks++;
 			bomb.explode(pos);
-            Buff.affect(this,ShieldArmor.class).level(100);
+            Buff.affect(this,ShieldArmor.class).level(200);
 			return true;
 		}
 		
@@ -146,6 +146,7 @@ public class Hybrid extends Mob {
 	       if (state == FLEEING){
 			   Buff.affect(this,ShieldArmor.class).level(200);
 			   yell(Messages.get(this, "shield"));
+			   state = HUNTING;
 		   }
 	
 		}
@@ -264,6 +265,8 @@ public class Hybrid extends Mob {
 	public int damageRoll() {
 		return Dungeon.isChallenged(Challenges.TEST_TIME) ? Random.NormalIntRange(0, 1) : Random.NormalIntRange(30, 42);
 	}
+	
+	
 
 	@Override
 	public int hitSkill(Char target) {
@@ -274,6 +277,20 @@ public class Hybrid extends Mob {
 	public int drRoll() {
 		return Random.NormalIntRange(10, 15);
 	}
+	
+    private static final String BREAKS	= "breaks";
+
+    @Override
+    public void storeInBundle( Bundle bundle ) {
+        super.storeInBundle(bundle);
+        bundle.put( BREAKS, breaks );
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+        super.restoreFromBundle(bundle);
+        breaks = bundle.getInt( BREAKS );
+    }	
 
 	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
 	static {

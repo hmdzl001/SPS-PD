@@ -59,7 +59,7 @@ public class LitTower extends Mob implements Callback {
 		spriteClass = OtiluckStoneSprite.class;
 
 		HP = HT = 600;
-		evadeSkill = 750;
+		evadeSkill = 1000;
 
 		EXP = 25;
 		

@@ -68,7 +68,8 @@ public class DemonFlower extends Mob {
 		spriteClass = DemonflowerSprite.class;
 
 		HP = HT = 450;
-		EXP = 12;
+		EXP = 25;
+		maxLvl = 35;
 		evadeSkill = 5;
 
 		properties.add(Property.PLANT);

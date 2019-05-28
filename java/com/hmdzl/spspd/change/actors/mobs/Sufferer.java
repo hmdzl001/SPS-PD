@@ -1,4 +1,4 @@
-/*
+ /*
  * Pixel Dungeon
  * Copyright (C) 2012-2014  Oleg Dolya
  *
@@ -49,7 +49,7 @@ public class Sufferer extends Mob {
 		evadeSkill = 16+adj(1);
 
 		EXP = 16;
-		maxLvl = 27;
+		maxLvl = 35;
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.35f;

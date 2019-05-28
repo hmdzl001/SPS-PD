@@ -45,6 +45,7 @@ import com.hmdzl.spspd.change.effects.Lightning;
 import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.KindOfArmor;
 import com.hmdzl.spspd.change.items.armor.glyphs.Iceglyph;
+import com.hmdzl.spspd.change.items.artifacts.AlienBag;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.misc.GunOfSoldier;
@@ -55,7 +56,7 @@ import com.hmdzl.spspd.change.items.misc.Shovel;
 import com.hmdzl.spspd.change.items.rings.RingOfMagic;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Goei;
-import com.hmdzl.spspd.change.items.weapon.missiles.MissileShield;
+import com.hmdzl.spspd.change.items.misc.MissileShield;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Assets;
@@ -458,7 +459,7 @@ public class Hero extends Char {
 							+ bonus, (int) (str * 0.5f * bonus) + str * 2) : 1
 							: 0;
 		}
-		if (bonus > 0){ dmg *= Math.min(3f,(1f + (bonus*1.00/15)*1f));}
+		if (bonus > 0){ dmg *= Math.min(3f,(1f + (bonus*1.00/10)*1f));}
 		
 		if (dmg < 0)
 			dmg = 0;
@@ -1497,9 +1498,12 @@ public class Hero extends Char {
 		if (tenacity != 0) // (HT - HP)/HT = heroes current % missing health.
 			dmg = (int) Math.ceil(dmg * Math.max(0.60, (1- 1.00*tenacity/75)));
 			
-        if (buff(Fury.class) != null){dmg = (int) Math.ceil(dmg * 0.80);}
+        if (buff(Fury.class) != null){dmg = (int) Math.ceil(dmg * 0.75);}
 		if (buff(BloodAngry.class) != null){dmg = (int) Math.ceil(dmg * 0.80);}
 		if (buff(Rhythm2.class) != null){dmg = (int) Math.ceil(dmg * 0.90);}
+
+		if (subClass == HeroSubClass.LEADER){dmg = (int) Math.ceil(dmg * 0.80);}
+
 		//if (buff(Hot.class) != null){dmg = (int) Math.ceil(dmg * 1.20);}
 
 		/*DefenceUp drup = buff(DefenceUp.class);
@@ -1696,15 +1700,15 @@ public class Hero extends Char {
 
 	public void earnExp(int exp) {
 
-		int exp1 = this.exp;
 		this.exp += exp;
-		if (this.exp -exp != exp1 ) {
-			this.exp = 0;
-		}
+
 		float percent = exp/(float)maxExp();
 
 		EtherealChains.chainsRecharge chains = buff(EtherealChains.chainsRecharge.class);
 		if (chains != null) chains.gainExp(percent);
+		
+		AlienBag.bagRecharge bags = buff(AlienBag.bagRecharge.class);
+		if (bags != null) bags.gainExp(percent);
 
 		boolean levelUp = false;
 		while (this.exp >= maxExp()) {
@@ -1757,6 +1761,12 @@ public class Hero extends Char {
 				HP += value;
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
+			if (HP > HT && (HT > 10000 || HP>50000)) {
+				hero.damage(hero.HT,this);
+				if (!hero.isAlive()) {
+					Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				}
+			}
 
 			buff(Hunger.class).satisfy(10);
 			if(hero.heroClass == HeroClass.PERFORMER){
@@ -1770,7 +1780,7 @@ public class Hero extends Char {
 	}
 
 	public int maxExp() {
-		return 4 + lvl * 6;
+		return 7 + lvl * 8;
 	}
 
 	void updateAwareness() {

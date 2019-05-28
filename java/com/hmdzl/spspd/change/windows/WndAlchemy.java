@@ -31,21 +31,32 @@ import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.items.Torch;
-import com.hmdzl.spspd.change.items.WaterItem;
+import com.hmdzl.spspd.change.items.food.WaterItem;
 import com.hmdzl.spspd.change.items.Weightstone;
 import com.hmdzl.spspd.change.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.change.items.bombs.BuildBomb;
+import com.hmdzl.spspd.change.items.medicine.BlueMilk;
+import com.hmdzl.spspd.change.items.medicine.DeathCap;
+import com.hmdzl.spspd.change.items.medicine.Earthstar;
+import com.hmdzl.spspd.change.items.medicine.GoldenJelly;
+import com.hmdzl.spspd.change.items.medicine.GreenSpore;
+import com.hmdzl.spspd.change.items.medicine.Hardpill;
+import com.hmdzl.spspd.change.items.medicine.JackOLantern;
+import com.hmdzl.spspd.change.items.medicine.Magicpill;
+import com.hmdzl.spspd.change.items.medicine.Musicpill;
+import com.hmdzl.spspd.change.items.medicine.PixieParasol;
+import com.hmdzl.spspd.change.items.medicine.Powerpill;
+import com.hmdzl.spspd.change.items.medicine.Shootpill;
+import com.hmdzl.spspd.change.items.medicine.Smashpill;
 import com.hmdzl.spspd.change.items.summon.Honeypot;
 import com.hmdzl.spspd.change.items.bombs.HugeBomb;
 import com.hmdzl.spspd.change.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.change.items.food.completefood.Crystalnucleus;
-import com.hmdzl.spspd.change.items.food.completefood.Ediblegrass;
 import com.hmdzl.spspd.change.items.food.completefood.Foamedbeverage;
 import com.hmdzl.spspd.change.items.food.completefood.Fruitsalad;
 import com.hmdzl.spspd.change.items.food.completefood.Garbage;
 import com.hmdzl.spspd.change.items.food.completefood.Gel;
 import com.hmdzl.spspd.change.items.food.completefood.Hamburger;
-import com.hmdzl.spspd.change.items.food.completefood.Hardpill;
 import com.hmdzl.spspd.change.items.food.completefood.Herbmeat;
 import com.hmdzl.spspd.change.items.food.completefood.HoneyGel;
 import com.hmdzl.spspd.change.items.food.completefood.HoneyWater;
@@ -55,9 +66,7 @@ import com.hmdzl.spspd.change.items.food.completefood.Icecream;
 import com.hmdzl.spspd.change.items.food.completefood.Kebab;
 import com.hmdzl.spspd.change.items.food.completefood.Meatroll;
 import com.hmdzl.spspd.change.items.food.completefood.Porksoup;
-import com.hmdzl.spspd.change.items.food.completefood.Powerpill;
 import com.hmdzl.spspd.change.items.food.completefood.Ricefood;
-import com.hmdzl.spspd.change.items.food.completefood.Smashpill;
 import com.hmdzl.spspd.change.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.change.items.food.completefood.Vegetableroll;
 import com.hmdzl.spspd.change.items.food.completefood.Vegetablesoup;
@@ -67,10 +76,10 @@ import com.hmdzl.spspd.change.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.change.items.food.Nut;
 import com.hmdzl.spspd.change.items.food.completefood.PerfectFood;
 import com.hmdzl.spspd.change.items.food.completefood.PetFood;
-import com.hmdzl.spspd.change.items.food.completefood.Honey;
+import com.hmdzl.spspd.change.items.food.Honey;
 import com.hmdzl.spspd.change.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.change.items.food.staplefood.StapleFood;
-import com.hmdzl.spspd.change.items.food.vegetables.Vegetable;
+import com.hmdzl.spspd.change.items.food.Vegetable;
 import com.hmdzl.spspd.change.items.potions.Potion;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicalInfusion;
@@ -396,6 +405,28 @@ public class WndAlchemy extends Window {
 			result = new Hardpill();
 		} else if (meatfoods.size() ==2  && potions.size() == 1 && vegetables.size() ==1 ){
 			result = new Smashpill();
+		} else if ( meatfoods.size() ==3 && seeds.size() == 1  ){
+			result = new Shootpill();
+		} else if ( meatfoods.size() ==2  && ore.size() == 1 && seeds.size() ==1 ){
+			result = new Musicpill();
+		} else if (meatfoods.size() ==2  && potions.size() == 1 && seeds.size() ==1 ){
+			result = new Magicpill();
+
+		} else if (water.size() ==1  && vegetables.size() == 1 && dewseed.size() ==1 ){
+			result = new GreenSpore();
+		} else if (water.size() ==1  && vegetables.size() == 1 && stormseed.size() ==1 ){
+			result = new GoldenJelly();
+		} else if (water.size() ==1  && vegetables.size() == 1 && rootseed.size() ==1 ){
+			result = new Earthstar();
+		} else if (water.size() ==1  && vegetables.size() == 1 && fireseed.size() ==1  ){
+			result = new JackOLantern();
+		} else if (water.size() ==1  && vegetables.size() == 1 && dreamseed.size() ==1  ){
+			result = new PixieParasol();
+		} else if (water.size() ==1  && vegetables.size() == 1 && sunseed.size() ==1 ){
+			result = new BlueMilk();
+		} else if (water.size() ==1  && vegetables.size() == 1 && mossseed.size() ==1 ){
+			result = new DeathCap();
+
 		} else if (meatfoods.size() ==1  && water.size() == 1 && vegetables.size() ==1 ){
 			result = new Porksoup();
 		} else if ( ore.size() == 1 && water.size() == 2 && seeds.size() == 1 && fruits.size() == 1){
@@ -412,8 +443,6 @@ public class WndAlchemy extends Window {
 			result = new Vegetablesoup();
 		} else if (honey.size() == 1  && staplefoods.size() ==1  ){
 			result = new Honeyrice();
-		} else if (water.size() == 1 && seeds.size() == 1 ){
-			result = new Ediblegrass();
 		} else if (honey.size() == 1  && meatfoods.size() ==1  ){
 			result = new Honeymeat();
 		} else if ( meatfoods.size() == 1 && seeds.size() == 1 ){

@@ -46,7 +46,7 @@ public class WeatherOfRain extends Blob {
 	@Override
 	public void use(BlobEmitter emitter) {
 		super.use(emitter);
-		emitter.start(RainParticle.FACTORY, 0.5f, 0);
+		emitter.start(RainParticle.FACTORY, 0.8f, 0);
 	}
 	
 	@Override

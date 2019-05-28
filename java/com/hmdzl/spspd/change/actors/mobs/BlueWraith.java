@@ -39,7 +39,7 @@ public class BlueWraith extends Wraith  {
 		evadeSkill = 24;
 		baseSpeed = 2f;
 
-		EXP = 11;
+		EXP = 20;
 		
 		loot = new RedDewdrop();
 		lootChance = 1.0f; // by default, see die()

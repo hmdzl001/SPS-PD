@@ -19,7 +19,10 @@ package com.hmdzl.spspd.change.sprites;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.DungeonTilemap;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.effects.Beam;
+import com.hmdzl.spspd.change.effects.DeathRay;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.levels.Level;
 import com.watabou.noosa.TextureFilm;
@@ -27,7 +30,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 
 public class HybridSprite extends MobSprite {
-
+    private int attackPos;
 	public HybridSprite() {
 		super();
 
@@ -50,5 +53,22 @@ public class HybridSprite extends MobSprite {
         play( idle );
     }
 
+    @Override
+    public void attack(int pos) {
+        attackPos = pos;
+        super.attack(pos);
+    }
 
+
+    @Override
+    public void onComplete(Animation anim) {
+        super.onComplete(anim);
+
+        if (anim == attack) {
+            if (Dungeon.visible[ch.pos] || Dungeon.visible[attackPos]) {
+                parent.add(new Beam.WaterRay(center(), DungeonTilemap
+                        .tileCenterToWorld(attackPos)));
+            }
+        }
+    }
 }

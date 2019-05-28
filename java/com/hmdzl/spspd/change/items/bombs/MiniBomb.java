@@ -73,7 +73,7 @@ public class MiniBomb extends Bomb {
 				int minDamage = ch.HT/15;
 				int maxDamage = ch.HT/6;
 
-				int dmg = Random.NormalIntRange(minDamage, maxDamage) - Random.Int(ch.drRoll());
+				int dmg = Random.NormalIntRange(minDamage, maxDamage) - Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
 						ch.damage(dmg, this);
 					}

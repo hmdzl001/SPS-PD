@@ -39,7 +39,7 @@ public class RingOfHaste extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",new DecimalFormat("#.##").format(10f * Math.min(4,1+0.1*level)));
+			return Messages.get(this, "stats",new DecimalFormat("#.##").format(100f * Math.min(3,0.1*level)));
 		} else {
 			return "???";
 		}

@@ -61,7 +61,7 @@ public class FishingBomb extends Bomb {
 
 				Char ch = Actor.findChar(c);
 				if (ch != null) {
-				if (  ch instanceof Mob && !(ch instanceof Hero && ch instanceof NPC) ) {
+				if (  ch instanceof Mob && !(ch instanceof Hero || ch instanceof NPC) ) {
 
 						int count = 20;
 						int pos;

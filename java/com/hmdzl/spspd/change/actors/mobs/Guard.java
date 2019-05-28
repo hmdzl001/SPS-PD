@@ -55,8 +55,8 @@ public class Guard extends Mob {
 		HP = HT = 75+(adj(0)*Random.NormalIntRange(3, 7));
 		evadeSkill = 9+adj(1);
 
-		EXP = 5;
-		maxLvl = 10;
+		EXP = 10;
+		maxLvl = 20;
 
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.2f;

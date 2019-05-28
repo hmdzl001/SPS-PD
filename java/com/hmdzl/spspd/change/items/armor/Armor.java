@@ -172,8 +172,9 @@ public class Armor extends KindOfArmor {
 
 	@Override
 	public int drRoll(Hero hero) {
+		int encumbrance = STR() - hero.STR();
 		int dr = super.drRoll(hero);
-		return Math.round(dr);
+		return encumbrance > 0 ?  0 :Math.round(dr);
 	}	
 	
 

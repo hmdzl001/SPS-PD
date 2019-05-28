@@ -31,6 +31,7 @@ import com.hmdzl.spspd.change.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.change.items.journalpages.JournalPage;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.items.summon.CallCoconut;
+import com.hmdzl.spspd.change.items.summon.FairyCard;
 import com.hmdzl.spspd.change.items.summon.Mobile;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 
@@ -45,11 +46,11 @@ public class ScrollHolder extends Bag {
 
 	@Override
 	public boolean grab(Item item) {
-		if (item instanceof Scroll 
-				||  item instanceof Bomb
+		if (item instanceof Scroll
 				||  item instanceof ActiveMrDestructo
 				||  item instanceof CallCoconut
 				||  item instanceof Mobile
+				||  item instanceof FairyCard
 				||  item instanceof OrbOfZot
 				||  item instanceof JournalPage
 				||  item instanceof ChallengeList

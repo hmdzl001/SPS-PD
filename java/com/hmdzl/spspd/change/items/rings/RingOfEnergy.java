@@ -17,7 +17,7 @@ public class RingOfEnergy extends Ring {
 	
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (Math.pow(1.2f, level) - 1f)));
+			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (Math.pow(1.05f, level) - 1f)));
 		} else {
 			return "???";
 		}

@@ -395,7 +395,7 @@ public abstract class Wand extends Item {
 		
 		private static final float BASE_CHARGE_DELAY = 10f;
 		private static final float SCALING_CHARGE_ADDITION = 50f;
-		private static final float NORMAL_SCALE_FACTOR = 0.875f;
+		private static final float NORMAL_SCALE_FACTOR = 0.95f;
 
 		private static final float CHARGE_BUFF_BONUS = 0.25f;
 

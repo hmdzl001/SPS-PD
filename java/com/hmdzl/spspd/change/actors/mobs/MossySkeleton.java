@@ -50,7 +50,6 @@ public class MossySkeleton extends Mob {
 		evadeSkill = 20;
 
 		EXP = 1;
-		maxLvl = 10;
 		
 		baseSpeed = 0.5f+(Math.min(1f, Statistics.skeletonsKilled/50));
 

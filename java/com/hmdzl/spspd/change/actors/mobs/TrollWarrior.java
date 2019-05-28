@@ -53,6 +53,7 @@ public class TrollWarrior extends Mob {
 
 		HP = HT = 80+(5*Random.NormalIntRange(2, 5));
 		EXP = 10;
+		maxLvl = 20;
 		evadeSkill = 15;
 		
 		loot = new StoneOre();

@@ -157,14 +157,14 @@ public class AresLeech extends Weapon.Enchantment {
 				int damageThisTick = Math.max(1, (int)(damage*0.1f))
 				;
 				if (target.HP<target.HT) {
+					target.HP+=damageThisTick;
 				}
-				target.HP+=damageThisTick;
 				
 				spend(TICK);
 				
 				damage -= damageThisTick;
 				
-				if (--damage <= 0 || target.HP > target.HT) {
+				if (--damage <= 0 || target.HP >= target.HT) {
 					detach();
 				}
 

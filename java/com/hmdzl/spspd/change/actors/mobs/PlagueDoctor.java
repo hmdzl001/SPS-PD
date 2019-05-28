@@ -91,7 +91,7 @@ public class PlagueDoctor extends Mob {
 		evadeSkill = 5;
 		baseSpeed = 0.75f;
 
-		EXP = 10;
+		EXP = 30;
 
 		loot = new AlchemistsToolkit();
 		lootChance = 0.2f;
@@ -297,7 +297,19 @@ public class PlagueDoctor extends Mob {
 		return IMMUNITIES;
 	}
 
+    private static final String BREAKS	= "breaks";
 
+    @Override
+    public void storeInBundle( Bundle bundle ) {
+        super.storeInBundle(bundle);
+        bundle.put( BREAKS, breaks );
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+        super.restoreFromBundle(bundle);
+        breaks = bundle.getInt( BREAKS );
+    }
 
 	protected boolean spawnedshadow = false;
 
@@ -365,7 +377,8 @@ public class PlagueDoctor extends Mob {
 
 			HP = HT = 60;
 			evadeSkill = 3;
-
+            EXP = 1;
+			
 			loot = new StoneOre();
 			lootChance = 0.2f;
 

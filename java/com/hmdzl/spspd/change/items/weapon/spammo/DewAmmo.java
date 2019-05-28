@@ -26,23 +26,23 @@ public class DewAmmo extends SpAmmo {
 
 	@Override
 	public void onHit(GunWeapon gunweapon, Char attacker, Char defender, int damage) {
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
 
 	}
 
 	@Override
 	public void onHit(Boomerang boomerang, Char attacker, Char defender, int damage) {
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
-		defender.damage(Random.Int((int)(0.20*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
+		defender.damage(Random.Int((int)(0.25*damage)), attacker);
 
 	}
 }

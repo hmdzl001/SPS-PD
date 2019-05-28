@@ -36,7 +36,7 @@ public class BrownBat extends Mob {
 		baseSpeed = 2f;
 
 		EXP = 1;
-		maxLvl = 15;
+		maxLvl = 6;
 
 		flying = true;
 

@@ -56,6 +56,7 @@ import com.hmdzl.spspd.change.sprites.UGooSprite;
 import com.hmdzl.spspd.change.utils.GLog;
 
 import com.watabou.noosa.Camera;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.change.sprites.GooSprite;
 import com.hmdzl.spspd.change.actors.blobs.CorruptGas;
@@ -128,6 +129,20 @@ public class UGoo extends Mob {
 		else return super.speed();
 	}
 
+    private static final String BREAKS	= "breaks";
+
+    @Override
+    public void storeInBundle( Bundle bundle ) {
+        super.storeInBundle(bundle);
+        bundle.put( BREAKS, breaks );
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+        super.restoreFromBundle(bundle);
+        breaks = bundle.getInt( BREAKS );
+    }	
+	
 	@Override
     public boolean act() {
 

@@ -168,16 +168,16 @@ public class Bestiary {
 			break;
 
 		case 15:
-			//if (Random.Int(3) ==1) {
+			if (Random.Int(3) ==1) {
 				chances = new float[]{1};
 				classes = new Class<?>[] { Hybrid.class };
-			//   } else if (Random.Int(2) == 1){
-			//	chances = new float[]{1};
-			//	classes = new Class<?>[] { DM300.class };
-			//	}else{
-			//	chances = new float[]{1};
-			//	classes = new Class<?>[]{SpiderQueen.class};
-			//}
+			   } else if (Random.Int(2) == 1){
+				chances = new float[]{1};
+				classes = new Class<?>[] { DM300.class };
+				}else{
+				chances = new float[]{1};
+				classes = new Class<?>[]{SpiderQueen.class};
+			}
 			break;
 
 		case 16:
@@ -204,15 +204,15 @@ public class Bestiary {
 			break;
 		case 20:
 			//if (Random.Int(3) ==1) {
-			chances = new float[]{1};
-			classes = new Class<?>[] { ElderAvatar.class };
-			//   } else if (Random.Int(2) == 1){
-			// chances = new float[] { 1 };
-			//	classes = new Class<?>[] { King.class };
-			//	}else{
-			//	chances = new float[]{1};
-			//	classes = new Class<?>[]{SpiderQueen.class};
-			//}
+
+			//  } else
+			  	if (Random.Int(2) == 1){
+					chances = new float[]{1};
+					classes = new Class<?>[] { ElderAvatar.class };
+				}else{
+					chances = new float[] { 1 };
+					classes = new Class<?>[] { King.class };
+			}
 
 			break;
 

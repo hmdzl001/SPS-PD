@@ -21,7 +21,9 @@ import com.hmdzl.spspd.change.Badges;
 import com.hmdzl.spspd.change.Challenges;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.Arcane;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.change.items.rings.RingOfElements;
@@ -214,7 +216,9 @@ public class Weapon extends KindOfWeapon {
 			for (Buff buff : hero.buffs(RingOfSharpshooting.Aim.class)) {
 				bonus += ((RingOfSharpshooting.Aim) buff).level;
 			}
-			damage = (int)(damage*(1 + 0.1*bonus));
+			if (Dungeon.hero.buff(TargetShoot.class)!= null)
+				bonus += 10;
+			damage = (int)(damage*(1 + 0.05*bonus));
 		}
 
 		return Math.round(damage);

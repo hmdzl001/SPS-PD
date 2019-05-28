@@ -58,6 +58,7 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
 	{
 		HP = HT = 300+(adj(0)*Random.NormalIntRange(4, 7));
 		EXP = 10;
+		maxLvl = 35;
 		evadeSkill = 10+adj(1);
 		//10
 		spriteClass = DemonGooSprite.class;

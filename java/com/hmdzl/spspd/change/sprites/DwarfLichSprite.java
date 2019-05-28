@@ -84,10 +84,10 @@ public class DwarfLichSprite extends MobSprite {
 					// those not at the center of the blast take damage less
 					// consistently.
 					int minDamage = c == cell ? Dungeon.depth + 5 : 1;
-					int maxDamage = 10 + Dungeon.depth * 3;
+					int maxDamage = 10 + Dungeon.depth * 2;
 					                    
 					
-					int dmg = Random.NormalIntRange(minDamage, maxDamage) - Random.Int(ch.drRoll());
+					int dmg = Random.NormalIntRange(minDamage, maxDamage) - Math.max(ch.drRoll(),0);
 					
 					
 					if (dmg > 0) {

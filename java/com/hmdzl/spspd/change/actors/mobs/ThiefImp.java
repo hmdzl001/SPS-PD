@@ -48,7 +48,7 @@ public class ThiefImp extends Mob {
 		evadeSkill = 20+adj(1);
 
 		EXP = 13;
-		maxLvl = 25;
+		maxLvl = 35;
 
 		flying = true;
 		

@@ -42,6 +42,7 @@ public class DwarfLich extends Mob {
 		evadeSkill = 24+adj(1);
 	
 		EXP = 14;
+		maxLvl = 30;
 		
 		loot = new PotionOfHealing();
 		lootChance = 0.3f;

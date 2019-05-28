@@ -88,6 +88,12 @@ public class Virus extends Mob {
 	}
 
 	@Override
+	protected boolean act() {
+		damage(1, this);
+		return super.act();
+	}
+
+	@Override
 	public int drRoll() {
 		return 0;
 	}

@@ -128,7 +128,7 @@ public class JupitersWraith extends RelicMeleeWeapon {
 					int maxDamage = MAX;
 					                    
 					
-					int dmg = Random.NormalIntRange(minDamage, maxDamage) - Random.Int(ch.drRoll());
+					int dmg = Random.NormalIntRange(minDamage, maxDamage) - Math.max(ch.drRoll(),0);
 					
 					
 					if (dmg > 0) {

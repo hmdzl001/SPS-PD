@@ -21,14 +21,16 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.pets.BlueDragon;
+import com.hmdzl.spspd.change.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Bunny;
 import com.hmdzl.spspd.change.actors.mobs.pets.CocoCat;
-import com.hmdzl.spspd.change.actors.mobs.pets.Fairy;
+
 import com.hmdzl.spspd.change.actors.mobs.pets.Fly;
 import com.hmdzl.spspd.change.actors.mobs.pets.GentleCrab;
 import com.hmdzl.spspd.change.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.GreenDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.LeryFire;
+import com.hmdzl.spspd.change.actors.mobs.pets.LightDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Monkey;
 import com.hmdzl.spspd.change.actors.mobs.pets.PET;
 import com.hmdzl.spspd.change.actors.mobs.pets.RedDragon;
@@ -38,7 +40,7 @@ import com.hmdzl.spspd.change.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.change.actors.mobs.pets.Snake;
 import com.hmdzl.spspd.change.actors.mobs.pets.Spider;
 import com.hmdzl.spspd.change.actors.mobs.pets.Stone;
-import com.hmdzl.spspd.change.actors.mobs.pets.SugarplumFairy;
+
 import com.hmdzl.spspd.change.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.change.actors.mobs.pets.VioletDragon;
 
@@ -198,14 +200,14 @@ public class PocketBallFull extends Item {
                     pet.experience = pet_exp;
                 }
                 if (Dungeon.hero.petType==10){
-                    Fairy pet = new Fairy();
+                    LightDragon pet = new LightDragon();
                     pet.pos = Random.element(spawnPoints);GameScene.add(pet);
                     pet.HP = pet.HT = pet_ht;
                     pet.level = pet_level;
                     pet.experience = pet_exp;
                 }
                 if (Dungeon.hero.petType==11){
-                    SugarplumFairy pet = new SugarplumFairy();
+                    BugDragon pet = new BugDragon();
                     pet.pos = Random.element(spawnPoints);GameScene.add(pet);
                     pet.HP = pet.HT = pet_ht;
                     pet.level = pet_level;

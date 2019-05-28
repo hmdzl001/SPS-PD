@@ -51,7 +51,7 @@ public class Warlock extends Mob implements Callback {
 		evadeSkill = 18+adj(0);
 
 		EXP = 11;
-		maxLvl = 21;
+		maxLvl = 30;
 
 		loot = Generator.Category.POTION;
 		lootChance = 0.83f;

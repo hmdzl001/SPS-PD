@@ -40,7 +40,7 @@ public class Spinner extends Mob {
 		evadeSkill = 14+adj(1);
 
 		EXP = 9;
-		maxLvl = 16;
+		maxLvl = 25;
 
 		loot = new MysteryMeat();
 		lootChance = 0.15f;

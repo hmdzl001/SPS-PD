@@ -81,7 +81,7 @@ public class ElderAvatar extends Mob {
 		spriteClass = ElderAvatarSprite.class;
 
 		HP = HT = 600;
-		EXP = 40;
+		EXP = 50;
 		evadeSkill = 25;
 		baseSpeed = 1f;
 
@@ -91,6 +91,21 @@ public class ElderAvatar extends Mob {
 
 	private int orbAlive = 0;
 	private int waves = 0;
+
+	private static final String WAVES	= "waves";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( WAVES, waves );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		waves = bundle.getInt( WAVES );
+	}
+
 
 	public void spawnObe() {
 		Obelisk a = new Obelisk();
@@ -120,7 +135,7 @@ public class ElderAvatar extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		if (HP > 10) return Dungeon.level.distance(pos, enemy.pos) <= 3;
+		if (HP > 49) return Dungeon.level.distance(pos, enemy.pos) <= 3;
 		else return false;
 	}
 
@@ -137,7 +152,7 @@ public class ElderAvatar extends Mob {
         int obeliskAlive = 0;
         if (Dungeon.level.mobs != null) {
             for (Mob mob : Dungeon.level.mobs) {
-                if (mob instanceof ElderAvatar.Obelisk && mob.HP > 10) {
+                if (mob instanceof Obelisk && mob.HP > 10) {
                     obeliskAlive++;
                 }
             }
@@ -151,13 +166,12 @@ public class ElderAvatar extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		if (dmg > HP && checkObelisk()) {
-			dmg = HP - 10;
-			Buff.affect(this,ShieldArmor.class).level(100);
+		if (dmg > this.HP && checkObelisk()) {
+			dmg = Random.Int(this.HP);
+			//Buff.affect(this,ShieldArmor.class).level(100);
 		}
 		super.damage(dmg, src);
-	}
-
+        }
 
 	@Override
 	protected boolean act() {
@@ -169,33 +183,37 @@ public class ElderAvatar extends Mob {
 			return true;
 		}
 
-		if (HP < 11 && waves == 0 && Obelisk.breaks == 0) {
+		if (HP < 50 && waves == 0 && Obelisk.breaks == 0) {
 			summonHunter(pos);
 			waves++;
+			Buff.affect(this,ShieldArmor.class).level(100);
 			sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
 			Sample.INSTANCE.play(Assets.SND_CHALLENGE);
 			return true;
 		}
 
-		if (HP < 11 && waves == 1 && Obelisk.breaks == 1) {
+		if (HP < 50 && waves == 1 && Obelisk.breaks == 1) {
 			summonWarlock(pos);
 			waves++;
+			Buff.affect(this,ShieldArmor.class).level(100);
 			sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
 			Sample.INSTANCE.play(Assets.SND_CHALLENGE);
 			return true;
 		}
 
-		if (HP < 11 && waves == 2 && Obelisk.breaks == 2) {
+		if (HP < 50 && waves == 2 && Obelisk.breaks == 2) {
 			summonMonk(pos);
 			waves++;
+			Buff.affect(this,ShieldArmor.class).level(100);
 			sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
 			Sample.INSTANCE.play(Assets.SND_CHALLENGE);
 			return true;
 		}
 
-		if (HP < 11 && waves == 3 && Obelisk.breaks == 3) {
+		if (HP < 50 && waves == 3 && Obelisk.breaks == 3) {
 			summonMech(pos);
 			waves++;
+			Buff.affect(this,ShieldArmor.class).level(100);
 			sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
 			Sample.INSTANCE.play(Assets.SND_CHALLENGE);
 			return true;
@@ -705,7 +723,7 @@ public class ElderAvatar extends Mob {
 		int elderAlive = 0;
 		if (Dungeon.level.mobs != null) {
 			for (Mob mob : Dungeon.level.mobs) {
-				if (mob instanceof ElderAvatar && mob.HP > 10) {
+				if (mob instanceof ElderAvatar && mob.HP > 20) {
 					elderAlive++;
 				}
 			}
@@ -721,9 +739,23 @@ public class ElderAvatar extends Mob {
 	public void damage(int dmg, Object src) {
 		if (checkElder()) {
 			yell(Messages.get(this, "impossible"));
-		} else {
+		} else  {
 			super.damage(dmg, src);
 		}
 	}
+    private static final String BREAKS	= "breaks";
+
+    @Override
+    public void storeInBundle( Bundle bundle ) {
+        super.storeInBundle(bundle);
+        bundle.put( BREAKS, breaks );
+    }
+
+    @Override
+    public void restoreFromBundle( Bundle bundle ) {
+        super.restoreFromBundle(bundle);
+        breaks = bundle.getInt( BREAKS );
+    }	
+	
   }
 }

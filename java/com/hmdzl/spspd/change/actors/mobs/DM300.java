@@ -69,7 +69,7 @@ public class DM300 extends Mob implements Callback {
 		spriteClass = DM300Sprite.class;
 
 		HP = HT = 800;
-		EXP = 30;
+		EXP = 50;
 		evadeSkill = 24;
 
 		loot = new CapeOfThorns().identify();
@@ -365,7 +365,7 @@ public static class Tower extends Mob implements Callback {
 					int maxDamage = 10 + Dungeon.depth * 2;
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
-							- Random.Int(ch.drRoll());
+							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
 						ch.damage(dmg, this);
 					}

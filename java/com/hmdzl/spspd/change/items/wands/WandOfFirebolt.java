@@ -123,7 +123,7 @@ public class WandOfFirebolt extends DamageWand {
 					int maxDamage = c == cell ? Math.round(damage/4) : Math.round(damage/10);
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
-							- Random.Int(ch.drRoll());
+							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
 						ch.damage(dmg, this);
 					}

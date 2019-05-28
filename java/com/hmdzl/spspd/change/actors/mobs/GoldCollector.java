@@ -35,6 +35,7 @@ public class GoldCollector extends Mob {
 		HP = HT = Dungeon.gold;
 		evadeSkill = Dungeon.gold;
 		baseSpeed = 3f;
+		flying = true;
 
 		state = WANDERING;
 		

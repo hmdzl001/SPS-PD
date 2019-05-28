@@ -51,6 +51,8 @@ import java.util.ArrayList;
 
 import javax.microedition.khronos.opengles.GL;
 
+import static com.hmdzl.spspd.change.Dungeon.hero;
+
 public class GunOfSoldier extends Item {
 
 	public static final String AC_USE = "USE";
@@ -93,7 +95,8 @@ public class GunOfSoldier extends Item {
 
 	@Override
 	public void execute( final Hero hero, String action ) {		
-      if( action.equals( AC_USE ) ){ 
+      if( action.equals( AC_USE ) ){
+		  curUser = hero;
 	     if (charge < 75) {
 			  GLog.i(Messages.get(GunOfSoldier.class, "break"));
 		  } else GameScene.selectCell(Shoot);
@@ -135,20 +138,20 @@ public class GunOfSoldier extends Item {
 					Char mob = Actor.findChar(target);
 					if (mob.properties().contains(Char.Property.BOSS) || mob.properties().contains(Char.Property.MINIBOSS)){
 						charge -= 75;
-						mob.damage(Math.min(mob.HT - mob.HP,mob.HT/6),Dungeon.hero);
-						Sample.INSTANCE.play(Assets.SND_BURNING);
+						mob.damage(Math.min(mob.HT - mob.HP,mob.HT/6),this);
+						//Sample.INSTANCE.play(Assets.SND_BURNING);
 						mob.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-						curUser.spendAndNext(1f);
+						hero.spendAndNext(1f);
 						updateQuickslot();
-					} else if (mob instanceof NPC || mob == Dungeon.hero) {
+					} else if (mob instanceof NPC || mob == hero) {
 						GLog.w(Messages.get(GunOfSoldier.class,"not"));
 						return;
 					} else {
 						charge -= 75;
-						mob.damage(Math.min(mob.HT - mob.HP,mob.HT/3),Dungeon.hero);
-						Sample.INSTANCE.play(Assets.SND_BURNING);
+						mob.damage(Math.min(mob.HT - mob.HP,mob.HT/3),this);
+						//Sample.INSTANCE.play(Assets.SND_BURNING);
 						mob.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-						curUser.spendAndNext(1f);
+						hero.spendAndNext(1f);
 						updateQuickslot();
 					}
 				} else {

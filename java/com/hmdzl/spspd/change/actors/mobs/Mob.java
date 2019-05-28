@@ -504,14 +504,10 @@ public abstract class Mob extends Char {
 			Dungeon.hero.HT++;
 			//Buff.affect(Dungeon.hero,GlassShield.class).turns(3)
 		}
-		int exp1 = EXP;
 	
 			//if (Dungeon.hero.lvl <= maxLvl && EXP > 0) {
 		if (EXP > 0) {	
-		
-		if (exp1 < EXP ) {
-			EXP = 0;
-		}
+
 			Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "exp", EXP));
 			Dungeon.hero.earnExp(EXP);
 		}

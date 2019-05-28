@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.quest.Mushroom;
 import com.hmdzl.spspd.change.items.summon.CallCoconut;
+import com.hmdzl.spspd.change.items.summon.FairyCard;
 import com.hmdzl.spspd.change.items.summon.Mobile;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.PixelScene;
@@ -131,9 +132,9 @@ public class WndTinkerer2 extends Window {
 
 		Dungeon.dewNorn = true;
 
-		CallCoconut cct = new CallCoconut();
+		FairyCard fc = new FairyCard();
 
-		Dungeon.level.drop(cct, Dungeon.hero.pos).sprite.drop();
+		Dungeon.level.drop(fc, Dungeon.hero.pos).sprite.drop();
 
 		tinkerer.yell( Messages.get(this, "farewell", Dungeon.hero.givenName()));
 		tinkerer.destroy();

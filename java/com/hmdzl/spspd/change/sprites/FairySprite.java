@@ -18,8 +18,9 @@
 package com.hmdzl.spspd.change.sprites;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.actors.mobs.pets.Fairy;
+
 import com.hmdzl.spspd.change.effects.Lightning;
+import com.hmdzl.spspd.change.items.summon.FairyCard;
 import com.watabou.noosa.TextureFilm;
 
 public class FairySprite extends MobSprite {
@@ -44,22 +45,12 @@ public class FairySprite extends MobSprite {
 		attack = new Animation(8, false);
 		attack.frames(frames, 0, 3, 4, 1);
 
-		zap = attack.clone();
-		
 		die = new Animation(8, false);
 		die.frames(frames, 5, 6, 7, 7);
 
 		play(idle);
 	}
 
-	@Override
-	public void zap(int pos) {
-
-		parent.add( new Lightning( ch.pos, pos,(Fairy) ch));
-
-		turnTo(ch.pos, pos);
-		play(zap);
-	}
 	
 	@Override
 	public int blood() {

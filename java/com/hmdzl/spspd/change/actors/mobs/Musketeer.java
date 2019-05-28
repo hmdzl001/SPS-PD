@@ -48,8 +48,8 @@ public class Musketeer extends Mob {
 		HP = HT = 160+(adj(0)*Random.NormalIntRange(3, 5));
 		evadeSkill = 30+adj(1);
 
-		EXP = 11;
-		maxLvl = 21;
+		EXP = 12;
+		maxLvl = 30;
 
 		loot = new StoneOre();
 		lootChance = 0.2f;

@@ -47,7 +47,7 @@ public class GraveProtector extends Mob implements Callback {
 	{
 		spriteClass = GraveProtectorSprite.class;
 
-		EXP = 10;
+		EXP = 1;
 		state = HUNTING;
 		flying = true;
 		

@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.change.sprites;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.actors.mobs.pets.Fairy;
+
 import com.hmdzl.spspd.change.effects.Lightning;
 import com.watabou.noosa.TextureFilm;
 

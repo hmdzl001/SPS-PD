@@ -23,7 +23,7 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
-public class ToastedNut extends Food {
+public class ToastedNut extends Nut {
 
 	{
 		//name = "toasted dungeon nut";

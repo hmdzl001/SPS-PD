@@ -37,6 +37,9 @@ public class Rat extends Mob {
 		HP = HT = 40+(Dungeon.depth*Random.NormalIntRange(1, 3));
 		evadeSkill = 3+(Math.round((Dungeon.depth)/2));
 		
+		EXP = 1;
+		maxLvl = 4;
+		
 		loot = new Meat();
 		lootChance = 0.5f;
 		

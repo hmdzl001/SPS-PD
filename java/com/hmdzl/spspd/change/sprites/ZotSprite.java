@@ -22,7 +22,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
-import com.hmdzl.spspd.change.actors.mobs.pets.Fairy;
+
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Lightning;
 import com.hmdzl.spspd.change.effects.particles.BlastParticle;
@@ -132,10 +132,10 @@ public class ZotSprite extends MobSprite {
 					// those not at the center of the blast take damage less
 					// consistently.
 					int minDamage = c == cell ? Dungeon.depth + 5 : 1;
-					int maxDamage = 10 + Dungeon.depth * 2;
+					int maxDamage = 10 + Dungeon.depth;
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
-							- Random.Int(ch.drRoll());
+							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
 						ch.damage(dmg, this);
 					}

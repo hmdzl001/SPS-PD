@@ -44,8 +44,7 @@ public class SkeletonKing extends Mob {
 		HP = HT = 2000;
 		evadeSkill = 30;
 
-		EXP = 10;
-		maxLvl = 20;
+		EXP = 50;
 
 		flying = true;
 

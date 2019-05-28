@@ -45,7 +45,7 @@ public class SpiderBot extends Mob {
 		evadeSkill = 25+adj(1);
 
 		EXP = 12;
-		maxLvl = 22;
+		maxLvl = 30;
 
 		loot = new StoneOre();
 		lootChance = 0.3f;

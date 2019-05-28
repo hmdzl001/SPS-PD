@@ -75,7 +75,7 @@ public class SewerHeart extends Mob {
 		HP = HT = 500;
 		evadeSkill = 0;
 
-		EXP = 10;
+		EXP = 30;
 
 		loot = new Rotberry.Seed();
 		lootChance = 0.2f;
@@ -322,17 +322,18 @@ public class SewerHeart extends Mob {
 	protected boolean spawnedLasher = false;
 	
 
-
 	private static final String BEAM_TARGET     = "beamTarget";
 	private static final String BEAM_COOLDOWN   = "beamCooldown";
-	private static final String BEAM_CHARGED    = "beamCharged";
+	private static final String BEAM_CHARGED    = "beamCharged";    
+	private static final String BREAKS	= "breaks";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put( BEAM_TARGET, beamTarget);
 		bundle.put( BEAM_COOLDOWN, beamCooldown );
-		bundle.put( BEAM_CHARGED, beamCharged );
+		bundle.put( BEAM_CHARGED, beamCharged ); 
+		bundle.put( BREAKS, breaks );
 	}
 
 	@Override
@@ -342,6 +343,7 @@ public class SewerHeart extends Mob {
 			beamTarget = bundle.getInt(BEAM_TARGET);
 		beamCooldown = bundle.getInt(BEAM_COOLDOWN);
 		beamCharged = bundle.getBoolean(BEAM_CHARGED);
+		breaks = bundle.getInt( BREAKS );
 	}
 
 	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();

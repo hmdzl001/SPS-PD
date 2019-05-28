@@ -46,7 +46,7 @@ public class VaultProtector extends Mob implements Callback {
 	{
 		spriteClass = VaultProtectorSprite.class;
 
-		EXP = 5;
+		EXP = 1;
 		state = HUNTING;
 		flying = true;
 		
