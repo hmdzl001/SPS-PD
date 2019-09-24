@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.items.quest.DarkGold;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
@@ -48,7 +49,7 @@ public class RunicBlade extends MeleeWeapon {
 
 	private boolean equipped;
 	
-	private float upgradeChance = 0.5f;
+	private float upgradeChance = 0.9f;
 
 	{
 		//name = "Runic Blade";
@@ -98,7 +99,7 @@ public class RunicBlade extends MeleeWeapon {
 			curUser = hero;
 
 			GameScene.selectItem(itemSelector, WndBag.Mode.WEAPON,
-					TXT_SELECT_WEAPON);
+					Messages.get(RunicBlade.class, "choose"));
 
 		} else {
 
@@ -110,10 +111,6 @@ public class RunicBlade extends MeleeWeapon {
 	private final WndBag.Listener itemSelector = new WndBag.Listener() {
 		@Override
 		public void onSelect(Item item) {
-			DarkGold gold = Dungeon.hero.belongings.getItem(DarkGold.class);
-			if (gold!=null){
-			upgradeChance = (upgradeChance + (gold.quantity()*0.01f));
-			}
 			if (item != null && !(item instanceof Boomerang)) {
                 int i=0;
 				while(i<level) {
@@ -123,36 +120,20 @@ public class RunicBlade extends MeleeWeapon {
 					  evoke(curUser);
 					  item.upgrade();
 					} else if (Random.Float()<upgradeChance){
-						if (item.level<15 || item.reinforced){
-				            Sample.INSTANCE.play(Assets.SND_EVOKE);
-				            ScrollOfUpgrade.upgrade(curUser);
-				            evoke(curUser);
-				            item.upgrade();
-				            upgradeChance = Math.max(0.5f, upgradeChance-0.1f);
-						 } else {
-							 GLog.w("%s is not strong enough to recieve anymore upgrades!", item.name());
-							 i=level;
-						 }
+				        Sample.INSTANCE.play(Assets.SND_EVOKE);
+				        ScrollOfUpgrade.upgrade(curUser);
+				        evoke(curUser);
+				        item.upgrade();
+				        upgradeChance = Math.max(0.5f, upgradeChance-0.1f);
 				  }
 				i++;
 				}
 							
 				curUser.spendAndNext(TIME_TO_REFORGE);
 
-				GLog.w(TXT_REFORGED, item.name());
+				GLog.w(Messages.get(RunicBlade.class,"reforged"));
 				Badges.validateItemLevelAquired(item);
-
-			} else {
-
-				if (item instanceof Boomerang) {
-					GLog.w(TXT_NOT_BOOMERANG);
-				}
-
-				if (equipped) {
-					curUser.belongings.weapon = RunicBlade.this;
-				} else {
-					collect(curUser.belongings.backpack);
-				}
+				
 			}
 		}
 	};

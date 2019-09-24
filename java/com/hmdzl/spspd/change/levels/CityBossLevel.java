@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.change.levels;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.Bones;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
@@ -28,7 +27,6 @@ import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Heap;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.keys.SkeletonKey;
 import com.hmdzl.spspd.change.levels.painters.Painter;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -161,16 +159,7 @@ public class CityBossLevel extends Level {
 
 	@Override
 	protected void createItems() {
-		Item item = Bones.get();
-		if (item != null) {
-			int pos;
-			do {
-				pos = Random.IntRange(LEFT + 1, LEFT + HALL_WIDTH - 2)
-						+ Random.IntRange(TOP + HALL_HEIGHT + 1, TOP
-								+ HALL_HEIGHT + CHAMBER_HEIGHT) * getWidth();
-			} while (pos == entrance || map[pos] == Terrain.SIGN);
-			drop(item, pos).type = Heap.Type.REMAINS;
-		}
+
 	}
 
 	@Override

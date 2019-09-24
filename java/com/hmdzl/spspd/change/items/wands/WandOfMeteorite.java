@@ -57,7 +57,7 @@ public class WandOfMeteorite extends DamageWand {
 	}
 
 	public int max(int lvl){
-		return 6+3*lvl;
+		return 12+6*lvl;
 	}
 	
 	
@@ -82,10 +82,6 @@ public class WandOfMeteorite extends DamageWand {
 
 			int damage = (int) (damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill()));
 
-			if (Dungeon.hero.buff(Strength.class) != null) {
-				damage *= (int) 4f;
-				Buff.detach(Dungeon.hero, Strength.class);
-			}
 			ch.damage(damage, this);
 
 			if (ch.isAlive() && Random.Int(2) == 0) {

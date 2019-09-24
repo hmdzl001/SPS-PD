@@ -45,7 +45,7 @@ public class DistortionTrap extends Trap{
 				item.detachAll(Dungeon.hero.belongings.backpack);
 			}
 		}
-		InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
+		InterlevelScene.mode = InterlevelScene.Mode.RESET;
 		Game.switchScene(InterlevelScene.class);
 	}
 }

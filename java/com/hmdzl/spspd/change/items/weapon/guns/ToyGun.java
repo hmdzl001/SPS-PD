@@ -129,7 +129,7 @@ public class ToyGun extends Weapon {
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
 		
-		bones = false;
+		 
 	}
 	
 	@Override

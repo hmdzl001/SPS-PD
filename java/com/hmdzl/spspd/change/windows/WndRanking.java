@@ -106,8 +106,10 @@ public class WndRanking extends WndTabbed {
 
 	private void createControls() {
 
-		String[] labels = {Messages.get(this, "stats"), Messages.get(this, "items"), Messages.get(this, "badges")};
-		Group[] pages = { new StatsTab(), new ItemsTab(), new BadgesTab() };
+		String[] labels = 
+		{Messages.get(this, "stats"), Messages.get(this, "items"), Messages.get(this, "badges")};
+		Group[] pages = 
+		{ new StatsTab(), new ItemsTab(), new BadgesTab() };
 
 		for (int i = 0; i < pages.length; i++) {
 

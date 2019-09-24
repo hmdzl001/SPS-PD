@@ -1,0 +1,96 @@
+/*
+ * Pixel Dungeon
+ * Copyright (C) 2012-2014  Oleg Dolya
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+package com.hmdzl.spspd.change.actors.mobs.npcs;
+
+
+import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.sprites.Omicronrg9Sprite;
+import com.hmdzl.spspd.change.messages.Messages;
+import com.watabou.utils.Random;
+
+public class Omicronrg9 extends NPC {
+
+	{
+		//name = "omicronrg9";
+		spriteClass = Omicronrg9Sprite.class;
+		state = WANDERING;
+		properties.add(Property.HUMAN);
+	}
+
+	/*@Override
+	protected boolean act() {
+		throwItem();
+		return super.act();
+	}	*/
+	
+	@Override
+	public int evadeSkill(Char enemy) {
+		return 1000;
+	}
+
+
+	@Override
+	protected Char chooseEnemy() {
+		return null;
+	}
+
+	@Override
+	public void damage(int dmg, Object src) {
+	}
+
+	@Override
+	public void add(Buff buff) {
+	}
+
+	@Override
+	public boolean reset() {
+		return true;
+	}
+
+   
+	
+	@Override
+	public boolean interact() {
+		
+		sprite.turnTo(pos, Dungeon.hero.pos);
+		switch (Random.Int (6)) {
+            case 0:
+			yell(Messages.get(this, "yell1"));
+			break;
+			case 1:
+			yell(Messages.get(this, "yell2"));
+			break;
+			case 2:
+			yell(Messages.get(this, "yell3"));
+			break;
+			case 3:
+			yell(Messages.get(this, "yell4"));
+			break;
+			case 4:
+			yell(Messages.get(this, "yell5"));
+			break;
+			case 5:
+			yell(Messages.get(this, "yell6"));
+			break;
+		}
+		return true;
+	}
+
+}

@@ -42,6 +42,7 @@ import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.scenes.GameScene;
 
+import com.hmdzl.spspd.change.sprites.PlantKingSprite;
 import com.hmdzl.spspd.change.sprites.SewerLasherSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -54,10 +55,10 @@ public class UKing extends Mob {
 	protected static final float SPAWN_DELAY = 2f;
 	
 	{
-		spriteClass = SewerLasherSprite.class;
+		spriteClass = PlantKingSprite.class;
 		baseSpeed = 1f;
 
-		HP = HT = 1000;
+		HP = HT = 2000;
 		EXP = 20;
 		evadeSkill = 5;
 		flying = true;
@@ -168,7 +169,7 @@ public class UKing extends Mob {
 	@Override
 	public void damage(int dmg, Object src) {
 	
-        dmg = (int)(dmg*0.85);
+        dmg = (int)(dmg*0.6);
         Buff.affect(this, AttackUp.class,3f).level((int)(15*dmg/85));
 		super.damage(dmg, src);
 	}		

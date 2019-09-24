@@ -34,7 +34,7 @@ public class Cloudberry extends Fruit {
 		image = ItemSpriteSheet.SEED_CLOUDBERRY;
 		energy = 50;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	private int duration = 10;

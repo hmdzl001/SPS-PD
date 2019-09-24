@@ -45,7 +45,7 @@ public class StapleFood extends Food {
 		//name = "ration of food";
 		image = ItemSpriteSheet.RATION;
 
-		bones = true;
+		 
 	}
 
 

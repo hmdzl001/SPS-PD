@@ -35,7 +35,7 @@ public class StoneOre extends Item {
 	{
 		//name = "stone ore";
 		image = ItemSpriteSheet.STONE;	
-		bones = false;
+		 
 		stackable=true;
 	}
 	

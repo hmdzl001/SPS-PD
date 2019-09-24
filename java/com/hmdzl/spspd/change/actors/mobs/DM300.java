@@ -40,6 +40,8 @@ import com.hmdzl.spspd.change.effects.particles.SparkParticle;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.RedDewdrop;
+import com.hmdzl.spspd.change.items.StoneOre;
+import com.hmdzl.spspd.change.items.TomeOfMastery;
 import com.hmdzl.spspd.change.items.artifacts.CapeOfThorns;
 import com.hmdzl.spspd.change.levels.CavesBossLevel;
 import com.hmdzl.spspd.change.levels.traps.LightningTrap;
@@ -211,7 +213,7 @@ public class DM300 extends Mob implements Callback {
 				
 				
 				Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
-		       
+		       Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
 
 		yell(Messages.get(this,"die"));
 	}
@@ -262,7 +264,7 @@ public static class Tower extends Mob implements Callback {
 		hostile = false;
 		state = PASSIVE;
 		
-		loot = new RedDewdrop();
+		loot = new StoneOre();
 		lootChance = 1f;
 
 		properties.add(Property.MECH);

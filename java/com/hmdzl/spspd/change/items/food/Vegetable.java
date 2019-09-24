@@ -50,7 +50,7 @@ public class Vegetable extends Food {
 		image = ItemSpriteSheet.EAT_GRASS;
 		energy = 20;
 		hornValue = 1;
-		bones = true;
+		 
 	}
 
 	@Override

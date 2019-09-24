@@ -59,7 +59,7 @@ public class HookHam extends MeleeWeapon {
 	{
 		//name = "hook&ham";
 		image = ItemSpriteSheet.HOOK_HAM;
-		bones = false;
+		 
 		usesTargeting = true;
 	}
 

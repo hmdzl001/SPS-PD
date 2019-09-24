@@ -29,7 +29,7 @@ public class GreenSpore extends Pill {
 	{
 		//name = "Green Sporre";
 		image = ItemSpriteSheet.MUSHROOM_LICHEN;
-		bones = false;
+		 
 	}
 	
 	@Override

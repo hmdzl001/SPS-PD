@@ -34,8 +34,10 @@ import com.hmdzl.spspd.change.items.EquipableItem;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
+import com.hmdzl.spspd.change.items.artifacts.Artifact;
 import com.hmdzl.spspd.change.items.food.WaterItem;
 import com.hmdzl.spspd.change.items.bags.HeartOfScarecrow;
+import com.hmdzl.spspd.change.items.nornstone.NornStone;
 import com.hmdzl.spspd.change.items.rings.Ring;
 import com.hmdzl.spspd.change.items.summon.Honeypot;
 import com.hmdzl.spspd.change.items.bombs.BuildBomb;
@@ -46,8 +48,10 @@ import com.hmdzl.spspd.change.items.misc.JumpR;
 import com.hmdzl.spspd.change.items.misc.JumpS;
 import com.hmdzl.spspd.change.items.misc.JumpW;
 import com.hmdzl.spspd.change.items.misc.Jumpshoes;
+import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.change.items.misc.MissileShield;
+import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.items.armor.Armor;
@@ -111,6 +115,8 @@ public class WndBag extends WndTabbed {
 		COOKING, 
 		CHALLENGELIST,
 		CANBEMIX,
+		STONE,
+		TRANMSUTABLE,
 		AMMO;
 	}
 
@@ -470,11 +476,12 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.QUICKSLOT
 						&& (item.defaultAction != null)
 				 || mode == Mode.WEAPON
-						&& ((item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof MissileShield)&& !(item instanceof Handcannon))
+						&& ((item instanceof MeleeWeapon || item instanceof Boomerang)&& !(item instanceof Handcannon))
 				 || mode == Mode.ARMOR
 						&& (item instanceof Armor)
 				 || mode == Mode.ENCHANTABLE
-						&& (item instanceof MeleeWeapon	|| item instanceof Boomerang || item instanceof Armor )
+						&& (item instanceof MeleeWeapon	|| item instanceof Boomerang || item instanceof Armor || item instanceof ManyKnive)
+
 				 || mode == Mode.JOURNALPAGES
 						&& (item instanceof JournalPage)
 				 || mode == Mode.SHOES
@@ -497,7 +504,11 @@ public class WndBag extends WndTabbed {
 						&& (item instanceof ChallengeList)
 				 || mode == Mode.CANBEMIX
 							&& ( !item.isEquipped(hero) && (item instanceof Ring || item instanceof Wand))
-				 || mode == Mode.AMMO
+				 || mode == Mode.STONE
+							&& ( item instanceof NornStone || item instanceof StoneOre)
+				|| mode == Mode.TRANMSUTABLE
+							&& (!item.isEquipped(hero) && ( item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Artifact || item instanceof Armor ))
+				|| mode == Mode.AMMO
 						&& (item instanceof SpAmmo)
 				 || mode == Mode.ALL);
 				}

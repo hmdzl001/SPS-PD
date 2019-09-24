@@ -85,7 +85,7 @@ public class PotionOfMage extends Item {
 		defaultAction = AC_USE;
 		
 		unique = true;
-		bones = false;
+		 
 	}
 	
 	public final int fullCharge = 100;

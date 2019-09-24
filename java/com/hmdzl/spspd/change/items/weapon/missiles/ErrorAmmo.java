@@ -31,7 +31,7 @@ public class ErrorAmmo extends MissileWeapon {
 		MIN = 10000;
 		MAX = 10000;
 
-		bones = false; // Finding them in bones would be semi-frequent and
+		  // Finding them in bones would be semi-frequent and
 						// disappointing.
 	}
 

@@ -43,7 +43,7 @@ public class StyrofoamArmor extends NormalArmor {
 	}
 
 	public StyrofoamArmor() {
-		super(4,2.8f,6f,1);
+		super(4,2.8f,6f,4);
 	}
 
 	@Override

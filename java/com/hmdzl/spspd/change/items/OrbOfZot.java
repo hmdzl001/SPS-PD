@@ -142,17 +142,6 @@ public class OrbOfZot extends Item {
 			return false;
 		}
 	}
-/*
-	private void showAmuletScene(boolean showText) {
-		try {
-			Dungeon.saveAll();
-			AmuletScene.noText = !showText;
-			Game.switchScene(AmuletScene.class);
-		} catch (IOException e) {
-		}
-	}
-*/
-
 	
 	@Override
 	public boolean isIdentified() {

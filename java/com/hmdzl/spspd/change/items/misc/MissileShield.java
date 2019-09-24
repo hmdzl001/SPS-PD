@@ -23,12 +23,14 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
+import com.hmdzl.spspd.change.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.bags.Bag;
 import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.CellSelector;
@@ -52,7 +54,6 @@ public class MissileShield extends Item {
 		stackable = false;
 		unique = true;
 		defaultAction = AC_CAST;
-		bones = false;
 	}
 
 	private static final String AC_CAST = "CAST";
@@ -102,6 +103,7 @@ public class MissileShield extends Item {
 				return;
 			} else {
 			Buff.prolong(hero, DefenceUp.class, 3f).level(50);
+			Buff.affect(hero, ShieldArmor.class).level(hero.lvl);
 			charge -= 5;
 			}
 		}
@@ -186,6 +188,5 @@ public class MissileShield extends Item {
 			return Messages.get(MissileShield.class, "prompt");
 		}
 	};
-
 }
 

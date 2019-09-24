@@ -27,7 +27,7 @@ public class PetFood extends CompleteFood {
 		image = ItemSpriteSheet.PETFOOD;
 		energy = 10;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	@Override

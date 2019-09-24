@@ -22,27 +22,28 @@ import  com.hmdzl.spspd.change.messages.Messages;
 public class ResultDescriptions {
 
 	// Mobs
-	public static final String MOB = Messages.get(ResultDescriptions.class, "mob");
-	public static final String UNIQUE = Messages.get(ResultDescriptions.class, "unique");
-	public static final String NAMED = Messages.get(ResultDescriptions.class, "named");
+	public static final String MOB = "MOB";
+	public static final String UNIQUE = "UNIQUE";
+	public static final String NAMED = "NAMED";
 
 	// Items
-	public static final String ITEM = Messages.get(ResultDescriptions.class, "item");
-	public static final String GLYPH = Messages.get(ResultDescriptions.class, "glyph");
+	public static final String ITEM = "ITEM";
+	public static final String GLYPH = "GLYPH";
 
 	// Dungeon features
-	public static final String TRAP = Messages.get(ResultDescriptions.class, "trap");
+	public static final String TRAP = "TRAP";
 
 	// Debuffs & blobs
-	public static final String BURNING = Messages.get(ResultDescriptions.class, "burning");
-	public static final String HUNGER = Messages.get(ResultDescriptions.class, "hunger");
-	public static final String POISON = Messages.get(ResultDescriptions.class, "poison");
-	public static final String GAS = Messages.get(ResultDescriptions.class, "gas");
-	public static final String BLEEDING = Messages.get(ResultDescriptions.class, "bleeding");
-	public static final String OOZE = Messages.get(ResultDescriptions.class, "ooze");
-	public static final String FALL = Messages.get(ResultDescriptions.class, "fall");
-	public static final String COUNTDOWN = Messages.get(ResultDescriptions.class, "countdown");
-	public static final String CHEAT = Messages.get(ResultDescriptions.class, "cheat");
+	public static final String BURNING = "BURNING";
+	public static final String HUNGER = "HUNGER";
+	public static final String POISON = "POISON";
+	public static final String GAS = "GAS";
+	public static final String BLEEDING = "BLEEDING";
+	public static final String OOZE = "OOZE";
+	public static final String FALL = "FALL";
+	public static final String COUNTDOWN = "COUNTDOWN";
+	public static final String CHEAT = "CHEAT";
 
-	public static final String WIN = Messages.get(ResultDescriptions.class, "win");
+	public static final String WIN = "WIN";
+	public static final String WIN2 = "WIN2";
 }

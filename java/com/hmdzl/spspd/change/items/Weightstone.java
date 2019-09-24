@@ -47,7 +47,7 @@ public class Weightstone extends Item {
 
 		stackable = true;
 
-		bones = true;
+		 
 	}
 
 	@Override

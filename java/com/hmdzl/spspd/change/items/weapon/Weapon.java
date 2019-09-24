@@ -23,6 +23,8 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Arcane;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.MechArmor;
+import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.change.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.items.rings.RingOfAccuracy;
@@ -172,9 +174,9 @@ public class Weapon extends KindOfWeapon {
 			bonus += ((RingOfFuror.Furor) buff).level;
 		}
 
-		DLY = (float) (0.25 + (DLY - 0.25) * Math.pow(0.9, bonus));
+		DLY = (float)( DLY / Math.min( 4, 1 + bonus * 1.00 / 10) );
 
-		return (encumrance > 0 ? (float) (DLY * Math.pow(1.5, encumrance))
+		return (encumrance > 0 ? (float) (DLY * Math.pow(1.2, encumrance))
 				: DLY);
 	}
 
@@ -189,6 +191,9 @@ public class Weapon extends KindOfWeapon {
 			bonus += ((RingOfAccuracy.Accuracy) buff).level;
 		}
         if (Dungeon.hero.subClass == HeroSubClass.JOKER){
+			bonus += 10;
+		}
+		if (hero.buff(MechArmor.class) != null){
 			bonus += 10;
 		}
 		RCH += (int)(bonus/10);

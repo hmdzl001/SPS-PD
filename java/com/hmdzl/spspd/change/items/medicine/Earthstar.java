@@ -34,7 +34,7 @@ public class Earthstar extends Pill {
 	{
 		//name = "earthstar mushroom";
 		image = ItemSpriteSheet.MUSHROOM_EARTHSTAR;
-		bones = false;
+		 
 	}
 	
 	@Override

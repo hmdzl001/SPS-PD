@@ -43,6 +43,7 @@ import com.hmdzl.spspd.change.effects.Pushing;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Generator;
+import com.hmdzl.spspd.change.items.TomeOfMastery;
 import com.hmdzl.spspd.change.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.change.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfTeleportation;
@@ -76,10 +77,10 @@ public class SpiderQueen extends Mob {
 		baseSpeed = 0.8f;
 
 		loot = new RobotDMT().identify();
-		lootChance = 0.5f;
+		lootChance = 0.2f;
 		
 		lootOther = Generator.Category.ARMOR;
-		lootChance = 0.2f;
+		lootChance = 1f;
 		
 		properties.add(Property.BEAST);
 		properties.add(Property.BOSS);
@@ -190,6 +191,8 @@ public class SpiderQueen extends Mob {
 					badgeToCheck = Badge.MASTERY_SOLDIER;
 					break;				
 		}
+	
+	    Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
 	
 	    Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
 		yell(Messages.get(this,"die"));

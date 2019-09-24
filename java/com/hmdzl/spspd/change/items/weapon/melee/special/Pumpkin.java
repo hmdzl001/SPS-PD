@@ -53,7 +53,7 @@ public class Pumpkin extends MeleeWeapon {
 	{
 		//name = "Pumpkin Lamp";
 		image = ItemSpriteSheet.PUMPKIN;
-		bones = false;
+		 
 		usesTargeting = true;
 	}
 

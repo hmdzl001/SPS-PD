@@ -17,30 +17,16 @@
  */
 package com.hmdzl.spspd.change.levels;
 
-import java.util.List;
-
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.Bones;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
-import com.hmdzl.spspd.change.items.Heap;
-import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.keys.IronKey;
-import com.hmdzl.spspd.change.items.keys.SkeletonKey;
-import com.hmdzl.spspd.change.levels.Room.Type;
-import com.hmdzl.spspd.change.levels.painters.Painter;
-import com.hmdzl.spspd.change.levels.traps.SpearTrap;
-import com.hmdzl.spspd.change.levels.traps.Trap;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Graph;
-import com.watabou.utils.Point;
-import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.change.Dungeon.hero;
 

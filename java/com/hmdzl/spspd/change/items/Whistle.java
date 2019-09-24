@@ -75,7 +75,7 @@ public class Whistle extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		actions.add(AC_CALL);
+		if (Dungeon.depth < 26) actions.add(AC_CALL);
 		return actions;
 	}
 
@@ -259,7 +259,6 @@ public class Whistle extends Item {
 		  pet.HP = Dungeon.hero.petHP;
 		  pet.pos = petpos;
 		  pet.state = pet.HUNTING;
-		  pet.kills = Dungeon.hero.petKills;
 		  pet.experience = Dungeon.hero.petExperience;
 		  pet.cooldown = Dungeon.hero.petCooldown;
 

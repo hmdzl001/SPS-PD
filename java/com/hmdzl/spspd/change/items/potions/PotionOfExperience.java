@@ -30,7 +30,7 @@ public class PotionOfExperience extends Potion {
 		
 		initials = 0;
 
-		bones = true;
+		 
 	}
 
 	@Override

@@ -51,8 +51,6 @@ public class WandOfPoison extends Wand {
 			
 			int poisonbase=5;
 			
-			if (Dungeon.hero.buff(Strength.class) != null){ poisonbase *= (int) 4f; Buff.detach(Dungeon.hero, Strength.class);}
-			
 			Buff.affect(ch, Poison.class).set(
 					Poison.durationFactor(ch) * (poisonbase + level()*2));
 

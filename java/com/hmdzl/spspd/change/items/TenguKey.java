@@ -86,31 +86,17 @@ public class TenguKey extends Item {
 
 		if (action == AC_PORT) {
 
-			if (Dungeon.bossLevel() && Dungeon.depth!=specialLevel) {
+			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 || hero.petfollow) && Dungeon.depth!=specialLevel) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
 				return;
 			}
-			
-			if (Dungeon.depth>25 && Dungeon.depth!=specialLevel) {
-				hero.spend(TIME_TO_USE);
-				GLog.w(Messages.get(Item.class, "not_here"));
-				return;
-			}
-			
+						
 			if (Dungeon.depth==specialLevel && !Dungeon.tengudenkilled && !Dungeon.level.reset) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "boss_first"));
 				return;
 			}
-			
-			if (Dungeon.depth==1 || hero.petfollow) {
-				hero.spend(TIME_TO_USE);
-				GLog.w(Messages.get(Item.class, "not_here"));
-				return;
-			}
-
-
 		}
 
 		if (action == AC_PORT) {
@@ -128,12 +114,8 @@ public class TenguKey extends Item {
        			returnPos = hero.pos;
 				InterlevelScene.mode = InterlevelScene.Mode.PORTTENGU;
 			} else {						 
-											
-				this.doDrop(hero);
-				 checkPetPort();
-				 removePet();
-																
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;	
+				detach(hero.belongings.backpack);
 			}
                	InterlevelScene.returnDepth = returnDepth;
 				InterlevelScene.returnPos = returnPos;
@@ -148,58 +130,6 @@ public class TenguKey extends Item {
 	
 	public void reset() {
 		returnDepth = -1;
-	}
-	
-
-	private PET checkpet(){
-		for (Mob mob : Dungeon.level.mobs) {
-			if(mob instanceof PET) {
-				return (PET) mob;
-			}
-		}	
-		return null;
-	}
-	
-	private boolean checkpetNear(){
-		for (int n : Level.NEIGHBOURS8) {
-			int c =  Dungeon.hero.pos + n;
-			if (Actor.findChar(c) instanceof PET) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private void checkPetPort(){
-		PET pet = checkpet();
-		if(pet!=null && checkpetNear()){
-		  //GLog.i("I see pet");
-		  Dungeon.hero.petType=pet.type;
-		  Dungeon.hero.petLevel=pet.level;
-		  Dungeon.hero.petKills=pet.kills;	
-		  Dungeon.hero.petHP=pet.HP;
-		  Dungeon.hero.petExperience=pet.experience;
-		  Dungeon.hero.petCooldown=pet.cooldown;
-		  pet.destroy();
-		  Dungeon.hero.petfollow=true;
-		} else if (Dungeon.hero.haspet && Dungeon.hero.petfollow) {
-			Dungeon.hero.petfollow=true;
-		} else {
-			Dungeon.hero.petfollow=false;
-		}
-		
-	}
-	
-	private void removePet(){
-		if (Dungeon.hero.haspet && !Dungeon.hero.petfollow){
-		 for (Mob mob : Dungeon.level.mobs) {
-				if(mob instanceof PET) {				 
-					Dungeon.hero.haspet=false;
-					Dungeon.hero.petCount++;
-					mob.destroy();				
-				}
-			  }
-		}
 	}
 
 	@Override

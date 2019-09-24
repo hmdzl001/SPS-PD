@@ -76,7 +76,6 @@ public class WndHero extends WndTabbed {
 	
 	private static final String TXT_EXP = "Experience";
 	private static final String TXT_STR = "Strength";
-	private static final String TXT_KILLS = "Kills";
 	private static final String TXT_BREATH = "Breath Weapon";
 	private static final String TXT_SPIN = "Spinneretes";
 	private static final String TXT_STING = "Stinger";
@@ -540,7 +539,6 @@ public class WndHero extends WndTabbed {
 
 			statSlot(Messages.get(this, "pet_attack"), heropet.hitSkill(null));
 			statSlot(Messages.get(this, "pet_hp"), heropet.HP + "/" + heropet.HT);
-			statSlot(Messages.get(this, "pet_kill"), heropet.kills);
 			statSlot(Messages.get(this, "pet_exp"), heropet.level<30 ? heropet.experience + "/" + (heropet.level*(heropet.level+1) ): "MAX");
 			statSlot(Messages.get(this, "pet_skills"), heropet.cooldown==0 ? Messages.get(this, "pet_skills_ready") : heropet.cooldown + Messages.get(this, "pet_skills_turn"));
 		
@@ -708,7 +706,7 @@ public class WndHero extends WndTabbed {
 		}
 		if (petType==13){//CocoCat
 			if (item instanceof Nut
-				|| item instanceof ToastedNut
+				|| item instanceof Nut
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}

@@ -40,7 +40,7 @@ public class LuckyBadge extends MiscEquippable {
 	{
 		//name = "LuckyBadge";
 		image = ItemSpriteSheet.LUCKY_BADGE;
-		bones = false;
+		 
 		unique = true;
 		
 	}

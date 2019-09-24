@@ -57,7 +57,7 @@ public class AdultDragonViolet extends Mob implements Callback{
 		baseSpeed = 1.5f;
 
 		HP = HT = 8000;
-		EXP = 200;
+		EXP = 10;
 		evadeSkill = 40;
 		
 		loot = new BossRush();

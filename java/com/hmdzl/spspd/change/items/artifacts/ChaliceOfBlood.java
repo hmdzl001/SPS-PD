@@ -83,7 +83,7 @@ public class ChaliceOfBlood extends Artifact {
 			if (!isEquipped(hero) || level < 4)
 				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
 			else {	
-                if (level > 4 )level-=3;
+                if (level > 3 )level-=3;
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 				Buff.affect(hero, BloodAngry.class).set(100);

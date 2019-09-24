@@ -27,14 +27,14 @@ public class PowerChallenge extends ChallengeList {
 	{
 		//name = "journal page sokoban practice";
 		image = ItemSpriteSheet.POWERTRIAL;
-		room=5;
+		room=6;
 
 		stackable = false;
 	}
 	
 	@Override
 	public int price() {
-		if (!Statistics.amuletObtained){return 9000 * quantity;}
+		if (Statistics.deepestFloor < 26){return 9000 * quantity;}
 		else {return 500*quantity;}
 	}	
 }

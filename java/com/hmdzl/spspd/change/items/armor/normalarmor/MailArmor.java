@@ -28,7 +28,7 @@ public class MailArmor extends NormalArmor {
 	}
 
 	public MailArmor() {
-		super(4,1.4f,3f,1);
+		super(4,1.4f,3f,4);
 	}
 
 }

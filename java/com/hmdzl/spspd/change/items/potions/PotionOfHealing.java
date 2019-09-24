@@ -34,7 +34,7 @@ public class PotionOfHealing extends Potion {
 		
 		initials = 3;
 
-		bones = true;
+		 
 	}
 
 	@Override

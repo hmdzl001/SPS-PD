@@ -32,6 +32,7 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.Alchemy;
 import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.blobs.WellWater;
+import com.hmdzl.spspd.change.actors.buffs.AflyBless;
 import com.hmdzl.spspd.change.actors.buffs.Awareness;
 import com.hmdzl.spspd.change.actors.buffs.Blindness;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
@@ -291,6 +292,10 @@ public abstract class Level implements Bundlable {
 			}
 			if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
 			bonus += 5;
+		
+			for (Buff buff : Dungeon.hero.buffs(AflyBless.class)) {
+			bonus += 5;
+		}	
 			if (Random.Float() > Math.pow(0.95, bonus)) {
 				if (Random.Int(2) == 0)
 					addItemToSpawn(new ScrollOfMagicalInfusion());
@@ -798,17 +803,16 @@ public abstract class Level implements Bundlable {
 	}
 	
 	public void spawnPet(PET pet, Integer petpos, Integer heropos){
-		  pet.spawn(Dungeon.hero.petLevel);
-		  pet.HP = Dungeon.hero.petHP;
-		  pet.pos = petpos;
-		  pet.state = pet.HUNTING;
-		  pet.kills = Dungeon.hero.petKills;
-		  pet.experience = Dungeon.hero.petExperience;
-		  pet.cooldown = Dungeon.hero.petCooldown;
+		pet.spawn(Dungeon.hero.petLevel);
+		pet.HP = Dungeon.hero.petHP;
+		pet.pos = petpos;
+		pet.state = pet.HUNTING;
+		pet.experience = Dungeon.hero.petExperience;
+		pet.cooldown = Dungeon.hero.petCooldown;
 
-			GameScene.add(pet);
-			Actor.addDelayed(new Pushing(pet, heropos, petpos), -1f);
-			Dungeon.hero.petfollow = false;
+		GameScene.add(pet);
+		Actor.addDelayed(new Pushing(pet, heropos, petpos), -1f);
+		Dungeon.hero.petfollow = false;
 	}
 	
 	public boolean checkOriginalGenMobs (){
@@ -925,16 +929,6 @@ public abstract class Level implements Bundlable {
 		     return cell;
 	}
 	
-	public int randomWeatherCell() {
-		int cell;
-		int count = 1;
-		do {
-			cell = Random.Int(getWidth()+1, getLength()-(getWidth()+1));
-			count++;
-		} while (map[cell] != Terrain.EMPTY && count < 100);
-		    return cell;
-	}	
-	
 	public int randomRespawnCell() {
 		int cell;
 		do {
@@ -953,6 +947,28 @@ public abstract class Level implements Bundlable {
 		return cell;
 	}
 	
+	public int dropRespawnCell() {
+		int cell;
+		do {
+			cell = Random.Int(getLength());
+		} while ((map[cell]!=Terrain.EMPTY &&
+				map[cell]!=Terrain.EMPTY_DECO &&
+				map[cell]!=Terrain.EMPTY_SP &&
+				map[cell]!=Terrain.GRASS &&
+				map[cell]!=Terrain.WATER)
+				|| !passable[cell]);
+		return cell;
+	}
+
+	public int wellRespawnCellMob() {
+		int cell;
+		do {
+			cell = Random.Int(getLength());
+		} while (!passable[cell] || map[cell]!=Terrain.EMPTY_WELL || Dungeon.visible[cell]
+				|| Actor.findChar(cell) != null);
+		return cell;
+	}
+
 	public int randomRespawnCellSheep(int start, int dist) {
 		int cell;
 		do {

@@ -35,7 +35,7 @@ public class FourClover extends MiscEquippable {
 	{
 		image = ItemSpriteSheet.FOURCLOVER;	
 		unique = true;
-		bones = false;
+		 
 	}
 	
 	@Override

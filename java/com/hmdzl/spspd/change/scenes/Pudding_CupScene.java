@@ -42,8 +42,6 @@ public class Pudding_CupScene extends PixelScene {
 
 	private static final String TXT = "Looks like someone taken the Amulet and left Pudding cup here.";
 
-	public static boolean noText = false;
-
 	private Image pudding_cup;
 
 	@Override
@@ -51,11 +49,10 @@ public class Pudding_CupScene extends PixelScene {
 		super.create();
 
 		RenderedTextMultiline text = null;
-		if (!noText) {
-			text = renderMultiline( Messages.get(this, "text"), 8 );
-			text.maxWidth(WIDTH);
-			add( text );
-		}
+		text = renderMultiline( Messages.get(this, "text"), 8 );
+		text.maxWidth(WIDTH);
+		add( text );
+
 
 		pudding_cup = new Image(Assets.PUDDING_CUP);
 		add(pudding_cup);
@@ -79,17 +76,6 @@ public class Pudding_CupScene extends PixelScene {
 		add(btnStay);
 
 		float height;
-		if (noText) {
-			height = pudding_cup.height + LARGE_GAP + btnExit.height() + SMALL_GAP + btnStay.height();
-
-			pudding_cup.x = (Camera.main.width - pudding_cup.width) / 2;
-			pudding_cup.y = (Camera.main.height - height) / 2;
-			align(pudding_cup);
-
-			btnExit.setPos( (Camera.main.width - btnExit.width()) / 2, pudding_cup.y + pudding_cup.height + LARGE_GAP );
-			btnStay.setPos( btnExit.left(), btnExit.bottom() + SMALL_GAP );
-
-		} else {
 			height = pudding_cup.height + LARGE_GAP + text.height() + LARGE_GAP + btnExit.height() + SMALL_GAP + btnStay.height();
 
 			pudding_cup.x = (Camera.main.width - pudding_cup.width) / 2;
@@ -101,7 +87,6 @@ public class Pudding_CupScene extends PixelScene {
 
 			btnExit.setPos( (Camera.main.width - btnExit.width()) / 2, text.top() + text.height() + LARGE_GAP );
 			btnStay.setPos( btnExit.left(), btnExit.bottom() + SMALL_GAP );
-		}
 
 		new Flare(8, 48).color(0xFFDDBB, true).show(pudding_cup, 0).angularSpeed = +30;
 

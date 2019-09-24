@@ -44,7 +44,7 @@ public class ScrollOfPsionicBlast extends Scroll {
 		consumedValue = 10;
 		initials = 7;
 
-		bones = true;
+		 
 	}
 
 	@Override

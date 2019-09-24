@@ -33,7 +33,7 @@ public class Spork extends MeleeWeapon {
 	}
 
 	public Spork() {
-		super(3, 1.0f, 0.5f, 1);
+		super(3, 1.0f, 0.8f, 1);
 	}
 
     @Override

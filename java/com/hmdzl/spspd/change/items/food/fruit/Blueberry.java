@@ -43,7 +43,7 @@ public class Blueberry extends Fruit {
 		image = ItemSpriteSheet.SEED_BLUEBERRY;
 		energy = 50;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	

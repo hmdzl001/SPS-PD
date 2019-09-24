@@ -44,7 +44,7 @@ public class Halberd extends MeleeWeapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-        if (DLY > 1.20f){
+        if (DLY > 1.50f){
 		DLY-=0.05f;
 		}
 

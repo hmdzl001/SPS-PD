@@ -32,6 +32,7 @@ import com.hmdzl.spspd.change.actors.buffs.Poison;
 import com.hmdzl.spspd.change.actors.buffs.Sleep;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
+import com.hmdzl.spspd.change.items.PowerHand;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.change.levels.Level;
@@ -56,8 +57,9 @@ public class UYog extends Mob {
 		EXP = 20;
 		evadeSkill = 5;
 		
-		//loot = new Playericon();
-		//lootChance = 1f;
+		loot = new PowerHand();
+		lootChance = 1f;
+
 		properties.add(Property.UNKNOW);
 		properties.add(Property.BOSS);
 	}

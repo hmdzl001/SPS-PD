@@ -21,15 +21,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.hmdzl.spspd.change.Bones;
-import com.hmdzl.spspd.change.Challenges;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.Actor;
+import com.hmdzl.spspd.change.actors.buffs.AflyBless;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
@@ -40,7 +38,6 @@ import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.misc.LuckyBadge;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.levels.Room.Type;
-import com.hmdzl.spspd.change.levels.painters.MemoryPainter;
 import com.hmdzl.spspd.change.levels.painters.Painter;
 import com.hmdzl.spspd.change.levels.painters.ShopPainter;
 import com.hmdzl.spspd.change.levels.traps.*;
@@ -594,7 +591,7 @@ public abstract class RegularLevel extends Level {
 		if (Dungeon.depth < 5 && !Statistics.amuletObtained){
 		 return 10 + Dungeon.depth + Random.Int(3);
 		} else if(!Statistics.amuletObtained) {
-		 return 5 + Dungeon.depth % 5 + Random.Int(3);
+		 return 10 + Dungeon.depth % 3 + Random.Int(3);
 		} else {
 		 return 10 + (5 - Dungeon.depth % 5) + Random.Int(3);			
 		}
@@ -671,6 +668,9 @@ public abstract class RegularLevel extends Level {
 		}
 		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
 			bonus += 5;
+		for (Buff buff : Dungeon.hero.buffs(AflyBless.class)) {
+			bonus += 5;
+		}	
 		// just incase someone gets a ridiculous ring, cap this at 80%
 		bonus = Math.min(bonus, 10);
 		while (Random.Float() < (0.3f + bonus * 0.05f)) {
@@ -708,11 +708,6 @@ public abstract class RegularLevel extends Level {
 				}
 			}
 			drop(item, cell).type = Heap.Type.HEAP;
-		}
-
-		Item item = Bones.get();
-		if (item != null) {
-			drop(item, randomDropCell()).type = Heap.Type.REMAINS;
 		}
 	}
 

@@ -6,6 +6,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.MechArmor;
 import com.hmdzl.spspd.change.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
 import com.hmdzl.spspd.change.actors.hero.Hero;
@@ -113,7 +114,7 @@ public class GunWeapon extends Weapon {
 
 	public Item upgrade() {
 		MIN += 2;
-		MAX += 3 + tier;
+		MAX += 3 + tier/2;
 		maxammo += 10;
 
 		return super.upgrade();
@@ -147,7 +148,7 @@ public class GunWeapon extends Weapon {
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
 		
-		bones = false;
+		 
 	}
 	
 	@Override
@@ -216,6 +217,8 @@ public class GunWeapon extends Weapon {
 				bonus += ((RingOfSharpshooting.Aim) buff).level;
 		}
 		if (Dungeon.hero.buff(TargetShoot.class)!= null)
+			bonus += 10;
+		if (Dungeon.hero.buff(MechArmor.class)!= null)
 			bonus += 10;
 		damage = (int)(damage*(1 + 0.05*bonus));
 		return Math.round(damage);

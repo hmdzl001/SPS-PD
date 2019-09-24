@@ -38,8 +38,11 @@ import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.change.items.ArmorKit;
 import com.hmdzl.spspd.change.items.DolyaSlate;
+import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.RedDewdrop;
+import com.hmdzl.spspd.change.items.StoneOre;
+import com.hmdzl.spspd.change.items.artifacts.AlienBag;
 import com.hmdzl.spspd.change.items.bombs.DangerousBomb;
 import com.hmdzl.spspd.change.items.keys.SkeletonKey;
 import com.hmdzl.spspd.change.levels.Terrain;
@@ -84,6 +87,12 @@ public class ElderAvatar extends Mob {
 		EXP = 50;
 		evadeSkill = 25;
 		baseSpeed = 1f;
+		
+		loot = new AlienBag().identify();
+		lootChance = 0.2f;
+		
+		lootOther = Generator.Category.GUNWEAPON;
+		lootChance = 1f;
 
 		properties.add(Property.ALIEN);
 		properties.add(Property.BOSS);
@@ -91,19 +100,26 @@ public class ElderAvatar extends Mob {
 
 	private int orbAlive = 0;
 	private int waves = 0;
+	public static int breaks = 0;
 
 	private static final String WAVES	= "waves";
+	private static final String BREAKS	= "breaks";
+	private static final String ORBALIVE	= "orbAlive";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		bundle.put( WAVES, waves );
+		bundle.put( BREAKS, breaks );
+		bundle.put( ORBALIVE, orbAlive );
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
 		waves = bundle.getInt( WAVES );
+		breaks = bundle.getInt( BREAKS );
+		orbAlive  = bundle.getInt( ORBALIVE );
 	}
 
 
@@ -136,13 +152,20 @@ public class ElderAvatar extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (HP > 49) return Dungeon.level.distance(pos, enemy.pos) <= 3;
-		else return false;
+		else return Dungeon.level.distance(pos, enemy.pos) <= 0;
 	}
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(5) == 0) {
 			new DangerousBomb().explode(enemy.pos);
+		}
+		if (Random.Int(8) == 0) {
+			Buff.affect(enemy, Charm.class, Charm.durationFactor(enemy)
+					* Random.IntRange(3, 5)).object = id();
+			enemy.sprite.centerEmitter().start(Speck.factory(Speck.HEART),
+					0.2f, 5);
+			Sample.INSTANCE.play(Assets.SND_CHARMS);
 		}
 		return damage;
 	}
@@ -183,7 +206,7 @@ public class ElderAvatar extends Mob {
 			return true;
 		}
 
-		if (HP < 50 && waves == 0 && Obelisk.breaks == 0) {
+		if (HP < 50 && waves == 0 && breaks == 0) {
 			summonHunter(pos);
 			waves++;
 			Buff.affect(this,ShieldArmor.class).level(100);
@@ -192,7 +215,7 @@ public class ElderAvatar extends Mob {
 			return true;
 		}
 
-		if (HP < 50 && waves == 1 && Obelisk.breaks == 1) {
+		if (HP < 50 && waves == 1 && breaks == 1) {
 			summonWarlock(pos);
 			waves++;
 			Buff.affect(this,ShieldArmor.class).level(100);
@@ -201,7 +224,7 @@ public class ElderAvatar extends Mob {
 			return true;
 		}
 
-		if (HP < 50 && waves == 2 && Obelisk.breaks == 2) {
+		if (HP < 50 && waves == 2 && breaks == 2) {
 			summonMonk(pos);
 			waves++;
 			Buff.affect(this,ShieldArmor.class).level(100);
@@ -210,7 +233,7 @@ public class ElderAvatar extends Mob {
 			return true;
 		}
 
-		if (HP < 50 && waves == 3 && Obelisk.breaks == 3) {
+		if (HP < 50 && waves == 3 && breaks == 3) {
 			summonMech(pos);
 			waves++;
 			Buff.affect(this,ShieldArmor.class).level(100);
@@ -250,7 +273,7 @@ public class ElderAvatar extends Mob {
 			Dungeon.limitedDrops.journal.drop();
 		}
 		Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
-		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
+		
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(Random.Int(4900, 10000)), pos).sprite.drop();
 
@@ -658,8 +681,6 @@ public class ElderAvatar extends Mob {
 
 	public static class Obelisk extends Mob {
 
-		private static int breaks = 0;
-
 		{
 			spriteClass = ObeliskSprite.class;
 
@@ -671,7 +692,7 @@ public class ElderAvatar extends Mob {
 			hostile = false;
 			state = PASSIVE;
 
-			loot = new RedDewdrop();
+			loot = new StoneOre();
 			lootChance = 0.05f;
 
 			properties.add(Property.UNKNOW);
@@ -686,7 +707,6 @@ public class ElderAvatar extends Mob {
 		@Override
 		public void add(Buff buff) {
 		}
-
 
 		@Override
 		public int damageRoll() {
@@ -706,8 +726,8 @@ public class ElderAvatar extends Mob {
 		@Override
 		protected boolean act() {
 
-			if (3 - breaks > 4 * HP / HT) {
-				breaks++;
+			if (3 - ElderAvatar.breaks > 4 * HP / HT) {
+				ElderAvatar.breaks++;
 				for (Mob mob : Dungeon.level.mobs) {
 					if (mob instanceof ElderAvatar) {
 						mob.HP = 600;
@@ -743,19 +763,6 @@ public class ElderAvatar extends Mob {
 			super.damage(dmg, src);
 		}
 	}
-    private static final String BREAKS	= "breaks";
-
-    @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle(bundle);
-        bundle.put( BREAKS, breaks );
-    }
-
-    @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle(bundle);
-        breaks = bundle.getInt( BREAKS );
-    }	
 	
   }
 }

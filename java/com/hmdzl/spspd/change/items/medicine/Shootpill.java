@@ -28,7 +28,7 @@ public class Shootpill extends Pill {
 	{
 		//name = "shootpill";
 		image = ItemSpriteSheet.PILL_SOT;
-		bones = false;
+		 
 	}
 
 	@Override

@@ -37,7 +37,8 @@ public class MemoryParticle extends PixelParticle.Shrinking {
 	public MemoryParticle() {
 		super();
 		
-		color( 0x4488EE );
+		//color( 0x4488EE );
+		color( 0x22CC44 );
 		lifespan = 0.6f;
 		
 		acc.set( 0, -100 );

@@ -58,7 +58,7 @@ public class Tree extends MeleeWeapon {
 	{
 		//name = "Christmas tree";
 		image = ItemSpriteSheet.TREE;
-		bones = false;
+		 
 		//usesTargeting = true;
 	}
 

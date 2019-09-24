@@ -219,7 +219,7 @@ public class Heap implements Bundlable {
 
 		}
 
-		if (item instanceof Dewdrop) {
+		if ((item instanceof Dewdrop || item instanceof YellowDewdrop || item instanceof RedDewdrop || item instanceof VioletDewdrop) && type != Type.FOR_SALE ) {
 			items.add(item);
 		} else {
 			items.addFirst(item);
@@ -270,9 +270,9 @@ public class Heap implements Bundlable {
 			} else if (item instanceof Meat) {
 				replace(item, ChargrilledMeat.cook((Meat) item));
 				burnt = true;
-			} else if (item instanceof Nut) {
-				replace(item, ToastedNut.cook((Nut) item));
-				burnt = true;
+			//} else if (item instanceof Nut) {
+				//replace(item, ToastedNut.cook((Nut) item));
+				//burnt = true;
 			//} else if (item instanceof Bomb) {
 				//items.remove(item);
 				//((Bomb) item).explode(pos);
@@ -597,15 +597,15 @@ public class Heap implements Bundlable {
 			destroy(); 
 			
 				switch (type) {
-	            case 1:  weapon = new JupitersWraith(); weapon.enchantJupiter();
+	            case 1:  weapon = new LokisFlail(); weapon.enchantLoki();
 	                     break;
-	            case 2:  weapon = new AresSword(); weapon.enchantAres();
+	            case 2:  weapon = new NeptunusTrident(); weapon.enchantNeptune();
                          break;
 	            case 3:  weapon = new CromCruachAxe(); weapon.enchantLuck();
                          break;
-	            case 4:  weapon = new LokisFlail(); weapon.enchantLoki();
+	            case 4:  weapon = new AresSword(); weapon.enchantAres();
                          break;
-	            case 5:  weapon = new NeptunusTrident(); weapon.enchantNeptune();
+	            case 5:  weapon = new JupitersWraith(); weapon.enchantJupiter();
                          break;
 	            default: weapon = new AresSword(); weapon.enchantAres();
                          break;

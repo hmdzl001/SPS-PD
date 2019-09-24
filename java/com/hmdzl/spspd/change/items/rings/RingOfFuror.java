@@ -16,7 +16,7 @@ public class RingOfFuror extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",new DecimalFormat("#.##").format(100f * (Math.pow(1.05f, level) - 1f)));
+			return Messages.get(this, "stats",new DecimalFormat("#.##").format( Math.min(300f, level * 10f)));
 		} else {
 			return "???";
 		}

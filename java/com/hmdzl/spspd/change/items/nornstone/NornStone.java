@@ -41,7 +41,7 @@ public class NornStone extends Item {
 		stackable = true;
 		//name = "norn stone";
 		image = ItemSpriteSheet.NORNGREEN;
-		bones = false;
+		 
 	}
 
 	@Override

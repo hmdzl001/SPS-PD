@@ -33,7 +33,7 @@ public class ShatteredAmmo extends MissileWeapon {
 		MIN = 10;
 		MAX = 30;
 
-		bones = false; // Finding them in bones would be semi-frequent and
+		  // Finding them in bones would be semi-frequent and
 						// disappointing.
 	}
 

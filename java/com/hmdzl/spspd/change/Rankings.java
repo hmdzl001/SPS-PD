@@ -84,7 +84,7 @@ public enum Rankings {
 		rec.info = Dungeon.resultDescription;
 		rec.win = win;
 		rec.heroClass = Dungeon.hero.heroClass;
-		rec.armorTier = Dungeon.hero.tier();
+		rec.armorTier = 7-Dungeon.skins;
 		rec.herolevel = Dungeon.hero.lvl;
 		rec.depth = Dungeon.depth;
 		rec.score = score(win);
@@ -222,55 +222,11 @@ public enum Rankings {
 			info = bundle.getString(REASON);
 			win = bundle.getBoolean(WIN);
 			score = bundle.getInt(SCORE);
-
 			heroClass = HeroClass.restoreInBundle(bundle);
 			armorTier = bundle.getInt(TIER);
-
-			gameFile = bundle.getString(GAME);
-
-			// Here lies a collection of messy logic, some to account for
-			// transferring pre-0.2.3 rankings to the new
-			// system, some to account for errors in that process which were
-			// patched.
-			// commented here is info about what was added when, and why,
-			// eventually after almost everyone has
-			// dropped 0.2.2 this can be phased out.
-
-			// 0.2.3, adds depth and parses info, works almost perfectly, except
-			// for the edge case in the next comment.
-			if (!bundle.contains(DEPTH)) {
-				try {
-					depth = Integer.parseInt(info.replaceAll("[\\D]", ""));
-				} catch (Exception e) {
-					depth = 0;
-				}
-				info = info.split("on level")[0].trim();
-			} else
-				depth = bundle.getInt(DEPTH);
-
-			// 0.2.3d, fixes a case where a player who died to dm-300 would have
-			// a recorded depth of 30015.
-			if (depth == 30015)
-				depth = 15;
-
-			// basically every patch until 0.2.3d, extracts the hero's level
-			// from the bundle structure.
-			// the second condition in the if is important, helps account for
-			// bugged rankings from pre 0.2.3d
-			if (!bundle.contains(LEVEL) || bundle.getInt(LEVEL) == 0
-					&& ShatteredPixelDungeon.version() < 30) {
-				try {
-
-					InputStream input = Game.instance.openFileInput(gameFile);
-					Bundle gameBundle = Bundle.read(input);
-					input.close();
-
-					herolevel = gameBundle.getBundle("hero").getInt("lvl");
-				} catch (Exception e) {
-					herolevel = 0;
-				}
-			} else
-				herolevel = bundle.getInt(LEVEL);
+         	gameFile = bundle.getString(GAME);
+			depth = bundle.getInt(DEPTH);
+			herolevel = bundle.getInt(LEVEL);
 
 		}
 

@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.items;
 import java.util.HashMap;
 
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.blobs.Freezing;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.armor.normalarmor.BulletArmor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.CDArmor;
@@ -65,7 +66,10 @@ import com.hmdzl.spspd.change.items.eggs.SpiderEgg;
 import com.hmdzl.spspd.change.items.eggs.VelociroosterEgg;
 import com.hmdzl.spspd.change.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.change.items.food.completefood.Chickennugget;
+import com.hmdzl.spspd.change.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.change.items.food.completefood.Foamedbeverage;
+import com.hmdzl.spspd.change.items.food.completefood.FoodFans;
+import com.hmdzl.spspd.change.items.food.completefood.Frenchfries;
 import com.hmdzl.spspd.change.items.food.completefood.Fruitsalad;
 import com.hmdzl.spspd.change.items.food.completefood.Gel;
 import com.hmdzl.spspd.change.items.food.completefood.Hamburger;
@@ -107,6 +111,11 @@ import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
 import com.hmdzl.spspd.change.items.wands.WandOfMeteorite;
 import com.hmdzl.spspd.change.items.wands.WandOfTCloud;
+import com.hmdzl.spspd.change.items.weapon.guns.GunA;
+import com.hmdzl.spspd.change.items.weapon.guns.GunB;
+import com.hmdzl.spspd.change.items.weapon.guns.GunC;
+import com.hmdzl.spspd.change.items.weapon.guns.GunD;
+import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.melee.Club;
 import com.hmdzl.spspd.change.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.change.items.weapon.melee.Flute;
@@ -262,11 +271,11 @@ import com.watabou.utils.Random;
 public class Generator {
 
 	public static enum Category {
-		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),ARMOR(100, Armor.class),
+		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),
 		POTION(500, Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
 		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),
 		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(50, Food.class), BOMBS(20, Bomb.class),
-		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(1, Pill.class);
+		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(1, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class);
 
 		public Class<?>[] classes;
 		public float[] probs;
@@ -387,7 +396,18 @@ public class Generator {
 				1,1,1,1,
 				1,1,1,1,
 		};
-		
+
+		Category.GUNWEAPON.classes = new Class<?>[] {
+				GunA.class, GunB.class, GunC.class, GunD.class, GunE.class};
+		Category.GUNWEAPON.probs = new float[] {
+				1,1,1,1,1,
+		};
+
+		Category.MUSICWEAPON.classes = new Class<?>[] {
+				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class};
+		Category.MUSICWEAPON.probs = new float[] {
+				1,1,1,1,1,
+		};
 
 		Category.ARMOR.classes = new Class<?>[] {
 				ClothArmor.class, WoodenArmor.class, VestArmor.class,
@@ -464,12 +484,14 @@ public class Generator {
 				Hamburger.class,Herbmeat.class,Honeymeat.class,Honeyrice.class,
 				Icecream.class,Kebab.class,PerfectFood.class,Porksoup.class,
 				Ricefood.class,Vegetablekebab.class,Vegetablesoup.class,
-				Meatroll.class,Vegetableroll.class,HoneyGel.class,Gel.class,HoneyWater.class};
+				Meatroll.class,Vegetableroll.class,HoneyGel.class,Gel.class,HoneyWater.class,
+				Chocolate.class, FoodFans.class,Frenchfries.class};
 		Category.HIGHFOOD.probs = new float[] { 1,1,1,1,
 		1,1,1,1,
 		1,1,1,1,
 		1,1,1,
-		1,1,1,1,1};
+		1,1,1,1,1,
+		1,1,1};
 		Category.BOMBS.classes = new Class<?>[] { BuildBomb.class,DungeonBomb.class,
 				HugeBomb.class,MiniBomb.class,
 				FireBomb.class,IceBomb.class,EarthBomb.class,StormBomb.class,
@@ -488,6 +510,19 @@ public class Generator {
 				Powerpill.class, Shootpill.class, Smashpill.class
 		};
 		Category.PILL.probs = new float[] { 1,1,1,1,1,1};
+
+		Category.LINKDROP.classes = new Class<?>[] {
+				BuildBomb.class,DungeonBomb.class,
+				HugeBomb.class,MiniBomb.class, FireBomb.class,IceBomb.class,EarthBomb.class,StormBomb.class,
+				LightBomb.class,DarkBomb.class,FishingBomb.class,
+				EmpBola.class ,EscapeKnive.class,PoisonDart.class,Smoke.class,IncendiaryDart.class,Tamahawk.class,
+				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, NormalBomb.class,
+		};
+		Category.LINKDROP.probs = new float[] { 3,1,
+		1,1,1,1,1,1,
+		1,1,1,
+		1,1,1,1,1,1,
+		1,1,1,1,1,1};
 	}
 
 	public static void reset() {

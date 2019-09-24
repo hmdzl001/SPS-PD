@@ -26,6 +26,7 @@ import com.hmdzl.spspd.change.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.items.weapon.melee.special.WraithBreath;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.messages.Languages;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -760,7 +761,7 @@ public class DriedRose extends Artifact {
 						GameScene.selectItem(new WndBag.Listener() {
 							@Override
 							public void onSelect(Item item) {
-								if (!(item instanceof MeleeWeapon || item instanceof Boomerang)) {
+								if (!(item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof ManyKnive)) {
 									//do nothing, should only happen when window is cancelled
 								} else if (item.unique || item instanceof Boomerang) {
 									GLog.w( Messages.get(WndGhostHero.class, "cant_unique"));

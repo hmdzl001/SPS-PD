@@ -14,6 +14,7 @@ import com.hmdzl.spspd.change.items.weapon.guns.GunD;
 import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.change.items.weapon.guns.Sling;
@@ -39,6 +40,12 @@ private static Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 
 	@Override
 	public void onHit(Boomerang boomerang, Char attacker, Char defender, int damage) {
+		defender.damage((int)(Dungeon.gold*0.01*Random.Float(0.25f,2.0f)), attacker);
+
+		Dungeon.gold -= (int)(Dungeon.gold*0.01);
+	}
+	@Override
+	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
 		defender.damage((int)(Dungeon.gold*0.01*Random.Float(0.25f,2.0f)), attacker);
 
 		Dungeon.gold -= (int)(Dungeon.gold*0.01);

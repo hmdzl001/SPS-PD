@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.CorruptGas;
@@ -61,7 +62,8 @@ public abstract class PET extends NPC {
 		state = HUNTING;
 		enemy = null;
 		ally=true;
-		
+
+		properties.add(Property.MINIBOSS);
 		properties.add(Property.IMMOVABLE);
 	}
 
@@ -76,7 +78,6 @@ public abstract class PET extends NPC {
 	}
 	
 	public int level;
-	public int kills;
 	public int type;
 	public int experience;
 	public int cooldown;
@@ -92,7 +93,6 @@ public abstract class PET extends NPC {
 
 	 */
 	
-	private static final String KILLS = "kills";
 	private static final String LEVEL = "level";
 	private static final String TYPE = "type";
 	private static final String EXPERIENCE = "experience";
@@ -104,7 +104,6 @@ public abstract class PET extends NPC {
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(KILLS, kills);
 		bundle.put(LEVEL, level);
 		bundle.put(TYPE, type);
 		bundle.put(EXPERIENCE, experience);
@@ -116,7 +115,6 @@ public abstract class PET extends NPC {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		kills = bundle.getInt(KILLS);
 		level = bundle.getInt(LEVEL);
 		type = bundle.getInt(TYPE);
 		experience = bundle.getInt(EXPERIENCE);
@@ -181,14 +179,13 @@ public abstract class PET extends NPC {
 	public void die(Object cause) {
 		super.die(cause);	 
 		Dungeon.hero.haspet=false;
-		Dungeon.hero.petCount++;
+		Statistics.petDies++;
 	    GLog.n(Messages.get(this,"pet_died"));
 	}
 
 	@Override
 	protected Char chooseEnemy() {
 		if(enemy != null && !enemy.isAlive() && enemy instanceof Mob){
-			kills++;
 			experience+=((Mob)enemy).getExp();
 		}
 		
@@ -261,7 +258,7 @@ public abstract class PET extends NPC {
 		
 		  Dungeon.hero.petType=pet.type;
 		  Dungeon.hero.petLevel=pet.level;
-		  Dungeon.hero.petKills=pet.kills;	
+		   
 		  Dungeon.hero.petHP=pet.HP;
 		  Dungeon.hero.petExperience=pet.experience;
 		  Dungeon.hero.petCooldown=pet.cooldown;		

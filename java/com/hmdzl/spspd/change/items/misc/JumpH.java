@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.change.items.weapon.missiles.Smoke;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
@@ -49,7 +50,7 @@ import com.watabou.utils.Random;
 		image = ItemSpriteSheet.JUMP;
 		defaultAction = AC_JUMP;
 unique = true;
-		bones = false;
+		 
 	}
 	
 	private static int JUMP_TIME = 1;
@@ -110,40 +111,42 @@ unique = true;
 						Dungeon.level.press(dest, curUser);
 						Dungeon.observe();
 
-						for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-							Char mob = Actor.findChar(curUser.pos
-									+ Level.NEIGHBOURS8[i]);
+						//for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
+							//Char mob = Actor.findChar(curUser.pos
+									//+ Level.NEIGHBOURS8[i]);
+						//}
+						if (Random.Int(10) > 3 ){
+							Item proto = new EscapeKnive();
+
+							for (Mob mob : Dungeon.level.mobs) {
+								if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 7) && mob.isAlive()) {
+									Callback callback = new Callback() {
+										@Override
+										public void call() {
+											curUser.attack(targets.get(this));
+											targets.remove(this);
+											if (targets.isEmpty()) {
+												//curUser.spendAndNext(curUser.attackDelay());
+												curUser.spendAndNext(0f);
+											}
+										}
+									};
+
+									((MissileSprite) curUser.sprite.parent.recycle(MissileSprite.class)).reset(curUser.pos, mob.pos, proto, callback);
+
+									targets.put(callback, mob);
+								}
+							}
 						}
-						
 						CellEmitter.center(dest).burst(
 						Speck.factory(Speck.DUST), 10);
 						curUser.spendAndNext(JUMP_TIME);
 						charge -= 15;
 						updateQuickslot();
-						if (Random.Int(10) > 3 ){
-	               Item proto = new Smoke();
 
-	for (Mob mob : Dungeon.level.mobs) {
-		if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 7)) {
-				Callback callback = new Callback() {
-					@Override
-					public void call() {
-						curUser.attack(targets.get(this));
-						targets.remove(this);
-						if (targets.isEmpty()) {
-							//curUser.spendAndNext(curUser.attackDelay());
-							curUser.spendAndNext(0f);
-						}
-					}
-				};
-
-	    ((MissileSprite) curUser.sprite.parent.recycle(MissileSprite.class)).reset(curUser.pos,mob.pos, proto, callback);
-
-		targets.put(callback, mob);
-	    }
 	}
-}
-						}
+
+
 				    });
 			    }
 			}

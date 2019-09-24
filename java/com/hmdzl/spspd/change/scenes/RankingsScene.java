@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.scenes;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Rankings;
+import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.ShatteredPixelDungeon;
 import com.hmdzl.spspd.change.effects.Flare;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -127,7 +128,11 @@ public class RankingsScene extends PixelScene {
 				won.x = label.x + label.width();
 				total.x = won.x + won.width();
 				label.y = won.y = total.y = align(h - label.height() - GAP);
-
+				
+		        align(label);
+				align(total);
+				align(won);
+				
 			}
 
 		} else {
@@ -190,7 +195,7 @@ public class RankingsScene extends PixelScene {
 				position.text(" ");
 			position.measure();
 
-			desc.text(Messages.titleCase(rec.info));
+			desc.text(Messages.titleCase(Messages.get(ResultDescriptions.class,rec.info)));
 
 
 			int odd = pos % 2;

@@ -34,7 +34,7 @@ public class Honey extends Food {
 	{
 		//name = "Honey";
 		image = ItemSpriteSheet.POTION_HONEY;
-		bones = true;
+		 
 		energy = 50;
 		hornValue = 0;
 	}

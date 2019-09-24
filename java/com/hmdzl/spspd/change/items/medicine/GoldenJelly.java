@@ -34,7 +34,7 @@ public class GoldenJelly extends Pill {
 	{
 		//name = "golden jelly mushroom";
 		image = ItemSpriteSheet.MUSHROOM_GOLDENJELLY;
-		bones = false;
+		 
 	}
 
 	@Override

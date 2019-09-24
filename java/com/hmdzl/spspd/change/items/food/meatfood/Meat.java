@@ -33,7 +33,7 @@ public class Meat extends MeatFood {
 		image = ItemSpriteSheet.MEAT;
 		energy = 100;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	@Override

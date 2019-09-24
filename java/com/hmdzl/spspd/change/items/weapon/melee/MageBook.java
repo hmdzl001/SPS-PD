@@ -51,7 +51,7 @@ public class MageBook extends MeleeWeapon {
 	{
 		//name = "Mage Book";
 		image = ItemSpriteSheet.MAGEBOOK;
-		bones = false;
+		 
 		usesTargeting = true;
 	}
 

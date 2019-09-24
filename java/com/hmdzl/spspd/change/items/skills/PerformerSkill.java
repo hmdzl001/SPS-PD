@@ -17,41 +17,36 @@
  */
 package com.hmdzl.spspd.change.items.skills;
 
-import java.util.HashMap;
-
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.buffs.Amok;
 import com.hmdzl.spspd.change.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.change.actors.buffs.AttackUp;
-import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Blindness;
 import com.hmdzl.spspd.change.actors.buffs.Charm;
 import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.change.actors.buffs.FireImbue;
 import com.hmdzl.spspd.change.actors.buffs.Haste;
-import com.hmdzl.spspd.change.actors.buffs.Ooze;
-import com.hmdzl.spspd.change.actors.buffs.Roots;
-import com.hmdzl.spspd.change.actors.buffs.Slow;
-import com.hmdzl.spspd.change.actors.hero.Hero;
-import com.hmdzl.spspd.change.actors.hero.HeroAction;
-import com.hmdzl.spspd.change.actors.hero.HeroClass;
+import com.hmdzl.spspd.change.actors.buffs.HighVoice;
+import com.hmdzl.spspd.change.actors.buffs.Rhythm;
+import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
+import com.hmdzl.spspd.change.actors.buffs.WarGroove;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
-import com.hmdzl.spspd.change.actors.buffs.MindVision;
-import com.hmdzl.spspd.change.actors.buffs.EarthImbue;
-import com.hmdzl.spspd.change.actors.buffs.Awareness;
-import com.hmdzl.spspd.change.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.effects.Speck;
+import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.armor.Armor;
+import com.hmdzl.spspd.change.items.artifacts.Artifact;
+import com.hmdzl.spspd.change.items.rings.Ring;
+import com.hmdzl.spspd.change.items.wands.Wand;
+import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.levels.Level;
+import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.change.sprites.MissileSprite;
-import com.hmdzl.spspd.change.utils.GLog;
 import com.hmdzl.spspd.change.messages.Messages;
-import com.watabou.utils.Callback;
+import com.hmdzl.spspd.change.windows.WndBag;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
-import com.watabou.utils.Random;
 import com.watabou.noosa.audio.Sample;
 
 public class PerformerSkill extends ClassSkill {
@@ -64,35 +59,6 @@ public class PerformerSkill extends ClassSkill {
 	@Override
 	public void doSpecial() {
 
-		/*Item proto = new Shuriken();
-
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos]) {
-
-				Callback callback = new Callback() {
-					@Override
-					public void call() {
-						curUser.attack(targets.get(this));
-						targets.remove(this);
-						if (targets.isEmpty()) {
-							curUser.spendAndNext(curUser.attackDelay());
-						}
-					}
-				};
-
-				((MissileSprite) curUser.sprite.parent
-						.recycle(MissileSprite.class)).reset(curUser.pos,
-						mob.pos, proto, callback);
-
-				targets.put(callback, mob);
-			}
-		}
-
-		if (targets.size() == 0) {
-			GLog.w(TXT_NO_ENEMIES);
-			return;
-		}*/
-
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos]) {
 				Buff.affect(mob, Charm.class,Charm.durationFactor(mob)*5f).object = curUser.id();
@@ -102,7 +68,7 @@ public class PerformerSkill extends ClassSkill {
 				Buff.prolong(mob, ArmorBreak.class, 20f).level(50);
 			}
 		}
-		curUser.HP -= (curUser.HP / 2);
+		charge += 20;
 		Buff.affect(curUser, DefenceUp.class,10).level(25);
 		Buff.affect(curUser, AttackUp.class,10).level(25);
         curUser.spend(Actor.TICK);
@@ -111,6 +77,192 @@ public class PerformerSkill extends ClassSkill {
 
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
+	}
+	
+	@Override
+	public void doSpecial2() {
+
+		int DMG = Dungeon.hero.lvl;
+
+		if (curUser.buff(Rhythm.class) != null) {
+			DMG = (int)(DMG*1.5);
+			Buff.detach(curUser, Rhythm.class);
 		}
+		if (curUser.buff(Rhythm2.class) != null) {
+			DMG = (int)(DMG*1.5);
+			Buff.detach(curUser, Rhythm2.class);
+		}
+		if (curUser.buff(WarGroove.class) != null) {
+			DMG = (int)(DMG*1.5);
+			Buff.detach(curUser, WarGroove.class);
+		}
+
+		for (Mob mob : Dungeon.level.mobs) {
+			if (Level.fieldOfView[mob.pos]) {
+				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
+				mob.damage(Math.min(DMG,mob.HP - 10),this);
+				Buff.prolong(mob, Blindness.class, 10f);
+			}
+		}
+		charge += 20;
+
+        curUser.spend(Actor.TICK);
+		curUser.sprite.operate(curUser.pos);
+		curUser.busy();
+		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
+		Sample.INSTANCE.play(Assets.SND_READ);
+	}
+
+	@Override
+	public void doSpecial3() {
+		charge += 20;
+		GameScene.selectItem(itemSelector, WndBag.Mode.TRANMSUTABLE, Messages.get(PerformerSkill.class, "prompt"));
+	}
+
+	@Override
+	public void doSpecial4() {
+
+		charge +=10;
+
+		Buff.affect(curUser, HighVoice.class,100);
+		curUser.spend(Actor.TICK);
+		curUser.sprite.operate(curUser.pos);
+		curUser.busy();
+
+		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
+		Sample.INSTANCE.play(Assets.SND_READ);
+	}
+
+	private final WndBag.Listener itemSelector = new WndBag.Listener() {
+		@Override
+		public void onSelect(Item item) {
+			curUser = Dungeon.hero;
+			Item result;
+			if (item != null) {
+				if (item instanceof MeleeWeapon) {
+					result = changeWeapon((MeleeWeapon) item);
+				} else if (item instanceof Armor) {
+					result = changeArmor((Armor) item);
+				} else if (item instanceof Ring) {
+					result = changeRing((Ring) item);
+				} else if (item instanceof Wand) {
+					result = changeWand((Wand) item);
+				} else if (item instanceof Artifact) {
+					result = changeArtifact((Artifact) item);
+				} else {
+					result = null;
+				}
+				item.detach(Dungeon.hero.belongings.backpack);
+				Dungeon.level.drop(result, Dungeon.hero.pos).sprite.drop();
+			}
+		}
+	  };
+		private MeleeWeapon changeWeapon(MeleeWeapon w) {
+
+			MeleeWeapon n;
+			do {
+				n = (MeleeWeapon) Generator.random(Generator.Category.MELEEWEAPON);
+			} while (n.getClass() == w.getClass());
+
+			n.level = 0;
+
+			int level = w.level;
+			if (level > 0) {
+				n.upgrade(level);
+			} else if (level < 0) {
+				n.degrade(-level);
+			}
+
+			n.enchantment = w.enchantment;
+			n.reinforced = w.reinforced;
+			n.levelKnown = w.levelKnown;
+			n.cursedKnown = w.cursedKnown;
+			n.cursed = w.cursed;
+
+			return n;
+
+		}
+
+		private Armor changeArmor(Armor r) {
+			Armor n;
+			do {
+				n = (Armor) Generator.random(Generator.Category.ARMOR);
+			} while (n.getClass() == r.getClass());
+
+			n.level = 0;
+
+			int level = r.level;
+			if (level > 0) {
+				n.upgrade(level);
+			} else if (level < 0) {
+				n.degrade(-level);
+			}
+			n.glyph = r.glyph;
+			n.reinforced = r.reinforced;
+			n.levelKnown = r.levelKnown;
+			n.cursedKnown = r.cursedKnown;
+			n.cursed = r.cursed;
+
+			return n;
+		}
+
+
+		private Ring changeRing(Ring r) {
+			Ring n;
+			do {
+				n = (Ring) Generator.random(Generator.Category.RING);
+			} while (n.getClass() == r.getClass());
+
+			n.level = 0;
+
+			int level = r.level;
+			if (level > 0) {
+				n.upgrade(level);
+			} else if (level < 0) {
+				n.degrade(-level);
+			}
+			n.reinforced = r.reinforced;
+			n.levelKnown = r.levelKnown;
+			n.cursedKnown = r.cursedKnown;
+			n.cursed = r.cursed;
+
+			return n;
+		}
+
+		private Artifact changeArtifact(Artifact a) {
+			Artifact n;
+			do {
+				n = (Artifact) Generator.random(Generator.Category.ARTIFACT);
+			} while (n.getClass() == a.getClass());
+
+			if (n != null) {
+				n.cursedKnown = a.cursedKnown;
+				n.cursed = a.cursed;
+				n.levelKnown = a.levelKnown;
+				n.transferUpgrade(a.visiblyUpgraded());
+			}
+
+			return n;
+		}
+
+		private Wand changeWand(Wand w) {
+
+			Wand n;
+			do {
+				n = (Wand) Generator.random(Generator.Category.WAND);
+			} while (n.getClass() == w.getClass());
+
+			n.level = 0;
+			n.updateLevel();
+			n.upgrade(w.level);
+
+			n.reinforced = w.reinforced;
+			n.levelKnown = w.levelKnown;
+			n.cursedKnown = w.cursedKnown;
+			n.cursed = w.cursed;
+
+			return n;
+		}
+
 }
 

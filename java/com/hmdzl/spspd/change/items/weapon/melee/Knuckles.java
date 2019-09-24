@@ -44,10 +44,10 @@ public class Knuckles extends MeleeWeapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-		if (DLY > 0.20f){
+		if (DLY > 0.40f){
 		DLY-=0.05f;
 		}
-        if (DLY < 0.70f && RCH < 2){
+        if (DLY < 0.45f && RCH < 2){
 		RCH ++;
 		}
 		MIN+=1;
@@ -59,7 +59,7 @@ public class Knuckles extends MeleeWeapon {
     @Override
     public void proc(Char attacker, Char defender, int damage) {
 
-		if (Random.Int(100) < 50) {
+		if (Random.Int(100) < 70) {
 			Buff.affect(defender, Cripple.class, 3);
 		}		
 		if (enchantment != null) {

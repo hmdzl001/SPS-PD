@@ -42,13 +42,13 @@ public class MultiplelayerArmor extends NormalArmor {
 	}
 
 	public MultiplelayerArmor() {
-		super(4,0.4f,-0.5f,1);
+		super(4,0.4f,-0.5f,3);
 	}
 
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN += 1;
-		MAX += 2;
+		MAX += 1;
 		return super.upgrade(hasglyph);
 	}
 }

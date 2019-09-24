@@ -28,7 +28,7 @@ public class Magicpill extends Pill {
 	{
 		//name = "magicpill";
 		image = ItemSpriteSheet.PILL_MIG;
-		bones = false;
+		 
 	}
 
 	@Override

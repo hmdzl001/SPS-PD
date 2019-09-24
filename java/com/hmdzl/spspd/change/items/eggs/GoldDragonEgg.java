@@ -247,7 +247,7 @@ public class GoldDragonEgg extends Egg {
 		
 		  Dungeon.hero.petType=pet.type;
 		  Dungeon.hero.petLevel=pet.level;
-		  Dungeon.hero.petKills=pet.kills;	
+		   
 		  Dungeon.hero.petHP=pet.HP;
 		  Dungeon.hero.petExperience=pet.experience;
 		  Dungeon.hero.petCooldown=pet.cooldown;		

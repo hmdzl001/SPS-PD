@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Silent;
+import com.hmdzl.spspd.change.items.ArmorKit;
 import com.hmdzl.spspd.change.items.TenguKey;
 import com.hmdzl.spspd.change.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.change.items.wands.WandOfLight;
@@ -101,7 +102,7 @@ public class Tengu extends Mob {
 		GameScene.bossSlain();	
 	    Badges.validateBossSlain();	
 	    ((PrisonBossLevel) Dungeon.level).unseal();
-	    Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();	
+	    Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
 		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		
 		Dungeon.level.drop(new TenguKey(), pos).sprite.drop();

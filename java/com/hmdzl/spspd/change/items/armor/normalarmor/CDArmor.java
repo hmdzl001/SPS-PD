@@ -37,13 +37,12 @@ public class CDArmor extends NormalArmor {
 		//name = "cd armor";
 		image = ItemSpriteSheet.CD_ARMOR;
 		STR -= 1;
-		STR -= 1;
 		MAX = 15;
 		MIN = 0;
 	}
 
 	public CDArmor() {
-		super(3,3.2f,8f,1);
+		super(3,3.2f,8f,3);
 	}
 
 	@Override

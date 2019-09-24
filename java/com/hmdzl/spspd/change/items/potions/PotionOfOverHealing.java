@@ -32,7 +32,7 @@ public class PotionOfOverHealing extends Potion {
 	{
 		//name = "Potion of Life";
         initials = 10;
-		bones = true;
+		 
 	}
 
 	@Override

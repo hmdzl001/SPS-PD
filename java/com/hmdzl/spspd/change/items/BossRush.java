@@ -86,13 +86,7 @@ public class BossRush extends Item {
 
 		if (action == AC_PORT) {
 
-			if (hero.petfollow) {
-				hero.spend(TIME_TO_USE);
-				GLog.w(Messages.get(Item.class, "not_here"));
-				return;
-			}
-			
-			if (Dungeon.depth!=specialLevel && Dungeon.depth>26) {
+			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 || hero.petfollow) && Dungeon.depth!=specialLevel) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
 				return;
@@ -111,7 +105,7 @@ public class BossRush extends Item {
 				if (buff != null)
 					buff.detach();
 
-              if (Dungeon.depth<27){
+              if (Dungeon.depth<25 && !Dungeon.bossLevel()){
             	returnDepth = Dungeon.depth;
        			returnPos = hero.pos;
 				InterlevelScene.mode = InterlevelScene.Mode.BOSSRUSH;

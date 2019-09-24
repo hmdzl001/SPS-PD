@@ -54,7 +54,7 @@ public class Boomerang extends MissileWeapon {
 		unique = true;
 		reinforced = true;
 
-		bones = false;
+		 
 	}
 
 	public Boomerang() {
@@ -95,7 +95,6 @@ public class Boomerang extends MissileWeapon {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
-		if (!isEquipped(hero)) actions.add(AC_EQUIP);
 		actions.add(AC_AMMO);
 		return actions;
 	}
@@ -147,22 +146,14 @@ public class Boomerang extends MissileWeapon {
 
 		((MissileSprite) curUser.sprite.parent.recycle(MissileSprite.class))
 				.reset(from, curUser.pos, curItem, null);
-
-		if (throwEquiped) {
-			owner.belongings.weapon = this;
-			owner.spend(-TIME_TO_EQUIP);
-			Dungeon.quickslot.replaceSimilar(this);
-			updateQuickslot();
-		} else if (!collect(curUser.belongings.backpack)) {
+				
+		if (!collect(curUser.belongings.backpack)) {
 			Dungeon.level.drop(this, owner.pos).sprite.drop();
 		}
 	}
 
-	private boolean throwEquiped;
-
 	@Override
 	public void cast(Hero user, int dst) {
-		throwEquiped = isEquipped(user);
 		super.cast(user, dst);
 	}
 

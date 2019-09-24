@@ -22,6 +22,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.levels.Level;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;

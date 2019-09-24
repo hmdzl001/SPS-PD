@@ -43,13 +43,13 @@ public class WoodenArmor extends NormalArmor {
 	}
 
 	public WoodenArmor() {
-		super(1,1f,1f,1);
+		super(1,1f,1f,2);
 	}
 
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN += 1;
-		MAX += 1;
+		//MAX += 0;
 		return super.upgrade(hasglyph);
 	}
 }

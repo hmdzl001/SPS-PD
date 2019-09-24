@@ -58,6 +58,7 @@ import com.hmdzl.spspd.change.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.StoneOre;
+import com.hmdzl.spspd.change.items.TomeOfMastery;
 import com.hmdzl.spspd.change.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.change.items.bombs.DangerousBomb;
 import com.hmdzl.spspd.change.items.eggs.EasterEgg;
@@ -249,7 +250,8 @@ public class Hybrid extends Mob {
 			badgeToCheck = Badge.MASTERY_SOLDIER;
 			break;				
 		}
-	
+		
+		Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
 	    Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
 		yell(Messages.get(this,"die"));
 		

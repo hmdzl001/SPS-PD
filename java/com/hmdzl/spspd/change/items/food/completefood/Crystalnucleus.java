@@ -27,7 +27,7 @@ public class Crystalnucleus extends CompleteFood {
 		image = ItemSpriteSheet.NORNORANGE;
 		energy = 1;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	@Override

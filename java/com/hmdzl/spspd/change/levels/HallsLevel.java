@@ -85,7 +85,7 @@ public class HallsLevel extends RegularLevel {
 		return new Class[]{ BlazingTrap.class, DisintegrationTrap.class, FrostTrap.class, SpearTrap.class, VenomTrap.class, StormTrap.class,
 				ExplosiveTrap.class, GrippingTrap.class, LightningTrap.class, OozeTrap.class, WeakeningTrap.class,
 				CursingTrap.class, FlockTrap.class, GrimTrap.class, GuardianTrap.class, SummoningTrap.class, TeleportationTrap.class,
-				DisarmingTrap.class, DistortionTrap.class};
+				DisarmingTrap.class};
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class HallsLevel extends RegularLevel {
 		return new float[]{ 8, 8, 8, 8, 8, 8,
 				4, 4, 4, 4, 4,
 				2, 2, 2, 2, 2, 2,
-				1, 1 };
+				1};
 	}	
 
 	@Override

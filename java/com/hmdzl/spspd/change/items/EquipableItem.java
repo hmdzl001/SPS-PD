@@ -32,7 +32,7 @@ public abstract class EquipableItem extends Item {
 	public static final String AC_UNEQUIP = "UNEQUIP";
 
 	{
-		bones = true;
+
 	}
 
 	@Override

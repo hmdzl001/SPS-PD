@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.items.weapon.missiles;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
+import com.hmdzl.spspd.change.actors.buffs.Poison;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -49,7 +50,8 @@ public class PoisonDart extends MissileWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		Buff.prolong(defender, Paralysis.class, 30);
+		Buff.affect(defender, Poison.class).set(
+				Poison.durationFactor(defender) * (10));
 		super.proc(attacker, defender, damage);
 	}
 

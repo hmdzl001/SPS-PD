@@ -29,7 +29,7 @@ public class Fruitsalad extends CompleteFood {
 		image = ItemSpriteSheet.FRUITSALAD;
 		energy = 130;
 		hornValue = 3;
-		bones = false;
+		 
 	}
 
 	@Override

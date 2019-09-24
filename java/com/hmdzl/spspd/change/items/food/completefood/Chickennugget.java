@@ -27,7 +27,6 @@ public class Chickennugget extends CompleteFood {
 		image = ItemSpriteSheet.CHICKENNUGGET;
 		energy = 170;
 		hornValue = 3;
-		bones = false;
 	}
 
 	@Override

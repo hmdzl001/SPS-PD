@@ -34,7 +34,7 @@ public class EscapeKnive extends MissileWeapon {
 		MIN = 5;
 		MAX = 10;
 
-		bones = false; // Finding them in bones would be semi-frequent and
+		  // Finding them in bones would be semi-frequent and
 						// disappointing.
 	}
 

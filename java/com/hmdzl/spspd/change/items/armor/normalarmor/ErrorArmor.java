@@ -50,20 +50,19 @@ public class ErrorArmor extends NormalArmor {
 	{
 		//name = "error armor";
 		image = ItemSpriteSheet.ERROR_ARMOR;
-		bones = false; 
 		STR = 0;
 		MAX = 0;
 		MIN = 0;
 	}
 
 	public ErrorArmor() {
-		super(0,1f,1f,1);
+		super(0,1f,1f,10);
 	}
 
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN --;
-        MAX-=3;
+        MAX-=2;
 
 		return super.upgrade(hasglyph);
 	}

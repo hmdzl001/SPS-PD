@@ -42,7 +42,7 @@ public class ProtectiveclothingArmor extends NormalArmor {
 	}
 
 	public ProtectiveclothingArmor() {
-		super(5,2.4f,4f,1);
+		super(5,2.4f,4f,3);
 	}
 
 	@Override

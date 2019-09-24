@@ -31,10 +31,15 @@ import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.items.Torch;
+import com.hmdzl.spspd.change.items.food.ToastedNut;
 import com.hmdzl.spspd.change.items.food.WaterItem;
 import com.hmdzl.spspd.change.items.Weightstone;
 import com.hmdzl.spspd.change.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.change.items.bombs.BuildBomb;
+import com.hmdzl.spspd.change.items.food.completefood.Chocolate;
+import com.hmdzl.spspd.change.items.food.completefood.FoodFans;
+import com.hmdzl.spspd.change.items.food.completefood.Frenchfries;
+import com.hmdzl.spspd.change.items.food.staplefood.NormalRation;
 import com.hmdzl.spspd.change.items.medicine.BlueMilk;
 import com.hmdzl.spspd.change.items.medicine.DeathCap;
 import com.hmdzl.spspd.change.items.medicine.Earthstar;
@@ -100,6 +105,7 @@ import com.hmdzl.spspd.change.items.weapon.spammo.StarAmmo;
 import com.hmdzl.spspd.change.items.weapon.spammo.StormAmmo;
 import com.hmdzl.spspd.change.items.weapon.spammo.SunAmmo;
 import com.hmdzl.spspd.change.items.weapon.spammo.ThornAmmo;
+import com.hmdzl.spspd.change.items.weapon.spammo.WoodenAmmo;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.plants.BlandfruitBush;
 import com.hmdzl.spspd.change.plants.Blindweed;
@@ -385,12 +391,7 @@ public class WndAlchemy extends Window {
 		} else if (blandfruits.size() == 1 && seeds.size() == 1) {
 			result = fruits.get(0);
 			((Blandfruit)result).cook(seeds.get(0));
-		} else if (nut.size() == 2 && water.size() == 1){
-			result = new PetFood();
-		} else if (honeypot.size() == 1 || shatteredpot.size() == 1) {
-			result = new Honey();
-		} else if (honey.size() == 1  &&  water.size() == 1 && iceseed.size() == 1 ){
-			result = new Icecream();
+
 		} else if (honey.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && seeds.size() == 1 ){
 			result = new PerfectFood();
 		} else if (vegetables.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && fruits.size() == 1 ){
@@ -427,6 +428,13 @@ public class WndAlchemy extends Window {
 		} else if (water.size() ==1  && vegetables.size() == 1 && mossseed.size() ==1 ){
 			result = new DeathCap();
 
+		} else if (honeypot.size() == 1 || shatteredpot.size() == 1) {
+			result = new Honey();
+		} else if (honey.size() == 1  &&  water.size() == 1 && iceseed.size() == 1 ){
+			result = new Icecream();
+
+		} else if (nut.size() == 2 && water.size() == 1){
+			result = new PetFood();
 		} else if (meatfoods.size() ==1  && water.size() == 1 && vegetables.size() ==1 ){
 			result = new Porksoup();
 		} else if ( ore.size() == 1 && water.size() == 2 && seeds.size() == 1 && fruits.size() == 1){
@@ -457,8 +465,16 @@ public class WndAlchemy extends Window {
 			result = new Vegetableroll();
 		} else if ( ore.size() == 1 && water.size() == 1 ){
 			result = new Gel();
+		} else if ( nut.size() == 5 ){
+			result = new Chocolate();
+		} else if ( nut.size() == 4 ){
+			result = new NormalRation();
 		} else if ( nut.size() == 3 ){
 			result = new OverpricedRation();
+		} else if ( nut.size() == 2 && potions.size()==1){
+			result = new FoodFans();
+		} else if ( nut.size() == 2 && scrolls.size()==1){
+			result = new Frenchfries();
 		} else if ( honey.size() == 1 && gels.size() == 1 ){
 			result = new HoneyGel();
 
@@ -471,6 +487,8 @@ public class WndAlchemy extends Window {
 
         } else if ( ore.size() == 2 ){
             result = new HeavyAmmo();
+		} else if ( ore.size() == 1 && nut.size()==1){
+			result = new WoodenAmmo();
         } else if ( ore.size() == 1 && fireseed.size() == 1 ){
             result = new FireAmmo();
         } else if ( ore.size() == 1 && iceseed.size() == 1 ){
@@ -507,6 +525,8 @@ public class WndAlchemy extends Window {
 			result = new Weightstone();
 		} else if ( gels.size() == 1  ){
 			result = new Torch();
+		} else if ( nut.size() == 1  ){
+			result = new ToastedNut();
 	} else result = new Garbage();
 
 		if (result != null){

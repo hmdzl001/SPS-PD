@@ -41,9 +41,13 @@ import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.change.actors.buffs.FireImbue;
 import com.hmdzl.spspd.change.actors.buffs.Frost;
+import com.hmdzl.spspd.change.actors.buffs.FrostImbue;
 import com.hmdzl.spspd.change.actors.buffs.GlassShield;
 import com.hmdzl.spspd.change.actors.buffs.Haste;
+import com.hmdzl.spspd.change.actors.buffs.HighAttack;
+import com.hmdzl.spspd.change.actors.buffs.HighVoice;
 import com.hmdzl.spspd.change.actors.buffs.Hot;
+import com.hmdzl.spspd.change.actors.buffs.MechArmor;
 import com.hmdzl.spspd.change.actors.buffs.Needling;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
@@ -70,11 +74,13 @@ import com.hmdzl.spspd.change.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.change.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.change.actors.buffs.Wet;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroAction;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
 import com.hmdzl.spspd.change.actors.mobs.Yog;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Lightning;
+import com.hmdzl.spspd.change.effects.Pushing;
 import com.hmdzl.spspd.change.effects.particles.PoisonParticle;
 import com.hmdzl.spspd.change.items.artifacts.CloakOfShadows;
 import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
@@ -194,6 +200,11 @@ public abstract class Char extends Actor {
 			if (atkdown != null) {
 				dmg *=(1f-atkdown.level()*0.01f);
 			}			
+			
+			MechArmor marmor = buff(MechArmor.class);
+			if (marmor != null) {
+				dmg *=1.3f;
+			}					
 
 			int effectiveDamage = Math.max(dmg - dr, 1);
 
@@ -228,6 +239,8 @@ public abstract class Char extends Actor {
 				buff(EarthImbue.class).proc(enemy);
 			if (buff(BloodImbue.class) != null)
 				buff(BloodImbue.class).proc(enemy);
+			if (buff(FrostImbue.class) != null)
+				buff(FrostImbue.class).proc(enemy);
 			if (buff(Needling.class) != null)
 				buff(Needling.class).proc(enemy);			
 
@@ -272,6 +285,7 @@ public abstract class Char extends Actor {
 		if (defender.buff(Wet.class) != null) defRoll *= 0.90f;
 		if (attacker.buff(Rhythm.class) != null) acuRoll *= 3.00f;
 		if (defender.buff(Rhythm.class) != null) defRoll *= 1.50f;
+		if (defender.buff(HighAttack.class) != null) defRoll *= 1.20f;
 		return (magic ? acuRoll * 2 : acuRoll) >= defRoll;
 	}
 
@@ -305,6 +319,10 @@ public abstract class Char extends Actor {
 			arcs.add(new Lightning.Arc(pos - 1, pos + 1));
 			sprite.parent.add( new Lightning( arcs, null ) );
 		}
+		if (buff(HighVoice.class)!=null &&  Random.Int(5) == 0){
+			Buff.affect(this, AttackUp.class,8f).level(30);
+			GLog.p(Messages.get(HighVoice.class,"atkup",Dungeon.hero.givenName()));
+		}
 		return damage;
 	}
 
@@ -321,6 +339,8 @@ public abstract class Char extends Actor {
 			return baseSpeed * 0.9f;
 		} else if (buff(BloodAngry.class) != null) {
 			return baseSpeed * 1.2f;
+		} else if (buff(MechArmor.class) != null) {
+			return baseSpeed * 1.5f;
 		} else	{
 			return baseSpeed;
 		}
@@ -358,7 +378,11 @@ public abstract class Char extends Actor {
 			dmg = sarmor.absorb(dmg);
 		}
 
-
+		MechArmor marmor = buff(MechArmor.class);
+		if (marmor != null) {
+			dmg = marmor.absorb(dmg);
+		}
+		
 		if (HP <= 0 || dmg < 0) {
 			return;
 		}
@@ -559,6 +583,10 @@ public abstract class Char extends Actor {
 		return 0;
 	}
 
+	public int energybase() {
+		return 0;
+	}
+	
 	public void move(int step) {
 
 		if (Level.adjacent(step, pos) && buff(Vertigo.class) != null) {

@@ -32,7 +32,7 @@ public class Nut extends Food {
 		energy = 10;
 		//message = "Crunch Crunch.";
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	@Override

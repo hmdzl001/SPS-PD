@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.change.items.challengelists;
 
+import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
@@ -27,14 +28,14 @@ public class WisdomChallenge extends ChallengeList {
 	{
 		//name = "journal page sokoban practice";
 		image = ItemSpriteSheet.WISDOMTRIAL;
-		room=6;
+		room=7;
 
 		stackable = false;
 	}
 	
 	@Override
 	public int price() {
-		if (!Statistics.amuletObtained){return 9000 * quantity;}
+		if (Statistics.deepestFloor < 26){return 9000 * quantity;}
 		else {return 600*quantity;}
 	}	
 }

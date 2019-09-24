@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.Bones;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
@@ -239,14 +238,6 @@ public class SewerBossLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
-		Item item = Bones.get();
-		if (item != null) {
-			int pos;
-			do {
-				pos = roomEntrance.random();
-			} while (pos == entrance || map[pos] == Terrain.SIGN);
-			drop(item, pos).type = Heap.Type.REMAINS;
-		}
 	}
 	
 	@Override

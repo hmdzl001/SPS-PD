@@ -45,7 +45,7 @@ import com.watabou.noosa.audio.Sample;
 		image = ItemSpriteSheet.SHIELD;
 		defaultAction = AC_DEFENCE;
         unique = true;
-		bones = false;
+		 
 	}
 	
 	private static final String AC_DEFENCE = "DEFENCE";

@@ -27,6 +27,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.AflyBless;
 import com.hmdzl.spspd.change.actors.buffs.Amok;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Dewcharge;
@@ -37,11 +38,13 @@ import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.change.actors.buffs.Sleep;
 import com.hmdzl.spspd.change.actors.buffs.SoulMark;
+import com.hmdzl.spspd.change.actors.buffs.SpAttack;
 import com.hmdzl.spspd.change.actors.buffs.Taunt;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.change.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.change.effects.Pushing;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.Surprise;
@@ -95,7 +98,7 @@ public abstract class Mob extends Char {
 	protected int evadeSkill = 0;
 
 	protected int EXP = 1;
-	protected int maxLvl = 30;
+	protected int maxLvl = 100;
 	protected int dewLvl = 1;
 
 	protected Char enemy;
@@ -196,11 +199,28 @@ public abstract class Mob extends Char {
 		}
 
 		enemy = chooseEnemy();
-		
+
+		if (!(this instanceof NPC)){
+			if (enemy != null) {
+				ArrayList<Integer> candidates = new ArrayList<Integer>();
+				for (int n : Level.NEIGHBOURS8) {
+					int cell = enemy.pos + n;
+					if ((Level.passable[cell] || Level.avoid[cell])) {
+						candidates.add(cell);
+					}
+				}
+				if (candidates.size() > 0 && this.pos == enemy.pos) {
+					int newPos = Random.element(candidates);
+					Actor.addDelayed(new Pushing(enemy, enemy.pos, newPos), -1);
+					enemy.pos = newPos;
+				}
+			}
+		}
 		boolean enemyInFOV = enemy != null && enemy.isAlive()
 				&& Level.fieldOfView[enemy.pos] && enemy.invisible<=0 ;
 
 		return state.act(enemyInFOV, justAlerted);
+
 	}
 
 	protected Char chooseEnemy() {
@@ -414,8 +434,18 @@ public abstract class Mob extends Char {
 			} else {
 				Surprise.hit(this);
 			}
+		} 
+
+		SpAttack spatk = enemy.buff(SpAttack.class);
+
+		if (HP == HT && spatk != null) {
+				damage *= 3f;
+		} 
+
+		if (HP < HT/4 && spatk != null) {
+			damage *= 1.5f;
 		}
-		
+
 		if (buff(SoulMark.class) != null) {
 			int restoration = Math.max(damage, HP);
 			Dungeon.hero.buff(Hunger.class).satisfy(restoration*0.5f);
@@ -505,12 +535,14 @@ public abstract class Mob extends Char {
 			//Buff.affect(Dungeon.hero,GlassShield.class).turns(3)
 		}
 	
-			//if (Dungeon.hero.lvl <= maxLvl && EXP > 0) {
-		if (EXP > 0) {	
-
+		if (Dungeon.hero.lvl <= maxLvl && EXP > 0) {
 			Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "exp", EXP));
 			Dungeon.hero.earnExp(EXP);
-		}
+		} else if (EXP > 0) {
+			EXP = 1;
+			Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "exp", EXP));
+			Dungeon.hero.earnExp(EXP);
+		   }
 		}
 	}
 	
@@ -570,6 +602,9 @@ public abstract class Mob extends Char {
 		}
 		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
 			bonus += 5;
+		if (Dungeon.hero.buff(AflyBless.class)!=null) {
+			bonus += 5;
+		}		
 		
 		lootChance += 0.02*bonus;
 		lootChanceOther += 0.02*bonus;

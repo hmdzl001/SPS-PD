@@ -118,7 +118,7 @@ public class PocketBallFull extends Item {
     @Override
     public ArrayList<String> actions(Hero hero) {
         ArrayList<String> actions = super.actions(hero);
-        if (Dungeon.hero.haspet == false){
+        if (Dungeon.hero.haspet == false & Dungeon.depth < 26){
         actions.add(AC_USE);}
         return actions;
     }

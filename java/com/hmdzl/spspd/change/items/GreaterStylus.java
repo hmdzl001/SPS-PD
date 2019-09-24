@@ -44,7 +44,7 @@ public class GreaterStylus extends Item {
 
 		stackable = true;
 
-		bones = true;
+		 
 	}
 
 	@Override

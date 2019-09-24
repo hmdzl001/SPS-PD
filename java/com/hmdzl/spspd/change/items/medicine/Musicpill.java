@@ -33,7 +33,7 @@ public class Musicpill extends Pill {
 	{
 		//name = "speedpill";
 		image = ItemSpriteSheet.PILL_MUC;
-		bones = false;
+		 
 	}
 
 	@Override

@@ -27,14 +27,14 @@ public class CourageChallenge extends ChallengeList {
 	{
 		//name = "journal page sokoban practice";
 		image = ItemSpriteSheet.COURAGETRIAL;
-		room=4;
+		room=5;
 
 		stackable = false;
 	}
 	
 	@Override
 	public int price() {
-		if (!Statistics.amuletObtained){return 9000 * quantity;}
+		if (Statistics.deepestFloor < 26){return 9000 * quantity;}
 		else {return 300*quantity;}
 	}	
 }

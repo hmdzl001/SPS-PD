@@ -30,7 +30,7 @@ public class Honeyrice extends CompleteFood {
 		image = ItemSpriteSheet.RICE;
 		energy = 400;
 		hornValue = 3;
-		bones = false;
+		 
 	}
 
 

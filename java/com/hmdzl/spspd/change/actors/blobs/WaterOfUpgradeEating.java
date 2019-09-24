@@ -49,7 +49,6 @@ public class WaterOfUpgradeEating extends WellWater {
 		}
 		
 		return item;
-
 	}
 
 	@Override

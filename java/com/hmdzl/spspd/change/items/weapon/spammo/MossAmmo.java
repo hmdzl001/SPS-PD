@@ -13,6 +13,7 @@ import com.hmdzl.spspd.change.items.weapon.guns.GunD;
 import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.change.items.weapon.guns.Sling;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -49,5 +50,14 @@ public class MossAmmo extends SpAmmo {
 			Buff.affect(defender, Poison.class).set(Random.Int(4, 5));
 		}
 	}
-
+	@Override
+	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
+		defender.damage((int)(0.10*damage), attacker);
+		if (Random.Int(4) == 3) {
+			Buff.affect(defender, Ooze.class);
+			defender.sprite.emitter().burst(EarthParticle.FACTORY, 5);
+		} else {
+			Buff.affect(defender, Poison.class).set(Random.Int(4, 5));
+		}
+	}
 }

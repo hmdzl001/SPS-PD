@@ -45,7 +45,7 @@ public class Nunchakus extends MeleeWeapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-		if (DLY > 0.50f){
+		if (DLY > 0.75f){
 		DLY-=0.05f;
 		}
 

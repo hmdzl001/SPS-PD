@@ -37,7 +37,7 @@ public class ScrollOfMultiUpgrade extends InventoryScroll {
 		consumedValue = 10;
         initials = 6;
 		
-		bones = true;
+		 
 	}
 
 	@Override

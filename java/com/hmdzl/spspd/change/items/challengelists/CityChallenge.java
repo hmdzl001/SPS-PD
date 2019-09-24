@@ -26,7 +26,7 @@ public class CityChallenge extends ChallengeList {
 	{
 		//name = "journal page sokoban practice";
 		image = ItemSpriteSheet.CITYKEY;
-		room=3;
+		room=4;
 
 		stackable = false;
 	}

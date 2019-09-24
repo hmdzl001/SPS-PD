@@ -45,8 +45,6 @@ import com.watabou.utils.Random;
 
 public class Guard extends Mob {
 
-	private static final String TXT_HERO_KILLED = "You were killed by the explosion of bones...";
-
 	private boolean chainsUsed = false;
 	
 	{

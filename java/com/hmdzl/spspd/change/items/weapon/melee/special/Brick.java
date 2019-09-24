@@ -56,15 +56,15 @@ public class Brick extends MeleeWeapon {
 
 	{
 		//name = "Brick";
-		image = ItemSpriteSheet.BRICK;
-		bones = false;
+		image = ItemSpriteSheet.W_BRICK;
+		 
 		usesTargeting = true;
 	}
 
 	public Brick() {
 		super(1, 1f, 1f, 1);
-		MIN = 10;
-		MAX = 10;
+		MIN = 8;
+		MAX = 8;
 	}
 	
 	

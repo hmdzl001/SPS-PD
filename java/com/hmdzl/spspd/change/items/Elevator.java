@@ -34,7 +34,6 @@ public class Elevator extends Item {
 
     public static final String AC_DOWN = "DOWN";
 
-	public static final String AC_COOK = "COOK";
 
 	{
 		//name = "Elevator";
@@ -62,8 +61,6 @@ public class Elevator extends Item {
 		} else if (action.equals(AC_DOWN)) {
 			InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
 			Game.switchScene(InterlevelScene.class);
-		} else if (action.equals(AC_COOK)) {
-			GameScene.show( new WndAlchemy() );;
 		} else {
 			super.execute(hero, action);
 

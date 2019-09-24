@@ -26,6 +26,7 @@ import com.hmdzl.spspd.change.actors.buffs.Haste;
 import com.hmdzl.spspd.change.actors.buffs.Hunger;
 import com.hmdzl.spspd.change.actors.buffs.Levitation;
 import com.hmdzl.spspd.change.actors.buffs.Light;
+import com.hmdzl.spspd.change.actors.buffs.MindVision;
 import com.hmdzl.spspd.change.actors.buffs.Recharging;
 import com.hmdzl.spspd.change.actors.buffs.Regeneration;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
@@ -153,7 +154,7 @@ public class Pasty extends StapleFood {
 
 		energy = 400;
 
-		bones = true;
+		 
 	}
 	
 	@Override
@@ -174,6 +175,7 @@ public class Pasty extends StapleFood {
 					break;
 				case STUDENT:
 					Buff.affect(hero, Light.class,50f);
+					Buff.affect(hero, MindVision.class,50f);
 					hero.sprite.emitter().start(FlameParticle.FACTORY, 0.2f, 3);
 					break;
 				case HWEEN:

@@ -34,7 +34,7 @@ public class Meatroll extends CompleteFood {
 	{
 		//name = "meatroll";
 		image = ItemSpriteSheet.HOTDOG;
-		bones = true;
+		 
 		energy = 250;
 		hornValue = 2;
 	}

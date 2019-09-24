@@ -12,6 +12,7 @@ import com.hmdzl.spspd.change.items.weapon.guns.GunD;
 import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.change.items.weapon.guns.Sling;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -46,4 +47,14 @@ public class FireAmmo extends SpAmmo {
 		} else defender.damage((int)(0.25*damage), attacker);
 
 	}
+	@Override
+	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
+
+		defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
+		if (Random.Int(5) == 4 ) {
+			Buff.affect(defender, Burning.class).reignite( defender );
+		} else defender.damage((int)(0.25*damage), attacker);
+
+	}	
+	
 }

@@ -29,7 +29,7 @@ public class Garbage extends CompleteFood {
 		image = ItemSpriteSheet.ERROR_FOOD;
 		energy = 1;
 		hornValue = 0;
-		bones = false;
+		 
 	}
 	@Override
 	public int price() {

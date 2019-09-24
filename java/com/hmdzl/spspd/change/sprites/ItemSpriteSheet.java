@@ -45,6 +45,7 @@ public class ItemSpriteSheet {
 	private static final int ROW23 = 22 * 16;
 	private static final int ROW24 = 23 * 16;
 	private static final int ROW25 = 24 * 16;
+	private static final int ROW26 = 25 * 16;
 
 	// Row One: Items which can't be obtained
 	// null warning occupies space 0, should only show up if there's a bug.
@@ -492,9 +493,34 @@ public class ItemSpriteSheet {
 	public static final int PILL_MUC = ROW24 + 14;
 	public static final int PILL_SOT = ROW24 + 15;
 
+	public static final int W_BRICK = ROW20 + 4;
+
 	public static final int FOURCLOVER = ROW23 + 14;
 	public static final int POTION_OF_MAGE = ROW23 + 15;
 
 	public static final int LOLLIPOP = ROW25 + 0;
 	public static final int JELLY_SWORD = ROW25 + 1;
+	public static final int POWER_HAND = ROW25 + 2;
+	public static final int S_J_R_B_M = ROW25 + 3;
+	public static final int FRENCHFRIES = ROW25 + 4;
+	public static final int CHOCOLATE = ROW25 + 5;
+	public static final int FOODFANS = ROW25 + 6;
+
+	public static final int ATTACKSHIELD = ROW25 + 8;
+
+	public static final int BSHOVEL = ROW25 + 7;
+
+	public static final int CANNON_OF_MAGE = ROW25 + 9;
+
+	public static final int MANY_KNIVE = ROW25 + 10;
+
+	public static final int MK_BOX = ROW25 + 11;
+
+	public static final int WOODEN_H = ROW25 + 12;
+
+	public static final int S_AND_S = ROW25 + 13;
+
+	public static final int AFLY_FOOD = ROW25 + 14;
+
+	public static final int FLAG = ROW25 + 15;
 }

@@ -43,13 +43,13 @@ public class StoneArmor extends NormalArmor {
 	}
 
 	public StoneArmor() {
-		super(3,0.6f,0,1);
+		super(3,0.6f,0,4);
 	}
 
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN += 1;
-		MAX += 2;
+		MAX += 1;
 		return super.upgrade(hasglyph);
 	}
 }

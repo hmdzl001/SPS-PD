@@ -233,23 +233,22 @@ public class Zot extends Mob {
 		for (Mob mob : Dungeon.level.mobs) {
 			if (mob != null && mob instanceof ZotPhase) {
 				phases++;
-				if (Dungeon.hero.heroClass!=HeroClass.HUNTRESS && phases>6){
+				if (phases>6){
 				check=true;
-				}else if (phases>10){
-				  check=true;
-				}
-		}			
-	  }
+		        }			
+			}
+		}
 		return check;
+	    
 	}
-	
+
 	private boolean checkEyes(){
 		boolean check = false;
 		int phases = 0;
 		for (Mob mob : Dungeon.level.mobs) {
 			if (mob != null && mob instanceof MagicEye) {
 				phases++;
-				if (phases>20){
+				if (phases>10){
 				  check=true;
 				}
 		}			

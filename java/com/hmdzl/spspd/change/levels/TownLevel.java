@@ -33,16 +33,26 @@ import com.hmdzl.spspd.change.actors.mobs.Piranha;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.TestMob;
 import com.hmdzl.spspd.change.actors.mobs.TestMob2;
+import com.hmdzl.spspd.change.actors.mobs.npcs.AFly;
 import com.hmdzl.spspd.change.actors.mobs.npcs.ARealMan;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Apostle;
+import com.hmdzl.spspd.change.actors.mobs.npcs.DreamPlayer;
+import com.hmdzl.spspd.change.actors.mobs.npcs.GoblinPlayer;
+import com.hmdzl.spspd.change.actors.mobs.npcs.HoneyPoooot;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Juh9870;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Kostis12345;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Lynn;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Millilitre;
+import com.hmdzl.spspd.change.actors.mobs.npcs.NutPainter;
 import com.hmdzl.spspd.change.actors.mobs.npcs.OldNewStwist;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Omicronrg9;
 import com.hmdzl.spspd.change.actors.mobs.npcs.OtilukeNPC;
 import com.hmdzl.spspd.change.actors.mobs.npcs.RENnpc;
 import com.hmdzl.spspd.change.actors.mobs.npcs.RainTrainer;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SadSaltan;
+import com.hmdzl.spspd.change.actors.mobs.npcs.SaidbySun;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Shopkeeper;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Shower;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Tinkerer4;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Tinkerer5;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Udawos;
@@ -73,6 +83,7 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.HateSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.AliveFish;
 import com.hmdzl.spspd.change.actors.mobs.npcs.LaJi;
 import com.hmdzl.spspd.change.actors.mobs.npcs.WhiteGhost;
+import com.hmdzl.spspd.change.actors.mobs.npcs.XixiZero;
 import com.hmdzl.spspd.change.items.food.Nut;
 import com.hmdzl.spspd.change.items.food.Vegetable;
 import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
@@ -110,6 +121,7 @@ import com.hmdzl.spspd.change.items.weapon.melee.special.HookHam;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Lollipop;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.change.items.weapon.melee.special.RunicBlade;
+import com.hmdzl.spspd.change.items.weapon.melee.special.SJRBMusic;
 import com.hmdzl.spspd.change.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Tree;
 import com.hmdzl.spspd.change.items.weapon.missiles.MiniMoai;
@@ -228,7 +240,7 @@ public class TownLevel extends Level {
 		}
 		
 		if(storeRefresh()){
-			if (Badges.checkSARRescued()){
+			if (Badges.checkSARRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
 			for (int i : sppots) {
 				Heap heap = heaps.get(i);
 				if (heap == null){
@@ -238,7 +250,7 @@ public class TownLevel extends Level {
 			}
 			}
 			
-			if (Badges.checkMOSRescued()){
+			if (Badges.checkMOSRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
 			for (int i : foodpots) {
 				Heap heap = heaps.get(i);
 				if (heap == null){
@@ -248,7 +260,7 @@ public class TownLevel extends Level {
 			}
 			}
 			
-			if (Badges.checkCoconutRescued()){
+			if (Badges.checkCoconutRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
 			for (int i : bombpots) {
 				Heap heap = heaps.get(i);
 				if (heap == null){
@@ -258,7 +270,7 @@ public class TownLevel extends Level {
 			}
 		    }
 			
-			if (Badges.checkItemRescued()){
+			if (Badges.checkItemRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
 			for (int i : scrollspots) {
 				Heap heap = heaps.get(i);
 				if (heap == null){
@@ -275,7 +287,7 @@ public class TownLevel extends Level {
 			}
 			}
 			
-			if (Badges.checkEggRescued()){
+			if (Badges.checkEggRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
 			for (int i : eggpots) {
 				Heap heap = heaps.get(i);
 				if (heap == null){
@@ -284,7 +296,7 @@ public class TownLevel extends Level {
 				}					
 			}
 		    }
-			if (Dungeon.gnollmission==true){
+			if (Dungeon.gnollmission==true|| Dungeon.isChallenged(Challenges.TEST_TIME)){
 			for (int i : gnollpots) {
 				Heap heap = heaps.get(i);
 					if (heap == null){
@@ -293,7 +305,7 @@ public class TownLevel extends Level {
 					}
 				}
 			}
-			if (Badges.checkRainRescued()) {
+			if (Badges.checkRainRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)) {
 				for (int i : skillpots) {
 					Heap heap = heaps.get(i);
 					if (heap == null) {
@@ -302,7 +314,7 @@ public class TownLevel extends Level {
 					}
 				}
 			}
-			if (Badges.checkUncleRescued()) {
+			if (Badges.checkUncleRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)) {
 				for (int i : pillpots) {
 					Heap heap = heaps.get(i);
 					if (heap == null) {
@@ -479,7 +491,7 @@ public class TownLevel extends Level {
 
 	public Item storeItem7 (){
 		Item prize;
-		switch (Random.Int(9)) {
+		switch (Random.Int(10)) {
 			case 0:
 				prize = new Pumpkin();
 				break;
@@ -507,6 +519,9 @@ public class TownLevel extends Level {
 			case 8:
 				prize = new Lollipop();
 				break;
+			case 9:
+				prize = new SJRBMusic();
+				break;
 			default:
 				prize = new PetFood();
 				break;
@@ -516,7 +531,7 @@ public class TownLevel extends Level {
 
 	public Item storeItem8 (){
 		Item prize;
-		switch (Random.Int(10)) {
+		switch (Random.Int(6)) {
 			case 0:
 				prize = new SkillOfAtk();
 				break;
@@ -527,7 +542,7 @@ public class TownLevel extends Level {
 				prize = new SkillOfMig();
 				break;
 			default:
-				prize = new ScrollOfUpgrade();
+				prize = Generator.random(Generator.Category.MUSICWEAPON);
 				break;
 		}
 		return prize;
@@ -581,9 +596,13 @@ public class TownLevel extends Level {
 
       Mob bilboldev = new Bilboldev();
 	  bilboldev.pos = 24 + WIDTH * 10;
-	  mobs.add(bilboldev);  
-	  
-      if(Badges.checkTombRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)){
+	  mobs.add(bilboldev);
+
+	  Mob xixizero = new XixiZero();
+	  xixizero.pos = 25 + WIDTH * 11;
+	  mobs.add(xixizero);
+
+	  if(Badges.checkTombRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)){
 	  Mob watabou = new Watabou();
 	  watabou.pos = 42 + WIDTH * 42;
 	  mobs.add(watabou);
@@ -594,14 +613,14 @@ public class TownLevel extends Level {
 
 	  }
 
+	  Mob mill = new Millilitre();
+	  mill.pos = 45 + WIDTH * 42;
+	  mobs.add(mill);
+
       Mob nyrds = new NYRDS();
 	  nyrds.pos = 13 + WIDTH * 11;
 	  mobs.add(nyrds);  
 
-      Mob evan = new Evan();
-	  evan.pos = 33 + WIDTH * 41;
-	  mobs.add(evan);  	  
-	  
       Mob hbb = new HBB();
 	  hbb.pos = 43 + WIDTH * 15;
 	  mobs.add(hbb);
@@ -610,10 +629,19 @@ public class TownLevel extends Level {
 	  sfb.pos = 34 + WIDTH * 11;
 	  mobs.add(sfb);
 
-      Mob jinkeloid = new Jinkeloid();
+	  Mob omi = new Omicronrg9();
+	  omi.pos = 36 + WIDTH * 11;
+	  mobs.add(omi);
+
+      Mob honey = new HoneyPoooot();
+	  honey.pos = 40 + WIDTH * 15;
+	  mobs.add(honey);
+
+	  Mob jinkeloid = new Jinkeloid();
 	  jinkeloid.pos = 43 + WIDTH * 14;
 	  mobs.add(jinkeloid);
-	  if (Badges.checkUncleRescued()) {
+
+	  if (Badges.checkUncleRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)) {
 		  Mob uncles = new UncleS();
 		  uncles.pos = 43 + WIDTH * 22;
 		  mobs.add(uncles);
@@ -621,25 +649,33 @@ public class TownLevel extends Level {
 		  Mob realman = new ARealMan();
 		  realman.pos = 44 + WIDTH * 45;
 		  mobs.add(realman);
+
+		  Mob lyn = new Lyn();
+		  lyn.pos = 40 + WIDTH * 22;
+		  mobs.add(lyn);
+
+		  Mob saidbysun = new SaidbySun();
+		  saidbysun.pos = 42 + WIDTH * 45;;
+		  mobs.add(saidbysun);
 	  }
-      Mob rustyblade = new Rustyblade();
-	  rustyblade.pos = 40 + WIDTH * 15;
-	  mobs.add(rustyblade);
      
       Mob sp931 = new SP931();
 	  sp931.pos = 40 + WIDTH * 16;
 	  mobs.add(sp931);
-	  
-	  Mob lyn = new Lyn();
-	  lyn.pos = 40 + WIDTH * 9;
-	  mobs.add(lyn);
-	  
-	  if (Badges.checkEggRescued()){
-	  Mob lery = new Lery();
-	  lery.pos = 41 + WIDTH * 9;
-	  mobs.add(lery);
+
+	  Mob dp = new DreamPlayer();
+	  dp.pos = 43 + WIDTH * 24;
+	  mobs.add(dp);
+
+	  if (Badges.checkEggRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
+		  Mob lery = new Lery();
+		  lery.pos = 41 + WIDTH * 9;
+		  mobs.add(lery);
 	  }
-	  
+	  Mob evan = new Evan();
+	  evan.pos = 29 + WIDTH * 32;
+	  mobs.add(evan);
+
       Mob hexa = new HeXA();
 	  hexa.pos = 33 + WIDTH * 30;
 	  mobs.add(hexa);	
@@ -657,19 +693,25 @@ public class TownLevel extends Level {
       Mob locastan = new Locastan();
 	  locastan.pos = 5 + WIDTH * 5;
 	  mobs.add(locastan);
+
+	  Mob goblin = new GoblinPlayer();
+	  goblin.pos = 2 + WIDTH * 5;
+	  mobs.add(goblin);
 	  
 	  Mob dachhack = new Dachhack();
 	  dachhack.pos = 37 + WIDTH * 3;
 	  mobs.add(dachhack);
-	  
-	  Mob tempest102 = new Tempest102();
-	  tempest102.pos = 33 + WIDTH * 42;
-	  mobs.add(tempest102);
-	  
-	  if (Badges.checkMOSRescued()){
+
+	  if (Badges.checkMOSRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)){
       Mob MOS = new MemoryOfSand();
 	  MOS.pos = 26 + WIDTH * 4;
 	  mobs.add(MOS);
+
+          Mob Afly = new AFly();
+          Afly.pos = 27 + WIDTH * 17;
+          mobs.add(Afly);
+
+
 	 }
 
 	  Mob ONS = new OldNewStwist();
@@ -681,16 +723,16 @@ public class TownLevel extends Level {
 	  mobs.add(HS);
 	  
 	  Mob LJ = new LaJi();
-	  LJ.pos = 23 + WIDTH * 10;
+	  LJ.pos = 23 + WIDTH * 12;
 	  mobs.add(LJ);
 	  
-	  if (Badges.checkSARRescued()){
+	  if (Badges.checkSARRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
       Mob SAR = new StormAndRain();
 	  SAR.pos = 21 + WIDTH * 6;
 	  mobs.add(SAR);	
 	  }
 	  
-      if (Dungeon.dewNorn == true) {
+      if (Dungeon.dewNorn == true || Dungeon.isChallenged(Challenges.TEST_TIME)) {
 	  Mob LYNN = new Lynn();
 	  LYNN.pos = 31 + WIDTH * 32;
 	  mobs.add(LYNN);  
@@ -704,6 +746,14 @@ public class TownLevel extends Level {
 	  KOSTIS.pos = 20 + WIDTH * 25;
 	  mobs.add(KOSTIS);
 
+	  Mob apos = new Apostle();
+	  apos.pos = 20 + WIDTH * 21;
+	  mobs.add(apos);
+
+	  Mob painter = new NutPainter();
+	  painter.pos = 16 + WIDTH * 21;
+	  mobs.add(painter);
+
 	  Mob JUH = new Juh9870();
 	  JUH.pos = 35 + WIDTH * 6;
 	  mobs.add(JUH);
@@ -715,6 +765,10 @@ public class TownLevel extends Level {
 	  Mob tinkerer4 =  new Tinkerer4();
       tinkerer4.pos = 31 + WIDTH * 20;
       mobs.add(tinkerer4);
+
+	  Mob shower =  new Shower();
+	  shower.pos = 30 + WIDTH * 19;
+	  mobs.add(shower);
       
       Mob tinkerer5 =  new Tinkerer5();
       tinkerer5.pos = 14 + WIDTH * 33;
@@ -745,15 +799,23 @@ public class TownLevel extends Level {
 	  mobs.add(test5);
 
 	  RainTrainer rain = new RainTrainer();
-	  rain.pos = 20 + WIDTH * 42;
+	  rain.pos = 17 + WIDTH * 42;
 	  mobs.add(rain);
+
+		  Mob rustyblade = new Rustyblade();
+		  rustyblade.pos = 22 + WIDTH * 42;
+		  mobs.add(rustyblade);
+
+		  Mob tempest102 = new Tempest102();
+		  tempest102.pos = 33 + WIDTH * 42;
+		  mobs.add(tempest102);
 	  }
 
 	  /*Assassin test5 = new Assassin();
 	  test5.pos = 14 + WIDTH * 28;
 	  mobs.add(test5);*/
 	  
-	  if (Badges.checkFishRescued()){
+	  if (Badges.checkFishRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)){
 	  Piranha mob4 = new Piranha();
 	  mob4.pos = 42 + WIDTH * 37;
 	  mobs.add(mob4);
@@ -821,9 +883,10 @@ public class TownLevel extends Level {
 	  gnollpots = new int[1];
 	  gnollpots[0] =  21 + WIDTH * 3;
 
-	  skillpots = new int[2];
-	  skillpots[0] =  19 + WIDTH * 44;
-	  skillpots[1] =  20 + WIDTH * 44;
+	  skillpots = new int[3];
+	  skillpots[0] =  33 + WIDTH * 44;
+	  skillpots[1] =  34 + WIDTH * 44;
+	  skillpots[2] =  35 + WIDTH * 44;
 
 	  pillpots = new int[1];
 	  pillpots[0] =  43 + WIDTH * 23;

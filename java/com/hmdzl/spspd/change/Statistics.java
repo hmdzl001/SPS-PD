@@ -43,6 +43,7 @@ public class Statistics {
 	public static int waters;
 	public static int sewerKills;
 	public static int prisonKills;
+	public static int petDies;
 
 	public static float duration;
 	public static int floormoves;
@@ -82,6 +83,7 @@ public class Statistics {
 		waters = 0;
 		sewerKills = 0;
 		prisonKills = 0;
+		petDies = 0;
 
 		duration = 0;
 		moves = 0;
@@ -115,6 +117,7 @@ public class Statistics {
 	private static final String BALLS = "balls";
 	private static final String PRISONKILLS = "prisonKills";
 	private static final String SEWERKILLS = "sewerKills";
+	private static final String PETDIES = "petDies";
 	
 	private static final String NIGHT = "nightHunt";
 	private static final String ANKHS = "ankhsUsed";
@@ -154,6 +157,7 @@ public class Statistics {
 		bundle.put(WATERS, waters);
 		bundle.put(SEWERKILLS, sewerKills);
 		bundle.put(PRISONKILLS, prisonKills);
+		bundle.put(PETDIES, petDies);
 	}
 
 	public static void restoreFromBundle(Bundle bundle) {
@@ -168,7 +172,7 @@ public class Statistics {
 		waters = bundle.getInt(WATERS);
 		sewerKills = bundle.getInt(SEWERKILLS);
 		prisonKills = bundle.getInt(PRISONKILLS);
-		
+		petDies = bundle.getInt(PETDIES);
 		
 		archersKilled = bundle.getInt(ARCHERS);
 		skeletonsKilled = bundle.getInt(SKELETONS);

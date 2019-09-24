@@ -67,7 +67,7 @@ public class ShadowYog extends Mob  {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(45, 100);
+		return Random.NormalIntRange(43, 83);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class ShadowYog extends Mob  {
 
 	@Override
 	public int drRoll() {
-		return (Dungeon.level.mobs.size());
+		return 10;
 	}
 	
 	@Override

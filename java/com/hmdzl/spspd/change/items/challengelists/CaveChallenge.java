@@ -26,7 +26,7 @@ public class CaveChallenge extends ChallengeList {
 	{
 		//name = "journal page sokoban practice";
 		image = ItemSpriteSheet.CAVEKEY;
-		room=2;
+		room=3;
 
 		stackable = false;
 	}

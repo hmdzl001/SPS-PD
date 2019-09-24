@@ -41,7 +41,7 @@ public class WaterItem extends Food {
 		energy = 1;
 		//message = "Crunch Crunch.";
 		hornValue = 0;
-		bones = false;
+		 
 	}
 
 	@Override

@@ -49,6 +49,7 @@ import java.util.ArrayList;
 public class Shovel extends Item {
 
 	public static final String AC_USE = "USE";
+	public static final String AC_BUILD = "BUILD";
 
 	private static final float TIME_TO_DIG = 1f;
 
@@ -57,7 +58,7 @@ public class Shovel extends Item {
 		image = ItemSpriteSheet.SHOVEL;
 		defaultAction = AC_USE;
 		unique = true;
-		bones = false;
+		 
 	}
 	
 	public final int fullCharge = 150;
@@ -81,6 +82,9 @@ public class Shovel extends Item {
 		ArrayList<String> actions = super.actions( hero );
 		if (charge >= 50){
 		actions.add(AC_USE);
+		}
+		if (charge >= 100){
+			actions.add(AC_BUILD);
 		}
         actions.remove( AC_THROW );
         actions.remove( AC_DROP );
@@ -122,6 +126,31 @@ public class Shovel extends Item {
 	  			return;
 				}
 			}
+		} else if ( action.equals( AC_BUILD )){
+			for (int n : Level.NEIGHBOURS4) {
+				int c = hero.pos + n;
+				if (c >= 0 && c < Level.getLength()) {
+					if ((Dungeon.level.map[c] == Terrain.EMPTY ||
+					Dungeon.level.map[c] == Terrain.EMPTY_DECO ||
+					Dungeon.level.map[c] == Terrain.EMPTY_SP ||
+					Dungeon.level.map[c] == Terrain.GRASS )&& Level.insideMap(c)) {
+						Level.set(c, Terrain.WALL);
+						GameScene.updateMap(c);
+						Dungeon.observe();
+					}
+				}
+			}
+			hero.spend(TIME_TO_DIG);
+			hero.busy();
+			Hunger hunger = hero.buff(Hunger.class);
+			if (hunger != null && !hunger.isStarving()) {
+				hunger.satisfy(-10);
+				BuffIndicator.refreshHero();
+			}
+			charge-=100;
+		  updateQuickslot();
+		  hero.onOperateComplete();
+		  return;
 		} else {
 			super.execute(hero, action);
 			

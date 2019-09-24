@@ -72,7 +72,7 @@ public class JupitersWraith extends RelicMeleeWeapon {
 		chargeCap = 1000;
 
 		cooldown = 0;
-		bones = false;
+		 
 	}
 
 	public static final String AC_EXPLODE = "EXPLODE";

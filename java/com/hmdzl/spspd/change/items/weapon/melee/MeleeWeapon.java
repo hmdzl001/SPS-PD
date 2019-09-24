@@ -117,18 +117,18 @@ public class MeleeWeapon extends Weapon {
 				info += " " + Messages.get(MeleeWeapon.class, "excess_str", Dungeon.hero.STR() - typicalSTR());
 			}
 		} else {
-			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(), max(), typicalSTR());
+			info += "\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(), max(), typicalSTR());
 		}
 
 		String stats_desc = Messages.get(this, "stats_desc");
-		if (!stats_desc.equals("")) info+= "\n\n" + stats_desc;
+		if (!stats_desc.equals("")) info+= " " + stats_desc;
 		
 		//Messages.get(MeleeWeapon.class, "stats_known", tier, MIN, MAX,STR,ACU,DLY,RCH )
 
 		if (enchantment != null) {
 			info += "\n" + Messages.get(MeleeWeapon.class, "enchanted", enchantment.desc());
 		}
-		
+
 		if (reinforced) {
 			info += "\n" + Messages.get(Item.class, "reinforced");
 		}

@@ -38,7 +38,7 @@ public class ClothArmor extends NormalArmor {
 	}
 
 	public ClothArmor() {
-		super(1,2f,6f,1);
+		super(1,2f,6f,3);
 	}
 	/*@Override
 	public int proc(Char attacker, Char defender, int damage) {

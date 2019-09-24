@@ -42,7 +42,7 @@ public class PhantomArmor extends NormalArmor {
 	}
 
 	public PhantomArmor() {
-		super(6,2f,2f,1);
+		super(6,2f,2f,2);
 	}
 
 	@Override

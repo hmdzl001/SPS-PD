@@ -29,7 +29,7 @@ public class PotionOfMight extends Potion {
 	{
 		//name = "Potion of Might";
         initials = 8;
-		bones = true;
+		 
 	}
 
 	@Override

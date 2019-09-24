@@ -26,7 +26,7 @@ public class SewerChallenge extends ChallengeList {
 	{
 		//name = "journal page sokoban practice";
 		image = ItemSpriteSheet.SEWERSKEY;
-		room=0;
+		room=1;
 
 		stackable = false;
 	}

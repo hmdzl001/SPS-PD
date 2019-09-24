@@ -50,7 +50,7 @@ import com.watabou.utils.Bundle;
 		image = ItemSpriteSheet.JUMP;
 		defaultAction = AC_JUMP;
 		unique = true;
-		bones = false;
+		 
 	}
 
 	private static int JUMP_TIME = 1;

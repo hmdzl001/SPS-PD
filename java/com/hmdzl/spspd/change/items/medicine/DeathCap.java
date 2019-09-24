@@ -33,7 +33,7 @@ public class DeathCap extends Pill {
 	{
 		//name = "death cap mushroom";
 		image = ItemSpriteSheet.MUSHROOM_DEATHCAP;
-		bones = false;
+		 
 	}
 	
 	@Override

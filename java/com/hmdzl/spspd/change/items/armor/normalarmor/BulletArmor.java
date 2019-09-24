@@ -42,13 +42,13 @@ public class BulletArmor extends NormalArmor {
 	}
 
 	public BulletArmor() {
-		super(5,0.2f,-1f,1);
+		super(5,0.2f,-1f,2);
 	}
 
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN += 1;
-		MAX += 3;
+		MAX += 2;
 		return super.upgrade(hasglyph);
 	}
 }

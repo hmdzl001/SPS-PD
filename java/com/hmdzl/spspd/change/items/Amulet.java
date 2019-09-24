@@ -50,7 +50,7 @@ public class Amulet extends Item {
 	public void execute(Hero hero, String action) {
 		if (action == AC_END) {
 
-			showAmuletScene(false);
+			showAmuletScene();
 
 		} else {
 
@@ -62,7 +62,7 @@ public class Amulet extends Item {
 	@Override
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
-			showAmuletScene(true);
+			showAmuletScene();
 			if (!Statistics.amuletObtained) {
 				Statistics.amuletObtained = true;
 				Badges.validateVictory();
@@ -73,10 +73,9 @@ public class Amulet extends Item {
 		}
 	}
 
-	private void showAmuletScene(boolean showText) {
+	private void showAmuletScene() {
 		try {
 			Dungeon.saveAll();
-			AmuletScene.noText = !showText;
 			Game.switchScene(AmuletScene.class);
 		} catch (IOException e) {
 		}

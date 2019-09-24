@@ -55,7 +55,7 @@ public class RiceBall extends MissileWeapon {
 		
 		DLY = 0.25f;
 
-		bones = false; 
+		  
 	}
 
 	public RiceBall() {

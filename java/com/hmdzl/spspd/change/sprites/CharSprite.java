@@ -89,8 +89,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	private Tweener jumpTweener;
 	private Callback jumpCallback;
 
-	private float flashTime = 0;
-	
+	//private float flashTime = 0;
+	protected float flashTime = 0;
+
 	protected boolean sleeping = false;
 
 	public Char ch;
@@ -365,7 +366,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (flashTime > 0 && (flashTime -= Game.elapsed) <= 0) {
 			resetColor();
 		}
-		
+
 		if (burning != null) {
 			burning.visible = visible;
 		}

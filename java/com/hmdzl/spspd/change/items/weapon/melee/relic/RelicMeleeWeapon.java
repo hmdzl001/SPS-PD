@@ -210,7 +210,7 @@ public class RelicMeleeWeapon extends Weapon {
 		//Messages.get(MeleeWeapon.class, "stats_known", tier, MIN, MAX,STR,ACU,DLY,RCH )
 
 		if (enchantment != null) {
-			info += "\n" + Messages.get(MeleeWeapon.class, "enchanted");
+			info += "\n" + Messages.get(MeleeWeapon.class, "enchanted", enchantment.desc());
 		}
 		
 		if (reinforced) {

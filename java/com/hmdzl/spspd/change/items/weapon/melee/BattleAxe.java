@@ -48,7 +48,7 @@ public class BattleAxe extends MeleeWeapon {
 			ACU+=0.05f;
 		}
 		
-		if (ACU > 1.2f && DLY > 0.8f) {
+		if (ACU > 1.2f && DLY > 0.9f) {
 			DLY-=0.05f;
 		}
 		

@@ -40,9 +40,7 @@ public class AmuletScene extends PixelScene {
 	private static final int BTN_HEIGHT		= 18;
 	private static final float SMALL_GAP	= 2;
 	private static final float LARGE_GAP	= 8;
-	
-	public static boolean noText = false;
-	
+
 	private Image amulet;
 	
 	@Override
@@ -50,11 +48,11 @@ public class AmuletScene extends PixelScene {
 		super.create();
 		
 		RenderedTextMultiline text = null;
-		if (!noText) {
-			text = renderMultiline( Messages.get(this, "text"), 8 );
-			text.maxWidth(WIDTH);
-			add( text );
-		}
+
+		text = renderMultiline( Messages.get(this, "text"), 8 );
+		text.maxWidth(WIDTH);
+		add( text );
+
 		
 		amulet = new Image( Assets.AMULET );
 		add( amulet );
@@ -64,7 +62,7 @@ public class AmuletScene extends PixelScene {
 			protected void onClick() {
 				Dungeon.win(Messages.format(ResultDescriptions.WIN));
 				Dungeon.deleteGame( Dungeon.hero.heroClass, true );
-				Game.switchScene( noText ? TitleScene.class : RankingsScene.class );
+				Game.switchScene( RankingsScene.class );
 			}
 		};
 		btnExit.setSize( WIDTH, BTN_HEIGHT );
@@ -80,17 +78,7 @@ public class AmuletScene extends PixelScene {
 		add( btnStay );
 		
 		float height;
-		if (noText) {
-			height = amulet.height + LARGE_GAP + btnExit.height() + SMALL_GAP + btnStay.height();
-			
-			amulet.x = (Camera.main.width - amulet.width) / 2;
-			amulet.y = (Camera.main.height - height) / 2;
-			align(amulet);
 
-			btnExit.setPos( (Camera.main.width - btnExit.width()) / 2, amulet.y + amulet.height + LARGE_GAP );
-			btnStay.setPos( btnExit.left(), btnExit.bottom() + SMALL_GAP );
-			
-		} else {
 			height = amulet.height + LARGE_GAP + text.height() + LARGE_GAP + btnExit.height() + SMALL_GAP + btnStay.height();
 			
 			amulet.x = (Camera.main.width - amulet.width) / 2;
@@ -102,7 +90,7 @@ public class AmuletScene extends PixelScene {
 			
 			btnExit.setPos( (Camera.main.width - btnExit.width()) / 2, text.top() + text.height() + LARGE_GAP );
 			btnStay.setPos( btnExit.left(), btnExit.bottom() + SMALL_GAP );
-		}
+
 
 		new Flare( 8, 48 ).color( 0xFFDDBB, true ).show( amulet, 0 ).angularSpeed = +30;
 		

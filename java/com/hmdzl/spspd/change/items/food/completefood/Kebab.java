@@ -28,7 +28,7 @@ public class Kebab extends CompleteFood {
 		image = ItemSpriteSheet.KEBAB;
 		energy = 330;
 		hornValue = 3;
-		bones = false;
+		 
 	}
 	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing(0xCC6600);
 

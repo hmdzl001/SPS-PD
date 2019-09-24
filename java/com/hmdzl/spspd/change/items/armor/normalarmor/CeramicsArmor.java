@@ -42,13 +42,13 @@ public class CeramicsArmor extends NormalArmor {
 	}
 
 	public CeramicsArmor() {
-		super(2,0.8f,0.5f,1);
+		super(2,0.8f,0.5f,3);
 	}
 
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN += 1;
-		MAX += 1;
+		//MAX += 0;
 		return super.upgrade(hasglyph);
 	}
 }

@@ -9,6 +9,7 @@ import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.effects.particles.MemoryParticle;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
@@ -30,18 +31,15 @@ public class MasterThievesArmband extends Artifact {
 		levelCap = 10;
 
 		charge = 0;
-		
-		defaultAction = AC_GOLDTOUCH;
 	}
 
 	private int exp = 0;
-	private int goldtouchused = 0;
 	public static final String AC_GOLDTOUCH = "GOLDTOUCH";
 	
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && level > 1 && !cursed && goldtouchused == 0)
+		if (!isEquipped(hero) && level > 1 && !cursed )
 		actions.add(AC_GOLDTOUCH);		
 		return actions;
 	}	
@@ -50,21 +48,16 @@ public class MasterThievesArmband extends Artifact {
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
         if (action.equals(AC_GOLDTOUCH)) {
-			if (!isEquipped(hero))
-				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
-			else if (goldtouchused > 0)
-				GLog.i(Messages.get(Artifact.class, "need_to_change") );
-			else {
+
 				Buff.affect(hero, GoldTouch.class,level*10f);
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-                level = 0;
-				goldtouchused ++;
 				hero.spend(1f);
 				hero.busy();
 				hero.sprite.operate(hero.pos);
-				updateQuickslot();	
-			}
+				detach(curUser.belongings.backpack);
+				Dungeon.level.drop(Generator.random(Generator.Category.ARTIFACT),hero.pos);
+
 		}
 	}	
 	

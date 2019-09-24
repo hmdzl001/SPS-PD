@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.change.effects.particles.SnowParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
+import com.hmdzl.spspd.change.items.nornstone.NornStone;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
@@ -59,7 +60,7 @@ public class EyeOfSkadi extends Artifact {
 		defaultAction = AC_CURSE;
 	}
 
-	protected WndBag.Mode mode = WndBag.Mode.ALL;
+	protected WndBag.Mode mode = WndBag.Mode.STONE;
 	
 	public static int consumedpts = 0;
 	
@@ -254,7 +255,25 @@ public class EyeOfSkadi extends Artifact {
 					GLog.p(Messages.get(EyeOfSkadi.class, "infuse_ore"));
 				}
 
-		}
+		} else if (item != null && item instanceof NornStone) {
+				Hero hero = Dungeon.hero;
+				consumedpts += 5;
+
+				hero.sprite.operate(hero.pos);
+				hero.busy();
+				hero.spend(2f);
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				item.detach(hero.belongings.backpack);
+				GLog.h(Messages.get(EyeOfSkadi.class, "exp", consumedpts));
+
+				int levelChk = curItem.level * 2 + 1;
+
+				if (consumedpts > levelChk && curItem.level < 10) {
+					curItem.upgrade();
+					GLog.p(Messages.get(EyeOfSkadi.class, "infuse_ore"));
+				}
+			}
 	 }
 	};
 	

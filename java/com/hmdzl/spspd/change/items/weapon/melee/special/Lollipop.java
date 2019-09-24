@@ -60,7 +60,7 @@ public class Lollipop extends MeleeWeapon {
 	{
 		//name = "Lollipop";
 		image = ItemSpriteSheet.LOLLIPOP;
-		bones = false;
+		 
 		usesTargeting = true;
 	}
 
@@ -88,7 +88,7 @@ public class Lollipop extends MeleeWeapon {
 		if (Random.Int(50) == 1 ){
             Buff.prolong(attacker, Shieldblock.class, 5f);
 			Buff.prolong(attacker, Weakness.class, 20f);
-            attacker.HT -= Math.min(10,attacker.HT-1);
+            attacker.HT -= Math.min(15,attacker.HT-1);
 			Dungeon.hero.belongings.weapon = null;
 			GLog.n(Messages.get(KindOfWeapon.class,"destory"));
 		}		

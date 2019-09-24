@@ -317,5 +317,23 @@ public class Assets {
 
 	public static final String M_AMD_W = "mandw.png";
     public static final String UNCLE_S = "sibaoluodeti.png";
+
+	public static final String GOBLIN_PLAYER = "goblinplayer.png";
+	public static final String SAID_BY_SUN = "saidbysun.png";
+	public static final String MILLILITRE = "millilitre.png";
+	public static final String APOSTLE = "apostle.png";
+	public static final String SHOWER = "shower.png";
+	public static final String HONEY_POOOOT = "honeypoooot.png";
+	public static final String XIXIZERO = "cat_lix.png";
+	public static final String A_FLY = "npcalfred.png";
+	public static final String PAINTER= "painter.png";
+	public static final String DREAMPLAYER = "dreamplayer.png";
+    public static final String PLANT_KING = "plantking.png";
+    public static final String OMICRONRG9 = "omicronrg9.png";
+
+
+	public static final String LICH_DANCER = "boss_lich.png";
+	public static final String BATTERYTOMB = "batterytomb.png";
+
 }
 

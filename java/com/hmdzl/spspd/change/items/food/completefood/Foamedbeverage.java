@@ -35,7 +35,7 @@ public class Foamedbeverage extends CompleteFood {
 		image = ItemSpriteSheet.FOAMED;
 		energy = 20;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	@Override

@@ -66,7 +66,7 @@ public class FireCracker extends MeleeWeapon {
 	{
 		//name = "FireCracker";
 		image = ItemSpriteSheet.FIRECRACKER;
-		bones = false;
+		 
 		usesTargeting = true;
 	}
 

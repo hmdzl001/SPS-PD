@@ -34,7 +34,7 @@ public class Vegetablekebab extends CompleteFood {
 		image = ItemSpriteSheet.KEBAB;
 		energy = 150;
 		hornValue = 2;
-		bones = false;
+		 
 	}
 	private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing(0x22CC44);
 	@Override

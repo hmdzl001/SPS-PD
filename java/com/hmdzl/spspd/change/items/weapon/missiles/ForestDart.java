@@ -43,7 +43,7 @@ public class ForestDart extends MissileWeapon {
 		MIN = 6;
 		MAX = 14;
 
-		bones = false; // Finding them in bones would be semi-frequent and
+		  // Finding them in bones would be semi-frequent and
 						// disappointing.
 	}
 

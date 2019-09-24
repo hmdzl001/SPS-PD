@@ -79,16 +79,6 @@ public class Chasm {
 		Buff buff = Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class);
 		if (buff != null)
 			buff.detach();
-		
-		if(Dungeon.depth==33){
-		  for (Mob mob : Dungeon.level.mobs) {
-			if(mob instanceof PET) {				 
-				Dungeon.hero.haspet=false;
-				Dungeon.hero.petCount++;
-				mob.destroy();				
-			}
-		  }
-		}
 
 		if (Dungeon.hero.isAlive()) {
 			Dungeon.hero.interrupt();

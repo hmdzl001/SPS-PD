@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.change.actors.mobs;
 
+import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
@@ -41,7 +42,7 @@ public class BlueWraith extends Wraith  {
 
 		EXP = 20;
 		
-		loot = new RedDewdrop();
+		loot = Generator.random(Generator.Category.SEED);
 		lootChance = 1.0f; // by default, see die()
 		
 		properties.add(Property.UNDEAD);

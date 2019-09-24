@@ -48,7 +48,7 @@ public class MachineArmor extends NormalArmor {
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN += 2;
-		MAX += 5;
+		MAX += 2;
 		return super.upgrade(hasglyph);
 	}
 }

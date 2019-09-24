@@ -40,7 +40,6 @@ import com.watabou.utils.Random;
 
 public class MossySkeleton extends Mob {
 
-	private static final String TXT_HERO_KILLED = "You were killed by the explosion of bones...";
 	private static final String TXT_KILLCOUNT = "Mossy Skeleton Kill Count: %s";
 
 	{

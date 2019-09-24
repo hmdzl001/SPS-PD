@@ -35,7 +35,7 @@ public class Wave extends MissileWeapon {
 		MIN = 1;
 		MAX = 3;
 
-		bones = false; // Finding them in bones would be semi-frequent and
+		  // Finding them in bones would be semi-frequent and
 						// disappointing.
 	}
 

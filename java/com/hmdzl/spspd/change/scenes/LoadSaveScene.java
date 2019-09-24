@@ -159,7 +159,7 @@
          InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
          Game.switchScene( InterlevelScene.class );
      }
- 
+
      protected static void exportGames(String classInfo, String saveSlot) {
          ArrayList<String> files = new ArrayList<String>();
          String saveSlotFolder = Game.instance.getFilesDir().toString() + "/" + classInfo + saveSlot;
@@ -332,4 +332,6 @@
      {
          return Character.toUpperCase(oneWord.charAt(0)) + oneWord.substring(1);
     }
+
+
  } 

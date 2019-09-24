@@ -29,7 +29,7 @@ public class Honeymeat extends CompleteFood {
 		image = ItemSpriteSheet.HONEYMEAT;
 		energy = 150;
 		hornValue = 3;
-		bones = false;
+		 
 	}
 
 	public void execute(Hero hero, String action) {

@@ -33,7 +33,7 @@ public class Vegetablesoup extends CompleteFood {
 		image = ItemSpriteSheet.VEGETABLESOUP;
 		energy = 90;
 		hornValue = 3;
-		bones = false;
+		 
 	}
 
 	@Override

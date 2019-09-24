@@ -52,7 +52,7 @@ public class JumpS extends Item {
 		image = ItemSpriteSheet.JUMP;
 		defaultAction = AC_JUMP;
         unique = true;
-		bones = false;
+		 
 	}
 	
 	private static int JUMP_TIME = 1;

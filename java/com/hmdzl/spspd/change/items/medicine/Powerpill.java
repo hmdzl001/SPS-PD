@@ -28,7 +28,7 @@ public class Powerpill extends Pill {
 	{
 		//name = "powerpill";
 		image = ItemSpriteSheet.PILL_STR;
-		bones = false;
+		 
 	}
 
 	@Override

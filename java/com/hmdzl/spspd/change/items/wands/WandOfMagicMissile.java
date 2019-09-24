@@ -90,7 +90,7 @@ public class WandOfMagicMissile extends DamageWand {
 		    processSoulMark(ch, chargesPerCast());
 			ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this);
 
-			ch.sprite.burst(0xFF99CCFF, level / 2 + 2);
+			ch.sprite.burst(0xFF99CCFF, 2);
 
 		}
 	}

@@ -63,7 +63,7 @@ public class GunOfSoldier extends Item {
 		image = ItemSpriteSheet.GUN_S;
 		defaultAction = AC_USE;
 		unique = true;
-		bones = false;
+		 
 	}
 	
 	public final int fullCharge = 225;

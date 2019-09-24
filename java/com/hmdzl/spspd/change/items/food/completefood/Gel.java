@@ -34,7 +34,7 @@ public class Gel extends CompleteFood {
 	{
 		//name = "Gel";
 		image = ItemSpriteSheet.UPGRADEGOO_VIOLET;
-		bones = true;
+		 
 		energy = 10;
 		hornValue = 0;
 	}

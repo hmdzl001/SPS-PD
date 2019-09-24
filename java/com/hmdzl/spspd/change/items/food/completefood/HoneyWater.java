@@ -33,7 +33,7 @@ public class HoneyWater extends CompleteFood {
 	{
 		//name = "HoneyWater";
 		image = ItemSpriteSheet.HONEYWATER;
-		bones = true;
+		 
 		energy = 10;
 		hornValue = 2;
 	}

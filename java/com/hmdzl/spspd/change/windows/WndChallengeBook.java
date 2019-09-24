@@ -50,14 +50,14 @@ public class WndChallengeBook extends Window {
 		super();
 		
 		String[] roomNames = new String[PAGES];
-		roomNames[0] = Messages.get(this,"room1");
-		roomNames[1] = Messages.get(this,"room2");
-		roomNames[2] = Messages.get(this,"room3");
-		roomNames[3] = Messages.get(this,"room4");
-		roomNames[4] = Messages.get(this,"room5");
-		roomNames[5] = Messages.get(this,"room6");
-		roomNames[6] = Messages.get(this,"room7");
-		roomNames[7] = Messages.get(this,"room8");
+		roomNames[0] = Messages.get(this,"room0");
+		roomNames[1] = Messages.get(this,"room1");
+		roomNames[2] = Messages.get(this,"room2");
+		roomNames[3] = Messages.get(this,"room3");
+		roomNames[4] = Messages.get(this,"room4");
+		roomNames[5] = Messages.get(this,"room5");
+		roomNames[6] = Messages.get(this,"room6");
+		roomNames[7] = Messages.get(this,"room7");
 	
 		IconTitle titlebar = new IconTitle();
 		titlebar.icon(new ItemSprite(item.image(), null));

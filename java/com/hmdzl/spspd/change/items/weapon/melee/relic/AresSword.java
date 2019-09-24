@@ -74,7 +74,7 @@ public class AresSword extends RelicMeleeWeapon {
 		chargeCap = 1000;
 
 		cooldown = 0;
-		bones = false;
+		 
 		
   }
 		

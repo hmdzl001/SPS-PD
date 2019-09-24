@@ -36,7 +36,7 @@ public class ScrollOfMagicalInfusion extends InventoryScroll {
 		consumedValue = 15;
 		initials = 3;
 
-		bones = true;
+		 
 	}
 
 	@Override

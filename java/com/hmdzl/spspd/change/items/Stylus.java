@@ -42,7 +42,7 @@ public class Stylus extends Item {
 
 		stackable = true;
 
-		bones = true;
+		 
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class CloakOfShadows extends Artifact {
 
 		defaultAction = AC_STEALTH;
 
-		bones = false;
+		 
 	}
 
 	private boolean stealthed = false;

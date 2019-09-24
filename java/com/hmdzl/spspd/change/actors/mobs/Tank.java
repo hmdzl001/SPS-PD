@@ -27,6 +27,7 @@ import com.hmdzl.spspd.change.actors.buffs.Burning;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.actors.buffs.Vertigo;
+import com.hmdzl.spspd.change.items.ArmorKit;
 import com.hmdzl.spspd.change.items.TenguKey;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.artifacts.DriedRose;
@@ -122,7 +123,7 @@ public class Tank extends Mob {
 	    ((PrisonBossLevel) Dungeon.level).unseal();
 
 	   
-		Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();	
+		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
 
 		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		

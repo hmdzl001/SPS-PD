@@ -37,7 +37,7 @@ public class ScrollOfIdentify extends InventoryScroll {
 		mode = WndBag.Mode.UNIDENTIFED;
 		consumedValue = 10;
 		initials = 1;
-		bones = true;
+		 
 	}
 
 	@Override

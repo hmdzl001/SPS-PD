@@ -43,7 +43,11 @@ public class WndItem extends Window {
 
 	private static final int WIDTH = 120;
 	
-	public WndItem(final WndBag owner, final Item item) {
+	public WndItem( final WndBag owner, final Item item ){
+		this( owner, item, owner != null );
+	}	
+	
+	public WndItem(final WndBag owner, final Item item , final boolean options) {
 
 		super();
 		
@@ -67,16 +71,19 @@ public class WndItem extends Window {
 		float y = info.top() + info.height() + GAP;
 		float x = 0;
 
-		if (Dungeon.hero.isAlive() && owner != null) {
+		if (Dungeon.hero.isAlive() && /*owner != null*/ options) {
 			ArrayList<RedButton> line = new ArrayList<>();
 			for (final String action : item.actions(Dungeon.hero)) {
 
 				RedButton btn = new RedButton(Messages.get(item, "ac_" + action), 8 ) {
 					@Override
 					protected void onClick() {
-						item.execute(Dungeon.hero, action);
+						//item.execute(Dungeon.hero, action);
+						//hide();
+						//owner.hide();
 						hide();
-						owner.hide();
+						if (owner != null && owner.parent != null) owner.hide();
+						if (Dungeon.hero.isAlive()) item.execute( Dungeon.hero, action );
 					};
 				};
 				btn.setSize(Math.max(BUTTON_WIDTH, btn.reqWidth()),

@@ -43,7 +43,7 @@ public class Pill extends Item {
 		//name = "pill";
 		image = ItemSpriteSheet.NULLWARN;
 
-		bones = true;
+		 
 	}
 
 	@Override

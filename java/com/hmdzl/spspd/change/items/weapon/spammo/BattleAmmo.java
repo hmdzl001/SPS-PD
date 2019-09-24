@@ -20,6 +20,7 @@ import com.hmdzl.spspd.change.items.weapon.guns.GunD;
 import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.change.items.weapon.guns.Sling;
@@ -44,11 +45,18 @@ public class BattleAmmo extends SpAmmo {
 		Buff.prolong(attacker, AttackUp.class,5f).level(35);
 		Buff.prolong(attacker, DefenceUp.class,5f).level(35);
 	}
+	@Override
 	public void onHit(Boomerang boomerang, Char attacker, Char defender, int damage) {
 
 		defender.damage((int)(0.50*damage), attacker);
 		Buff.prolong(attacker, AttackUp.class,5f).level(35);
 		Buff.prolong(attacker, DefenceUp.class,5f).level(35);
 	}
+	@Override
+	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
 
+		defender.damage((int)(0.50*damage), attacker);
+		Buff.prolong(attacker, AttackUp.class,5f).level(35);
+		Buff.prolong(attacker, DefenceUp.class,5f).level(35);
+	}
 }

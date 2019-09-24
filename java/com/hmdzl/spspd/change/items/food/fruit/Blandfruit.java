@@ -3,6 +3,7 @@ package com.hmdzl.spspd.change.items.food.fruit;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.FrostImbue;
 import com.hmdzl.spspd.change.actors.buffs.Recharging;
 import com.hmdzl.spspd.change.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.change.actors.buffs.FireImbue;
@@ -54,8 +55,6 @@ import com.watabou.utils.Bundle;
  */
 public class Blandfruit extends Fruit {
 
-	public String info = Messages.get(this,"desc");
-
 	public Potion potionAttrib = null;
 	public ItemSprite.Glowing potionGlow = null;
 
@@ -66,7 +65,6 @@ public class Blandfruit extends Fruit {
 		energy = 50;
 		hornValue = 6; // only applies when blandfruit is cooked
 
-		bones = true;
 	}
 
 	@Override
@@ -101,10 +99,7 @@ public class Blandfruit extends Fruit {
 				hero.spend(1f);
 				hero.busy();
 
-				if (potionAttrib instanceof PotionOfFrost) {
-					GLog.i(Messages.get(this, "ice_msg"));
-                    FrozenCarpaccio.effect(hero);
-				} else if (potionAttrib instanceof PotionOfLiquidFlame) {
+                if (potionAttrib instanceof PotionOfLiquidFlame) {
 					GLog.i(Messages.get(this, "fire_msg"));
 					Buff.affect(hero, FireImbue.class).set(FireImbue.DURATION);
 				} else if (potionAttrib instanceof PotionOfToxicGas) {
@@ -114,6 +109,9 @@ public class Blandfruit extends Fruit {
 				} else if (potionAttrib instanceof PotionOfParalyticGas) {
 					GLog.i(Messages.get(this, "para_msg"));
 					Buff.affect(hero, EarthImbue.class, EarthImbue.DURATION);
+				} else if (potionAttrib instanceof PotionOfFrost) {
+					GLog.i(Messages.get(this, "frost_msg"));
+					Buff.affect(hero, FrostImbue.class, FrostImbue.DURATION);
 				} else
 					potionAttrib.apply(hero);
 
@@ -146,10 +144,16 @@ public class Blandfruit extends Fruit {
 	}
 
 	@Override
-	public String info() {
-		return info;
+	public String desc() {
+		if (potionAttrib== null) return super.desc();
+		else return Messages.get(this, "desc_cooked");
 	}
 
+	@Override
+	public int price() {
+		return 20 * quantity;
+	}	
+	
 	public Item cook(Seed seed) {
 
 		try {
@@ -167,85 +171,42 @@ public class Blandfruit extends Fruit {
 
 		potionAttrib.image = ItemSpriteSheet.BLANDFRUIT;
 
-		info = Messages.get(this,"desc_cooked");
-
-		if (potionAttrib instanceof PotionOfHealing) {
-
-			name =  "Sunfruit";
-			potionGlow = new ItemSprite.Glowing(0x2EE62E);
-			//info += "It looks delicious and hearty, ready to be eaten!";
-
-		} else if (potionAttrib instanceof PotionOfStrength) {
-
-			name = "Powerfruit";
-			potionGlow = new ItemSprite.Glowing(0xCC0022);
-			//info += "It looks delicious and powerful, ready to be eaten!";
-			
-		} else if (potionAttrib instanceof PotionOfMight) {
-
-			name = "Mightyfruit";
-			potionGlow = new ItemSprite.Glowing(0xFF3300);
-			//info += "It looks delicious and super powerful, ready to be eaten!";
-
-		} else if (potionAttrib instanceof PotionOfParalyticGas) {
-
-			name = "Earthfruit";
-			potionGlow = new ItemSprite.Glowing(0x67583D);
-			//info += "It looks delicious and firm, ready to be eaten!";
-
-		} else if (potionAttrib instanceof PotionOfInvisibility) {
-
-			name = "Blindfruit";
-			potionGlow = new ItemSprite.Glowing(0xE5D273);
-			//info += "It looks delicious and shiny, ready to be eaten!";
-
-		} else if (potionAttrib instanceof PotionOfLiquidFlame) {
-
-			name = "Firefruit";
-			potionGlow = new ItemSprite.Glowing(0xFF7F00);
-			//info += "It looks delicious and spicy, ready to be eaten!";
-
-		} else if (potionAttrib instanceof PotionOfFrost) {
-
-			name = "Icefruit";
-			potionGlow = new ItemSprite.Glowing(0x66B3FF);
-			//info += "It looks delicious and refreshing, ready to be eaten!";
-
-		} else if (potionAttrib instanceof PotionOfMindVision) {
-
-			name = "Fadefruit";
-			potionGlow = new ItemSprite.Glowing(0xB8E6CF);
-			//info += "It looks delicious and shadowy, ready to be eaten!";
-
-		} else if (potionAttrib instanceof PotionOfToxicGas) {
-
-			name = "Sorrowfruit";
-			potionGlow = new ItemSprite.Glowing(0xA15CE5);
-			//info += "It looks delicious and crisp, ready to be eaten!";
-
+		if (potionAttrib instanceof PotionOfHealing){
+			name = Messages.get(this, "sunfruit");
+			potionGlow = new ItemSprite.Glowing( 0x2EE62E );
+		} else if (potionAttrib instanceof PotionOfStrength){
+			name = Messages.get(this, "rotfruit");
+			potionGlow = new ItemSprite.Glowing( 0xCC0022 );
+		} else if (potionAttrib instanceof PotionOfParalyticGas){
+			name = Messages.get(this, "earthfruit");
+			potionGlow = new ItemSprite.Glowing( 0x67583D );
+		} else if (potionAttrib instanceof PotionOfInvisibility){
+			name = Messages.get(this, "blindfruit");
+			potionGlow = new ItemSprite.Glowing( 0xE5D273 );
+		} else if (potionAttrib instanceof PotionOfLiquidFlame){
+			name = Messages.get(this, "firefruit");
+			potionGlow = new ItemSprite.Glowing( 0xFF7F00 );
+		} else if (potionAttrib instanceof PotionOfFrost){
+			name = Messages.get(this, "icefruit");
+			potionGlow = new ItemSprite.Glowing( 0x66B3FF );
+		} else if (potionAttrib instanceof PotionOfMindVision){
+			name = Messages.get(this, "fadefruit");
+			potionGlow = new ItemSprite.Glowing( 0xB8E6CF );
+		} else if (potionAttrib instanceof PotionOfToxicGas){
+			name = Messages.get(this, "sorrowfruit");
+			potionGlow = new ItemSprite.Glowing( 0xA15CE5 );
 		} else if (potionAttrib instanceof PotionOfLevitation) {
-
-			name = "Stormfruit";
-			potionGlow = new ItemSprite.Glowing(0x1C3A57);
-			//info += "It looks delicious and lightweight, ready to be eaten!";
-
+			name = Messages.get(this, "stormfruit");
+			potionGlow = new ItemSprite.Glowing( 0x1C3A57 );
 		} else if (potionAttrib instanceof PotionOfPurity) {
-
-			name = "Dreamfruit";
-			potionGlow = new ItemSprite.Glowing(0x8E2975);
-			//info += "It looks delicious and clean, ready to be eaten!";
-			
+			name = Messages.get(this, "dreamfruit");
+			potionGlow = new ItemSprite.Glowing( 0x8E2975 );
 		} else if (potionAttrib instanceof PotionOfExperience) {
-
-			name = "Starfruit";
+			name = Messages.get(this, "starfruit");
 			potionGlow = new ItemSprite.Glowing( 0xA79400 );
-			//info += "It looks delicious and glorious, ready to be eaten!";
-			
-		} else if (potionAttrib instanceof PotionOfOverHealing) {
-
-			name = "Heartfruit";
+		}else if (potionAttrib instanceof PotionOfOverHealing) {
+			name = Messages.get(this, "heartfruit");
 			potionGlow = new ItemSprite.Glowing( 0xB20000 );
-			//info += "It is pulsating with energy, ready to be eaten!";
 
 		}
 
@@ -282,37 +243,7 @@ public class Blandfruit extends Fruit {
 		if (bundle.contains(POTIONATTRIB)) {
 			imbuePotion((Potion) bundle.get(POTIONATTRIB));
 
-			// TODO: legacy code for pre-v0.2.3, remove when saves from that
-			// version are no longer supported.
-		} else if (bundle.contains("name")) {
-			name = bundle.getString("name");
-
-			if (name.equals("Healthfruit"))
-				cook(new Sungrass.Seed());
-			else if (name.equals("Powerfruit"))
-				cook(new Rotberry.Seed());
-			else if (name.equals("Paralyzefruit"))
-				cook(new Earthroot.Seed());
-			else if (name.equals("Invisifruit"))
-				cook(new Blindweed.Seed());
-			else if (name.equals("Flamefruit"))
-				cook(new Firebloom.Seed());
-			else if (name.equals("Frostfruit"))
-				cook(new Icecap.Seed());
-			else if (name.equals("Visionfruit"))
-				cook(new Fadeleaf.Seed());
-			else if (name.equals("Toxicfruit"))
-				cook(new Sorrowmoss.Seed());
-			else if (name.equals("Floatfruit"))
-				cook(new Stormvine.Seed());
-			else if (name.equals("Purefruit"))
-				cook(new Dreamfoil.Seed());
-			else if (name.equals("Mightyfruit"))
-				cook(new Phaseshift.Seed());
-			else if (name.equals("Heartfruit"))
-				cook(new Flytrap.Seed());
 		}
-
 	}
 
 	@Override

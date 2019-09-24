@@ -173,7 +173,7 @@ public class Egg extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		actions.add(AC_BREAK);
+		if (Dungeon.hero.haspet == false & Dungeon.depth < 26) actions.add(AC_BREAK);
 		actions.add(AC_SHAKE);
 		
 		return actions;
@@ -187,7 +187,7 @@ public class Egg extends Item {
 			boolean hatch = false;
 			if (checkFreezes()>=BLUE_DRAGON && checkPoisons()>=VIOLET_DRAGON && checkBurns()>=RED_DRAGON && checkLits()>=GREEN_DRAGON 
 			          && checkLight()>=SHADOW_DRAGON && checkSummons()>=LIGHT_DRAGON && checkMoves()>=SCORPION){
-				if (Dungeon.getMonth()==11 || Random.Int(50) == 0){
+				if (Dungeon.getMonth()==9 || Random.Int(50) == 0){
 				   BugDragon pet = new BugDragon();
 				   eggHatch(pet);
 					  hatch=true;
@@ -212,7 +212,7 @@ public class Egg extends Item {
 				  eggHatch(pet);
 				  hatch=true;
 				  //spawn ice dragon	
-			  } else if (checkLight()>=LIGHT_DRAGON) {
+			  } else if (checkSummons()>=LIGHT_DRAGON) {
 				  LightDragon pet = new LightDragon();
 				  eggHatch(pet);
 				  hatch=true;				  
@@ -365,7 +365,7 @@ public class Egg extends Item {
 		
 		  Dungeon.hero.petType=pet.type;
 		  Dungeon.hero.petLevel=pet.level;
-		  Dungeon.hero.petKills=pet.kills;	
+		   
 		  Dungeon.hero.petHP=pet.HP;
 		  Dungeon.hero.petExperience=pet.experience;
 		  Dungeon.hero.petCooldown=pet.cooldown;		

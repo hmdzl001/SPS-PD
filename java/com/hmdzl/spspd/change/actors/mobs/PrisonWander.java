@@ -29,6 +29,7 @@ import com.hmdzl.spspd.change.actors.buffs.Vertigo;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.effects.Chains;
 import com.hmdzl.spspd.change.effects.Pushing;
+import com.hmdzl.spspd.change.items.ArmorKit;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.TenguKey;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
@@ -249,8 +250,7 @@ public class PrisonWander extends Mob {
 	    
 	    ((PrisonBossLevel) Dungeon.level).unseal();
 
-	   
-		Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();	
+		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
 
 		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		

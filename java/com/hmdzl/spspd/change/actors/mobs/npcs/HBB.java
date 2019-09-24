@@ -21,6 +21,7 @@ package com.hmdzl.spspd.change.actors.mobs.npcs;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.items.Flag;
 import com.hmdzl.spspd.change.sprites.HBBSprite;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.utils.Random;
@@ -70,7 +71,7 @@ public class HBB extends NPC {
 	public boolean interact() {
 		
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		switch (Random.Int (3)) {
+		switch (Random.Int (4)) {
             case 0:
 			yell(Messages.get(this, "yell1"));	
 			break;
@@ -79,6 +80,9 @@ public class HBB extends NPC {
 			break;
 			case 2:
 			yell(Messages.get(this, "yell3"));
+			break;
+			case 3:
+				Dungeon.level.drop(new Flag(), Dungeon.hero.pos).sprite.drop();
 			break;
 		}
 		return false;

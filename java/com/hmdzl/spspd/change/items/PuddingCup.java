@@ -51,7 +51,7 @@ public class PuddingCup extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 		if (action == AC_SAVE) {
-			//showPudding_cupScene(false);
+			//showPudding_cupScene();
 			curUser = hero;
 			detach(curUser.belongings.backpack);
 			try {
@@ -74,13 +74,13 @@ public class PuddingCup extends Item {
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
 
-			if (!Statistics.amuletObtained) {
-			    Statistics.amuletObtained = true;
-                Badges.validateVictory();
+			//if (!Statistics.amuletObtained) {
+			   // Statistics.amuletObtained = true;
+                //Badges.validateVictory();
 
-				showPudding_cupScene(true);
+			showPudding_cupScene();
 
-			}
+			//}
 
 			return true;
 		} else {
@@ -88,10 +88,9 @@ public class PuddingCup extends Item {
 		}
 	}
 
-	private void showPudding_cupScene(boolean showText) {
+	private void showPudding_cupScene() {
 		try {
 			Dungeon.saveAll();
-			Pudding_CupScene.noText = !showText;
 			Game.switchScene(Pudding_CupScene.class);
 		} catch (IOException e) {
 		}

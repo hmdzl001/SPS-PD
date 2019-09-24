@@ -52,15 +52,7 @@ public class Mushroom extends Item {
 		}
 	}
   
-/*
-	private void showAmuletScene(boolean showText) {
-		try {
-			Dungeon.saveAll();
-			AmuletScene.noText = !showText;
-			Game.switchScene(AmuletScene.class);
-		} catch (IOException e) {
-		}
-	}
+
 */
 	@Override
 	public boolean isIdentified() {

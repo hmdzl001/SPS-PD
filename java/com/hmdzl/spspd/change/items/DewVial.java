@@ -56,6 +56,7 @@ import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.utils.GLog;
  
 import com.hmdzl.spspd.change.windows.WndBag;
+import com.hmdzl.spspd.change.windows.WndItem;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
@@ -81,7 +82,7 @@ public class DewVial extends Item {
     private static final String AC_POUR = "POUR";
 	private static final String AC_PEEK = "PEEK";
 	private static final String AC_REFINE = "REFINE";
-	//private static final String AC_ESCAPE = "ESCAPE";
+	private static final String AC_CHOOSE = "CHOOSE";
 
 	private static final float TIME_TO_LIGHT = 1f;
 	private static final float TIME_TO_DRINK = 2f;
@@ -94,7 +95,7 @@ public class DewVial extends Item {
 		//name = "dew vial";
 		image = ItemSpriteSheet.VIAL;
 
-		defaultAction = AC_DRINK;
+		defaultAction = AC_CHOOSE;
 		unique = true;
 	}
 
@@ -176,8 +177,11 @@ public class DewVial extends Item {
 
 	@Override
 	public void execute(final Hero hero, String action) {
-		
-         if (action.equals(AC_DRINK)) {
+		if (action.equals( AC_CHOOSE )) {
+
+			GameScene.show(new WndItem(null, this, true));
+
+		} else	if (action.equals(AC_DRINK)) {
 			 if (volume > 350 ){
 				 hero.damage(hero.HT,this);
 				 if (!hero.isAlive()) {

@@ -24,8 +24,11 @@ import com.hmdzl.spspd.change.items.ArmorKit;
 import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.Gold;
 import com.hmdzl.spspd.change.items.RedDewdrop;
+import com.hmdzl.spspd.change.items.StoneOre;
+import com.hmdzl.spspd.change.items.artifacts.ChaliceOfBlood;
 import com.hmdzl.spspd.change.items.keys.SkeletonKey;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfTeleportation;
+import com.hmdzl.spspd.change.items.weapon.missiles.Skull;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Assets;
@@ -69,16 +72,23 @@ public class King extends Mob {
 		evadeSkill = 25; 
 		baseSpeed = 0.75f;
 
+		loot = new ChaliceOfBlood().identify();
+		lootChance = 0.2f;
+		
+		lootOther = new Skull(5);
+		lootChance = 1f;		
+		
 		properties.add(Property.DWARF);
 		properties.add(Property.BOSS);
 
 		Undead.count = 0;
+
 	}
 
 	private boolean nextPedestal = true;
 	
     private int tombAlive = 0;
-	
+	private static final String TOMBALIVE	= "tombAlive";
 	private static final String PEDESTAL = "pedestal";
 	
 	public void spawnTomb() {
@@ -96,12 +106,14 @@ public class King extends Mob {
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(PEDESTAL, nextPedestal);
+		bundle.put( TOMBALIVE, tombAlive );
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		nextPedestal = bundle.getBoolean(PEDESTAL);
+		tombAlive  = bundle.getInt( TOMBALIVE );
 	}
 
 	@Override
@@ -174,7 +186,7 @@ public class King extends Mob {
 	private void summonLiches (int pos){
 		 DwarfLich.spawnAround(pos);
 	}
-	
+
 	@Override
 	public void die(Object cause) {
 		            
@@ -377,10 +389,10 @@ public class King extends Mob {
 		hostile = false;
 		state = PASSIVE;
 		
-		loot = new RedDewdrop();
+		loot = new StoneOre();
 		lootChance = 0.05f;
 
-		properties.add(Property.MECH);
+		properties.add(Property.UNKNOW);
 		properties.add(Property.BOSS);
 	}
 	
@@ -409,10 +421,10 @@ public class King extends Mob {
 		return 0;
 		
 	}
-	
+
 	
 	public boolean checkKing(){
-		
+
 		int kingAlive=0;
 		if(Dungeon.level.mobs!=null){
        for (Mob mob : Dungeon.level.mobs) {
@@ -427,7 +439,7 @@ public class King extends Mob {
       return false;
        }
 	}
-	
+
 	@Override
 	public void damage(int dmg, Object src) {
 		if(checkKing()){
@@ -451,9 +463,9 @@ public class King extends Mob {
 		
 		GameScene.bossSlain();
 		((CityBossLevel) Dungeon.level).unseal();
-		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
+	
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(Random.Int(4000, 5000)), pos).sprite.drop();
+		Dungeon.level.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();
 
 		Badges.validateBossSlain();
 	

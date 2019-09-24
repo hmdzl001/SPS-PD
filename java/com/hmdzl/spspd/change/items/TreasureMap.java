@@ -86,13 +86,7 @@ public class TreasureMap extends Item {
 
 		if (action == AC_PORT) {
 
-			if (Dungeon.bossLevel() || hero.petfollow) {
-				hero.spend(TIME_TO_USE);
-				GLog.w(Messages.get(Item.class, "not_here"));
-				return;
-			}
-			
-			if (Dungeon.depth>25 && Dungeon.depth!=specialLevel) {
+			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 || hero.petfollow) && Dungeon.depth!=specialLevel) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
 				return;
@@ -103,14 +97,6 @@ public class TreasureMap extends Item {
 				GLog.w(Messages.get(Item.class, "boss_first"));
 				return;
 			}
-			
-			if (Dungeon.depth==1) {
-				hero.spend(TIME_TO_USE);
-				GLog.w(Messages.get(Item.class, "not_here"));
-				return;
-			}
-
-
 		}
 
 		if (action == AC_PORT) {
@@ -126,12 +112,8 @@ public class TreasureMap extends Item {
        			returnPos = hero.pos;
 				InterlevelScene.mode = InterlevelScene.Mode.PORTMAP;
 			} else {
-				 checkPetPort();
-				 removePet();
-											
-				this.doDrop(hero);
-																
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;	
+				detach(hero.belongings.backpack);
 			}
                	InterlevelScene.returnDepth = returnDepth;
 				InterlevelScene.returnPos = returnPos;
@@ -163,39 +145,7 @@ public class TreasureMap extends Item {
 		}
 		return false;
 	}
-	
-	private void checkPetPort(){
-		PET pet = checkpet();
-		if(pet!=null && checkpetNear()){
-		  //GLog.i("I see pet");
-		  Dungeon.hero.petType=pet.type;
-		  Dungeon.hero.petLevel=pet.level;
-		  Dungeon.hero.petKills=pet.kills;	
-		  Dungeon.hero.petHP=pet.HP;
-		  Dungeon.hero.petExperience=pet.experience;
-		  Dungeon.hero.petCooldown=pet.cooldown;
-		  pet.destroy();
-		  Dungeon.hero.petfollow=true;
-		} else if (Dungeon.hero.haspet && Dungeon.hero.petfollow) {
-			Dungeon.hero.petfollow=true;
-		} else {
-			Dungeon.hero.petfollow=false;
-		}
 		
-	}
-	private void removePet(){
-		if (Dungeon.hero.haspet && !Dungeon.hero.petfollow){
-		 for (Mob mob : Dungeon.level.mobs) {
-				if(mob instanceof PET) {				 
-					Dungeon.hero.haspet=false;
-					Dungeon.hero.petCount++;
-					mob.destroy();				
-				}
-			  }
-		}
-	}
-	
-	
 	public void reset() {
 		returnDepth = -1;
 	}

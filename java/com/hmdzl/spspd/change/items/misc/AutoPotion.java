@@ -40,7 +40,6 @@ public class AutoPotion extends MiscEquippable {
 	{
 		image = ItemSpriteSheet.ARTIFACT;
 		unique = true;
-		bones = false;
 	}
 	
 	@Override

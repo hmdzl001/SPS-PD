@@ -26,7 +26,7 @@ public class PrisonChallenge extends ChallengeList {
 	{
 		//name = "journal page sokoban practice";
 		image = ItemSpriteSheet.PRISONKEY;
-		room=1;
+		room=2;
 
 		stackable = false;
 	}

@@ -11,19 +11,22 @@ import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.guns.Sling;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 
 public abstract class SpAmmo extends Item {
 
 	{
 		image = ItemSpriteSheet.SPAMMO;
-		bones = false;
+		 
 		stackable=false;
 	}
 
 	public abstract void onHit(GunWeapon gunweapon, Char attacker, Char defender, int damage);
 
 	public abstract void onHit(Boomerang boomerang, Char attacker, Char defender, int damage);
+	
+	public abstract void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage);
 
 	@Override
 	public boolean isUpgradable() {

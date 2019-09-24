@@ -37,7 +37,7 @@ public class PixieParasol extends Pill {
 	{
 		//name = "pixie parasol mushroom";
 		image = ItemSpriteSheet.MUSHROOM_PIXIEPARASOL;
-		bones = false;
+		 
 	}
 
 	@Override

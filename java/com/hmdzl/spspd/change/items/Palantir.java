@@ -93,7 +93,7 @@ public class Palantir extends Item {
 
 		if (action == AC_PORT) {
 
-			if (Dungeon.bossLevel()) {
+			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 || hero.petfollow) && Dungeon.depth!=specialLevel) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
 				return;
@@ -117,14 +117,13 @@ public class Palantir extends Item {
 				if (buff != null)
 					buff.detach();
 
-           if (Dungeon.depth<27){
+           if (Dungeon.depth<25 && !Dungeon.bossLevel()){
             	returnDepth = Dungeon.depth;
        			returnPos = hero.pos;
 				InterlevelScene.mode = InterlevelScene.Mode.PALANTIR;
 			} else {
-				 checkPetPort();
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;	
-				this.doDrop(hero);
+                detach(hero.belongings.backpack);
 			}
 				InterlevelScene.returnDepth = returnDepth;
 				InterlevelScene.returnPos = returnPos;
@@ -138,46 +137,6 @@ public class Palantir extends Item {
 	
 	public void reset() {
 		returnDepth = -1;
-	}
-	
-
-	private PET checkpet(){
-		for (Mob mob : Dungeon.level.mobs) {
-			if(mob instanceof PET) {
-				return (PET) mob;
-			}
-		}	
-		return null;
-	}
-	
-	private boolean checkpetNear(){
-		for (int n : Level.NEIGHBOURS8) {
-			int c =  Dungeon.hero.pos + n;
-			if (Actor.findChar(c) instanceof PET) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private void checkPetPort(){
-		PET pet = checkpet();
-		if(pet!=null && checkpetNear()){
-		  //GLog.i("I see pet");
-		  Dungeon.hero.petType=pet.type;
-		  Dungeon.hero.petLevel=pet.level;
-		  Dungeon.hero.petKills=pet.kills;	
-		  Dungeon.hero.petHP=pet.HP;
-		  Dungeon.hero.petExperience=pet.experience;
-		  Dungeon.hero.petCooldown=pet.cooldown;
-		  pet.destroy();
-		  Dungeon.hero.petfollow=true;
-		} else if (Dungeon.hero.haspet && Dungeon.hero.petfollow) {
-			Dungeon.hero.petfollow=true;
-		} else {
-			Dungeon.hero.petfollow=false;
-		}
-		
 	}
 
 	@Override

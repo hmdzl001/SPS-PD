@@ -52,11 +52,12 @@ public class GamesInProgress {
 		}
 	}
 
-	public static void set(HeroClass cl, int depth, int level,
+	public static void set(HeroClass cl, int depth, int level, int skins,
 			boolean challenges) {
 		Info info = new Info();
 		info.depth = depth;
 		info.level = level;
+		info.skins = skins;
 		info.challenges = challenges;
 		state.put(cl, info);
 	}
@@ -72,6 +73,7 @@ public class GamesInProgress {
 	public static class Info {
 		public int depth;
 		public int level;
+		public int skins;
 		public boolean challenges;
 	}
 }

@@ -40,7 +40,6 @@ public class MissileWeapon extends Weapon {
 		defaultAction = AC_THROW;
 		usesTargeting = true;
 		stackable = true;
-		bones = false; 
 	}
 
 	protected boolean sticky = true;

@@ -80,6 +80,7 @@ public class DungeonBomb extends Bomb {
 				if (ch != null) {
 					// those not at the center of the blast take damage less
 					// consistently.
+					if (ch.properties().contains(Char.Property.BOSS) || ch.properties().contains(Char.Property.MINIBOSS)){
 					int minDamage = ch.HT/10;
 					int maxDamage = ch.HT/5;
 
@@ -88,6 +89,19 @@ public class DungeonBomb extends Bomb {
 					if (dmg > 0) {
 						ch.damage(dmg, this);
 					}
+					
+					} else {
+						
+				
+					int minDamage = ch.HT/5;
+					int maxDamage = ch.HT/4;
+
+					int dmg = Random.NormalIntRange(minDamage, maxDamage);
+							//- Math.max(ch.drRoll(),0);
+					if (dmg > 0) {
+						ch.damage(dmg, this);
+					}
+				  }
 				}
 			}
 		}

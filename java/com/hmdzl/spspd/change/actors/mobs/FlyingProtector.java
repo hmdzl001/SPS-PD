@@ -49,7 +49,7 @@ public class FlyingProtector extends Mob implements Callback {
 	{
 		spriteClass = FlyingProtectorSprite.class;
 
-		EXP = 18;
+		EXP = 5;
 		state = HUNTING;
 		flying = true;
 		

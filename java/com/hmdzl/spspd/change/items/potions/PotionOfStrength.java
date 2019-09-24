@@ -34,7 +34,7 @@ public class PotionOfStrength extends Potion {
 	{
 		//name = "Potion of Strength";
         initials = 13;
-		bones = true;
+		 
 	}
 
 	@Override

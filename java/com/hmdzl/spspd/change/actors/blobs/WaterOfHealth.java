@@ -63,7 +63,7 @@ public class WaterOfHealth extends WellWater {
 			Journal.remove(Feature.WELL_OF_HEALTH);
 			return item;
 		}
-
+        Journal.remove(Feature.WELL_OF_HEALTH);
 		return null;
 	}
 

@@ -72,7 +72,7 @@ public class UIcecorps extends Mob {
 		EXP = 20;
 		evadeSkill = 5;
 
-		properties.add(Property.HUMAN);
+		properties.add(Property.UNKNOW);
 		properties.add(Property.BOSS);
 	}
 

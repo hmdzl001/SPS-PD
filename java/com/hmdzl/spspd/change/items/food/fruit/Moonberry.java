@@ -32,7 +32,7 @@ public class Moonberry extends Fruit {
 		image = ItemSpriteSheet.SEED_MOONBERRY;
 		energy = 50;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	@Override

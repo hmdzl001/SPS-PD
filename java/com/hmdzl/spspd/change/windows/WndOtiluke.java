@@ -103,7 +103,7 @@ public class WndOtiluke extends Window {
 						item.returnPos = Dungeon.hero.pos;
 						port(portnum, item.firsts[portnum]);
 						item.firsts[portnum]=false;
-						item.charge-=500;
+						item.charge-= Math.min(item.charge,500);
 					}
 				};
 				

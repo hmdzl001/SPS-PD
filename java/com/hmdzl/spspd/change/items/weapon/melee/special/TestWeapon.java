@@ -57,7 +57,7 @@ public class TestWeapon extends MeleeWeapon {
 	{
 		//name = "TestWeapon";
 		image = ItemSpriteSheet.ADAMANT_WEAPON;
-		bones = false;
+		 
 	}
 
 	public TestWeapon() {

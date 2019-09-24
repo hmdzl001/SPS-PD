@@ -59,6 +59,7 @@ import com.hmdzl.spspd.change.sprites.HeroSprite;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.PlantSprite;
 import com.hmdzl.spspd.change.sprites.TrapSprite;
+import com.hmdzl.spspd.change.ui.ActionIndicator;
 import com.hmdzl.spspd.change.ui.AttackIndicator;
 import com.hmdzl.spspd.change.ui.Banner;
 import com.hmdzl.spspd.change.ui.BusyIndicator;
@@ -137,6 +138,7 @@ public class GameScene extends PixelScene {
 
 	private AttackIndicator attack;
 	private LootIndicator loot;
+	private ActionIndicator action;
 	private ResumeIndicator resume;
 
 	@Override
@@ -258,6 +260,12 @@ public class GameScene extends PixelScene {
 		loot.camera = uiCamera;
 		add(loot);
 
+		action = new ActionIndicator();
+		action.camera = uiCamera;
+		action.setPos(uiCamera.width - attack.width(),
+				toolbar.top() -2 * attack.height());
+		add( action );		
+		
 		resume = new ResumeIndicator();
 		resume.camera = uiCamera;
 		add(resume);
@@ -335,7 +343,12 @@ public class GameScene extends PixelScene {
 				WndStory.showChapter(WndStory.ID_CITY);
 				break;
 			}
-			
+			case CHAOS:
+				switch (Dungeon.depth) {
+					case 85:
+						WndStory.showChapter(WndStory.ID_CHAOS);
+						break;
+						}
 		case JOURNAL:
 			switch (Dungeon.depth) {
 			case 50:

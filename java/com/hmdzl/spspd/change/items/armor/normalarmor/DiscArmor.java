@@ -28,7 +28,7 @@ public class DiscArmor extends NormalArmor {
 	}
 
 	public DiscArmor() {
-		super(3,1.6f,4f,1);
+		super(3,1.6f,4f,4);
 	}
 
 }

@@ -72,7 +72,7 @@ public class CromCruachAxe extends RelicMeleeWeapon {
 		chargeCap = 1000;
 
 		cooldown = 0;
-		bones = false;
+		 
 		
   }
 		

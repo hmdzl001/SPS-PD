@@ -45,7 +45,7 @@ public class MiniMoai extends MissileWeapon {
 		stackable = false;
 		unique = true;
 
-		bones = false;
+		 
 	}
 
 	@Override

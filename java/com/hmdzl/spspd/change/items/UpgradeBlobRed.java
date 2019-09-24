@@ -47,7 +47,7 @@ public class UpgradeBlobRed extends Item {
 
 		stackable = true;
 
-		bones = true;
+		 
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.hmdzl.spspd.change.items.weapon.guns.GunD;
 import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.change.items.weapon.guns.Sling;
 import com.hmdzl.spspd.change.sprites.ItemSprite;
@@ -29,6 +30,10 @@ public class HeavyAmmo extends SpAmmo {
 	}
 	@Override
 	public void onHit(Boomerang boomerang, Char attacker, Char defender, int damage) {
+		defender.damage((int)(0.75*damage), attacker);
+	}	
+	@Override
+	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
 		defender.damage((int)(0.75*damage), attacker);
 	}
 }

@@ -23,7 +23,6 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.items.Amulet;
-import com.hmdzl.spspd.change.items.TownReturnBeacon;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.OtilukeNPCSprite;

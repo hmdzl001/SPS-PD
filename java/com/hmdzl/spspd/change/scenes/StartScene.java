@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.Badges;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.GamesInProgress;
 import com.hmdzl.spspd.change.ShatteredPixelDungeon;
+import com.hmdzl.spspd.change.Skins;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.effects.BannerSprites;
 import com.hmdzl.spspd.change.effects.BannerSprites.Type;
@@ -50,6 +51,8 @@ import com.watabou.noosa.particles.BitmaskEmitter;
 import com.watabou.noosa.ui.Button;
 import com.watabou.utils.Callback;
 import com.hmdzl.spspd.change.ui.RenderedTextMultiline;
+
+import static com.hmdzl.spspd.change.Dungeon.skins;
 
 public class StartScene extends PixelScene {
 
@@ -125,13 +128,15 @@ public class StartScene extends PixelScene {
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0) {
-								startNewGame();
+								//startNewGame();
+								askSkin();
 							}
 						}
 					});
 
 				} else {
-					startNewGame();
+					//startNewGame();
+					askSkin();
 				}
 			}
 		};
@@ -288,6 +293,11 @@ public class StartScene extends PixelScene {
 
 		}
 	}
+	
+    private void askSkin() {
+
+        StartScene.this.add( new WndSkin() );
+    }	
 
 	private void startNewGame() {
 
@@ -520,4 +530,40 @@ public class StartScene extends PixelScene {
 			Sample.INSTANCE.play(Assets.SND_CLICK);
 		}
 	}
+	
+    private class WndSkin extends WndOptions {
+
+        public WndSkin() {
+            super(Messages.get(Skins.class, "title"), Messages.get(Skins.class, "info"),Messages.get(Skins.class, "normal"),
+                    Messages.get(Skins.class, "first") );
+        }
+
+     @Override
+        protected void onSelect( int index ) {
+
+            skins = index;
+		       final String skin = Skins.NAME_IDS[index];
+                StartScene.this.add( 
+				new WndOptions( Messages.get(Skins.class,skin),
+						Messages.get(Skins.class, skin+"_desc"),
+							Messages.get(Skins.class, "yes"),
+							Messages.get(Skins.class, "no")
+                ) {
+                    @Override
+                    protected void onSelect( int index ) {
+                        if (index == 0) {
+
+                            startNewGame();
+
+                        } else {
+
+                            StartScene.this.add( new WndSkin() );
+
+                        }
+                    }
+                } );
+            }
+      
+    }	
+	
 }

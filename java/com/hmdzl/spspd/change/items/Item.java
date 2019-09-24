@@ -87,9 +87,6 @@ public class Item implements Bundlable {
 	// Unique items persist through revival
 	public boolean unique = false;
 
-	// whether an item can be included in heroes remains
-	public boolean bones = false;
-
 	private static Comparator<Item> itemComparator = new Comparator<Item>() {
 		@Override
 		public int compare(Item lhs, Item rhs) {
@@ -195,7 +192,7 @@ public class Item implements Bundlable {
 			}
 
 			items.add(this);
-			if (stackable || this instanceof Boomerang || this instanceof JupitersWraith || this instanceof MissileShield)
+			if (stackable || this instanceof Boomerang)
 				Dungeon.quickslot.replaceSimilar(this);
 			updateQuickslot();
 			Collections.sort(items, itemComparator);
@@ -221,7 +218,7 @@ public class Item implements Bundlable {
 
 		} else if (quantity == 1) {
 
-			if (stackable || this instanceof Boomerang || this instanceof JupitersWraith || this instanceof MissileShield) {
+			if (stackable || this instanceof Boomerang ) {
 				Dungeon.quickslot.convertToPlaceholder(this);
 			}
 
@@ -277,7 +274,7 @@ public class Item implements Bundlable {
 
 		} else if (quantity == 1) {
 
-			if (stackable || this instanceof Boomerang || this instanceof JupitersWraith || this instanceof MissileShield) {
+			if (stackable || this instanceof Boomerang) {
 				Dungeon.quickslot.convertToPlaceholder(this);
 			}
 

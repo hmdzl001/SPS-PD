@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.change.levels;
 
 import com.hmdzl.spspd.change.Assets;
-import com.hmdzl.spspd.change.Bones;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
@@ -28,7 +27,6 @@ import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.items.Heap;
 import com.hmdzl.spspd.change.items.Item;
-import com.hmdzl.spspd.change.items.keys.SkeletonKey;
 import com.hmdzl.spspd.change.levels.painters.Painter;
 import com.hmdzl.spspd.change.levels.traps.ToxicTrap;
 import com.hmdzl.spspd.change.levels.traps.Trap;
@@ -202,15 +200,7 @@ public class CavesBossLevel extends Level {
 
 	@Override
 	protected void createItems() {
-		Item item = Bones.get();
-		if (item != null) {
-			int pos;
-			do {
-				pos = Random.IntRange(ROOM_LEFT, ROOM_RIGHT)
-						+ Random.IntRange(ROOM_TOP + 1, ROOM_BOTTOM) * getWidth();
-			} while (pos == entrance || map[pos] == Terrain.SIGN);
-			drop(item, pos).type = Heap.Type.REMAINS;
-		}
+
 	}
 
 	@Override

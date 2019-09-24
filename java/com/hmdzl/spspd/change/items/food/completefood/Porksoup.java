@@ -34,7 +34,7 @@ public class Porksoup extends CompleteFood {
 		image = ItemSpriteSheet.MEATSOUP;
 		energy = 200;
 		hornValue = 3;
-		bones = false;
+		 
 	}
 	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing(0xCC6600);
 

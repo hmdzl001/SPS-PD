@@ -21,12 +21,20 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.Fury;
 import com.hmdzl.spspd.change.actors.buffs.BloodImbue;
+import com.hmdzl.spspd.change.actors.buffs.Paralysis;
+import com.hmdzl.spspd.change.actors.buffs.Silent;
+import com.hmdzl.spspd.change.actors.buffs.SpAttack;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.change.actors.mobs.Mob;
+import com.hmdzl.spspd.change.actors.mobs.pets.PET;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.levels.Level;
@@ -40,6 +48,10 @@ import com.watabou.noosa.Camera;
 import com.watabou.utils.Callback;
 import com.watabou.noosa.audio.Sample;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
+
+import java.util.HashMap;
 
 
 public class WarriorSkill extends ClassSkill {
@@ -49,18 +61,77 @@ public class WarriorSkill extends ClassSkill {
 		image = ItemSpriteSheet.ARMOR_WARRIOR;
 	}
 
+	private HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();
+
 	@Override
 	public void doSpecial() {
-		//GameScene.selectCell(leaper);
-
-		curUser.HP -= (curUser.HP / 2);
-
 		curUser.spend(Actor.TICK);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Buff.prolong(curUser, BloodImbue.class,30f);
+		charge += 10;
+	}
+
+	@Override
+	public void doSpecial2() {
+
+		for (Mob mob : Dungeon.level.mobs) {
+			if (Level.fieldOfView[mob.pos]) {
+				if (Dungeon.level.distance(curUser.pos, mob.pos) <= 3){
+					Buff.affect(mob, AttackUp.class).level(10);
+				} else {
+				Buff.affect(mob, Disarm.class, curUser.STR);
+				Buff.affect(mob, Silent.class, curUser.STR);
+				}
+			}
+		}
+		charge += 15;
+		curUser.spend(Actor.TICK);
+		curUser.sprite.operate(curUser.pos);
+		curUser.busy();
+		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
+		Sample.INSTANCE.play(Assets.SND_READ);
+		Buff.prolong(curUser, DefenceUp.class,targets.size()*5f).level(50);
+	}
+
+	@Override
+	public void doSpecial3() {
+
+		for (Mob mob : Dungeon.level.mobs) {
+			if (mob instanceof PET) {
+				mob.HP += (int)mob.HT/2;
+			}
+		}
+		curUser.HP += curUser.HT/2;
+		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
+			Char mob = Actor.findChar(curUser.pos
+					+ Level.NEIGHBOURS8[i]);
+			if (mob != null && mob != curUser && !(mob instanceof PET ) ) {
+				mob.damage((int)curUser.HT/2, this);
+			}
+
+		}
+
+		charge += 25;
+		curUser.spend(Actor.TICK);
+		curUser.sprite.operate(curUser.pos);
+		curUser.busy();
+		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
+		Sample.INSTANCE.play(Assets.SND_READ);
+		Buff.prolong(curUser, DefenceUp.class,targets.size()*5f).level(50);
+	}
+
+	@Override
+	public void doSpecial4() {
+		curUser.spend(Actor.TICK);
+		curUser.sprite.operate(curUser.pos);
+		curUser.busy();
+		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
+		Sample.INSTANCE.play(Assets.SND_READ);
+		Buff.prolong(curUser, SpAttack.class,30f);
+		charge += 8;
 	}
 
 	/*protected static CellSelector.Listener leaper = new CellSelector.Listener() {

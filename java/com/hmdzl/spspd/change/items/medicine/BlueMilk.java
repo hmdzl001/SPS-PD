@@ -35,7 +35,7 @@ public class BlueMilk extends Pill {
 	{
 		//name = "blue milk mushroom";
 		image = ItemSpriteSheet.MUSHROOM_BLUEMILK;
-		bones = false;
+		 
 	}
 
 	@Override

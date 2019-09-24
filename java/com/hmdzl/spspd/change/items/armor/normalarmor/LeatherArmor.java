@@ -28,6 +28,6 @@ public class LeatherArmor extends NormalArmor {
 	}
 
 	public LeatherArmor() {
-		super(2,1.8f,5f,1);
+		super(2,1.8f,5f,3);
 	}
 }

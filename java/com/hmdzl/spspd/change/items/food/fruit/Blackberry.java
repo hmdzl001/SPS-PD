@@ -34,7 +34,7 @@ public class Blackberry extends Fruit {
 		image = ItemSpriteSheet.SEED_BLACKBERRY;
 		energy = 50;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	@Override

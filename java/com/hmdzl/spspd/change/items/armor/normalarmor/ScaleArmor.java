@@ -28,6 +28,6 @@ public class ScaleArmor extends NormalArmor {
 	}
 
 	public ScaleArmor() {
-		super(5,1f,2f,1);
+		super(5,1f,2f,3);
 	}
 }

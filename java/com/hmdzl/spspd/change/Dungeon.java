@@ -32,6 +32,7 @@ import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.items.artifacts.DriedRose;
+import com.hmdzl.spspd.change.levels.ChaosLevel;
 import com.hmdzl.spspd.change.levels.SokobanSPLevel;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.actors.Actor;
@@ -169,6 +170,7 @@ public class Dungeon {
 	//public static boolean secondQuest = false;
 
 	public static int challenges;
+	public static int skins;
 	
 	public static int ratChests = 0;
 	public static int sacrifice = 0;
@@ -581,6 +583,26 @@ public static Level newBossRushLevel(){
 
 		return level;
 	}
+
+	public static Level newChaosLevel(){
+
+		Dungeon.level = null;
+		Actor.clear();
+		depth = 85;
+		if (depth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = depth;}
+
+		Arrays.fill(visible, false);
+
+		Level level;
+		level = new ChaosLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
 	
 public static Level newZotBossLevel(){
 
@@ -665,28 +687,32 @@ public static Level newChallengeLevel(int list, Boolean first){
 	Dungeon.level = null;
 	Actor.clear();
 	
-    depth = 27+list;
+    depth = 26+list;
 	if (list==0){
+		depth = 26;
+	}
+	if (list==1 ){
 		depth = 27;
 	}
-	if (list==1){
+	if (list==2){
 		depth = 28;
 	}
-	if (list==2){
+	if (list==3){
 		depth = 29;
 	}
-	if (list==3){
+	if (list==4){
 		depth = 30;
 	}
-	if (list==4){
+	if (list==5){
 		depth = 31;
 	}
-	if (list==5){
+	if (list==6){
 		depth = 32;
 	}
-	if (list==6){
+	if (list==7){
 		depth = 33;
 	}
+
 	if (depth > Statistics.realdeepestFloor && depth < 34) {
 		Statistics.realdeepestFloor = depth;}
 
@@ -695,24 +721,27 @@ public static Level newChallengeLevel(int list, Boolean first){
 	Level level;
 	switch(list){
 	case 0:
+		level = Dungeon.newLevel();
+		break;
+	case 1:
 	    level = new FieldLevel();
 	    break;
-	case 1:
+	case 2:
 		level = new BattleLevel();
 		break;
-	case 2:
+	case 3:
 		level = new FishingLevel();
 		break;
-	case 3:
+	case 4:
 		level = new VaultLevel();
 		break;
-	case 4:
+	case 5:
 		level = new CatacombLevel();
 		break;
-	case 5:
+	case 6:
 		level = new FortressLevel();
 		break;
-	case 6:
+	case 7:
 		level = new ChasmLevel();
 		break;
 	default:
@@ -833,6 +862,8 @@ public static Level newChallengeLevel(int list, Boolean first){
 		case 71:
 		    level = new BossRushLevel();
 			break;
+		case 85:
+			level = new ChaosLevel();
 		default:
 			level = new DeadEndLevel();
 			if (depth<27){Statistics.deepestFloor--;}
@@ -964,7 +995,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static boolean souNeeded() {
-		int[] quota = { 5, 3, 10, 6, 15, 9, 20, 12, 25, 15 };
+		int[] quota = { 5, 4, 10, 8, 15, 12, 20, 16, 25, 20 };
 		return chance(quota, limitedDrops.upgradeScrolls.count);
 	}
 
@@ -1001,6 +1032,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String SO_DEPTH_FILE	= "soldier%d.dat";
 	
 	private static final String VERSION = "version";
+	private static final String SKINS	= "skins";
 	private static final String CHALLENGES = "challenges";
 	private static final String HERO = "hero";
 	private static final String GOLD = "gold";
@@ -1095,6 +1127,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 
 			version = Game.versionCode;
 			bundle.put(VERSION, Game.versionCode);
+			bundle.put( SKINS, skins );
 			bundle.put(CHALLENGES, challenges);
 			bundle.put(HERO, hero);
 			bundle.put(GOLD, gold);
@@ -1201,7 +1234,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 			saveGame(gameFile(hero.heroClass));
 			saveLevel();
 
-			GamesInProgress.set(hero.heroClass, depth, hero.lvl,
+			GamesInProgress.set(hero.heroClass, depth, hero.lvl,skins,
 					challenges != 0);
 
 		} else if (WndResurrect.instance != null) {
@@ -1235,6 +1268,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		QuickSlotButton.reset();
 
 		Dungeon.challenges = bundle.getInt(CHALLENGES);
+		Dungeon.skins = bundle.getInt(SKINS);
 
 		Dungeon.level = null;
 		Dungeon.depth = -1;

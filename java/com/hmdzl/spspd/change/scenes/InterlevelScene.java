@@ -49,7 +49,7 @@ public class InterlevelScene extends PixelScene {
 	public static enum Mode {
 		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, /*PORT1, PORT2, PORT3,*/ PORT4,
 		/*PORTSEWERS, PORTPRISON, PORTCAVES, PORTCITY, ORTHALLS,*/ PORTCRAB, PORTTENGU, PORTCOIN, PORTBONE, RETURNSAVE,
-		JOURNAL, SOKOBANFAIL, PALANTIR, BOSSRUSH, PORTMAP, SAVE, SLEEP, CHALLENGEBOOK
+		JOURNAL, SOKOBANFAIL, PALANTIR, BOSSRUSH, PORTMAP, SAVE, SLEEP, CHALLENGEBOOK, RESET,CHAOS
 	};
 
 	public static Mode mode;
@@ -185,7 +185,13 @@ public class InterlevelScene extends PixelScene {
 						break;
 					case CHALLENGEBOOK:
 						challengePortal(challengelist);
-						break;						
+						break;		
+					case RESET:
+						reset();
+						break;
+					case CHAOS:
+						portal(17);
+						break;
 					}
 
 					if ((Dungeon.depth % 5) == 0) {
@@ -284,7 +290,7 @@ public class InterlevelScene extends PixelScene {
 			level = Dungeon.newMineBossLevel();	
 		}else if (Dungeon.townCheck(Dungeon.depth) && (Dungeon.depth >= Statistics.realdeepestFloor || Random.Int(10)<2)){
 				level = Dungeon.newLevel();	
-	    }else if (Dungeon.depth >= Statistics.deepestFloor && !Dungeon.townCheck(Dungeon.depth) ){				
+	    }else if (Dungeon.depth >= Statistics.deepestFloor && !Dungeon.townCheck(Dungeon.depth) ){
 			level = Dungeon.newLevel();
 		} else {
 			Dungeon.depth++;
@@ -334,7 +340,6 @@ public class InterlevelScene extends PixelScene {
 	}
 
 	private void returnTo() throws IOException {
-		checkPetPort();
 		Actor.fixTime();
 		DriedRose.clearHeldGhostHero();
 		//DriedRose.holdGhostHero( Dungeon.level );
@@ -347,8 +352,7 @@ public class InterlevelScene extends PixelScene {
 	}
 	
 	private void returnToSave() throws IOException {
-
-		checkPetPort();
+		
 		Actor.fixTime();
 		DriedRose.clearHeldGhostHero();
        // Dungeon.hero.invisible=0;
@@ -429,21 +433,19 @@ public class InterlevelScene extends PixelScene {
 	private void reset() throws IOException {
 
 		Actor.fixTime();
-		//DriedRose.holdGhostHero( Dungeon.level );
-        DriedRose.clearHeldGhostHero();
-		//SpecialRoom.resetPitRoom(Dungeon.depth+1);
-
 		Dungeon.depth--;
-		Level level = Dungeon.newLevel();
+		if (Dungeon.depth > 50)
+		{Level level = Dungeon.newChaosLevel();
 		Dungeon.switchLevel( level, level.entrance );
+		} else {Level level = Dungeon.newLevel();
+			Dungeon.switchLevel( level, level.entrance );}
+
 	}	
 	
 	private void portal(int branch) throws IOException {
-
-	    checkPetPort();
+		
 		Actor.fixTime();
 		DriedRose.clearHeldGhostHero();
-		//DriedRose.holdGhostHero( Dungeon.level );
 		Dungeon.saveAll();
 				
 		Level level;
@@ -496,6 +498,9 @@ public class InterlevelScene extends PixelScene {
 		case 16:
 		    level = Dungeon.newFieldBossLevel();
 			break;
+			case 17:
+				level = Dungeon.newChaosLevel();
+				break;
 		default:
 			level = Dungeon.newLevel();
 		}
@@ -503,7 +508,6 @@ public class InterlevelScene extends PixelScene {
 	}
 	
 	private void journalPortal(int branch) throws IOException {
-	    //checkPetPort();
 		Actor.fixTime();
 		DriedRose.clearHeldGhostHero();
 		//DriedRose.holdGhostHero( Dungeon.level );
@@ -530,37 +534,40 @@ public class InterlevelScene extends PixelScene {
 	}
 	
 	private void challengePortal(int branch) throws IOException {
-	    //checkPetPort();
 		Actor.fixTime();
 		DriedRose.clearHeldGhostHero();
 		//DriedRose.holdGhostHero( Dungeon.level );
 		Dungeon.saveAll();
 		Level level;
 		if (branch==0 && !first){
+			Dungeon.depth=26;
+			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+
+		} else if (branch==1 && !first){
 			Dungeon.depth=27;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
-		} else	if (branch==1 && !first){
+		} else	if (branch==2 && !first){
 			Dungeon.depth=28;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
-		} else	if (branch==2 && !first){
+		} else	if (branch==3 && !first){
 			Dungeon.depth=29;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
-		} else	if (branch==3 && !first){
+		} else	if (branch==4 && !first){
 			Dungeon.depth=30;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
-		} else	if (branch==4 && !first){
+		} else	if (branch==5 && !first){
 			Dungeon.depth=31;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
-		} else	if (branch==5 && !first){
+		} else	if (branch==6 && !first){
 			Dungeon.depth=32;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
-		/*} else if (branch==6 && !first){
+		/*} else if (branch==7 && !first){
 			Dungeon.depth=33;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);*/
 		}else{
@@ -568,47 +575,7 @@ public class InterlevelScene extends PixelScene {
 		}
 
 		Dungeon.switchLevel(level, level.entrance);
-	}	
-	
-	private PET checkpet(){
-		for (Mob mob : Dungeon.level.mobs) {
-			if(mob instanceof PET) {
-				return (PET) mob;
-			}
-		}	
-		return null;
 	}
-	
-	private boolean checkpetNear(){
-		for (int n : Level.NEIGHBOURS8) {
-			int c =  Dungeon.hero.pos + n;
-			if (Actor.findChar(c) instanceof PET) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	private void checkPetPort(){
-		PET pet = checkpet();
-		if(pet!=null && checkpetNear()){
-		  //GLog.i("I see pet");
-		  Dungeon.hero.petType=pet.type;
-		  Dungeon.hero.petLevel=pet.level;
-		  Dungeon.hero.petKills=pet.kills;	
-		  Dungeon.hero.petHP=pet.HP;
-		  Dungeon.hero.petExperience=pet.experience;
-		  Dungeon.hero.petCooldown=pet.cooldown;
-		  pet.destroy();
-		  Dungeon.hero.petfollow=true;
-		} else if (Dungeon.hero.haspet && Dungeon.hero.petfollow) {
-			Dungeon.hero.petfollow=true;
-		} else {
-			Dungeon.hero.petfollow=false;
-		}
-		
-	}
-	
 		
 	@Override
 	protected void onBackPressed() {

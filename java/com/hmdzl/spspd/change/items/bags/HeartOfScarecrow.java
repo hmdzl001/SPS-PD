@@ -20,6 +20,7 @@ package com.hmdzl.spspd.change.items.bags;
 
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 
@@ -35,7 +36,12 @@ public class HeartOfScarecrow extends Bag {
 	
 	@Override
 	public boolean grab(Item item) {
-		return item instanceof Weapon;
+		if (item instanceof Weapon
+			|| item instanceof Armor){
+		return true;
+		} else {
+		return false;
+		}
 	}
 
 	@Override

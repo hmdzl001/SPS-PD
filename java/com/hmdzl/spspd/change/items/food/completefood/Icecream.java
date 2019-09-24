@@ -34,7 +34,7 @@ public class Icecream extends CompleteFood {
 		image = ItemSpriteSheet.ICECREAM;
 		energy = 90;
 		hornValue = 3;
-		bones = false;
+		 
 	}
 
 	public void execute(Hero hero, String action) {

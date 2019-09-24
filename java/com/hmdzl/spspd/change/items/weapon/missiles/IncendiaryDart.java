@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.blobs.Fire;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Tar;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -62,6 +63,7 @@ public class IncendiaryDart extends MissileWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 		Buff.affect(defender, Burning.class).reignite(defender);
+		Buff.affect(defender, Tar.class);
 		super.proc(attacker, defender, damage);
 	}
 

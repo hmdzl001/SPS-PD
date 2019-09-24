@@ -34,7 +34,7 @@ public class JackOLantern extends Pill {
 	{
 		//name = "jack o lantern mushroom";
 		image = ItemSpriteSheet.MUSHROOM_LANTERN;
-		bones = false;
+		 
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class Ricefood extends CompleteFood {
 		image = ItemSpriteSheet.RICE;
 		energy = 450;
 		hornValue = 3;
-		bones = false;
+		 
 	}
 
 	@Override

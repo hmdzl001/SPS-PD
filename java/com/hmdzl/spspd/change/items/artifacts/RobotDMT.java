@@ -61,7 +61,7 @@ public class RobotDMT extends Artifact {
 			actions.add(AC_HEART);
 		if (level > 9 && !isEquipped(hero) )
 			actions.add(AC_MEMORY);
-		if (Dungeon.error == true)
+		if (Dungeon.error == true && !isEquipped(hero))
 			actions.add(AC_ERROR);
 		return actions;
 	}

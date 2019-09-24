@@ -27,7 +27,7 @@ public class ChargrilledMeat extends MeatFood {
 		image = ItemSpriteSheet.STEAK;
 		energy = 100;
 		hornValue = 1;
-		bones = false;
+		 
 	}
 
 	@Override

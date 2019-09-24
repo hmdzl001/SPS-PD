@@ -22,17 +22,24 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.change.Challenges;
+import com.hmdzl.spspd.change.actors.buffs.AflyBless;
 import com.hmdzl.spspd.change.actors.buffs.Arcane;
 import com.hmdzl.spspd.change.actors.buffs.ArmorBreak;
+import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.BloodAngry;
+import com.hmdzl.spspd.change.actors.buffs.BoxStar;
 import com.hmdzl.spspd.change.actors.buffs.DeadRaise;
 import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.Dry;
 import com.hmdzl.spspd.change.actors.buffs.GlassShield;
 import com.hmdzl.spspd.change.actors.buffs.GoldTouch;
+import com.hmdzl.spspd.change.actors.buffs.HighAttack;
 import com.hmdzl.spspd.change.actors.buffs.HighLight;
+import com.hmdzl.spspd.change.actors.buffs.HighVoice;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
+import com.hmdzl.spspd.change.actors.buffs.MirrorShield;
 import com.hmdzl.spspd.change.actors.buffs.Muscle;
+import com.hmdzl.spspd.change.actors.buffs.NewCombo;
 import com.hmdzl.spspd.change.actors.buffs.Notice;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
@@ -47,6 +54,8 @@ import com.hmdzl.spspd.change.items.KindOfArmor;
 import com.hmdzl.spspd.change.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.change.items.artifacts.AlienBag;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.change.items.misc.AttackShield;
+import com.hmdzl.spspd.change.items.misc.BShovel;
 import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.change.items.misc.JumpP;
@@ -54,6 +63,7 @@ import com.hmdzl.spspd.change.items.misc.JumpS;
 import com.hmdzl.spspd.change.items.misc.PotionOfMage;
 import com.hmdzl.spspd.change.items.misc.Shovel;
 import com.hmdzl.spspd.change.items.rings.RingOfMagic;
+import com.hmdzl.spspd.change.items.skills.ClassSkill;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Goei;
 import com.hmdzl.spspd.change.items.misc.MissileShield;
@@ -61,7 +71,6 @@ import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Badges;
-import com.hmdzl.spspd.change.Bones;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.GamesInProgress;
 import com.hmdzl.spspd.change.ResultDescriptions;
@@ -203,13 +212,10 @@ public class Hero extends Char {
 	public boolean petfollow = false;
 	public int petType = 0;
 	public int petLevel = 0;
-	public int petKills = 0;
 	public int petHP = 0;
 	public int petExperience = 0;
 	public int petCooldown = 0;
-	
-	public int petCount = 0;
-	
+
 	private boolean damageInterrupt = true;
 	public HeroAction curAction = null;
 	public HeroAction lastAction = null;
@@ -259,6 +265,8 @@ public class Hero extends Char {
 		if (buff(Muscle.class)!= null)
 			STR += 2 ;
 
+		if (buff(AflyBless.class)!= null)
+			STR += 1 ;
 
 		return weakened ? STR - 3 : STR;
 	}
@@ -287,11 +295,9 @@ public class Hero extends Char {
 	private static final String PETFOLLOW = "petfollow";
 	private static final String PETTYPE = "petType";
 	private static final String PETLEVEL = "petLevel";
-	private static final String PETKILLS = "petKills";
 	private static final String PETHP = "petHP";
 	private static final String PETEXP = "petExperience";
 	private static final String PETCOOLDOWN = "petCooldown";
-	private static final String PETCOUNT = "petCount";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -313,11 +319,9 @@ public class Hero extends Char {
 		bundle.put(PETFOLLOW, petfollow);
 		bundle.put(PETTYPE, petType);
 		bundle.put(PETLEVEL, petLevel);
-		bundle.put(PETKILLS, petKills);
 		bundle.put(PETHP, petHP);
 		bundle.put(PETEXP, petExperience);
 		bundle.put(PETCOOLDOWN, petCooldown);
-		bundle.put(PETCOUNT, petCount);
 
 		belongings.storeInBundle(bundle);
 	}
@@ -342,11 +346,9 @@ public class Hero extends Char {
 		petfollow = bundle.getBoolean(PETFOLLOW);
 		petType = bundle.getInt(PETTYPE);
 		petLevel = bundle.getInt(PETLEVEL);
-		petKills = bundle.getInt(PETKILLS);
 		petHP = bundle.getInt(PETHP);
 		petExperience = bundle.getInt(PETEXP);
 		petCooldown = bundle.getInt(PETCOOLDOWN);
-		petCount = bundle.getInt(PETCOUNT);
 		
 		belongings.restoreFromBundle(bundle);
 	}
@@ -370,7 +372,7 @@ public class Hero extends Char {
 	}
 
 	public int tier() {
-		return belongings.armor == null ? 0 : /*belongings.armor.tier;*/ 7;
+		return belongings.armor == null ? 0 : /*belongings.armor.tier;*/ 7 - Dungeon.skins;
 	}
 
 	public boolean shoot(Char enemy, MissileWeapon wep) {
@@ -467,7 +469,13 @@ public class Hero extends Char {
 		if (buff(Fury.class) != null){ dmg *= 1.30f; }
 		
 		if (buff(Strength.class) != null){ dmg *= 3f; Buff.detach(this, Strength.class);}
-		
+
+		HighAttack hatk = buff(HighAttack.class);
+		if (buff(HighAttack.class) != null){
+			dmg *= hatk.level();
+			Buff.detach(this, HighAttack.class);
+		}
+
         if (buff(WarGroove.class) != null){ dmg *= 1.5f; Buff.detach(this, WarGroove.class);}
 		
 		if (buff(Dry.class) != null){ dmg *= 0.80f; }
@@ -562,7 +570,7 @@ public class Hero extends Char {
 			for (Buff buff : buffs(RingOfFuror.Furor.class)) {
 				bonus += ((RingOfFuror.Furor) buff).level;
 			}
-			return (float) (0.25 + (1 - 0.25) * Math.pow(0.9, bonus));
+			return (float) ( 1 / Math.min( 4, 1 + bonus * 1.00 / 10) );
 		}
 	}
 
@@ -668,9 +676,12 @@ public class Hero extends Char {
 		if (jumps!=null && jumps.charge<jumps.fullCharge) {jumps.charge++;}
 		
 		Shovel shovel = belongings.getItem(Shovel.class);
-		if (shovel!=null && shovel.charge<shovel.fullCharge) {shovel.charge++;}		
-		
-	    Ankhshield shield = belongings.getItem(Ankhshield.class);
+		if (shovel!=null && shovel.charge<shovel.fullCharge) {shovel.charge++;}
+
+		BShovel bshovel = belongings.getItem(BShovel.class);
+		if (bshovel!=null && bshovel.charge<bshovel.fullCharge) {bshovel.charge++;}
+
+		Ankhshield shield = belongings.getItem(Ankhshield.class);
 		if (shield!=null && shield.charge<shield.fullCharge) {shield.charge++;}
 
          MissileShield missileshield = belongings.getItem(MissileShield.class);
@@ -681,11 +692,6 @@ public class Hero extends Char {
 
 		GunOfSoldier gos = belongings.getItem(GunOfSoldier.class);
 		if (gos!=null && gos.charge<gos.fullCharge) {gos.charge++;}
-
-
-		KindOfWeapon weapon = hero.belongings.weapon;
-		Goei goei = belongings.getItem(Goei.class);
-		if (weapon !=null && weapon instanceof Goei && goei.charge<goei.fullCharge) {goei.charge++;}
 
         OrbOfZot ofz = belongings.getItem(OrbOfZot.class);
 		if (ofz!=null && ofz.charge<ofz.fullCharge) {ofz.charge++;}
@@ -705,7 +711,8 @@ public class Hero extends Char {
 				Sample.INSTANCE.play(Assets.SND_CURSED);
 			}
 		}
-	
+		
+
 		/*
 		Heap heap = Dungeon.level.heaps.get(pos);
 		if (heap != null){
@@ -1138,7 +1145,6 @@ public class Hero extends Char {
 			if(pet!=null && checkpetNear()){
 			  hero.petType=pet.type;
 			  hero.petLevel=pet.level;
-			  hero.petKills=pet.kills;
 			  hero.petHP=pet.HP;
 			  hero.petExperience=pet.experience;
 			  hero.petCooldown=pet.cooldown;
@@ -1199,7 +1205,6 @@ public class Hero extends Char {
 				if(pet!=null && checkpetNear()){
 				  hero.petType=pet.type;
 				  hero.petLevel=pet.level;
-				  hero.petKills=pet.kills;
 				  hero.petHP=pet.HP;
 				  hero.petExperience=pet.experience;
 				  hero.petCooldown=pet.cooldown;
@@ -1235,7 +1240,6 @@ public class Hero extends Char {
 			if(pet!=null && checkpetNear()){
 			  hero.petType=pet.type;
 			  hero.petLevel=pet.level;
-			  hero.petKills=pet.kills;
 			  hero.petHP=pet.HP;
 			  hero.petExperience=pet.experience;
 			  hero.petCooldown=pet.cooldown;
@@ -1277,7 +1281,6 @@ public class Hero extends Char {
 				if(pet!=null && checkpetNear()){
 				  hero.petType=pet.type;
 				  hero.petLevel=pet.level;
-				  hero.petKills=pet.kills;
 				  hero.petHP=pet.HP;
 				  hero.petExperience=pet.experience;
 				  hero.petCooldown=pet.cooldown;
@@ -1361,6 +1364,9 @@ public class Hero extends Char {
 			wep.proc(this, enemy, damage);
 		}
 
+		AttackShield atkshield = belongings.getItem(AttackShield.class);
+		if (atkshield!=null && atkshield.charge<atkshield.fullCharge) {atkshield.charge++;}
+
 		switch (subClass) {
 		case GLADIATOR:
 			if (wep instanceof MeleeWeapon || wep == null) {
@@ -1423,11 +1429,26 @@ public class Hero extends Char {
 
 		KindOfArmor arm = belongings.armor;
 
+		if (buff(HighVoice.class)!=null &&  Random.Int(5) == 0){
+			Buff.affect(this, GlassShield.class).turns(2);
+			GLog.p(Messages.get(HighVoice.class,"save",Dungeon.hero.givenName()));
+		}
+
 		CapeOfThorns.Thorns thorns = buff(CapeOfThorns.Thorns.class);
 		if (thorns != null) {
 			damage = thorns.proc(damage, enemy);
 		}
 
+		MirrorShield mirror = buff(MirrorShield.class);
+		if (mirror != null) {
+			damage = mirror.proc(damage, enemy);
+		}		
+		
+		BoxStar star = buff(BoxStar.class);
+		if (star != null) {
+			damage = star.proc(damage, enemy);
+		}			
+		
 		Earthroot.Armor earmor = buff(Earthroot.Armor.class);
 		if (earmor != null) {
 			damage = earmor.absorb(damage);
@@ -1852,8 +1873,24 @@ public class Hero extends Char {
 		} else {
 			stealth += shadow;
 		}
+		if (hero.subClass == HeroSubClass.AGENT){
+			stealth += 3;
+		}
 		return stealth;
 	}
+
+	@Override
+	public int energybase() {
+		int energybase = super.energybase();
+		int energy = 1;
+		KindOfArmor arm =  belongings.armor;
+		if (arm != null) {
+			energybase += energy * arm.energyFactor(this);
+		} else {
+			energybase += energy;
+		}
+		return energybase;
+	}	
 
 	@Override
 	public void die(Object cause) {
@@ -1940,8 +1977,6 @@ public class Hero extends Char {
 			}
 		}
 
-		Bones.leave();
-
 		Dungeon.observe();
 
 		hero.belongings.identify();
@@ -2012,7 +2047,18 @@ public class Hero extends Char {
 
 		AttackIndicator.target(enemy);
 
-		attack(enemy);
+		//attack(enemy);
+
+		boolean hit = attack( enemy );
+
+		if (buff(AttackShield.LongBuff.class)!=null && belongings.weapon == null){
+			if (hit) {
+				Buff.affect( this, NewCombo.class ).hit();
+			} else {
+				NewCombo newcombo = buff(NewCombo.class);
+				if (newcombo != null) newcombo.miss();
+			}
+		}
 		curAction = null;
 
 		Invisibility.dispel();

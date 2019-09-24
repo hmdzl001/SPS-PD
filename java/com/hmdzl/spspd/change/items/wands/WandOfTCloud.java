@@ -225,7 +225,7 @@ public class WandOfTCloud extends Wand {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(4 + lvl, 12 + 3*lvl);
+		return Random.NormalIntRange(10 + lvl, 15 + 3*lvl);
 	}	
 	
 	@Override
@@ -264,7 +264,7 @@ public class WandOfTCloud extends Wand {
 				//Buff.affect(enemy, Taunt.class,2f).object = id();
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
-				damage(Random.NormalIntRange(4 + lvl, 12 + 3*lvl), this);
+				damage(Random.NormalIntRange(10 + lvl, 15 + 3*lvl), this);
 				if (enemy == Dungeon.hero) {
 
 					Camera.main.shake(2, 0.3f);
@@ -411,7 +411,7 @@ public class WandOfTCloud extends Wand {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(4 + lvl, 12 + 3*lvl);
+		return Random.NormalIntRange(20 + lvl, 30 + 5*lvl);
 	}	
 	
 	@Override
@@ -450,7 +450,7 @@ public class WandOfTCloud extends Wand {
 				//Buff.affect(enemy, Taunt.class,2f).object = id();
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
-				damage(Random.NormalIntRange(4 + lvl, 12 + 3*lvl), this);
+				damage(Random.NormalIntRange(20 + lvl, 30 + 5*lvl), this);
 				if (enemy == Dungeon.hero) {
 
 					Camera.main.shake(2, 0.3f);

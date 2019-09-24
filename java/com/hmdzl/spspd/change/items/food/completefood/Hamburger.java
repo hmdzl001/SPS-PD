@@ -31,7 +31,7 @@ public class Hamburger extends CompleteFood {
 		image = ItemSpriteSheet.HAMBURGER;
 		energy = 770;
 		hornValue = 6;
-		bones = false;
+		 
 	}
 
 	@Override

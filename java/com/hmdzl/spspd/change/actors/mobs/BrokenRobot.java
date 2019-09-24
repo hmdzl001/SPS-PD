@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
@@ -68,7 +69,7 @@ public class BrokenRobot extends Mob {
 		maxLvl = 25;
 
 		
-		lootOther = new RedDewdrop();
+		lootOther = new StoneOre();
 		lootChanceOther = 0.25f;
 		
 		loot = new ScrollOfRecharging();

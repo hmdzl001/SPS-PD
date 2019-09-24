@@ -91,13 +91,13 @@ public class Bestiary {
 				break;
 			case 5:
 				if (Random.Int(3) == 1) {
-					chances = new float[]{1};
+					chances = new float[]{ 1 };
 					classes = new Class<?>[]{Goo.class};
 				} else if (Random.Int(2) == 1) {
-					chances = new float[]{1};
+					chances = new float[]{ 1 };
 					classes = new Class<?>[]{SewerHeart.class};
 				} else {
-					chances = new float[]{1};
+					chances = new float[]{ 1 };
 					classes = new Class<?>[]{PlagueDoctor.class};
 				}
 				break;
@@ -132,11 +132,11 @@ public class Bestiary {
 
 			case 10:
 		if (Random.Int(3) == 1){
-			chances = new float[]{1};
+			chances = new float[]{ 1 };
 			classes = new Class<?>[]{Tengu.class};
 		}else if (Random.Int(2) == 1){
 			//}else{
-			chances = new float[]{1};
+			chances = new float[]{ 1 };
 			classes = new Class<?>[]{PrisonWander.class};
 		}else{
 			chances = new float[] { 1 };
@@ -169,13 +169,13 @@ public class Bestiary {
 
 		case 15:
 			if (Random.Int(3) ==1) {
-				chances = new float[]{1};
+				chances = new float[]{ 1 };
 				classes = new Class<?>[] { Hybrid.class };
 			   } else if (Random.Int(2) == 1){
-				chances = new float[]{1};
+				chances = new float[]{ 1 };
 				classes = new Class<?>[] { DM300.class };
-				}else{
-				chances = new float[]{1};
+				} else {
+				chances = new float[]{ 1 };
 				classes = new Class<?>[]{SpiderQueen.class};
 			}
 			break;
@@ -203,15 +203,15 @@ public class Bestiary {
 					Succubus.class};
 			break;
 		case 20:
-			//if (Random.Int(3) ==1) {
-
-			//  } else
-			  	if (Random.Int(2) == 1){
-					chances = new float[]{1};
-					classes = new Class<?>[] { ElderAvatar.class };
-				}else{
-					chances = new float[] { 1 };
-					classes = new Class<?>[] { King.class };
+			if (Random.Int(3) ==1) {
+				chances = new float[]{ 1 };
+				classes = new Class<?>[] { LichDancer.class };
+			} else if (Random.Int(2) == 1){
+				chances = new float[]{ 1 };
+				classes = new Class<?>[] { ElderAvatar.class };
+			} else {
+				chances = new float[] { 1 };
+				classes = new Class<?>[] { King.class };
 			}
 
 			break;
@@ -284,6 +284,37 @@ public class Bestiary {
 		    chances = new float[] {1};
 			classes = new Class<?>[] {Dragonking.class};
 			break;
+		case 85:
+		    chances = new float[] {
+				1,1,
+			1,1,
+			1,1,1,
+			1,1,
+			1,1,1,1,
+			1,1,1,
+			1,1,1,1,
+			1,1,1,
+			1,1,1,1,
+			1,
+			1,1,
+			1,1};
+			classes = new Class<?>[] {
+				Rat.class, BrownBat.class,
+						DustElement.class, LiveMoss.class,
+						Swarm.class, Crab.class,PatrolUAV.class,
+						Thief.class, Gnoll.class,
+						Guard.class, Assassin.class, TrollWarrior.class, Zombie.class,
+						Bat.class, Skeleton.class, Brute.class,
+					GnollShaman.class,Spinner.class, BrokenRobot.class,SandMob.class,
+					FireElemental.class, Warlock.class,Monk.class,
+					Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class,
+					Succubus.class, Eye.class, DemonGoo.class,
+					Scorpio.class,ThiefImp.class, DemonFlower.class, Sufferer.class,
+					 BlueWraith.class, 
+					  Orc.class,FlyingProtector.class,
+                      GoldOrc.class, Fiend.class };
+			break;			
+			
 		default:
 			chances = new float[] { 1 };
 			classes = new Class<?>[] { Eye.class };

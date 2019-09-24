@@ -34,7 +34,7 @@ public class HoneyGel extends CompleteFood {
 	{
 		//name = "HoneyGel";
 		image = ItemSpriteSheet.UPGRADEGOO_YELLOW;
-		bones = true;
+		 
 		energy = 20;
 		hornValue = 2;
 	}
