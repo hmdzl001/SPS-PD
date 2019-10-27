@@ -47,7 +47,6 @@ import com.hmdzl.spspd.change.items.food.meatfood.FrozenCarpaccio;
 import com.hmdzl.spspd.change.items.food.meatfood.Meat;
 import com.hmdzl.spspd.change.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.change.items.food.Nut;
-import com.hmdzl.spspd.change.items.food.ToastedNut;
 import com.hmdzl.spspd.change.items.nornstone.NornStone;
 import com.hmdzl.spspd.change.items.potions.Potion;
 import com.hmdzl.spspd.change.items.potions.PotionOfExperience;

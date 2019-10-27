@@ -25,10 +25,12 @@ import com.hmdzl.spspd.change.items.Ankh;
 import com.hmdzl.spspd.change.items.ArmorKit;
 import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.Elevator;
+import com.hmdzl.spspd.change.items.ExpOre;
 import com.hmdzl.spspd.change.items.PowerHand;
 import com.hmdzl.spspd.change.items.SaveYourLife;
 import com.hmdzl.spspd.change.items.SoulCollect;
 import com.hmdzl.spspd.change.items.TenguKey;
+import com.hmdzl.spspd.change.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.LeatherArmor;
 import com.hmdzl.spspd.change.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.change.items.artifacts.AlienBag;
@@ -50,12 +52,18 @@ import com.hmdzl.spspd.change.items.medicine.Smashpill;
 import com.hmdzl.spspd.change.items.misc.AttackShield;
 import com.hmdzl.spspd.change.items.misc.AttackShoes;
 import com.hmdzl.spspd.change.items.misc.BShovel;
+import com.hmdzl.spspd.change.items.misc.CopyBall;
+import com.hmdzl.spspd.change.items.misc.DemoScroll;
+import com.hmdzl.spspd.change.items.misc.GnollMark;
 import com.hmdzl.spspd.change.items.misc.MKbox;
+import com.hmdzl.spspd.change.items.misc.MechPocket;
+import com.hmdzl.spspd.change.items.misc.UndeadBook;
 import com.hmdzl.spspd.change.items.nornstone.BlueNornStone;
 import com.hmdzl.spspd.change.items.nornstone.GreenNornStone;
 import com.hmdzl.spspd.change.items.nornstone.OrangeNornStone;
 import com.hmdzl.spspd.change.items.nornstone.PurpleNornStone;
 import com.hmdzl.spspd.change.items.nornstone.YellowNornStone;
+import com.hmdzl.spspd.change.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.change.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.change.items.rings.RingOfElements;
 import com.hmdzl.spspd.change.items.rings.RingOfEnergy;
@@ -114,8 +122,12 @@ import com.hmdzl.spspd.change.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.change.items.wands.CannonOfMage;
 import com.hmdzl.spspd.change.items.wands.WandOfDisintegration;
+import com.hmdzl.spspd.change.items.wands.WandOfFirebolt;
+import com.hmdzl.spspd.change.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.change.items.wands.WandOfLightning;
 import com.hmdzl.spspd.change.items.wands.WandOfMagicMissile;
 import com.hmdzl.spspd.change.items.weapon.guns.GunA;
+import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.guns.Sling;
 import com.hmdzl.spspd.change.items.weapon.melee.Dagger;
 import com.hmdzl.spspd.change.items.weapon.melee.Knuckles;
@@ -125,6 +137,7 @@ import com.hmdzl.spspd.change.items.weapon.melee.Triangolo;
 import com.hmdzl.spspd.change.items.weapon.melee.Whip;
 import com.hmdzl.spspd.change.items.weapon.melee.special.LinkSword;
 import com.hmdzl.spspd.change.items.weapon.melee.special.TestWeapon;
+import com.hmdzl.spspd.change.items.weapon.melee.zero.EmptyPotion;
 import com.hmdzl.spspd.change.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.change.items.weapon.missiles.EmpBola;
 import com.hmdzl.spspd.change.items.weapon.missiles.ErrorAmmo;
@@ -136,7 +149,9 @@ import com.hmdzl.spspd.change.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.change.items.misc.MissileShield;
 import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.change.items.weapon.missiles.PocketBall;
+import com.hmdzl.spspd.change.items.weapon.missiles.Skull;
 import com.hmdzl.spspd.change.items.weapon.missiles.Smoke;
+import com.hmdzl.spspd.change.items.weapon.missiles.TaurcenBow;
 import com.hmdzl.spspd.change.items.weapon.spammo.BattleAmmo;
 import com.hmdzl.spspd.change.items.weapon.spammo.GoldAmmo;
 import com.hmdzl.spspd.change.items.weapon.spammo.WoodenAmmo;
@@ -243,35 +258,29 @@ public enum HeroClass {
 			new ScrollOfMagicalInfusion().setKnown();
 		}
 		if (Dungeon.isChallenged(Challenges.TEST_TIME)){
-			//hero.STR = hero.STR + 10;
 			//JupitersWraith JW = new JupitersWraith(); JW.identify().collect();
-		//DolyaSlate jn = new DolyaSlate(); jn.collect();
-			//Torch torch = new Torch();torch.collect();
-         //  new Sling().identify().collect();
-           //new HeavyAmmo().identify().collect();
-           //new HeavyAmmo().identify().collect();
 		    //TestWeapon tw = new TestWeapon(); tw.collect();
-			Elevator elevator = new Elevator(); elevator.collect();
-			ArmorKit kit = new ArmorKit();kit.collect();
-			JournalPage saveroom = new SafeSpotPage(); saveroom.collect();
-		    JournalPage town = new Town(); town.collect();
+			new Elevator().collect();
+			new ArmorKit().collect();
+			new SafeSpotPage().collect();
+		    new Town().collect();
 			//ChallengeBook cbook = new ChallengeBook(); cbook.collect();
-			 ChallengeList cl1 = new SewerChallenge(); cl1.collect();
-			ChallengeList cl2 = new PrisonChallenge(); cl2.collect();
-			ChallengeList cl3 = new CaveChallenge(); cl3.collect();
-			ChallengeList cl4 = new CityChallenge(); cl4.collect();
+			new SewerChallenge().collect();
+			new PrisonChallenge().collect();
+			new CaveChallenge().collect();
+			new CityChallenge().collect();
 			new ScrollHolder().collect();
 			new SeedPouch().collect();
 			new PotionBandolier().collect();
-			JournalPage sk1 = new Sokoban1(); sk1.collect();
-			JournalPage sk2 = new Sokoban2(); sk2.collect();
-			JournalPage sk3 = new Sokoban3(); sk3.collect();
-			JournalPage sk4 = new Sokoban4(); sk4.collect();
-			//new DolyaSlate().collect();
+			new Sokoban1().collect();
+			new Sokoban2().collect();
+			new Sokoban3().collect();
+			new Sokoban4().collect();
+			new DolyaSlate().collect();
 			//JournalPage sk5 = new Vault(); sk5.collect();
-			ChallengeList cl5 = new CourageChallenge(); cl5.collect();
-			ChallengeList cl6 = new PowerChallenge(); cl6.collect();
-			ChallengeList cl7 = new WisdomChallenge(); cl7.collect();
+			new CourageChallenge().collect();
+			new PowerChallenge().collect();
+			new WisdomChallenge().collect();
 			//new MachineArmor().identify().collect();
 			//VestArmor va = new VestArmor();va.identify().collect();
 			new SoulCollect().collect();
@@ -282,12 +291,12 @@ public enum HeroClass {
 			//RingOfEnergy ros = new RingOfEnergy();
 			//ros.upgrade(10).collect();
 			ErrorAmmo ammo = new ErrorAmmo(20);
-		ammo.identify().collect();
+			ammo.identify().collect();
 			//new RingOfHaste().collect();
 			//new RingOfTenacity().collect();
 			//new AlienBag().collect();
 			new PowerHand().collect();
-			TomeOfMastery TOM = new TomeOfMastery();TOM.collect();
+			new TomeOfMastery().collect();
 			//new TenguKey().collect();
 
 			//GnollClothes clothes = new GnollClothes(); clothes.collect();
@@ -300,14 +309,12 @@ public enum HeroClass {
 
 			//AresSword aresSword = new AresSword();aresSword.identify().collect();
 		for(int i=0; i<199; i++){
-			Scroll scroll2 = new ScrollOfMagicalInfusion();
-			scroll2.identify().collect();
-			Scroll scroll3 = new ScrollOfUpgrade();
-			scroll3.identify().collect();
-			Scroll scroll4 = new ScrollOfIdentify();
-			scroll4.identify().collect();
-			PotionOfExperience PoE = new PotionOfExperience();PoE.identify().collect();
+			new ScrollOfMagicalInfusion().identify().collect();
+			new ScrollOfUpgrade().identify().collect();
+			new ScrollOfIdentify().identify().collect();
+			//PotionOfExperience PoE = new PotionOfExperience();PoE.identify().collect();
 			ScrollOfMagicMapping scroll = new ScrollOfMagicMapping();scroll.identify().collect();
+			new ExpOre().collect();
 			//new EarthBomb().collect();
 			new Pasty().collect();
 			//new Honeypot().collect();
@@ -429,7 +436,7 @@ public enum HeroClass {
 		//Dungeon.gold = 10000000;
 		//hero.HT=hero.HP=10000;
 		//hero.STR = hero.STR + 20;
-		Dungeon.depth = 19;
+		Dungeon.depth = 1;
 			//Statistics.archersKilled = 101;
 		}
 	}
@@ -457,9 +464,7 @@ public enum HeroClass {
 	private static void initWarrior(Hero hero) {
 
 		if (Dungeon.skins == 1) {
-
 			(hero.belongings.armor = new VestArmor()).identify().upgrade(1);
-
 			RingOfForce force = new RingOfForce();
 			(hero.belongings.misc1 = force).identify().upgrade(1);
 			hero.belongings.misc1.activate(hero);
@@ -468,18 +473,25 @@ public enum HeroClass {
 			(hero.belongings.misc2 = might).identify().upgrade(1);
 			hero.belongings.misc2.activate(hero);
 
-			AttackShield atkShield = new AttackShield();
-			atkShield.collect();
-
+			new AttackShield().collect();
 			//new PotionOfStrength().setKnown();
 			//new ScrollOfUpgrade().setKnown();
+		} else if (Dungeon.skins == 2) {
+				hero.HT+=36;
+				hero.hitSkill-=4;
+				hero.evadeSkill+=1;
+			    hero.magicSkill+=6;
+				(hero.belongings.armor = new BaseArmor()).upgrade(6).identify();
+				new WandOfFirebolt().upgrade(6).identify().collect();
+				new DemoScroll().collect();
+				Dungeon.gold+=666;
+            for(int i=0; i<199; i++){
+                new ExpOre().collect();
+            }
 		} else {
 			(hero.belongings.weapon = new ShortSword()).identify();
 			(hero.belongings.armor = new WoodenArmor()).identify();
-			MissileShield missileShield = new MissileShield();
-			missileShield.collect();
-
-
+			new MissileShield().collect();
 			new Powerpill().collect();
 			new Smashpill().collect();
 			new Hardpill().collect();
@@ -505,17 +517,23 @@ public enum HeroClass {
 			new CannonOfMage().identify().collect();
 			//new PotionOfStrength().setKnown();
 			//new ScrollOfUpgrade().setKnown();
-		} else {
+		} else if (Dungeon.skins == 2) {
+			hero.HT-=15;
+			hero.hitSkill-=5;
+			hero.evadeSkill+=2;
+			hero.magicSkill+=3;
+			(hero.belongings.weapon = new MageBook()).identify();
+			(hero.belongings.armor = new VestArmor()).identify();
+			new WandOfFirebolt().upgrade(1).identify().collect();
+			new WandOfFreeze().upgrade(1).identify().collect();
+			new WandOfLightning().upgrade(1).identify().collect();
+			new GnollMark().collect();
+		}  else {
 			(hero.belongings.weapon = new MageBook()).identify();
 			(hero.belongings.armor = new ClothArmor()).identify();
-
-			WandOfMagicMissile wand = new WandOfMagicMissile();
-			wand.identify().collect();
-			WandOfDisintegration wand2 = new WandOfDisintegration();
-			wand2.identify().collect();
-
-			PotionOfMage pom = new PotionOfMage();
-			pom.identify().collect();
+			new WandOfMagicMissile().identify().collect();
+			new WandOfDisintegration().identify().collect();
+			new PotionOfMage().identify().collect();
 
 		}
 		new JumpM().collect();
@@ -523,9 +541,7 @@ public enum HeroClass {
 		WandOfError woe = new WandOfError(); 
 		woe.identify().collect();
 		}*/
-
 		hero.magicSkill = hero.magicSkill + 3;
-
 		new ScrollOfIdentify().setKnown();
 		new PotionOfLiquidFlame().setKnown();
 	
@@ -536,12 +552,19 @@ public enum HeroClass {
 			(hero.belongings.weapon = new LinkSword()).identify();
 			hero.belongings.weapon.activate(hero);
 			(hero.belongings.armor = new WoodenArmor()).identify();
-			hero.STR+=1;
+			hero.STR += 1;
 			Dungeon.limitedDrops.strengthPotions.count++;
 			EtherealChains ec = new EtherealChains();
 			(hero.belongings.misc1 = ec).identify();
 			hero.belongings.misc1.activate(hero);
-
+		}  else if (Dungeon.skins == 2) {
+				hero.HT-=20;
+				hero.evadeSkill+=3;
+			    hero.magicSkill+=3;
+				(hero.belongings.weapon = new Dagger()).identify();
+				(hero.belongings.armor = new ClothArmor()).identify();
+				new UndeadBook().collect();
+				new Skull(5).collect();
 		} else {
 
 			(hero.belongings.weapon = new Dagger()).identify();
@@ -551,8 +574,7 @@ public enum HeroClass {
 			(hero.belongings.misc1 = cloak).identify();
 			hero.belongings.misc1.activate(hero);
 
-			Smoke smoke = new Smoke(3);
-			smoke.identify().collect();
+			new Smoke(3).identify().collect();
 
 		}
 
@@ -579,6 +601,14 @@ public enum HeroClass {
 
 			EscapeKnive knife = new EscapeKnive(5);
 			knife.identify().collect();
+
+		} else if (Dungeon.skins == 2) {
+			hero.HT-=10;
+			hero.hitSkill+=5;
+			hero.evadeSkill+=3;
+			(hero.belongings.weapon = new Knuckles()).identify();
+			(hero.belongings.armor = new ClothArmor()).identify();
+			new TaurcenBow().collect();
 
 		} else {
 			(hero.belongings.weapon = new Knuckles()).identify();
@@ -611,7 +641,16 @@ public enum HeroClass {
             hero.belongings.misc1.activate(hero);
             new BShovel().collect();
 
-        } else {
+        } else if (Dungeon.skins == 2) {
+			hero.HT-=10;
+			hero.magicSkill+=3;
+			hero.evadeSkill+=5;
+			(hero.belongings.weapon = new EmptyPotion()).identify();
+			(hero.belongings.armor = new BaseArmor()).identify();
+			new CopyBall().collect();
+            new PotionOfMending().identify().collect();
+			new PotionOfHealing().identify().collect();
+		} else {
 
             (hero.belongings.weapon = new Triangolo()).identify();
             (hero.belongings.armor = new ClothArmor()).identify();
@@ -629,20 +668,30 @@ public enum HeroClass {
 	
 	private static void initSoldier(Hero hero) {
 		if (Dungeon.skins == 1) {
-			hero.STR+=2;
+			hero.STR += 2;
 			(hero.belongings.armor = new LeatherArmor()).identify().upgrade(3);
-			Dungeon.limitedDrops.strengthPotions.count+=2;
+			Dungeon.limitedDrops.strengthPotions.count += 2;
 
 			new AttackShoes().collect();
-            new MKbox().collect();
+			new MKbox().collect();
 
-		} else {
+		}else if (Dungeon.skins == 2) {
+				hero.HT+=10;
+				hero.STR += 8;
+				hero.magicSkill+=5;
+			    hero.hitSkill-=10;
+				hero.evadeSkill-=35;
+				(hero.belongings.weapon = new GunE()).identify();
+				(hero.belongings.armor = new BaseArmor()).identify();
+			    Dungeon.limitedDrops.strengthPotions.count += 8;
+				new MechPocket().collect();
+			    new JumpS().collect();
+			}  else {
 
 			(hero.belongings.weapon = new Sling()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
 
-			GunOfSoldier gun_s = new GunOfSoldier();
-			gun_s.identify().collect();
+			new GunOfSoldier().identify().collect();
 
 		    new JumpS().collect();
 			EscapeKnive knife = new EscapeKnive(3);

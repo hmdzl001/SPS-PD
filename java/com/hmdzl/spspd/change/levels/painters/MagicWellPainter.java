@@ -25,6 +25,10 @@ import com.hmdzl.spspd.change.actors.blobs.WellWater;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Room;
 import com.hmdzl.spspd.change.levels.Terrain;
+import com.hmdzl.spspd.change.plants.BlandfruitBush;
+import com.hmdzl.spspd.change.plants.Flytrap;
+import com.hmdzl.spspd.change.plants.Phaseshift;
+import com.hmdzl.spspd.change.plants.Seedpod;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -52,7 +56,16 @@ public class MagicWellPainter extends Painter {
 			} catch (Exception e) {
 				water = null;
 			}
-		 } 
+		 }
+
+		int bushes = Random.Int(3);
+		if (bushes == 0) {
+			level.plant(new Flytrap.Seed(), room.random());
+		} else if (bushes == 1) {
+			level.plant(new BlandfruitBush.Seed(), room.random());
+		} else if (bushes == 2) {
+			level.plant(new Phaseshift.Seed(), room.random());
+		}
 	
 		water.seed(c.x + Level.getWidth() * c.y, 1);
 		level.blobs.put(waterClass, water);

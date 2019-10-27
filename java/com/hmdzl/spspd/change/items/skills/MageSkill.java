@@ -49,7 +49,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class MageSkill extends ClassSkill {
-
+ private static int SKILL_TIME = 1;
 	{
 		//name = "mage robe";
 		image = ItemSpriteSheet.ARMOR_MAGE;
@@ -69,7 +69,7 @@ public class MageSkill extends ClassSkill {
         
 		charge += 15;
 		
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -120,7 +120,7 @@ public class MageSkill extends ClassSkill {
 				//GLog.n("You killed yourself with your own Wand of Avalanche...");
 			}
 			}
-				curUser.spendAndNext( Actor.TICK );
+				curUser.spendAndNext( SKILL_TIME );
 			}
 		@Override
 		public String prompt() {
@@ -141,7 +141,7 @@ public class MageSkill extends ClassSkill {
 
 		charge += 15;
 
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -161,7 +161,7 @@ public class MageSkill extends ClassSkill {
 		Buff.affect(curUser, Recharging.class, 30);
 		charge += 9;
 
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 

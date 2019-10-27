@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
+import com.hmdzl.spspd.change.effects.Splash;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.bags.Bag;
@@ -95,7 +96,7 @@ public class MissileShield extends Item {
 			curUser = hero;
 			if (charge < 10) {
 				GLog.i(Messages.get(this, "rest"));
-			} else GameScene.selectCell(Cast);
+			} else GameScene.selectCell(shooter);
 		} else if (action.equals(AC_SHIELD)) {
 			curUser = hero;
 			if (charge < 5) {
@@ -144,45 +145,68 @@ public class MissileShield extends Item {
 	public int max() {
 		return 1 + Dungeon.hero.lvl/2;
 	}
-
-	private CellSelector.Listener Cast = new CellSelector.Listener(){
-
-		@Override
-		public void onSelect(Integer target) {
-			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
-
-				if (Actor.findChar( target ) != null ){
-					Char mob = Actor.findChar(target);
-					if (mob.properties().contains(Char.Property.BOSS) || mob.properties().contains(Char.Property.MINIBOSS)){
-						charge -= 10;
-						mob.damage(Random.IntRange(min(),max())*2,this);
-						//Sample.INSTANCE.play(Assets.SND_BURNING);
-						CellEmitter.get(mob.pos).start(Speck.factory(Speck.ROCK), 0.07f, 5);
-						hero.spendAndNext(1f);
-						updateQuickslot();
-					} else if (mob instanceof NPC || mob == hero) {
-						GLog.w(Messages.get(MissileShield.class,"not"));
-						return;
-					} else {
-						charge -= 10;
-						mob.damage(Random.IntRange(min(),max()),this);
-						Buff.prolong(mob, Paralysis.class, 2f);
-						CellEmitter.get(mob.pos).start(Speck.factory(Speck.ROCK), 0.07f, 5);
-						hero.spendAndNext(1f);
-						updateQuickslot();
-					}
-				} else {
-					GLog.i( Messages.get(MissileShield.class, "not_mob") );
-					return;
-				}
-
-			} else {
-				GLog.i( Messages.get(MissileShield.class, "not_mob") );
-				return;
-			}
-
+	
+	public int damageRoll(Hero owner) {
+		int damage = Random.Int(min(), max());
+		return Math.round(damage);
+	}
+	
+	private int targetPos;
+	
+	public MissileShieldAmmo Ammo(){
+		return new MissileShieldAmmo();
+	}
+	
+	public class MissileShieldAmmo extends MissileWeapon {
+		
+		{
+			image = ItemSpriteSheet.WARRIORSHIELD;
+			ACU = 1000;
 		}
 
+		public int damageRoll(Hero owner) {
+			return MissileShield.this.damageRoll(owner);
+		}
+
+		@Override
+		protected void onThrow( int cell ) {
+			Char enemy = Actor.findChar( cell );
+			if (enemy == null || enemy == curUser) {
+				parent = null;
+				Splash.at( cell, 0xCC99FFFF, 1 );
+			} else {
+				if (!curUser.shoot( enemy, this )) {
+					Splash.at(cell, 0xCC99FFFF, 1);
+				}
+			}
+		}
+
+		@Override
+		public void proc(Char attacker, Char defender, int damage) {
+
+			if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
+				defender.damage(damage,this);
+			} 
+			
+			super.proc(attacker, defender, damage);
+		}
+		
+		@Override
+		public void cast(final Hero user, final int dst) {
+			final int cell = throwPos( user, dst );
+			MissileShield.this.targetPos = cell;
+			charge-=10;
+			super.cast(user, dst);
+		}
+
+	}
+	private CellSelector.Listener shooter = new CellSelector.Listener() {
+		@Override
+		public void onSelect( Integer target ) {
+			if (target != null) {
+				Ammo().cast(curUser, target);
+			}
+		}
 		@Override
 		public String prompt() {
 			return Messages.get(MissileShield.class, "prompt");

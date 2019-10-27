@@ -130,7 +130,7 @@ public class WellWater extends Blob {
 	public static void affectCell(int cell) {
 
 		Class<?>[] waters = { WaterOfHealth.class, WaterOfAwareness.class,
-				WaterOfTransmutation.class, WaterOfUpgradeEating.class };
+				WaterOfTransmutation.class};
 
 		for (Class<?> waterClass : waters) {
 			WellWater water = (WellWater) Dungeon.level.blobs.get(waterClass);
@@ -150,7 +150,7 @@ public class WellWater extends Blob {
 		boolean transmuted = false;
 
 		Class<?>[] waters = { WaterOfHealth.class, WaterOfAwareness.class,
-				WaterOfTransmutation.class, WaterOfUpgradeEating.class };
+				WaterOfTransmutation.class};
 
 		for (Class<?> waterClass : waters) {
 			WellWater water = (WellWater) Dungeon.level.blobs.get(waterClass);

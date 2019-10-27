@@ -61,7 +61,7 @@ public class EmptyPotion extends MeleeWeapon {
 
 	{
 		//name = "EmptyPotion";
-		image = ItemSpriteSheet.TRIANGOLO;
+		image = ItemSpriteSheet.POTION;
 	}
 
 	public EmptyPotion() {
@@ -91,6 +91,17 @@ public class EmptyPotion extends MeleeWeapon {
 		}
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);		
-		}	
-    }		
+		}
+		if (attacker == Dungeon.hero){
+			durable --;
+			if (durable == 10){
+				GLog.n(Messages.get(KindOfWeapon.class,"almost_destory"));
+			}
+			if (durable == 0){
+				Dungeon.hero.belongings.weapon = null;
+				defender.damage(2*damage, this);
+				GLog.n(Messages.get(KindOfWeapon.class,"destory"));
+			}
+		}
+	}
 }

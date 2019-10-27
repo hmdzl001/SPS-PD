@@ -76,7 +76,7 @@ import com.watabou.utils.Random;
 import com.watabou.noosa.audio.Sample;
 
 public class SoldierSkill extends ClassSkill {
-
+ private static int SKILL_TIME = 1;
 	{
 		image = ItemSpriteSheet.ARMOR_SOLDIER;
 	}
@@ -114,7 +114,7 @@ public class SoldierSkill extends ClassSkill {
 		Buff.detach(curUser, Ooze.class);
 		Buff.detach(curUser, Chill.class);
 		Buff.affect(curUser, Bless.class, 5f);
-        curUser.spend(Actor.TICK);
+        curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -127,7 +127,7 @@ public class SoldierSkill extends ClassSkill {
 		charge += 25;
 		Buff.affect(curUser, MechArmor.class).level(250);
 		Buff.affect(curUser, ShieldArmor.class).level(Dungeon.hero.lvl*3);
-        curUser.spend(Actor.TICK);
+        curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -165,7 +165,7 @@ public class SoldierSkill extends ClassSkill {
 			}
 		}
 		charge += 5;
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
@@ -176,25 +176,21 @@ public class SoldierSkill extends ClassSkill {
 	public void doSpecial4() {
 		charge += 20;
 
-		curUser.spend(Actor.TICK);
-		curUser.sprite.operate(curUser.pos);
-		curUser.busy();
-
-		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
-		Sample.INSTANCE.play(Assets.SND_READ);
-
 		int cell = Dungeon.level.randomRespawnCell();
 
 		if (cell != -1) {
-			Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), cell).seen = true;
-			Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), cell).seen = true;
-			for (int i : Level.NEIGHBOURS9)
-				Dungeon.level.visited[cell+i] = true;
-			Dungeon.observe();
+			Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), cell);
+			Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), cell);
 		} else {
 			Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), curUser.pos);
 			Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), curUser.pos);
 		}
+        Buff.affect( curUser, Awareness.class, 5f);
+		curUser.spend(SKILL_TIME);
+		curUser.sprite.operate(curUser.pos);
+		curUser.busy();
+		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
+		Sample.INSTANCE.play(Assets.SND_READ);
 	}
 
 	public static class SeekingBomb extends Mob {

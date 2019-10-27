@@ -334,6 +334,9 @@ public class Assets {
 
 	public static final String LICH_DANCER = "boss_lich.png";
 	public static final String BATTERYTOMB = "batterytomb.png";
+	
+	public static final String PATROLUAV = "patroluav.png";
+	public static final String ICE13 = "ice13.png";
 
 }
 

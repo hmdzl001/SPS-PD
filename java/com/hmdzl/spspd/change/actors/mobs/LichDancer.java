@@ -85,14 +85,13 @@ public class LichDancer extends Mob {
 		lootChance = 0.2f;
 		
 		lootOther = Generator.Category.MUSICWEAPON;
-		lootChance = 1f;		
+		lootChanceOther= 1f;
 
 		properties.add(Property.UNDEAD);
 		properties.add(Property.BOSS);
 
 	}
 
-    private int tombAlive = 0;
 	private int breaks=0;
 	
 	public void spawnTomb() {
@@ -104,11 +103,14 @@ public class LichDancer extends Mob {
 			a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
 		} while (Dungeon.level.map[a.pos] != Terrain.PEDESTAL
 				|| Actor.findChar(a.pos) != null);
+		GameScene.add(a);
+
 		do {
 			b.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
 		} while (Dungeon.level.map[b.pos] != Terrain.PEDESTAL
 				|| Actor.findChar(b.pos) != null);
-		GameScene.add(a);
+		GameScene.add(b);
+
 	}
 	
 	@Override
@@ -132,7 +134,16 @@ public class LichDancer extends Mob {
         if( 3 - breaks > 4 * HP / HT ) {
             
 			breaks++;
-			spawnTomb();
+			int batteryAlive = 0;
+			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[Dungeon.level.mobs.size()])){
+				if (mob instanceof BatteryTomb){
+					batteryAlive++;
+				}
+				if (batteryAlive == 0){
+					spawnTomb();
+				}
+			}
+
 
 				int newPos = -1;
 				for (int i = 0; i < 750; i++) {
@@ -192,20 +203,17 @@ public class LichDancer extends Mob {
 
 
 	private static final String BREAKS	= "breaks";
-	private static final String TOMBALIVE	= "tombAlive";
 
     @Override
     public void storeInBundle( Bundle bundle ) {
         super.storeInBundle(bundle);
         bundle.put( BREAKS, breaks );
-		bundle.put( TOMBALIVE, tombAlive );
     }
 
     @Override
     public void restoreFromBundle( Bundle bundle ) {
         super.restoreFromBundle(bundle);
         breaks = bundle.getInt( BREAKS );
-		tombAlive  = bundle.getInt( TOMBALIVE );
     }	
 
 	@Override
@@ -297,7 +305,7 @@ public class LichDancer extends Mob {
 	{
 		spriteClass = BatteryTombSprite.class;
 
-		HP = HT = 500;
+		HP = HT = 200;
 		evadeSkill = 0;
 
 		EXP = 10;
@@ -315,7 +323,7 @@ public class LichDancer extends Mob {
 	@Override
     public boolean act() {
 
-        if( Random.Int(20) == 0 && Dungeon.level.mobs.size()< 9) {
+        if( Random.Int(20) == 0 && Dungeon.level.mobs.size()< 7) {
 			DwarfLich.spawnAround(pos);
         } 
         return super.act();
@@ -356,16 +364,12 @@ public class LichDancer extends Mob {
 	}
 }
     public static class LinkBomb extends Mob {
-
-        private static final int BOMB_DELAY = 3;
-        private int timeToBomb = BOMB_DELAY;
         {
             spriteClass = SeekingBombSprite.class;
 
             HP = HT = 1;
             evadeSkill = 0;
             baseSpeed = 1f;
-            timeToBomb = BOMB_DELAY;
             EXP = 0;
 
             state = PASSIVE;
@@ -374,30 +378,36 @@ public class LichDancer extends Mob {
             properties.add(Property.MINIBOSS);
         }
 
-        @Override
-        public void die(Object cause) {
-            DungeonBomb bomb = new DungeonBomb();
-            bomb.explode(pos);
-            super.die(cause);
+		private int bombtime=4;
+		private static final String BOMBTIME	= "bombtime";
 
-        }
+		public void storeInBundle( Bundle bundle ) {
+			super.storeInBundle(bundle);
+			bundle.put( BOMBTIME, bombtime );
+		}
 
-        @Override
+		@Override
+		public void restoreFromBundle( Bundle bundle ) {
+			super.restoreFromBundle(bundle);
+			bombtime = bundle.getInt( BOMBTIME );
+		}
+
+		@Override
         public int drRoll() {
             return 0;
         }
 
         @Override
         public boolean act() {
-            yell(""+timeToBomb+"!");
-            if (timeToBomb == 0){
+            yell(""+bombtime+"!");
+            if (bombtime < 1){
                 DungeonBomb bomb = new DungeonBomb();
                 bomb.explode(pos);
                 yell("KA-BOOM!!!");
                 destroy();
                 sprite.die();
             }
-			timeToBomb --;
+			bombtime --;
             return super.act();
         }
 

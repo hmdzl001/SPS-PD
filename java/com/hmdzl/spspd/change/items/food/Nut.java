@@ -28,7 +28,7 @@ public class Nut extends Food {
 
 	{
 		//name = "dungeon nut";
-		image = ItemSpriteSheet.SEED_DUNGEONNUT;
+		image = ItemSpriteSheet.SEED_TOASTEDDUNGEONNUT;
 		energy = 10;
 		//message = "Crunch Crunch.";
 		hornValue = 1;

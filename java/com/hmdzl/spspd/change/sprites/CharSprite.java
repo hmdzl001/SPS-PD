@@ -21,11 +21,14 @@
 package com.hmdzl.spspd.change.sprites;
 
 import com.hmdzl.spspd.change.Assets;
+import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.DungeonTilemap;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.effects.DarkBlock;
 import com.hmdzl.spspd.change.effects.EmoIcon;
 import com.hmdzl.spspd.change.effects.FloatingText;
 import com.hmdzl.spspd.change.effects.IceBlock;
+import com.hmdzl.spspd.change.effects.ShieldHalo;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.Splash;
 import com.hmdzl.spspd.change.effects.TorchHalo;
@@ -34,14 +37,18 @@ import com.hmdzl.spspd.change.effects.particles.LeafParticle;
 import com.hmdzl.spspd.change.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.change.effects.particles.SnowParticle;
 import com.hmdzl.spspd.change.items.potions.PotionOfInvisibility;
+import com.hmdzl.spspd.change.scenes.PixelScene;
+import com.hmdzl.spspd.change.ui.CharHealthIndicator;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
+import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.noosa.tweeners.PosTweener;
 import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.utils.Callback;
@@ -61,7 +68,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	private static final float FLASH_INTERVAL	= 0.05f;
 	
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, REGROW
+		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, REGROW, HEALING, SHIELDED,
 	}
 	
 	protected Animation idle;
@@ -80,11 +87,16 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected Emitter marked;
 	protected Emitter levitation;
 	protected Emitter regrow;
+	protected Emitter healing;
 	
 	protected IceBlock iceBlock;
+	protected DarkBlock darkBlock;
 	protected TorchHalo halo;
+	protected ShieldHalo shield;
+	protected AlphaTweener invisible;
 	
 	protected EmoIcon emo;
+	protected CharHealthIndicator health;
 
 	private Tweener jumpTweener;
 	private Callback jumpCallback;
@@ -96,13 +108,13 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	public Char ch;
 
-	public boolean isMoving = false;
+	public volatile boolean isMoving = false;
 	
 	public CharSprite() {
 		super();
 		listener = this;
 	}
-	
+
 	public void link( Char ch ) {
 		this.ch = ch;
 		ch.sprite = this;
@@ -110,6 +122,14 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		place( ch.pos );
 		turnTo( ch.pos, Random.Int( Level.LENGTH ) );
 
+		if (ch != Dungeon.hero) {
+			if (health == null) {
+				health = new CharHealthIndicator(ch);
+			} else {
+				health.target(ch);
+			}
+		}		
+		
 		ch.updateSpriteState();
 	}
 	
@@ -189,6 +209,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		play( zap );
 	}
 	
+	public void zap( int cell, Callback callback ) {
+		animCallback = callback;
+		zap( cell );
+	}	
+	
 	public void turnTo( int from, int to ) {
 		int fx = from % Level.WIDTH;
 		int tx = to % Level.WIDTH;
@@ -216,6 +241,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		
 		if (emo != null) {
 			emo.killAndErase();
+		}
+		if (health != null){
+			health.killAndErase();
 		}
 	}
 	
@@ -290,14 +318,25 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				chilled = emitter();
 				chilled.pour(SnowParticle.FACTORY, 0.1f);
 				break;
+			case DARKENED:
+				darkBlock = DarkBlock.darken( this );
+				break;				
 			case MARKED:
 				marked = emitter();
 				marked.pour(ShadowParticle.UP, 0.1f);
 				break;
+				
 			case REGROW:
 				regrow = emitter();
 				regrow.pour( LeafParticle.LEVEL_SPECIFIC, 0.06f );
 				break;				
+			case HEALING:
+				healing = emitter();
+				healing.pour(Speck.factory(Speck.HEALING), 0.5f);
+				break;		
+			case SHIELDED:
+				GameScene.effect( shield = new ShieldHalo( this ));
+				break;			
 		}
 	}
 	
@@ -339,6 +378,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					chilled = null;
 				}
 				break;
+			case DARKENED:
+				if (darkBlock != null) {
+					darkBlock.lighten();
+					darkBlock = null;
+				}
+				break;				
 			case MARKED:
 				if (marked != null){
 					marked.on = false;
@@ -349,6 +394,17 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (regrow != null) {
 					regrow.on = false;
 					regrow = null;
+				}
+				break;
+			case HEALING:
+				if (healing != null){
+					healing.on = false;
+					healing = null;
+				}
+				break;
+			case SHIELDED:
+				if (shield != null){
+					shield.putOut();
 				}
 				break;				
 		}
@@ -379,6 +435,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (chilled != null) {
 			chilled.visible = visible;
 		}
+		if (marked != null) {
+			marked.visible = visible;
+		}		
 		if (sleeping) {
 			showSleep();
 		} else {
@@ -393,7 +452,15 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		
 	}
 	
-	public void showSleep() {
+	@Override
+	public void resetColor() {
+		super.resetColor();
+		if (invisible != null){
+			alpha(0.4f);
+		}
+	}	
+	
+	public synchronized void showSleep() {
 		if (emo instanceof EmoIcon.Sleep) {
 			
 		} else {
@@ -405,14 +472,14 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		idle();
 	}
 	
-	public void hideSleep() {
+	public synchronized void hideSleep() {
 		if (emo instanceof EmoIcon.Sleep) {
 			emo.killAndErase();
 			emo = null;
 		}
 	}
 	
-	public void showAlert() {
+	public synchronized void showAlert() {
 		if (emo instanceof EmoIcon.Alert) {
 			
 		} else {
@@ -420,10 +487,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				emo.killAndErase();
 			}
 			emo = new EmoIcon.Alert( this );
+			emo.visible = visible;
 		}
 	}
 	
-	public void hideAlert() {
+	public synchronized void hideAlert() {
 		if (emo instanceof EmoIcon.Alert) {
 			emo.killAndErase();
 			emo = null;
@@ -457,6 +525,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 			emo.killAndErase();
 			emo = null;
 		}
+		
+		if (health != null){
+			health.killAndErase();
+		}		
+		
 	}
 	
 	@Override

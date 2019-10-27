@@ -115,9 +115,15 @@ public class ManyKnive extends Weapon {
 	
 	
 	@Override
+	public boolean isIdentified() {
+		return true;
+	}
+	
+	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		actions.remove(AC_EQUIP);
+		actions.remove(AC_DROP);
 		actions.remove(AC_THROW);
 		actions.add(AC_SHOOT);
         actions.add(AC_AMMO);

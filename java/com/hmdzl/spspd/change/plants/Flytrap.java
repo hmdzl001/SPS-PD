@@ -20,11 +20,16 @@ package com.hmdzl.spspd.change.plants;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.Blob;
-import com.hmdzl.spspd.change.actors.blobs.WaterOfUpgradeEating;
 import com.hmdzl.spspd.change.actors.blobs.WellWater;
+import com.hmdzl.spspd.change.items.UpgradeEatBall;
+import com.hmdzl.spspd.change.items.food.fruit.Blackberry;
+import com.hmdzl.spspd.change.items.food.fruit.Blueberry;
+import com.hmdzl.spspd.change.items.food.fruit.Cloudberry;
+import com.hmdzl.spspd.change.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.change.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class Flytrap extends Plant {
 
@@ -34,10 +39,21 @@ public class Flytrap extends Plant {
 
 	@Override
 	public void activate(Char ch) {
-		if (ch==null){
-		 if (WellWater.affectCellPlant(pos)){
-			super.activate(null);	
-		    }
+		super.activate(ch);
+		Dungeon.level.drop(new UpgradeEatBall(), pos).sprite.drop();
+		switch (Random.Int(4)){
+			case 0:
+				Dungeon.level.drop(new Blackberry(), pos).sprite.drop();
+				break;
+			case 1:
+				Dungeon.level.drop(new Blueberry(), pos).sprite.drop();
+				break;
+			case 2:
+				Dungeon.level.drop(new Cloudberry(), pos).sprite.drop();
+				break;
+			case 3:
+				Dungeon.level.drop(new Moonberry(), pos).sprite.drop();
+				break;
 		}
 	}
 
@@ -49,24 +65,5 @@ public class Flytrap extends Plant {
 			alchemyClass = PotionOfOverHealing.class;				
 		}
 
-		
-		@Override
-		public Plant couch(int pos) {
-			GameScene.add(Blob.seed(pos, 1, WaterOfUpgradeEating.class));	
-		    return super.couch(pos);		    
-		}
 	}
-	
-		
-	public static boolean checkWater(){
-		
-	WellWater water = (WellWater) Dungeon.level.blobs.get(WaterOfUpgradeEating.class);
-	  if (water == null) {
-		return false;
-		} else if (water != null && water.volume==0) {
-	    return false;
-		} else {
-		return true;
-		}
-	 } 
 }

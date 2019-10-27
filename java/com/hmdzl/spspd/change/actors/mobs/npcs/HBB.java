@@ -71,7 +71,7 @@ public class HBB extends NPC {
 	public boolean interact() {
 		
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		switch (Random.Int (4)) {
+		switch (Random.Int (3)) {
             case 0:
 			yell(Messages.get(this, "yell1"));	
 			break;
@@ -81,9 +81,9 @@ public class HBB extends NPC {
 			case 2:
 			yell(Messages.get(this, "yell3"));
 			break;
-			case 3:
-				Dungeon.level.drop(new Flag(), Dungeon.hero.pos).sprite.drop();
-			break;
+			//case 3:
+				//Dungeon.level.drop(new Flag(), Dungeon.hero.pos).sprite.drop();
+			//break;
 		}
 		return false;
 	}

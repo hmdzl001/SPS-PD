@@ -30,6 +30,7 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.AflyBless;
 import com.hmdzl.spspd.change.actors.buffs.Amok;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Corruption;
 import com.hmdzl.spspd.change.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.Feed;
@@ -97,7 +98,9 @@ public abstract class Mob extends Char {
 
 	protected int evadeSkill = 0;
 
+	//public int EXP = 1;
 	protected int EXP = 1;
+	//public int maxLvl = 100;
 	protected int maxLvl = 100;
 	protected int dewLvl = 1;
 
@@ -225,36 +228,99 @@ public abstract class Mob extends Char {
 
 	protected Char chooseEnemy() {
 
-		Terror terror = buff(Terror.class);
+		Terror terror = buff( Terror.class );
 		if (terror != null) {
-			Char source = (Char) Actor.findById(terror.object);
+			Char source = (Char)Actor.findById( terror.object );
 			if (source != null) {
 				return source;
 			}
 		}
 
+		//find a new enemy if..
+		boolean newEnemy = false;
+		//we have no enemy, or the current one is dead
+		if ( enemy == null || !enemy.isAlive() || state == WANDERING)
+			newEnemy = true;
+			//We are corrupted, and current enemy is either the hero or another corrupted character.
+		else if (buff(Corruption.class) != null && (enemy == Dungeon.hero || enemy.buff(Corruption.class) != null))
+			newEnemy = true;
+			//We are amoked and current enemy is the hero
+		else if (buff( Amok.class ) != null && enemy == Dungeon.hero)
+			newEnemy = true;
+	
+		if ( newEnemy ) {
+
+			HashSet<Char> enemies = new HashSet<>();
+
+			//if the mob is corrupted...
+			if ( buff(Corruption.class) != null) {
+
+				//look for enemy mobs to attack, which are also not corrupted
+				for (Mob mob : Dungeon.level.mobs)
+					if (mob != this && Level.fieldOfView[mob.pos] && mob.hostile && mob.buff(Corruption.class) == null)
+						enemies.add(mob);
+				if (enemies.size() > 0) return Random.element(enemies);
+
+				//otherwise go for nothing
+				return this;
+
+				//if the mob is amoked...
+			} else if ( buff(Amok.class) != null) {
+
+				//try to find an enemy mob to attack first.
+				for (Mob mob : Dungeon.level.mobs)
+					if (mob != this && Level.fieldOfView[mob.pos] && mob.hostile)
+						enemies.add(mob);
+				if (enemies.size() > 0) return Random.element(enemies);
+
+				//try to find ally mobs to attack second.
+				for (Mob mob : Dungeon.level.mobs)
+					if (mob != this && Level.fieldOfView[mob.pos] && mob.ally)
+						enemies.add(mob);
+				if (enemies.size() > 0) return Random.element(enemies);
+
+					//if there is nothing, go for the hero
+				else return Dungeon.hero;
+
+			} else {
+
+				//try to find ally mobs to attack.
+				for (Mob mob : Dungeon.level.mobs)
+					if (mob != this && Level.fieldOfView[mob.pos] && mob.ally)
+						enemies.add(mob);
+
+				//and add the hero to the list of targets.
+				enemies.add(Dungeon.hero);
+
+				//go after the closest enemy, preferring the hero if two are equidistant
+			//	Char closest = null;
+				//for (Char curr : enemies){
+					//if (closest == null
+						//	|| Dungeon.level.distance(pos, curr.pos) < Dungeon.level.distance(pos, closest.pos)
+						//	|| Dungeon.level.distance(pos, curr.pos) == Dungeon.level.distance(pos, closest.pos) && curr == Dungeon.hero){
+						//closest = curr;
+					//}
+				//}
+				//return closest;
+				return Random.element(enemies);
+
+			}
+
+		} else
+			return enemy;
+		
 		// resets target if: the target is dead, the target has been lost
 		// (wandering)
 		// or if the mob is amoked and targeting the hero (will try to target
 		// something else)
-		if (enemy != null && !enemy.isAlive() || state == WANDERING
-				|| (buff(Amok.class) != null && enemy == Dungeon.hero))
+		/*if (enemy != null && !enemy.isAlive() || state == WANDERING
+				|| (buff(Amok.class) != null && enemy == Dungeon.hero) 
+				|| (buff(Corruption.class) != null && enemy == Dungeon.hero))
 			enemy = null;
-
 		// if there is no current target, find a new one.
 		if (enemy == null) {
-
 			HashSet<Char> enemies = new HashSet<Char>();
-
-			/*if(buff(Taunt.class)!=null){
-				Char ch;
-                if( isTauntedBy(enemy) && enemy.isAlive() ){
-				return enemy;
-                }
-				else return null;
-			} else*/
-
-            // if the mob is amoked...
+			// if the mob is amoked...
 			if (buff(Amok.class) != null) {
 				// try to find an enemy mob to attack first.
 				for (Mob mob : Dungeon.level.mobs)
@@ -263,7 +329,6 @@ public abstract class Mob extends Char {
 						enemies.add(mob);
 				if (enemies.size() > 0)
 					return Random.element(enemies);
-
 				// try to find ally mobs to attack second.
 				for (Mob mob : Dungeon.level.mobs)
 					if (mob != this && Level.fieldOfView[mob.pos] && mob.ally)
@@ -274,24 +339,42 @@ public abstract class Mob extends Char {
 				// if there is nothing, go for the hero.
 				return Dungeon.hero;
 
+				// if the mob is Corruption...
+			} else if (buff(Corruption.class) != null) {
+				// try to find an enemy mob to attack first.
+				for (Mob mob : Dungeon.level.mobs)
+					if (mob != this && Level.fieldOfView[mob.pos]
+							&& mob.hostile)
+						enemies.add(mob);
+				if (enemies.size() > 0)
+					return Random.element(enemies);
+
+				// try to find ally mobs to attack second.
+				for (Mob mob : Dungeon.level.mobs)
+					if (mob != this && Level.fieldOfView[mob.pos] && !mob.ally)
+						enemies.add(mob);
+				if (enemies.size() > 0)
+					return Random.element(enemies);
+
+				// if there is nothing, go for the itself.
+				return null;
 				// if the mob is not amoked...
 			} else {
-
 				// try to find ally mobs to attack.
 				for (Mob mob : Dungeon.level.mobs)
 					if (mob != this && Level.fieldOfView[mob.pos] && mob.ally)
 						enemies.add(mob);
-
 				// and add the hero to the list of targets.
 				enemies.add(Dungeon.hero);
-
 				// target one at random.
 				return Random.element(enemies);
 
 			}
 
 		} else
-			return enemy;
+			return enemy;		
+		*/
+		
 	}
 
 	protected boolean moveSprite(int from, int to) {
@@ -488,9 +571,11 @@ public abstract class Mob extends Char {
 		if (state == SLEEPING) {
 			state = WANDERING;
 		}
-		alerted = true;
-
-
+		
+		if (state != HUNTING) {
+			alerted = true;
+		}
+		//alerted = true;
 
 		super.damage(dmg, src);
 	}
@@ -619,11 +704,6 @@ public abstract class Mob extends Char {
 			Item lootOther = createLootOther();
 			if (lootOther != null)
 				Dungeon.level.drop(lootOther, pos).sprite.drop();
-		} else if (Random.Float() < lootChanceThird
-				&& Dungeon.hero.lvl <= maxLvl + 800) {
-			Item lootThird = createLootThird();
-			if (lootThird != null)
-				Dungeon.level.drop(lootThird, pos).sprite.drop();
 		}
 
 		if (Dungeon.hero.isAlive() && !Dungeon.visible[pos]) {
@@ -661,10 +741,8 @@ public abstract class Mob extends Char {
 
 	protected Object loot = null;
 	protected Object lootOther = null;
-	protected Object lootThird = null;
 	protected float lootChance = 0;
 	protected float lootChanceOther = 0;
-	protected float lootChanceThird = 0;
 
 	@SuppressWarnings("unchecked")
 	protected Item createLoot() {
@@ -704,25 +782,6 @@ public abstract class Mob extends Char {
 		return item;
 	}
 	
-	@SuppressWarnings("unchecked")
-	protected Item createLootThird() {
-		Item item;
-		if (lootThird instanceof Generator.Category) {
-
-			item = Generator.random((Generator.Category) lootThird);
-
-		} else if (lootThird instanceof Class<?>) {
-
-			item = Generator.random((Class<? extends Item>) lootThird);
-
-		} else {
-
-			item = (Item) lootThird;
-
-		}
-		return item;
-	}
-
 	public void explodeDew(int cell) {
 		
 		if (Dungeon.dewDraw || Dungeon.dewWater){
@@ -841,14 +900,6 @@ public abstract class Mob extends Char {
 				notice();
 				state = HUNTING;
 				target = enemy.pos;
-
-				//if (Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)) {
-					//for (Mob mob : Dungeon.level.mobs) {
-						//if (mob != Mob.this) {
-							//mob.beckon(target);
-						//}
-					//}
-				//}
 
 				spend(TIME_TO_WAKE_UP);
 

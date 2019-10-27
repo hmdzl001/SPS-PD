@@ -51,8 +51,13 @@ import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.traps.LightningTrap;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.scenes.GameScene;
+import com.hmdzl.spspd.change.scenes.PixelScene;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.change.ui.RenderedTextMultiline;
+import com.hmdzl.spspd.change.ui.Window;
 import com.hmdzl.spspd.change.utils.GLog;
+import com.hmdzl.spspd.change.windows.IconTitle;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -84,9 +89,7 @@ public class Whistle extends Item {
 
 		
 		if (action == AC_CALL) {	
-			petCall();
-			GLog.w(Messages.get(this,"tweet"));
-									  				
+			GameScene.show( new WndWhistle(this) );
 		} else {
 
 			super.execute(hero, action);
@@ -94,184 +97,7 @@ public class Whistle extends Item {
 		}
 			
 	}	
-	
-	public int getSpawnPos(){
-		int newPos = -1;
-		int pos = Dungeon.hero.pos;
-			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
 
-			for (int n : Level.NEIGHBOURS8) {
-				int c = pos + n;
-				if (passable[c] && Actor.findChar(c) == null) {
-					candidates.add(c);
-				}
-			}
-
-			newPos = candidates.size() > 0 ? Random.element(candidates) : -1;
-			
-		return newPos;
-	}
-	
-	
-	public boolean petCall () {	
-		
-	      boolean callResult = false;		
-		  int spawnPos = getSpawnPos();
-		  if (spawnPos != -1 && Dungeon.hero.haspet) {
-				
-			  int petpos = -1;
-				int heropos = Dungeon.hero.pos;
-				if (Actor.findChar(heropos) != null) {
-					//GLog.i("Check Pet 2");
-					ArrayList<Integer> candidates = new ArrayList<Integer>();
-					boolean[] passable = Level.passable;
-
-					for (int n : Level.NEIGHBOURS8) {
-						int c = heropos + n;
-						if (passable[c] && Actor.findChar(c) == null) {
-							candidates.add(c);
-						}
-					}
-
-					petpos = candidates.size() > 0 ? Random.element(candidates) : -1;
-				}
-
-				if (petpos != -1 && Dungeon.hero.haspet) {
-					
-					 PET petCheck = checkpet();
-					  if(petCheck!=null){
-						  
-						  petCheck.destroy();
-					      petCheck.sprite.killAndErase();
-					  }  
-										
-				   if (Dungeon.hero.petType==1){
-						 Spider pet = new Spider();
-						  spawnPet(pet,petpos,heropos);					 
-						}
-				   if (Dungeon.hero.petType==2){
-					  CocoCat pet = new CocoCat();
-					  spawnPet(pet,petpos,heropos);					 
-					}
-				   if (Dungeon.hero.petType==3){
-					      Velocirooster pet = new Velocirooster();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==4){
-						  RedDragon pet = new RedDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==5){
-					   GreenDragon pet = new GreenDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==6){
-						  VioletDragon pet = new VioletDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==7){
-					   BlueDragon pet = new BlueDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==8){
-					   Scorpion pet = new Scorpion();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==9){
-					   Bunny pet = new Bunny();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==10){
-					   LightDragon pet = new LightDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==11){
-					   BugDragon pet = new BugDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==12){
-					   ShadowDragon pet = new ShadowDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-					if (Dungeon.hero.petType==13){
-					   CocoCat pet = new CocoCat();
-						  spawnPet(pet,petpos,heropos);					 
-				   }				
-				   if (Dungeon.hero.petType==14){
-					   LeryFire pet = new LeryFire();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==15){
-					   GoldDragon pet = new GoldDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==16){
-					   Snake pet = new Snake();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==17){
-					   Fly pet = new Fly();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==18){
-					   Stone pet = new Stone();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==19){
-					   Monkey pet = new Monkey();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==20){
-					   GentleCrab pet = new GentleCrab();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==21){
-					   RibbonRat pet = new RibbonRat();
-						  spawnPet(pet,petpos,heropos);					 
-				   }					   
-				   callResult = true;
-				   GLog.w(Messages.get(this,"arrive"));
-				  
-				   Dungeon.hero.spend(Whistle.TIME_TO_USE);
-				}
-				
-		  } else {
-			  
-			  Dungeon.hero.spend(Whistle.TIME_TO_USE);
-
-		  }
-		  
-		  return callResult;
-	}
-	
-	private PET checkpet(){
-		for (Mob mob : Dungeon.level.mobs) {
-			if(mob instanceof PET) {
-				return (PET) mob;
-			}
-		}	
-		return null;
-	}
-	
-	public void spawnPet(PET pet, Integer petpos, Integer heropos){
-		  pet.spawn(Dungeon.hero.petLevel);
-		  pet.HP = Dungeon.hero.petHP;
-		  pet.pos = petpos;
-		  pet.state = pet.HUNTING;
-		  pet.experience = Dungeon.hero.petExperience;
-		  pet.cooldown = Dungeon.hero.petCooldown;
-
-			GameScene.add(pet);
-			Actor.addDelayed(new Pushing(pet, heropos, petpos), -1f);
-	}
-	
-		
-	@Override
-	public int price() {
-		return 500 * quantity;
-	}
-	
 	
 	@Override
 	public boolean isUpgradable() {
@@ -282,5 +108,30 @@ public class Whistle extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
-
+	private static class WndWhistle extends Window {
+		
+		private static final int BTN_SIZE	= 32;
+		private static final float GAP		= 2;
+		private static final float BTN_GAP	= 12;
+		private static final int WIDTH		= 116;
+			
+		WndWhistle(final Whistle whis){
+			
+			IconTitle titlebar = new IconTitle();
+			titlebar.icon( new ItemSprite(whis) );
+			titlebar.label( Messages.get(this, "title") );
+			titlebar.setRect( 0, 0, WIDTH, 0 );
+			add( titlebar );
+			
+			RenderedTextMultiline message =
+					PixelScene.renderMultiline(Messages.get(this, "desc"),6);
+			message.maxWidth( WIDTH );
+			message.setPos(0, titlebar.bottom() + GAP);
+			add( message );
+			
+			
+			resize(WIDTH, (int)(message.bottom() + GAP));
+		}
+	
+	}
 }

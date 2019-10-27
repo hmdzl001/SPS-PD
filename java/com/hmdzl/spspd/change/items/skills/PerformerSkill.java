@@ -50,7 +50,7 @@ import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.watabou.noosa.audio.Sample;
 
 public class PerformerSkill extends ClassSkill {
-
+ private static int SKILL_TIME = 1;
 	{
 		//name = "performer cloak";
 		image = ItemSpriteSheet.ARMOR_PERFORMER;
@@ -71,7 +71,7 @@ public class PerformerSkill extends ClassSkill {
 		charge += 20;
 		Buff.affect(curUser, DefenceUp.class,10).level(25);
 		Buff.affect(curUser, AttackUp.class,10).level(25);
-        curUser.spend(Actor.TICK);
+        curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -106,7 +106,7 @@ public class PerformerSkill extends ClassSkill {
 		}
 		charge += 20;
 
-        curUser.spend(Actor.TICK);
+        curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
@@ -125,7 +125,7 @@ public class PerformerSkill extends ClassSkill {
 		charge +=10;
 
 		Buff.affect(curUser, HighVoice.class,100);
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 

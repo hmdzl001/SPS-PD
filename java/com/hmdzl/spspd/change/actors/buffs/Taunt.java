@@ -19,51 +19,23 @@ package com.hmdzl.spspd.change.actors.buffs;
 
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.items.rings.RingOfElements.Resistance;
+import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
-public class Taunt extends FlavourBuff {
-
-	public int object = 0;
-
-	private static final String OBJECT = "object";
+public class Taunt extends Buff {
 
 	{
 		type = buffType.NEGATIVE;
 	}
 
 	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(OBJECT, object);
+	public boolean act() {
+		if (target.isAlive()) {
+			spend(TICK);
+		}
+		return true;
 	}
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		object = bundle.getInt(OBJECT);
-	}
-
-	private static final float DURATION = 5f;
-
-	@Override
-	public int icon() {
-		return BuffIndicator.TAUNT;
-	}
-
-	@Override
-	public String toString() {
-		return Messages.get(this, "name");
-	}
-
-	@Override
-	public String desc() {
-		return Messages.get(this, "desc", dispTurns());
-	}
-
-	public static float duration(Char ch) {
-		Resistance r = ch.buff(Resistance.class);
-		return r != null ? r.durationFactor() * DURATION : DURATION;
-	}
 }

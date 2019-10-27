@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.change.plants;
 
+import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Bleeding;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
@@ -29,6 +30,7 @@ import com.hmdzl.spspd.change.actors.buffs.Vertigo;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
+import com.hmdzl.spspd.change.items.food.vegetable.DreamLeaf;
 import com.hmdzl.spspd.change.items.potions.PotionOfPurity;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
@@ -42,12 +44,12 @@ public class Dreamfoil extends Plant {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-
+        Dungeon.level.drop(new DreamLeaf(), pos).sprite.drop();
 		if (ch != null) {
 			if (ch instanceof Mob)
 				Buff.affect(ch, MagicalSleep.class);
 			else if (ch instanceof Hero) {
-				GLog.i("You feel refreshed.");
+				//GLog.i("You feel refreshed.");
 				Buff.detach(ch, Poison.class);
 				Buff.detach(ch, Cripple.class);
 				Buff.detach(ch, Weakness.class);

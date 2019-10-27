@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.actors.buffs;
 
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.items.artifacts.ChaliceOfBlood;
 
 public class Regeneration extends Buff {
@@ -36,14 +37,15 @@ public class Regeneration extends Buff {
 			ChaliceOfBlood.chaliceRegen regenBuff = Dungeon.hero
 					.buff(ChaliceOfBlood.chaliceRegen.class);
 
-			if (regenBuff != null)
-				if (regenBuff.isCursed())
+			if (regenBuff != null) {
+				if (regenBuff.isCursed()) {
 					spend(REGENERATION_DELAY * 1.5f);
-				else
-					spend(Math
-							.max(REGENERATION_DELAY - regenBuff.level(), 0.5f));
-			else
-				spend(REGENERATION_DELAY);
+				} else {
+					spend(Math.max(REGENERATION_DELAY - regenBuff.level(), 0.5f));
+				}
+			} else if (Dungeon.hero.heroClass== HeroClass.PERFORMER && Dungeon.skins == 2) {
+				spend(REGENERATION_DELAY*0.5f);
+			} else	{ spend(REGENERATION_DELAY);}
 
 		} else {
 

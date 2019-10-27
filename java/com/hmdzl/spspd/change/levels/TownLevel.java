@@ -39,6 +39,7 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.Apostle;
 import com.hmdzl.spspd.change.actors.mobs.npcs.DreamPlayer;
 import com.hmdzl.spspd.change.actors.mobs.npcs.GoblinPlayer;
 import com.hmdzl.spspd.change.actors.mobs.npcs.HoneyPoooot;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Ice13;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Juh9870;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Kostis12345;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Lynn;
@@ -85,7 +86,8 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.LaJi;
 import com.hmdzl.spspd.change.actors.mobs.npcs.WhiteGhost;
 import com.hmdzl.spspd.change.actors.mobs.npcs.XixiZero;
 import com.hmdzl.spspd.change.items.food.Nut;
-import com.hmdzl.spspd.change.items.food.Vegetable;
+import com.hmdzl.spspd.change.items.food.vegetable.NutVegetable;
+import com.hmdzl.spspd.change.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.change.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.change.items.eggs.Egg;
 import com.hmdzl.spspd.change.items.Generator;
@@ -354,7 +356,7 @@ public class TownLevel extends Level {
 			prize = new PetFood();
 			break;
 		case 8:
-			prize = new Vegetable();
+			prize = new NutVegetable();
 			break;
 		default:
 			prize = new Nut();
@@ -673,8 +675,12 @@ public class TownLevel extends Level {
 		  mobs.add(lery);
 	  }
 	  Mob evan = new Evan();
-	  evan.pos = 29 + WIDTH * 32;
+	  evan.pos = 27 + WIDTH * 31;
 	  mobs.add(evan);
+
+	  Mob ice13 = new Ice13();
+	  ice13.pos = 29 + WIDTH * 32;
+	  mobs.add(ice13);
 
       Mob hexa = new HeXA();
 	  hexa.pos = 33 + WIDTH * 30;
@@ -794,10 +800,6 @@ public class TownLevel extends Level {
 	  test4.pos = 18 + WIDTH * 44;
 	  mobs.add(test4);
 
-	  TestMob2 test5 = new TestMob2();
-	  test5.pos = 21 + WIDTH * 44;
-	  mobs.add(test5);
-
 	  RainTrainer rain = new RainTrainer();
 	  rain.pos = 17 + WIDTH * 42;
 	  mobs.add(rain);
@@ -810,6 +812,10 @@ public class TownLevel extends Level {
 		  tempest102.pos = 33 + WIDTH * 42;
 		  mobs.add(tempest102);
 	  }
+
+	  TestMob2 test5 = new TestMob2();
+	  test5.pos = 21 + WIDTH * 44;
+	  mobs.add(test5);
 
 	  /*Assassin test5 = new Assassin();
 	  test5.pos = 14 + WIDTH * 28;

@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.change.items.weapon.missiles;
 
+import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.actors.blobs.DarkGas;
@@ -54,6 +55,16 @@ public class Smoke extends MissileWeapon {
 		quantity = Random.Int(3, 5);
 		return this;
 	}
+	
+	@Override
+	protected void onThrow(int cell) {
+		Char enemy = Actor.findChar(cell);
+		if (enemy == null || enemy == curUser)
+			//GameScene.add(Blob.seed(cell, 4, Fire.class));
+		GameScene.add(Blob.seed(cell, 100, DarkGas.class));
+		else
+			super.onThrow(cell);
+	}	
 	
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {

@@ -124,10 +124,6 @@ public class Blacksmith2 extends NPC {
 		if(item1 instanceof MeleeWeapon && item2 instanceof AdamantWeapon){
 			return null;
 		}
-		
-		if(item1 instanceof Boomerang && item2 instanceof AdamantWeapon){
-			return null;
-		}
 
 		if(item1 instanceof GunWeapon && item2 instanceof AdamantWeapon){
 			return null;

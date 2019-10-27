@@ -76,7 +76,7 @@ public class King extends Mob {
 		lootChance = 0.2f;
 		
 		lootOther = new Skull(5);
-		lootChance = 1f;		
+		lootChanceOther = 1f;
 		
 		properties.add(Property.DWARF);
 		properties.add(Property.BOSS);

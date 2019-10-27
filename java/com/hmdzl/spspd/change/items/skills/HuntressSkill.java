@@ -55,7 +55,7 @@ import com.watabou.utils.Random;
 import com.watabou.noosa.audio.Sample;
 
 public class HuntressSkill extends ClassSkill {
-
+ private static int SKILL_TIME = 1;
 	{
 		//name = "huntress cloak";
 		image = ItemSpriteSheet.ARMOR_HUNTRESS;
@@ -97,7 +97,7 @@ public class HuntressSkill extends ClassSkill {
 		
 		charge +=10;
 
-        curUser.spend(Actor.TICK);
+        curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -125,7 +125,7 @@ public class HuntressSkill extends ClassSkill {
 		
 		charge +=10;
 
-        curUser.spend(Actor.TICK);
+        curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -143,7 +143,7 @@ public class HuntressSkill extends ClassSkill {
 
 		charge +=15;
 
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -187,7 +187,7 @@ public class HuntressSkill extends ClassSkill {
 
 		charge += 15;
 
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 

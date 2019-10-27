@@ -18,11 +18,13 @@
 package com.hmdzl.spspd.change.actors;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
+import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.change.actors.buffs.Amok;
 import com.hmdzl.spspd.change.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.change.actors.buffs.AttackDown;
@@ -34,6 +36,7 @@ import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
 import com.hmdzl.spspd.change.actors.buffs.Charm;
 import com.hmdzl.spspd.change.actors.buffs.Cold;
+import com.hmdzl.spspd.change.actors.buffs.Corruption;
 import com.hmdzl.spspd.change.actors.buffs.Cripple;
 import com.hmdzl.spspd.change.actors.buffs.Chill;
 import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
@@ -83,6 +86,10 @@ import com.hmdzl.spspd.change.effects.Lightning;
 import com.hmdzl.spspd.change.effects.Pushing;
 import com.hmdzl.spspd.change.effects.particles.PoisonParticle;
 import com.hmdzl.spspd.change.items.artifacts.CloakOfShadows;
+import com.hmdzl.spspd.change.items.rings.RingOfElements;
+import com.hmdzl.spspd.change.items.wands.WandOfFirebolt;
+import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentFire;
+import com.hmdzl.spspd.change.items.weapon.enchantments.EnchantmentFire2;
 import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
@@ -412,7 +419,8 @@ public abstract class Char extends Actor {
 				Buff.detach(this, GlassShield.class);
 			}
 		}
-
+       //if (dmg > HP){
+		//Buff.detach(this,Corruption.class);}
 		HP -= dmg;
 		
 		
@@ -503,16 +511,6 @@ public abstract class Char extends Actor {
 		int chID = ch.id();
 		for (Buff b : buffs) {
 			if (b instanceof Charm && ((Charm) b).object == chID) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isTauntedBy(Char ch) {
-		int chID = ch.id();
-		for (Buff b : buffs) {
-			if (b instanceof Taunt && ((Taunt) b).object == chID) {
 				return true;
 			}
 		}
@@ -639,7 +637,48 @@ public abstract class Char extends Actor {
 	
 	public HashSet<Class<?>> weakness() {
 		return EMPTY;
-	}	
+	}
+
+	 //protected final HashSet<Class> resistances = new HashSet<>();
+
+	//returns percent effectiveness after resistances
+	//TODO currently resistances reduce effectiveness by a static 50%, and do not stack.
+	//public float resist( Class effect ){
+		//HashSet<Class> resists = new HashSet<>(resistances);
+	//	for (Property p : properties()){
+	//		resists.addAll(p.resistances());
+	//	}
+	//	for (Buff b : buffs()){
+	//		resists.addAll(b.resistances());
+	//	}
+
+	//	float result = 1f;
+	//	for (Class c : resists){
+	//		if (c.isAssignableFrom(effect)){
+	//			result *= 0.5f;
+	//		}
+	//	}
+	//	return result * RingOfElements.restore(this, effect);
+	//}
+
+	//protected final HashSet<Class> immunities = new HashSet<>();
+
+	//public boolean isImmune(Class effect ){
+		//HashSet<Class> immunes = new HashSet<>(immunities);
+		//for (Property p : properties()){
+			//immunes.addAll(p.immunities());
+		//}
+		//for (Buff b : buffs()){
+			//immunes.addAll(b.immunities());
+		//}
+
+		//for (Class c : immunes){
+			//if (c.isAssignableFrom(effect)){
+			//	return true;
+			//}
+	//	}
+		//return false;
+	//}
 
 	protected HashSet<Property> properties = new HashSet<>();
 
@@ -661,12 +700,40 @@ public abstract class Char extends Actor {
 
         BEAST,
 		DRAGON,
-		PLANT,
+		PLANT( new HashSet<Class>(),
+				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class)),
+		        new HashSet<Class>( Arrays.asList(Burning.class, WandOfFirebolt.class,EnchantmentFire.class,EnchantmentFire2.class))
+				),
 		ELEMENT,
 
 		MECH,
 		UNDEAD,
 		ALIEN,
-		UNKNOW
+		UNKNOW;
+
+		private HashSet<Class> resistances;
+		private HashSet<Class> immunities;
+		private HashSet<Class> weakness;
+
+		Property(){
+			this(new HashSet<Class>(), new HashSet<Class>(),new HashSet<Class>());
+		}
+
+		Property( HashSet<Class> resistances, HashSet<Class> immunities,HashSet<Class> weakness){
+			this.resistances = resistances;
+			this.immunities = immunities;
+			this.weakness = weakness;
+		}
+
+		public HashSet<Class> resistances(){
+			return new HashSet<>(resistances);
+		}
+
+		public HashSet<Class> immunities(){
+			return new HashSet<>(immunities);
+		}
+		public HashSet<Class> weakness(){
+			return new HashSet<>(weakness);
+		}
 	}
 }

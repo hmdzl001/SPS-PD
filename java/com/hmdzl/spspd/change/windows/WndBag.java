@@ -52,6 +52,7 @@ import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.change.items.misc.MissileShield;
 import com.hmdzl.spspd.change.items.weapon.missiles.ManyKnive;
+import com.hmdzl.spspd.change.items.weapon.missiles.TaurcenBow;
 import com.hmdzl.spspd.change.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.items.armor.Armor;
@@ -117,7 +118,8 @@ public class WndBag extends WndTabbed {
 		CANBEMIX,
 		STONE,
 		TRANMSUTABLE,
-		AMMO;
+		AMMO,
+		EATABLE;
 	}
 
 	protected static final int COLS_P = 5;
@@ -480,7 +482,7 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.ARMOR
 						&& (item instanceof Armor)
 				 || mode == Mode.ENCHANTABLE
-						&& (item instanceof MeleeWeapon	|| item instanceof Boomerang || item instanceof Armor || item instanceof ManyKnive)
+						&& (item instanceof MeleeWeapon	|| item instanceof Boomerang || item instanceof Armor || item instanceof ManyKnive || item instanceof TaurcenBow)
 
 				 || mode == Mode.JOURNALPAGES
 						&& (item instanceof JournalPage)
@@ -510,6 +512,8 @@ public class WndBag extends WndTabbed {
 							&& (!item.isEquipped(hero) && ( item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Artifact || item instanceof Armor ))
 				|| mode == Mode.AMMO
 						&& (item instanceof SpAmmo)
+				|| mode == Mode.EATABLE
+							&& (!item.isEquipped(hero) && (item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Armor))
 				 || mode == Mode.ALL);
 				}
 			} else {

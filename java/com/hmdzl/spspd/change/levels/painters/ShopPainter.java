@@ -68,6 +68,7 @@ import com.hmdzl.spspd.change.items.weapon.guns.GunD;
 import com.hmdzl.spspd.change.items.weapon.guns.GunE;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Brick;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Lollipop;
+import com.hmdzl.spspd.change.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.change.items.weapon.melee.special.SJRBMusic;
 import com.hmdzl.spspd.change.items.weapon.missiles.MiniMoai;
 import com.hmdzl.spspd.change.items.weapon.missiles.PocketBall;
@@ -132,7 +133,7 @@ public class ShopPainter extends Painter {
 		case 1:
 			itemsToSpawn.add(new GunA().identify());
 			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new SJRBMusic().identify());
+			itemsToSpawn.add(new Pumpkin().identify());
 		    itemsToSpawn.add(new DolyaSlate().identify());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());

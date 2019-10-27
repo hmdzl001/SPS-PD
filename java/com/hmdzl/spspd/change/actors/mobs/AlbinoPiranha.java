@@ -19,7 +19,9 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
-import com.hmdzl.spspd.change.items.food.Vegetable;
+import com.hmdzl.spspd.change.actors.buffs.Corruption;
+import com.hmdzl.spspd.change.items.food.vegetable.NutVegetable;
+import com.hmdzl.spspd.change.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.change.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.change.items.reward.CaveReward;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfSacrifice;
@@ -127,7 +129,7 @@ public class AlbinoPiranha extends Mob {
 		
 		explodeDew(pos);
 		if(Random.Int(105-Math.min(Statistics.albinoPiranhasKilled,100))==0){
-		  Dungeon.level.drop(new Vegetable(), pos).sprite.drop();
+		  Dungeon.level.drop(new NutVegetable(), pos).sprite.drop();
 		}
 		
 	if(Statistics.albinoPiranhasKilled == 25) {
@@ -194,6 +196,7 @@ public class AlbinoPiranha extends Mob {
 		IMMUNITIES.add(ToxicGas.class);
 		IMMUNITIES.add(Roots.class);
 		IMMUNITIES.add(Frost.class);
+		IMMUNITIES.add(Corruption.class);
 	}
 
 	@Override

@@ -92,7 +92,7 @@ public class ElderAvatar extends Mob {
 		lootChance = 0.2f;
 		
 		lootOther = Generator.Category.GUNWEAPON;
-		lootChance = 1f;
+		lootChanceOther = 1f;
 
 		properties.add(Property.ALIEN);
 		properties.add(Property.BOSS);

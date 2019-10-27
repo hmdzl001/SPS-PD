@@ -205,4 +205,13 @@ public class ChaosLevel extends RegularLevel {
 			am = p > 0.8f ? (1 - p) * 5 : 1;
 		}
 	}
+	@Override
+	public String tileName( int tile ) {
+		switch (tile) {
+			case Terrain.WATER:
+				return Messages.get(ChaosLevel.class, "water_name");
+			default:
+				return super.tileName( tile );
+		}
+	}
 }

@@ -417,6 +417,8 @@ public class ItemSpriteSheet {
 	public static final int ERROR_FOOD = ROW18 + 11;
 	public static final int ERROR_AMMO = ROW20 + 5;
 
+	public static final int ERROR_BOOK = ROW18 + 13;
+
 	public static final int H_O_SCARECROW = ROW18 + 14;
 
 	public static final int ELEVATOR = ROW20 + 10;
@@ -523,4 +525,20 @@ public class ItemSpriteSheet {
 	public static final int AFLY_FOOD = ROW25 + 14;
 
 	public static final int FLAG = ROW25 + 15;
+
+	public static final int COPY_BALL = ROW26 + 1;
+	public static final int EMPTY_BOMB = ROW26 + 2;
+	public static final int SHATTERED_AMMO = ROW26 + 3;
+	public static final int BOW = ROW26 + 4;
+
+	public static final int STAR_FLOWER = ROW26 + 5;
+	public static final int UP_EATER = ROW26 + 6;
+	public static final int TRAN_BALL = ROW26 + 7;
+	public static final int DREAM_L = ROW26 + 8;
+	public static final int HEAL_L = ROW26 + 9;
+	public static final int MECH_POCKET = ROW26 + 10;
+
+	public static final int DEMO_SCROLL = ROW26 + 11;
+	public static final int UNDEAD_BOOK = ROW26 + 12;
+	public static final int GNOLL_MARK = ROW26 + 13;
 }

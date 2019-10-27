@@ -55,9 +55,11 @@ import com.hmdzl.spspd.change.actors.buffs.Wet;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
+import com.hmdzl.spspd.change.effects.Splash;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
@@ -78,6 +80,7 @@ public class PotionOfMage extends Item {
 
 	public static final String AC_USE = "USE";
 	public static final String AC_DRINK = "DRINK";
+	public static final String AC_SHATTERED = "SHATTERED";
 	private static final float TIME_TO_DIG = 1f;
 
 	{
@@ -107,8 +110,9 @@ public class PotionOfMage extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (charge >= 100) {
+		if (charge >= 70) {
 			actions.add(AC_USE);
+			actions.add(AC_SHATTERED);
 		}
 		if (charge >= 50){
 		actions.add(AC_DRINK);
@@ -121,11 +125,19 @@ public class PotionOfMage extends Item {
 	@Override
 	public void execute( final Hero hero, String action ) {		
       if( action.equals( AC_USE ) ) {
-		  if (charge < 100) {
+		  curUser = hero;
+		  if (charge < 70) {
+			  GLog.i(Messages.get(PotionOfMage.class, "break"));
+		  } else GameScene.selectCell(shooter);
+
+	  } else if( action.equals( AC_SHATTERED ) ) {
+		  curUser = hero;
+		  if (charge < 70) {
 			  GLog.i(Messages.get(PotionOfMage.class, "break"));
 		  } else GameScene.selectCell(Shattered);
 
-	  } else if (action.equals( AC_DRINK )){
+	  } else  if (action.equals( AC_DRINK )){
+		  curUser = hero;
 		  if (charge < 50) {
 			  GLog.i(Messages.get(PotionOfMage.class, "break"));
 		  } else {
@@ -167,7 +179,7 @@ public class PotionOfMage extends Item {
 
 	@Override
 	public String status() {
-		return Messages.format("%d", (int)charge/100);
+		return Messages.format("%d", (int)charge/70);
 	}
 	
 	@Override
@@ -191,30 +203,89 @@ public class PotionOfMage extends Item {
 		@Override
 		public void onSelect(Integer target) {
 			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
-				if (Actor.findChar( target ) != null){
-					Char mob = Actor.findChar(target);
-					Buff.affect(mob, AttackDown.class, 10f).level(35);
-					Buff.affect(mob, ArmorBreak.class, 10f).level(35);
-					Buff.affect(mob, Slow.class, 10f);
-					Buff.affect(mob, Hot.class,10f);
-					Buff.affect(mob, Wet.class, 10f);
-					Buff.affect(mob, Shocked.class, 10f);
-					Buff.affect(mob, Roots.class, 10f);
-					charge-= 100;
-					Dungeon.hero.spendAndNext(1f);
-					updateQuickslot();
-				} else {
 					GameScene.add(Blob.seed(target, 15, ToxicGas.class));
 					GameScene.add(Blob.seed(target, 15, ConfusionGas.class));
 					GameScene.add(Blob.seed(target, 15, ParalyticGas.class));
 					GameScene.add(Blob.seed(target, 15, DarkGas.class));
 					GameScene.add(Blob.seed(target, 15, TarGas.class));
 					GameScene.add(Blob.seed(target, 15, StenchGas.class));
-					charge-= 100;
+					charge-= 70;
 					Dungeon.hero.spendAndNext(1f);
 					updateQuickslot();
+			}
+		}
+		@Override
+		public String prompt() {
+			return Messages.get(PotionOfMage.class, "prompt");
+		}
+	};
+
+	private int targetPos;
+	
+	public MageAmmo Ammo(){
+		return new MageAmmo();
+	}
+	
+	public class MageAmmo extends MissileWeapon {
+		
+		{
+			image = ItemSpriteSheet.POTION_OF_MAGE;
+			ACU = 1000;
+		}
+
+		public int damageRoll(Hero owner) {
+			return 0;
+		}
+
+		@Override
+		protected void onThrow( int cell ) {
+			Char enemy = Actor.findChar( cell );
+			if (enemy == curUser || enemy == null) {
+				parent = null;
+				Splash.at(cell, 0xCC99FFFF, 1);
+			//} else if (enemy == null){
+				//GameScene.add(Blob.seed(cell, 10, ToxicGas.class));
+				//GameScene.add(Blob.seed(cell, 10, ConfusionGas.class));
+				//GameScene.add(Blob.seed(cell, 15, ParalyticGas.class));
+				//GameScene.add(Blob.seed(cell, 15, DarkGas.class));
+				//GameScene.add(Blob.seed(cell, 10, TarGas.class));
+				//GameScene.add(Blob.seed(cell, 10, StenchGas.class));
+			} else {
+				if (!curUser.shoot( enemy, this )) {
+					Splash.at(cell, 0xCC99FFFF, 1);
 				}
-			} else GLog.i( Messages.get(PotionOfMage.class, "not_mob") );
+			}
+		}
+
+		@Override
+		public void proc(Char attacker, Char defender, int damage) {
+
+			Buff.affect(defender, AttackDown.class, 10f).level(35);
+			Buff.affect(defender, ArmorBreak.class, 10f).level(35);
+			Buff.affect(defender, Slow.class, 10f);
+			Buff.affect(defender, Hot.class,10f);
+			Buff.affect(defender, Wet.class, 10f);
+			Buff.affect(defender, Shocked.class, 10f);
+			Buff.affect(defender, Roots.class, 10f);
+			
+			super.proc(attacker, defender, damage);
+		}
+		
+		@Override
+		public void cast(final Hero user, final int dst) {
+			final int cell = throwPos( user, dst );
+			PotionOfMage.this.targetPos = cell;
+			charge-=70;
+			super.cast(user, dst);
+		}
+
+	}
+	private CellSelector.Listener shooter = new CellSelector.Listener() {
+		@Override
+		public void onSelect( Integer target ) {
+			if (target != null) {
+				Ammo().cast(curUser, target);
+			}
 		}
 		@Override
 		public String prompt() {

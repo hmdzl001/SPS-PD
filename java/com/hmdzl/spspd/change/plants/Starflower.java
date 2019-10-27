@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Strength;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.items.food.vegetable.BattleFlower;
 import com.hmdzl.spspd.change.items.potions.PotionOfExperience;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -36,13 +37,9 @@ public class Starflower extends Plant {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		
+		Dungeon.level.drop(new BattleFlower(), pos).sprite.drop();
 		if (ch != null) {
 		  Buff.affect(ch, Strength.class);
-		}
-		
-		if (Random.Int(5) == 0){
-			Dungeon.level.drop(new Seed(), pos).sprite.drop();
 		}
 	}
 

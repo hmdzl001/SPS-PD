@@ -63,12 +63,14 @@ import com.hmdzl.spspd.change.ui.ActionIndicator;
 import com.hmdzl.spspd.change.ui.AttackIndicator;
 import com.hmdzl.spspd.change.ui.Banner;
 import com.hmdzl.spspd.change.ui.BusyIndicator;
+import com.hmdzl.spspd.change.ui.CharHealthIndicator;
 import com.hmdzl.spspd.change.ui.GameLog;
 import com.hmdzl.spspd.change.ui.HealthIndicator;
 import com.hmdzl.spspd.change.ui.LootIndicator;
 import com.hmdzl.spspd.change.ui.QuickSlotButton;
 import com.hmdzl.spspd.change.ui.ResumeIndicator;
 import com.hmdzl.spspd.change.ui.StatusPane;
+import com.hmdzl.spspd.change.ui.TargetHealthIndicator;
 import com.hmdzl.spspd.change.ui.Toast;
 import com.hmdzl.spspd.change.ui.Toolbar;
 import com.hmdzl.spspd.change.ui.Window;
@@ -132,6 +134,7 @@ public class GameScene extends PixelScene {
 	private Group spells;
 	private Group statuses;
 	private Group emoicons;
+    private Group healthIndicators;
 
 	private Toolbar toolbar;
 	private Toast prompt;
@@ -196,6 +199,7 @@ public class GameScene extends PixelScene {
 		emitters = new Group();
 		effects = new Group();
 		emoicons = new Group();
+        healthIndicators = new Group();
 
 		mobs = new Group();
 		add(mobs);
@@ -227,6 +231,10 @@ public class GameScene extends PixelScene {
 
 		statuses = new Group();
 		add(statuses);
+
+        add( healthIndicators );
+        //always appears ontop of other health indicators
+        add( new TargetHealthIndicator() );
 
 		add(emoicons);
 
@@ -263,7 +271,7 @@ public class GameScene extends PixelScene {
 		action = new ActionIndicator();
 		action.camera = uiCamera;
 		action.setPos(uiCamera.width - attack.width(),
-				toolbar.top() -2 * attack.height());
+				toolbar.top() -3 * attack.height());
 		add( action );		
 		
 		resume = new ResumeIndicator();
@@ -618,6 +626,10 @@ public class GameScene extends PixelScene {
 
 	public static void add(EmoIcon icon) {
 		scene.emoicons.add(icon);
+	}
+
+	public static void add( CharHealthIndicator indicator ){
+		if (scene != null) scene.healthIndicators.add(indicator);
 	}
 
 	public static void effect(Visual effect) {

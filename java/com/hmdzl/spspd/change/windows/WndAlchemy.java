@@ -31,7 +31,6 @@ import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.items.Torch;
-import com.hmdzl.spspd.change.items.food.ToastedNut;
 import com.hmdzl.spspd.change.items.food.WaterItem;
 import com.hmdzl.spspd.change.items.Weightstone;
 import com.hmdzl.spspd.change.items.artifacts.AlchemistsToolkit;
@@ -40,6 +39,7 @@ import com.hmdzl.spspd.change.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.change.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.change.items.food.completefood.Frenchfries;
 import com.hmdzl.spspd.change.items.food.staplefood.NormalRation;
+import com.hmdzl.spspd.change.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.change.items.medicine.BlueMilk;
 import com.hmdzl.spspd.change.items.medicine.DeathCap;
 import com.hmdzl.spspd.change.items.medicine.Earthstar;
@@ -84,7 +84,7 @@ import com.hmdzl.spspd.change.items.food.completefood.PetFood;
 import com.hmdzl.spspd.change.items.food.Honey;
 import com.hmdzl.spspd.change.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.change.items.food.staplefood.StapleFood;
-import com.hmdzl.spspd.change.items.food.Vegetable;
+import com.hmdzl.spspd.change.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.change.items.potions.Potion;
 import com.hmdzl.spspd.change.items.scrolls.Scroll;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfMagicalInfusion;
@@ -116,6 +116,7 @@ import com.hmdzl.spspd.change.plants.Fadeleaf;
 import com.hmdzl.spspd.change.plants.Firebloom;
 import com.hmdzl.spspd.change.plants.Flytrap;
 import com.hmdzl.spspd.change.plants.Icecap;
+import com.hmdzl.spspd.change.plants.NutPlant;
 import com.hmdzl.spspd.change.plants.Phaseshift;
 import com.hmdzl.spspd.change.plants.Plant;
 import com.hmdzl.spspd.change.plants.Rotberry;
@@ -362,6 +363,7 @@ public class WndAlchemy extends Window {
 		ArrayList<BlandfruitBush.Seed> blandseed = filterInput(BlandfruitBush.Seed.class);
 		ArrayList<Flytrap.Seed> trapseed = filterInput(Flytrap.Seed.class);
 		ArrayList<Phaseshift.Seed> phaseseed = filterInput(Phaseshift.Seed.class);
+		ArrayList<NutPlant.Seed> nutseed = filterInput(NutPlant.Seed.class);
 
 		Item result = null;
 
@@ -487,7 +489,7 @@ public class WndAlchemy extends Window {
 
         } else if ( ore.size() == 2 ){
             result = new HeavyAmmo();
-		} else if ( ore.size() == 1 && nut.size()==1){
+		} else if ( ore.size() == 1 && nutseed.size()==1){
 			result = new WoodenAmmo();
         } else if ( ore.size() == 1 && fireseed.size() == 1 ){
             result = new FireAmmo();
@@ -526,7 +528,7 @@ public class WndAlchemy extends Window {
 		} else if ( gels.size() == 1  ){
 			result = new Torch();
 		} else if ( nut.size() == 1  ){
-			result = new ToastedNut();
+			result = new NutVegetable();
 	} else result = new Garbage();
 
 		if (result != null){

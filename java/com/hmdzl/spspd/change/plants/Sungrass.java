@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.ShaftParticle;
+import com.hmdzl.spspd.change.items.food.vegetable.HealGrass;
 import com.hmdzl.spspd.change.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -40,7 +41,7 @@ public class Sungrass extends Plant {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-
+        Dungeon.level.drop(new HealGrass(), pos).sprite.drop();
 		if (ch != null) {
 			Buff.affect(ch, Health.class).level = ch.HT;
 		}

@@ -34,7 +34,7 @@ import com.hmdzl.spspd.change.items.VioletDewdrop;
 import com.hmdzl.spspd.change.items.YellowDewdrop;
 import com.hmdzl.spspd.change.items.artifacts.SandalsOfNature;
 import com.hmdzl.spspd.change.items.food.Nut;
-import com.hmdzl.spspd.change.items.food.Vegetable;
+import com.hmdzl.spspd.change.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.change.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.change.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.change.items.food.fruit.Cloudberry;
@@ -43,6 +43,7 @@ import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.plants.BlandfruitBush;
 import com.hmdzl.spspd.change.plants.Flytrap;
+import com.hmdzl.spspd.change.plants.NutPlant;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.watabou.utils.Random;
 
@@ -77,12 +78,12 @@ public class HighGrass {
 				}
 				
 				// Vegetable
-				if (Dungeon.growLevel(Dungeon.depth) && Random.Int(40 - ((int) (naturalismLevel * 3.34))) == 0) {
-					level.drop(new Vegetable(), pos).sprite.drop();
-				}
+				//if (Dungeon.growLevel(Dungeon.depth) && Random.Int(40 - ((int) (naturalismLevel * 3.34))) == 0) {
+					//level.drop(new NutVegetable(), pos).sprite.drop();
+				//}
 
 				if (Dungeon.growLevel(Dungeon.depth) && Random.Int(30 - ((int) (naturalismLevel * 3.34))) == 0) {
-					level.drop(new Nut(), pos).sprite.drop();
+					level.drop(new NutPlant.Seed(), pos).sprite.drop();
 				}
 
 				// Dew

@@ -21,6 +21,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Taunt;
 import com.hmdzl.spspd.change.items.food.meatfood.Meat;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
@@ -50,6 +51,17 @@ public class GoldCollector extends Mob {
 	@Override
 	public int hitSkill(Char target) {
 		return Dungeon.gold;
+	}
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		if (enemy.buff(Taunt.class)== null && enemy == Dungeon.hero) {
+			Buff.affect(enemy, Taunt.class);
+			Dungeon.gold=0;
+			damage = 0;
+			this.damage(this.HT*2,this);
+			return damage;
+		} else return damage;
 	}
 
 	@Override

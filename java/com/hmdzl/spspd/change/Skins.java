@@ -21,13 +21,15 @@ public class Skins {
 
 	public static final int NORMAL = 0;
 	public static final int FIRST = 1;
+	public static final int SECOND = 2;
 
 	public static final String[] NAME_IDS = {
 			"normal",
 			"first",
+			"second",
 		};
 
 	public static final int[] MASKS = {
-	        NORMAL, FIRST};
+	        NORMAL, FIRST,SECOND};
 
 }

@@ -35,6 +35,7 @@ import com.hmdzl.spspd.change.items.wands.WandOfLightning;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.MrDestructoSprite;
+import com.hmdzl.spspd.change.sprites.PatrolUAVSprite;
 import com.watabou.utils.Random;
 
 import java.util.HashSet;
@@ -43,7 +44,7 @@ public class PatrolUAV extends Mob {
 	
 
 	{
-		spriteClass = MrDestructoSprite.class;
+		spriteClass = PatrolUAVSprite.class;
 
 		HP = HT = 50+(Dungeon.depth*Random.NormalIntRange(1, 3));
 		evadeSkill = adj(1);
@@ -102,7 +103,6 @@ public class PatrolUAV extends Mob {
 			IMMUNITIES.add(ElectriShock.class);
 			IMMUNITIES.add(WandOfLightning.class);
 		}
-
 		@Override
 		public HashSet<Class<?>> immunities() {
 			return IMMUNITIES;

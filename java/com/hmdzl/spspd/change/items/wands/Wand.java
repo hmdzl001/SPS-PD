@@ -30,6 +30,7 @@ import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.actors.buffs.SoulMark;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.change.items.misc.GnollMark;
 import com.hmdzl.spspd.change.items.rings.Ring;
 import com.hmdzl.spspd.change.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.change.items.rings.RingOfMagic;
@@ -271,6 +272,10 @@ public abstract class Wand extends Item {
 		} else if (Dungeon.hero.heroClass == HeroClass.MAGE ){
 			curUser.spendAndNext(TIME_TO_ZAP*2/3);
 		} else curUser.spendAndNext(TIME_TO_ZAP);
+		
+		GnollMark gnollmark = curUser.belongings.getItem(GnollMark.class);
+		if (gnollmark!=null && gnollmark.charge<gnollmark.fullCharge) {gnollmark.charge++;}		
+		
 	}
 	
 	@Override
@@ -429,7 +434,9 @@ public abstract class Wand extends Item {
 
 			missingCharges += Ring.getBonus(target, RingOfEnergy.Energy.class);
 			missingCharges = Math.max(0, missingCharges);
-
+            if (Dungeon.hero.heroClass==HeroClass.MAGE && Dungeon.skins==2){
+				missingCharges++;
+			}
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 			partialCharge += 1f/turnsToCharge;

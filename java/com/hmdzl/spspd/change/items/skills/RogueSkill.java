@@ -52,7 +52,7 @@ import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.watabou.utils.Random;
 
 public class RogueSkill extends ClassSkill {
-
+ private static int SKILL_TIME = 1;
 	{
 		//name = "rogue garb";
 		image = ItemSpriteSheet.ARMOR_ROGUE;
@@ -63,7 +63,7 @@ public class RogueSkill extends ClassSkill {
 		//GameScene.selectCell(teleporter);
 		charge += 10;
 		
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		
@@ -90,7 +90,7 @@ public class RogueSkill extends ClassSkill {
 	public void doSpecial2() {
 		charge += 20;
 		
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		
@@ -113,7 +113,7 @@ public class RogueSkill extends ClassSkill {
 
 		charge += 20;
 
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -125,7 +125,7 @@ public class RogueSkill extends ClassSkill {
 	public void doSpecial4() {
 		charge += 20;
 
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
@@ -156,7 +156,7 @@ public class RogueSkill extends ClassSkill {
 				Dungeon.level.press(target, curUser);
 				Dungeon.observe();
 
-				curUser.spendAndNext(Actor.TICK);
+				curUser.spendAndNext(SKILL_TIME);
 			}
 		}
 

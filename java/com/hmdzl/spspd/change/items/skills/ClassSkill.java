@@ -46,8 +46,7 @@ abstract public class ClassSkill extends Item {
 	private static final String AC_SPECIAL_TWO = "SPECIAL_TWO";
 	private static final String AC_SPECIAL_THREE = "SPECIAL_THREE";
 	private static final String AC_SPECIAL_FOUR = "SPECIAL_FOUR";
-	
-    private static int SKILL_TIME = 1;
+	 //private static int SKILL_TIME = 1;
 	public float colddown = 0f;
 	public int charge = 0;
 	protected SkillCharger skillcharger;

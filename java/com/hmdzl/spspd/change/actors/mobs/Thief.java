@@ -19,7 +19,8 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
-import com.hmdzl.spspd.change.items.food.Vegetable;
+import com.hmdzl.spspd.change.items.food.vegetable.NutVegetable;
+import com.hmdzl.spspd.change.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
@@ -44,7 +45,7 @@ public class Thief extends Mob {
 		EXP = 5;
         maxLvl = 20;
 		
-		loot =  new Vegetable();
+		loot =  new NutVegetable();
 		lootChance = 0.1f;
 		
 		lootOther = Generator.Category.BERRY;

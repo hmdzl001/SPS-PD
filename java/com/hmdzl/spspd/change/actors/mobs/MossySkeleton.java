@@ -55,8 +55,8 @@ public class MossySkeleton extends Mob {
 		loot = new YellowDewdrop();
 		lootChance = 0.5f; // by default, see die()
 			
-		lootThird= new RedDewdrop();
-		lootChanceThird = 0.1f; // by default, see die()
+		lootOther= new RedDewdrop();
+		lootChanceOther = 0.1f; // by default, see die()
 		
 		properties.add(Property.UNDEAD);
 	}

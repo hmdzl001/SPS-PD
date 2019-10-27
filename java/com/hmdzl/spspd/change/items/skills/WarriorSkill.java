@@ -55,7 +55,7 @@ import java.util.HashMap;
 
 
 public class WarriorSkill extends ClassSkill {
-
+ private static int SKILL_TIME = 1;
 	{
 		//name = "warrior suit of armor";
 		image = ItemSpriteSheet.ARMOR_WARRIOR;
@@ -65,7 +65,7 @@ public class WarriorSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial() {
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
@@ -88,7 +88,7 @@ public class WarriorSkill extends ClassSkill {
 			}
 		}
 		charge += 15;
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
@@ -115,7 +115,7 @@ public class WarriorSkill extends ClassSkill {
 		}
 
 		charge += 25;
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
@@ -125,7 +125,7 @@ public class WarriorSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial4() {
-		curUser.spend(Actor.TICK);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);

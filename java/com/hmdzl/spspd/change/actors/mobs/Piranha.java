@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Corruption;
 import com.hmdzl.spspd.change.actors.buffs.Frost;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 import com.hmdzl.spspd.change.actors.buffs.Roots;
@@ -43,6 +44,9 @@ public class Piranha extends Mob {
 
 		EXP = 5;
 
+		loot = new Meat();
+		lootChance = 1f;			
+		
         properties.add(Property.BEAST);
 	}
 
@@ -98,15 +102,11 @@ public class Piranha extends Mob {
 
 	@Override
 	public void die(Object cause) {
-		
 		super.die(cause);
-		
-		Dungeon.level.drop(new Meat(), pos).sprite.drop();
 		
 		if (!Dungeon.limitedDrops.caveskey.dropped() && Statistics.deepestFloor > 10) {
 			Dungeon.limitedDrops.caveskey.drop();
-			Dungeon.level.drop(new CaveChallenge(), pos).sprite.drop();
-			explodeDew(pos);				
+			Dungeon.level.drop(new CaveChallenge(), pos).sprite.drop();			
 		}
 		
 		Statistics.piranhasKilled++;
@@ -154,6 +154,7 @@ public class Piranha extends Mob {
 		IMMUNITIES.add(ToxicGas.class);
 		IMMUNITIES.add(Roots.class);
 		IMMUNITIES.add(Frost.class);
+		IMMUNITIES.add(Corruption.class);
 	}
 
 	@Override

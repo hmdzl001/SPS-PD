@@ -32,8 +32,10 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
+import com.hmdzl.spspd.change.effects.Splash;
 import com.hmdzl.spspd.change.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
@@ -49,10 +51,6 @@ import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
 
-import javax.microedition.khronos.opengles.GL;
-
-import static com.hmdzl.spspd.change.Dungeon.hero;
-
 public class GunOfSoldier extends Item {
 
 	public static final String AC_USE = "USE";
@@ -63,7 +61,7 @@ public class GunOfSoldier extends Item {
 		image = ItemSpriteSheet.GUN_S;
 		defaultAction = AC_USE;
 		unique = true;
-		 
+		usesTargeting = true;
 	}
 	
 	public final int fullCharge = 225;
@@ -99,7 +97,7 @@ public class GunOfSoldier extends Item {
 		  curUser = hero;
 	     if (charge < 75) {
 			  GLog.i(Messages.get(GunOfSoldier.class, "break"));
-		  } else GameScene.selectCell(Shoot);
+		  } else GameScene.selectCell( shooter );
 		} else {
 			super.execute(hero, action);
 			
@@ -127,49 +125,67 @@ public class GunOfSoldier extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
+
+	private int targetPos;
 	
-	private CellSelector.Listener Shoot = new CellSelector.Listener(){
-
-		@Override
-		public void onSelect(Integer target) {
-			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
-
-				if (Actor.findChar( target ) != null ){
-					Char mob = Actor.findChar(target);
-					if (mob.properties().contains(Char.Property.BOSS) || mob.properties().contains(Char.Property.MINIBOSS)){
-						charge -= 75;
-						mob.damage(Math.min(mob.HT - mob.HP,mob.HT/6),this);
-						//Sample.INSTANCE.play(Assets.SND_BURNING);
-						mob.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-						hero.spendAndNext(1f);
-						updateQuickslot();
-					} else if (mob instanceof NPC || mob == hero) {
-						GLog.w(Messages.get(GunOfSoldier.class,"not"));
-						return;
-					} else {
-						charge -= 75;
-						mob.damage(Math.min(mob.HT - mob.HP,mob.HT/3),this);
-						//Sample.INSTANCE.play(Assets.SND_BURNING);
-						mob.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-						hero.spendAndNext(1f);
-						updateQuickslot();
-					}
-				} else {
-					GLog.i( Messages.get(GunOfSoldier.class, "not_mob") );
-					return;
-				}
-
-			} else {
-				GLog.i( Messages.get(GunOfSoldier.class, "not_mob") );
-				return;
-			}
-
+	public SoldierAmmo Ammo(){
+		return new SoldierAmmo();
+	}
+	
+	public class SoldierAmmo extends MissileWeapon {
+		
+		{
+			image = ItemSpriteSheet.BOLA;
+			ACU = 1000;
 		}
 
+		public int damageRoll(Hero owner) {
+			return 0;
+		}
+
+		@Override
+		protected void onThrow( int cell ) {
+			Char enemy = Actor.findChar( cell );
+			if (enemy == null || enemy == curUser) {
+				parent = null;
+				Splash.at( cell, 0xCC99FFFF, 1 );
+			} else {
+				if (!curUser.shoot( enemy, this )) {
+					Splash.at(cell, 0xCC99FFFF, 1);
+				}
+			}
+		}
+
+		@Override
+		public void proc(Char attacker, Char defender, int damage) {
+
+            if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
+				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/6),this);
+			} else {
+				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/3),this);
+		    }  
+			super.proc(attacker, defender, damage);
+		}
+		
+		@Override
+		public void cast(final Hero user, final int dst) {
+			final int cell = throwPos( user, dst );
+			GunOfSoldier.this.targetPos = cell;
+			charge-=75;
+			super.cast(user, dst);
+		}
+
+	}
+	private CellSelector.Listener shooter = new CellSelector.Listener() {
+		@Override
+		public void onSelect( Integer target ) {
+			if (target != null) {
+				Ammo().cast(curUser, target);
+			}
+		}
 		@Override
 		public String prompt() {
 			return Messages.get(GunOfSoldier.class, "prompt");
 		}
-	};	
-	
+	};
 }

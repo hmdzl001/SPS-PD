@@ -30,7 +30,7 @@ public class NormalBomb extends MissileWeapon {
 
 	{
 		//name = "Normal Bomb";
-		image = ItemSpriteSheet.BOMB;
+		image = ItemSpriteSheet.EMPTY_BOMB;
 
 		STR = 10;
 

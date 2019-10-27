@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.change.actors.buffs.BoxStar;
+import com.hmdzl.spspd.change.actors.buffs.Burning;
 import com.hmdzl.spspd.change.actors.buffs.DeadRaise;
 import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.Dry;
@@ -56,6 +57,7 @@ import com.hmdzl.spspd.change.items.artifacts.AlienBag;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.change.items.misc.AttackShield;
 import com.hmdzl.spspd.change.items.misc.BShovel;
+import com.hmdzl.spspd.change.items.misc.CopyBall;
 import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.change.items.misc.JumpP;
@@ -439,6 +441,9 @@ public class Hero extends Char {
 		if (barkskin != null) {
 			dr += barkskin.level();
 		}
+		if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.skins == 2) {
+			dr += Dungeon.hero.lvl;
+		}
 		return (int)dr;
 	}
 
@@ -519,9 +524,14 @@ public class Hero extends Char {
 			    speed *= (1+(hasteLevel*1.00/10));
 				}
             else speed *=4;
-	    }			
+	    }
 
-	    return ((HeroSprite) sprite).sprint(subClass == HeroSubClass.FREERUNNER && !isStarving()) ? invisible > 0 ? 2.5f * speed
+		if (hero.heroClass == HeroClass.HUNTRESS && Dungeon.skins == 2) {
+				speed += 0.5f;
+
+		}
+
+		return ((HeroSprite) sprite).sprint(subClass == HeroSubClass.FREERUNNER && !isStarving()) ? invisible > 0 ? 2.5f * speed
 					: 1.5f * speed : speed;
 
 
@@ -1366,7 +1376,17 @@ public class Hero extends Char {
 
 		AttackShield atkshield = belongings.getItem(AttackShield.class);
 		if (atkshield!=null && atkshield.charge<atkshield.fullCharge) {atkshield.charge++;}
+		
+		CopyBall copyball = belongings.getItem(CopyBall.class);
+		if (copyball!=null && copyball.charge<copyball.fullCharge) {copyball.charge++;}
 
+		switch (heroClass) {
+			case WARRIOR:
+				if (Dungeon.skins==2) {
+					Buff.affect(enemy, Burning.class).reignite(enemy);
+				}
+				break;
+		}
 		switch (subClass) {
 		case GLADIATOR:
 			if (wep instanceof MeleeWeapon || wep == null) {
@@ -1855,8 +1875,14 @@ public class Hero extends Char {
 		super.remove(buff);
 		if (buff instanceof RingOfMight.Might) {
 			if (((RingOfMight.Might) buff).level > 0) {
+				int dmg = ((RingOfMight.Might) buff).level * 10;
 				HT -= ((RingOfMight.Might) buff).level * 10;
-				HP = Math.min(HT, HP);
+				hero.damage(dmg ,this);
+				if (!hero.isAlive()) {
+					Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+						//GLog.n("The Chalice sucks your life essence dry...");
+				}
+
 			}
 		}
 
@@ -1874,7 +1900,10 @@ public class Hero extends Char {
 			stealth += shadow;
 		}
 		if (hero.subClass == HeroSubClass.AGENT){
-			stealth += 3;
+			stealth += 5;
+		}
+		if (hero.heroClass == HeroClass.ROGUE && Dungeon.skins == 2){
+			stealth += 8;
 		}
 		return stealth;
 	}

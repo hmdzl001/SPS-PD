@@ -62,7 +62,7 @@ public class ErrorArmor extends NormalArmor {
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN --;
-        MAX-=2;
+        MAX-=3;
 
 		return super.upgrade(hasglyph);
 	}

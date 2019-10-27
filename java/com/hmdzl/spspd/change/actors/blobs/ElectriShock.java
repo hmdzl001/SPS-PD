@@ -23,6 +23,7 @@ import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.buffs.Corruption;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
 import com.hmdzl.spspd.change.effects.BlobEmitter;
 import com.hmdzl.spspd.change.effects.particles.EnergyParticle;
@@ -66,6 +67,7 @@ public class ElectriShock extends Blob {
 	private void shocking(int pos) {
 		Char ch = Actor.findChar(pos);
 		if (ch != null ) {
+			//Buff.detach(ch,Corruption.class);
 			ch.damage( Math.max( 1, Random.Int( ch.HP / 100, ch.HP / 50 ) ), this );
 			Buff.prolong(ch, Paralysis.class,1f);
 			

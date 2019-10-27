@@ -27,7 +27,7 @@ import com.watabou.utils.Random;
 public class ShatteredAmmo extends MissileWeapon {
 
 	{
-		image = ItemSpriteSheet.AMMO;
+		image = ItemSpriteSheet.SHATTERED_AMMO;
 
 		STR = 10;
 		MIN = 10;

@@ -43,7 +43,6 @@ import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.items.food.meatfood.Meat;
 import com.hmdzl.spspd.change.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.change.items.food.Nut;
-import com.hmdzl.spspd.change.items.food.ToastedNut;
 import com.hmdzl.spspd.change.items.StoneOre;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.plants.Plant;
