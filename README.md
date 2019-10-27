@@ -1,7 +1,7 @@
 # SPS-PD
 SPS-PD is a mod based on sprouted pixel dungeon. After about one year it become a different pixel dungeon game. With some code from other mod, I made it interesting (at least I think it is interesting) and...
 
-And now it is 0.9.2part4. I will upload it code after I finish all 5 parts.
+And now it is verison 0.9.3.
 
 Source code of original Pixel Dungeon: https://github.com/watabou/pixel-dungeon
 Source code of shattered Pixel Dungeon: https://github.com/00-Evan/shattered-pixel-dungeon
