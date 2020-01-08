@@ -39,6 +39,7 @@ import com.hmdzl.spspd.change.actors.buffs.Cold;
 import com.hmdzl.spspd.change.actors.buffs.Corruption;
 import com.hmdzl.spspd.change.actors.buffs.Cripple;
 import com.hmdzl.spspd.change.actors.buffs.Chill;
+import com.hmdzl.spspd.change.actors.buffs.DamageUp;
 import com.hmdzl.spspd.change.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.EarthImbue;
@@ -52,6 +53,7 @@ import com.hmdzl.spspd.change.actors.buffs.HighVoice;
 import com.hmdzl.spspd.change.actors.buffs.Hot;
 import com.hmdzl.spspd.change.actors.buffs.MechArmor;
 import com.hmdzl.spspd.change.actors.buffs.Needling;
+import com.hmdzl.spspd.change.actors.buffs.ParyAttack;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.change.actors.buffs.Shield;
@@ -78,6 +80,7 @@ import com.hmdzl.spspd.change.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.change.actors.buffs.Wet;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.hero.HeroAction;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.actors.mobs.Bestiary;
 import com.hmdzl.spspd.change.actors.mobs.Yog;
@@ -190,8 +193,9 @@ public abstract class Char extends Actor {
 
 			if (this instanceof Hero){
 				Hero h = (Hero)this;
-				if (h.belongings.weapon instanceof MissileWeapon
-						&& h.subClass == HeroSubClass.SNIPER){
+				if ((h.belongings.weapon instanceof MissileWeapon
+						&& h.subClass == HeroSubClass.SNIPER )||
+						( h.heroClass == HeroClass.FOLLOWER && Dungeon.skins == 2) ){
 					dr = 0;
 				}
 			}			
@@ -211,7 +215,14 @@ public abstract class Char extends Actor {
 			MechArmor marmor = buff(MechArmor.class);
 			if (marmor != null) {
 				dmg *=1.3f;
-			}					
+			}
+
+			DamageUp dmgup = buff(DamageUp.class);
+			if (dmgup != null) {
+				dmg +=dmgup.level();
+				Buff.detach(this,DamageUp.class);
+			}
+
 
 			int effectiveDamage = Math.max(dmg - dr, 1);
 
@@ -370,6 +381,11 @@ public abstract class Char extends Actor {
 		if (buff(ArmorBreak.class) != null){
 			dmg= (int) Math.ceil(dmg *(ab.level()*0.01+1));
 		}
+		
+        ParyAttack paryatk = buff(ParyAttack.class);
+		if (buff(ParyAttack.class) != null){
+			dmg= (int) Math.ceil(dmg *Math.max((1-paryatk.level()*0.02),0.5));
+		}		
 
 		if (buff(Hot.class) != null){
 			dmg = (int) Math.ceil(dmg * 1.2);
@@ -446,7 +462,7 @@ public abstract class Char extends Actor {
 	}
 
 	public boolean isAlive() {
-		return HP > 0;
+		return HP > 0 && HT > 0;
 	}
 
 	@Override

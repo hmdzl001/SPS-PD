@@ -21,9 +21,11 @@ import java.util.ArrayList;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Badges;
+import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.effects.SpellSprite;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.food.Food;
@@ -31,6 +33,7 @@ import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 public class Pill extends Item {
 
@@ -42,7 +45,7 @@ public class Pill extends Item {
 		stackable = true;
 		//name = "pill";
 		image = ItemSpriteSheet.NULLWARN;
-
+		defaultAction = AC_EAT;
 		 
 	}
 
@@ -62,6 +65,7 @@ public class Pill extends Item {
 			if (hero.buff(Locked.class) != null ) {
 				GLog.w(Messages.get(Food.class, "locked"));
 			} else {
+				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 				detach(hero.belongings.backpack);
 				/*int healEnergy = Math.max(7, Math.round(energy / 40));
 				switch (hero.heroClass) {

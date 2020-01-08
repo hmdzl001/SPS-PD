@@ -114,19 +114,19 @@ public class Bestiary {
 						Guard.class, Zombie.class};
 				break;
 			case 8:
-				chances = new float[]{1, 1, 0.5f, 0.4f, 0.3f,0.7f};
+				chances = new float[]{1, 1, 0.5f, 0.4f, 0.3f,0.7f,0.5f};
 				classes = new Class<?>[]{Thief.class, Gnoll.class,
-						Guard.class, Assassin.class, TrollWarrior.class, Zombie.class};
+						Guard.class, Assassin.class, TrollWarrior.class, Zombie.class,FireRabbit.class};
 				break;
 			case 9:
 				if (Dungeon.sporkAvail) {
 					chances = new float[]{1, 1, 0.1f,1};
 					classes = new Class<?>[]{Assassin.class, TrollWarrior.class, BanditKing.class, Zombie.class};
 				} else {
-					chances = new float[]{1, 1, 0.8f, 0.6f, 0.5f, 0.02f, 0.01f,1};
+					chances = new float[]{1, 1, 0.8f, 0.6f, 0.5f, 0.02f, 0.01f,1f,0.8f};
 					classes = new Class<?>[]{Thief.class, Gnoll.class,
 							Guard.class, Assassin.class, TrollWarrior.class,
-							Bat.class, Brute.class, Zombie.class};
+							Bat.class, Brute.class, Zombie.class,FireRabbit.class};
 				}
 				break;
 
@@ -145,9 +145,9 @@ public class Bestiary {
 			break;
 
 		case 11:
-			chances = new float[] { 0.8f, 0.6f, 1, 0.7f, 0.5f };
+			chances = new float[] { 0.8f, 0.6f, 1, 0.7f, 0.5f,0.5f };
 			classes = new Class<?>[] { Assassin.class, TrollWarrior.class,
-					Bat.class, Skeleton.class,Brute.class };
+					Bat.class, Skeleton.class,Brute.class,FireRabbit.class };
 			break;
 		case 12:
 			chances = new float[] { 1, 0.9f, 0.7f, 0.5f, 0.3f ,0.9f };
@@ -191,16 +191,16 @@ public class Bestiary {
 					Golem.class,SpiderBot.class, Musketeer.class};
 			break;
 		case 18:
-			chances = new float[] { 1, 1, 1, 0.8f,0.8f, 0.6f, 0.2f };
+			chances = new float[] { 1, 1, 1, 0.8f,0.8f, 0.6f, 0.2f,0.1f };
 			classes = new Class<?>[] { FireElemental.class, Warlock.class,Monk.class,
-					Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class };
+					Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class,ManySkeleton.class };
 			break;
 		case 19:
 			
-			chances = new float[] { 1, 1, 1, 1, 1,0.8f, 0.6f, 0.02f };
+			chances = new float[] { 1, 1, 1, 1, 1,0.8f, 0.6f, 0.02f,0.3f };
 			classes = new Class<?>[] { FireElemental.class, Warlock.class,Monk.class,
 					Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class,
-					Succubus.class};
+					Succubus.class,ManySkeleton.class};
 			break;
 		case 20:
 			if (Random.Int(3) ==1) {

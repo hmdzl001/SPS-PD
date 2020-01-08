@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.plants;
 
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
+import com.hmdzl.spspd.change.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.levels.Level;
@@ -58,7 +59,7 @@ public class Seedpod extends Plant{
 			image = ItemSpriteSheet.SEED_SEEDPOD;
 	
 			plantClass = Seedpod.class;
-			alchemyClass = null;
+			alchemyClass = PotionOfOverHealing.class;;
 		}
 	}
 }

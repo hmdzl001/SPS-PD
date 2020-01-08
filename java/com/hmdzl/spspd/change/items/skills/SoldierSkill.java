@@ -179,13 +179,13 @@ public class SoldierSkill extends ClassSkill {
 		int cell = Dungeon.level.randomRespawnCell();
 
 		if (cell != -1) {
-			Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), cell);
-			Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), cell);
+			Dungeon.level.spdrop(Generator.random(Generator.Category.HIGHFOOD), cell);
+			Dungeon.level.spdrop(Generator.random(Generator.Category.RANGEWEAPON), cell);
 		} else {
-			Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), curUser.pos);
-			Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), curUser.pos);
+			Dungeon.level.spdrop(Generator.random(Generator.Category.HIGHFOOD), curUser.pos);
+			Dungeon.level.spdrop(Generator.random(Generator.Category.RANGEWEAPON), curUser.pos);
 		}
-        Buff.affect( curUser, Awareness.class, 5f);
+        Buff.affect( curUser, Awareness.class, 2f);
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();

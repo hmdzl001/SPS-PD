@@ -37,7 +37,7 @@ public class HeroSprite extends CharSprite {
 
 	private static final int RUN_FRAMERATE = 20;
 
-	private static TextureFilm tiers;
+	private static TextureFilm skins;
 
 	private Animation fly;
 	private Animation read;
@@ -55,7 +55,7 @@ public class HeroSprite extends CharSprite {
 
 	public void updateArmor() {
 
-		TextureFilm film = new TextureFilm(tiers(), ((Hero) ch).tier(),
+		TextureFilm film = new TextureFilm(skins(), ((Hero) ch).useskin(),
 				FRAME_WIDTH, FRAME_HEIGHT);
 
 		idle = new Animation(1, true);
@@ -127,18 +127,18 @@ public class HeroSprite extends CharSprite {
 		return on;
 	}
 
-	public static TextureFilm tiers() {
-		if (tiers == null) {
+	public static TextureFilm skins() {
+		if (skins == null) {
 			SmartTexture texture = TextureCache.get(Assets.ROGUE);
-			tiers = new TextureFilm(texture, texture.width, FRAME_HEIGHT);
+			skins = new TextureFilm(texture, texture.width, FRAME_HEIGHT);
 		}
 
-		return tiers;
+		return skins;
 	}
 
-	public static Image avatar(HeroClass cl, int armorTier) {
+	public static Image avatar(HeroClass cl, int skin) {
 
-		RectF patch = tiers().get(armorTier);
+		RectF patch = skins().get(skin);
 		Image avatar = new Image(cl.spritesheet());
 		RectF frame = avatar.texture.uvRect(1, 0, FRAME_WIDTH, FRAME_HEIGHT);
 		frame.offset(patch.left, patch.top);

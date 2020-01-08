@@ -8,14 +8,22 @@ import com.hmdzl.spspd.change.actors.blobs.Alter;
 import com.hmdzl.spspd.change.actors.blobs.WellWater;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.TestMob;
+import com.hmdzl.spspd.change.actors.mobs.YearBeast2;
+import com.hmdzl.spspd.change.actors.mobs.npcs.AFly;
+import com.hmdzl.spspd.change.actors.mobs.npcs.ARealMan;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Apostle;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Coconut;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Coconut2;
+import com.hmdzl.spspd.change.actors.mobs.npcs.DreamPlayer;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Evan;
 import com.hmdzl.spspd.change.actors.mobs.npcs.FruitCat;
 import com.hmdzl.spspd.change.actors.mobs.npcs.G2159687;
+import com.hmdzl.spspd.change.actors.mobs.npcs.GoblinPlayer;
 import com.hmdzl.spspd.change.actors.mobs.npcs.HBB;
 import com.hmdzl.spspd.change.actors.mobs.npcs.HateSokoban;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Hmdzl001;
+import com.hmdzl.spspd.change.actors.mobs.npcs.HoneyPoooot;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Ice13;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Jinkeloid;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Kostis12345;
 import com.hmdzl.spspd.change.actors.mobs.npcs.LaJi;
@@ -23,14 +31,20 @@ import com.hmdzl.spspd.change.actors.mobs.npcs.Lery;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Lyn;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Lynn;
 import com.hmdzl.spspd.change.actors.mobs.npcs.MemoryOfSand;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Millilitre;
 import com.hmdzl.spspd.change.actors.mobs.npcs.NewPlayer;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Omicronrg9;
 import com.hmdzl.spspd.change.actors.mobs.npcs.RENnpc;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Rustyblade;
 import com.hmdzl.spspd.change.actors.mobs.npcs.SFB;
+import com.hmdzl.spspd.change.actors.mobs.npcs.SaidbySun;
+import com.hmdzl.spspd.change.actors.mobs.npcs.Shower;
 import com.hmdzl.spspd.change.actors.mobs.npcs.StormAndRain;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Tempest102;
 import com.hmdzl.spspd.change.actors.mobs.npcs.ThankList;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Tinkerer5;
+import com.hmdzl.spspd.change.actors.mobs.npcs.UncleS;
+import com.hmdzl.spspd.change.actors.mobs.npcs.XixiZero;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Heap;
 import com.hmdzl.spspd.change.items.Item;
@@ -207,6 +221,62 @@ public class SokobanSPLevel extends Level {
 	   Mob hmdzl = new Hmdzl001();
 	   hmdzl.pos = 20 + WIDTH * 42;
 	   mobs.add(hmdzl);
+	   
+	  Mob xixizero = new XixiZero();
+	  xixizero.pos = 25 + WIDTH * 11;
+	  mobs.add(xixizero);	   
+	
+	  Mob omi = new Omicronrg9();
+	  omi.pos = 36 + WIDTH * 11;
+	  mobs.add(omi);
+	  
+	  Mob mill = new Millilitre();
+	  mill.pos = 42 + WIDTH * 26;
+	  mobs.add(mill);	 	  
+
+      Mob honey = new HoneyPoooot();
+	  honey.pos = 39 + WIDTH * 15;
+	  mobs.add(honey);	  
+
+	    Mob uncles = new UncleS();
+	    uncles.pos = 43 + WIDTH * 22;
+	    mobs.add(uncles);
+
+		  Mob realman = new ARealMan();
+		  realman.pos = 36 + WIDTH * 42;
+		  mobs.add(realman);		
+	  
+		  Mob saidbysun = new SaidbySun();
+		  saidbysun.pos = 36 + WIDTH * 39;
+		  mobs.add(saidbysun);	  
+	  
+	  Mob dp = new DreamPlayer();
+	  dp.pos = 43 + WIDTH * 24;
+	  mobs.add(dp);	  
+	  
+	  Mob ice13 = new Ice13();
+	  ice13.pos = 29 + WIDTH * 35;
+	  mobs.add(ice13);	  
+	 
+	  Mob goblin = new GoblinPlayer();
+	  goblin.pos = 8 + WIDTH * 14;
+	  mobs.add(goblin);
+	 
+          Mob Afly = new AFly();
+          Afly.pos = 27 + WIDTH * 17;
+		  mobs.add(Afly);
+
+	  Mob apos = new Apostle();
+	  apos.pos = 20 + WIDTH * 8;
+	  mobs.add(apos);		  
+
+	  Mob shower =  new Shower();
+	  shower.pos = 30 + WIDTH * 19;
+	  mobs.add(shower);
+	  
+	   Mob year2 = new YearBeast2();
+	   year2.pos = 6 + WIDTH * 44;
+	   mobs.add(year2);	  
 	  
 	  Mob tempest102 = new Tempest102();
 	  tempest102.pos = 33 + WIDTH * 42;
@@ -234,7 +304,7 @@ public class SokobanSPLevel extends Level {
 
 	   Mob SAR = new StormAndRain();
 	  SAR.pos = 24 + WIDTH * 6;
-	  mobs.add(SAR);	
+	  mobs.add(SAR);	 
 	  
 	  Mob LYNN = new Lynn();
 	  LYNN.pos = 40 + WIDTH * 28;

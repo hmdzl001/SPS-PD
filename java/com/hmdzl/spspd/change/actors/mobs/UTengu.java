@@ -131,18 +131,18 @@ public class UTengu extends Mob {
     public void restoreFromBundle( Bundle bundle ) {
         super.restoreFromBundle(bundle);
         breaks = bundle.getInt( BREAKS );
-    }	
-	
+
+	}
+
 	@Override
 	public void damage(int dmg, Object src) {
-	
-        dmg = Random.Int(10,20);
+
+		dmg = Random.Int(10,20);
 		if (dmg > 15){
 			GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
 		}
 		super.damage(dmg, src);
-	}		
-
+	}
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 

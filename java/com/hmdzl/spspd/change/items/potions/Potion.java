@@ -31,6 +31,7 @@ import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.effects.Splash;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.ItemStatusHandler;
@@ -45,6 +46,7 @@ import com.hmdzl.spspd.change.windows.WndOptions;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class Potion extends Item {
 
@@ -186,7 +188,7 @@ public class Potion extends Item {
 	}
 
 	protected void drink(Hero hero) {
-
+    if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 		detach(hero.belongings.backpack);
 
 		hero.spend(TIME_TO_DRINK);

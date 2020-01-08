@@ -22,14 +22,16 @@ public class Skins {
 	public static final int NORMAL = 0;
 	public static final int FIRST = 1;
 	public static final int SECOND = 2;
+	public static final int THIRD = 3;
 
 	public static final String[] NAME_IDS = {
 			"normal",
 			"first",
 			"second",
+			"third",
 		};
 
 	public static final int[] MASKS = {
-	        NORMAL, FIRST,SECOND};
+	        NORMAL, FIRST,SECOND,THIRD};
 
 }

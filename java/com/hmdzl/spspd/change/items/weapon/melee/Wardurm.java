@@ -72,7 +72,7 @@ public class Wardurm extends MeleeWeapon {
 
 	@Override
 	public Item upgrade(boolean enchant) {
-        MIN+=2;
+        MIN+=1;
         MAX+=2;		
 		return super.upgrade(enchant);
     }

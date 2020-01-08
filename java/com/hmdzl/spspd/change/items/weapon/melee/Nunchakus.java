@@ -49,7 +49,7 @@ public class Nunchakus extends MeleeWeapon {
 		DLY-=0.05f;
 		}
 
-		MIN+=1;
+		MIN+=3;
 		MAX+=1;
 		
 		return super.upgrade(enchant);

@@ -79,7 +79,7 @@ public class Badges {
         DEATH_FROM_GLYPH(57),
         DEATH_FROM_FALLING(59),
         YASD(34, true),
-        BOSS_SLAIN_1_WARRIOR, BOSS_SLAIN_1_MAGE, BOSS_SLAIN_1_ROGUE, BOSS_SLAIN_1_HUNTRESS, BOSS_SLAIN_1_PERFORMER,BOSS_SLAIN_1_SOLDIER, BOSS_SLAIN_1(12),
+        BOSS_SLAIN_1_WARRIOR, BOSS_SLAIN_1_MAGE, BOSS_SLAIN_1_ROGUE, BOSS_SLAIN_1_HUNTRESS, BOSS_SLAIN_1_PERFORMER,BOSS_SLAIN_1_SOLDIER,BOSS_SLAIN_1_FOLLOWER, BOSS_SLAIN_1(12),
         BOSS_SLAIN_2(13),
         BOSS_SLAIN_3(14),
         BOSS_SLAIN_4(15),
@@ -95,13 +95,13 @@ public class Badges {
         FOOD_EATEN_2(45),
         FOOD_EATEN_3(46),
         FOOD_EATEN_4(47),
-        MASTERY_WARRIOR, MASTERY_MAGE, MASTERY_ROGUE, MASTERY_HUNTRESS, MASTERY_PERFORMER, MASTERY_SOLDIER,
+        MASTERY_WARRIOR, MASTERY_MAGE, MASTERY_ROGUE, MASTERY_HUNTRESS, MASTERY_PERFORMER, MASTERY_SOLDIER,MASTERY_FOLLOWER,
 		ITEM_LEVEL_1(48),
         ITEM_LEVEL_2(49),
         ITEM_LEVEL_3(50),
         ITEM_LEVEL_4(51),
         RARE_ALBINO, RARE_BANDIT, RARE_SHIELDED, RARE_SENIOR, RARE_ACIDIC, RARE(37, true),
-        VICTORY_WARRIOR, VICTORY_MAGE, VICTORY_ROGUE, VICTORY_HUNTRESS, VICTORY_PERFORMER, VICTORY_SOLDIER,VICTORY(22),
+        VICTORY_WARRIOR, VICTORY_MAGE, VICTORY_ROGUE, VICTORY_HUNTRESS, VICTORY_PERFORMER, VICTORY_SOLDIER,VICTORY_FOLLOWER,VICTORY(22),
         VICTORY_ALL_CLASSES(36, true),
         MASTERY_COMBO(56),
         POTIONS_COOKED_1(52),
@@ -639,7 +639,10 @@ public class Badges {
 					break;		
 				case SOLDIER:
 					badge = Badge.BOSS_SLAIN_1_SOLDIER;
-					break;						
+					break;
+				case FOLLOWER:
+					badge = Badge.BOSS_SLAIN_1_FOLLOWER;
+					break;											
 				}
 				local.add(badge);
 				if (!global.contains(badge)) {
@@ -798,7 +801,10 @@ public class Badges {
 			break;	
 		case SOLDIER:
 			badge = Badge.MASTERY_SOLDIER;
-			break;				
+			break;		
+		case FOLLOWER:
+			badge = Badge.MASTERY_FOLLOWER;
+			break;			
 		}
 
 		if (!global.contains(badge)) {
@@ -902,7 +908,8 @@ public class Badges {
 				&& global.contains(Badge.VICTORY_ROGUE)
 				&& global.contains(Badge.VICTORY_HUNTRESS)
 				&& global.contains(Badge.VICTORY_PERFORMER)
-				&& global.contains(Badge.VICTORY_SOLDIER)) {
+				&& global.contains(Badge.VICTORY_SOLDIER)
+				&& global.contains(Badge.VICTORY_FOLLOWER)) {
 
 			badge = Badge.VICTORY_ALL_CLASSES;
 			displayBadge(badge);

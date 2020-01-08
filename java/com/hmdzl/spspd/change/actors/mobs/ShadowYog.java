@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.change.actors.blobs.Blob;
 import com.hmdzl.spspd.change.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
@@ -43,6 +44,7 @@ import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ShadowYogSprite;
 import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class ShadowYog extends Mob  {
@@ -64,7 +66,21 @@ public class ShadowYog extends Mob  {
 	}
 	
 	private int yogsAlive = 0;
-	
+	private int breaks=0;
+	private static final String BREAKS	= "breaks";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( BREAKS, breaks );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		breaks = bundle.getInt( BREAKS );
+	}
+
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(43, 83);
@@ -81,9 +97,34 @@ public class ShadowYog extends Mob  {
 
 	@Override
 	public int drRoll() {
-		return 10;
+		return 25;
 	}
-	
+
+	@Override
+	public boolean act() {
+
+		if (5 - breaks > 6 * HP / HT) {
+			breaks++;
+			int newPos = -1;
+			for (int i = 0; i < 20; i++) {
+				newPos = Dungeon.level.randomRespawnCellMob();
+				if (newPos != -1) {
+					break;
+				}
+			}
+			if (newPos != -1) {
+					Actor.freeCell(pos);
+					CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
+					pos = newPos;
+					sprite.place(pos);
+					sprite.visible = Dungeon.visible[pos];
+					GLog.n(Messages.get(this, "blink"));
+			}
+			return true;
+		}
+		return super.act();
+	}
+
 	@Override
 	public void damage(int dmg, Object src) {
 
@@ -103,29 +144,9 @@ public class ShadowYog extends Mob  {
 					GameScene.updateMap(trapPos);
 				}
 			}
-			
-			if (HP<(HT/8) && Random.Float() < 0.5f){
-
-				int newPos = -1;
-					for (int i = 0; i < 20; i++) {
-					newPos = Dungeon.level.randomRespawnCellMob();
-					if (newPos != -1) {
-						break;
-					}
-				}
-				if (newPos != -1) {
-					Actor.freeCell(pos);
-					CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
-					pos = newPos;
-					sprite.place(pos);
-					sprite.visible = Dungeon.visible[pos];
-					GLog.n(Messages.get(this, "blink"));
-				}		
-				if (Dungeon.level.mobs.size()<Dungeon.hero.lvl*2){
-				Fiend.spawnAroundChance(newPos);
-				}
-			}
-			
+		if (Dungeon.level.mobs.size()<Dungeon.hero.lvl*2){
+			Fiend.spawnAroundChance(pos);
+		}
 			super.damage(dmg, src);
 	}
 
@@ -138,6 +159,7 @@ public class ShadowYog extends Mob  {
 	
 	@Override
 	public void beckon(int cell) {
+
 	}
 
 	@SuppressWarnings("unchecked")

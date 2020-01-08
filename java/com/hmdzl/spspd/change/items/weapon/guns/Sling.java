@@ -37,20 +37,6 @@ import com.watabou.utils.Random;
 
 public class Sling extends GunWeapon {
 
-	private SpAmmo spammo;
-	
-	/*@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		if (ammo != null) bundle.put( AMMO, ammo );
-	}
-	
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		if (bundle.contains(AMMO)) ammo = (Ammo)bundle.get( AMMO );
-	}	*/
-
 	{
 		//name = "Sling";
 		image = ItemSpriteSheet.SLING;
@@ -58,21 +44,14 @@ public class Sling extends GunWeapon {
 
 	public Sling() {
 		super(0, 1);
-		spammo = null;
 		STR = 8;
 		MIN = 3;
 		MAX = 7;
 	}
 
-	public Sling(SpAmmo spammo) {
-		this();
-		this.spammo = spammo;
-		name = Messages.get(spammo, "spammo_name");
-	}
-
 	public Item upgrade() {
-		//MIN++;
-		MAX += 1;
+		MIN++;
+		MAX += 2;
 		return super.upgrade();
 	}
 

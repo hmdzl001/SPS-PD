@@ -70,7 +70,6 @@ import static com.hmdzl.spspd.change.Dungeon.hero;
 public class LichDancer extends Mob {
 
 	private static final int MAX_ARMY_SIZE = 4;
-	private static final int REGEN = 3;
 
 
 	{
@@ -96,21 +95,12 @@ public class LichDancer extends Mob {
 	
 	public void spawnTomb() {
 		BatteryTomb a = new BatteryTomb();
-		BatteryTomb b = new BatteryTomb();
 		a.pos = Terrain.PEDESTAL;
-		b.pos = Terrain.PEDESTAL;
-		do {
-			a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-		} while (Dungeon.level.map[a.pos] != Terrain.PEDESTAL
-				|| Actor.findChar(a.pos) != null);
-		GameScene.add(a);
-
-		do {
-			b.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-		} while (Dungeon.level.map[b.pos] != Terrain.PEDESTAL
-				|| Actor.findChar(b.pos) != null);
-		GameScene.add(b);
-
+			do {
+				a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
+			} while (Dungeon.level.map[a.pos] != Terrain.PEDESTAL
+					|| Actor.findChar(a.pos) != null);
+			GameScene.add(a);
 	}
 	
 	@Override
@@ -132,54 +122,13 @@ public class LichDancer extends Mob {
 	protected boolean act() {
 		
         if( 3 - breaks > 4 * HP / HT ) {
-            
 			breaks++;
-			int batteryAlive = 0;
-			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[Dungeon.level.mobs.size()])){
-				if (mob instanceof BatteryTomb){
-					batteryAlive++;
-				}
-				if (batteryAlive == 0){
-					spawnTomb();
-				}
-			}
-
-
-				int newPos = -1;
-				for (int i = 0; i < 750; i++) {
-					newPos = Dungeon.level.wellRespawnCellMob();
-					if (newPos != -1) {
-						break;
-					}
-				}
-				if (newPos != -1) {
-					Actor.freeCell(pos);
-					CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
-					pos = newPos;
-					sprite.place(pos);
-					sprite.visible = Dungeon.visible[pos];
-					//GLog.n(Messages.get(this, "blink"));
-				}
-
-
+			spawnTomb();
+			jump();
             return true;
-        } 		
-		
-		if (HP < HT) {
-			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
-			HP = HP + REGEN;
-		}
-		
-		return super.act();
-	}
+        }
 
-	@Override
-	public int attackProc(Char enemy, int damage) {
-		if (Random.Int(5) == 0) {
-			Buff.prolong(enemy, Vertigo.class,3f);
-		}
-
-		if (Random.Int(5) == 0){
+		 if (Random.Int(5) == 0){
 			ArrayList<Integer> spawnPoints = new ArrayList<>();
 
 			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
@@ -196,6 +145,36 @@ public class LichDancer extends Mob {
 					ScrollOfTeleportation.appear(m, Random.element(spawnPoints));
 				}
 			}
+		}
+
+		if (HP < HT) {
+			//sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+			HP = HP + 3;
+		}
+		
+		return super.act();
+	}
+
+	private void jump() {
+		int newPos;
+		do {
+			newPos = Random.Int(Level.getLength());
+		} while (Dungeon.level.map[newPos] != Terrain.EMPTY_WELL);
+		sprite.move(pos, newPos);
+		move(newPos);
+
+		if (Dungeon.visible[newPos]) {
+			CellEmitter.get(newPos).burst(Speck.factory(Speck.WOOL), 6);
+			Sample.INSTANCE.play(Assets.SND_PUFF);
+		}
+
+		spend(1 / speed());
+	}
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		if (Random.Int(5) == 0) {
+			Buff.prolong(enemy, Vertigo.class,3f);
 		}
         return damage;
 	}
@@ -323,8 +302,8 @@ public class LichDancer extends Mob {
 	@Override
     public boolean act() {
 
-        if( Random.Int(20) == 0 && Dungeon.level.mobs.size()< 7) {
-			DwarfLich.spawnAround(pos);
+        if( Random.Int(20) == 0 && Dungeon.level.mobs.size()< 6) {
+			ManySkeleton.spawnAround(pos);
         } 
         return super.act();
     }		
@@ -355,7 +334,6 @@ public class LichDancer extends Mob {
 		
 	}
 
-	
 	@Override
 	public void damage(int dmg, Object src) {
 	    if ( dmg > 50 ) dmg = 50;
@@ -378,7 +356,7 @@ public class LichDancer extends Mob {
             properties.add(Property.MINIBOSS);
         }
 
-		private int bombtime=4;
+		private int bombtime=3;
 		private static final String BOMBTIME	= "bombtime";
 
 		public void storeInBundle( Bundle bundle ) {

@@ -79,8 +79,6 @@ public class RedDragon extends PET implements Callback{
 			if (cooldown==0) {GLog.w(Messages.get(this,"ready"));}
 		}
 		
-		
-
 		return super.act();
 	}
 	

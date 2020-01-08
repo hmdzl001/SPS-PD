@@ -29,15 +29,9 @@ public class LichDancerSprite extends MobSprite {
 	}
 
 	@Override
-	public int blood() {
-		return 0xFFBFE5B8;
-	}
-	
-	@Override
     public void update() {
         super.update();
-
-        if (flashTime <= 0){
+        if (flashTime <= 0 ){
             float interval = (Game.timeTotal % 9 ) /3f;
             tint(interval > 2 ? interval - 2 : Math.max(0, 1 - interval),
                     interval > 1 ? Math.max(0, 2-interval): interval,

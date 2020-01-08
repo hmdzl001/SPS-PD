@@ -23,12 +23,15 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
+import com.hmdzl.spspd.change.actors.hero.Belongings;
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.KindOfWeapon;
 import com.hmdzl.spspd.change.items.misc.MissileShield;
 import com.hmdzl.spspd.change.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
+import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.utils.Random;
@@ -95,9 +98,11 @@ public class MissileWeapon extends Weapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-
 		super.proc(attacker, defender, damage);
-
+		KindOfWeapon wep = Dungeon.hero.belongings.weapon;
+		if (Dungeon.hero.heroClass== HeroClass.HUNTRESS &&  wep !=null && this instanceof MissileWeapon && !( this instanceof ManyKnive.KniveAmmo) && !(this instanceof TaurcenBow.TaurcenBowArrow)&& !(this instanceof GunWeapon.NormalAmmo)) {
+			defender.damage(Random.Int(wep.MAX,wep.MIN),this);
+		}
 		Hero hero = (Hero) attacker;
 		if (hero.rangedWeapon == null && stackable) {
 			if (quantity == 1) {
@@ -106,6 +111,7 @@ public class MissileWeapon extends Weapon {
 				detach(null);
 			}
 		}
+
 	}
 
 	@Override
@@ -132,8 +138,6 @@ public class MissileWeapon extends Weapon {
 
 		if (STR > Dungeon.hero.STR()) {
 			info += Messages.get(Weapon.class, "too_heavy");
-		} else if (Dungeon.hero.heroClass == HeroClass.HUNTRESS){
-			info += " " + Messages.get(MeleeWeapon.class, "excess_str", 3*(Dungeon.hero.STR() - STR));
 		} else {
 			info += " " + Messages.get(MeleeWeapon.class, "excess_str", Dungeon.hero.STR() - STR);
 		}

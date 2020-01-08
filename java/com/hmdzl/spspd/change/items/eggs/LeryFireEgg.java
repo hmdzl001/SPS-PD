@@ -50,12 +50,7 @@ import com.watabou.utils.Random;
 public class LeryFireEgg extends Egg {
 	
 	public static final float TIME_TO_USE = 1;
-
-	public static final int LERY_FIRE = 10;
-	
-
 		{
-		//name = "shadow dragon egg";
 		image = ItemSpriteSheet.FIREEGG;
 		unique = true;
 		stackable = false;
@@ -69,103 +64,9 @@ public class LeryFireEgg extends Egg {
 		public int lits = 1;
 		public int summons = 0;
 		public int light = 0;
-		
-		private static final String STARTMOVES = "startMoves";
-		private static final String MOVES = "moves";
-		private static final String BURNS = "burns";
-		private static final String FREEZES = "freezes";
-		private static final String POISONS = "poisons";
-		private static final String LITS = "lits";
-		private static final String SUMMONS = "summons";
-		private static final String LIGHT = "light";
-		
-		
-		@Override
-		public void storeInBundle(Bundle bundle) {
-			super.storeInBundle(bundle);
-			bundle.put(STARTMOVES, startMoves);
-			bundle.put(MOVES, moves);
-			bundle.put(BURNS, burns);
-			bundle.put(FREEZES, freezes);
-			bundle.put(POISONS, poisons);
-			bundle.put(LITS, lits);
-			bundle.put(SUMMONS, summons);
-			bundle.put(LIGHT, light);
-			
-		}
-
-		@Override
-		public void restoreFromBundle(Bundle bundle) {
-			super.restoreFromBundle(bundle);
-			startMoves = bundle.getInt(STARTMOVES);
-			moves = bundle.getInt(MOVES);
-			burns = bundle.getInt(BURNS);
-			freezes = bundle.getInt(FREEZES);
-			poisons = bundle.getInt(POISONS);
-			lits = bundle.getInt(LITS);
-			summons = bundle.getInt(SUMMONS);
-			light = bundle.getInt(LIGHT);
-			
-		}
-						
-		public int checkMoves () {
-			return moves;
-		}
-		public int checkBurns () {
-			return burns;
-		}
-		public int checkFreezes () {
-			return freezes;
-		}
-		public int checkPoisons () {
-			return poisons;
-		}
-		public int checkLits () {
-			return lits;
-		}
-		public int checkSummons () {
-			return summons;
-		}
-		
-		public int checkLight () {
-			return light;
-		}	
-		
-		/*@Override
-		public boolean doPickUp(Hero hero) {
-				
-				GLog.w("The egg likes to be warm in your pack.");
-				
-				Egg egg = hero.belongings.getItem(Egg.class);
-				if (egg!=null){
-					GLog.w("You can probably only keep one egg warm at a time.");
-				}
-						 
-			 return super.doPickUp(hero);				
-		}	*/
-		
-	/*@Override
-	public ArrayList<String> actions(Hero hero) {
-		ArrayList<String> actions = super.actions(hero);
-		actions.add(AC_BREAK);
-		actions.add(AC_SHAKE);
-		
-		return actions;
-	}*/
 
 	@Override
 	public void execute(Hero hero, String action) {
-
-		/*
-		if (action == AC_BREAK) {
-
-			if (Dungeon.depth>26) {
-				hero.spend(EasterEgg.TIME_TO_USE);
-				GLog.w(TXT_PREVENTING);
-				return;
-			}			
-		}
-		*/
 
 		if (action.equals(AC_BREAK)) {
 
@@ -185,30 +86,9 @@ public class LeryFireEgg extends Egg {
 			super.execute(hero, action);
 
 		}
-		
-		
-		
+
 	}	
-	
-	/*public int getSpawnPos(){
-		int newPos = -1;
-		int pos = Dungeon.hero.pos;
-			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
 
-			for (int n : Level.NEIGHBOURS8) {
-				int c = pos + n;
-				if (passable[c] && Actor.findChar(c) == null) {
-					candidates.add(c);
-				}
-			}
-
-			newPos = candidates.size() > 0 ? Random.element(candidates) : -1;
-			
-		return newPos;
-	}*/
-	
-	
 	public void eggHatch (PET pet) {		
 		
 		  int spawnPos = getSpawnPos();

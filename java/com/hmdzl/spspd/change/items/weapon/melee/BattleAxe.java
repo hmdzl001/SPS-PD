@@ -52,7 +52,7 @@ public class BattleAxe extends MeleeWeapon {
 			DLY-=0.05f;
 		}
 		
-        MAX+=3;
+        MAX+=6;
 		
 		return super.upgrade(enchant);
     }		

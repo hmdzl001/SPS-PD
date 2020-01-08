@@ -41,7 +41,7 @@ public class AboutScene extends PixelScene {
 
 	private static final String TXT_SHPX = "Modified from lots of Pixel Dungeon Mods";
 
-	private static final String LNK_SHPX = "unicef.org";
+	private static final String LNK_SHPX = "github.com/hmdzl001/SPS-PD";
 
 	private static final String TTL_WATA = "Original Pixel Dungeon";
 
@@ -94,7 +94,7 @@ public class AboutScene extends PixelScene {
 		TouchArea shpxhotArea = new TouchArea( shpxlink.left(), shpxlink.top(), shpxlink.width(), shpxlink.height() ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://" + LNK_SHPX ) );
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "https://" + LNK_SHPX ) );
 				Game.instance.startActivity( intent );
 			}
 		};
@@ -136,7 +136,7 @@ public class AboutScene extends PixelScene {
 		TouchArea hotArea = new TouchArea( wataLink.left(), wataLink.top(), wataLink.width(), wataLink.height() ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "http://" + LNK_WATA ) );
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "https://" + LNK_WATA ) );
 				Game.instance.startActivity( intent );
 			}
 		};

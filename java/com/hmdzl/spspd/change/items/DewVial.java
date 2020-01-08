@@ -202,7 +202,9 @@ public class DewVial extends Item {
 
 				int effect = Math.min( hero.HT - hero.HP, heal );
 				if (effect > 0) {
-					hero.HP += effect;
+					if (Dungeon.hero.subClass == HeroSubClass.PASTOR) {
+						hero.HP += (int)(effect*1.5);
+					} else hero.HP += effect;
 					hero.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 + dropsNeeded/5 );
 					hero.sprite.showStatus( CharSprite.POSITIVE, Messages.get(this, "value", effect) );
 				}

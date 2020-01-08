@@ -80,6 +80,9 @@ abstract public class ClassSkill extends Item {
 		case SOLDIER:
 			classSkill = new SoldierSkill();
 			break;
+		case FOLLOWER:
+			classSkill = new FollowerSkill();
+			break;			
 		}
 
 		return classSkill;

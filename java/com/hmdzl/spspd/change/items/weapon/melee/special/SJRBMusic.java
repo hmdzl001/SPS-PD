@@ -34,6 +34,7 @@ import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.mechanics.Ballistica;
 import com.hmdzl.spspd.change.messages.Messages;
+import com.hmdzl.spspd.change.sprites.CharSprite;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
@@ -86,7 +87,7 @@ public class SJRBMusic extends MeleeWeapon {
 			}
 			attacker.sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.3f, 3);
 			Sample.INSTANCE.play( Assets.SND_BEACON );
-			GLog.n(Messages.get(this,"rap"));
+			attacker.sprite.showStatus(CharSprite.NEUTRAL, Messages.get(this, "rap"));
 		}	
 	
 			Ballistica route = new Ballistica(attacker.pos, defender.pos, Ballistica.PROJECTILE);

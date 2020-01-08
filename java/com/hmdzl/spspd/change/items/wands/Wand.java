@@ -435,7 +435,7 @@ public abstract class Wand extends Item {
 			missingCharges += Ring.getBonus(target, RingOfEnergy.Energy.class);
 			missingCharges = Math.max(0, missingCharges);
             if (Dungeon.hero.heroClass==HeroClass.MAGE && Dungeon.skins==2){
-				missingCharges++;
+				missingCharges+=2;
 			}
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));

@@ -31,7 +31,7 @@ public class RingOfEvasion extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",level);
+			return Messages.get(this, "stats",level,level/5);
 		} else {
 			return "???";
 		}

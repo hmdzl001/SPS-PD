@@ -38,11 +38,11 @@ public class MirrorSprite extends MobSprite {
 	@Override
 	public void link(Char ch) {
 		super.link(ch);
-		updateArmor(((MirrorImage) ch).tier);
+		updateArmor(((MirrorImage) ch).skin);
 	}
 
 	public void updateArmor(int tier) {
-		TextureFilm film = new TextureFilm(HeroSprite.tiers(), tier,
+		TextureFilm film = new TextureFilm(HeroSprite.skins(), tier,
 				FRAME_WIDTH, FRAME_HEIGHT);
 
 		idle = new Animation(1, true);

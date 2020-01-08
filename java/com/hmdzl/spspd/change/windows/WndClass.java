@@ -53,7 +53,6 @@ public class WndClass extends WndTabbed {
 		tab.setSize( TAB_WIDTH, tabHeight() );
 		add( tab );
 
-		if (Badges.isUnlocked( cl.masteryBadge() )) {
 			tabMastery = new MasteryTab();
 			add( tabMastery );
 
@@ -63,9 +62,7 @@ public class WndClass extends WndTabbed {
 			resize(
 					(int)Math.max( tabPerks.width, tabMastery.width ),
 					(int)Math.max( tabPerks.height, tabMastery.height ) );
-		} else {
-			resize( (int)tabPerks.width, (int)tabPerks.height );
-		}
+
 
 		layoutTabs();
 
@@ -167,7 +164,10 @@ public class WndClass extends WndTabbed {
 					break;
 				case SOLDIER:
 					message = HeroSubClass.AGENT.desc() + "\n\n" + HeroSubClass.LEADER.desc();
-					break;								
+					break;	
+				case FOLLOWER:
+					message = HeroSubClass.PASTOR.desc() + "\n\n" + HeroSubClass.ARTISAN.desc();
+					break;						
 			}
 
 			RenderedTextMultiline text = PixelScene.renderMultiline( 6 );

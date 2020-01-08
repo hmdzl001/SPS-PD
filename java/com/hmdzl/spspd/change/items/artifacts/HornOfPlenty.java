@@ -98,6 +98,7 @@ public class HornOfPlenty extends Artifact {
 					case HUNTRESS:
 					case PERFORMER:
 					case SOLDIER:
+					case FOLLOWER:
 						break;
 					}
 

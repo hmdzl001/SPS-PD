@@ -70,7 +70,7 @@ public class WndMix extends Window {
 		int h = 0;
 
 		IconTitle titlebar = new IconTitle();
-		titlebar.icon(HeroSprite.avatar(hero.heroClass, hero.tier()));
+		titlebar.icon(HeroSprite.avatar(hero.heroClass, hero.useskin()));
 		titlebar.label( Messages.get(this, "title") );
 		titlebar.setRect( 0, 0, w, 0 );
 		add( titlebar );

@@ -120,11 +120,16 @@ import com.hmdzl.spspd.change.items.weapon.melee.Club;
 import com.hmdzl.spspd.change.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.change.items.weapon.melee.Flute;
 import com.hmdzl.spspd.change.items.weapon.melee.Harp;
+import com.hmdzl.spspd.change.items.weapon.melee.HolyWater;
 import com.hmdzl.spspd.change.items.weapon.melee.Lance;
+import com.hmdzl.spspd.change.items.weapon.melee.Mace;
+import com.hmdzl.spspd.change.items.weapon.melee.PrayerWheel;
 import com.hmdzl.spspd.change.items.weapon.melee.Rapier;
+import com.hmdzl.spspd.change.items.weapon.melee.StoneCross;
 import com.hmdzl.spspd.change.items.weapon.melee.Triangolo;
 import com.hmdzl.spspd.change.items.weapon.melee.Trumpet;
 import com.hmdzl.spspd.change.items.weapon.melee.Wardurm;
+import com.hmdzl.spspd.change.items.weapon.melee.WoodenStaff;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.change.items.weapon.melee.special.RunicBlade;
@@ -273,7 +278,7 @@ public class Generator {
 	public static enum Category {
 		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),
 		POTION(500, Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
-		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),
+		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),
 		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(50, Food.class), BOMBS(20, Bomb.class),
 		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(1, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class);
 
@@ -346,7 +351,9 @@ public class Generator {
 				Nunchakus.class, Scimitar.class,Whip.class,Spork.class, Rapier.class,
 				AssassinsBlade.class,BattleAxe.class,Glaive.class,Handcannon.class,Club.class,
                 Gsword.class, Halberd.class, WarHammer.class, RunicBlade.class, Lance.class,
-				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class};
+				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class,
+				WoodenStaff.class, Mace.class, HolyWater.class, PrayerWheel.class, StoneCross.class
+		};
 		Category.WEAPON.probs = new float[] {
 				0,0,0,
 				1,1,1,1,
@@ -354,6 +361,7 @@ public class Generator {
 				1,1,1,0,1,
 				1,1,1,0,1,
 				1,1,1,0,1,
+				1,1,1,1,1,
 				1,1,1,1,1,
 		};
 
@@ -373,13 +381,15 @@ public class Generator {
 				Nunchakus.class, Scimitar.class,Whip.class, Rapier.class,
 				AssassinsBlade.class,BattleAxe.class,Glaive.class,Club.class,
 				Gsword.class, Halberd.class, WarHammer.class, Lance.class,
-				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class};
+				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class,
+				WoodenStaff.class, Mace.class, HolyWater.class, PrayerWheel.class, StoneCross.class};
 		Category.MELEEWEAPON.probs = new float[] {
 				1,1,1,1,
 				1,1,1,1,
 				1,1,1,1,
 				1,1,1,1,
 				1,1,1,1,
+				1,1,1,1,1,
 				1,1,1,1,1,
 		};
 		
@@ -464,6 +474,11 @@ public class Generator {
 		
 		Category.SEED2.probs = new float[] { 8, 4, 6, 4, 3, 1 };
 
+		Category.SEED3.classes = new Class<?>[] {Sungrass.Seed.class, Earthroot.Seed.class, BlandfruitBush.Seed.class, Dreamfoil.Seed.class,
+				Starflower.Seed.class, Dewcatcher.Seed.class, Seedpod.Seed.class};
+
+		Category.SEED3.probs = new float[] { 8, 4, 3, 4, 3, 1 , 1 };
+
 		
 		Category.BERRY.classes = new Class<?>[] {Blackberry.class, Blueberry.class, Cloudberry.class, Moonberry.class};
 		Category.BERRY.probs = new float[] {6,3,2,1};	
@@ -521,8 +536,8 @@ public class Generator {
 		Category.LINKDROP.probs = new float[] { 3,1,
 		1,1,1,1,1,1,
 		1,1,1,
-		1,1,1,1,1,1,
-		1,1,1,1,1,1};
+		2,2,2,2,2,2,
+		2,2,2,2,2,2};
 	}
 
 	public static void reset() {

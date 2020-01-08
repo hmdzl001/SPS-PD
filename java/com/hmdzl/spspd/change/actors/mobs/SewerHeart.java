@@ -297,7 +297,10 @@ public class SewerHeart extends Mob {
 			case SOLDIER:
 					badgeToCheck = Badge.MASTERY_SOLDIER;
 					break;	
-		}		
+				case FOLLOWER:
+					badgeToCheck = Badge.MASTERY_FOLLOWER;
+					break;
+					}		
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
 	}
 

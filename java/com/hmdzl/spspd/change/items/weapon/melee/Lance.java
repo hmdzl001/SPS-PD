@@ -41,7 +41,8 @@ public class Lance extends MeleeWeapon {
 	
     @Override
 	public Item upgrade(boolean enchant) {
-        MIN+=2;
+		MIN+=1;
+        MAX+=3;
 		return super.upgrade(enchant);
     }	
 	
@@ -49,7 +50,7 @@ public class Lance extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		int DMG = damage;
-		if (Random.Int(100) < 25 ){
+		if (Random.Int(4) == 0 ){
 		defender.damage(Random.Int(DMG/4,DMG/2), this);
 		}
 		if (enchantment != null) {

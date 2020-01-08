@@ -127,7 +127,7 @@ unique = true;
 											targets.remove(this);
 											if (targets.isEmpty()) {
 												//curUser.spendAndNext(curUser.attackDelay());
-												curUser.spendAndNext(0f);
+												curUser.spendAndNext(0.1f);
 											}
 										}
 									};

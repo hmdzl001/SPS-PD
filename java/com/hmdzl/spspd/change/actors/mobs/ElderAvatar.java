@@ -36,12 +36,17 @@ import com.hmdzl.spspd.change.actors.buffs.GlassShield;
 import com.hmdzl.spspd.change.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.ArmorKit;
 import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.Gold;
+import com.hmdzl.spspd.change.items.KindOfArmor;
 import com.hmdzl.spspd.change.items.RedDewdrop;
 import com.hmdzl.spspd.change.items.StoneOre;
+import com.hmdzl.spspd.change.items.armor.normalarmor.NormalArmor;
+import com.hmdzl.spspd.change.items.armor.normalarmor.RubberArmor;
+import com.hmdzl.spspd.change.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.change.items.artifacts.AlienBag;
 import com.hmdzl.spspd.change.items.bombs.DangerousBomb;
 import com.hmdzl.spspd.change.items.keys.SkeletonKey;
@@ -73,6 +78,7 @@ import com.hmdzl.spspd.change.sprites.MusketeerSprite;
 import com.hmdzl.spspd.change.sprites.ObeliskSprite;
 import com.hmdzl.spspd.change.sprites.UndeadSprite;
 import com.hmdzl.spspd.change.sprites.WarlockSprite;
+import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -166,6 +172,16 @@ public class ElderAvatar extends Mob {
 			enemy.sprite.centerEmitter().start(Speck.factory(Speck.HEART),
 					0.2f, 5);
 			Sample.INSTANCE.play(Assets.SND_CHARMS);
+		}
+		Hero hero = Dungeon.hero;
+		KindOfArmor armor = hero.belongings.armor;
+		if (Random.Int(10) == 0) {
+			if (armor != null && !(armor instanceof WoodenArmor || armor instanceof RubberArmor || armor instanceof NormalArmor)
+					&& !armor.cursed) {
+				hero.belongings.armor = null;
+				Dungeon.level.drop(armor, hero.pos).sprite.drop();
+				GLog.w(Messages.get(this, "disarm"));
+			}
 		}
 		return damage;
 	}
@@ -699,10 +715,10 @@ public class ElderAvatar extends Mob {
 			properties.add(Property.BOSS);
 		}
 
-		//@Override
-		//public void beckon(int cell) {
-			//// Do nothing
-		//}
+		@Override
+		public void beckon(int cell) {
+			// Do nothing
+		}
 
 		@Override
 		public void add(Buff buff) {

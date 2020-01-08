@@ -148,7 +148,7 @@ public class ManyKnive extends Weapon {
 	public Item upgrade(boolean enchant) {
 		
 		MIN += 1;
-		MAX += 2;
+		MAX += 3;
 		super.upgrade(enchant);
 
 		updateQuickslot();

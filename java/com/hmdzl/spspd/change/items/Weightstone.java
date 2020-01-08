@@ -20,7 +20,9 @@ package com.hmdzl.spspd.change.items;
 import java.util.ArrayList;
 
 import com.hmdzl.spspd.change.Assets;
+import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -34,6 +36,7 @@ import com.hmdzl.spspd.change.utils.GLog;
 import com.hmdzl.spspd.change.windows.IconTitle;
 import com.hmdzl.spspd.change.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 public class Weightstone extends Item {
 
@@ -84,6 +87,7 @@ public class Weightstone extends Item {
 
 	private void apply(Weapon weapon) {
 
+	    if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 		detach(curUser.belongings.backpack);
 
 		GLog.w(Messages.get(this,"apply"));

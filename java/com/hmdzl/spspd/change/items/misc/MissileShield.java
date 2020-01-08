@@ -186,8 +186,8 @@ public class MissileShield extends Item {
 
 			if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
 				defender.damage(damage,this);
-			} 
-			
+			}
+			Buff.prolong(defender, Paralysis.class, 3);
 			super.proc(attacker, defender, damage);
 		}
 		

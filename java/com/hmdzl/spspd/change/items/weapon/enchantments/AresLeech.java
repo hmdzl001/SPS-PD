@@ -52,7 +52,7 @@ public class AresLeech extends Weapon.Enchantment {
 		int drains = 0;
 		
 		boolean procced = false;
-		int distance = 4;	
+		int distance = 3;
 		
 		int maxValue = damage * (level + 2) / (level + 6);
 		int effValue = Math.min(Random.IntRange(0, maxValue), attacker.HT - attacker.HP);

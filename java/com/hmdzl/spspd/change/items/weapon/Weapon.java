@@ -105,8 +105,10 @@ public class Weapon extends KindOfWeapon {
 
     public int STR()
     {
-        if(Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.ROGUE && (this instanceof MeleeWeapon || this instanceof RelicMeleeWeapon ) && Dungeon.hero.belongings.weapon == this && STR > 2)
-            return STR - 2;
+        if(Dungeon.hero != null  && (this instanceof MeleeWeapon || this instanceof RelicMeleeWeapon ) &&
+				Dungeon.hero.belongings.weapon == this && STR > 2 &&
+				(Dungeon.hero.heroClass == HeroClass.ROGUE || Dungeon.hero.subClass == HeroSubClass.ARTISAN))
+          return STR - 2;
         else return STR;
     }
 
@@ -142,10 +144,10 @@ public class Weapon extends KindOfWeapon {
 			//case WARRIOR:
 				//encumbrance += 3;
 				//break;
-			case HUNTRESS:
-				encumbrance -= 2;
-				break;
-			default:
+			//case HUNTRESS:
+                //encumbrance -= 2;
+             //   break;
+                default:
 			}
 			int bonus = 0;
 			for (Buff buff : hero.buffs(RingOfSharpshooting.Aim.class)) {
@@ -208,12 +210,6 @@ public class Weapon extends KindOfWeapon {
 		int exStr = hero.STR() - STR();
 		if (exStr > 0) {
 			damage += exStr;
-		}
-
-		if (this instanceof MissileWeapon && hero.heroClass == HeroClass.HUNTRESS) {
-			if (exStr > 0) {
-				damage += 2*exStr;
-			}
 		}
 
 		if (this instanceof MissileWeapon) {

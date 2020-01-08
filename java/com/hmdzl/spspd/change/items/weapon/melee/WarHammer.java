@@ -46,8 +46,8 @@ public class WarHammer extends MeleeWeapon {
 		if (ACU < 2f) {
 			ACU+=0.10f;
 		}
-		MIN += 2;
-		MAX +=1;
+		MIN +=1;
+		MAX +=3;
 		return super.upgrade(enchant);
     }
 	

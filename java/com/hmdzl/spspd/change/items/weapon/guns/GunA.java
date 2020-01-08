@@ -37,7 +37,7 @@ public class GunA extends GunWeapon {
 	}
 
 	public GunA() {
-		super(1,3);
+		super(1,4);
 	}
 
 }

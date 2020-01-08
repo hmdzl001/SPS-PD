@@ -116,6 +116,12 @@ public class BuffIndicator extends Component {
 	public static final int UNKNOW_BOX = 77;
 	public static final int MIRROR_SHIELD = 78;
 
+	public static final int HUMAN_FAITH = 79;
+	public static final int DEMON_FAITH = 80;
+	public static final int LIFE_FAITH = 81;
+	public static final int MECH_FAITH = 82;
+	public static final int BALANCE_FAITH = 83;
+
 	public static final int SIZE = 7;
 
 	/*private static BuffIndicator heroInstance;

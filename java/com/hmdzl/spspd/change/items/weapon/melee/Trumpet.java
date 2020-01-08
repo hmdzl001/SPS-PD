@@ -71,8 +71,7 @@ public class Trumpet extends MeleeWeapon {
 
 	@Override
 	public Item upgrade(boolean enchant) {
-		MIN+=1;
-        MAX+=3;		
+        MAX+=4;
 		return super.upgrade(enchant);
     }
 	

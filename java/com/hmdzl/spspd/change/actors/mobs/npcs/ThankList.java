@@ -78,9 +78,6 @@ public class ThankList extends NPC {
 			case 1:
 			yell("‎Noodlemire");
 			break;
-			case 2:
-			yell("‎小萌新*大梦想");
-			break;
 			case 3:
 			yell("猫佑薄荷");
 			break;
@@ -133,19 +130,13 @@ public class ThankList extends NPC {
 			yell("‎qi");
 			break;
 			case 20:
-			yell("‎ian949");
-			break;			
-			case 21:
-			yell("‎阿飞");
+			yell("‎ian949");			
 			break;
 			case 22:
 			yell("‎RaiseDead");
 			break;
 			case 23:
-			yell("‎指虎教徒");
-			break;
-			case 24:
-			yell("‎西西0.12");			
+			yell("‎指虎教徒");	
 			break;
 			case 25:
 			yell("白幽妹");
@@ -192,9 +183,6 @@ public class ThankList extends NPC {
 			case 39:
 				yell("Eldskutf");
 				break;
-			case 40:
-				yell("Omicronrg9");
-				break;
 			case 41:
 				yell("SkyMuffin");
 				break;
@@ -204,10 +192,6 @@ public class ThankList extends NPC {
 			case 43:
 				yell("BlankDriver");
 				break;
-			case 44:
-				yell("Millilitre");
-				break;
-
 			case 45:
 				yell(Messages.get(this, "yell1"));
 				break;

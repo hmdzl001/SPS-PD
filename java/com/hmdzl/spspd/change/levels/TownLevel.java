@@ -26,7 +26,6 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.blobs.Alchemy;
 import com.hmdzl.spspd.change.actors.blobs.Alter;
-import com.hmdzl.spspd.change.actors.blobs.BedLight;
 import com.hmdzl.spspd.change.actors.blobs.WellWater;
 import com.hmdzl.spspd.change.actors.mobs.AdultDragonViolet;
 import com.hmdzl.spspd.change.actors.mobs.Piranha;
@@ -127,6 +126,7 @@ import com.hmdzl.spspd.change.items.weapon.melee.special.SJRBMusic;
 import com.hmdzl.spspd.change.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.change.items.weapon.melee.special.Tree;
 import com.hmdzl.spspd.change.items.weapon.missiles.MiniMoai;
+import com.hmdzl.spspd.change.items.weapon.missiles.MoneyPack;
 import com.hmdzl.spspd.change.items.weapon.missiles.PocketBall;
 import com.hmdzl.spspd.change.levels.features.Chasm;
 import com.hmdzl.spspd.change.levels.features.Door;
@@ -493,7 +493,7 @@ public class TownLevel extends Level {
 
 	public Item storeItem7 (){
 		Item prize;
-		switch (Random.Int(10)) {
+		switch (Random.Int(11)) {
 			case 0:
 				prize = new Pumpkin();
 				break;
@@ -523,6 +523,9 @@ public class TownLevel extends Level {
 				break;
 			case 9:
 				prize = new SJRBMusic();
+				break;
+			case 10:
+				prize = new MoneyPack(5);
 				break;
 			default:
 				prize = new PetFood();
@@ -903,10 +906,6 @@ public class TownLevel extends Level {
 		  alter.seed(33 + WIDTH * 32, 1);
 		  blobs.put(Alter.class, alter);
 	  }
-
-	  BedLight bl = new BedLight();
-	  bl.seed(42 + WIDTH * 5,1);
-	  blobs.put(BedLight.class, bl);
 
 		addChest(39 + WIDTH * 4);
 		addChest(40 + WIDTH * 4);

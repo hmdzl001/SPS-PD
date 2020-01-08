@@ -42,12 +42,6 @@ import com.hmdzl.spspd.change.messages.Messages;
 
 public class RankingsScene extends PixelScene {
 
-	private static final String TXT_TITLE = "Top Rankings";
-	private static final String TXT_TOTAL = "Games Played: ";
-	private static final String TXT_NO_GAMES = "No games have been played yet.";
-
-	private static final String TXT_NO_INFO = "No additional information";
-
 	private static final float ROW_HEIGHT_MAX = 20;
 	private static final float ROW_HEIGHT_MIN = 12;
 

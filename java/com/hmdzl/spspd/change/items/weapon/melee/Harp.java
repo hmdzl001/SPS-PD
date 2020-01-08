@@ -71,8 +71,7 @@ public class Harp extends MeleeWeapon {
 
 	@Override
 	public Item upgrade(boolean enchant) {    
-		MIN+=2;
-        MAX+=1;		
+		MIN+=4;
 		return super.upgrade(enchant);
     }
 	

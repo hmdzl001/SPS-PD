@@ -20,7 +20,9 @@ package com.hmdzl.spspd.change.items;
 import java.util.ArrayList;
 
 import com.hmdzl.spspd.change.Assets;
+import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.sprites.ItemSprite.Glowing;
@@ -28,6 +30,7 @@ import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class ExpOre extends Item {
 
@@ -62,7 +65,10 @@ public class ExpOre extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action.equals(AC_USE)) {
+			curUser = hero;
             hero.earnExp(hero.maxExp());
+			if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
+			detach(curUser.belongings.backpack);
 		} else {
 			super.execute(hero, action);
 

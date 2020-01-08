@@ -87,12 +87,9 @@ public class HermitCrab extends Mob implements Callback {
 		if (dmg>HT/4 && src != this){
             for (Mob mob : Dungeon.level.mobs) {
 			if (mob instanceof Shell && mob.isAlive()){
-				Shell.shellCharge+=dmg;
 				GLog.n(Messages.get(this, "absorb"));
-				GLog.n(Messages.get(this, "charge", dmg));
 				dmg=1;
-				
-			    }			
+				}
 			}
 		}			
 		super.damage(dmg, src);

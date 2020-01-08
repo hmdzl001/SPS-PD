@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
+import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.items.KindOfArmor;
 import com.hmdzl.spspd.change.items.armor.glyphs.AdaptGlyph;
 import com.hmdzl.spspd.change.items.armor.glyphs.Changeglyph;
@@ -112,7 +113,8 @@ public class Armor extends KindOfArmor {
 
 	public int STR()
 	{
-		if(Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.WARRIOR &&  Dungeon.hero.belongings.armor == this && STR > 2)
+		if(Dungeon.hero != null  &&  Dungeon.hero.belongings.armor == this && STR > 2 &&
+				( Dungeon.hero.heroClass == HeroClass.WARRIOR || Dungeon.hero.subClass == HeroSubClass.ARTISAN ))
 			return STR - 2;
 		else return STR;
 	}
@@ -155,6 +157,13 @@ public class Armor extends KindOfArmor {
 
 		float STE = this.STE;
 
+		int bonus = 0;
+		for (Buff buff : hero.buffs(RingOfEvasion.Evasion.class)) {
+			bonus += ((RingOfEvasion.Evasion) buff).level;
+		}
+
+		STE+= (float) (Math.min(6,bonus/5));
+
 		return encumbrance > 0 ? (float) (STE / Math.pow(1.5, encumbrance)) : STE;
 	}		
 	
@@ -174,7 +183,7 @@ public class Armor extends KindOfArmor {
 	public int drRoll(Hero hero) {
 		int encumbrance = STR() - hero.STR();
 		int dr = super.drRoll(hero);
-		return encumbrance > 0 ?  0 :Math.round(dr);
+		return encumbrance > 0 ?  Math.max((int)(Math.round(dr)*(1-encumbrance/3)),0) :Math.round(dr);
 	}	
 	
 

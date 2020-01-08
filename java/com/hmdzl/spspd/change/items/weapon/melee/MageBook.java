@@ -58,7 +58,7 @@ public class MageBook extends MeleeWeapon {
 	public MageBook() {
 		super(1, 1f, 1f, 1);
 		MIN = 1;
-		MAX = 6;
+		MAX = 10;
 	}
 	
 
@@ -68,6 +68,8 @@ public class MageBook extends MeleeWeapon {
 		if (STR > 1) {
 			STR --;
 		}
+		MIN+=1;
+		MAX+=1;
 		return super.upgrade(enchant);
     }
 	

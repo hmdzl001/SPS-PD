@@ -85,9 +85,8 @@ public class Flute extends MeleeWeapon {
 		if (DLY < 0.9f && RCH < 3){
 			RCH++;
 		}	
-	
-		MIN+=1;
-		MAX+=1;	
+
+		MAX+=4;
 		return super.upgrade(enchant);
     }
 	

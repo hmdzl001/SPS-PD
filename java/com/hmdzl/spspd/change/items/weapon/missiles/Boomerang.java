@@ -111,8 +111,8 @@ public class Boomerang extends MissileWeapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-		MIN += 2;
-		MAX += 5;
+		MIN += 1;
+		MAX += 2;
 		super.upgrade(enchant);
 
 		updateQuickslot();

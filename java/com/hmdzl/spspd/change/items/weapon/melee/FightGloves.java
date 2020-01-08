@@ -44,10 +44,13 @@ public class FightGloves extends MeleeWeapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-		if (ACU < 2.00f){
-		ACU+=0.05f;
+		if (ACU < 1.50f){
+			ACU+=0.1f;
 		}
-        if (ACU > 1.40f && RCH < 2){
+		if (ACU > 1.45f && DLY> 0.55f){
+			DLY-=0.1f;
+		}
+        if (DLY < 0.55f && RCH < 2){
 		RCH ++;
 		}
 		MIN+=1;

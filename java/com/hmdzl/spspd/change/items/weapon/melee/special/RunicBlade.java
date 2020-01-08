@@ -70,7 +70,7 @@ public class RunicBlade extends MeleeWeapon {
 		if (STR > 1 ){
 		STR--;}
 		MIN--;
-		MAX+=5;
+		MAX+=10;
 		
 		return super.upgrade(enchant);
     }	

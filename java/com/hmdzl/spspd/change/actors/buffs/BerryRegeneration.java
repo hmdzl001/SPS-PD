@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.change.actors.buffs;
 
+import com.hmdzl.spspd.change.Dungeon;
+import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -67,8 +69,9 @@ public class BerryRegeneration extends Buff {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-			   
-			if (target.HP < target.HT) {
+			if (Dungeon.hero.subClass == HeroSubClass.PASTOR && target.HP < target.HT*1.5){
+			  target.HP += 2 * (5+Math.round(regenleft/25));
+			} else if (target.HP < target.HT) {
 				target.HP += Math.min(5+Math.round(regenleft/25),(target.HT-target.HP));
 			}
 			

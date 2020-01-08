@@ -62,7 +62,7 @@ public class Goei extends MeleeWeapon {
 		MIN = 4;
 		MAX = 15;
 	}
-	public final int fullCharge = 100;
+
 	public int charge = 0;
 	private static final String CHARGE = "charge";
 	@Override
@@ -75,60 +75,6 @@ public class Goei extends MeleeWeapon {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
 	}
-    protected GoeiBuff passiveBuff() {
-        return new GoeiCharge();
-    }
-    public class GoeiBuff extends Buff {
-        public int level() {
-            return level;
-        }
-        public boolean isCursed() {
-            return cursed;
-        }
-    }
-    @Override
-    public boolean doEquip(Hero hero) {
-        activate(hero);
-        return super.doEquip(hero);
-    }
-    @Override
-    public void activate(Hero hero) {
-        passiveBuff = passiveBuff();
-        passiveBuff.attachTo(hero);
-    }
-    @Override
-    public boolean doUnequip(Hero hero, boolean collect, boolean single) {
-        if (super.doUnequip(hero, collect, single)) {
-            if (passiveBuff != null){
-                passiveBuff.detach();
-                passiveBuff = null;
-            }
-            hero.belongings.weapon = null;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public class GoeiCharge extends GoeiBuff {
-        @Override
-        public boolean act() {
-            if (charge < fullCharge) {
-                charge+=Math.min(level, 10);
-                updateQuickslot();
-            }
-            spend(TICK);
-            return true;
-        }
-        @Override
-        public String toString() {
-            return "GoeiCharge";
-        }
-        @Override
-        public void detach() {
-            charge = 0;
-            super.detach();
-        }
-    }
 
 	@Override
 	public Item upgrade(boolean enchant) {
@@ -136,7 +82,7 @@ public class Goei extends MeleeWeapon {
     }
     @Override
     public void proc(Char attacker, Char defender, int damage) {
-		if (charge > 99) {
+		if (charge >= 5) {
             defender.damage(damage ,this);
             charge = 0;
         }
@@ -146,12 +92,13 @@ public class Goei extends MeleeWeapon {
         if (enchantment != null) {
             enchantment.proc(this, attacker, defender, damage);
         }
+        charge++;
     }
 	@Override
 	public String desc() {
 		String info = super.desc();
 
-		info += "\n\n" + Messages.get(Weapon.class, "charge",charge,fullCharge);
+		info += "\n\n" + Messages.get(Weapon.class, "charge",charge,30);
 		return info;
 	}
 }

@@ -37,7 +37,7 @@ public class GunC extends GunWeapon {
 	}
 
 	public GunC() {
-		super(3,4);
+		super(3,5);
 	}
 
 }

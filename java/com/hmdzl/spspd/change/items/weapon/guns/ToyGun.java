@@ -63,7 +63,7 @@ public class ToyGun extends Weapon {
 	
     public int charge = 0;
 	public int maxammo = 100;
-	public int fullcharge = 6;
+	public int fullcharge = 10;
 	
 	public ToyGun() {
 		super();

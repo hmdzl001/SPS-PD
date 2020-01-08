@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.actors.buffs.Cripple;
 import com.hmdzl.spspd.change.actors.buffs.Poison;
 import com.hmdzl.spspd.change.actors.buffs.Weakness;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.utils.GLog;
 
@@ -45,7 +46,10 @@ public class PotionOfHealing extends Potion {
 
 	public static void heal(Hero hero) {
 
-		hero.HP = hero.HP+Math.min((hero.HT/2), hero.HT-hero.HP);
+		if (Dungeon.hero.subClass == HeroSubClass.PASTOR){
+			hero.HP = hero.HP+Math.min(hero.HT, (int)(hero.HT*1.5-hero.HP));
+		}
+		hero.HP = hero.HP+Math.min(hero.HT, hero.HT-hero.HP);
 		Buff.detach(hero, Poison.class);
 		Buff.detach(hero, Cripple.class);
 		Buff.detach(hero, Weakness.class);

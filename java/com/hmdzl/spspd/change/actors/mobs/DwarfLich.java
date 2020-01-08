@@ -83,7 +83,11 @@ public class DwarfLich extends Mob {
 			return super.getCloser(target);
 		}
 	}
-
+	@Override
+	public void die(Object cause) {
+		RedWraith.spawnAt(this.pos);
+		super.die(cause);
+	}
 
 	public static void spawnAround(int pos) {
 		for (int n : Level.NEIGHBOURS4) {

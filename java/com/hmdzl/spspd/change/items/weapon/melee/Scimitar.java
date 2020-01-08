@@ -52,8 +52,8 @@ public class Scimitar extends MeleeWeapon {
 			DLY-=0.05f;
 		}
 	
-     	MIN += 2;
-	    MAX += 1;
+     	MIN += 1;
+	    MAX += 4;
 		return super.upgrade(enchant);
     }
 	

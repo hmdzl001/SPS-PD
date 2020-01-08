@@ -82,7 +82,7 @@ public class HighGrass {
 					//level.drop(new NutVegetable(), pos).sprite.drop();
 				//}
 
-				if (Dungeon.growLevel(Dungeon.depth) && Random.Int(30 - ((int) (naturalismLevel * 3.34))) == 0) {
+				if (Dungeon.growLevel(Dungeon.depth) && Random.Int(15 - ((int) (naturalismLevel * 3.34))) == 0) {
 					level.drop(new NutPlant.Seed(), pos).sprite.drop();
 				}
 

@@ -40,15 +40,13 @@ import com.hmdzl.spspd.change.sprites.ShellSprite;
 import com.hmdzl.spspd.change.utils.GLog;
  
 import com.watabou.noosa.Camera;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 public class Shell extends Mob implements Callback {
 	
 	private static final float TIME_TO_ZAP = 2f;
-
-	private static final String TXT_LIGHTNING_KILLED = "%s's lightning bolt killed you...";
-	public static int shellCharge = 0;
 
 	{
 		spriteClass = ShellSprite.class;
@@ -64,12 +62,27 @@ public class Shell extends Mob implements Callback {
 		loot = new RedDewdrop();
 		lootChance = 1f;
 
-		shellCharge = 0;
-
 		properties.add(Property.MECH);
 		properties.add(Property.BOSS);
 	}
-	
+
+	private int shellCharge=0;
+
+	private static final String SHELLCHARGE	= "shellCharge";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( SHELLCHARGE, shellCharge );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		shellCharge = bundle.getInt( SHELLCHARGE );
+	}
+
+
 	@Override
 	public void beckon(int cell) {
 		// Do nothing
@@ -184,10 +197,7 @@ public class Shell extends Mob implements Callback {
 			  if (visible) {
 				((ShellSprite) sprite).zap(mob.pos);
 			  }
-			
-			  if (Level.water[mob.pos] && !mob.flying) {
-				  mobDmg *= 1.5f;
-			  }
+
 			  mob.damage(mobDmg, this);
 
 			  mob.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
@@ -199,7 +209,7 @@ public class Shell extends Mob implements Callback {
 		
 		if (Dungeon.hero.isAlive()){
 			
-		Char hero=Dungeon.hero;
+		       Char hero=Dungeon.hero;
 		
 		if (Level.distance(pos, hero.pos) > 1){
 		
@@ -211,11 +221,7 @@ public class Shell extends Mob implements Callback {
 		
 		heroDmg = Random.Int(Math.round(shellCharge/4), Math.round(shellCharge/2));
 		shellCharge-=heroDmg;
-		
-		if (Level.water[hero.pos] && !hero.flying) {
-			heroDmg *= 1.5f;
-		}
-				
+
 		hero.damage(heroDmg, this);
 
 		hero.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
@@ -273,11 +279,7 @@ public void zapAround(int dmg){
 				  if (visible) {
 					((ShellSprite) sprite).zap(ch.pos);
 				  }
-				
-				if (Level.water[ch.pos] && !ch.flying) {
-					heroDmg *= 1.5f;
-				}
-						
+
 				ch.damage(heroDmg, this);
 
 				ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);

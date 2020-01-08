@@ -47,19 +47,19 @@ public class MirrorImage extends NPC {
 		properties.add(Property.UNKNOW);
 	}
 
-	public int tier;
+	public int skin;
 
 	private int attack;
 	private int damage;
 
-	private static final String TIER = "tier";
+	private static final String SKIN = "skin";
 	private static final String ATTACK = "attack";
 	private static final String DAMAGE = "damage";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(TIER, tier);
+		bundle.put(SKIN, skin);
 		bundle.put(ATTACK, attack);
 		bundle.put(DAMAGE, damage);
 	}
@@ -67,13 +67,13 @@ public class MirrorImage extends NPC {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		tier = bundle.getInt(TIER);
+		skin = bundle.getInt(SKIN);
 		attack = bundle.getInt(ATTACK);
 		damage = bundle.getInt(DAMAGE);
 	}
 
 	public void duplicate(Hero hero) {
-		tier = hero.tier();
+		skin = hero.useskin();
 		attack = hero.hitSkill(hero);
 		damage = hero.damageRoll();
 	}
@@ -118,7 +118,7 @@ public class MirrorImage extends NPC {
 	@Override
 	public CharSprite sprite() {
 		CharSprite s = super.sprite();
-		((MirrorSprite) s).updateArmor(tier);
+		((MirrorSprite) s).updateArmor(skin);
 		return s;
 	}
 

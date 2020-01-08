@@ -143,4 +143,27 @@ public class Skeleton extends Mob {
 	public HashSet<Class<?>> immunities() {
 		return IMMUNITIES;
 	}
+	
+	public static void spawnAround(int pos) {
+		for (int n : Level.NEIGHBOURS4) {
+			int cell = pos + n;
+			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				spawnAt(cell);
+			}
+		}
+	}
+
+	public static Skeleton spawnAt(int pos) {
+		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+          
+			Skeleton w = new Skeleton();
+			w.pos = pos;
+			w.state = w.HUNTING;
+			GameScene.add(w, SPAWN_DELAY);
+			return w;
+  			
+		} else {
+			return null;
+		}
+	}			
 }

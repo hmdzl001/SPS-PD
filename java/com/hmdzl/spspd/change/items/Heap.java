@@ -229,6 +229,17 @@ public class Heap implements Bundlable {
 		}
 	}
 
+	public void spdrop(Item item) {
+
+		items.add(item);
+
+		if (sprite != null) {
+			sprite.view(image(), glowing());
+		}
+	}
+
+	
+	
 	public void replace(Item a, Item b) {
 		int index = items.indexOf(a);
 		if (index != -1) {

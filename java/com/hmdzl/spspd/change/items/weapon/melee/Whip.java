@@ -50,8 +50,8 @@ public class Whip extends MeleeWeapon {
         if (RCH < 3 && ACU >1.3){
 			RCH++;
 		}
-		MIN+=2;
-        MAX+=1;
+		MIN+=1;
+        MAX+=2;
 		
 		return super.upgrade(enchant);
     }

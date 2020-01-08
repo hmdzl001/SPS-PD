@@ -21,12 +21,14 @@ import java.util.ArrayList;
 
 import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Badges;
+import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.Statistics;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Recharging;
 import com.hmdzl.spspd.change.actors.buffs.Hunger;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.SpellSprite;
 import com.hmdzl.spspd.change.items.Item;
@@ -51,6 +53,7 @@ public class Food extends Item {
 		stackable = true;
 		//name = "ration of food";
 		image = ItemSpriteSheet.RATION;
+		defaultAction = AC_EAT;
 	}
 
 	@Override
@@ -69,6 +72,7 @@ public class Food extends Item {
 			if (hero.buff(Locked.class) != null ) {
 				GLog.w(Messages.get(Food.class, "locked"));
 			} else {
+				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 				detach(hero.belongings.backpack);
 
 				hero.buff(Hunger.class).satisfy(energy);

@@ -98,7 +98,7 @@ public class WndGame extends Window {
 				try {
 					Dungeon.saveAll();
 				} catch (IOException e) {
-					//
+					ShatteredPixelDungeon.reportException(e);
 				}
 				Game.switchScene( LoadSaveScene.class );
 			}
@@ -112,7 +112,7 @@ public class WndGame extends Window {
 						try {
 							Dungeon.saveAll();
 						} catch (IOException e) {
-							// Do nothing
+							ShatteredPixelDungeon.reportException(e);
 						}
 						Game.switchScene(TitleScene.class);
 					}
@@ -121,6 +121,11 @@ public class WndGame extends Window {
 				new RedButton( Messages.get(this, "exit")) {
 					@Override
 					protected void onClick() {
+						try {
+							Dungeon.saveAll();
+						} catch (IOException e) {
+							ShatteredPixelDungeon.reportException(e);
+						}
 						Game.instance.finish();
 					}
 				});

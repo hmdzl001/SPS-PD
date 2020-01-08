@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.Fury;
 import com.hmdzl.spspd.change.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.change.actors.buffs.Paralysis;
+import com.hmdzl.spspd.change.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.actors.buffs.SpAttack;
 import com.hmdzl.spspd.change.actors.hero.Hero;
@@ -104,7 +105,7 @@ public class WarriorSkill extends ClassSkill {
 				mob.HP += (int)mob.HT/2;
 			}
 		}
-		curUser.HP += curUser.HT/2;
+		Buff.affect(curUser,ShieldArmor.class).level(curUser.HT/2);
 		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 			Char mob = Actor.findChar(curUser.pos
 					+ Level.NEIGHBOURS8[i]);

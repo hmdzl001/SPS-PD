@@ -37,7 +37,7 @@ public class GunE extends GunWeapon {
 	}
 
 	public GunE() {
-		super(5,5);
+		super(5,6);
 	}
 
 }

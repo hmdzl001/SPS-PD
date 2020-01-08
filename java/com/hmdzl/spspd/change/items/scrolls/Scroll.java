@@ -28,6 +28,7 @@ import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Locked;
 import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.ItemStatusHandler;
 import com.hmdzl.spspd.change.items.artifacts.UnstableSpellbook;
@@ -37,6 +38,7 @@ import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public abstract class Scroll extends Item {
 
@@ -126,8 +128,10 @@ public abstract class Scroll extends Item {
 				GLog.n(Messages.get(this, "cursed") );
 			}  else {
 				curUser = hero;
+				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 				curItem = detach(hero.belongings.backpack);
 				doRead();
+				//readAnimation();
 			}
 
 		} else {

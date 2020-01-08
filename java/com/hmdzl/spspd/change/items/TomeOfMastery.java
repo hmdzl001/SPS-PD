@@ -94,6 +94,10 @@ public class TomeOfMastery extends Item {
 			case SOLDIER:
 				way1 = HeroSubClass.AGENT;
 				way2 = HeroSubClass.LEADER;
+				break;	
+			case FOLLOWER:
+				way1 = HeroSubClass.PASTOR;
+				way2 = HeroSubClass.ARTISAN;
 				break;				
 			}
 			GameScene.show(new WndChooseWay(this, way1, way2));

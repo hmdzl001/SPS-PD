@@ -42,7 +42,7 @@ import com.watabou.utils.Bundle;
 		//name = "Jump Shoes";
 		image = ItemSpriteSheet.JUMP;
 		defaultAction = AC_JUMP;
-unique = true;
+        unique = true;
 		 
 	}
 	

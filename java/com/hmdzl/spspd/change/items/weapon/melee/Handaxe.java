@@ -51,7 +51,7 @@ public class Handaxe extends MeleeWeapon {
 			STR--;
 		}
 		
-		MIN+=3;
+		MIN+=2;
         MAX+=3;
 		
 		return super.upgrade(enchant);

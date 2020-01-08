@@ -41,8 +41,6 @@ import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
-import static com.hmdzl.spspd.change.actors.mobs.Shell.shellCharge;
-
 public class CrabKing extends Mob {
 
 	private static final int JUMP_DELAY = 5;
@@ -81,12 +79,10 @@ public class CrabKing extends Mob {
 	protected boolean act() {
 		boolean result = super.act();
 
-		int regen=Math.round(Shell.shellCharge/10);
-		
-		if (HP < HT && Shell.shellCharge>10) {
+
+		if (HP < HT) {
 			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
-			HP = HP + regen;
-			Shell.shellCharge-=regen;
+			HP = HP + 10;
 			GLog.n(Messages.get(this,"heal"));
 		}
 		return result;

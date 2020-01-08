@@ -65,20 +65,14 @@ public class DwarfLichSprite extends MobSprite {
 	}
 	
 	public void boneExplode(int cell) {
-		
-		Camera.main.shake(3, 0.7f);
 		for (int n : Level.NEIGHBOURS9) {
 			int c = cell + n;
 			if (c >= 0 && c < Level.getLength()) {
 				if (Dungeon.visible[c] && Level.passable[c]) {
 					Sample.INSTANCE.play(Assets.SND_BONES);
 					CellEmitter.center(c).start(Speck.factory(Speck.RATTLE), 0.1f, 3);
-					CellEmitter.center(c).start(Speck.factory(Speck.ROCK), 0.07f, 10);
 				}
 
-				if(Random.Int(100)==42){RedWraith.spawnAt(c);}
-				
-				
 				Char ch = Actor.findChar(c);
 				if (ch != null && ch==Dungeon.hero) {
 					// those not at the center of the blast take damage less

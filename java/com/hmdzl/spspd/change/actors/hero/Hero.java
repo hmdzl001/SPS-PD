@@ -29,11 +29,14 @@ import com.hmdzl.spspd.change.actors.buffs.AttackUp;
 import com.hmdzl.spspd.change.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.change.actors.buffs.BoxStar;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.Charm;
+import com.hmdzl.spspd.change.actors.buffs.DamageUp;
 import com.hmdzl.spspd.change.actors.buffs.DeadRaise;
 import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.Dry;
 import com.hmdzl.spspd.change.actors.buffs.GlassShield;
 import com.hmdzl.spspd.change.actors.buffs.GoldTouch;
+import com.hmdzl.spspd.change.actors.buffs.Haste;
 import com.hmdzl.spspd.change.actors.buffs.HighAttack;
 import com.hmdzl.spspd.change.actors.buffs.HighLight;
 import com.hmdzl.spspd.change.actors.buffs.HighVoice;
@@ -42,27 +45,41 @@ import com.hmdzl.spspd.change.actors.buffs.MirrorShield;
 import com.hmdzl.spspd.change.actors.buffs.Muscle;
 import com.hmdzl.spspd.change.actors.buffs.NewCombo;
 import com.hmdzl.spspd.change.actors.buffs.Notice;
+import com.hmdzl.spspd.change.actors.buffs.ParyAttack;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm;
 import com.hmdzl.spspd.change.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.change.actors.buffs.Shocked;
 import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.buffs.WarGroove;
+import com.hmdzl.spspd.change.actors.buffs.faithbuff.BalanceFaith;
+import com.hmdzl.spspd.change.actors.buffs.faithbuff.DemonFaith;
+import com.hmdzl.spspd.change.actors.buffs.faithbuff.HumanFaith;
+import com.hmdzl.spspd.change.actors.buffs.faithbuff.LifeFaith;
+import com.hmdzl.spspd.change.actors.buffs.faithbuff.MechFaith;
 import com.hmdzl.spspd.change.actors.mobs.SommonSkeleton;
 import com.hmdzl.spspd.change.effects.Lightning;
 import com.hmdzl.spspd.change.items.DolyaSlate;
+import com.hmdzl.spspd.change.items.Generator;
 import com.hmdzl.spspd.change.items.KindOfArmor;
 import com.hmdzl.spspd.change.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.change.items.artifacts.AlienBag;
 import com.hmdzl.spspd.change.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.change.items.artifacts.Pylon;
 import com.hmdzl.spspd.change.items.misc.AttackShield;
 import com.hmdzl.spspd.change.items.misc.BShovel;
 import com.hmdzl.spspd.change.items.misc.CopyBall;
+import com.hmdzl.spspd.change.items.misc.DanceLion;
 import com.hmdzl.spspd.change.items.misc.FourClover;
 import com.hmdzl.spspd.change.items.misc.GunOfSoldier;
+import com.hmdzl.spspd.change.items.misc.HealBag;
+import com.hmdzl.spspd.change.items.misc.HorseTotem;
+import com.hmdzl.spspd.change.items.misc.JumpF;
 import com.hmdzl.spspd.change.items.misc.JumpP;
 import com.hmdzl.spspd.change.items.misc.JumpS;
 import com.hmdzl.spspd.change.items.misc.PotionOfMage;
+import com.hmdzl.spspd.change.items.misc.RangeBag;
+import com.hmdzl.spspd.change.items.misc.SavageHelmet;
 import com.hmdzl.spspd.change.items.misc.Shovel;
 import com.hmdzl.spspd.change.items.rings.RingOfMagic;
 import com.hmdzl.spspd.change.items.skills.ClassSkill;
@@ -174,23 +191,6 @@ import static com.hmdzl.spspd.change.Dungeon.hero;
 
 public class Hero extends Char {
 
-	private static final String TXT_LEAVE = "One does not simply leave Pixel Dungeon.";
-	private static final String TXT_OVERFILL = "HP Overfilled by %s";
-
-	private static final String TXT_LEVEL_UP = "level up!";
-	private static final String TXT_NEW_LEVEL = "Welcome to level %d! Now you are healthier and more focused. "
-			+ "It's easier for you to hit enemies and dodge their attacks.";
-
-	public static final String TXT_YOU_NOW_HAVE = "You now have %s";
-
-	private static final String TXT_SOMETHING_ELSE = "There is something else here";
-	private static final String TXT_LOCKED_CHEST = "This chest is locked and you don't have matching key";
-	private static final String TXT_LOCKED_DOOR = "You don't have a matching key";
-	private static final String TXT_NOTICED_SMTH = "You noticed something";
-
-	private static final String TXT_WAIT = "...";
-	private static final String TXT_SEARCH = "search";
-	//private static final String TXT_JUMP = "jump";
 	private static final String TXT_VALUE = "%+d";
 
 	public static final int STARTING_STR = 10;
@@ -199,7 +199,6 @@ public class Hero extends Char {
 
 	private static final float TIME_TO_REST = 1f;
 	private static final float TIME_TO_SEARCH = 2f;
-	//private static final float TIME_TO_JUMP = 2f;
 
 	public HeroClass heroClass = HeroClass.ROGUE;
 	public HeroSubClass subClass = HeroSubClass.NONE;
@@ -281,6 +280,8 @@ public class Hero extends Char {
 		}	
 		if (subClass == HeroSubClass.BATTLEMAGE)
 			magicSkill += 5;
+		if (subClass == HeroSubClass.SUPERSTAR)
+			magicSkill += 4;
 		if (buff(Arcane.class)!= null)
 			magicSkill += 10;
 
@@ -373,8 +374,8 @@ public class Hero extends Char {
 		Buff.affect(this, Hunger.class);
 	}
 
-	public int tier() {
-		return belongings.armor == null ? 0 : /*belongings.armor.tier;*/ 7 - Dungeon.skins;
+	public int useskin() {
+		return belongings.armor == null ? 0 : 7 - Dungeon.skins;
 	}
 
 	public boolean shoot(Char enemy, MissileWeapon wep) {
@@ -480,6 +481,12 @@ public class Hero extends Char {
 			dmg *= hatk.level();
 			Buff.detach(this, HighAttack.class);
 		}
+		
+        ParyAttack paryatk = buff(ParyAttack.class);
+		if (buff(ParyAttack.class) != null){
+			dmg *= (1+paryatk.level()*0.4);
+		}
+		
 
         if (buff(WarGroove.class) != null){ dmg *= 1.5f; Buff.detach(this, WarGroove.class);}
 		
@@ -659,9 +666,6 @@ public class Hero extends Char {
 				&& (journal.level>1 || journal.rooms[0]) 
 				&& journal.charge<journal.fullCharge){
 			journal.charge++;
-			if (journal.charge>=journal.fullCharge){
-				GLog.p(Messages.get(Hero.class, "otiluke"));
-			}
 		}
 		
 		Jumpshoes jump = belongings.getItem(Jumpshoes.class);
@@ -684,6 +688,9 @@ public class Hero extends Char {
 
 		JumpS jumps = belongings.getItem(JumpS.class);
 		if (jumps!=null && jumps.charge<jumps.fullCharge) {jumps.charge++;}
+
+		JumpF jumpf = belongings.getItem(JumpF.class);
+		if (jumpf!=null && jumpf.charge<jumpf.fullCharge) {jumpf.charge++;}
 		
 		Shovel shovel = belongings.getItem(Shovel.class);
 		if (shovel!=null && shovel.charge<shovel.fullCharge) {shovel.charge++;}
@@ -705,6 +712,12 @@ public class Hero extends Char {
 
         OrbOfZot ofz = belongings.getItem(OrbOfZot.class);
 		if (ofz!=null && ofz.charge<ofz.fullCharge) {ofz.charge++;}
+
+		DanceLion lion = belongings.getItem(DanceLion.class);
+		if (lion!=null && lion.charge<lion.fullCharge) {lion.charge++;}
+		
+		HealBag healbag = belongings.getItem(HealBag.class);
+		if (healbag!=null && healbag.charge<healbag.fullCharge) {healbag.charge++;}		
 
 		if (buff(DeadRaise.class) != null && Random.Int(30) == 0) {
 			ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
@@ -1078,7 +1091,7 @@ public class Hero extends Char {
 				Sample.INSTANCE.play(Assets.SND_UNLOCK);
 
 			} else {
-				GLog.w( Messages.get(this, "locked_door"));
+				GLog.w( Messages.get(Hero.class, "locked_door"));
 				ready();
 			}
 
@@ -1425,6 +1438,15 @@ public class Hero extends Char {
 				}
 			}
 				break;
+			case PASTOR:
+				if (Random.Int (6) == 0) {
+					Buff.prolong(enemy,Charm.class,6f).object = id();
+				}
+			case ARTISAN:
+				if (enemy.HP <= damage && Random.Int(6) == 0) {
+				Dungeon.level.drop(Generator.random(), enemy.pos).sprite.drop();
+				}
+				break;
 		default:
 		}
 		if (buff(Shocked.class)!=null){
@@ -1440,6 +1462,58 @@ public class Hero extends Char {
 			Dungeon.gold+= damage;
 			hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, damage);
 		}
+
+		if (buff(MechFaith.class)!= null && ((enemy.properties().contains(Property.BEAST))
+				|| (enemy.properties().contains(Property.PLANT))
+				|| (enemy.properties().contains(Property.ELEMENT))) ){
+			damage=(int)(damage*1.5);
+		}
+
+		if (buff(LifeFaith.class)!= null && ((enemy.properties().contains(Property.MECH))
+				|| (enemy.properties().contains(Property.ALIEN))
+				|| (enemy.properties().contains(Property.GOBLIN))) ){
+			damage=(int)(damage*1.5);
+		}
+
+		if (buff(DemonFaith.class)!= null && ((enemy.properties().contains(Property.HUMAN))
+				|| (enemy.properties().contains(Property.ORC))
+				|| (enemy.properties().contains(Property.ELF))
+				|| (enemy.properties().contains(Property.DWARF))
+				|| (enemy.properties().contains(Property.TROLL)))){
+			damage=(int)(damage*1.5);
+		}
+
+		if (buff(HumanFaith.class)!= null && ((enemy.properties().contains(Property.DRAGON))
+				|| (enemy.properties().contains(Property.DEMONIC))
+				|| (enemy.properties().contains(Property.UNKNOW))
+				|| (enemy.properties().contains(Property.UNDEAD))) ){
+			damage=(int)(damage*1.5);
+		}
+
+		if (buff(BalanceFaith.class)!= null && ((enemy.properties().contains(Property.BOSS))
+				|| (enemy.properties().contains(Property.MINIBOSS))) ){
+			damage=(int)(damage*1.5);
+		}
+
+		HorseTotem horseTotem = belongings.getItem(HorseTotem.class);
+		HorseTotem.HorseTotemBless totembuff = buff(HorseTotem.HorseTotemBless.class);
+		if (totembuff != null) {
+			int x = Random.Int(1,damage/3);
+			damage +=x;
+			Buff.prolong(this, Haste.class,4f);
+		} else if (horseTotem!=null && Random.Int(5)==0) {
+			int x = Random.Int(1,damage/3);
+			damage +=x;
+			Buff.prolong(this, Haste.class,4f);
+		}
+
+		RangeBag.RangeBagBless rangeBless = buff(RangeBag.RangeBagBless.class);
+		if (rangeBless != null){
+           if (enemy.HP <= damage && Random.Int(6) == 0) {
+               Dungeon.level.drop(Generator.random(Generator.Category.LINKDROP), enemy.pos).sprite.drop();
+           }
+        }
+
 		return damage;		
 
 	}
@@ -1477,6 +1551,16 @@ public class Hero extends Char {
 		Sungrass.Health health = buff(Sungrass.Health.class);
 		if (health != null) {
 			health.absorb(damage);
+		}
+
+		SavageHelmet helmet = belongings.getItem(SavageHelmet.class);
+		SavageHelmet.SavageHelmetBless helmetbuff = buff(SavageHelmet.SavageHelmetBless.class);
+		if (helmetbuff != null) {
+			helmetbuff.absorb(damage);
+		} else if (helmet!=null && Random.Int(5)==0) {
+			int x = Random.Int(1,damage/2);
+			damage -=x;
+			Buff.affect(this, DamageUp.class).level(x);
 		}
 
 		if (arm != null) {
@@ -1531,6 +1615,50 @@ public class Hero extends Char {
 			GLog.w(Messages.get(this, "pain_resist"));
 		}
 
+		if (enemy != null) {
+			if (buff(LifeFaith.class) != null) {
+				if ((enemy.properties().contains(Property.BEAST))
+						|| (enemy.properties().contains(Property.PLANT))
+						|| (enemy.properties().contains(Property.ELEMENT))) {
+					dmg = (int) Math.ceil(dmg * 0.75);
+				}
+			}
+
+			if (buff(MechFaith.class) != null) {
+				if ((enemy.properties().contains(Property.MECH))
+						|| (enemy.properties().contains(Property.ALIEN))
+						|| (enemy.properties().contains(Property.GOBLIN))) {
+					dmg = (int) Math.ceil(dmg * 0.75);
+				}
+			}
+
+			if (buff(HumanFaith.class) != null) {
+				if ((enemy.properties().contains(Property.HUMAN))
+						|| (enemy.properties().contains(Property.ORC))
+						|| (enemy.properties().contains(Property.ELF))
+						|| (enemy.properties().contains(Property.DWARF))
+						|| (enemy.properties().contains(Property.TROLL))) {
+					dmg = (int) Math.ceil(dmg * 0.75);
+				}
+			}
+
+			if (buff(DemonFaith.class) != null) {
+				if ((enemy.properties().contains(Property.DRAGON))
+						|| (enemy.properties().contains(Property.DEMONIC))
+						|| (enemy.properties().contains(Property.UNKNOW))
+						|| (enemy.properties().contains(Property.UNDEAD))) {
+					dmg = (int) Math.ceil(dmg * 0.75);
+				}
+			}
+
+			if (buff(BalanceFaith.class) != null) {
+				if ((enemy.properties().contains(Property.BOSS))
+						|| (enemy.properties().contains(Property.MINIBOSS))) {
+					dmg = (int) Math.ceil(dmg * 0.75);
+				}
+			}
+		}
+
 		int tenacity = 0;
 		for (Buff buff : buffs(RingOfTenacity.Tenacity.class)) {
 			tenacity += ((RingOfTenacity.Tenacity) buff).level;
@@ -1556,6 +1684,8 @@ public class Hero extends Char {
 		if (buff(ArmorBreak.class) != null){
 			dmg= (int) Math.ceil(dmg *(ab.level()*0.01+1));
 		}*/
+
+
 
 		super.damage(dmg, src);
 		
@@ -1750,6 +1880,9 @@ public class Hero extends Char {
 		
 		AlienBag.bagRecharge bags = buff(AlienBag.bagRecharge.class);
 		if (bags != null) bags.gainExp(percent);
+		
+		Pylon.beaconRecharge pylon = buff(Pylon.beaconRecharge.class);
+		if (pylon != null) pylon.gainExp(percent);		
 
 		boolean levelUp = false;
 		while (this.exp >= maxExp()) {
@@ -1801,12 +1934,6 @@ public class Hero extends Char {
 			if (value > 0) {
 				HP += value;
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
-			}
-			if (HP > HT && (HT > 10000 || HP>50000)) {
-				hero.damage(hero.HT,this);
-				if (!hero.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
-				}
 			}
 
 			buff(Hunger.class).satisfy(10);
@@ -1875,12 +2002,9 @@ public class Hero extends Char {
 		super.remove(buff);
 		if (buff instanceof RingOfMight.Might) {
 			if (((RingOfMight.Might) buff).level > 0) {
-				int dmg = ((RingOfMight.Might) buff).level * 10;
 				HT -= ((RingOfMight.Might) buff).level * 10;
-				hero.damage(dmg ,this);
 				if (!hero.isAlive()) {
 					Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
-						//GLog.n("The Chalice sucks your life essence dry...");
 				}
 
 			}
@@ -1937,20 +2061,6 @@ public class Hero extends Char {
 				}
 			}
 		}
-		/*if (armor != null  && !armor.cursed){
-
-			this.HP = HT/2;
-
-			Buff.detach(this, Paralysis.class);
-			spend(-cooldown());
-
-			new Flare(8, 32).color(0xFFFF66, true).show(sprite, 2f);
-			CellEmitter.get(this.pos)
-					.start(Speck.factory(Speck.LIGHT), 0.2f, 3);
-			Sample.INSTANCE.play(Assets.SND_TELEPORT);
-			GLog.w(Messages.get(this, "armor_revive"));
-			return;
-		}*/
 
 		if (ankh != null && ankh.isBlessed()) {
 			this.HP = HT;
@@ -2035,9 +2145,6 @@ public class Hero extends Char {
 		}
 
 		GameScene.gameOver();
-
-        //Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
-		//GLog.n( Messages.get(this, "dead") );
 		
 		if (cause instanceof Hero.Doom) {
 			((Hero.Doom) cause).onDeath();

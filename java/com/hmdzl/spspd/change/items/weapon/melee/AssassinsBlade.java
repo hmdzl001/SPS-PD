@@ -41,7 +41,7 @@ public class AssassinsBlade extends MeleeWeapon {
 	
     @Override
 	public Item upgrade(boolean enchant) {
-        MIN+=2;
+        MIN+=3;
 		MAX+=1;
 		return super.upgrade(enchant);
     }	

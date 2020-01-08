@@ -47,8 +47,7 @@ public class Halberd extends MeleeWeapon {
         if (DLY > 1.50f){
 		DLY-=0.05f;
 		}
-
-        MIN +=4;		
+        MAX+=5;
 		return super.upgrade(enchant);
     }
 	

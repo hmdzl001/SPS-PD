@@ -17,13 +17,16 @@
  */
 package com.hmdzl.spspd.change.actors.mobs;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.change.actors.buffs.Silent;
+import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.DolyaSlate;
 import com.hmdzl.spspd.change.items.Elevator;
 import com.hmdzl.spspd.change.items.journalpages.Vault;
+import com.hmdzl.spspd.change.levels.HallsBossLevel;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
@@ -60,7 +63,8 @@ import com.hmdzl.spspd.change.sprites.PinningFistSprite;
 import com.hmdzl.spspd.change.sprites.RottingFistSprite;
 import com.hmdzl.spspd.change.sprites.YogSprite;
 import com.hmdzl.spspd.change.utils.GLog;
- 
+
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Yog extends Mob {
@@ -79,7 +83,75 @@ public class Yog extends Mob {
 	}
 	
 	private static final int REGENERATION = 50;
+	private int breaks=0;
 
+	public boolean checkYear() {
+
+		int yearAlive = 0;
+		if (Dungeon.level.mobs != null) {
+			for (Mob mob : Dungeon.level.mobs) {
+				if (mob instanceof YearBeast) {
+					yearAlive++;
+				}
+			}
+		}
+		if (yearAlive++ > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean act() {
+
+		if( 4 - breaks > 5 * HP / HT ) {
+			breaks++;
+				int newPos = -1;
+				for (int i = 0; i < 20; i++) {
+					newPos = Dungeon.level.randomRespawnCellMob();
+					if (newPos != -1) {
+						break;
+					}
+				}
+				if (newPos != -1) {
+					Actor.freeCell(pos);
+					CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
+					pos = newPos;
+					sprite.place(pos);
+					sprite.visible = Dungeon.visible[pos];
+					GLog.n(Messages.get(this, "blink"));
+				}
+
+			if (breaks == 4 && !checkYear()){
+				int newPos2;
+				do {
+					newPos2 = Random.Int(Level.getLength());
+				} while (!Level.passable[newPos2]
+						|| Level.adjacent(newPos2, Dungeon.hero.pos)
+						|| Actor.findChar(newPos2) != null);
+				YearBeast.spawnAt(newPos2);
+			}
+			return true;
+		}
+
+		return super.act();
+	}
+
+	private static final String BREAKS	= "breaks";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( BREAKS, breaks );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		breaks = bundle.getInt( BREAKS );
+
+	}
 	private static int fistsCount = 0;
 
 	public Yog() {
@@ -115,7 +187,7 @@ public class Yog extends Mob {
 			}
 		}
 		
-		return 10+(30*checkFists);
+		return 0+(30*checkFists);
 	}
 	
 	@Override
@@ -125,36 +197,9 @@ public class Yog extends Mob {
 	
 	@Override
 	public void damage(int dmg, Object src) {
-
-				
-		if (HP<(HT/8) && Random.Float() < 0.50f && dmg<HP){
-			int newPos = -1;
-				for (int i = 0; i < 20; i++) {
-				newPos = Dungeon.level.randomRespawnCellMob();
-				if (newPos != -1) {
-					break;
-				}
-			}
-			if (newPos != -1) {
-				Actor.freeCell(pos);
-				CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
-				pos = newPos;
-				sprite.place(pos);
-				sprite.visible = Dungeon.visible[pos];
-				GLog.n(Messages.get(this, "blink"));
-			}		
-					
-			if (Dungeon.level.mobs.size()<5){
-			Eye.spawnAroundChance(newPos);
-			}
-			
-			if (fistsCount==0){
-				spawnFists();
-				sprite.emitter().burst(ShadowParticle.UP, 2);
-				HP += REGENERATION;
-			}
+		if (dmg > HP && (src instanceof Hero)) {
+			dmg = 1;
 		}
-
 		super.damage(dmg, src);
 	}
 
@@ -185,7 +230,11 @@ public class Yog extends Mob {
 				mob.aggro(enemy);
 			}
 		}
-
+		if (fistsCount<1){
+			spawnFists();
+			sprite.emitter().burst(ShadowParticle.UP, 2);
+			this.damage(REGENERATION,this);
+		}
 		return super.defenseProc(enemy, damage);
 	}
 
@@ -197,7 +246,7 @@ public class Yog extends Mob {
 	@Override
 	public void die(Object cause) {
 
-	   // ((HallsBossLevel) Dungeon.level).unseal();
+	    ((HallsBossLevel) Dungeon.level).unseal();
 	
 		for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
 			if (mob instanceof BurningFist || mob instanceof RottingFist || mob instanceof Eye || mob instanceof PinningFist || mob instanceof InfectingFist) {

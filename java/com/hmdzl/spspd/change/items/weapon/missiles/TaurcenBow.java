@@ -267,7 +267,7 @@ public class TaurcenBow extends Weapon {
 		@Override
 		public void proc(Char attacker, Char defender, int damage) {
 			int DMG = damage;
-			if (TaurcenBow.charge > 8 ) {
+			if (TaurcenBow.charge > 7 ) {
 				if (arrow == Arrow.NONE) {
 					if (defender.isAlive()) Buff.affect(defender, ArmorBreak.class,5f).level(40);
 					defender.damage(DMG,this);

@@ -25,6 +25,7 @@ import com.hmdzl.spspd.change.actors.buffs.Hot;
 import com.hmdzl.spspd.change.actors.buffs.Light;
 import com.hmdzl.spspd.change.actors.buffs.Terror;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
+import com.hmdzl.spspd.change.actors.mobs.YearBeast;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
 import com.hmdzl.spspd.change.effects.particles.FlameParticle;
@@ -34,6 +35,7 @@ import com.hmdzl.spspd.change.items.Heap;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.bombs.Bomb;
 import com.hmdzl.spspd.change.items.bombs.MiniBomb;
+import com.hmdzl.spspd.change.items.scrolls.ScrollOfRage;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.levels.Level;
 import com.hmdzl.spspd.change.levels.Terrain;
@@ -86,12 +88,14 @@ public class FireCracker extends MeleeWeapon {
     @Override
     public void proc(Char attacker, Char defender, int damage) {
 
+		if (defender instanceof YearBeast) {
+             defender.damage(1,this);
+		}
+
 		if (Random.Int(100)> 75) {
-			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-				mob.beckon(attacker.pos);
-			}
-			attacker.sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.3f, 3);
-			Sample.INSTANCE.play(Assets.SND_MIMIC);
+            for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+                mob.beckon(attacker.pos);
+            }
 		}
 
 		if (Random.Int(100)> 50 ){

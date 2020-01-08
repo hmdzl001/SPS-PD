@@ -69,6 +69,7 @@ import com.hmdzl.spspd.change.actors.mobs.pets.Stone;
 import com.hmdzl.spspd.change.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.change.actors.mobs.pets.VioletDragon;
 
+import com.hmdzl.spspd.change.actors.mobs.pets.YearPet;
 import com.hmdzl.spspd.change.effects.Pushing;
 import com.hmdzl.spspd.change.effects.particles.FlowParticle;
 import com.hmdzl.spspd.change.effects.particles.WindParticle;
@@ -104,6 +105,7 @@ import com.hmdzl.spspd.change.levels.traps.ChangeSheepTrap;
 import com.hmdzl.spspd.change.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.change.levels.traps.HeapGenTrap;
 import com.hmdzl.spspd.change.levels.traps.*;
+import com.hmdzl.spspd.change.sprites.ItemSprite;
 import com.hmdzl.spspd.change.ui.CustomTileVisual;
 import com.hmdzl.spspd.change.mechanics.ShadowCaster;
 import com.hmdzl.spspd.change.messages.Messages;
@@ -784,7 +786,11 @@ public abstract class Level implements Bundlable {
 				   if (Dungeon.hero.petType==21){
 					   RibbonRat pet = new RibbonRat();
 						  spawnPet(pet,petpos,heropos);					 
-				   }					   		   		   
+				   }
+				   if (Dungeon.hero.petType==22){
+					   YearPet pet = new YearPet();
+						  spawnPet(pet,petpos,heropos);					 
+				   }					   
 				}
 				
 				spend(PET_TICK);
@@ -1182,43 +1188,24 @@ public abstract class Level implements Bundlable {
 	
 	public Heap drop(Item item, int cell) {
 
-		// This messy if statement deals will items which should not drop in
-		// challenges primarily.
-		//if (/*(Dungeon.isChallenged(Challenges.NO_FOOD) && (item instanceof Food || item instanceof BlandfruitBush.Seed || item instanceof ShoppingCart))
-				//|| (Dungeon.isChallenged(Challenges.NO_ARMOR) && item instanceof Armor)
-				//|| (Dungeon.isChallenged(Challenges.NO_HEALING) && item instanceof PotionOfHealing)
-				//|| (Dungeon.isChallenged(Challenges.NO_HERBALISM) && (item instanceof Plant.Seed
-						//|| item instanceof Dewdrop || item instanceof SeedPouch))
-				//|| (Dungeon.isChallenged(Challenges.NO_SCROLLS) && ((item instanceof Scroll && !(item instanceof ScrollOfUpgrade)) || item instanceof ScrollHolder))
-				//|| item == null) {
+		if (item == null ){
 
-			//Heap heap = new Heap();
-			//GameScene.add(heap);
-			//return heap;
+			//create a dummy heap, give it a dummy sprite, don't add it to the game, and return it.
+			//effectively nullifies whatever the logic calling this wants to do, including dropping items.
+			Heap heap = new Heap();
+			ItemSprite sprite = heap.sprite = new ItemSprite();
+			sprite.link(heap);
+			return heap;
 
-		//}
-
-		if ((map[cell] == Terrain.ALCHEMY)
-				&& (!(item instanceof Plant.Seed || item instanceof Blandfruit)
-						|| item instanceof BlandfruitBush.Seed
-						|| (item instanceof Blandfruit && (((Blandfruit) item).potionAttrib != null || heaps
-								.get(cell) != null)) || Dungeon.hero
-						.buff(AlchemistsToolkit.alchemy.class) != null
-						&& Dungeon.hero.buff(AlchemistsToolkit.alchemy.class)
-								.isCursed())) {
-			int n;
-			do {
-				n = cell + NEIGHBOURS8[Random.Int(8)];
-			} while (map[n] != Terrain.EMPTY_SP);
-			cell = n;
-		}
-
+		}	
+	
 		Heap heap = heaps.get(cell);
 		if (heap == null) {
 
 			heap = new Heap();
 			heap.seen = Dungeon.visible[cell];
 			heap.pos = cell;
+			heap.drop(item);
 			if (map[cell] == Terrain.CHASM
 					|| (Dungeon.level != null && pit[cell])) {
 				Dungeon.dropToChasm(item);
@@ -1239,8 +1226,9 @@ public abstract class Level implements Bundlable {
 			} while (!Level.passable[n] && !Level.avoid[n]);
 			return drop(item, n);
 
+		} else {
+			heap.drop(item);
 		}
-		heap.drop(item);
 
 		if (Dungeon.level != null) {
 			press(cell, null);
@@ -1248,6 +1236,57 @@ public abstract class Level implements Bundlable {
 
 		return heap;
 	}
+	
+	public Heap spdrop(Item item, int cell) {
+
+		if (item == null ){
+
+			//create a dummy heap, give it a dummy sprite, don't add it to the game, and return it.
+			//effectively nullifies whatever the logic calling this wants to do, including dropping items.
+			Heap heap = new Heap();
+			ItemSprite sprite = heap.sprite = new ItemSprite();
+			sprite.link(heap);
+			return heap;
+
+		}	
+	
+		Heap heap = heaps.get(cell);
+		if (heap == null) {
+
+			heap = new Heap();
+			heap.seen = Dungeon.visible[cell];
+			heap.pos = cell;
+			heap.spdrop(item);
+			if (map[cell] == Terrain.CHASM
+					|| (Dungeon.level != null && pit[cell])) {
+				Dungeon.dropToChasm(item);
+				GameScene.discard(heap);
+			} else {
+				heaps.put(cell, heap);
+				GameScene.add(heap);
+			}
+
+		} else if (heap.type == Heap.Type.LOCKED_CHEST
+				|| heap.type == Heap.Type.CRYSTAL_CHEST
+				//|| heap.type == Heap.Type.MONSTERBOX
+				) {
+
+			int n;
+			do {
+				n = cell + Level.NEIGHBOURS8[Random.Int(8)];
+			} while (!Level.passable[n] && !Level.avoid[n]);
+			return spdrop(item, n);
+
+		} else {
+			heap.spdrop(item);
+		}
+
+		if (Dungeon.level != null) {
+			press(cell, null);
+		}
+
+		return heap;
+	}	
 
 	public Plant plant(Plant.Seed seed, int pos) {
 

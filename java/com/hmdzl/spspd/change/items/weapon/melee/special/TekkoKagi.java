@@ -46,7 +46,7 @@ public class TekkoKagi extends MeleeWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 
-		if (Random.Int(100) < 20) {
+		if (Random.Int(100) < 20 ) {
 			defender.damage(Random.Int(defender.HT/4, defender.HT/2), this);
 			defender.sprite.emitter().burst(ShadowParticle.UP, 5);
 			if (!defender.isAlive() && attacker instanceof Hero) {

@@ -208,7 +208,10 @@ public class DM300 extends Mob implements Callback {
 					break;	
 				case SOLDIER:
 					badgeToCheck = Badge.MASTERY_SOLDIER;
-					break;							
+					break;	
+				case FOLLOWER:
+					badgeToCheck = Badge.MASTERY_FOLLOWER;
+					break;						
 				}
 				
 				

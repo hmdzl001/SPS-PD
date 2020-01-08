@@ -101,7 +101,7 @@ public class GunWeapon extends Weapon {
 
 
 	private int min() {
-		return tier + 4;
+		return tier + 3;
 	}
 
 	private int max() {
@@ -114,7 +114,7 @@ public class GunWeapon extends Weapon {
 
 	public Item upgrade() {
 		MIN += 2;
-		MAX += 3 + tier/2;
+		MAX += 2 + tier/2;
 		maxammo += 10;
 
 		return super.upgrade();
@@ -147,18 +147,16 @@ public class GunWeapon extends Weapon {
 		
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
-		
-		 
 	}
 	
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		//actions.remove(AC_EQUIP);	
-	if (isEquipped(hero)){
+	if (isEquipped(hero)  || Dungeon.hero.subClass != HeroSubClass.AGENT){
 		actions.add(AC_SHOOT);
-		actions.add(AC_RELOAD);
 	}
+	actions.add(AC_RELOAD);
 	actions.add(AC_AMMO);
 		return actions;
 	}
@@ -183,9 +181,7 @@ public class GunWeapon extends Weapon {
 				}
 			} else GameScene.selectCell( shooter );
 		} else if(action.equals(AC_RELOAD)){
-			if (!isEquipped( hero ) && Dungeon.hero.subClass != HeroSubClass.AGENT)
-				GLog.i( Messages.get(ToyGun.class, "need_to_equip") );
-			else if (charge == fullcharge){
+            if (charge == fullcharge){
 				GLog.n(Messages.get(ToyGun.class,"full"));
 			} else if ( maxammo < 1 ){
 				GLog.n(Messages.get(ToyGun.class, "empty"));

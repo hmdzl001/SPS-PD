@@ -197,7 +197,7 @@ public class WndHero extends WndTabbed {
 			Hero hero = Dungeon.hero;
 
 			IconTitle title = new IconTitle();
-			title.icon(HeroSprite.avatar(hero.heroClass, hero.tier()));
+			title.icon(HeroSprite.avatar(hero.heroClass, hero.useskin()));
             title.label( Messages.get(this, "title", hero.lvl, hero.className() )
 			     .toUpperCase(Locale.ENGLISH));
 			title.color(Window.SHPX_COLOR);
@@ -293,7 +293,7 @@ public class WndHero extends WndTabbed {
 			Hero hero = Dungeon.hero;
 
 			IconTitle title = new IconTitle();
-			title.icon(HeroSprite.avatar(hero.heroClass, hero.tier()));
+			title.icon(HeroSprite.avatar(hero.heroClass, hero.useskin()));
 			title.label( Messages.get(this, "title", hero.lvl, hero.className())
 					.toUpperCase(Locale.ENGLISH));
 			title.color(Window.SHPX_COLOR);
@@ -764,6 +764,12 @@ public class WndHero extends WndTabbed {
 			if (item instanceof Plant.Seed
 				|| item instanceof Nut
 				|| item instanceof Meat
+				|| item instanceof PetFood){				
+				nomnom=true;
+			}
+		}
+		if (petType==22){//YearPet
+			if (item instanceof Meat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}

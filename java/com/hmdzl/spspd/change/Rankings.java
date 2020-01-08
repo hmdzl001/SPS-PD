@@ -84,7 +84,7 @@ public enum Rankings {
 		rec.info = Dungeon.resultDescription;
 		rec.win = win;
 		rec.heroClass = Dungeon.hero.heroClass;
-		rec.armorTier = 7-Dungeon.skins;
+		rec.skin = 7-Dungeon.skins;
 		rec.herolevel = Dungeon.hero.lvl;
 		rec.depth = Dungeon.depth;
 		rec.score = score(win);
@@ -199,7 +199,7 @@ public enum Rankings {
 		private static final String REASON = "reason";
 		private static final String WIN = "win";
 		private static final String SCORE = "score";
-		private static final String TIER = "tier";
+		private static final String SKIN = "skin";
 		private static final String LEVEL = "level";
 		private static final String DEPTH = "depth";
 		private static final String GAME = "gameFile";
@@ -208,7 +208,7 @@ public enum Rankings {
 		public boolean win;
 
 		public HeroClass heroClass;
-		public int armorTier;
+		public int skin;
 		public int herolevel;
 		public int depth;
 
@@ -223,7 +223,7 @@ public enum Rankings {
 			win = bundle.getBoolean(WIN);
 			score = bundle.getInt(SCORE);
 			heroClass = HeroClass.restoreInBundle(bundle);
-			armorTier = bundle.getInt(TIER);
+			skin = bundle.getInt(SKIN);
          	gameFile = bundle.getString(GAME);
 			depth = bundle.getInt(DEPTH);
 			herolevel = bundle.getInt(LEVEL);
@@ -238,7 +238,7 @@ public enum Rankings {
 			bundle.put(SCORE, score);
 
 			heroClass.storeInBundle(bundle);
-			bundle.put(TIER, armorTier);
+			bundle.put(SKIN, skin);
 			bundle.put(LEVEL, herolevel);
 			bundle.put(DEPTH, depth);
 

@@ -46,6 +46,8 @@ public class ItemSpriteSheet {
 	private static final int ROW24 = 23 * 16;
 	private static final int ROW25 = 24 * 16;
 	private static final int ROW26 = 25 * 16;
+	private static final int ROW27 = 26 * 16;
+	private static final int ROW28 = 27 * 16;
 
 	// Row One: Items which can't be obtained
 	// null warning occupies space 0, should only show up if there's a bug.
@@ -475,6 +477,7 @@ public class ItemSpriteSheet {
 	public static final int MECH_ARMOR = ROW23 + 11;
 
 	public static final int ARMOR_SOLDIER = ROW23 + 13;
+	public static final int ARMOR_FOLLOWER = ROW27 + 8;
 
 	public static final int HERB_MEAT = ROW23 + 12;
 
@@ -541,4 +544,32 @@ public class ItemSpriteSheet {
 	public static final int DEMO_SCROLL = ROW26 + 11;
 	public static final int UNDEAD_BOOK = ROW26 + 12;
 	public static final int GNOLL_MARK = ROW26 + 13;
+
+	public static final int HELMET = ROW26 + 14;
+	public static final int WOODEN_STAFF = ROW26 + 15;
+
+
+	public static final int HEAL_BAG = ROW27 + 0;
+
+	public static final int MACE = ROW27 + 4;
+	public static final int HOLY_WATER = ROW27 + 2;
+	public static final int PRAYER_WHEEL = ROW27 + 5;
+	public static final int STONE_CROSS = ROW27 + 1;
+
+	public static final int FAITH_SIGN = ROW27 + 6;
+	public static final int ARTIFACT_BEACON = ROW27 + 7;
+
+	public static final int DIAMOND_PICKAXE = ROW27 + 3;
+
+	public static final int MONEY_PACK = ROW27 + 10;
+
+	public static final int DOOR_BLOCK = ROW27 + 11;
+	public static final int WALL_BLOCK = ROW27 + 12;
+	public static final int STONE_BLOCK = ROW27 + 13;
+	public static final int WOODEN_BLOCK = ROW27 + 14;
+	public static final int BOOK_BLOCK = ROW27 + 15;
+
+	public static final int HORSE_TOTEM = ROW28 + 0;
+	public static final int RANGE_BAG = ROW28 + 1;
+	public static final int DANCE_LION = ROW28 + 1;
 }

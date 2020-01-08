@@ -21,7 +21,10 @@ import com.hmdzl.spspd.change.Assets;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.effects.Speck;
+import com.hmdzl.spspd.change.items.food.staplefood.NormalRation;
+import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.EscapeKnive;
+import com.hmdzl.spspd.change.items.weapon.missiles.PoisonDart;
 import com.hmdzl.spspd.change.items.weapon.missiles.ShatteredAmmo;
 import com.hmdzl.spspd.change.levels.Level;
 import com.watabou.noosa.TextureFilm;
@@ -61,7 +64,7 @@ public class ElderAvatarSprite extends MobSprite {
         if (!Level.adjacent(cell, ch.pos)) {
 
             ((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
-                    cell, new ShatteredAmmo(), new Callback() {
+                    cell, new PoisonDart(), new Callback() {
                         @Override
                         public void call() {
                             ch.onAttackComplete();

@@ -44,6 +44,7 @@ import com.hmdzl.spspd.change.actors.mobs.pets.Stone;
 import com.hmdzl.spspd.change.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.change.actors.mobs.pets.VioletDragon;
 
+import com.hmdzl.spspd.change.actors.mobs.pets.YearPet;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.levels.Level;
@@ -283,6 +284,13 @@ public class PocketBallFull extends Item {
                     pet.level = pet_level;
                     pet.experience = pet_exp;
                 }
+                if (Dungeon.hero.petType==22){
+                    YearPet pet = new YearPet();
+                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+                    pet.HP = pet.HT = pet_ht;
+                    pet.level = pet_level;
+                    pet.experience = pet_exp;
+                }				
                 //pet.pos = Random.element(spawnPoints);
                // GameScene.add(pet);
 

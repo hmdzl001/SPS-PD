@@ -1031,6 +1031,9 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String SO_GAME_FILE	= "soldier.dat";
 	private static final String SO_DEPTH_FILE	= "soldier%d.dat";
 	
+	private static final String FO_GAME_FILE	= "follower.dat";
+	private static final String FO_DEPTH_FILE	= "follower%d.dat";
+	
 	private static final String VERSION = "version";
 	private static final String SKINS	= "skins";
 	private static final String CHALLENGES = "challenges";
@@ -1041,7 +1044,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String LEVEL = "level";
 	private static final String LIMDROPS = "limiteddrops";
 	private static final String DV = "dewVial";
-	private static final String WT = "transmutation";
 	private static final String CHAPTERS = "chapters";
 	private static final String QUESTS = "quests";
 	private static final String BADGES = "badges";
@@ -1077,11 +1079,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String PARS = "pars";
 	
 	//private static final String SECONDQUEST = "secondQuest";
-	
-	// TODO: to support pre-0.2.3 saves, remove when needed
-	private static final String POS = "potionsOfStrength";
-	private static final String SOU = "scrollsOfEnhancement";
-	private static final String AS = "arcaneStyli";
 
 	public static String gameFile(HeroClass cl) {
 		switch (cl) {
@@ -1089,14 +1086,16 @@ public static Level newChallengeLevel(int list, Boolean first){
 			return WR_GAME_FILE;
 		case MAGE:
 			return MG_GAME_FILE;
-		//case ROUGE:
-			//return RG_GAME_FILE;
+		case ROGUE:
+			return RG_GAME_FILE;
 		case HUNTRESS:
 			return RN_GAME_FILE;		
 		case PERFORMER:
 			return PE_GAME_FILE;
 		case SOLDIER:
-			return SO_GAME_FILE;			
+			return SO_GAME_FILE;
+		case FOLLOWER:
+			return FO_GAME_FILE;				
 		default:
 			return RG_GAME_FILE;
 		}
@@ -1108,14 +1107,16 @@ public static Level newChallengeLevel(int list, Boolean first){
 			return WR_DEPTH_FILE;
 		case MAGE:
 			return MG_DEPTH_FILE;
-		//case ROUGE:
-           // return RG_DEPTH_FILE;
+		case ROGUE:
+            return RG_DEPTH_FILE;
 		case HUNTRESS:
 			return RN_DEPTH_FILE;
 		case PERFORMER:
 			return PE_DEPTH_FILE;
 		case SOLDIER:
-			return SO_DEPTH_FILE;			
+			return SO_DEPTH_FILE;
+		case FOLLOWER:
+			return FO_DEPTH_FILE;				
 		default:
 			return RG_DEPTH_FILE;
 		}
@@ -1282,21 +1283,13 @@ public static Level newChallengeLevel(int list, Boolean first){
 		Ring.restore(bundle);
 
 		quickslot.restorePlaceholders(bundle);
-
-		if (fullLoad) {
 			// TODO: adjust this when dropping support for pre-0.2.3 saves
 			if (bundle.contains(LIMDROPS)) {
 				int[] dropValues = bundle.getIntArray(LIMDROPS);
 				for (limitedDrops value : limitedDrops.values())
 					value.count = value.ordinal() < dropValues.length ? dropValues[value
 							.ordinal()] : 0;
-			} else {
-				for (limitedDrops value : limitedDrops.values())
-					value.count = 0;
-				limitedDrops.strengthPotions.count = bundle.getInt(POS);
-				limitedDrops.upgradeScrolls.count = bundle.getInt(SOU);
 
-			}
 			// for pre-0.2.4 saves
 			if (bundle.getBoolean(DV))
 				limitedDrops.dewVial.drop();

@@ -248,7 +248,10 @@ public class Hybrid extends Mob {
 			break;	
 			case SOLDIER:
 			badgeToCheck = Badge.MASTERY_SOLDIER;
-			break;				
+			break;		
+			case FOLLOWER:
+			badgeToCheck = Badge.MASTERY_FOLLOWER;
+			break;			
 		}
 		
 		Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();

@@ -58,10 +58,12 @@ public class LevelChecker extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		if (enemy.buff(Taunt.class)== null && enemy == Dungeon.hero) {
 			Buff.affect(enemy, Taunt.class);
+			Dungeon.hero.exp=0;
 			Dungeon.hero.lvl=1;
-			Dungeon.hero.HT=30;
-			Dungeon.hero.hitSkill=10;
-			Dungeon.hero.evadeSkill=5;
+			
+			//Dungeon.hero.HT=30;
+			//Dungeon.hero.hitSkill=10;
+			//Dungeon.hero.evadeSkill=5;
 			damage = 0;
 			this.damage(this.HT*2,this);
 			return damage;

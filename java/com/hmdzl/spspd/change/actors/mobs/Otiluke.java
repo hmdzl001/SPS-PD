@@ -21,6 +21,7 @@ import java.util.HashSet;
 
 import com.hmdzl.spspd.change.actors.buffs.Silent;
 import com.hmdzl.spspd.change.items.food.completefood.Crystalnucleus;
+import com.hmdzl.spspd.change.items.misc.SkillOfMig;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.ResultDescriptions;
@@ -64,7 +65,7 @@ public class Otiluke extends Mob implements Callback {
 
 		EXP = 101;
 		
-		loot = new Crystalnucleus();
+		loot = new SkillOfMig();
 		lootChance = 1f;
 
 		properties.add(Property.ELEMENT);

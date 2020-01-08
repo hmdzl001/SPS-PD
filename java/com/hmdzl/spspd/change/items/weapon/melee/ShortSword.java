@@ -56,8 +56,8 @@ public class ShortSword extends MeleeWeapon {
 	
 	@Override
 	public Item upgrade(boolean enchant) {		
-		MIN+=4;
-		MAX+=4;		
+		MIN+=3;
+		MAX+=3;
 		return super.upgrade(enchant);
     }
 

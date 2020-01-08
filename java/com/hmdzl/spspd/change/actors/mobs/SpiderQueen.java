@@ -190,6 +190,9 @@ public class SpiderQueen extends Mob {
 				case SOLDIER:
 					badgeToCheck = Badge.MASTERY_SOLDIER;
 					break;				
+				case FOLLOWER:
+					badgeToCheck = Badge.MASTERY_FOLLOWER;
+					break;
 		}
 	
 	    Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
@@ -255,6 +258,11 @@ public class SpiderQueen extends Mob {
 		}
 
 		private int life_p=0;
+
+		@Override
+		public void beckon(int cell) {
+			// Do nothing
+		}
 
 		@Override
 		public void die(Object cause) {

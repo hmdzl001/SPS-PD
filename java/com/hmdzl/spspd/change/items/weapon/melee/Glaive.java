@@ -45,9 +45,9 @@ public class Glaive extends MeleeWeapon {
 		
 		if (DLY > 1.4f) {
 			DLY -=0.05f;
-		}	
-		
-		MAX += 4;
+		}
+		MIN += 1;
+		MAX += 6;
 		return super.upgrade(enchant);
     }	
 	

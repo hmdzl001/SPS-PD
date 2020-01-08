@@ -19,6 +19,7 @@ package com.hmdzl.spspd.change.windows;
 
 import com.hmdzl.spspd.change.Dungeon;
 import com.hmdzl.spspd.change.actors.hero.Hero;
+import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
 import com.hmdzl.spspd.change.actors.mobs.npcs.Shopkeeper;
 import com.hmdzl.spspd.change.items.ChallengeBook;
@@ -263,7 +264,9 @@ public class WndTradeItem extends Window {
 	}
 
 	private int price(Item item) {
-		int price = Math.min(item.price() * 5 * (Dungeon.depth / 5 + 1), item.price() * 25);
+		int price = Dungeon.hero.heroClass == HeroClass.FOLLOWER ?
+				Math.min(item.price() * 4 * (Dungeon.depth / 5 + 1), item.price() * 20) :
+				Math.min(item.price() * 5 * (Dungeon.depth / 5 + 1), item.price() * 25);
 		return price;
 	}
 

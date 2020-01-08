@@ -73,9 +73,6 @@ public class StartScene extends PixelScene {
 	private GameButton btnLoad;
 	private GameButton btnNewGame;
 
-	private boolean huntressUnlocked;
-	private Group unlock;
-
 	public static HeroClass curClass;
 
 	@Override
@@ -154,7 +151,7 @@ public class StartScene extends PixelScene {
 		float centralHeight = buttonY - title.y - title.height();
 
 		HeroClass[] classes = {
-				HeroClass.WARRIOR, HeroClass.MAGE, HeroClass.ROGUE, HeroClass.HUNTRESS, HeroClass.PERFORMER, HeroClass.SOLDIER
+				HeroClass.WARRIOR, HeroClass.MAGE, HeroClass.ROGUE, HeroClass.HUNTRESS, HeroClass.PERFORMER, HeroClass.SOLDIER, HeroClass.FOLLOWER
 		};
 		for (HeroClass cl : classes) {
 			ClassShield shield = new ClassShield(cl);
@@ -162,7 +159,7 @@ public class StartScene extends PixelScene {
 			add(shield);
 		}
 		if (ShatteredPixelDungeon.landscape()) {
-			float shieldW = width / 5;
+			float shieldW = width / 7;
 			float shieldH = Math.min(centralHeight, shieldW);
 			top = title.y + title.height + (centralHeight - shieldH) / 2;
 			for (int i = 0; i < classes.length; i++) {
@@ -177,15 +174,15 @@ public class StartScene extends PixelScene {
 			add(challenge);
 
 		} else {
-			float shieldW = width / 3;
+			float shieldW = width / 4;
 			float shieldH = Math.min(centralHeight / 3, shieldW * 1.2f);
 			top = title.y + title.height() + centralHeight / 2 - shieldH;
 			for (int i = 0; i < classes.length; i++) {
 				ClassShield shield = shields.get(classes[i]);
-				if (i < 3) {
-					shield.setRect(left + (i % 3) * shieldW, top - shieldH * 0.5f, shieldW, shieldH);
+				if (i < 4) {
+					shield.setRect(left + (i % 4) * shieldW, top - shieldH * 0.5f, shieldW, shieldH);
 				}else{
-					shield.setRect(left + (i % 3) * shieldW, top + /*(i / 2) **/ shieldH, shieldW, shieldH);
+					shield.setRect(left + (i % 4) * shieldW, top + /*(i / 2) **/ shieldH, shieldW, shieldH);
 				}
 				align(shield);
 			}
@@ -198,29 +195,11 @@ public class StartScene extends PixelScene {
 			add(challenge);
 
 		}
-
-		unlock = new Group();
-		add(unlock);
-
-		if (!(huntressUnlocked = Badges.isUnlocked( Badges.Badge.MONSTERS_SLAIN_1))) {
-
-			RenderedTextMultiline text = PixelScene.renderMultiline( Messages.get(this, "unlock"), 9 );
-			text.maxWidth((int)width);
-			text.hardlight( 0xFFFF00 );
-			text.setPos(w / 2 - text.width() / 2, (bottom - BUTTON_HEIGHT) + (BUTTON_HEIGHT - text.height()) / 2);
-			align(text);
-			unlock.add(text);
-
-		}
 		
 		ExitButton btnExit = new ExitButton();
 		btnExit.setPos(Camera.main.width - btnExit.width(), 0);
 		add(btnExit);
 
-		/*MemoryButton btnMemory = new MemoryButton();
-		btnMemory.setPos(0, 0);
-		add(btnMemory);*/
-		
 		curClass = null;
 		updateClass(HeroClass.values()[ShatteredPixelDungeon.lastClass()]);
 
@@ -258,9 +237,7 @@ public class StartScene extends PixelScene {
 		}
 		shields.get(curClass = cl).highlight(true);
 
-		if (cl != HeroClass.HUNTRESS || huntressUnlocked) {
 
-			unlock.visible = false;
 
 			GamesInProgress.Info info = GamesInProgress.check( curClass );
 			if (info != null) {
@@ -285,13 +262,6 @@ public class StartScene extends PixelScene {
 				btnNewGame.setRect( buttonX, buttonY, Camera.main.width - buttonX * 2, BUTTON_HEIGHT );
 			}
 
-		} else {
-
-			unlock.visible = true;
-			btnLoad.visible = false;
-			btnNewGame.visible = false;
-
-		}
 	}
 	
     private void askSkin() {
@@ -373,7 +343,7 @@ public class StartScene extends PixelScene {
 
 		private static final int WIDTH = 24;
 		private static final int HEIGHT = 32;
-		private static final float SCALE = 1.75f;
+		private static final float SCALE = 1f;
 
 		private HeroClass cl;
 
@@ -512,7 +482,6 @@ public class StartScene extends PixelScene {
 
 		@Override
 		protected void onClick() {
-			if (Badges.isUnlocked(Badges.Badge.MONSTERS_SLAIN_1)) {
 				StartScene.this.add(new WndChallenges(ShatteredPixelDungeon.challenges(), true) {
 					public void onBackPressed() {
 						super.onBackPressed();
@@ -520,9 +489,7 @@ public class StartScene extends PixelScene {
 								Icons.CHALLENGE_ON : Icons.CHALLENGE_OFF));
 					}
 				});
-			} else {
-				StartScene.this.add( new WndMessage( Messages.get(StartScene.class, "need_to_win") ) );
-			}
+
 		}
 
 		@Override
@@ -535,7 +502,7 @@ public class StartScene extends PixelScene {
 
         public WndSkin() {
             super(Messages.get(Skins.class, "title"), Messages.get(Skins.class, "info"),Messages.get(Skins.class, "normal"),
-                    Messages.get(Skins.class, "first"),Messages.get(Skins.class, "second") );
+                    Messages.get(Skins.class, "first"),Messages.get(Skins.class, "second"),Messages.get(Skins.class, "third") );
         }
 
      @Override

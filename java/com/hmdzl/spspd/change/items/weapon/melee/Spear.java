@@ -51,8 +51,8 @@ public class Spear extends MeleeWeapon {
 			RCH ++ ;
 		}
 		
-		MIN+=2;
-        MAX+=3;
+		MIN+=1;
+        MAX+=4;
 		
 		return super.upgrade(enchant);
     }

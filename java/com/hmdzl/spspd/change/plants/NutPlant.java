@@ -10,6 +10,7 @@ import com.hmdzl.spspd.change.items.food.fruit.Blandfruit;
 import com.hmdzl.spspd.change.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.change.items.food.fruit.Cloudberry;
 import com.hmdzl.spspd.change.items.food.fruit.Moonberry;
+import com.hmdzl.spspd.change.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -19,7 +20,7 @@ import com.watabou.utils.Random;
 public class NutPlant extends Plant {
 
 	{
-		image = 16;
+		image = 17;
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class NutPlant extends Plant {
 			image = ItemSpriteSheet.SEED_DUNGEONNUT;
 
 			plantClass = NutPlant.class;
-			alchemyClass = null;
+			alchemyClass = PotionOfHealing.class;;
 		}
 	}
 }

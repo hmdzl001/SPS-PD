@@ -156,7 +156,7 @@ public abstract class PET extends NPC {
 
 		}
 		
-		if ( HP<HT){HP+=1;}
+		if ( HP<HT){HP+=level;}
 		
 		return super.act();
 	}
