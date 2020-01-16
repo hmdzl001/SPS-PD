@@ -49,11 +49,11 @@ public class UndeadBook extends Item {
 		image = ItemSpriteSheet.UNDEAD_BOOK;
 
 		stackable = false;
-
+        charge = 0;
 		//defaultAction = AC_READ;
 	}
 
-	public static int charge = 0;
+	public static int charge;
 	private static final String CHARGE = "charge";
 	
 	@Override

@@ -39,6 +39,7 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.actors.hero.HeroClass;
 import com.hmdzl.spspd.change.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.change.actors.mobs.Mob;
+import com.hmdzl.spspd.change.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.change.actors.mobs.pets.PET;
 import com.hmdzl.spspd.change.effects.CellEmitter;
 import com.hmdzl.spspd.change.effects.Speck;
@@ -80,7 +81,7 @@ public class FollowerSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		charge += 15;
+		FollowerSkill.charge += 15;
 		Buff.affect(curUser, ParyAttack.class);
 	}
 
@@ -92,10 +93,11 @@ public class FollowerSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-        charge += 20;
+		FollowerSkill.charge += 20;
 		int people = 0;
 		for (Mob mob : Dungeon.level.mobs) {
-			if (mob instanceof Mob){
+			mob.beckon(curUser.pos);
+			if (mob instanceof Mob && !(mob instanceof NPC)){
 				people++;
 			}
 		}
@@ -119,12 +121,11 @@ public class FollowerSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-        charge += 10;
+		FollowerSkill.charge += 10;
 	}
 
 	@Override
 	public void doSpecial4() {
-		charge += 15;
 		GameScene.selectItem(itemSelector, WndBag.Mode.UPGRADEABLE, Messages.get(ScrollOfUpgrade.class,"prompt"));
 		
 	}
@@ -134,6 +135,7 @@ public class FollowerSkill extends ClassSkill {
 		public void onSelect(Item item) {
 			if (item != null) {
 				FollowerSkill.this.upgrade(item);
+				FollowerSkill.charge += 15;
 			}
 		}
 	};

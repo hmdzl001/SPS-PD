@@ -267,10 +267,6 @@ public abstract class Char extends Actor {
 
 			if (!enemy.isAlive() && visibleFight) {
 				if (enemy == Dungeon.hero) {
-
-					if (this instanceof Yog) {
-						Dungeon.fail(Messages.format(ResultDescriptions.NAMED));
-					}
 					if (Bestiary.isUnique(this)) {
 						Dungeon.fail(Messages.format(ResultDescriptions.UNIQUE));
 					} else {
@@ -445,7 +441,7 @@ public abstract class Char extends Actor {
 					: CharSprite.NEGATIVE, Integer.toString(dmg));
 		}
 
-		if (HP <= 0) {
+		if (HP <= 0 || HT <= 0) {
 			die(src);
 		}
 	}

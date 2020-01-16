@@ -106,7 +106,7 @@ public class SoldierSkill extends ClassSkill {
 			respawnPoints.remove(index);
 			nImages--;
 		}
-		charge += 12;
+		SoldierSkill.charge += 12;
 	    Buff.detach(curUser, Poison.class);
 		Buff.detach(curUser, Cripple.class);
 		Buff.detach(curUser, Weakness.class);
@@ -124,7 +124,7 @@ public class SoldierSkill extends ClassSkill {
 		
 	@Override
 	public void doSpecial2() {
-		charge += 25;
+		SoldierSkill.charge += 25;
 		Buff.affect(curUser, MechArmor.class).level(250);
 		Buff.affect(curUser, ShieldArmor.class).level(Dungeon.hero.lvl*3);
         curUser.spend(SKILL_TIME);
@@ -164,7 +164,7 @@ public class SoldierSkill extends ClassSkill {
 				nImages--;
 			}
 		}
-		charge += 5;
+		SoldierSkill.charge += 5;
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -174,7 +174,7 @@ public class SoldierSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial4() {
-		charge += 20;
+		SoldierSkill.charge += 20;
 
 		int cell = Dungeon.level.randomRespawnCell();
 

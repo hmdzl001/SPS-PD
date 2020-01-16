@@ -22,6 +22,7 @@ import com.hmdzl.spspd.change.items.rings.RingOfElements.Resistance;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.ui.BuffIndicator;
 import com.hmdzl.spspd.change.utils.GLog;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -35,6 +36,24 @@ public class HighVoice extends FlavourBuff {
 		return BuffIndicator.VOICE_UP;
 	}
 
+	protected float left;
+	private static final String LEFT = "left";
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(LEFT, left);
+	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		left = bundle.getFloat(LEFT);
+	}
+
+	public void set(float duration) {
+		this.left = duration;
+	};	
+	
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
@@ -47,8 +66,12 @@ public class HighVoice extends FlavourBuff {
 				GLog.p(Messages.get(this,"heal",Dungeon.hero.givenName()));
 				}
 			}
+			left -= TICK;
+			if (left <= 2)
+				detach();
+		    spend(TICK);
 
-			spend(TICK);
+
 		} else {
 
 			detach();

@@ -63,7 +63,7 @@ public class Blueberry extends Fruit {
 				boolean[] mapped = Dungeon.level.mapped;
 				boolean[] discoverable = Level.discoverable;
 
-				boolean noticed = false;
+				//boolean noticed = false;
 
 				for (int i = 0; i < length; i++) {
 
@@ -94,7 +94,7 @@ public class Blueberry extends Fruit {
 				//}
 				
 				Buff.affect(hero, Awareness.class, 10f);
-				Dungeon.observe();
+				
 			} else {
 			
 				Buff.affect(hero, BerryRegeneration.class).level(hero.HT+hero.HT);
@@ -115,9 +115,7 @@ public class Blueberry extends Fruit {
 						mapped[i] = true;
 						if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
 
-							Level.set(i, Terrain.discover(terr));
-							//GameScene.updateMap(i);
-							//Dungeon.level.discover( i );
+							Dungeon.level.discover( i );
 
 							if (Dungeon.visible[i]) {
 								GameScene.discoverTile(i, terr);

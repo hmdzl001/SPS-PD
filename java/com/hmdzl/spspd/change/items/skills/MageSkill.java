@@ -24,6 +24,7 @@ import com.hmdzl.spspd.change.actors.Actor;
 import com.hmdzl.spspd.change.actors.Char;
 import com.hmdzl.spspd.change.actors.buffs.Buff;
 import com.hmdzl.spspd.change.actors.buffs.Burning;
+import com.hmdzl.spspd.change.actors.buffs.CountDown;
 import com.hmdzl.spspd.change.actors.buffs.Disarm;
 import com.hmdzl.spspd.change.actors.buffs.Frost;
 import com.hmdzl.spspd.change.actors.buffs.Recharging;
@@ -43,6 +44,7 @@ import com.hmdzl.spspd.change.levels.Terrain;
 import com.hmdzl.spspd.change.scenes.CellSelector;
 import com.hmdzl.spspd.change.scenes.GameScene;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.change.ui.QuickSlotButton;
 import com.hmdzl.spspd.change.utils.GLog;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.watabou.noosa.audio.Sample;
@@ -66,8 +68,8 @@ public class MageSkill extends ClassSkill {
 				Buff.prolong(mob, Roots.class, 3);
 			}
 		}
-        
-		charge += 15;
+
+		MageSkill.charge += 15;
 		
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -75,58 +77,40 @@ public class MageSkill extends ClassSkill {
 
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		
+
 	}
 	
 	@Override
 	public void doSpecial2() {
-        charge += 8;
-		GameScene.selectCell( bomber );
-	}	
-
-	protected static CellSelector.Listener bomber = new CellSelector.Listener() {
-		
-		@Override
-		public void onSelect( Integer target ) {
-		    for (int n : Level.NEIGHBOURS9) {
-			    int c = target + n;
-		    if (c >= 0 && c < Level.getLength()) {
-				if (Dungeon.visible[c]) {
-					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 2);
-				}
-
-				if (Dungeon.level.map[c] == Terrain.WALL  && Level.insideMap(c)){
-					Level.set(c, Terrain.EMPTY);
-					GameScene.updateMap(c);
-					Dungeon.observe();
-				}
-							
-				// destroys items / triggers bombs caught in the blast.
-				Char ch2 = Actor.findChar(c);
-				if (ch2 != null) {
-					int dmg = (int) (Dungeon.hero.lvl * (1 + 0.1 * Dungeon.hero.magicSkill())) ;
-					if (dmg > 0) {
-						int x = Random.Int(3,6);
-						for(int i=0; i<x; i++){
-						ch2.damage(Math.min(ch2.HP-10,dmg), this);
+		for (Mob mob : Dungeon.level.mobs) {
+			if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 10)) {
+				Buff.affect(mob, CountDown.class);
+				for (int n : Level.NEIGHBOURS4) {
+					int c = mob.pos + n;
+					if (c >= 0 && c < Level.getLength()) {
+						if (Dungeon.visible[c]) {
+							CellEmitter.get(c).burst(SmokeParticle.FACTORY, 2);
+						}
+						if (Dungeon.level.map[c] == Terrain.WALL && Level.insideMap(c)) {
+							Level.set(c, Terrain.EMPTY);
+							GameScene.updateMap(c);
+							Dungeon.observe();
 						}
 					}
 				}
 			}
-
-
-			if (!curUser.isAlive()) {
-				Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
-				//GLog.n("You killed yourself with your own Wand of Avalanche...");
-			}
-			}
-				curUser.spendAndNext( SKILL_TIME );
-			}
-		@Override
-		public String prompt() {
-			return Messages.get(MageSkill.class, "prompt");
 		}
-	};
+
+		MageSkill.charge += 15;
+
+		curUser.spend(SKILL_TIME);
+		curUser.sprite.operate(curUser.pos);
+		curUser.busy();
+
+		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
+		Sample.INSTANCE.play(Assets.SND_READ);
+
+	}	
 
 	@Override
 	public void doSpecial3() {
@@ -139,7 +123,7 @@ public class MageSkill extends ClassSkill {
 			}
 		}
 
-		charge += 15;
+		MageSkill.charge += 15;
 
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -159,7 +143,7 @@ public class MageSkill extends ClassSkill {
 		}
 
 		Buff.affect(curUser, Recharging.class, 30);
-		charge += 9;
+		MageSkill.charge += 9;
 
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);

@@ -72,7 +72,7 @@ public class WarriorSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Buff.prolong(curUser, BloodImbue.class,30f);
-		charge += 10;
+		WarriorSkill.charge += 10;
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class WarriorSkill extends ClassSkill {
 				}
 			}
 		}
-		charge += 15;
+		WarriorSkill.charge += 15;
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -115,7 +115,7 @@ public class WarriorSkill extends ClassSkill {
 
 		}
 
-		charge += 25;
+		WarriorSkill.charge += 25;
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -132,7 +132,7 @@ public class WarriorSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Buff.prolong(curUser, SpAttack.class,30f);
-		charge += 8;
+		WarriorSkill.charge += 8;
 	}
 
 	/*protected static CellSelector.Listener leaper = new CellSelector.Listener() {

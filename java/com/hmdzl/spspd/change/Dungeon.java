@@ -924,6 +924,10 @@ public static Level newChallengeLevel(int list, Boolean first){
 		return depth == 27 || depth == 28 || depth == 32 || depth == 30 || depth == 55;
 	}
 
+	public static boolean waterLevel(int depth) {
+		return depth == 29;
+	}
+
 	public static boolean sokobanLevel(int depth) {
 		return  depth == 51 || depth == 52 || depth == 53 || depth == 54;
 	}
@@ -949,6 +953,11 @@ public static Level newChallengeLevel(int list, Boolean first){
 		if (regrower != null && growLevel(depth)) {
 			Actor.add(level.regrower());
 		}
+		
+		Actor waterer = level.waterer();
+		if (waterer != null && waterLevel(depth)) {
+			Actor.add(level.waterer());
+		}		
 		
 		/*Actor floordropper = level.floordropper();
 		if (floordropper != null && dropLevel(depth)) {

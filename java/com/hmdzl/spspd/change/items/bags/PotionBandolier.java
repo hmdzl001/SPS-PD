@@ -16,14 +16,19 @@ public class PotionBandolier extends Bag {
 		//name = "potion bandolier";
 		image = ItemSpriteSheet.BANDOLIER;
 
-		size = 22;
+		size = 25;
 	}
 
 	@Override
 	public boolean grab(Item item) {
-		return item instanceof Potion ||
+		if (item instanceof Potion ||
 				item instanceof Pill ||
-				item instanceof Bomb;
+				item instanceof Bomb
+				){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override

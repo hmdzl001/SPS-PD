@@ -1459,8 +1459,11 @@ public class Hero extends Char {
 			sprite.parent.add( new Lightning( arcs, null ) );
 		}
 		if (buff(GoldTouch.class)!=null){
-			Dungeon.gold+= damage;
-			hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, damage);
+			int maxgold = (int)((2000000/(Math.max(1,20-Dungeon.depth)))/4);
+			int earngold = Math.min(maxgold - damage, damage);
+			Dungeon.gold+= earngold;
+			
+			hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, earngold);
 		}
 
 		if (buff(MechFaith.class)!= null && ((enemy.properties().contains(Property.BEAST))
@@ -2003,6 +2006,7 @@ public class Hero extends Char {
 		if (buff instanceof RingOfMight.Might) {
 			if (((RingOfMight.Might) buff).level > 0) {
 				HT -= ((RingOfMight.Might) buff).level * 10;
+				hero.damage(1, this);
 				if (!hero.isAlive()) {
 					Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
 				}
@@ -2062,7 +2066,8 @@ public class Hero extends Char {
 			}
 		}
 
-		if (ankh != null && ankh.isBlessed()) {
+		if (ankh != null && ankh.isBlessed() && this.HT > 0) {
+
 			this.HP = HT;
 			
 			Buff.detach(this, Paralysis.class);

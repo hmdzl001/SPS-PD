@@ -101,7 +101,7 @@ public class LinkSword extends MeleeWeapon {
 	
 		actions.add(AC_COURAGE);
 		
-		if (charge > 25) {
+		if (charge > 20) {
 			actions.add(AC_WISDOM);
 		}
 		if (Dungeon.hero.STR - this.STR >2) {
@@ -216,7 +216,7 @@ public class LinkSword extends MeleeWeapon {
 
 		int DMG = damage;
 		if (Random.Int(100) > 50) {
-			switch (Random.Int(6)) {
+			switch (Random.Int(7)) {
 				case 0:
 					defender.damage(Random.Int(DMG / 4, DMG / 2), this);
 					break;
@@ -245,6 +245,12 @@ public class LinkSword extends MeleeWeapon {
 					break;
 				case 5:
 					Buff.affect(attacker, ShieldArmor.class).level(level);
+					break;
+				case 6:
+					if (charge > 25) {
+						charge -=15;
+						defender.damage(5*DMG, this);
+					}
 					break;
 				default:
 					break;

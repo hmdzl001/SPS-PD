@@ -68,7 +68,7 @@ public class PerformerSkill extends ClassSkill {
 				Buff.prolong(mob, ArmorBreak.class, 20f).level(50);
 			}
 		}
-		charge += 20;
+		PerformerSkill.charge += 20;
 		Buff.affect(curUser, DefenceUp.class,10).level(25);
 		Buff.affect(curUser, AttackUp.class,10).level(25);
         curUser.spend(SKILL_TIME);
@@ -104,7 +104,7 @@ public class PerformerSkill extends ClassSkill {
 				Buff.prolong(mob, Blindness.class, 10f);
 			}
 		}
-		charge += 20;
+		PerformerSkill.charge += 20;
 
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -115,14 +115,13 @@ public class PerformerSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial3() {
-		charge += 20;
 		GameScene.selectItem(itemSelector, WndBag.Mode.TRANMSUTABLE, Messages.get(PerformerSkill.class, "prompt"));
 	}
 
 	@Override
 	public void doSpecial4() {
 
-		charge +=10;
+		PerformerSkill.charge +=10;
 
 		Buff.affect(curUser, HighVoice.class,100);
 		curUser.spend(SKILL_TIME);
@@ -154,6 +153,7 @@ public class PerformerSkill extends ClassSkill {
 				}
 				item.detach(Dungeon.hero.belongings.backpack);
 				Dungeon.level.drop(result, Dungeon.hero.pos).sprite.drop();
+				PerformerSkill.charge += 20;
 			}
 		}
 	  };

@@ -367,34 +367,7 @@ public class WndAlchemy extends Window {
 
 		Item result = null;
 
-		//potion creation
-		if (seeds.size() == 3){
-
-			if (Random.Int( 3 ) == 0) {
-
-				result = Generator.random( Generator.Category.POTION );
-
-			} else {
-
-				Class<? extends Item> itemClass = Random.element(seeds).alchemyClass;
-				try {
-					result = itemClass.newInstance();
-				} catch (Exception e) {
-					ShatteredPixelDungeon.reportException(e);
-					result = Generator.random( Generator.Category.POTION );
-				}
-
-			}
-
-			Statistics.potionsCooked++;
-			Badges.validatePotionsCooked();
-
-			//blandfruit cooking
-		} else if (blandfruits.size() == 1 && seeds.size() == 1) {
-			result = fruits.get(0);
-			((Blandfruit)result).cook(seeds.get(0));
-
-		} else if (honey.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && seeds.size() == 1 ){
+        if (honey.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && seeds.size() == 1 ){
 			result = new PerfectFood();
 		} else if (vegetables.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && fruits.size() == 1 ){
 			result = new PerfectFood();
@@ -427,16 +400,40 @@ public class WndAlchemy extends Window {
 			result = new PixieParasol();
 		} else if (water.size() ==1  && vegetables.size() == 1 && sunseed.size() ==1 ){
 			result = new BlueMilk();
-		} else if (water.size() ==1  && vegetables.size() == 1 && mossseed.size() ==1 ){
+		} else if (water.size() ==1  && vegetables.size() == 1 && mossseed.size() ==1 ) {
 			result = new DeathCap();
+
+			//potion creation
+		} else	if (seeds.size() == 3){
+
+				if (Random.Int( 3 ) == 0) {
+
+					result = Generator.random( Generator.Category.POTION );
+
+				} else {
+
+					Class<? extends Item> itemClass = Random.element(seeds).alchemyClass;
+					try {
+						result = itemClass.newInstance();
+					} catch (Exception e) {
+						ShatteredPixelDungeon.reportException(e);
+						result = Generator.random( Generator.Category.POTION );
+					}
+
+				}
+
+				Statistics.potionsCooked++;
+				Badges.validatePotionsCooked();
+
+				//blandfruit cooking
+			} else if (blandfruits.size() == 1 && seeds.size() == 1) {
+				result = fruits.get(0);
+				((Blandfruit)result).cook(seeds.get(0));
 
 		} else if (honeypot.size() == 1 || shatteredpot.size() == 1) {
 			result = new Honey();
 		} else if (honey.size() == 1  &&  water.size() == 1 && iceseed.size() == 1 ){
 			result = new Icecream();
-
-		} else if (nut.size() == 2 && water.size() == 1){
-			result = new PetFood();
 		} else if (meatfoods.size() ==1  && water.size() == 1 && vegetables.size() ==1 ){
 			result = new Porksoup();
 		} else if ( ore.size() == 1 && water.size() == 2 && seeds.size() == 1 && fruits.size() == 1){
@@ -473,6 +470,8 @@ public class WndAlchemy extends Window {
 			result = new NormalRation();
 		} else if ( nut.size() == 3 ){
 			result = new OverpricedRation();
+		} else if (nut.size() == 2 && water.size() == 1){
+			result = new PetFood();
 		} else if ( nut.size() == 2 && potions.size()==1){
 			result = new FoodFans();
 		} else if ( nut.size() == 2 && scrolls.size()==1){

@@ -48,10 +48,9 @@ abstract public class ClassSkill extends Item {
 	private static final String AC_SPECIAL_FOUR = "SPECIAL_FOUR";
 	 //private static int SKILL_TIME = 1;
 	public float colddown = 0f;
-	public int charge = 0;
+	public static int charge = 0;
 	protected SkillCharger skillcharger;
-	
-	
+
 	{
 		defaultAction = AC_CHOOSE;
 		unique = true;
@@ -84,7 +83,7 @@ abstract public class ClassSkill extends Item {
 			classSkill = new FollowerSkill();
 			break;			
 		}
-
+        classSkill.charge = 0;
 		return classSkill;
 	}
 	
@@ -115,8 +114,8 @@ abstract public class ClassSkill extends Item {
 			skillcharger.detach();
 			skillcharger = null;
 		}
-	}	
-	
+	}
+
 	private static final String COLDDOWN = "colddown";
 	private static final String CHARGE = "charge";
 	@Override

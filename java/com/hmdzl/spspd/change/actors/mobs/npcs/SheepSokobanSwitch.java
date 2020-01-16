@@ -44,6 +44,11 @@ public void damage(int dmg, Object src) {
 public void add(Buff buff) {
 }
 
+	@Override
+	public void beckon(int cell) {
+		// Do nothing
+	}
+
 @Override
 public boolean interact() {
 	int curPos = pos;

@@ -45,11 +45,11 @@ public class DemoScroll extends Item {
 		image = ItemSpriteSheet.DEMO_SCROLL;
 
 		stackable = false;
-
+		charge = 0;
 		//defaultAction = AC_READ;
 	}
 
-	public static int charge = 0;
+	public static int charge;
 	private static final String CHARGE = "charge";
 	
 	@Override
@@ -102,19 +102,11 @@ public class DemoScroll extends Item {
 		hero.busy();
 		hero.spend(2f);
 		 int dmg = Random.Int(6,Dungeon.hero.lvl);
-		 if (dmg > hero.HP && hero.HP < hero.HT) {
-		    hero.damage(hero.HT*2,this);
-			if (!hero.isAlive()) {
-			Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
-			//GLog.n("The Chalice sucks your life essence dry...");
-		}
-		 } else  if (dmg > hero.HP && hero.HP > hero.HT) {
-			hero.damage(hero.HP*2,this);
-			if (!hero.isAlive()) {
-			Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
-			//GLog.n("The Chalice sucks your life essence dry...");
-		}
-		 } else hero.damage(dmg,this);
+          hero.damage(dmg,this);
+		 if (!hero.isAlive()) {
+				Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+				//GLog.n("The Chalice sucks your life essence dry...");
+			}
 		 Dungeon.hero.HT-= Math.min(dmg,hero.HT-1);
 		 GLog.w(Messages.get(this, "htdown"));
             //hero.hitSkill++;

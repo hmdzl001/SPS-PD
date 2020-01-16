@@ -128,7 +128,7 @@ public class LichDancer extends Mob {
             return true;
         }
 
-		 if (Random.Int(5) == 0){
+		 if (Random.Int(5) == 0 && breaks > 0){
 			ArrayList<Integer> spawnPoints = new ArrayList<>();
 
 			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {

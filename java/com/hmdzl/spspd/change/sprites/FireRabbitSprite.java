@@ -41,15 +41,15 @@ public class FireRabbitSprite extends MobSprite {
         idle.frames(frames, 0, 0, 0, 1, 1, 1);
 
         run = new Animation( 20, true );
-        run.frames( frames, 0,1 );
+        run.frames( frames, 0,2,3,4,5,6,7 );
 
-        attack = new Animation( 12, false );
-        attack.frames( frames, 1, 2, 3 );
+        attack = new Animation( 20, false );
+        attack.frames( frames, 0, 8, 9,9,9,10 );
 		
 		zap = attack.clone();
 
         die = new Animation( 20, false );
-        die.frames( frames, 0,1 );
+        die.frames( frames, 0,11,11,12,12,13 );
 
         play( idle );
     }

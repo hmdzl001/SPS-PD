@@ -56,7 +56,6 @@ import com.hmdzl.spspd.change.items.weapon.enchantments.CromLuck;
 import com.hmdzl.spspd.change.items.weapon.enchantments.JupitersHorror;
 import com.hmdzl.spspd.change.items.weapon.enchantments.LokisPoison;
 import com.hmdzl.spspd.change.items.weapon.enchantments.NeptuneShock;
-import com.hmdzl.spspd.change.items.weapon.enchantments.Nomnom;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
@@ -307,12 +306,6 @@ public class Weapon extends KindOfWeapon {
 		
 		return enchant(ench);
 	}
-
-	public Weapon enchantNom() {
-
-		Enchantment ench = Enchantment.randomNom();
-		return enchant(ench);
-	}
 	
 	public Weapon enchantLuck() {
 
@@ -367,35 +360,29 @@ public class Weapon extends KindOfWeapon {
 				EnchantmentFire2.class,
 				EnchantmentEarth2.class, EnchantmentDark2.class, EnchantmentEnergy2.class,
 				EnchantmentIce2.class, EnchantmentShock2.class, EnchantmentLight2.class,
-				Nomnom.class, BuzzSaw.class, NeptuneShock.class,
-				CromLuck.class, AresLeech.class};
-		private static final float[] chances = new float[] { 5, 5, 5, 5, 5,5, 5, 5, 5, 5,
-				5, 5,
-				5, 5, 0, 0, 0, 0, 0 };
+				BuzzSaw.class};
+		private static final float[] chances = new float[] { 5, 5, 5, 5, 5,5,
+				5, 5, 5, 5, 5, 5,
+				5, 5, 0};
 		
-		private static final float[] chancesLow = new float[] { 3, 3, 3, 3, 3,3, 3, 3, 3, 3,
-				3, 3,
-			3, 3, 0, 0, 0, 0, 0 };
+		private static final float[] chancesLow = new float[] { 3, 3, 3, 3, 3, 3,
+				3, 3, 3, 3, 3, 3,
+			3, 3, 0 };
 		
-		private static final float[] chancesAdv = new float[] { 2, 2, 2, 2, 2,2, 2, 2, 2, 2,
-				2, 2,
-			2, 2, 0, 0, 0, 0, 0 };
-		
-		private static final float[] chancesNom = new float[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 };
-		
-		private static final float[] chancesBuzz = new float[] {  0, 0,0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 10,0, 0, 0 };
-		
-		private static final float[] chancesNeptune = new float[] {  0, 0,0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 1, 0, 0 };
-		
-		private static final float[] chancesLuck = new float[] {  0, 0,0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 1, 0 };
-		
+		private static final float[] chancesAdv = new float[] { 2, 2, 2, 2, 2,2,
+				2, 2, 2, 2, 2, 2,
+			2, 2, 0 };
+
+		private static final float[] chancesBuzz = new float[] {  0, 0,0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0,
+				0, 0 , 10 };
+
 		private static final Class<?>[] relicenchants = new Class<?>[] {  NeptuneShock.class,
 			CromLuck.class, AresLeech.class, JupitersHorror.class, LokisPoison.class};
-		
+
 		private static final float[] chancesAres = new float[] { 0, 0, 1, 0, 0 };
+		private static final float[] chancesNeptune = new float[] { 1, 0, 0, 0, 0 };
+		private static final float[] chancesLuck = new float[] { 0, 1, 0, 0, 0 };
 		private static final float[] chancesJupiter = new float[] { 0, 0, 0, 1, 0 };
 		private static final float[] chancesLoki = new float[] { 0, 0, 0, 0, 1 };
 		
@@ -449,15 +436,6 @@ public class Weapon extends KindOfWeapon {
 		public static Enchantment randomLow() {
 			try {
 				return ((Class<Enchantment>) enchants[Random.chances(chancesLow)])
-						.newInstance();
-			} catch (Exception e) {
-				return null;
-			}
-		}
-		@SuppressWarnings("unchecked")
-		public static Enchantment randomNom() {
-			try {
-				return ((Class<Enchantment>) enchants[Random.chances(chancesNom)])
 						.newInstance();
 			} catch (Exception e) {
 				return null;

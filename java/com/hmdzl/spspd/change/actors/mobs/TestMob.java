@@ -88,6 +88,12 @@ public class TestMob extends Mob {
 		return 0;
 	}
 
+	
+	@Override
+	public void beckon(int cell) {
+		// Do nothing
+	}
+	
 	@Override
 	public void die(Object cause) {
 		super.die(cause);

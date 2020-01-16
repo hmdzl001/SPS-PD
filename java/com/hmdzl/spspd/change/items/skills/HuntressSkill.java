@@ -95,7 +95,7 @@ public class HuntressSkill extends ClassSkill {
 
 		//curUser.HP -= (curUser.HP / 2);
 		
-		charge +=10;
+		HuntressSkill.charge +=10;
 
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -122,8 +122,8 @@ public class HuntressSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial2() {
-		
-		charge +=10;
+
+		HuntressSkill.charge +=10;
 
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -140,8 +140,6 @@ public class HuntressSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial3() {
-
-		charge +=15;
 
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -162,9 +160,9 @@ public class HuntressSkill extends ClassSkill {
 			FairyCard.Fairy fairy = new FairyCard.Fairy();
 			fairy.pos = Random.element(spawnPoints);
 			GameScene.add(fairy);
+			HuntressSkill.charge +=15;
 		} else {
 			GLog.i( Messages.get(this, "no_space") );
-			charge -=15;
 		}
 	}
 	@Override
@@ -185,7 +183,7 @@ public class HuntressSkill extends ClassSkill {
 		}
 
 
-		charge += 15;
+		HuntressSkill.charge += 15;
 
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);

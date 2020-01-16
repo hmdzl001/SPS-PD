@@ -48,35 +48,18 @@ public class AresLeech extends Weapon.Enchantment {
 	public boolean proc(RelicMeleeWeapon weapon, Char attacker, Char defender, int damage) {
 
 		int level = Math.max(0, weapon.level);
-		
-		int drains = 0;
-		
-		boolean procced = false;
 		int distance = 3;
-		
 		int maxValue = damage * (level + 2) / (level + 6);
 		int effValue = Math.min(Random.IntRange(0, maxValue), attacker.HT - attacker.HP);
 		
 		for (Mob mob : Dungeon.level.mobs) {
-			
-		boolean visible = Level.fieldOfView[mob.pos];
-		
-		if (Level.distance(attacker.pos, mob.pos) < distance && mob.isAlive() ){
-			  if(effValue<mob.HP){	
-				   mob.damage(effValue, weapon);
-				   weapon.charge++;
-				   drains++;
-				}	
-		}
-		}
-		
-        if (drains>0){
-			GLog.i(Messages.get(this, "effect", drains));
-		}
-		// lvl 0 - 33%
-		// lvl 1 - 43%
-		// lvl 2 - 50%
 
+		if (Level.distance(attacker.pos, mob.pos) < distance && mob.isAlive() ){
+			  if(effValue<mob.HP){
+				   weapon.charge++;
+				}	
+		      }
+		}
 
 		if (effValue > 0) {
 
@@ -86,15 +69,7 @@ public class AresLeech extends Weapon.Enchantment {
 				spbuff.attachTo(attacker);
 			}
 			spbuff.prolong(damage);
-
-			/*attacker.HP += effValue;
-			attacker.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f,
-					1);
-			attacker.sprite.showStatus(CharSprite.POSITIVE,
-					Integer.toString(effValue));*/
-
 			return true;
-
 		} else {
 			return false;
 		}

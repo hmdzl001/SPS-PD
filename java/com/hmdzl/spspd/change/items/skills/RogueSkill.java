@@ -61,7 +61,7 @@ public class RogueSkill extends ClassSkill {
 	@Override
 	public void doSpecial() {
 		//GameScene.selectCell(teleporter);
-		charge += 10;
+		RogueSkill.charge += 10;
 		
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -88,7 +88,7 @@ public class RogueSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial2() {
-		charge += 20;
+		RogueSkill.charge += 20;
 		
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -111,7 +111,7 @@ public class RogueSkill extends ClassSkill {
 			}
 		}
 
-		charge += 20;
+		RogueSkill.charge += 20;
 
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -123,7 +123,7 @@ public class RogueSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial4() {
-		charge += 20;
+		RogueSkill.charge += 20;
 
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);

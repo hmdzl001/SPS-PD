@@ -70,19 +70,9 @@ public class CountDown extends Buff {
 	public boolean act() {
 		if (target.isAlive()) {
 			ticks++;
-			GLog.w("countdown: %s ",(6-ticks));
 			if (ticks>5){
-				
-				GLog.w("countdown up!");
 				target.sprite.emitter().burst(ShadowParticle.CURSE, 6);
 				target.damage(Math.round(target.HT / 4), this);
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob instanceof BanditKing) {
-						mob.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
-						mob.HP = Math.min(mob.HP + (Math.round(target.HT/8)),mob.HT);
-					}
-				}
-				GLog.w("shadow bandits feed on your life force!");
 				detach();
 			}
 		}

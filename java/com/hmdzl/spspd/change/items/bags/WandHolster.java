@@ -19,7 +19,12 @@ package com.hmdzl.spspd.change.items.bags;
 
 import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.TriforceOfCourage;
+import com.hmdzl.spspd.change.items.TriforceOfPower;
+import com.hmdzl.spspd.change.items.TriforceOfWisdom;
 import com.hmdzl.spspd.change.items.wands.Wand;
+import com.hmdzl.spspd.change.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.change.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.change.messages.Messages;
 
@@ -29,13 +34,22 @@ public class WandHolster extends Bag {
 		//name = "wand holster";
 		image = ItemSpriteSheet.HOLSTER;
 
-		size = 22;
+		size = 25;
 	}
 
 	@Override
 	public boolean grab(Item item) {
-		return item instanceof Wand;
-		
+		if (item instanceof Wand
+				|| item instanceof TriforceOfCourage
+				|| item instanceof TriforceOfPower
+				|| item instanceof TriforceOfWisdom
+				|| item instanceof SpAmmo
+				|| item instanceof GunWeapon){
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	@Override

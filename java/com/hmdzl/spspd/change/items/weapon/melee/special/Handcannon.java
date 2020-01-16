@@ -26,6 +26,7 @@ import com.hmdzl.spspd.change.actors.mobs.Otiluke;
 import com.hmdzl.spspd.change.actors.mobs.Zot;
 import com.hmdzl.spspd.change.actors.mobs.ZotPhase;
 import com.hmdzl.spspd.change.items.Item;
+import com.hmdzl.spspd.change.items.weapon.enchantments.BuzzSaw;
 import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.change.messages.Messages;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
@@ -38,7 +39,7 @@ public class Handcannon extends MeleeWeapon {
 	{
 		//name = "Handcannon";
 		image = ItemSpriteSheet.HANDCANNON;
-		
+
 	}
 	
 	public Boolean turnedOn = false;

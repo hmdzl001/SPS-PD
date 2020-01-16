@@ -267,9 +267,9 @@ public enum HeroClass {
 			EtherealChains chains = new EtherealChains();
 			(hero.belongings.misc3 = chains).identify();
 			hero.belongings.misc3.activate(hero);
-			new EmpBola(3).collect();
-			new PoisonDart(3).collect();
-			new Smoke(3).collect();
+			new EmpBola(7).collect();
+			new PoisonDart(7).collect();
+			new Smoke(7).collect();
 			new Weightstone().collect();
 			new Stylus().collect();
 			new PotionOfHealing().identify().collect();
@@ -694,8 +694,8 @@ public enum HeroClass {
 	private static void initFollower(Hero hero) {
 		if (Dungeon.skins == 1) {
 			(hero.belongings.weapon = new DiamondPickaxe()).identify();
-			(hero.belongings.armor = new MailArmor()).identify();
-			hero.STR += 6;
+			(hero.belongings.armor = new LeatherArmor()).identify();
+			hero.STR += 4;
 			Dungeon.limitedDrops.strengthPotions.count += 6;
 			new JumpF().collect();
 		}else if (Dungeon.skins == 2) {
@@ -728,8 +728,8 @@ public enum HeroClass {
 			new JumpF().collect();
 		}
 
-
 		new ScrollOfTerror().setKnown();
+        new PotionOfHealing().setKnown();
 
 	}		
 	

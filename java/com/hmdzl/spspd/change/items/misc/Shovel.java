@@ -61,7 +61,7 @@ public class Shovel extends Item {
 		 
 	}
 	
-	public final int fullCharge = 150;
+	public final int fullCharge = 120;
 	public int charge = 0;
 	private static final String CHARGE = "charge";
 
@@ -80,7 +80,7 @@ public class Shovel extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (charge >= 50){
+		if (charge >= 40){
 		actions.add(AC_USE);
 		}
 		if (charge >= 100){
@@ -97,7 +97,7 @@ public class Shovel extends Item {
 			for (int i = 0; i < Level.NEIGHBOURS4.length; i++) {
 
 				final int pos = hero.pos + Level.NEIGHBOURS4[i];
-				if(charge < 50){
+				if(charge < 40){
 					GLog.i(Messages.get(Shovel.class, "break"));
 					return;
 				} else if (Dungeon.level.map[pos] == Terrain.WALL && Level.insideMap(pos)) {
@@ -159,7 +159,7 @@ public class Shovel extends Item {
 
 	@Override
 	public String status() {
-		return Messages.format("%d", (int)charge/50);
+		return Messages.format("%d", (int)charge/40);
 	}
 	
 	@Override

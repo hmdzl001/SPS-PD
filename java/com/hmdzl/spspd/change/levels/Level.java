@@ -856,6 +856,34 @@ public abstract class Level implements Bundlable {
 		};
 	}
 	
+	public Actor waterer() {
+		return new Actor() {
+			@Override
+			protected boolean act() {
+				
+				int growPos = -1;
+				for (int i = 0; i < 20; i++) {
+					growPos = randomRegrowthCell();
+					
+				if (growPos != -1) {
+					break;
+				}
+			} 
+			if (growPos != -1) {
+				  if (map[growPos] == Terrain.GRASS || map[growPos] == Terrain.EMBERS){
+				  Level.set(growPos, Terrain.WATER);
+				  } 
+				  GameScene.updateMap();
+				  Dungeon.observe();
+			}		
+				
+			
+				spend(REGROW_TIMER);
+				return true;
+			}
+		};
+	}	
+	
 	public int randomRegrowthCell() {
 		int cell;
 		int count = 1;

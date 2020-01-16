@@ -22,6 +22,9 @@ import com.hmdzl.spspd.change.actors.hero.Hero;
 import com.hmdzl.spspd.change.items.Item;
 import com.hmdzl.spspd.change.items.armor.Armor;
 import com.hmdzl.spspd.change.items.weapon.Weapon;
+import com.hmdzl.spspd.change.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.change.items.weapon.melee.relic.RelicMeleeWeapon;
+import com.hmdzl.spspd.change.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.change.sprites.ItemSpriteSheet;
 
 public class HeartOfScarecrow extends Bag {
@@ -36,7 +39,9 @@ public class HeartOfScarecrow extends Bag {
 	
 	@Override
 	public boolean grab(Item item) {
-		if (item instanceof Weapon
+		if (item instanceof MeleeWeapon
+			||item instanceof MissileWeapon
+			||item instanceof RelicMeleeWeapon
 			|| item instanceof Armor){
 		return true;
 		} else {

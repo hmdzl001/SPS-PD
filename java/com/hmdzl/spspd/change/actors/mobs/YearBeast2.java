@@ -52,6 +52,7 @@ import com.hmdzl.spspd.change.items.eggs.YearPetEgg;
 import com.hmdzl.spspd.change.items.journalpages.Vault;
 import com.hmdzl.spspd.change.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.change.items.summon.Honeypot;
+import com.hmdzl.spspd.change.items.wands.Wand;
 import com.hmdzl.spspd.change.items.wands.WandOfFlow;
 import com.hmdzl.spspd.change.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.change.items.weapon.melee.Knuckles;
@@ -181,6 +182,14 @@ public class YearBeast2 extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src) {
+
+		if(src instanceof Wand) {
+			dmg = (int)(dmg/3);
+		}
+
+        if ( src instanceof FireCracker) {
+            times=0;
+        }
 
 	    if (times > 50)
 		times-=3;

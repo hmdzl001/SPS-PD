@@ -59,6 +59,7 @@ public class CannonOfMage extends DamageWand {
 	{
 		image = ItemSpriteSheet.CANNON_OF_MAGE;
 		collisionProperties = Ballistica.MAGIC_BOLT;
+		reinforced = true;
 	}
 	
 	public int min(int lvl){

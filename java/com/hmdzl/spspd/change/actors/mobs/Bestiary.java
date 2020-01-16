@@ -239,20 +239,20 @@ public class Bestiary {
 			break;
 		
 		case 27:
-			chances = new float[] { 1, 0.05f };
-			classes = new Class<?>[] { GnollArcher.class, ForestProtector.class};
+			chances = new float[] { 1, 0.05f,0.1f };
+			classes = new Class<?>[] { GnollArcher.class, ForestProtector.class,Brute.class };
 			break;
 		case 28:
-			chances = new float[] { 1, 0.05f };
-			classes = new Class<?>[] { MossySkeleton.class, GraveProtector.class};
+			chances = new float[] { 1, 0.05f,0.1f };
+			classes = new Class<?>[] { MossySkeleton.class, GraveProtector.class,ManySkeleton.class};
 			break;	
 		case 29:
-			chances = new float[] { 1, 0.05f };
-			classes = new Class<?>[] { AlbinoPiranha.class, FishProtector.class};
+			chances = new float[] { 1, 0.05f,0.1f };
+			classes = new Class<?>[] { AlbinoPiranha.class, FishProtector.class,Crab.class };
 			break;	
 		case 30:
-		    chances = new float[] { 1, 0.05f };
-			classes = new Class<?>[] { GoldThief.class, VaultProtector.class};
+		    chances = new float[] { 1, 0.05f,0.1f };
+			classes = new Class<?>[] { GoldThief.class, VaultProtector.class,Succubus.class};
 			break;	
 				
 		case 31:
@@ -261,12 +261,12 @@ public class Bestiary {
 			break;
 			    
 		case 32:
-			chances = new float[] { 1 };
-			classes = new Class<?>[] { Orc.class };
+			chances = new float[] { 1,0.05f };
+			classes = new Class<?>[] { Orc.class, GoldOrc.class};
 			break;
 		case 33:
-			chances = new float[] { 1 };
-			classes = new Class<?>[] { FlyingProtector.class };
+			chances = new float[] { 1, 0.2f };
+			classes = new Class<?>[] { FlyingProtector.class, FireElemental.class };
 			break;
 		case 35:
 			chances = new float[] {1, 1 };

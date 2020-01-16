@@ -65,7 +65,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 	}
 	
 	public DiamondPickaxe() {
-		super(4, 2f, 0.5f, 2);
+		super(3, 2f, 0.5f, 2);
 		MIN = 2;
 		MAX = 8;
 		unique = true;
@@ -83,7 +83,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 	public void execute(final Hero hero, String action) {
 
 		if (action == AC_MINE) {
-            if (Random.Int(5) == 0) {
+            if (Random.Int(3) == 0) {
                 for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
                     mob.beckon(hero.pos);
                 }
@@ -106,7 +106,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMPTY);
+							Level.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							WallBlock wall = new WallBlock();
@@ -138,7 +138,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMPTY);
+							Level.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							DoorBlock door = new DoorBlock();
@@ -170,7 +170,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMPTY);
+							Level.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							BookBlock book = new BookBlock();
@@ -202,7 +202,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMPTY);
+							Level.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							WoodenBlock wooden = new WoodenBlock();
@@ -234,7 +234,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMPTY);
+							Level.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							StoneBlock stone = new StoneBlock();

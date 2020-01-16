@@ -44,6 +44,11 @@ protected boolean act() {
 public void add(Buff buff) {
 }
 
+	@Override
+	public void beckon(int cell) {
+		// Do nothing
+	}
+
 @Override
 public void damage(int dmg, Object src) {
 }

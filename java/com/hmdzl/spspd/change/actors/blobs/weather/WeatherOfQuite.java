@@ -48,7 +48,7 @@ public class WeatherOfQuite extends Blob {
 	@Override
 	public void use(BlobEmitter emitter) {
 		super.use(emitter);
-		emitter.start( ShaftParticle.FACTORY, 0.3f, 0);
+		emitter.start( ShaftParticle.FACTORY, 0.8f, 0);
 	}
 	
 	@Override

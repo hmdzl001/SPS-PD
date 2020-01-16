@@ -46,7 +46,6 @@ import com.hmdzl.spspd.change.items.food.meatfood.ChargrilledMeat;
 import com.hmdzl.spspd.change.items.food.meatfood.FrozenCarpaccio;
 import com.hmdzl.spspd.change.items.food.meatfood.Meat;
 import com.hmdzl.spspd.change.items.food.meatfood.MysteryMeat;
-import com.hmdzl.spspd.change.items.food.Nut;
 import com.hmdzl.spspd.change.items.nornstone.NornStone;
 import com.hmdzl.spspd.change.items.potions.Potion;
 import com.hmdzl.spspd.change.items.potions.PotionOfExperience;
@@ -607,7 +606,7 @@ public class Heap implements Bundlable {
 			destroy(); 
 			
 				switch (type) {
-	            case 1:  weapon = new LokisFlail(); weapon.enchantLoki();
+	            case 1:  weapon = new LokisFlail().enchantLoki();
 	                     break;
 	            case 2:  weapon = new NeptunusTrident(); weapon.enchantNeptune();
                          break;

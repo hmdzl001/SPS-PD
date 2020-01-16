@@ -37,7 +37,7 @@ public class KeyRing extends Bag {
 		//name = "key ring";
 		image = ItemSpriteSheet.KEYRING;
 
-		size = 22;
+		size = 25;
 	}
 
 	@Override

@@ -36,18 +36,14 @@ public class SeedPouch extends Bag {
 		//name = "seed pouch";
 		image = ItemSpriteSheet.POUCH;
 
-		size = 22;
+		size = 25;
 	}
 
 	@Override
 	public boolean grab(Item item) {
 		if (item instanceof Plant.Seed
-			|| item instanceof TriforceOfCourage
-			|| item instanceof TriforceOfPower
-			|| item instanceof TriforceOfWisdom
 			|| item instanceof StoneOre
-			|| item instanceof NornStone
-			|| item instanceof SpAmmo){
+			|| item instanceof NornStone){
 		return true;
 		} else {
 		return false;

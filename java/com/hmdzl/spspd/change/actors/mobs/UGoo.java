@@ -78,7 +78,7 @@ public class UGoo extends Mob {
 		EXP = 20;
 		evadeSkill = 5;
 		
-		loot = new Handcannon().enchantBuzz();
+		loot = new Handcannon();
 		lootChance = 1f;
 
 		properties.add(Property.ELEMENT);

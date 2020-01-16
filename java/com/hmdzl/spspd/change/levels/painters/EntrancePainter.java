@@ -38,7 +38,7 @@ public class EntrancePainter extends Painter {
 		level.entrance = room.random(1);
 		set(level, level.entrance, Terrain.ENTRANCE);
 
-		if (Dungeon.gold > (2000000/(Math.max(1,20-Dungeon.depth)))){
+		if (Dungeon.gold > (2000000/(Math.max(1,20-Dungeon.depth))) && Dungeon.depth < 25){
 			GoldCollector gc = new GoldCollector();
 			gc.pos = room.random();
 			level.mobs.add(gc);
