@@ -1459,11 +1459,12 @@ public class Hero extends Char {
 			sprite.parent.add( new Lightning( arcs, null ) );
 		}
 		if (buff(GoldTouch.class)!=null){
-			int maxgold = (int)((2000000/(Math.max(1,20-Dungeon.depth)))/4);
-			int earngold = Math.min(maxgold - damage, damage);
-			Dungeon.gold+= earngold;
-			
-			hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, earngold);
+			if (rangedWeapon == null && Dungeon.gold  < (int)((1000000/(Math.max(1,20-Statistics.deepestFloor))))) {
+				int earngold = Math.min(1000 * hero.lvl, damage);
+				Dungeon.gold += earngold;
+
+				hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, earngold);
+			}
 		}
 
 		if (buff(MechFaith.class)!= null && ((enemy.properties().contains(Property.BEAST))

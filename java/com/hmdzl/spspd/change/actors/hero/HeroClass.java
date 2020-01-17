@@ -46,6 +46,7 @@ import com.hmdzl.spspd.change.items.artifacts.Pylon;
 import com.hmdzl.spspd.change.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.change.items.bags.PotionBandolier;
 import com.hmdzl.spspd.change.items.bags.SeedPouch;
+import com.hmdzl.spspd.change.items.bags.WandHolster;
 import com.hmdzl.spspd.change.items.bombs.FireBomb;
 import com.hmdzl.spspd.change.items.bombs.IceBomb;
 import com.hmdzl.spspd.change.items.bombs.StormBomb;
@@ -322,6 +323,7 @@ public enum HeroClass {
 			new ScrollHolder().collect();
 			new SeedPouch().collect();
 			new PotionBandolier().collect();
+			new WandHolster().collect();
 			new Sokoban1().collect();
 			new Sokoban2().collect();
 			new Sokoban3().collect();
@@ -360,6 +362,7 @@ public enum HeroClass {
             new SewerReward().collect();
 		new SaveYourLife().collect();
 		new FireCracker().collect();
+
 		Dungeon.gold = 10000;
 		//Dungeon.gold = 10000000;
 		hero.HT=hero.HP=10000;
