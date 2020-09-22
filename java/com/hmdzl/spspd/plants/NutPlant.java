@@ -5,6 +5,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
+import com.hmdzl.spspd.items.potions.PotionOfShield;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 /**
@@ -28,7 +29,7 @@ public class NutPlant extends Plant {
 			image = ItemSpriteSheet.SEED_DUNGEONNUT;
 
 			plantClass = NutPlant.class;
-			alchemyClass = PotionOfHealing.class;;
+			alchemyClass = PotionOfShield.class;;
 		}
 	}
 }

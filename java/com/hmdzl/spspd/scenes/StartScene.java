@@ -497,7 +497,7 @@ public class StartScene extends PixelScene {
 
         public WndSkin() {
             super(Messages.get(Skins.class, "title"), Messages.get(Skins.class, "info"),Messages.get(Skins.class, "normal"),
-                    Messages.get(Skins.class, "first"),Messages.get(Skins.class, "second"),Messages.get(Skins.class, "third") );
+                    Messages.get(Skins.class, "first"),Messages.get(Skins.class, "second"),Messages.get(Skins.class, "third"),Messages.get(Skins.class, "fourth"),Messages.get(Skins.class, "fifth"));
         }
 
      @Override

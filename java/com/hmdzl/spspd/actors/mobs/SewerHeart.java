@@ -72,7 +72,7 @@ public class SewerHeart extends Mob {
 		loot = new Rotberry.Seed();
 		lootChance = 0.2f;
 		
-		lootOther = Generator.Category.SEED;
+		lootOther = Generator.Category.BERRY;
 		lootChanceOther = 1f;
 		
 		properties.add(Property.PLANT);

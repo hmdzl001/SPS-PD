@@ -127,7 +127,8 @@ public abstract class Scroll extends Item {
 				GLog.n(Messages.get(this, "cursed") );
 			}  else {
 				curUser = hero;
-				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
+				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) ||
+				(Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 				curItem = detach(hero.belongings.backpack);
 				doRead();
 				//readAnimation();

@@ -74,7 +74,7 @@ public class BShovel extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (charge >= 75){
+		if (charge >= 65){
 		actions.add(AC_USE);
 		}
         actions.remove( AC_THROW );
@@ -85,7 +85,7 @@ public class BShovel extends Item {
 	@Override
 	public void execute( final Hero hero, String action ) {		
       if( action.equals( AC_USE ) ){
-      	if(charge < 75){
+      	if(charge < 65){
 		  GLog.i(Messages.get(BShovel.class, "break"));
 		  return;
       	} else {
@@ -107,7 +107,7 @@ public class BShovel extends Item {
 						hunger.satisfy(-10);
 						BuffIndicator.refreshHero();
 				}
-				charge-=75;
+				charge-=65;
 
 		switch (Random.Int (6)) {
 			case 0 :
@@ -149,7 +149,7 @@ public class BShovel extends Item {
 
 	@Override
 	public String status() {
-		return Messages.format("%d", (int)charge/75);
+		return Messages.format("%d", (int)charge/65);
 	}
 	
 	@Override

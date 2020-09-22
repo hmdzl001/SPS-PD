@@ -50,6 +50,7 @@ import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
 import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
+import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -177,7 +178,7 @@ public class YearBeast extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		if ( src instanceof FireCracker) {
+		if ( src instanceof FireCracker || src instanceof MoneyPack) {
 			times=0;
 		}
 

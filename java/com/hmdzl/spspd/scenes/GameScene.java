@@ -99,15 +99,6 @@ import com.watabou.utils.Random;
 
 public class GameScene extends PixelScene {
 
-	private static final String TXT_WELCOME = "Welcome to the level %d of Pixel Dungeon!";
-	private static final String TXT_WELCOME_BACK = "Welcome back to the level %d of Pixel Dungeon!";
-
-	private static final String TXT_CHASM = "Your steps echo across the dungeon.";
-	private static final String TXT_WATER = "You hear water splashing around you.";
-	private static final String TXT_GRASS = "The smell of vegetation is thick in the air.";
-	private static final String TXT_DARK = "You can hear enemies moving in the darkness...";
-	private static final String TXT_SECRETS = "The atmosphere hints that this floor hides many secrets.";
-
 	static GameScene scene;
 
 	private SkinnedBlock water;

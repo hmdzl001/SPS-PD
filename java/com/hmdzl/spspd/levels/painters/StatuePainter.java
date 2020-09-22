@@ -20,11 +20,14 @@ package com.hmdzl.spspd.levels.painters;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.Statue;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Point;
+import com.watabou.utils.Random;
 
 public class StatuePainter extends Painter {
 
@@ -68,9 +71,24 @@ public class StatuePainter extends Painter {
 
 		}
 
+		int n = Random.IntRange(2, 3);
+		for (int i = 0; i < n; i++) {
+			int pos;
+			do {
+				pos = room.random();
+			} while (level.map[pos] != Terrain.EMPTY
+					|| level.heaps.get(pos) != null);
+			level.drop(prize(level), pos);
+		}
+
 		Statue statue = new Statue();
 		statue.pos = cx + cy * Level.getWidth();
 		level.mobs.add(statue);
 		Actor.occupyCell(statue);
+	}
+	
+	private static Item prize(Level level) {
+		return  Generator.random(Random.oneOf(Generator.Category.ARMOR,
+						Generator.Category.WEAPON));
 	}
 }

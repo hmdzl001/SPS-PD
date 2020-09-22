@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.scrolls.InventoryScroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -106,7 +107,7 @@ public class FollowerSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial4() {
-		GameScene.selectItem(itemSelector, WndBag.Mode.UPGRADEABLE, Messages.get(ScrollOfUpgrade.class,"prompt"));
+		GameScene.selectItem(itemSelector, WndBag.Mode.UPGRADEABLE, Messages.get(InventoryScroll.class,"title"));
 		
 	}
 
@@ -115,7 +116,7 @@ public class FollowerSkill extends ClassSkill {
 		public void onSelect(Item item) {
 			if (item != null) {
 				FollowerSkill.this.upgrade(item);
-				FollowerSkill.charge += 15;
+				FollowerSkill.charge += 40;
 			}
 		}
 	};

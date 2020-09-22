@@ -314,6 +314,7 @@ public class GunWeapon extends Weapon {
 		{
 			image = ItemSpriteSheet.AMMO;
 			STR = Math.max(typicalSTR(),Dungeon.hero.STR);
+			ACU = 1.3f;
 		}
 
 		public int damageRoll(Hero owner) {

@@ -43,7 +43,7 @@ public class VaultPainter extends Painter {
 		switch (Random.Int(3)) {
 
 		case 0: case 1: case 2:
-			Item i1,i2;
+			Item i1,i2,i3;
 			do {
 				i1 = prizeUncursed(level);
 				i2 = prizeUncursed(level);
@@ -51,6 +51,17 @@ public class VaultPainter extends Painter {
 			level.drop(i1, c).type = Type.CRYSTAL_CHEST;
 			level.drop(i2, c + Level.NEIGHBOURS8[Random.Int(8)]).type = Type.CRYSTAL_CHEST;
 			level.addItemToSpawn(new GoldenKey(Dungeon.depth));
+			
+			do {
+				i3 = prizeUncursed(level);
+			} while ((i1.getClass() == i3.getClass()) && (i1.getClass() == i2.getClass()));			
+			   int pos;
+			do {
+				pos = room.random();
+			} while (level.map[pos] == Terrain.EMPTY_SP
+					|| level.heaps.get(pos) != null);
+			level.drop(i3, pos);	
+					
 			break;
 
 		/*

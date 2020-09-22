@@ -20,6 +20,8 @@ package com.hmdzl.spspd.items.wands;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.MagicWeak;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -64,17 +66,16 @@ public class WandOfMagicMissile extends DamageWand {
 				
 		Char ch = Actor.findChar( bolt.collisionPos );
 		if (ch != null) {
-
 		    processSoulMark(ch, chargesPerCast());
 			ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this);
-
+            Buff.affect(ch, MagicWeak.class, level());
 			ch.sprite.burst(0xFF99CCFF, 2);
 
 		}
 	}
 
 	//@Override
-	//public void execute(Hero hero, String action) {
+	//public void execute(Hero hero, String action) {W
 	//	if (action.equals(AC_DISENCHANT)) {
 
 	//		if (hero.belongings.weapon == this) {
@@ -98,7 +99,7 @@ public class WandOfMagicMissile extends DamageWand {
 
 	@Override
 	protected int initialCharges() {
-		return 3;
+		return 2;
 	}
 	
 	/*@Override

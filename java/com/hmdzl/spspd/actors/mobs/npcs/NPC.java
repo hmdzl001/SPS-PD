@@ -50,4 +50,7 @@ public abstract class NPC extends Mob {
 	}
 
 	abstract public boolean interact();
+	
+	
+
 }

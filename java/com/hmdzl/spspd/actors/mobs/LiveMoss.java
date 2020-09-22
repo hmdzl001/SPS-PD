@@ -39,7 +39,7 @@ public class LiveMoss extends Mob {
 		maxLvl = 9;
 
 		loot = Generator.random(Generator.Category.MUSHROOM);
-		lootChance = 0.2f;
+		lootChance = 0.1f;
 		
 		properties.add(Property.PLANT);
 	}

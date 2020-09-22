@@ -52,7 +52,11 @@ public class WallBlock extends MissileWeapon {
 	@Override
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
-		if ((enemy == null || enemy == curUser) && !(Dungeon.level.map[cell] == Terrain.WELL || Dungeon.level.map[cell] == Terrain.ENTRANCE || Dungeon.level.map[cell] == Terrain.EXIT  )){
+		if ((enemy == null || enemy == curUser) &&
+				!(Dungeon.level.map[cell] == Terrain.WELL ||
+						Dungeon.level.map[cell] == Terrain.EMPTY_WELL ||
+						Dungeon.level.map[cell] == Terrain.ENTRANCE ||
+						Dungeon.level.map[cell] == Terrain.EXIT  )){
 			Level.set(cell, Terrain.WALL);
 			GameScene.updateMap(cell);
 		}

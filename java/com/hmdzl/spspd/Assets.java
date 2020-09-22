@@ -340,8 +340,15 @@ public class Assets {
 	public static final String ICE13 = "ice13.png";
 
 	public static final String FIRERABBIT = "firerabbit.png";
+	public static final String ICERABBIT = "icerabbit.png";
 	public static final String MANY_SKELETON = "manyskeleton.png";
 	public static final String BEAST_YEAR = "beastyear.png";
 
+	public static final String CATSHEEP = "catsheep.png";
+	public static final String BLACKMEOW = "blackmeow.png";
+    public static final String MOB_BAMBOO = "bamboo.png";
+
+
+	public static final String GREATMOSS = "greatmoss.png";
 }
 

@@ -54,14 +54,15 @@ public class CapeOfThorns extends Artifact {
 			else if (cursed)
 				GLog.i(Messages.get(Artifact.class, "cursed"));
 			else {
-				if (level > 1) level--;
+				if (level > 1) {level--;
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 				Buff.affect(hero, Needling.class, (level + 1) * 10f);
 				hero.spend(1f);
 				hero.busy();
 				hero.sprite.operate(hero.pos);
-				updateQuickslot();
+				updateQuickslot();}
+				else GLog.i(Messages.get(Artifact.class, "cursed"));
 			}
 		}
 	}

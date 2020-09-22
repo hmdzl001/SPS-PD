@@ -304,19 +304,19 @@ public class Weapon extends KindOfWeapon {
 	
 	public Weapon enchantLuck() {
 
-		Enchantment ench = Enchantment.randomLuck();
+		Enchantment ench = Enchantment.Luck();
 		return enchant(ench);
 	}
 	
 	public Weapon enchantBuzz() {
 
-		Enchantment ench = Enchantment.randomBuzz();
+		Enchantment ench = Enchantment.Buzz();
 		return enchant(ench);
 	}
 	
 	public Weapon enchantNeptune() {
 
-		Enchantment ench = Enchantment.randomNeptune();
+		Enchantment ench = Enchantment.Neptune();
 		return enchant(ench);
 	}
 	
@@ -437,7 +437,7 @@ public class Weapon extends KindOfWeapon {
 			}
 		}
 		@SuppressWarnings("unchecked")
-		public static Enchantment randomBuzz() {
+		public static Enchantment Buzz() {
 			try {
 				return ((Class<Enchantment>) enchants[Random.chances(chancesBuzz)])
 						.newInstance();
@@ -447,9 +447,9 @@ public class Weapon extends KindOfWeapon {
 		}
 		
 		@SuppressWarnings("unchecked")
-		public static Enchantment randomLuck() {
+		public static Enchantment Luck() {
 			try {
-				return ((Class<Enchantment>) enchants[Random.chances(chancesLuck)])
+				return ((Class<Enchantment>) relicenchants[Random.chances(chancesLuck)])
 						.newInstance();
 			} catch (Exception e) {
 				return null;
@@ -488,9 +488,9 @@ public class Weapon extends KindOfWeapon {
 		
 		
 		@SuppressWarnings("unchecked")
-		public static Enchantment randomNeptune() {
+		public static Enchantment Neptune() {
 			try {
-				return ((Class<Enchantment>) enchants[Random.chances(chancesNeptune)])
+				return ((Class<Enchantment>) relicenchants[Random.chances(chancesNeptune)])
 						.newInstance();
 			} catch (Exception e) {
 				return null;

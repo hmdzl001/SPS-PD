@@ -23,15 +23,22 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Hunger;
+import com.hmdzl.spspd.actors.buffs.WarGroove;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroAction;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.SpellSprite;
+import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -80,7 +87,7 @@ public class Food extends Item {
 				switch (hero.heroClass) {
 					case WARRIOR:
 						if (hero.HP < hero.HT) {
-							hero.HP = Math.min(hero.HP + Random.Int(3, healEnergy), hero.HT);
+							hero.HP = Random.Int(hero.HP + Random.Int(3, healEnergy), hero.HT);
 							hero.sprite.emitter()
 									.burst(Speck.factory(Speck.HEALING), 1);
 						}
@@ -88,32 +95,23 @@ public class Food extends Item {
 					case MAGE:
 						Buff.affect(hero, Recharging.class, 4f);
 						ScrollOfRecharging.charge(hero);
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.HT);
-							hero.sprite.emitter()
-									.burst(Speck.factory(Speck.HEALING), 1);
-						}
 						break;
 					case ROGUE:
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.HT);
-							hero.sprite.emitter()
-									.burst(Speck.factory(Speck.HEALING), 1);
-						}
+						Buff.affect(hero, AttackUp.class, 10f).level(30);
+						Buff.affect(hero, Light.class, 5f);
+						break;
 					case HUNTRESS:
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.HT);
-							hero.sprite.emitter()
-									.burst(Speck.factory(Speck.HEALING), 1);
-						}
+						Dungeon.level.drop(new YellowDewdrop(), hero.pos).sprite.drop();
 						break;
 					case PERFORMER:
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.HT);
-							hero.sprite.emitter()
-									.burst(Speck.factory(Speck.HEALING), 1);
-						}
-						break;						
+						Buff.affect(hero, WarGroove.class);
+						break;
+					case SOLDIER:
+						Buff.affect(hero, Haste.class, 5f);
+						break;
+					case FOLLOWER:
+                        Dungeon.gold+=10;
+						break;
 				}
 
 				hero.sprite.operate(hero.pos);

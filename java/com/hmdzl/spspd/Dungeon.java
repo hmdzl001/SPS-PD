@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 
+import com.hmdzl.spspd.actors.buffs.actbuff.NmImbue;
 import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.levels.ChaosLevel;
 import com.hmdzl.spspd.levels.PotLevel;
@@ -108,7 +109,7 @@ public class Dungeon {
 	// nicer for bundling/initializing.
 	public static enum limitedDrops {
 		// limited world drops
-		strengthPotions, upgradeScrolls,
+		strengthPotions,
 
 		//Norn Stones
 		nornstones,
@@ -903,6 +904,12 @@ public static Level newChallengeLevel(int list, Boolean first){
 			Buff.prolong(Dungeon.hero, Dewcharge.class, Dewcharge.DURATION+(Math.max(Statistics.prevfloormoves,1)));
 		    //GLog.p("You feel the dungeon charge with dew!");
 		}
+		NmImbue nm = Dungeon.hero.buff(NmImbue.class);
+         if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.skins == 4 && nm == null ){
+			
+			Buff.affect(Dungeon.hero,NmImbue.class);
+		}		
+		
 		/*if(Dungeon.hero.heroClass == HeroClass.PERFORMER){
 			//Buff.prolong(Dungeon.hero,Rhythm.class,50);
 			Buff.affect(Dungeon.hero,GlassShield.class).turns(3);
@@ -1026,13 +1033,8 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static boolean posNeeded() {
-		int[] quota = { 4, 2, 9, 4, 14, 6, 19, 8, 24, 10 };
+		int[] quota = { 2,1,  4,2,  7,3,  9,4,  12,5,  14,6,  17,7,   19,8,  22,9,  24,10 };
 		return chance(quota, limitedDrops.strengthPotions.count);
-	}
-
-	public static boolean souNeeded() {
-		int[] quota = { 5, 4, 10, 8, 15, 12, 20, 16, 25, 20 };
-		return chance(quota, limitedDrops.upgradeScrolls.count);
 	}
 
 	private static boolean chance(int[] quota, int number) {

@@ -42,7 +42,7 @@ public class WndIssic extends Window {
 
 		super();
 
-		Powerpill key = new Powerpill();
+		Gold key = new Gold();
 
 
 		IconTitle titlebar = new IconTitle();

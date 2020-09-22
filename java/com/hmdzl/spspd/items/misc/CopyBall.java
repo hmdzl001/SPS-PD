@@ -30,6 +30,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -138,6 +139,7 @@ public class CopyBall extends Item {
 			if (enemy == null || enemy == curUser) {
 				parent = null;
 				Splash.at( cell, 0xCC99FFFF, 1 );
+				new DungeonBomb().explode(cell);
 			} else {
 				if (!curUser.shoot( enemy, this )) {
 					Splash.at(cell, 0xCC99FFFF, 1);

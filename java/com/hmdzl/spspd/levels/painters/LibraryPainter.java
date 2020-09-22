@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.blobs.Alchemy;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfQuite;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
@@ -33,65 +34,54 @@ public class LibraryPainter extends Painter {
 
 	public static void paint(Level level, Room room) {
 
-		fill(level, room, Terrain.WALL);
-		fill(level, room, 1, Terrain.EMPTY);
-
+		fill( level, room, Terrain.WALL );
+		fill(level, room, 1, Terrain.EMPTY_SP);
+        fill(level, room.left + 1, room.top + 1, room.width() - 1, 1, Terrain.BOOKSHELF);
+		
 		Room.Door entrance = room.entrance();
-		Point a = null;
-		Point b = null;
-
+		
+		Point pot = null;
 		if (entrance.x == room.left) {
-			a = new Point(room.left + 1, entrance.y - 1);
-			b = new Point(room.left + 1, entrance.y + 1);
-			fill(level, room.right - 1, room.top + 1, 1, room.height() - 1,
-					Terrain.BOOKSHELF);
+			pot = new Point( room.right-1, Random.Int( 2 ) == 0 ? room.top + 1 : room.bottom - 1 );
+            set( level, entrance.x + 1, entrance.y, Terrain.EMPTY_SP );
 		} else if (entrance.x == room.right) {
-			a = new Point(room.right - 1, entrance.y - 1);
-			b = new Point(room.right - 1, entrance.y + 1);
-			fill(level, room.left + 1, room.top + 1, 1, room.height() - 1,
-					Terrain.BOOKSHELF);
+			pot = new Point( room.left+1, Random.Int( 2 ) == 0 ? room.top + 1 : room.bottom - 1 );
+            set( level, entrance.x - 1, entrance.y, Terrain.EMPTY_SP );
 		} else if (entrance.y == room.top) {
-			a = new Point(entrance.x + 1, room.top + 1);
-			b = new Point(entrance.x - 1, room.top + 1);
-			fill(level, room.left + 1, room.bottom - 1, room.width() - 1, 1,
-					Terrain.BOOKSHELF);
+			pot = new Point( Random.Int( 2 ) == 0 ? room.left + 1 : room.right - 1, room.bottom-1 );
+            set(level, entrance.x, entrance.y + 1, Terrain.EMPTY_SP);
 		} else if (entrance.y == room.bottom) {
-			a = new Point(entrance.x + 1, room.bottom - 1);
-			b = new Point(entrance.x - 1, room.bottom - 1);
-			fill(level, room.left + 1, room.top + 1, room.width() - 1, 1,
-					Terrain.BOOKSHELF);
+			pot = new Point( Random.Int( 2 ) == 0 ? room.left + 1 : room.right - 1, room.top+1 );
+            set(level, entrance.x, entrance.y - 1, Terrain.EMPTY_SP);
 		}
-		if (a != null && level.map[a.x + a.y * Level.getWidth()] == Terrain.EMPTY) {
-			set(level, a, Terrain.STATUE);
-		}
-		if (b != null && level.map[b.x + b.y * Level.getWidth()] == Terrain.EMPTY) {
-			set(level, b, Terrain.STATUE);
-		}
+
+		set( level, pot, Terrain.ALCHEMY );
+		
+		Alchemy alchemy = new Alchemy();
+		alchemy.seed( pot.x + Level.WIDTH * pot.y, 1 );
+		level.blobs.put( Alchemy.class, alchemy );
+
 
 		int n = Random.IntRange(2, 3);
 		for (int i = 0; i < n; i++) {
 			int pos;
 			do {
 				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY
-					|| level.heaps.get(pos) != null);
+			} while (level.map[pos] == Terrain.BOOKSHELF  );
 			level.drop(prize(level), pos);
 		}
+		
+		for (int i2 = 0; i2 < n; i2++) {
+			int pos;
+			do {
+				pos = room.random();
+			} while (level.map[pos] == Terrain.BOOKSHELF );
+			level.drop(prize2(level), pos);
+		}		
 
 		entrance.set(Room.Door.Type.LOCKED);
 		level.addItemToSpawn(new IronKey(Dungeon.depth));
 
-		if (Random.Int(10) > 5){
-		WeatherOfQuite light = (WeatherOfQuite) level.blobs.get(WeatherOfQuite.class);
-		if (light == null) {
-			light = new WeatherOfQuite();
-		}
-		for (int i = room.top + 1; i < room.bottom; i++) {
-			for (int j = room.left + 1; j < room.right; j++) {
-				light.seed(j + Level.getWidth() * i, 1);
-			}
-		}
-		level.blobs.put(WeatherOfQuite.class, light);}
 	}
 
 	private static Item prize(Level level) {
@@ -102,4 +92,14 @@ public class LibraryPainter extends Painter {
 
 		return prize;
 	}
+	
+	private static Item prize2(Level level) {
+
+		Item prize = level.findPrizeItem(Scroll.class);
+		if (prize == null)
+			prize = Generator.random(Generator.Category.POTION);
+
+		return prize;
+	}	
+	
 }

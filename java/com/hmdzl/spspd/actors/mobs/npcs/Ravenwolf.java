@@ -31,7 +31,7 @@ public class Ravenwolf extends NPC {
 		//name = "ravenwolf";
 		spriteClass = RavenwolfSprite.class;
 		//state = WANDERING;
-		properties.add(Property.UNKNOW);
+		properties.add(Property.HUMAN);
 	}
 
 	/*@Override

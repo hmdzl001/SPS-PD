@@ -67,7 +67,7 @@ public class PotionOfMending extends Potion {
 			Sample.INSTANCE.play(Assets.SND_SHATTER);
 		}
 
-		GameScene.add(Blob.seed(cell, 500, HealLight.class));
+		GameScene.add(Blob.seed(cell, 200, HealLight.class));
 	}	
 	
 	@Override

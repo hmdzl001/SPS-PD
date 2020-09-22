@@ -41,7 +41,7 @@ public class Wndice13 extends Window {
 
 		super();
 
-		PowerHand key = new PowerHand();
+		ChaosPack key = new ChaosPack();
 
 
 		IconTitle titlebar = new IconTitle();

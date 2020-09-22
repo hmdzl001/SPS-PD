@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.LevelChecker;
+import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer1;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;

@@ -94,7 +94,9 @@ public abstract class Wand extends Item {
 		if (action.equals( AC_ZAP )) {
 			if (hero.buff(Silent.class) != null) {
 				GLog.w(Messages.get(Wand.class, "silent"));
-			} else {
+			} else 	if (Dungeon.hero.heroClass == HeroClass.MAGE && Dungeon.skins == 4 && Dungeon.hero.spp < 1) {
+				GLog.w(Messages.get(Wand.class, "needmana"));
+			} else{
 			curUser = hero;
 			curItem = this;
 			GameScene.selectCell( zapper );
@@ -272,7 +274,11 @@ public abstract class Wand extends Item {
 		} else curUser.spendAndNext(TIME_TO_ZAP);
 		
 		GnollMark gnollmark = curUser.belongings.getItem(GnollMark.class);
-		if (gnollmark!=null && gnollmark.charge<gnollmark.fullCharge) {gnollmark.charge++;}		
+		if (gnollmark!=null && gnollmark.charge<gnollmark.fullCharge) {gnollmark.charge++;}
+
+		if (Dungeon.hero.heroClass == HeroClass.MAGE && Dungeon.skins == 4 ) {
+			Dungeon.hero.spp -- ;
+		}
 		
 	}
 	

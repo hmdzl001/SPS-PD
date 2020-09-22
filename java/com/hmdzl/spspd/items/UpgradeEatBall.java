@@ -69,7 +69,7 @@ public class UpgradeEatBall extends Item {
 	}	
 		
 	private void use(Item item) {
-if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
+        if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 		detach(curUser.belongings.backpack);
 		
 		curUser.sprite.operate(curUser.pos);

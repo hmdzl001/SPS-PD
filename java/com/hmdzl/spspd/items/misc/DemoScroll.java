@@ -21,6 +21,10 @@ import java.util.ArrayList;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Muscle;
+import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 
@@ -69,32 +73,30 @@ public class DemoScroll extends Item {
 
 		if (action.equals(AC_READ)) {
             
-	    switch (Random.Int (4)) {
+	    switch (Random.Int (3)) {
 		case 0 :
             hero.hitSkill++;
+			Buff.affect(hero,Muscle.class,50f);
 			GLog.w(Messages.get(this, "hitup"));
 			break;
         case 1 :
 		    hero.evadeSkill++;
+			Buff.affect(hero,Rhythm.class,50f);
 			GLog.w(Messages.get(this, "evaup"));
 			break;
         case 2 :
             hero.magicSkill++;
+			Buff.affect(hero,Recharging.class,50f);
 			GLog.w(Messages.get(this, "migup"));
 			break;
-	    case 3 :
-            hero.STR++;
-			GLog.w(Messages.get(this, "strup"));
-			break;
 		default:
-		
 			break;
         }
 		 charge ++;
 		 hero.sprite.operate(hero.pos);
 		hero.busy();
 		hero.spend(2f);
-		 int dmg = Random.Int(6,Dungeon.hero.lvl);
+		 int dmg = charge+1;
           hero.damage(dmg,this);
 		 if (!hero.isAlive()) {
 				Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
@@ -112,6 +114,14 @@ public class DemoScroll extends Item {
 
 		}
 	}
+
+	@Override
+	public String info() {
+		String info = desc();
+		info += "\n\n" + Messages.get(this, "charge",charge);
+		return info;
+	}
+
 	
 	@Override
 	public boolean isUpgradable() {

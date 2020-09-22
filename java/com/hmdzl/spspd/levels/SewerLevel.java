@@ -173,7 +173,7 @@ public class SewerLevel extends RegularLevel {
 			mobs.add(npc);
 			Actor.occupyCell(npc);
 		}
-		
+
 		if (Dungeon.depth == 2){
 			addItemToSpawn(new Mushroom());
 		}

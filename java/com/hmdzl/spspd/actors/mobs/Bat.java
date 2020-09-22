@@ -21,6 +21,7 @@ import java.util.HashSet;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.potions.PotionOfMending;
@@ -42,7 +43,7 @@ public class Bat extends Mob {
 
 		flying = true;
 
-		loot = new PotionOfMending();
+		loot = Generator.Category.SEED;
 		lootChance = 0.1667f; // by default, see die()
 
 		lootOther = new Meat();

@@ -43,7 +43,7 @@ public class BrownBat extends Mob {
 		loot = new Meat();
 		lootChance = 0.5f; // by default, see die()
 		
-		lootOther = Generator.Category.BERRY;
+		lootOther = Generator.Category.SEED;
 		lootChanceOther = 0.05f; // by default, see die()
 		
 		properties.add(Property.BEAST);

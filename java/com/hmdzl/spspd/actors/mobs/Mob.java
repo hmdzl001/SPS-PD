@@ -56,6 +56,7 @@ import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
+import com.hmdzl.spspd.items.misc.PPC;
 import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.levels.Level;
@@ -685,8 +686,11 @@ public abstract class Mob extends Char {
 		}
 		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
 			bonus += 5;
+		if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR) {
+			bonus += 3;
+		}
 		if (Dungeon.hero.buff(AflyBless.class)!=null) {
-			bonus += 5;
+			bonus += 3;
 		}		
 		
 		lootChance += 0.02*bonus;
@@ -707,6 +711,9 @@ public abstract class Mob extends Char {
 		if (Dungeon.hero.isAlive() && !Dungeon.visible[pos]) {
 			GLog.i(Messages.get(this, "died"));
 		}
+		
+		PPC ppc = Dungeon.hero.belongings.getItem(PPC.class);
+		if (ppc!=null) {ppc.charge++;}
 		
 		if (Dungeon.isChallenged(Challenges.NIGHTMARE_VIRUS) && !(this instanceof Virus)) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();

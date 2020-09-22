@@ -47,7 +47,7 @@ public class HugeShuriken extends MissileWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		Buff.affect(defender, AttackDown.class,10f).level(30);
+		Buff.affect(defender, AttackDown.class,10f).level(70);
 		super.proc(attacker, defender, damage);
 	}
 	@Override

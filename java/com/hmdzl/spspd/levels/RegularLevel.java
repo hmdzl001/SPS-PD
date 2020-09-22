@@ -30,6 +30,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Generator;
@@ -151,10 +152,10 @@ public abstract class RegularLevel extends Level {
 		if (Dungeon.bossLevel(Dungeon.depth + 1) || Dungeon.townCheck(Dungeon.depth)) {
 			specials.remove(Room.Type.WEAK_FLOOR);
 		}
-		//if (Dungeon.isChallenged(Challenges.NO_ARMOR)) {
+		if (Dungeon.skins == 5) {
 			// no sense in giving an armor reward room on a run with no armor.
-			//specials.remove(Room.Type.CRYPT);
-		//}
+		    specials.remove(Room.Type.CRYPT);
+		}
 		//if (Dungeon.isChallenged(Challenges.NO_HERBALISM)) {
 			// sorry warden, no lucky sungrass or blandfruit seeds for you!
 			//specials.remove(Room.Type.GARDEN);
@@ -668,8 +669,11 @@ public abstract class RegularLevel extends Level {
 		}
 		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
 			bonus += 5;
+		if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR) {
+			bonus += 3;
+		}
 		for (Buff buff : Dungeon.hero.buffs(AflyBless.class)) {
-			bonus += 5;
+			bonus += 3;
 		}	
 		// just incase someone gets a ridiculous ring, cap this at 80%
 		bonus = Math.min(bonus, 10);

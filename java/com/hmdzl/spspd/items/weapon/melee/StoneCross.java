@@ -65,8 +65,8 @@ public class StoneCross extends MeleeWeapon {
 		if (ACU > 1.2f && DLY > 0.8f){
 			DLY-=0.05f;
 		}
-		MIN+=1;
-		MAX+=2;
+	
+		MAX+=1;
 
 		return super.upgrade(enchant);
     }

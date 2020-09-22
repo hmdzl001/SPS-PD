@@ -30,7 +30,9 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.BookBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.DoorBlock;
@@ -52,7 +54,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 
 	public static final String AC_MINE = "MINE";
 
-	public static final float TIME_TO_MINE = 10;
+	public static final float TIME_TO_MINE = 6;
 
 	{
 		//name = "pickaxe";
@@ -79,6 +81,10 @@ public class DiamondPickaxe extends MeleeWeapon {
 	public void execute(final Hero hero, String action) {
 
 		if (action == AC_MINE) {
+			if (Dungeon.hero.isHungry() || Dungeon.hero.isStarving()){
+				GLog.i(Messages.get(this, "break"));
+				return;
+			}
             if (Random.Int(3) == 0) {
                 for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
                     mob.beckon(hero.pos);
@@ -107,7 +113,10 @@ public class DiamondPickaxe extends MeleeWeapon {
 
 							WallBlock wall = new WallBlock();
 
-							Dungeon.level.drop(wall, hero.pos).sprite.drop();
+
+                            if (Random.Int(60)==1){
+								Dungeon.level.drop(new Gold(50), hero.pos).sprite.drop();
+							} else Dungeon.level.drop(wall, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -139,7 +148,9 @@ public class DiamondPickaxe extends MeleeWeapon {
 
 							DoorBlock door = new DoorBlock();
 
-							Dungeon.level.drop(door, hero.pos).sprite.drop();
+							if (Random.Int(60)==1){
+								Dungeon.level.drop(Generator.random(Generator.Category.SEED), hero.pos).sprite.drop();
+							} else Dungeon.level.drop(door, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -171,7 +182,9 @@ public class DiamondPickaxe extends MeleeWeapon {
 
 							BookBlock book = new BookBlock();
 
-							Dungeon.level.drop(book, hero.pos).sprite.drop();
+							if (Random.Int(60)==1){
+								Dungeon.level.drop(Generator.random(Generator.Category.SCROLL), hero.pos).sprite.drop();
+							} else Dungeon.level.drop(book, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -203,7 +216,9 @@ public class DiamondPickaxe extends MeleeWeapon {
 
 							WoodenBlock wooden = new WoodenBlock();
 
-							Dungeon.level.drop(wooden, hero.pos).sprite.drop();
+							if (Random.Int(60)==1){
+								Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), hero.pos).sprite.drop();
+							} else Dungeon.level.drop(wooden, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -235,7 +250,9 @@ public class DiamondPickaxe extends MeleeWeapon {
 
 							StoneBlock stone = new StoneBlock();
 
-							Dungeon.level.drop(stone, hero.pos).sprite.drop();
+							if (Random.Int(60)==1){
+								Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
+							} else Dungeon.level.drop(stone, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {

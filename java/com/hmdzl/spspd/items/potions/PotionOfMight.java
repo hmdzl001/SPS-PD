@@ -33,8 +33,8 @@ public class PotionOfMight extends Potion {
 	public void apply(Hero hero) {
 		setKnown();
 		
-		hero.HT += 15;
-		hero.HP += 15;
+		hero.HT += 10;
+		hero.HP += 10;
 		
 		hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "msg_1"));
 	}

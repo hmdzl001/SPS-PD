@@ -92,7 +92,7 @@ public class CannonOfMage extends DamageWand {
 					break;
 			}
 			processSoulMark(ch, chargesPerCast());
-				ch.damage((int) (damageRoll() * (1 + 0.5 * Dungeon.hero.magicSkill())), this);
+			ch.damage((int) (damageRoll() * (1 + 0.6 * Dungeon.hero.magicSkill())), this);
 			}
 		}
 	}

@@ -42,10 +42,10 @@ public class Knuckles extends MeleeWeapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-		if (DLY > 0.40f){
+		if (DLY > 0.30f){
 		DLY-=0.05f;
 		}
-        if (DLY < 0.45f && RCH < 2){
+        if (DLY < 0.35f && RCH < 2){
 		RCH ++;
 		}
 		MIN+=1;

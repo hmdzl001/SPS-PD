@@ -58,7 +58,7 @@ public class ZotPhase extends Mob{
 
 	@Override
 	public int hitSkill(Char target) {
-		return 100+adj(0);
+		return 50+adj(0);
 	}
 	
 	@Override

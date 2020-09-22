@@ -31,6 +31,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.Torch;
+import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
@@ -38,6 +39,7 @@ import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
+import com.hmdzl.spspd.items.food.completefood.ZongZi;
 import com.hmdzl.spspd.items.food.staplefood.NormalRation;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.medicine.BlueMilk;
@@ -51,8 +53,10 @@ import com.hmdzl.spspd.items.medicine.Magicpill;
 import com.hmdzl.spspd.items.medicine.Musicpill;
 import com.hmdzl.spspd.items.medicine.PixieParasol;
 import com.hmdzl.spspd.items.medicine.Powerpill;
+import com.hmdzl.spspd.items.medicine.RealgarWine;
 import com.hmdzl.spspd.items.medicine.Shootpill;
 import com.hmdzl.spspd.items.medicine.Smashpill;
+import com.hmdzl.spspd.items.potions.PotionOfMixing;
 import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.bombs.HugeBomb;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
@@ -388,6 +392,10 @@ public class WndAlchemy extends Window {
 		} else if (meatfoods.size() ==2  && potions.size() == 1 && seeds.size() ==1 ){
 			result = new Magicpill();
 
+		} else if (staplefoods.size() ==1  && vegetables.size() == 1 && meatfoods.size() ==1 ){
+			result = new ZongZi();
+		} else if (water.size() ==1  && fireseed.size() == 1 && rootseed.size() ==1 ){
+			result = new RealgarWine();
 		} else if (water.size() ==1  && vegetables.size() == 1 && dewseed.size() ==1 ){
 			result = new GreenSpore();
 		} else if (water.size() ==1  && vegetables.size() == 1 && stormseed.size() ==1 ){
@@ -402,25 +410,20 @@ public class WndAlchemy extends Window {
 			result = new BlueMilk();
 		} else if (water.size() ==1  && vegetables.size() == 1 && mossseed.size() ==1 ) {
 			result = new DeathCap();
-
+		} else if ( honey.size() == 1 && gels.size() == 1 && ore.size() == 1 ){
+			result = new Egg();
 			//potion creation
+
+		} else	if (seedseed.size() == 3){
+			result = new PotionOfMixing();
 		} else	if (seeds.size() == 3){
-
-				if (Random.Int( 3 ) == 0) {
-
-					result = Generator.random( Generator.Category.POTION );
-
-				} else {
-
-					Class<? extends Item> itemClass = Random.element(seeds).alchemyClass;
-					try {
-						result = itemClass.newInstance();
-					} catch (Exception e) {
-						ShatteredPixelDungeon.reportException(e);
-						result = Generator.random( Generator.Category.POTION );
-					}
-
-				}
+        	Class<? extends Item> itemClass = Random.element(seeds).alchemyClass;
+        	try {
+        		result = itemClass.newInstance();
+        	} catch (Exception e) {
+        		ShatteredPixelDungeon.reportException(e);
+        		result = Generator.random( Generator.Category.POTION );
+        	}
 
 				Statistics.potionsCooked++;
 				Badges.validatePotionsCooked();

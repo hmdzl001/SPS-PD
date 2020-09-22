@@ -100,8 +100,10 @@ public class JumpF extends Item {
 					@Override
 					public void call() {
 						if (Dungeon.level.map[curUser.pos] != Terrain.ENTRANCE &&
-								Dungeon.level.map[curUser.pos] != Terrain.EXIT
-								&& Level.insideMap(curUser.pos)) {
+								Dungeon.level.map[curUser.pos] != Terrain.EXIT &&
+								Dungeon.level.map[curUser.pos] != Terrain.ALCHEMY &&
+						Dungeon.level.map[curUser.pos] != Terrain.PEDESTAL &&
+						Level.insideMap(curUser.pos)) {
 							Level.set(curUser.pos, Terrain.HIGH_GRASS);
 						GameScene.updateMap(curUser.pos);
 						}

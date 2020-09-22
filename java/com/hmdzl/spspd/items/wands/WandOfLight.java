@@ -39,7 +39,7 @@ import com.watabou.utils.Random;
 public class WandOfLight extends DamageWand {
 
 	{
-		image = ItemSpriteSheet.WAND_REGROWTH;
+		image = ItemSpriteSheet.WAND_LIGHT;
 		collisionProperties = Ballistica.PROJECTILE;
 	}
 

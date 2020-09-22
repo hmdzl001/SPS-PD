@@ -18,9 +18,11 @@
 package com.hmdzl.spspd.actors.mobs.npcs;
 
 
+import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Flag;
 import com.hmdzl.spspd.sprites.HBBSprite;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
@@ -70,7 +72,7 @@ public class HBB extends NPC {
 	public boolean interact() {
 		
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		switch (Random.Int (3)) {
+		switch (Random.Int (4)) {
             case 0:
 			yell(Messages.get(this, "yell1"));	
 			break;
@@ -80,9 +82,10 @@ public class HBB extends NPC {
 			case 2:
 			yell(Messages.get(this, "yell3"));
 			break;
-			//case 3:
-				//Dungeon.level.drop(new Flag(), Dungeon.hero.pos).sprite.drop();
-			//break;
+			case 3:
+				if (Badges.checkOtilukeRescued())
+				Dungeon.level.drop(new Flag(), Dungeon.hero.pos).sprite.drop();
+			break;
 		}
 		return false;
 	}

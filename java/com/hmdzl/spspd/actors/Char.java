@@ -51,6 +51,7 @@ import com.hmdzl.spspd.actors.buffs.HighAttack;
 import com.hmdzl.spspd.actors.buffs.HighVoice;
 import com.hmdzl.spspd.actors.buffs.Hot;
 import com.hmdzl.spspd.actors.buffs.Hunger;
+import com.hmdzl.spspd.actors.buffs.MagicWeak;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.Needling;
 import com.hmdzl.spspd.actors.buffs.ParyAttack;
@@ -58,6 +59,7 @@ import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Shocked;
+import com.hmdzl.spspd.actors.buffs.SoulMark;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.MagicalSleep;
@@ -65,14 +67,18 @@ import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Speed;
+import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.Wet;
+import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.TerrorMind;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.effects.Lightning;
+import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
@@ -278,6 +284,8 @@ public abstract class Char extends Actor {
 		if (defender.buff(Bless.class) != null) defRoll *= 1.20f;
 		if (attacker.buff(Wet.class) != null) acuRoll *= 0.90f;
 		if (defender.buff(Wet.class) != null) defRoll *= 0.90f;
+		if (attacker.buff(AmokMind.class) != null) acuRoll *= 0.70f;
+		if (defender.buff(TerrorMind.class) != null) defRoll *= 0.70f;
 		if (attacker.buff(Rhythm.class) != null) acuRoll *= 3.00f;
 		if (defender.buff(Rhythm.class) != null) defRoll *= 1.50f;
 		if (defender.buff(HighAttack.class) != null) defRoll *= 1.20f;
@@ -367,6 +375,10 @@ public abstract class Char extends Actor {
 			dmg = (int) Math.ceil(dmg * 1.2);
 		}
 
+        if (src instanceof Wand && Dungeon.hero.heroClass == HeroClass.MAGE && Dungeon.skins == 4) {
+			dmg = (int) Math.ceil(dmg * 1.5);
+		}
+
 		DefenceUp drup = buff(DefenceUp.class);
 		if (buff(DefenceUp.class) != null) {
 			dmg = (int) Math.ceil(dmg *(-drup.level()*0.01+1));
@@ -374,6 +386,15 @@ public abstract class Char extends Actor {
 
 		if (buff(GrowSeed.class) != null) {
 			dmg = (int) Math.ceil(dmg *0.8);
+		}
+
+		if (buff(MagicWeak.class) != null && src instanceof Wand) {
+			dmg = (int) Math.ceil(dmg *1.5);
+		}
+		
+		
+		if (buff(SoulMark.class) != null) {
+			dmg = (int) Math.ceil(dmg *1.5);
 		}
 
 		ShieldArmor sarmor = buff(ShieldArmor.class);

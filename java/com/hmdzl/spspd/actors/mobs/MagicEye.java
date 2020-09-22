@@ -19,6 +19,7 @@ package com.hmdzl.spspd.actors.mobs;
 
 import java.util.HashSet;
 
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
@@ -57,8 +58,8 @@ public class MagicEye extends Mob {
 	
 		flying = true;
 
-		loot = new PotionOfMending();
-		lootChance = 0.05f;
+		loot = Generator.Category.SEED;
+		lootChance = 0.1f;
 		
 		properties.add(Property.DEMONIC);
 		properties.add(Property.ELEMENT);

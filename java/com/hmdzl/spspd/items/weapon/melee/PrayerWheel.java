@@ -65,8 +65,8 @@ public class PrayerWheel extends MeleeWeapon {
 		if (ACU > 1.2f && DLY > 0.8f){
 			DLY-=0.05f;
 		}
-		MIN+=2;
-        MAX+=2;
+		MIN+=1;
+        MAX+=1;
 		
 		return super.upgrade(enchant);
     }

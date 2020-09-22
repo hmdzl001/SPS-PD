@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.items.potions;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
@@ -44,6 +45,7 @@ public class PotionOfOverHealing extends Potion {
 	public static void heal(Hero hero) {
 
 		hero.HP = hero.HT+(hero.lvl*2);
+		Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
 		Buff.detach(hero, Poison.class);
 		Buff.detach(hero, Cripple.class);
 		Buff.detach(hero, Weakness.class);

@@ -34,6 +34,41 @@ public class ItemStatusHandler<T extends Item> {
 	private HashMap<Class<? extends T>, String> labels;
 	private HashSet<Class<? extends T>> known;
 
+    public ItemStatusHandler( Class<? extends T>[] items, String[] allLabels, Integer[] allImages, int exclude ) {
+
+        this.items = items;
+
+        this.images = new HashMap<Class<? extends T>, Integer>();
+        this.labels = new HashMap<Class<? extends T>, String>();
+        known = new HashSet<Class<? extends T>>();
+
+        ArrayList<String> labelsLeft = new ArrayList<String>( Arrays.asList( allLabels ) );
+        ArrayList<Integer> imagesLeft = new ArrayList<Integer>( Arrays.asList( allImages ) );
+
+        for (int i=0; i < items.length - exclude; i++) {
+
+            Class<? extends T> item = (Class<? extends T>)(items[i]);
+
+            int index = Random.Int( labelsLeft.size() - exclude);
+
+            labels.put( item, labelsLeft.get( index ) );
+            labelsLeft.remove( index );
+
+            images.put( item, imagesLeft.get( index ) );
+            imagesLeft.remove( index );
+        }
+
+        for(int i = items.length - exclude; i < items.length; i++)
+        {
+            Class<? extends T> item = (Class<? extends T>)(items[i]);
+
+            labels.put( item, allLabels[i] );
+
+            images.put( item, allImages[i] );
+
+        }
+    }	
+	
 	public ItemStatusHandler(Class<? extends T>[] items, String[] allLabels,
 			Integer[] allImages) {
 

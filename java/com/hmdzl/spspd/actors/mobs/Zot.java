@@ -83,7 +83,7 @@ public class Zot extends Mob {
 
 	@Override
 	public int hitSkill(Char target) {
-		return 200;
+		return 90;
 	}
 
 	@Override

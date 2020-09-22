@@ -8,7 +8,8 @@
 	import com.hmdzl.spspd.actors.buffs.Poison;
 	import com.hmdzl.spspd.actors.mobs.Mob;
 	import com.hmdzl.spspd.levels.Level;
-    import com.hmdzl.spspd.sprites.PlantKingSprite;
+	import com.hmdzl.spspd.sprites.GreatMossSprite;
+	import com.hmdzl.spspd.sprites.PlantKingSprite;
 	import com.watabou.utils.Random;
 
 	import java.util.HashSet;
@@ -17,7 +18,7 @@
 
 		{
 			//name = "Mtree";
-			spriteClass = PlantKingSprite.class;
+			spriteClass = GreatMossSprite.class;
 
 			HP = 10;
 			HT = 10;

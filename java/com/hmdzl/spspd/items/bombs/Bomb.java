@@ -39,7 +39,7 @@ public class Bomb extends Item {
 
 	{
 		//name = "bomb";
-		image = ItemSpriteSheet.BOMB;
+		image = ItemSpriteSheet.NULLWARN;
 		
 		defaultAction = AC_LIGHTTHROW;
 		usesTargeting = true;

@@ -96,7 +96,6 @@ public class WndMix extends Window {
 				protected void onClick() {
 					super.onClick();
 					if (item != null){
-						Dungeon.gold-=1000;
 						if (!item.collect()){
 							Dungeon.level.drop(item, hero.pos);
 						}
@@ -154,6 +153,7 @@ public class WndMix extends Window {
 			@Override
 			protected void onClick() {
 				super.onClick();
+				Dungeon.gold -= 1000;
 				combine();
 			}
 		};

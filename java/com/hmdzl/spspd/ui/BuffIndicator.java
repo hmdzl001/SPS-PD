@@ -123,8 +123,8 @@ public class BuffIndicator extends Component {
 	public static final int BALANCE_FAITH = 83;
 	
 	public static final int STONE_ICE = 84;
-	public static final int BUFF_REMOVE = 85;
-	public static final int BUFF_CURSE = 86;
+	public static final int MAGICWEAK = 85;
+	public static final int MIND_BUFF = 86;
 
 	public static final int SIZE = 7;
 

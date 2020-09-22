@@ -21,22 +21,32 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.PoisonGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 
-public class WandOfPoison extends Wand {
+public class WandOfPoison extends DamageWand {
 
 	{
 		image = ItemSpriteSheet.WAND_POISON;
 		collisionProperties = Ballistica.MAGIC_BOLT;
 	}
 
+	public int min(int lvl){
+		return lvl;
+	}
+
+	public int max(int lvl){
+		return 8+4*lvl;
+	}		
 	
 
 	@Override
@@ -47,10 +57,7 @@ public class WandOfPoison extends Wand {
 
 			processSoulMark(ch, chargesPerCast());
 			
-			int poisonbase=5;
-			
-			Buff.affect(ch, Poison.class).set(
-					Poison.durationFactor(ch) * (poisonbase + level()*2));
+		    ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this);			
 
 		}	   
 		
@@ -58,6 +65,8 @@ public class WandOfPoison extends Wand {
 		if (heap != null) {
 			heap.poison();
 		}
+		
+        GameScene.add( Blob.seed(bolt.collisionPos, 100, PoisonGas.class ) );
 	}
 
 	@Override

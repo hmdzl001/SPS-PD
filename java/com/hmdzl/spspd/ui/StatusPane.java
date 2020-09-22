@@ -54,6 +54,7 @@ public class StatusPane extends Component {
 	private int lastKeys = -1;
 
 	private BitmapText level;
+	private BitmapText spp;
 	private BitmapText depth;
 	private BitmapText keys;
 
@@ -84,7 +85,7 @@ public class StatusPane extends Component {
 		btnMenu = new MenuButton();
 		add(btnMenu);
 
-		avatar = HeroSprite.avatar(Dungeon.hero.heroClass, 7-Dungeon.skins);
+		avatar = HeroSprite.avatar(Dungeon.hero.heroClass, Dungeon.skins);
 		add(avatar);
 
 		blood = new Emitter();
@@ -106,6 +107,10 @@ public class StatusPane extends Component {
 		level = new BitmapText(PixelScene.font1x);
 		level.hardlight(0xFFEBA4);
 		add(level);
+
+		spp = new BitmapText(PixelScene.font1x);
+		spp.hardlight(0xFFEBA4);
+		add(spp);
 
 		depth = new BitmapText(Integer.toString(Dungeon.depth),
 				PixelScene.font1x);
@@ -200,6 +205,11 @@ public class StatusPane extends Component {
 			level.x = PixelScene.align(27.0f - level.width() / 2);
 			level.y = PixelScene.align(27.5f - level.baseLine() / 2);
 		}
+		
+		spp.text( String.format( "%d", Dungeon.hero.spp));
+        spp.measure();
+		spp.x = PixelScene.align(camera(), shield.x + 15 - avatar.width / 2);
+		spp.y = PixelScene.align(camera(), shield.y + 40 - avatar.height / 2);
 
 		int k = IronKey.curDepthQuantity;
 		if (k != lastKeys) {

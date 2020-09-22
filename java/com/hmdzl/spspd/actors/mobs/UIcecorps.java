@@ -70,11 +70,8 @@ public class UIcecorps extends Mob {
 		baseSpeed = 0.75f;
 
 		HP = HT = 1500;
-		EXP = 20;
+		EXP = 0;
 		evadeSkill = 5;
-
-		loot = new EasterEgg();
-		lootChance = 1f;
 
 		properties.add(Property.ORC);
 		properties.add(Property.BOSS);
@@ -111,7 +108,7 @@ public class UIcecorps extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
-	}		
+	}
 	
 
 	@Override
@@ -139,17 +136,7 @@ public class UIcecorps extends Mob {
 	
 	@Override
     public boolean act() {
-
-        if( HP < 100 ) {
-            if (breaks == 0) {
-			breaks++;
-			HP = HT;
-
-            return false;
-            }
-        } 
 		
-
 		timeToIce++;
 		if (timeToIce > 20){
            spawnfires();
@@ -167,10 +154,6 @@ public class UIcecorps extends Mob {
         	dmg = 10;
 		if (dmg > 40)
 		dmg = Random.Int(10, 40);
-		if(HP-dmg<100 && breaks ==0){
-			Buff.affect(this,BoxStar.class,10f);
-			Buff.affect(this,StoneIce.class).level(100);
-		}
 		
 		super.damage(dmg, src);
 	}		
@@ -212,7 +195,7 @@ public class UIcecorps extends Mob {
 	
 		GameScene.bossSlain();
 		super.die(cause);
-		UYog.spawnAt(pos);
+		UIcecorps2.spawnAt(pos);
 	}	
 	
 	public static UIcecorps spawnAt(int pos) {

@@ -23,16 +23,19 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 
 
 public class AttackShoes extends Item {
@@ -94,6 +97,10 @@ public class AttackShoes extends Item {
 						 CellEmitter.center(dest).burst(
 								 Speck.factory(Speck.DUST), 10);
 						 curUser.spendAndNext(JUMP_TIME);
+						 if (Random.Int(20) == 10 ){
+							 Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED3);
+							 Dungeon.level.plant(seed, dest);
+						 }
 						 updateQuickslot();
 					 }
 				 });

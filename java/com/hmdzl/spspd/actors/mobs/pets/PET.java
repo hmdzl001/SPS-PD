@@ -25,6 +25,7 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
+import com.hmdzl.spspd.actors.blobs.NmGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.blobs.VenomGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -303,6 +304,7 @@ public abstract class PET extends NPC {
 		IMMUNITIES.add( Burning.class );
 		IMMUNITIES.add( ScrollOfPsionicBlast.class );
 		IMMUNITIES.add( CorruptGas.class );
+		IMMUNITIES.add( NmGas.class );
 	}
 
 	@Override

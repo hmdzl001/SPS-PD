@@ -28,6 +28,7 @@ import com.hmdzl.spspd.actors.blobs.Alchemy;
 import com.hmdzl.spspd.actors.blobs.Alter;
 import com.hmdzl.spspd.actors.blobs.WellWater;
 import com.hmdzl.spspd.actors.mobs.AdultDragonViolet;
+import com.hmdzl.spspd.actors.mobs.BambooMob;
 import com.hmdzl.spspd.actors.mobs.BombBug;
 import com.hmdzl.spspd.actors.mobs.Piranha;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -36,6 +37,8 @@ import com.hmdzl.spspd.actors.mobs.TestMob2;
 import com.hmdzl.spspd.actors.mobs.npcs.AFly;
 import com.hmdzl.spspd.actors.mobs.npcs.ARealMan;
 import com.hmdzl.spspd.actors.mobs.npcs.Apostle;
+import com.hmdzl.spspd.actors.mobs.npcs.BlackMeow;
+import com.hmdzl.spspd.actors.mobs.npcs.CatSheep;
 import com.hmdzl.spspd.actors.mobs.npcs.DreamPlayer;
 import com.hmdzl.spspd.actors.mobs.npcs.GoblinPlayer;
 import com.hmdzl.spspd.actors.mobs.npcs.HoneyPoooot;
@@ -50,6 +53,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.Omicronrg9;
 import com.hmdzl.spspd.actors.mobs.npcs.OtilukeNPC;
 import com.hmdzl.spspd.actors.mobs.npcs.RENnpc;
 import com.hmdzl.spspd.actors.mobs.npcs.RainTrainer;
+import com.hmdzl.spspd.actors.mobs.npcs.Ravenwolf;
 import com.hmdzl.spspd.actors.mobs.npcs.SadSaltan;
 import com.hmdzl.spspd.actors.mobs.npcs.SaidbySun;
 import com.hmdzl.spspd.actors.mobs.npcs.Shopkeeper;
@@ -118,6 +122,7 @@ import com.hmdzl.spspd.items.weapon.melee.special.RunicBlade;
 import com.hmdzl.spspd.items.weapon.melee.special.SJRBMusic;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.Tree;
+import com.hmdzl.spspd.items.weapon.melee.zero.Bamboo;
 import com.hmdzl.spspd.items.weapon.missiles.MiniMoai;
 import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
 import com.hmdzl.spspd.items.weapon.missiles.PocketBall;
@@ -672,6 +677,15 @@ public class TownLevel extends Level {
 		  Mob lery = new Lery();
 		  lery.pos = 41 + WIDTH * 9;
 		  mobs.add(lery);
+
+		  Mob BM = new BlackMeow();
+		  BM.pos = 38 + WIDTH * 38;
+		  mobs.add(BM);
+
+		  Mob catS = new CatSheep();
+		  catS.pos = 37 + WIDTH * 37;
+		  mobs.add(catS);
+
 	  }
 	  Mob evan = new Evan();
 	  evan.pos = 27 + WIDTH * 31;
@@ -734,7 +748,11 @@ public class TownLevel extends Level {
 	  if (Badges.checkSARRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
       Mob SAR = new StormAndRain();
 	  SAR.pos = 21 + WIDTH * 6;
-	  mobs.add(SAR);	
+	  mobs.add(SAR);
+
+	  Mob RW = new Ravenwolf();
+	   RW.pos = 23 + WIDTH * 6;
+	   mobs.add(RW);
 	  }
 	  
       if (Dungeon.dewNorn == true || Dungeon.isChallenged(Challenges.TEST_TIME)) {
@@ -783,9 +801,9 @@ public class TownLevel extends Level {
 	  mob3.pos = 5 + WIDTH * 43;
 	  mobs.add(mob3);
 
-	  BombBug test = new BombBug();
+	  /*BambooMob test = new BambooMob();
 	  test.pos = 14 + WIDTH * 32;
-	  mobs.add(test);
+	  mobs.add(test);*/
 
 	  /*Guard test2 = new Guard();
 	  test2.pos = 14 + WIDTH * 31;

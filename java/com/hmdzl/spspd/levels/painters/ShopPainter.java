@@ -62,6 +62,8 @@ import com.hmdzl.spspd.items.weapon.guns.GunB;
 import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
+import com.hmdzl.spspd.items.weapon.melee.special.Brick;
+import com.hmdzl.spspd.items.weapon.melee.special.DragonBoat;
 import com.hmdzl.spspd.items.weapon.melee.special.KeyWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.PocketBall;
 import com.hmdzl.spspd.levels.LastShopLevel;
@@ -125,7 +127,7 @@ public class ShopPainter extends Painter {
 		case 1:
 			itemsToSpawn.add(new GunA().identify());
 			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new KeyWeapon());
+			itemsToSpawn.add(new DragonBoat());
 		    itemsToSpawn.add(new DolyaSlate().identify());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());

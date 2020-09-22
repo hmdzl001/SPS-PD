@@ -108,25 +108,25 @@ public class Bestiary {
 						Thief.class, Gnoll.class,PatrolUAV.class};
 				break;
 			case 7:
-				chances = new float[]{0.6f, 1, 1, 0.4f,0.2f};
+				chances = new float[]{0.6f, 1, 1, 0.4f,0.2f,0.2f};
 				classes = new Class<?>[]{Crab.class,
 						Thief.class, Gnoll.class,
-						Guard.class, Zombie.class};
+						Guard.class, Zombie.class,BambooMob.class};
 				break;
 			case 8:
-				chances = new float[]{1, 1, 0.5f, 0.4f, 0.3f,0.7f,0.5f};
+				chances = new float[]{1, 1, 0.5f, 0.4f, 0.3f,0.7f,0.5f,1f};
 				classes = new Class<?>[]{Thief.class, Gnoll.class,
-						Guard.class, Assassin.class, TrollWarrior.class, Zombie.class,FireRabbit.class};
+						Guard.class, Assassin.class, TrollWarrior.class, Zombie.class,FireRabbit.class,BambooMob.class};
 				break;
 			case 9:
 				if (Dungeon.sporkAvail) {
-					chances = new float[]{1, 1, 0.1f,1};
-					classes = new Class<?>[]{Assassin.class, TrollWarrior.class, BanditKing.class, Zombie.class};
+					chances = new float[]{1, 1, 0.1f,1,0.5f};
+					classes = new Class<?>[]{Assassin.class, TrollWarrior.class, BanditKing.class, Zombie.class,BambooMob.class};
 				} else {
-					chances = new float[]{1, 1, 0.8f, 0.6f, 0.5f, 0.02f, 0.01f,1f,0.8f};
+					chances = new float[]{1, 1, 0.8f, 0.6f, 0.5f, 0.02f, 0.01f,1f,0.8f ,1};
 					classes = new Class<?>[]{Thief.class, Gnoll.class,
 							Guard.class, Assassin.class, TrollWarrior.class,
-							Bat.class, Brute.class, Zombie.class,FireRabbit.class};
+							Bat.class, Brute.class, Zombie.class,FireRabbit.class,BambooMob.class};
 				}
 				break;
 

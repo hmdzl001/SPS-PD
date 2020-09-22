@@ -41,7 +41,7 @@ public class UndeadBook extends Item {
 		//name = "UndeadBook";
 		image = ItemSpriteSheet.UNDEAD_BOOK;
 
-		stackable = false;
+		unique = true;
         charge = 0;
 		//defaultAction = AC_READ;
 	}

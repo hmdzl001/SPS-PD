@@ -153,7 +153,7 @@ public class RelicMeleeWeapon extends Weapon {
 	public Item upgrade(boolean enchant) {
 
 		MIN+=2;
-		MAX+=5;
+		MAX+=4;
 
 		if (enchant){
 			GLog.i(Messages.get(this,"refuse"));
@@ -224,7 +224,7 @@ public class RelicMeleeWeapon extends Weapon {
 
 	@Override
 	public int price() {
-		int price = 150;
+		int price = 300;
 		if (enchantment != null) {
 			price *= 1.5;
 		}

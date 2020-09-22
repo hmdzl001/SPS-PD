@@ -206,10 +206,6 @@ public class WaterOfTransmutation extends WellWater {
 		if (p instanceof PotionOfStrength) {
 
 			return new PotionOfMight();
-		
-		} else if (p instanceof PotionOfMending){
-		
-			return new PotionOfHealing();
 
 		} else {
 

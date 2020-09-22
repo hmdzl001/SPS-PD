@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.effects.Pushing;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfMending;
 import com.hmdzl.spspd.levels.Level;
@@ -48,8 +49,8 @@ public class Swarm extends Mob {
 
 		flying = true;
 
-		loot = new PotionOfMending();
-		//loot = new PotionOfMending(); potential nerf
+		loot = Generator.Category.SEED;
+		
 		lootChance = 0.1f; // by default, see die()
 		
 		properties.add(Property.BEAST);

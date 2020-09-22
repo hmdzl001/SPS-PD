@@ -70,8 +70,8 @@ public class Mace extends MeleeWeapon {
 			RCH++;
 		}
 		
-		MIN+=2;
-        MAX+=1;
+		MIN+=1;
+
 		return super.upgrade(enchant);
     }
 

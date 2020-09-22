@@ -22,7 +22,14 @@ package com.hmdzl.spspd.items.artifacts;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.buffs.Arcane;
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
@@ -135,22 +142,28 @@ public class UnstableSpellbook extends Artifact {
 			GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
 		} else if (action.equals( AC_SONG )) {
 			curUser = hero;
-            level-=4;
-			exp-=100;
 			switch (Random.Int(3)){
 				case 0:
 					Dungeon.hero.hitSkill++;
+					Dungeon.hero.evadeSkill++;
 					GLog.w(Messages.get(SkillOfAtk.class, "skillup"));
+					GLog.w(Messages.get(SkillOfDef.class, "skillup"));
 					break;
 				case 1:
-					Dungeon.hero.evadeSkill++;
-					GLog.w(Messages.get(SkillOfDef.class, "skillup"));
+					Buff.affect(hero, AttackUp.class,level*10f).level(25);
+					Buff.affect(hero, DefenceUp.class,level*10f).level(25);
+					Buff.affect(hero, Arcane.class,level*10f);
+					Buff.affect(hero, TargetShoot.class,level*10f);
 					break;
 				case 2:
 					Dungeon.hero.magicSkill++;
+					Buff.affect(hero, Invisibility.class, level*10f );
+					Buff.affect(hero, Haste.class, level*3f );
 					GLog.w(Messages.get(SkillOfMig.class, "skillup"));
 					break;
 			}
+			level-=4;
+			exp-=100;
 			curUser.spendAndNext(1f);
 			updateQuickslot();
 			Sample.INSTANCE.play(Assets.SND_BURNING);

@@ -20,6 +20,8 @@ package com.hmdzl.spspd.levels.painters;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfDead;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Heap.Type;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.IronKey;
@@ -81,7 +83,31 @@ public class CryptPainter extends Painter {
 			}
 			level.blobs.put(WeatherOfDead.class, light);
 		}
+		
+		Heap.Type heapType = Random.Int(2) == 0 ? Heap.Type.CHEST
+				: Heap.Type.HEAP;
 
+		int n = Random.IntRange(2, 3);
+		for (int i = 0; i < n; i++) {
+			int pos;
+			do {
+				pos = room.random();
+			} while (level.map[pos] != Terrain.EMPTY
+					|| level.heaps.get(pos) != null);
+			level.drop(new Gold().random(), pos).type = (i == 0
+					&& heapType == Heap.Type.CHEST ? Heap.Type.MIMIC : heapType);
+		}		
+		if (heapType == Heap.Type.HEAP) {
+			for (int i = 0; i < n; i++) {
+			int pos;
+			do {
+				pos = room.random();
+			} while (level.map[pos] != Terrain.EMPTY
+					|| level.heaps.get(pos) != null);
+			level.drop(new Gold().random(), pos).type = (i == 0
+					&& heapType == Heap.Type.CHEST ? Heap.Type.MIMIC : heapType);
+			}
+		}
 	}
 
 	private static Item prize(Level level) {

@@ -189,16 +189,16 @@ public class NewCombo extends Buff implements ActionIndicator.Action {
 				//variance in damage dealt
 				switch(type){
 					case CLOBBER:
-						dmg = Math.round(dmg*0.6f);
+						dmg = Math.round(dmg*1.6f);
 						break;
 					case CLEAVE:
-						dmg = Math.round(dmg*1.5f);
+						dmg = Math.round(dmg*2.5f);
 						break;
 					case SLAM:
 						//rolls 2 times, takes the highest roll
 						int dmgReroll = target.damageRoll();
 						if (dmgReroll > dmg) dmg = dmgReroll;
-						dmg = Math.round(dmg*1.6f);
+						dmg = Math.round(dmg*2.6f);
 						break;
 					case CRUSH:
 						//rolls 4 times, takes the highest roll
@@ -206,7 +206,7 @@ public class NewCombo extends Buff implements ActionIndicator.Action {
 							dmgReroll = target.damageRoll();
 							if (dmgReroll > dmg) dmg = dmgReroll;
 						}
-						dmg = Math.round(dmg*2.5f);
+						dmg = Math.round(dmg*3.5f);
 						break;
 				}
 

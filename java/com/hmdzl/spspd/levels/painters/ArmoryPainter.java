@@ -22,6 +22,7 @@ import com.hmdzl.spspd.items.bombs.Bomb;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.IronKey;
+import com.hmdzl.spspd.items.weapon.missiles.buildblock.DoorBlock;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
@@ -63,14 +64,25 @@ public class ArmoryPainter extends Painter {
 					|| level.heaps.get(pos) != null);
 			level.drop(prize(level), pos);
 		}
+		
+		for (int i = 0; i < 3; i++) {
+			int pos;
+			do {
+				pos = room.random();
+			} while (level.map[pos] != Terrain.EMPTY
+					|| level.heaps.get(pos) != null);
+			level.drop(prize2(level), pos);
+		}
 
 		entrance.set(Room.Door.Type.LOCKED);
 		level.addItemToSpawn(new IronKey(Dungeon.depth));
 	}
 
 	private static Item prize(Level level) {
-		return Random.Int(6) == 0 ? new Bomb().random() : Generator
-				.random(Random.oneOf(Generator.Category.ARMOR,
-						Generator.Category.WEAPON));
+		return  Generator.random(Generator.Category.BOMBS);
+	}
+
+	private static Item prize2(Level level) {
+		return  new DoorBlock();
 	}
 }

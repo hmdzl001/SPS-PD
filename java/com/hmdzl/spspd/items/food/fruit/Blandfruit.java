@@ -20,10 +20,13 @@ import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.items.potions.PotionOfLevitation;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
+import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfMindVision;
+import com.hmdzl.spspd.items.potions.PotionOfMixing;
 import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.items.potions.PotionOfParalyticGas;
 import com.hmdzl.spspd.items.potions.PotionOfPurity;
+import com.hmdzl.spspd.items.potions.PotionOfShield;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
@@ -34,6 +37,7 @@ import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 /**
  * Created by debenhame on 12/08/2014.
@@ -97,6 +101,12 @@ public class Blandfruit extends Fruit {
 				} else if (potionAttrib instanceof PotionOfFrost) {
 					GLog.i(Messages.get(this, "frost_msg"));
 					Buff.affect(hero, FrostImbue.class, FrostImbue.DURATION);
+				} else if (potionAttrib instanceof PotionOfMixing) {
+					GLog.i(Messages.get(this, "para_msg"));
+					Buff.affect(hero, FrostImbue.class, FrostImbue.DURATION);
+					Buff.affect(hero, EarthImbue.class, EarthImbue.DURATION);
+					Buff.affect(hero, ToxicImbue.class).set(ToxicImbue.DURATION);
+					Buff.affect(hero, FireImbue.class).set(FireImbue.DURATION);
 				} else
 					potionAttrib.apply(hero);
 
@@ -107,7 +117,7 @@ public class Blandfruit extends Fruit {
 				switch (hero.heroClass) {
 				case WARRIOR:
 					if (hero.HP < hero.HT) {
-						hero.HP = Math.min(hero.HP + 5, hero.HT);
+						hero.HP = Random.Int(hero.HP + 5, hero.HT);
 						hero.sprite.emitter().burst(
 								Speck.factory(Speck.HEALING), 1);
 					}
@@ -190,12 +200,20 @@ public class Blandfruit extends Fruit {
 		} else if (potionAttrib instanceof PotionOfExperience) {
 			name = Messages.get(this, "starfruit");
 			potionGlow = new ItemSprite.Glowing( 0xA79400 );
-		}else if (potionAttrib instanceof PotionOfOverHealing) {
+		} else if (potionAttrib instanceof PotionOfOverHealing) {
 			name = Messages.get(this, "heartfruit");
 			potionGlow = new ItemSprite.Glowing( 0xB20000 );
+		} else if (potionAttrib instanceof PotionOfShield) {
+			name = Messages.get(this, "nutfruit");
+			potionGlow = new ItemSprite.Glowing(0x67583D);
+		} else if (potionAttrib instanceof PotionOfMixing) {
+				name = Messages.get(this, "mixfruit");
+				potionGlow = new ItemSprite.Glowing(0xB20000);
+		} else if (potionAttrib instanceof PotionOfMight) {
+			name = Messages.get(this, "mightfruit");
+			potionGlow = new ItemSprite.Glowing(0xB20000);
 
 		}
-
 		return this;
 	}
 
@@ -208,7 +226,8 @@ public class Blandfruit extends Fruit {
 				|| potionAttrib instanceof PotionOfParalyticGas
 				|| potionAttrib instanceof PotionOfFrost
 				|| potionAttrib instanceof PotionOfLevitation
-				|| potionAttrib instanceof PotionOfPurity) {
+				|| potionAttrib instanceof PotionOfPurity
+				) {
 			potionAttrib.cast(user, dst);
 			detach(user.belongings.backpack);
 		} else {

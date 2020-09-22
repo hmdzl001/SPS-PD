@@ -66,8 +66,8 @@ public class HolyWater extends MeleeWeapon {
 			DLY-=0.05f;
 		}
 	
-		MIN+=2;
-        MAX+=1;
+		MIN+=1;
+
 
 		return super.upgrade(enchant);
     }
@@ -80,7 +80,7 @@ public class HolyWater extends MeleeWeapon {
  
         if (charge >= 14) {
 		    defender.damage(5*damage ,this);
-			attacker.HP += damage;
+			attacker.HP += Math.min(damage,attacker.HT-attacker.HT);
 			charge = 0;
 		}
 	   

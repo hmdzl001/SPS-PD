@@ -68,8 +68,6 @@ public class WoodenStaff extends MeleeWeapon {
 			DLY-=0.05f;
 		}
 			
-		MIN+=1;
-        MAX+=1;
 		return super.upgrade(enchant);
     }
 

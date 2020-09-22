@@ -63,11 +63,12 @@ public class Potion extends Item {
 			PotionOfMindVision.class, PotionOfPurity.class,
 			PotionOfInvisibility.class, PotionOfMight.class,
 			PotionOfFrost.class, PotionOfMending.class,
-			PotionOfOverHealing.class};
+			PotionOfOverHealing.class, PotionOfShield.class, PotionOfMixing.class};
 	
 	private static final String[] colors = { "turquoise", "crimson", "azure",
 			"jade", "golden", "magenta", "charcoal", "ivory", "amber",
-			"bistre", "indigo", "silver", "aqua", "violet"};
+			"bistre", "indigo", "silver", "aqua", "violet", "mihuang"
+			,""};
 	private static final Integer[] images = { ItemSpriteSheet.POTION_TURQUOISE,
 			ItemSpriteSheet.POTION_CRIMSON, ItemSpriteSheet.POTION_AZURE,
 			ItemSpriteSheet.POTION_JADE, ItemSpriteSheet.POTION_GOLDEN,
@@ -75,7 +76,8 @@ public class Potion extends Item {
 			ItemSpriteSheet.POTION_IVORY, ItemSpriteSheet.POTION_AMBER,
 			ItemSpriteSheet.POTION_BISTRE, ItemSpriteSheet.POTION_INDIGO,
 			ItemSpriteSheet.POTION_SILVER, ItemSpriteSheet.POTION_AQUA,
-		    ItemSpriteSheet.POTION_VIOLET};
+		    ItemSpriteSheet.POTION_VIOLET, ItemSpriteSheet.POTION_MIHUANG,
+			ItemSpriteSheet.POTION_CATALYST};
 
 	private static ItemStatusHandler<Potion> handler;
 
@@ -91,7 +93,7 @@ public class Potion extends Item {
 	@SuppressWarnings("unchecked")
 	public static void initColors() {
 		handler = new ItemStatusHandler<Potion>(
-				(Class<? extends Potion>[]) potions, colors, images);
+				(Class<? extends Potion>[]) potions, colors, images, 1);
 	}
 
 	public static void save(Bundle bundle) {
@@ -169,7 +171,8 @@ public class Potion extends Item {
 						|| this instanceof PotionOfInvisibility 
 						|| this instanceof PotionOfMight
 						|| this instanceof PotionOfOverHealing
-						|| this instanceof PotionOfMending)) {
+						|| this instanceof PotionOfMending
+						|| this instanceof PotionOfShield)) {
 
 			GameScene.show(new WndOptions( Messages.get(Potion.class, "beneficial"),
 						Messages.get(Potion.class, "sure_throw"),

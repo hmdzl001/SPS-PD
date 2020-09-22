@@ -77,7 +77,7 @@ public class JupitersWraith extends RelicMeleeWeapon {
 	
 
 	private int distance(){
-		return Math.round(level/3)+1;
+		return 4;
 	}
 	
 	private void explode(int distance, Hero hero) {

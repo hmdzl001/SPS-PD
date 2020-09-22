@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer1;
+import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -121,6 +122,9 @@ public class WndTinkerer extends Window {
 		
 		Mushroom mushroom = Dungeon.hero.belongings.getItem(Mushroom.class);
 		mushroom.detach(Dungeon.hero.belongings.backpack);
+
+		DewVial dewvial = Dungeon.hero.belongings.getItem(DewVial.class);
+		dewvial.fill();
 		
 		if (type==1){
 			

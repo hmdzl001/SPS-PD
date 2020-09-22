@@ -82,7 +82,7 @@ public abstract class InventoryScroll extends Scroll {
 				Sample.INSTANCE.play( Assets.SND_READ );
 				Invisibility.dispel();
 				
-			} else if (identifiedByUse && !((Scroll)curItem).ownedByBook) {
+			} else if (/*identifiedByUse &&*/ !((Scroll)curItem).ownedByBook) {
 				
 				((InventoryScroll)curItem).confirmCancelation();
 				

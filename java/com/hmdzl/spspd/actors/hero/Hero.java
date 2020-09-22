@@ -26,10 +26,12 @@ import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.actors.buffs.BoxStar;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.actors.buffs.DBurning;
 import com.hmdzl.spspd.actors.buffs.DamageUp;
 import com.hmdzl.spspd.actors.buffs.DeadRaise;
 import com.hmdzl.spspd.actors.buffs.Disarm;
@@ -52,11 +54,19 @@ import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.WarGroove;
+import com.hmdzl.spspd.actors.buffs.actbuff.NmImbue;
+import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.BalanceFaith;
+import com.hmdzl.spspd.actors.buffs.mindbuff.CrazyMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.DemonFaith;
+import com.hmdzl.spspd.actors.buffs.mindbuff.HopeMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.HumanFaith;
+import com.hmdzl.spspd.actors.buffs.mindbuff.KeepMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.LifeFaith;
+import com.hmdzl.spspd.actors.buffs.mindbuff.LoseMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.MechFaith;
+import com.hmdzl.spspd.actors.buffs.mindbuff.TerrorMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.WeakMind;
 import com.hmdzl.spspd.actors.mobs.SommonSkeleton;
 import com.hmdzl.spspd.effects.Lightning;
 import com.hmdzl.spspd.items.DolyaSlate;
@@ -66,10 +76,12 @@ import com.hmdzl.spspd.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.Pylon;
+import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.misc.AttackShield;
 import com.hmdzl.spspd.items.misc.BShovel;
 import com.hmdzl.spspd.items.misc.CopyBall;
 import com.hmdzl.spspd.items.misc.DanceLion;
+import com.hmdzl.spspd.items.misc.DiceTower;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.misc.HealBag;
@@ -204,6 +216,7 @@ public class Hero extends Char {
 	public int hitSkill = 10;
 	public int evadeSkill = 5;
 	public int magicSkill = 0;
+	public int spp = 0;
 
 	public boolean ready = false;
 	
@@ -282,6 +295,8 @@ public class Hero extends Char {
 			magicSkill += 4;
 		if (buff(Arcane.class)!= null)
 			magicSkill += 10;
+        if (buff(LoseMind.class)!= null)
+            magicSkill -= 5;
 
 		return magicSkill;
 	}	
@@ -289,6 +304,7 @@ public class Hero extends Char {
 	private static final String ATTACK = "hitSkill";
 	private static final String DEFENSE = "evadeSkill";
 	private static final String MAGIC = "magicSkill";
+	private static final String SPP = "spp";
 	private static final String STRENGTH = "STR";
 	private static final String LEVEL = "lvl";
 	private static final String EXPERIENCE = "exp";
@@ -311,6 +327,7 @@ public class Hero extends Char {
 		bundle.put(ATTACK, hitSkill);
 		bundle.put(DEFENSE, evadeSkill);
 		bundle.put(MAGIC, magicSkill);
+		bundle.put(SPP, spp);
 
 		bundle.put(STRENGTH, STR);
 
@@ -337,6 +354,7 @@ public class Hero extends Char {
 		hitSkill = bundle.getInt(ATTACK);
 		evadeSkill = bundle.getInt(DEFENSE);
 		magicSkill = bundle.getInt(MAGIC);
+		spp = bundle.getInt(SPP);
 
 		STR = bundle.getInt(STRENGTH);
 		updateAwareness();
@@ -370,10 +388,16 @@ public class Hero extends Char {
 	public void live() {
 		Buff.affect(this, Regeneration.class);
 		Buff.affect(this, Hunger.class);
+		
+	   // if (Dungeon.skins == 4 ) {
+			//if (heroClass == HeroClass.SOLDIER) {
+			//	Buff.affect(this, NmImbue.class);
+			//}
+		//}
 	}
-
+	
 	public int useskin() {
-		return belongings.armor == null ? 0 : 7 - Dungeon.skins;
+		return Dungeon.skins;
 	}
 
 	public boolean shoot(Char enemy, MissileWeapon wep) {
@@ -469,8 +493,20 @@ public class Hero extends Char {
 		
 		if (dmg < 0)
 			dmg = 0;
-		
+
 		if (buff(Fury.class) != null){ dmg *= 1.30f; }
+
+		if (Dungeon.skins == 4 && Dungeon.hero.heroClass == HeroClass.FOLLOWER){
+			 if (Dungeon.hero.spp < 40){
+				 dmg *= 0.5f;
+			 } else if (Dungeon.hero.spp < 70){
+				 dmg *= 1f * (3+ Dungeon.hero.spp)/100;
+			 } else if (Dungeon.hero.spp < 95){
+				 dmg *= 1f *( 1 + ((Dungeon.hero.spp-70)*4/100));
+			 } else {
+				dmg *= 1f * ( 2 + (Dungeon.hero.spp-95));
+			}
+		}
 		
 		if (buff(Strength.class) != null){ dmg *= 3f; Buff.detach(this, Strength.class);}
 
@@ -493,6 +529,13 @@ public class Hero extends Char {
 		if (buff(BloodAngry.class) != null){ dmg *= 1.50f; }
 
 		if (buff(Rhythm2.class) != null){ dmg *= 1.20f; }
+
+        if (buff(CrazyMind.class) != null){ dmg *= 0.80f; }
+        if (buff(LoseMind.class) != null){ dmg *= 1.20f; }
+        if (buff(AmokMind.class) != null){ dmg *= 1.20f; }
+        if (buff(WeakMind.class) != null){ dmg *= 1.20f; }
+        if (buff(TerrorMind.class) != null){ dmg *= 1.20f; }
+
 		/*AttackUp atkup = buff(AttackUp.class);
 		if (atkup != null) {
 			dmg *=(1f+atkup.level()*0.01f);
@@ -1391,11 +1434,26 @@ public class Hero extends Char {
 		CopyBall copyball = belongings.getItem(CopyBall.class);
 		if (copyball!=null && copyball.charge<copyball.fullCharge) {copyball.charge++;}
 
+		DiceTower diceTower = belongings.getItem(DiceTower.class);
+		if (diceTower!=null && diceTower.charge<diceTower.fullCharge) {diceTower.charge++;}
+
 		switch (heroClass) {
 			case WARRIOR:
 				if (Dungeon.skins==2) {
-					Buff.affect(enemy, Burning.class).reignite(enemy);
+					Buff.affect(enemy, DBurning.class).reignite(enemy);
 				}
+				break;
+			case FOLLOWER:
+				if (Dungeon.skins==4) {
+					Dungeon.hero.spp = Random.Int(100);
+
+                if (Dungeon.hero.spp == 13) {
+                    Buff.affect(enemy, DBurning.class).reignite(enemy);
+                }
+				if (enemy.HP <= damage && Dungeon.hero.spp > 95) {
+					Dungeon.level.drop(Generator.random(), enemy.pos).sprite.drop();
+				}
+			}
 				break;
 		}
 		switch (subClass) {
@@ -1577,6 +1635,15 @@ public class Hero extends Char {
 			arm.proc(enemy, this, damage);
 		}
 
+		switch (heroClass) {
+			case ROGUE:
+			    if (Dungeon.skins == 4){
+				int x = (int)(Dungeon.gold*0.3);
+				Dungeon.gold -= x;
+				Dungeon.hero.spp +=x;
+				if ( x > 0);
+				damage = (int)(damage*0.3);}
+		}
 		switch (subClass) {
 			case LEADER:
 				switch (Random.Int (10)){
@@ -1680,9 +1747,15 @@ public class Hero extends Char {
         if (buff(Fury.class) != null){dmg = (int) Math.ceil(dmg * 0.75);}
 		if (buff(BloodAngry.class) != null){dmg = (int) Math.ceil(dmg * 0.80);}
 		if (buff(Rhythm2.class) != null){dmg = (int) Math.ceil(dmg * 0.90);}
+        if (buff(WeakMind.class) != null){dmg = (int) Math.ceil(dmg * 1.30);}
 
 		if (subClass == HeroSubClass.LEADER){dmg = (int) Math.ceil(dmg * 0.80);}
 
+		if (heroClass == HeroClass.WARRIOR) {
+			if ((dmg > HP) && ( 3*HP > 2*HT )) {
+				dmg = Math.max(1,HT / 2);
+			}
+		}
 		//if (buff(Hot.class) != null){dmg = (int) Math.ceil(dmg * 1.20);}
 
 		/*DefenceUp drup = buff(DefenceUp.class);
@@ -1703,6 +1776,49 @@ public class Hero extends Char {
 		if (subClass == HeroSubClass.BERSERKER && 0 < HP
 				&& HP <= HT * Fury.LEVEL) {
 			Buff.affect(this, Fury.class);
+		}
+
+		if (heroClass == HeroClass.HUNTRESS && Dungeon.skins == 4) {
+			Dungeon.hero.spp++;
+			if(Dungeon.hero.spp>100 && Random.Int(4)==0){
+				GLog.i(Messages.get(this, "test"));
+			    switch (Random.Int(8)){
+					case 0:
+						if (buff(HopeMind.class) != null);
+						else {Buff.affect(this,HopeMind.class);
+							break;}
+					case 1:
+						if (buff(KeepMind.class) != null);
+						else {Buff.affect(this,KeepMind.class);
+							break;}
+					case 2:
+                        if (buff(AmokMind.class) != null);
+                        else {Buff.affect(this,AmokMind.class);
+                        break;}
+
+                    case 3:
+                        if (buff(CrazyMind.class) != null);
+                        else {Buff.affect(this,CrazyMind.class);
+                        break;}
+					case 4:
+						if (buff(WeakMind.class) != null);
+						else {Buff.affect(this,WeakMind.class);
+							break;}
+
+                    case 5:
+                        if (buff(LoseMind.class) != null);
+                        else {Buff.affect(this,LoseMind.class);
+                        break;}
+                    case 6:
+                        if (buff(TerrorMind.class) != null);
+                        else {Buff.affect(this,TerrorMind.class);
+                        break;}
+                    case 7:
+                        Buff.affect(this,Bless.class,20f);
+                        break;
+                }
+                Dungeon.hero.spp = 0;
+            }
 		}
 		
 		if (this.buff(AutoHealPotion.class) != null && ((float) HP / HT)<.1) {
@@ -1925,6 +2041,9 @@ public class Hero extends Char {
 			if (heroClass == HeroClass.SOLDIER){
 				HT+=3;
 			}
+			if (buff(HopeMind.class) != null){
+				HT+=1;
+			}
 			if (lvl < 10) {
 				updateAwareness();
 			}
@@ -1997,7 +2116,7 @@ public class Hero extends Char {
 
 			if (buff instanceof RingOfMight.Might) {
 				if (((RingOfMight.Might) buff).level > 0) {
-					HT += ((RingOfMight.Might) buff).level * 10;
+					HT += ((RingOfMight.Might) buff).level * 8;
 				}
 			} else if (buff instanceof Paralysis || buff instanceof Vertigo) {
 				interrupt();
@@ -2012,7 +2131,7 @@ public class Hero extends Char {
 		super.remove(buff);
 		if (buff instanceof RingOfMight.Might) {
 			if (((RingOfMight.Might) buff).level > 0) {
-				HT -= ((RingOfMight.Might) buff).level * 10;
+				HT -= ((RingOfMight.Might) buff).level * 8;
 				hero.damage(1, this);
 				if (!hero.isAlive()) {
 					Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
@@ -2365,6 +2484,7 @@ public class Hero extends Char {
 		belongings.resurrect(resetLevel);
 
 		live();
+
 	}
 
 	@Override

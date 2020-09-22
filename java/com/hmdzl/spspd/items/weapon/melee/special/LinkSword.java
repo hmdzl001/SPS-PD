@@ -199,7 +199,7 @@ public class LinkSword extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		int DMG = damage;
-		if (Random.Int(100) > 50) {
+		if (Random.Int(100) > 60) {
 			switch (Random.Int(7)) {
 				case 0:
 					defender.damage(Random.Int(DMG / 4, DMG / 2), this);

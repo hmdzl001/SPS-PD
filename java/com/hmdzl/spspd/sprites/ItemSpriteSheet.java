@@ -48,6 +48,7 @@ public class ItemSpriteSheet {
 	private static final int ROW26 = 25 * 16;
 	private static final int ROW27 = 26 * 16;
 	private static final int ROW28 = 27 * 16;
+	private static final int ROW29 = 28 * 16;
 
 	// Row One: Items which can't be obtained
 	// null warning occupies space 0, should only show up if there's a bug.
@@ -148,7 +149,7 @@ public class ItemSpriteSheet {
 
 	// Row Six: Wands
 	public static final int WAND_MAGIC_MISSILE = ROW6 + 0;
-	public static final int WAND_ACID = ROW6 + 1;
+	public static final int WAND_POISON = ROW6 + 1;
 	public static final int WAND_METEORITE = ROW6 + 2;
 	public static final int WAND_FLOW = ROW6 + 3;
 	public static final int WAND_CHARM = ROW6 + 4;
@@ -157,8 +158,8 @@ public class ItemSpriteSheet {
 	public static final int WAND_BLOOD = ROW6 + 7;
 	public static final int WAND_FREEZE = ROW6 + 8;
 	public static final int WAND_LIGHTNING = ROW6 + 9;
-	public static final int WAND_POISON = ROW6 + 10;
-	public static final int WAND_REGROWTH = ROW6 + 11;
+	public static final int WAND_ACID = ROW6 + 10;
+	public static final int WAND_LIGHT = ROW6 + 11;
 	public static final int WAND_FLOCK = ROW6 + 12;
 	public static final int WAND_ADAMANT = ROW6 + 13;
 	public static final int WAND_TCLOUD = ROW4 + 11;
@@ -247,6 +248,7 @@ public class ItemSpriteSheet {
 	public static final int POTION_AQUA = ROW11 + 12;
 	public static final int POTION_HONEY = ROW11 + 13;
 	public static final int POTION_VIOLET = ROW11 + 14;
+	public static final int POTION_MIHUANG = ROW11 + 15;
 
 	// Row Twelve: Seeds
 	public static final int SEED_ROTBERRY = ROW12 + 0;
@@ -416,6 +418,7 @@ public class ItemSpriteSheet {
 	public static final int ERROR_WEAPON = ROW18 + 7;
 	public static final int ERROR_ARMOR = ROW18 + 8;
 	public static final int ERROR_WAND = ROW18 + 9;
+	public static final int MIND_ARROW = ROW18 + 10;
 	public static final int ERROR_FOOD = ROW18 + 11;
 	public static final int ERROR_AMMO = ROW20 + 5;
 
@@ -568,18 +571,24 @@ public class ItemSpriteSheet {
 	public static final int STONE_BLOCK = ROW27 + 13;
 	public static final int WOODEN_BLOCK = ROW27 + 14;
 	public static final int BOOK_BLOCK = ROW27 + 15;
-
 	public static final int HORSE_TOTEM = ROW28 + 0;
 	public static final int RANGE_BAG = ROW28 + 1;
 	public static final int DANCE_LION = ROW28 + 2;
-
 	public static final int LIVE_ARMOR = ROW28 + 3;
 	public static final int SHADOW_EATER = ROW28 + 4;
-
 	public static final int GOBLIN_SHIELD = ROW28 + 5;
 	public static final int CURSE_BLOOD = ROW28 + 6;
 	public static final int TENGU_SWORD = ROW28 + 7;
 	public static final int SP_KNUCKLE = ROW28 + 8;
+	public static final int POTION_CATALYST = ROW28 + 9;
+	public static final int ELF_BOW = ROW28 + 10;
+	public static final int DEMON_BLADE = ROW28 + 11;
+	public static final int DICE_TOWER = ROW28 + 12;
+	public static final int BOAT = ROW28 + 13;
+	public static final int ZONGZI = ROW28 + 15;
+	public static final int WINE = ROW28 + 14;
 
+	public static final int NEED_PAPER = ROW29 + 0;
+	public static final int PPC = ROW29 + 1;
 
 }
