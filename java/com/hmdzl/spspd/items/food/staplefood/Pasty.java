@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.MindVision;
@@ -178,7 +178,7 @@ public class Pasty extends StapleFood {
 					hero.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 					break;
 				case THANK:
-				    Buff.affect(hero, Haste.class,5f);
+				    Buff.affect(hero, HasteBuff.class,5f);
 					Buff.affect(hero, Levitation.class,5f);
 				    break;
 				case XMAS:

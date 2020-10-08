@@ -24,7 +24,7 @@ import java.text.DecimalFormat;
 public class RingOfHaste extends Ring {
 
 	{
-		//name = "Ring of Haste";
+		//name = "Ring of HasteBuff";
 		initials = 5;
 	}
 

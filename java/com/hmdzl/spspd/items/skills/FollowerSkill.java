@@ -22,7 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.ParyAttack;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -96,7 +96,7 @@ public class FollowerSkill extends ClassSkill {
 				Buff.prolong(mob, Blindness.class, 10f);
 			}
 		}	
-	    Buff.affect(curUser, Haste.class,20f);
+	    Buff.affect(curUser, HasteBuff.class,20f);
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();

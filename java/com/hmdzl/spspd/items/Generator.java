@@ -287,7 +287,7 @@ public class Generator {
 	public static enum Category {
 		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),
 		POTION(500, Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
-		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),
+		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),SEED4(0,	Plant.Seed.class),
 		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(50, Food.class), BOMBS(20, Bomb.class),
 		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(1, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class)
 		,SHOES(0,Item.class);
@@ -487,8 +487,13 @@ public class Generator {
 		Category.SEED3.classes = new Class<?>[] {Sungrass.Seed.class, Earthroot.Seed.class, BlandfruitBush.Seed.class, Dreamfoil.Seed.class,
 				Starflower.Seed.class, Dewcatcher.Seed.class, Seedpod.Seed.class};
 
-		Category.SEED3.probs = new float[] { 8, 4, 3, 4, 3, 1 , 1 };
+		Category.SEED3.probs = new float[] { 8, 4, 2, 4, 3, 1 , 1 };
 
+		Category.SEED4.classes = new Class<?>[] {Sungrass.Seed.class, Earthroot.Seed.class, Flytrap.Seed.class, Dreamfoil.Seed.class,
+				Starflower.Seed.class, Phaseshift.Seed.class, NutPlant.Seed.class};
+
+		Category.SEED4.probs = new float[] { 8, 4, 1, 4, 2, 1 , 8 };		
+		
 		
 		Category.BERRY.classes = new Class<?>[] {Blackberry.class, Blueberry.class, Cloudberry.class, Moonberry.class};
 		Category.BERRY.probs = new float[] {6,3,2,1};	

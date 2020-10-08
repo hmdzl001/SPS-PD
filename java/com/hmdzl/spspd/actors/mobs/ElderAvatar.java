@@ -41,6 +41,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
@@ -167,7 +168,7 @@ public class ElderAvatar extends Mob {
 		Hero hero = Dungeon.hero;
 		KindOfArmor armor = hero.belongings.armor;
 		if (Random.Int(10) == 0) {
-			if (armor != null && !(armor instanceof WoodenArmor || armor instanceof RubberArmor || armor instanceof NormalArmor)
+			if (armor != null && !(armor instanceof WoodenArmor || armor instanceof RubberArmor || armor instanceof BaseArmor)
 					&& !armor.cursed) {
 				hero.belongings.armor = null;
 				Dungeon.level.drop(armor, hero.pos).sprite.drop();

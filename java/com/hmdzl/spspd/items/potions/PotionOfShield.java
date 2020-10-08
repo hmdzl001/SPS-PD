@@ -18,14 +18,11 @@
 package com.hmdzl.spspd.items.potions;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.actors.buffs.Haste;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.noosa.tweeners.AlphaTweener;
 
 public class PotionOfShield extends Potion {
 

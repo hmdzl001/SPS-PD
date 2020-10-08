@@ -27,6 +27,7 @@ import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.ForeverShadow;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -85,6 +86,7 @@ public class NeedPaper extends Item {
 			 hero.sprite.operate(hero.pos);
 			   hero.HP = hero.HT;
 			   Dungeon.hero.spp -= 500;
+			   Buff.affect(hero, ForeverShadow.class, 15f);
 			   Buff.detach(hero, Poison.class);
 			   Buff.detach(hero, Cripple.class);
 			   Buff.detach(hero, Weakness.class);

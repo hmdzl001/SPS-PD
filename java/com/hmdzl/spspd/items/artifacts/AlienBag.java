@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
@@ -84,7 +84,7 @@ public class AlienBag extends Artifact {
 			    charge = 0;
                	Buff.affect(hero, Invisibility.class, level * 5f);
 				Buff.affect(hero, Levitation.class, level * 5f);
-			    Buff.affect(hero, Haste.class, level * 5f);
+			    Buff.affect(hero, HasteBuff.class, level * 5f);
 				hero.spend(1f);
 				updateQuickslot();	
 		} else if (action.equals(AC_ETC)) {

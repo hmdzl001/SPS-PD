@@ -20,13 +20,12 @@ package com.hmdzl.spspd.items.food.completefood;
 import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -45,12 +44,12 @@ public class PerfectFood extends CompleteFood {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			hero.HT = hero.HT + (Random.Int(4, 8));
+			hero.HT = hero.HT + (Random.Int(3, 7));
 			Buff.affect(hero, BerryRegeneration.class).level(10);
 			Buff.affect(hero, Bless.class,10f);
 			Buff.affect(hero, Light.class,50f);
 			hero.HP = Math.min(hero.HP + hero.HT/10, hero.HT);
-			Buff.affect(hero, Haste.class,5f);
+			Buff.affect(hero, HasteBuff.class,5f);
 			Buff.affect(hero, Levitation.class,5f);
 			Buff.affect( hero, Recharging.class, 2f ); //half of a charge
 			ScrollOfRecharging.charge( hero );

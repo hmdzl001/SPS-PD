@@ -590,5 +590,7 @@ public class ItemSpriteSheet {
 
 	public static final int NEED_PAPER = ROW29 + 0;
 	public static final int PPC = ROW29 + 1;
+	public static final int H_GEL = ROW29 + 2;
+	public static final int H_RICE = ROW29 + 3;
 
 }

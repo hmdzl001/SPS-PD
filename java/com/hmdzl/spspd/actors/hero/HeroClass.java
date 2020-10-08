@@ -40,6 +40,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LifeArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.Artifact;
@@ -281,7 +282,7 @@ public enum HeroClass {
 		if (Dungeon.skins == 5) {
 
 			Weapon weapon = (Weapon) Generator.random(Generator.Category.WEAPON);
-			Armor armor = (Armor) Generator.random(Generator.Category.ARMOR);
+			Armor armor = new BaseArmor();
 			Ring ring = (Ring) Generator.random(Generator.Category.RING);
 			Artifact artifact = (Artifact) Generator.random(Generator.Category.ARTIFACT);
 

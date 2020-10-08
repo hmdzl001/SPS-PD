@@ -28,13 +28,14 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DragonkingSprite;
+import com.hmdzl.spspd.sprites.NewDargon02Sprite;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.actors.blobs.ShockWeb;
 
 
 public class Dragonking extends Mob {
 	{
-		spriteClass = DragonkingSprite.class;
+		spriteClass = NewDargon02Sprite.class;
 		baseSpeed = 1f;
 
 		HP = HT = 100;

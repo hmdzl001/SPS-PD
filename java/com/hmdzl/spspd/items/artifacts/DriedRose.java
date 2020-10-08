@@ -35,6 +35,7 @@ import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.GhostSprite;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.sprites.NewGhostSprite;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
 import com.hmdzl.spspd.utils.GLog;
@@ -365,7 +366,7 @@ public class DriedRose extends Artifact {
 
 		{
 			//name = "sad ghost";
-			spriteClass = GhostSprite.class;
+			spriteClass = NewGhostSprite.class;
 
 			flying = true;
 

@@ -41,14 +41,14 @@ public class GoldenNut extends CompleteFood {
 
 			switch (Random.Int(2)) {
 			case 0:
-				hero.HT+=60;
+				hero.HT+=40;
 				hero.STR+=1;
 				hero.sprite.showStatus(CharSprite.POSITIVE, "+1 str, +60 ht");
 
 				Badges.validateStrengthAttained();
 				break;
 			case 1:
-				hero.HT+=30;
+				hero.HT+=10;
 				hero.STR+=2;
 				hero.sprite.showStatus(CharSprite.POSITIVE, "+2 str, +30 ht");
 

@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.actors.buffs.FireImbue;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Recharging;
@@ -74,7 +74,7 @@ public class AdaptGlyph extends Glyph {
 		}
 
 		if (Dungeon.level.map[defender.pos] == Terrain.WATER) {
-			Buff.prolong(defender, Haste.class,5f);
+			Buff.prolong(defender, HasteBuff.class,5f);
 		}
 
 		if (Dungeon.level.map[defender.pos] == Terrain.HIGH_GRASS) {

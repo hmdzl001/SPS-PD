@@ -20,6 +20,7 @@ package com.hmdzl.spspd.actors.mobs.pets;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.sprites.NewSnakeSprite;
 import com.hmdzl.spspd.sprites.SnakeSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -28,7 +29,7 @@ public class Snake extends PET {
 	
 	{
 		//name = "Snake";
-		spriteClass = SnakeSprite.class;
+		spriteClass = NewSnakeSprite.class;
         //flying=true;
 		state = HUNTING;
 		level = 1;

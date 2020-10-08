@@ -19,11 +19,9 @@ package com.hmdzl.spspd.items.potions;
 
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Strength;
-import com.hmdzl.spspd.actors.buffs.WarGroove;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.watabou.utils.Random;
 
 public class PotionOfExperience extends Potion {
 
@@ -40,7 +38,7 @@ public class PotionOfExperience extends Potion {
 		setKnown();
 		//hero.earnExp(Random.Int(hero.maxExp()/2,hero.maxExp() - hero.exp));
 		Buff.affect(hero, Bless.class, 50f);
-		Buff.affect(hero, Haste.class, 50f);
+		Buff.affect(hero, HasteBuff.class, 50f);
 		Buff.affect(hero,Strength.class);
 	}
 

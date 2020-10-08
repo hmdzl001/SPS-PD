@@ -1,0 +1,11 @@
+-- Merging decision tree log ---
+manifest
+ADDED from E:\game\unknow\SPSPD\libs\src\main\AndroidManifest.xml:1:1-4:12
+INJECTED from E:\game\unknow\SPSPD\libs\src\main\AndroidManifest.xml:1:1-4:12
+INJECTED from E:\game\unknow\SPSPD\libs\src\main\AndroidManifest.xml:1:1-4:12
+	package
+		ADDED from E:\game\unknow\SPSPD\libs\src\main\AndroidManifest.xml:2:5-26
+		INJECTED from E:\game\unknow\SPSPD\libs\src\main\AndroidManifest.xml
+		INJECTED from E:\game\unknow\SPSPD\libs\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\game\unknow\SPSPD\libs\src\main\AndroidManifest.xml:1:11-69

@@ -25,12 +25,9 @@ import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.HighVoice;
-import com.hmdzl.spspd.actors.buffs.Rhythm;
-import com.hmdzl.spspd.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.buffs.WarGroove;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Speck;
@@ -64,7 +61,7 @@ public class PerformerSkill extends ClassSkill {
 				Buff.affect(mob, Charm.class,Charm.durationFactor(mob)*5f).object = curUser.id();
 				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
 				Buff.affect(mob, Amok.class, 10f);
-				Buff.prolong(mob, Haste.class, 5f);
+				Buff.prolong(mob, HasteBuff.class, 5f);
 				Buff.prolong(mob, ArmorBreak.class, 20f).level(50);
 			}
 		}

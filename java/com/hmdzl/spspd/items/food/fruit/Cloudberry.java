@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.food.fruit;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -46,16 +46,16 @@ public class Cloudberry extends Fruit {
 
 			switch (Random.Int(10)) {
 			case 0: case 1: case 2: case 3: case 4: case 5: 
-				Buff.affect(hero, Haste.class, Haste.DURATION);
+				Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
 				break;
 			case 6: case 7: case 8: 
-				 Buff.affect(hero, Haste.class, Haste.DURATION);
+				 Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
 				 if(Dungeon.depth<51){Buff.affect(hero, Levitation.class, duration);
 				}
 				
 				break;
 			 case 9: case 10:
-				 Buff.affect(hero, Haste.class, Haste.DURATION);
+				 Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
 				 if(Dungeon.depth<51){Buff.affect(hero, Levitation.class, duration*2);
 				}
 				

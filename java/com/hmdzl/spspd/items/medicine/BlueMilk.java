@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.medicine;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -57,7 +57,7 @@ public class BlueMilk extends Pill {
 				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 					Buff.affect(mob, Slow.class, Slow.duration(mob));
 				}
-				Buff.affect(hero, Haste.class, 20f);
+				Buff.affect(hero, HasteBuff.class, 20f);
 				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
 				break;
 			case 0: case 2: case 3: case 4: case 5: 
@@ -66,7 +66,7 @@ public class BlueMilk extends Pill {
 					Buff.affect(mob, Slow.class, Slow.duration(mob));
 					Buff.affect(mob, BerryRegeneration.class).level(mob.HP/2);
 				}
-				Buff.affect(hero, Haste.class, 20f);
+				Buff.affect(hero, HasteBuff.class, 20f);
 				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
 				break;
 			}

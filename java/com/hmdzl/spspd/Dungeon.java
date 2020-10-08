@@ -868,8 +868,8 @@ public static Level newChallengeLevel(int list, Boolean first){
 			level = new CityBossLevel();
 			break;
 		case 21:
-			level = new LastShopLevel();
-			break;
+			//level = new LastShopLevel();
+			//break;
 		case 22:
 		case 23:
 		case 24:
@@ -933,7 +933,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static boolean shopOnLevel() {
-		return depth==1 || depth == 6 || depth == 11 || depth == 16;
+		return depth==1 || depth == 6 || depth == 11 || depth == 16 || depth == 21;
 	}
 
 	public static boolean bossLevel() {
@@ -946,7 +946,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static boolean notClearableLevel(int depth) {
-		return depth == 1 || depth ==2 ||depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 21
+		return depth == 1 || depth ==2 ||depth == 5 || depth == 10 || depth == 15 || depth == 20 
 				|| depth == 25 || depth>25;
 	}
 

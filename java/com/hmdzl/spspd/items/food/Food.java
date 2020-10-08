@@ -25,18 +25,16 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.WarGroove;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroAction;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.SpellSprite;
-import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
@@ -107,7 +105,7 @@ public class Food extends Item {
 						Buff.affect(hero, WarGroove.class);
 						break;
 					case SOLDIER:
-						Buff.affect(hero, Haste.class, 5f);
+						Buff.affect(hero, HasteBuff.class, 5f);
 						break;
 					case FOLLOWER:
                         Dungeon.gold+=10;

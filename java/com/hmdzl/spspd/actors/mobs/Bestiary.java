@@ -215,11 +215,15 @@ public class Bestiary {
 			}
 
 			break;
-
+		case 21:
+				chances = new float[] { 0.8f,0.8f, 1, 1, 1, 0.2f, 0.2f };
+				classes = new Class<?>[] {Musketeer.class, DwarfLich.class,
+						Succubus.class, Eye.class, DemonGoo.class, DemonFlower.class, Sufferer.class};
+				break;
 		case 22:
-			chances = new float[] { 0.8f,0.8f, 1, 1, 1, 0.2f, 0.2f };
-			classes = new Class<?>[] {Musketeer.class, DwarfLich.class,
-					Succubus.class, Eye.class, DemonGoo.class, DemonFlower.class, Sufferer.class};
+			chances = new float[] { 1, 1, 1, 0.5f,0.5f, 0.5f,0.5f };
+			classes = new Class<?>[] { Succubus.class, Eye.class, DemonGoo.class,
+					Scorpio.class,ThiefImp.class , DemonFlower.class, Sufferer.class};
 			break;
 		case 23:
 			chances = new float[] { 1, 1, 1, 0.5f,0.5f, 0.5f,0.5f };

@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.NewSpinnerSprite;
 import com.hmdzl.spspd.sprites.SpiderSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
@@ -32,7 +33,7 @@ public class Spider extends PET {
 	
 	{
 		//name = "spider";
-		spriteClass = SpiderSprite.class;       
+		spriteClass = NewSpinnerSprite.class;
 		//flying=false;
 		state = HUNTING;
 		level = 1;

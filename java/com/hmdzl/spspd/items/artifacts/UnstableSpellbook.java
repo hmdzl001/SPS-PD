@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -158,7 +158,7 @@ public class UnstableSpellbook extends Artifact {
 				case 2:
 					Dungeon.hero.magicSkill++;
 					Buff.affect(hero, Invisibility.class, level*10f );
-					Buff.affect(hero, Haste.class, level*3f );
+					Buff.affect(hero, HasteBuff.class, level*3f );
 					GLog.w(Messages.get(SkillOfMig.class, "skillup"));
 					break;
 			}

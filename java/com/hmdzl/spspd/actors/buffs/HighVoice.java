@@ -55,7 +55,7 @@ public class HighVoice extends FlavourBuff {
 		if (target.isAlive()) {
 			if (target.buff(HighVoice.class) != null && Random.Int(8) == 0) {
 				if (target.HP > target.HT*0.75 ){
-					Buff.affect(target,Haste.class,5f);
+					Buff.affect(target,HasteBuff.class,5f);
 					GLog.p(Messages.get(this,"speed",Dungeon.hero.givenName()));
 				} else {
 					target.HP += (int)(target.HT/4);

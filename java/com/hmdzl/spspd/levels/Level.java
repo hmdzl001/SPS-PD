@@ -50,15 +50,21 @@ import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanSwitch;
 import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Bunny;
+import com.hmdzl.spspd.actors.mobs.pets.ButterflyPet;
+import com.hmdzl.spspd.actors.mobs.pets.Chocobo;
 import com.hmdzl.spspd.actors.mobs.pets.CocoCat;
+import com.hmdzl.spspd.actors.mobs.pets.Datura;
+import com.hmdzl.spspd.actors.mobs.pets.DogPet;
 import com.hmdzl.spspd.actors.mobs.pets.Fly;
 import com.hmdzl.spspd.actors.mobs.pets.GentleCrab;
 import com.hmdzl.spspd.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.actors.mobs.pets.GreenDragon;
+import com.hmdzl.spspd.actors.mobs.pets.Kodora;
 import com.hmdzl.spspd.actors.mobs.pets.LeryFire;
 import com.hmdzl.spspd.actors.mobs.pets.LightDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Monkey;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
+import com.hmdzl.spspd.actors.mobs.pets.PigPet;
 import com.hmdzl.spspd.actors.mobs.pets.RedDragon;
 import com.hmdzl.spspd.actors.mobs.pets.RibbonRat;
 import com.hmdzl.spspd.actors.mobs.pets.Scorpion;
@@ -86,6 +92,7 @@ import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
+import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
@@ -295,7 +302,7 @@ public abstract class Level implements Bundlable {
 				if (Random.Int(2) == 0)
 					addItemToSpawn(new ScrollOfMagicalInfusion());
 				else
-					addItemToSpawn(new PotionOfMight());
+					addItemToSpawn(new PotionOfOverHealing());
 			}
 
 			DriedRose rose = Dungeon.hero.belongings.getItem(DriedRose.class);
@@ -355,7 +362,7 @@ public abstract class Level implements Bundlable {
 					viewDistance = (int) Math.ceil(viewDistance / 3f);
 					break;
 				}
-			} else if (Dungeon.depth > 21 && Dungeon.depth < 27) {
+			} else if (Dungeon.depth > 20 && Dungeon.depth < 27) {
 				switch (Random.Int(10)) {
 				case 1:
 					feeling = Feeling.WATER;
@@ -782,6 +789,30 @@ public abstract class Level implements Bundlable {
 				   }
 				   if (Dungeon.hero.petType==22){
 					   YearPet pet = new YearPet();
+						  spawnPet(pet,petpos,heropos);					 
+				   }	
+				   if (Dungeon.hero.petType==23){
+					   DogPet pet = new DogPet();
+						  spawnPet(pet,petpos,heropos);					 
+				   }
+				   if (Dungeon.hero.petType==24){
+					   ButterflyPet pet = new ButterflyPet();
+						  spawnPet(pet,petpos,heropos);					 
+				   }
+				   if (Dungeon.hero.petType==25){
+					   Kodora pet = new Kodora();
+						  spawnPet(pet,petpos,heropos);					 
+				   }
+				   if (Dungeon.hero.petType==26){
+					   Chocobo pet = new Chocobo();
+						  spawnPet(pet,petpos,heropos);					 
+				   }	
+				   if (Dungeon.hero.petType==27){
+					   PigPet pet = new PigPet();
+						  spawnPet(pet,petpos,heropos);					 
+				   }	
+				   if (Dungeon.hero.petType==28){
+					   Datura pet = new Datura();
 						  spawnPet(pet,petpos,heropos);					 
 				   }					   
 				}

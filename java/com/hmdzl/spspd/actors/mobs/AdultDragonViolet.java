@@ -31,6 +31,7 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.AdultDragonVioletSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
+import com.hmdzl.spspd.sprites.NewDargon01Sprite;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
@@ -40,7 +41,7 @@ public class AdultDragonViolet extends Mob implements Callback{
 	private static final float TIME_TO_ZAP = 1f;
 
 	{
-		spriteClass = AdultDragonVioletSprite.class;
+		spriteClass = NewDargon01Sprite.class;
 		baseSpeed = 1.5f;
 
 		HP = HT = 8000;
@@ -101,7 +102,7 @@ public class AdultDragonViolet extends Mob implements Callback{
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((AdultDragonVioletSprite) sprite).zap(enemy.pos);
+				((NewDargon01Sprite) sprite).zap(enemy.pos);
 			} else {
 				zap();
 			}

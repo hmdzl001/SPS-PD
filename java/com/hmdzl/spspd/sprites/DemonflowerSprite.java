@@ -29,19 +29,18 @@ public class DemonflowerSprite extends MobSprite {
 
 		TextureFilm frames = new TextureFilm(texture, 16, 16);
 
-		idle = new Animation(2, true);
-		idle.frames(frames, 0, 0, 0, 1, 0, 0, 0, 1);
+		idle = new Animation(8, true);
+		idle.frames(frames, 0, 1, 2);
 
 		run = new Animation(12, true);
-		run.frames(frames, 4, 5);
+		run.frames(frames, 5, 6);
 
-		attack = new Animation(12, false);
-		attack.frames(frames, 2, 3, 0);
+		attack = new Animation(8, false);
+		attack.frames(frames, 4, 3);
 
-		die = new Animation(12, false);
-		die.frames(frames, 0, 6, 7);
+		die = new Animation(8, false);
+		die.frames(frames, 7, 8, 9);
 
 		play(idle);
-	}
-	
+	   }
 	}

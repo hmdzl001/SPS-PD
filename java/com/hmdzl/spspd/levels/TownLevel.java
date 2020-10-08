@@ -36,7 +36,9 @@ import com.hmdzl.spspd.actors.mobs.TestMob;
 import com.hmdzl.spspd.actors.mobs.TestMob2;
 import com.hmdzl.spspd.actors.mobs.npcs.AFly;
 import com.hmdzl.spspd.actors.mobs.npcs.ARealMan;
+import com.hmdzl.spspd.actors.mobs.npcs.ATV9;
 import com.hmdzl.spspd.actors.mobs.npcs.Apostle;
+import com.hmdzl.spspd.actors.mobs.npcs.AshWolf;
 import com.hmdzl.spspd.actors.mobs.npcs.BlackMeow;
 import com.hmdzl.spspd.actors.mobs.npcs.CatSheep;
 import com.hmdzl.spspd.actors.mobs.npcs.DreamPlayer;
@@ -113,6 +115,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.items.weapon.melee.special.Brick;
+import com.hmdzl.spspd.items.weapon.melee.special.DragonBoat;
 import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
 import com.hmdzl.spspd.items.weapon.melee.special.HookHam;
 import com.hmdzl.spspd.items.weapon.melee.special.KeyWeapon;
@@ -491,7 +494,7 @@ public class TownLevel extends Level {
 
 	public Item storeItem7 (){
 		Item prize;
-		switch (Random.Int(12)) {
+		switch (Random.Int(13)) {
 			case 0:
 				prize = new Pumpkin();
 				break;
@@ -527,6 +530,9 @@ public class TownLevel extends Level {
 				break;
 			case 11:
 				prize = new KeyWeapon();
+				break;
+			case 12:
+				prize = new DragonBoat();
 				break;
 			default:
 				prize = new PetFood();
@@ -646,6 +652,10 @@ public class TownLevel extends Level {
 	  Mob jinkeloid = new Jinkeloid();
 	  jinkeloid.pos = 43 + WIDTH * 14;
 	  mobs.add(jinkeloid);
+
+	  Mob atv9 = new ATV9();
+	  atv9.pos = 43 + WIDTH * 17;
+	  mobs.add(atv9);
 
 	  if (Badges.checkUncleRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)) {
 		  Mob uncles = new UncleS();
@@ -848,6 +858,10 @@ public class TownLevel extends Level {
 	  Mob alivefish = new AliveFish();
 	  alivefish.pos = 42 + WIDTH * 9;
 	  mobs.add(alivefish);
+		  AshWolf ashwolf = new AshWolf();
+		  ashwolf.pos = 40 + WIDTH * 36;
+		  mobs.add(ashwolf);
+
       }
 	  
 	  /*Golem mob6 = new Golem();

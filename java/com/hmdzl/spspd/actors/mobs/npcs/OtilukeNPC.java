@@ -33,7 +33,9 @@ public class OtilukeNPC extends NPC {
 		spriteClass = OtilukeNPCSprite.class;
 		properties.add(Property.HUMAN);
 	}
-	
+
+	private boolean seenBefore = false;
+
 	@Override
 	protected boolean act() {
 		throwItem();
@@ -67,6 +69,9 @@ public class OtilukeNPC extends NPC {
 	public boolean interact() {
 
 		sprite.turnTo(pos, Dungeon.hero.pos);
+		if (!seenBefore) {
+			Dungeon.level.drop(new Amulet(), Dungeon.hero.pos).sprite.drop();
+		} seenBefore = true;
 		switch (Random.Int (3)) {
             case 0:
 			yell(Messages.get(this, "yell1"));	
@@ -76,7 +81,7 @@ public class OtilukeNPC extends NPC {
 			break;
 			case 2:
 			yell(Messages.get(this, "yell3"));
-			Dungeon.level.drop(new Amulet(), Dungeon.hero.pos).sprite.drop();
+
 			break;
 		}
 		return true;

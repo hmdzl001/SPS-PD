@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.buffs.HighAttack;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Strength;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.levels.Level;
@@ -62,7 +62,7 @@ public class RogueSkill extends ClassSkill {
 		    Buff.affect(curUser, Strength.class);
 			break;
 			case 1:
-			Buff.affect(curUser, Haste.class,15);
+			Buff.affect(curUser, HasteBuff.class,15);
 			break;
 			case 2:
             Buff.affect(curUser, AttackUp.class,15).level(50);

@@ -87,8 +87,18 @@ public class WndSadGhost extends Window {
 			};
 			btnArmor.setRect(0, btnWeapon.bottom() + GAP, WIDTH, BTN_HEIGHT);
 			add(btnArmor);
+			
 
-			resize(WIDTH, (int) btnArmor.bottom());
+			RedButton btnPet = new RedButton( Messages.get(this, "pet")) {
+				@Override
+				protected void onClick() {
+					selectReward(ghost, Ghost.Quest.pet);
+				}
+			};
+			btnPet.setRect(0, btnArmor.bottom() + GAP, WIDTH, BTN_HEIGHT);
+			add(btnPet);			
+
+			resize(WIDTH, (int) btnPet.bottom());
 
 	}
 

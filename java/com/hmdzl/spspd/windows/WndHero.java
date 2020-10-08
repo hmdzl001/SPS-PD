@@ -31,11 +31,14 @@ import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.fruit.Fruit;
+import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfFrost;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.food.completefood.Garbage;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
@@ -622,7 +625,6 @@ public class WndHero extends WndTabbed {
 		
 		if (petType==1){ //Spider
 			if (item instanceof Meat
-				|| item instanceof MysteryMeat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -630,7 +632,7 @@ public class WndHero extends WndTabbed {
 
 		if (petType==3){//Velocirooster 
 			if (item instanceof Plant.Seed
-				|| item instanceof Nut
+				|| item instanceof Vegetable
 				|| item instanceof PetFood){
 				nomnom=true;
 			}
@@ -638,7 +640,6 @@ public class WndHero extends WndTabbed {
 		if (petType==4){//red dragon - fire
 			if (item instanceof Meat
 				|| item instanceof PotionOfLiquidFlame
-				|| item instanceof MysteryMeat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -647,7 +648,6 @@ public class WndHero extends WndTabbed {
 		if (petType==5){//green dragon - lit
 			if (item instanceof Meat
 				|| item instanceof ScrollOfRecharging
-				|| item instanceof MysteryMeat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -656,7 +656,6 @@ public class WndHero extends WndTabbed {
 		if (petType==6){//violet dragon - poison
 			if (item instanceof Meat
 				|| item instanceof PotionOfToxicGas
-				|| item instanceof MysteryMeat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -664,7 +663,6 @@ public class WndHero extends WndTabbed {
 		if (petType==7){//blue dragon - ice
 			if (item instanceof Meat
 				|| item instanceof PotionOfFrost
-				|| item instanceof MysteryMeat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -672,25 +670,25 @@ public class WndHero extends WndTabbed {
 		
 		if (petType==8){ //scorpion
 			if (item instanceof Meat
-				|| item instanceof MysteryMeat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
 		} 
 		
 		if (petType==9){//Vorpal Bunny 
-			if (item instanceof Plant.Seed
+			if (item instanceof Vegetable
+				|| item instanceof Fruit
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
 		}
-		if (petType==10){//Fairy
+		if (petType==10){//light dragon
 			if (item instanceof Potion
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
 		}
-		if (petType==11){//Sugarplum Fairy
+		if (petType==11){//bug dragon
 			if (item instanceof Potion
 				|| item instanceof PetFood){				
 				nomnom=true;
@@ -698,7 +696,7 @@ public class WndHero extends WndTabbed {
 		}
 		if (petType==12){//shadow dragon
 			if (item instanceof Meat
-				|| item instanceof MysteryMeat
+			|| item instanceof ScrollOfPsionicBlast
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -718,21 +716,18 @@ public class WndHero extends WndTabbed {
 		}
 		if (petType==15){//GoldDragon
 			if (item instanceof Meat
-				|| item instanceof MysteryMeat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
 		}
 		if (petType==16){//snake
 			if (item instanceof Meat
-				|| item instanceof MysteryMeat
 		        || item instanceof PetFood){				
 				nomnom=true;
 			}
 		}	
 		if (petType==17){//fly
 			if (item instanceof Meat
-				|| item instanceof MysteryMeat
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -746,7 +741,7 @@ public class WndHero extends WndTabbed {
 			}
 		}	
 		if (petType==19){//monkey
-			if (item instanceof Plant.Seed
+			if (item instanceof Fruit
 				|| item instanceof Nut
 				|| item instanceof PetFood){				
 				nomnom=true;
@@ -754,14 +749,12 @@ public class WndHero extends WndTabbed {
 		}
 		if (petType==20){//GentleCrab
 			if (item instanceof Meat
-				|| item instanceof MysteryMeat
-				|| item instanceof Plant.Seed
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
 		}
 		if (petType==21){//RibbonRat
-			if (item instanceof Plant.Seed
+			if (item instanceof Fruit
 				|| item instanceof Nut
 				|| item instanceof Meat
 				|| item instanceof PetFood){				
@@ -774,6 +767,55 @@ public class WndHero extends WndTabbed {
 				nomnom=true;
 			}
 		}
+
+		if (petType==23){//dog
+			if (item instanceof Meat
+				|| item instanceof PetFood){				
+				nomnom=true;
+			}
+		}
+		
+		if (petType==24){//butterfly
+			if (item instanceof Fruit
+				|| item instanceof PetFood){				
+				nomnom=true;
+			}
+		}
+		
+		if (petType==25){//kodora
+			if (item instanceof Meat
+				|| item instanceof PetFood){				
+				nomnom=true;
+			}
+		}
+		
+		if (petType==26){//chocobo
+			if (item instanceof Vegetable
+				|| item instanceof PetFood){				
+				nomnom=true;
+			}
+		}
+		if (petType==27){//Pig
+			if (item instanceof Vegetable
+				|| item instanceof Plant.Seed
+				|| item instanceof Fruit
+				|| item instanceof PetFood){				
+				nomnom=true;
+			}
+		}
+		if (petType==28){//datura
+			if (item instanceof StoneOre
+			|| item instanceof Plant.Seed
+				|| item instanceof PetFood){				
+				nomnom=true;
+			}
+		}		
+		
+
+
+
+		
+		
 		
 	return nomnom;		
 	}

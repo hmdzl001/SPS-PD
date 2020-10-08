@@ -209,9 +209,9 @@ public class ChasmLevel extends RegularLevel {
 				sentinel.pos = i;
 				mobs.add(sentinel);	
 			}
-			if (map[i]==Terrain.EMPTY && heaps.get(i) == null && Random.Float()<.02){
-				drop(new Phaseshift.Seed(), i);
-			}
+			//if (map[i]==Terrain.EMPTY && heaps.get(i) == null && Random.Float()<.02){
+				//drop(new Phaseshift.Seed(), i);
+			//}
 			
 			
 		}

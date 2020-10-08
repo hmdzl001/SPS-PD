@@ -31,7 +31,7 @@ import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.ExitFind;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Light;
@@ -287,7 +287,7 @@ public class DewVial extends Item {
 				 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
 			 }
 		 }
-			Buff.affect(hero, Haste.class, Haste.DURATION);
+			Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
 			//Buff.affect(hero, Invisibility.class, Invisibility.DURATION);
 			if(Dungeon.wings && Dungeon.depth<51 ){
 				Buff.affect(hero, Levitation.class, Levitation.DURATION);

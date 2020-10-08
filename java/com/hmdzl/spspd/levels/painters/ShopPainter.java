@@ -29,6 +29,8 @@ import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.armor.normalarmor.PlateArmor;
+import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.items.eggs.RandomEgg;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.summon.FairyCard;
 import com.hmdzl.spspd.items.summon.Honeypot;
@@ -65,7 +67,9 @@ import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.melee.special.Brick;
 import com.hmdzl.spspd.items.weapon.melee.special.DragonBoat;
 import com.hmdzl.spspd.items.weapon.melee.special.KeyWeapon;
+import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.items.weapon.missiles.PocketBall;
+import com.hmdzl.spspd.levels.HallsLevel;
 import com.hmdzl.spspd.levels.LastShopLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
@@ -127,7 +131,7 @@ public class ShopPainter extends Painter {
 		case 1:
 			itemsToSpawn.add(new GunA().identify());
 			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new DragonBoat());
+			itemsToSpawn.add(new Pumpkin());
 		    itemsToSpawn.add(new DolyaSlate().identify());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());
@@ -138,31 +142,24 @@ public class ShopPainter extends Painter {
 			itemsToSpawn.add(new SafeSpotPage().identify());
 			Dungeon.limitedDrops.safespotpage.drop();
 			itemsToSpawn.add(new GunB().identify());
-			itemsToSpawn.add(new DiscArmor().identify());
+			//itemsToSpawn.add(new DiscArmor().identify());
 			break;
 
 		case 11:
 			itemsToSpawn.add(new Town().identify());
 			Dungeon.limitedDrops.town.drop();
 			itemsToSpawn.add(new GunC().identify());
-			itemsToSpawn.add(new MailArmor().identify());
+			//itemsToSpawn.add(new MailArmor().identify());
 			break;
 
 		case 16:
 			itemsToSpawn.add(new GunD().identify());
-			itemsToSpawn.add(new ScaleArmor().identify());
+			//itemsToSpawn.add(new ScaleArmor().identify());
 			break;
 
 		case 21:
-			//itemsToSpawn.add(Random.Int(2) == 0 ? new Glaive().identify()
-			//	: new WarHammer().identify());
-			//itemsToSpawn.add(Random.Int(2) == 0 ? new Bola().quantity(Random
-			//		.NormalIntRange(4, 7)) : new Tamahawk().quantity(Random
-			//		.NormalIntRange(4, 7)));
-			//itemsToSpawn.add(new PlateArmor().identify());
 			//itemsToSpawn.add(new Torch());
 			itemsToSpawn.add(new GunE().identify());
-			itemsToSpawn.add(new PlateArmor().identify());
 			itemsToSpawn.add(new CourageChallenge());
 			itemsToSpawn.add(new PowerChallenge());
 			itemsToSpawn.add(new WisdomChallenge());
@@ -186,11 +183,15 @@ public class ShopPainter extends Painter {
 		itemsToSpawn.add(Random.Int(2) == 0 ?
 				Generator.random(Generator.Category.POTION):
 		        Generator.random(Generator.Category.SCROLL));
-		for (int i = 0; i < 2; i++)
+
 		itemsToSpawn.add(Generator.random(Generator.Category.RANGEWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON));
+		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR));
+
+		if  (Random.Int(3) == 0)
+		itemsToSpawn.add(Random.Int(2) == 0 ? new RandomEgg() : new Egg());
 		//itemsToSpawn.add(new DungeonBomb().random());
-		switch (Random.Int(8)) {
+		switch (Random.Int(6)) {
 		case 1:
 			itemsToSpawn.add(new ActiveMrDestructo());
 			break;
@@ -203,16 +204,14 @@ public class ShopPainter extends Painter {
 		case 4:
 			itemsToSpawn.add(new Honeypot());
 			break;
-		case 5:
-		case 6:
-		case 7:
+		default:
 			itemsToSpawn.add(new Torch());
 			break;
 		}
 
 		//if (Dungeon.depth == 6) {
 			itemsToSpawn.add(new Ankh());
-			itemsToSpawn.add(new Weightstone());
+			//itemsToSpawn.add(new Weightstone());
 		//} else {
 			//itemsToSpawn.add(Random.Int(2) == 0 ? new Ankh()
 					//: new Weightstone());
@@ -250,11 +249,11 @@ public class ShopPainter extends Painter {
 		Item rare;
 		switch (Random.Int(4)) {
 		case 0:
-			rare = Generator.random(Generator.Category.WAND);
+			rare = Generator.random(Generator.Category.WAND).identify();
 			rare.level = 0;
 			break;
 		case 1:
-			rare = Generator.random(Generator.Category.RING);
+			rare = Generator.random(Generator.Category.RING).identify();
 			rare.level = 1;
 			break;
 		case 2:
@@ -339,12 +338,12 @@ public class ShopPainter extends Painter {
 			pos = room.random();
 		} while (level.heaps.get(pos) != null);
 
-		Mob shopkeeper = level instanceof LastShopLevel ? new ImpShopkeeper()
+		Mob shopkeeper = level instanceof HallsLevel ? new ImpShopkeeper()
 				: new Shopkeeper();
 		shopkeeper.pos = pos;
 		level.mobs.add(shopkeeper);
 
-		if (level instanceof LastShopLevel) {
+		if (level instanceof HallsLevel) {
 			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
 				int p = shopkeeper.pos + Level.NEIGHBOURS9[i];
 				if (level.map[p] == Terrain.EMPTY_SP) {

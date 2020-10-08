@@ -35,6 +35,8 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.items.eggs.RandomEgg;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.levels.SewerLevel;
@@ -223,12 +225,14 @@ public class Ghost extends NPC {
 
 		public static Weapon weapon;
 		public static Armor armor;
+		public static Egg pet;
 
 		public static void reset() {
 			spawned = false;
 
 			weapon = null;
 			armor = null;
+			pet = null;
 		}
 
 		private static final String NODE = "sadGhost";
@@ -240,6 +244,7 @@ public class Ghost extends NPC {
 		private static final String DEPTH = "depth";
 		private static final String WEAPON = "weapon";
 		private static final String ARMOR = "armor";
+		private static final String PET = "pet";
 
 		public static void storeInBundle(Bundle bundle) {
 
@@ -257,6 +262,7 @@ public class Ghost extends NPC {
 
 				node.put(WEAPON, weapon);
 				node.put(ARMOR, armor);
+				node.put(PET, pet);
 			}
 
 			bundle.put(NODE, node);
@@ -276,6 +282,7 @@ public class Ghost extends NPC {
 
 				weapon = (Weapon) node.get(WEAPON);
 				armor = (Armor) node.get(ARMOR);
+				pet = (Egg) node.get(PET);
 			} else {
 				reset();
 			}
@@ -320,6 +327,7 @@ public class Ghost extends NPC {
 					}
 				}
 
+				pet = (Egg) new RandomEgg();
 				weapon.identify();
 				armor.identify();
 			}
@@ -343,6 +351,7 @@ public class Ghost extends NPC {
 		public static void complete() {
 			weapon = null;
 			armor = null;
+			pet = null;
 
 			Journal.remove(Journal.Feature.GHOST);
 		}

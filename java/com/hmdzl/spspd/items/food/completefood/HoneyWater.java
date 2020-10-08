@@ -44,7 +44,7 @@ public class HoneyWater extends CompleteFood {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)) {
-			 hero.HT = hero.HT + (Random.Int(4, 8));
+			 hero.HT = hero.HT + (Random.Int(3, 5));
 			 //hero.HP = hero.HP+Math.min(((hero.HT-hero.HP)/2), hero.HT-hero.HP);
 				Buff.detach(hero, Poison.class);
 				Buff.detach(hero, Cripple.class);

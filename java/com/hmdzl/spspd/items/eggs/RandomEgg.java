@@ -25,10 +25,16 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.hero.Hero;
 
+import com.hmdzl.spspd.actors.mobs.pets.ButterflyPet;
+import com.hmdzl.spspd.actors.mobs.pets.Chocobo;
+import com.hmdzl.spspd.actors.mobs.pets.Datura;
+import com.hmdzl.spspd.actors.mobs.pets.DogPet;
 import com.hmdzl.spspd.actors.mobs.pets.Fly;
 import com.hmdzl.spspd.actors.mobs.pets.GentleCrab;
+import com.hmdzl.spspd.actors.mobs.pets.Kodora;
 import com.hmdzl.spspd.actors.mobs.pets.Monkey;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
+import com.hmdzl.spspd.actors.mobs.pets.PigPet;
 import com.hmdzl.spspd.actors.mobs.pets.RibbonRat;
 import com.hmdzl.spspd.actors.mobs.pets.Snake;
 import com.hmdzl.spspd.actors.mobs.pets.Stone;
@@ -55,7 +61,7 @@ public class RandomEgg extends Egg {
 	@Override
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_BREAK)) {
-			if (Random.Int(120)<20){
+			/*if (Random.Int(120)<20){
 			Snake pet = new Snake();
 			eggHatch(pet);
 			} else if (Random.Int(100)< 20) {
@@ -73,7 +79,61 @@ public class RandomEgg extends Egg {
             } else {
                 Monkey pet = new Monkey();
                 eggHatch(pet);
-            }
+            }*/
+
+			switch (Random.Int (12)) {
+				case 0:
+				DogPet pet = new DogPet();
+					eggHatch(pet);
+					break;
+				case 1:
+					ButterflyPet pet1 = new ButterflyPet();
+					eggHatch(pet1);
+					break;
+				case 2:
+					Chocobo pet2 = new Chocobo();
+					eggHatch(pet2);
+					break;
+				case 3:
+					Kodora pet3 = new Kodora();
+					eggHatch(pet3);
+					break;
+				case 4:
+					Snake pet4 = new Snake();
+					eggHatch(pet4);
+					break;
+				case 5:
+					Fly pet5 = new Fly();
+					eggHatch(pet5);
+					break;
+				case 6:
+					RibbonRat pet6 = new RibbonRat();
+					eggHatch(pet6);
+					break;
+				case 7:
+					GentleCrab pet7 = new GentleCrab();
+					eggHatch(pet7);
+					break;
+				case 8:
+					Stone pet8 = new Stone();
+					eggHatch(pet8);
+					break;
+				case 9:
+					Monkey pet9 = new Monkey();
+					eggHatch(pet9);
+					break;
+				case 10:
+					PigPet pet10 = new PigPet();
+					eggHatch(pet10);
+					break;
+				case 11:
+					Datura pet11 = new Datura();
+					eggHatch(pet11);
+					break;
+															
+			}
+
+
             Statistics.eggBreak++;
             Badges.validateEggBreak();
             hero.next();

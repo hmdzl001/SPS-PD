@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.Challenges;
+import com.hmdzl.spspd.actors.blobs.NmGas;
 import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
@@ -29,7 +30,6 @@ import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.actors.buffs.BoxStar;
-import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.DBurning;
 import com.hmdzl.spspd.actors.buffs.DamageUp;
@@ -38,7 +38,7 @@ import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.Dry;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.GoldTouch;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.HighAttack;
 import com.hmdzl.spspd.actors.buffs.HighLight;
 import com.hmdzl.spspd.actors.buffs.HighVoice;
@@ -54,7 +54,6 @@ import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.WarGroove;
-import com.hmdzl.spspd.actors.buffs.actbuff.NmImbue;
 import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.BalanceFaith;
 import com.hmdzl.spspd.actors.buffs.mindbuff.CrazyMind;
@@ -76,7 +75,6 @@ import com.hmdzl.spspd.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.Pylon;
-import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.misc.AttackShield;
 import com.hmdzl.spspd.items.misc.BShovel;
 import com.hmdzl.spspd.items.misc.CopyBall;
@@ -1568,11 +1566,11 @@ public class Hero extends Char {
 		if (totembuff != null) {
 			int x = Random.Int(1,damage/3);
 			damage +=x;
-			Buff.prolong(this, Haste.class,4f);
+			Buff.prolong(this, HasteBuff.class,4f);
 		} else if (horseTotem!=null && Random.Int(5)==0) {
 			int x = Random.Int(1,damage/3);
 			damage +=x;
-			Buff.prolong(this, Haste.class,4f);
+			Buff.prolong(this, HasteBuff.class,4f);
 		}
 
 		RangeBag.RangeBagBless rangeBless = buff(RangeBag.RangeBagBless.class);
@@ -1683,9 +1681,15 @@ public class Hero extends Char {
 
 		if (!(src instanceof Hunger || src instanceof Iceglyph.DeferedDamage)
 				&& damageInterrupt){
-			interrupt();
+			//interrupt();
 			restoreHealth = false;
-			}	
+			}
+
+		if (!(src instanceof Hunger || src instanceof Iceglyph.DeferedDamage || src instanceof NmGas)
+				&& damageInterrupt){
+			interrupt();
+
+		}
 
 		if (this.buff(Drowsy.class) != null) {
 			Buff.detach(this, Drowsy.class);

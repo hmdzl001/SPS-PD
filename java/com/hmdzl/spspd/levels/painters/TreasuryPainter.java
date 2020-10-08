@@ -23,6 +23,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.keys.IronKey;
+import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
@@ -44,6 +45,8 @@ public class TreasuryPainter extends Painter {
 		level.plant(new Seedpod.Seed(), room.random());
 		level.plant(new BlandfruitBush.Seed(), room.random());
         level.plant(new NutPlant.Seed(), room.random());
+		
+	    level.drop(new Honeypot(), room.random());
 		
 		int lashers = ((room.right-room.left-1)*(room.bottom-room.top-1))/10;
 

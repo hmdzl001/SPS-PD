@@ -41,6 +41,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.KindOfWeapon;
+import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
@@ -151,7 +152,7 @@ public class YearBeast extends Mob {
 						GLog.w(Messages.get(this, "disarm"));
 					}
 				} else {
-					if (armor != null && !(armor instanceof WoodenArmor || armor instanceof RubberArmor || armor instanceof NormalArmor)
+					if (armor != null && !(armor instanceof WoodenArmor || armor instanceof RubberArmor || armor instanceof BaseArmor)
 							&& !armor.cursed) {
 						hero.belongings.armor = null;
 						Dungeon.level.drop(armor, hero.pos).sprite.drop();

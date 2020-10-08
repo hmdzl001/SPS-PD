@@ -46,9 +46,8 @@ import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.FrostImbue;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
-import com.hmdzl.spspd.actors.buffs.Haste;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.HighAttack;
-import com.hmdzl.spspd.actors.buffs.HighVoice;
 import com.hmdzl.spspd.actors.buffs.Hot;
 import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.MagicWeak;
@@ -67,7 +66,6 @@ import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Speed;
-import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.Wet;
@@ -333,7 +331,7 @@ public abstract class Char extends Actor {
 	public float speed() {
 		if (buff(Cripple.class) != null){
 			return baseSpeed * 0.5f;
-		} else if (buff(Haste.class) != null){
+		} else if (buff(HasteBuff.class) != null){
 			return baseSpeed * 2.5f;
 		} else if (buff(Poison.class) != null) {
 			return baseSpeed * 0.9f;
@@ -478,7 +476,7 @@ public abstract class Char extends Actor {
 		if (buff(Speed.class) != null) {
 			timeScale *= 1.5f;
 		}
-		/*if (buff(Haste.class) != null) {
+		/*if (buff(HasteBuff.class) != null) {
 			timeScale *= 1.5f;
 		}*/
 		if (buff(Cold.class) != null) {

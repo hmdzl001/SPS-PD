@@ -22,15 +22,21 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Bunny;
+import com.hmdzl.spspd.actors.mobs.pets.ButterflyPet;
+import com.hmdzl.spspd.actors.mobs.pets.Chocobo;
 import com.hmdzl.spspd.actors.mobs.pets.CocoCat;
 
+import com.hmdzl.spspd.actors.mobs.pets.Datura;
+import com.hmdzl.spspd.actors.mobs.pets.DogPet;
 import com.hmdzl.spspd.actors.mobs.pets.Fly;
 import com.hmdzl.spspd.actors.mobs.pets.GentleCrab;
 import com.hmdzl.spspd.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.actors.mobs.pets.GreenDragon;
+import com.hmdzl.spspd.actors.mobs.pets.Kodora;
 import com.hmdzl.spspd.actors.mobs.pets.LeryFire;
 import com.hmdzl.spspd.actors.mobs.pets.LightDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Monkey;
+import com.hmdzl.spspd.actors.mobs.pets.PigPet;
 import com.hmdzl.spspd.actors.mobs.pets.RedDragon;
 import com.hmdzl.spspd.actors.mobs.pets.RibbonRat;
 import com.hmdzl.spspd.actors.mobs.pets.Scorpion;
@@ -285,7 +291,49 @@ public class PocketBallFull extends Item {
                     pet.HP = pet.HT = pet_ht;
                     pet.level = pet_level;
                     pet.experience = pet_exp;
-                }				
+                }		
+                if (Dungeon.hero.petType==23){
+                    DogPet pet = new DogPet();
+                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+                    pet.HP = pet.HT = pet_ht;
+                    pet.level = pet_level;
+                    pet.experience = pet_exp;
+                }	
+                if (Dungeon.hero.petType==24){
+                    ButterflyPet pet = new ButterflyPet();
+                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+                    pet.HP = pet.HT = pet_ht;
+                    pet.level = pet_level;
+                    pet.experience = pet_exp;
+                }	                
+				if (Dungeon.hero.petType==25){
+                    Kodora pet = new Kodora();
+                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+                    pet.HP = pet.HT = pet_ht;
+                    pet.level = pet_level;
+                    pet.experience = pet_exp;
+                }	
+                if (Dungeon.hero.petType==26){
+                    Chocobo pet = new Chocobo();
+                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+                    pet.HP = pet.HT = pet_ht;
+                    pet.level = pet_level;
+                    pet.experience = pet_exp;
+                }		
+                if (Dungeon.hero.petType==27){
+                    PigPet pet = new PigPet();
+                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+                    pet.HP = pet.HT = pet_ht;
+                    pet.level = pet_level;
+                    pet.experience = pet_exp;
+                }	
+                if (Dungeon.hero.petType==28){
+                    Datura pet = new Datura();
+                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+                    pet.HP = pet.HT = pet_ht;
+                    pet.level = pet_level;
+                    pet.experience = pet_exp;
+                }					
                 //pet.pos = Random.element(spawnPoints);
                // GameScene.add(pet);
 

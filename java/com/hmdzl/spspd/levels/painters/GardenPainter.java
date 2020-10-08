@@ -55,7 +55,12 @@ public class GardenPainter extends Painter {
 				level.plant(new BlandfruitBush.Seed(), room.random());
 			}
 		//}
-		
+		if (Dungeon.depth<25){
+			int pos;
+			do {pos = room.random();}
+			while (level.heaps.get(pos) != null);
+			level.drop(new Honeypot(), pos);		
+		}
 		
 		if (!Dungeon.limitedDrops.shopcart.dropped()){
 			int pos;
@@ -77,10 +82,6 @@ public class GardenPainter extends Painter {
 			do {pos = room.random();}
 			while (level.heaps.get(pos) != null);
 			level.drop(new Honeypot(), pos);	
-			
-			do {pos = room.random();}
-			while (level.heaps.get(pos) != null);
-			level.drop(new Honeypot(), pos);
 			
 			do {pos = room.random();}
 			while (level.heaps.get(pos) != null);
