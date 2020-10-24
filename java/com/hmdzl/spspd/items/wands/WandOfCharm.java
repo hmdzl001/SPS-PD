@@ -27,6 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.MagicMissile;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
@@ -58,6 +59,9 @@ public class WandOfCharm extends Wand {
 			    Sample.INSTANCE.play(Assets.SND_CHARMS);
 			}
 		}
+		
+	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+		if (heap != null) {heap.light();}			
 	}
 
 	@Override

@@ -38,7 +38,7 @@ public class NutVegetable extends Vegetable {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Barkskin.class).level(hero.HT );
+			Buff.affect(hero, Barkskin.class).level(hero.lvl-1);
 		}
 	}
 

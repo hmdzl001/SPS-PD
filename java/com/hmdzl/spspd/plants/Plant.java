@@ -54,7 +54,7 @@ public class Plant implements Bundlable {
 	public void activate(Char ch) {
 
 		if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN) {
-			Buff.affect(ch, Barkskin.class).level(ch.HT / 3);
+			Buff.affect(ch, Barkskin.class).level(((Hero) ch).lvl);
 		}
 		wither();
 	}

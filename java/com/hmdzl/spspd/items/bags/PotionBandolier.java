@@ -3,6 +3,7 @@ package com.hmdzl.spspd.items.bags;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bombs.Bomb;
+import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.medicine.Pill;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -23,7 +24,8 @@ public class PotionBandolier extends Bag {
 	public boolean grab(Item item) {
 		if (item instanceof Potion ||
 				item instanceof Pill ||
-				item instanceof Bomb
+				item instanceof Bomb ||
+				item instanceof Egg
 				){
 			return true;
 		} else {

@@ -17,14 +17,33 @@
  */
 package com.hmdzl.spspd.items.armor.glyphs;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.ArmorBreak;
+import com.hmdzl.spspd.actors.buffs.AttackDown;
+import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.actors.buffs.CountDown;
+import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.GrowSeed;
+import com.hmdzl.spspd.actors.buffs.Ooze;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.Slow;
+import com.hmdzl.spspd.actors.buffs.Tar;
+import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.effects.particles.LeafParticle;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.Armor.Glyph;
 import com.hmdzl.spspd.items.misc.FourClover;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.utils.GLog;
@@ -34,7 +53,10 @@ import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Revivalglyph extends Glyph {
 
@@ -62,12 +84,29 @@ public class Revivalglyph extends Glyph {
 		}		
 		
 		int level = Math.max(0, armor.level);
-        if (damage > defender.HP && (Math.min(level*1.5,45) > Random.Int(100) || (fcb != null && Math.min(level*1.5,45) > Random.Int(90)))){
-			defender.HP = defender.HT;
-			CellEmitter.get(defender.pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
-			GLog.w(Messages.get(this, "revive"));
-			return 0;
+		if (((Random.Int( 50 ) < level) && (level > 10 ))||
+				(Random.Int(4) == 0 ) ) {
+			int p = defender.pos;
+			plantGrass(p);
 		}
+		
+		if (Random.Int( level ) >= 5) {
+			Buff.detach(defender, Paralysis.class);
+			Buff.detach(defender, Burning.class);
+			Buff.detach(defender, Ooze.class);
+			Buff.detach(defender, Tar.class);
+			Buff.detach(defender, Weakness.class);
+			Buff.detach(defender, Vertigo.class);
+			Buff.detach(defender, Poison.class);
+			Buff.detach(defender, Cripple.class);
+			Buff.detach(defender, Bleeding.class);
+			Buff.detach(defender, Slow.class);
+			Buff.detach(defender, AttackDown.class);
+			Buff.detach(defender, ArmorBreak.class);
+			Buff.detach(defender, CountDown.class);
+            Buff.detach(defender, GrowSeed.class);
+		}		
+		
 		return damage;
 	}
 
@@ -75,4 +114,22 @@ public class Revivalglyph extends Glyph {
 	public Glowing glowing() {
 		return RED;
 	}
+
+
+	
+	
+	private boolean plantGrass(int cell){
+		int c = Dungeon.level.map[cell];
+		if ( c == Terrain.EMPTY || c == Terrain.EMPTY_DECO
+				|| c == Terrain.EMBERS || c == Terrain.GRASS || c == Terrain.WATER_TILES
+				|| c == Terrain.WATER ){
+			Level.set(cell, Terrain.HIGH_GRASS);
+			GameScene.updateMap(cell);
+			CellEmitter.get( cell ).burst( LeafParticle.LEVEL_SPECIFIC, 4 );
+			return true;
+		}
+		return false;
+	}
+		
+	
 }

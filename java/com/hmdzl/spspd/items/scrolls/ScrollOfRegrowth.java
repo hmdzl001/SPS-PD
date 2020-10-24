@@ -18,12 +18,30 @@
 package com.hmdzl.spspd.items.scrolls;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.Regrowth;
 import com.hmdzl.spspd.actors.blobs.Water;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.plants.Earthroot;
+import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.Starflower;
+import com.hmdzl.spspd.plants.Sungrass;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class ScrollOfRegrowth extends Scroll {
 
@@ -35,14 +53,53 @@ public class ScrollOfRegrowth extends Scroll {
 
 	@Override
 	public void doRead() {
-		int length = Level.getLength();
 
-		for (int i = 0; i < length; i++) {
-			
-			GameScene.add(Blob.seed(i, (2) * 20, Water.class));
-
+		ArrayList<Integer> plantCandidates = new ArrayList<>();
+		
+		PathFinder.buildDistanceMap( Dungeon.hero.pos, BArray.not( Dungeon.level.solid, null ), 2 );
+		for (int i = 0; i < PathFinder.distance.length; i++) {
+			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+				Char ch = Actor.findChar(i);
+                  if ( Dungeon.level.map[i] == Terrain.EMPTY ||
+							Dungeon.level.map[i] == Terrain.EMBERS ||
+							Dungeon.level.map[i] == Terrain.EMPTY_DECO ||
+							Dungeon.level.map[i] == Terrain.GRASS ||
+							Dungeon.level.map[i] == Terrain.HIGH_GRASS){
+					
+					plantCandidates.add(i);
+				}
+				GameScene.add( Blob.seed( i, 10, Water.class ) );
+			}
 		}
 
+		int plants = Random.chances(new float[]{0, 6, 3, 1});
+
+		for (int i = 0; i < plants; i++) {
+			Integer plantPos = Random.element(plantCandidates);
+			if (plantPos != null) {
+				Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos);
+				plantCandidates.remove(plantPos);
+			}
+		}
+		
+		Integer plantPos = Random.element(plantCandidates);
+		if (plantPos != null){
+			Plant.Seed plant;
+			switch (Random.chances(new float[]{0, 3, 2, 1})){
+				case 1: default:
+					plant = new Sungrass.Seed();
+					break;
+				case 2:
+					plant = new Earthroot.Seed();
+					break;
+				case 3:
+					plant = new Starflower.Seed();
+					break;
+			}
+			Dungeon.level.plant( plant, plantPos);
+		}
+
+	
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Invisibility.dispel();
 
@@ -53,12 +110,13 @@ public class ScrollOfRegrowth extends Scroll {
 	
 	@Override
 	public void empoweredRead() {
-		//does nothing for now, this should never happen.
+        doRead();
+        Buff.affect(curUser, Dewcharge.class,50f);
 	}	
 
 	@Override
 	public int price() {
-		return isKnown() ? 100 * quantity : super.price();
+		return isKnown() ? 20 * quantity : super.price();
 	}
 
 }

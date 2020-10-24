@@ -900,7 +900,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		level.create();
 
 		Statistics.qualifiedForNoKilling = !bossLevel();
-		if (depth<26 && depth!=21 && !Dungeon.bossLevel(depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
+		if (depth<26 && !Dungeon.bossLevel(depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
 			Buff.prolong(Dungeon.hero, Dewcharge.class, Dewcharge.DURATION+(Math.max(Statistics.prevfloormoves,1)));
 		    //GLog.p("You feel the dungeon charge with dew!");
 		}

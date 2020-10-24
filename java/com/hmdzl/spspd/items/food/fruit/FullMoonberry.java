@@ -53,7 +53,7 @@ public class FullMoonberry extends Fruit {
 				case 1:
 					Buff.affect(hero, Strength.class);
 					Buff.affect(hero, FullMoonStrength.class);
-					Buff.affect(hero, Barkskin.class).level(hero.HT*2);
+					Buff.affect(hero, Barkskin.class).level(hero.lvl);
 					Buff.affect(hero, Light.class, Light.DURATION);
 					break;
 				}

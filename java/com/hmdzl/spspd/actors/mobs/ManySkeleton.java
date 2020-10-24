@@ -113,7 +113,7 @@ public class ManySkeleton extends Mob {
 
 	@Override
 	public void die(Object cause) {
-		Skeleton.spawnAround(this.pos);
+		SommonSkeleton.spawnAround(this.pos);
 		super.die(cause);
 	}
 

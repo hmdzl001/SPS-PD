@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.MagicMissile;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
@@ -54,6 +55,9 @@ public class WandOfBlood extends DamageWand {
 			if (curUser.HP < curUser.HT){
 			curUser.HP += Math.min(Random.Int(0,damageRoll()),(curUser.HT - curUser.HP));}
 		}
+		
+	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+		if (heap != null) {heap.summon();}		
 		
 	}
 

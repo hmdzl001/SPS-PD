@@ -45,7 +45,7 @@ public class Nut extends Food {
 		    hero.HP += 1;
 			switch (Random.Int(10)) {
 			case 0:
-				Buff.affect(hero, Barkskin.class).level(hero.HT / 4);
+				Buff.affect(hero, Barkskin.class).level(hero.lvl);
 				break;
 			}
 		}

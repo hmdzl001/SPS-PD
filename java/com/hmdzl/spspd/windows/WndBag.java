@@ -476,11 +476,11 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.QUICKSLOT
 						&& (item.defaultAction != null)
 				 || mode == Mode.WEAPON
-						&& ((item instanceof MeleeWeapon || item instanceof Boomerang)&& !(item instanceof Handcannon))
+						&& ((item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof ManyKnive || item instanceof TaurcenBow)&& !(item instanceof Handcannon))
 				 || mode == Mode.ARMOR
 						&& (item instanceof Armor)
 				 || mode == Mode.ENCHANTABLE
-						&& (item instanceof MeleeWeapon	|| item instanceof Boomerang || item instanceof Armor || item instanceof ManyKnive || item instanceof TaurcenBow)
+						&& (item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof Armor || item instanceof ManyKnive || item instanceof TaurcenBow)
 
 				 || mode == Mode.JOURNALPAGES
 						&& (item instanceof JournalPage)
@@ -499,7 +499,7 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.EQUIPMENT
 						&& (item instanceof EquipableItem)
 				 || mode == Mode.COOKING
-						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof WaterItem ||item instanceof StoneOre || item instanceof Honeypot || item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof BuildBomb)
+						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof StoneOre || item instanceof Honeypot || item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof BuildBomb)
 				 || mode == Mode.CHALLENGELIST
 						&& (item instanceof ChallengeList)
 				 || mode == Mode.CANBEMIX

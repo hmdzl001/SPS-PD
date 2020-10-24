@@ -54,7 +54,7 @@ public class DwarfHammer extends Item {
 
 		if (action == AC_BREAK) {
 
-			if (Dungeon.bossLevel() || Dungeon.depth > 25 || Dungeon.depth < 22) {
+			if (Dungeon.bossLevel() || Dungeon.depth > 25 || Dungeon.depth < 21) {
 				hero.spend(DwarfHammer.TIME_TO_USE);
 				GLog.w(Messages.get(this, "prevent"));
 				return;

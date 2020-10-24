@@ -28,11 +28,11 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
-public class StoneBlock extends MissileWeapon {
+public class WaterBlock extends MissileWeapon {
 
 	{
-		//name = "StoneBlock";
-		image = ItemSpriteSheet.STONE_BLOCK;
+		//name = "WaterBlock";
+		image = ItemSpriteSheet.WATER_BLOCK;
 
 		STR = 10;
 
@@ -40,11 +40,11 @@ public class StoneBlock extends MissileWeapon {
 		MAX = 1;
 	}
 
-	public StoneBlock() {
+	public WaterBlock() {
 		this(1);
 	}
 
-	public StoneBlock(int number) {
+	public WaterBlock(int number) {
 		super();
 		quantity = number;
 	}
@@ -55,7 +55,7 @@ public class StoneBlock extends MissileWeapon {
 		if ((enemy == null) && !(Dungeon.level.map[cell] == Terrain.WELL ||
 				Dungeon.level.map[cell] == Terrain.EMPTY_WELL ||
 				Dungeon.level.map[cell] == Terrain.ENTRANCE || Dungeon.level.map[cell] == Terrain.EXIT || Dungeon.level.map[cell] == Terrain.ALCHEMY )){
-			Level.set(cell, Terrain.STATUE);
+			Level.set(cell, Terrain.WATER);
 			GameScene.updateMap(cell);
 		}
 		else

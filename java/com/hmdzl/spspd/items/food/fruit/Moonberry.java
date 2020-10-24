@@ -48,7 +48,7 @@ public class Moonberry extends Fruit {
 					break;
 				case 1:
 					Buff.affect(hero, Strength.class);
-					Buff.affect(hero, Barkskin.class).level(hero.HT*2);
+					Buff.affect(hero, Barkskin.class).level(hero.lvl);
 					break;
 				}
 			}

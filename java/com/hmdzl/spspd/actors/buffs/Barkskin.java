@@ -44,7 +44,7 @@ public class Barkskin extends Buff {
 		if (target.isAlive()) {
 
 			spend(TICK);
-			barkleft = (int)barkleft/2;
+			barkleft = barkleft-1;
 			if (barkleft <= 1) {
 				detach();
 			}

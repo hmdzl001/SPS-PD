@@ -52,9 +52,9 @@ public class DoorBlock extends MissileWeapon {
 	@Override
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
-		if ((enemy == null || enemy == curUser) && !(Dungeon.level.map[cell] == Terrain.WELL ||
+		if ((enemy == null) && !(Dungeon.level.map[cell] == Terrain.WELL ||
 				Dungeon.level.map[cell] == Terrain.EMPTY_WELL ||
-				Dungeon.level.map[cell] == Terrain.ENTRANCE || Dungeon.level.map[cell] == Terrain.EXIT  )){
+				Dungeon.level.map[cell] == Terrain.ENTRANCE || Dungeon.level.map[cell] == Terrain.EXIT || Dungeon.level.map[cell] == Terrain.ALCHEMY )){
 			Level.set(cell, Terrain.DOOR);
 			GameScene.updateMap(cell);
 		}

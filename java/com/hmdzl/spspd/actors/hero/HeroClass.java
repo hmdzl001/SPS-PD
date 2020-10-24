@@ -42,6 +42,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LifeArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.StyrofoamArmor;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
@@ -60,6 +61,13 @@ import com.hmdzl.spspd.items.challengelists.PowerChallenge;
 import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
 import com.hmdzl.spspd.items.challengelists.SewerChallenge;
 import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
+import com.hmdzl.spspd.items.eggs.BlueDragonEgg;
+import com.hmdzl.spspd.items.eggs.GoldDragonEgg;
+import com.hmdzl.spspd.items.eggs.GreenDragonEgg;
+import com.hmdzl.spspd.items.eggs.LightDragonEgg;
+import com.hmdzl.spspd.items.eggs.RedDragonEgg;
+import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
+import com.hmdzl.spspd.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.items.journalpages.Vault;
 import com.hmdzl.spspd.items.medicine.Hardpill;
 import com.hmdzl.spspd.items.medicine.Powerpill;
@@ -76,12 +84,14 @@ import com.hmdzl.spspd.items.misc.GnollMark;
 import com.hmdzl.spspd.items.misc.HealBag;
 import com.hmdzl.spspd.items.misc.HorseTotem;
 import com.hmdzl.spspd.items.misc.JumpF;
+import com.hmdzl.spspd.items.misc.LeaderFlag;
 import com.hmdzl.spspd.items.misc.MKbox;
 import com.hmdzl.spspd.items.misc.MechPocket;
 import com.hmdzl.spspd.items.misc.NeedPaper;
 import com.hmdzl.spspd.items.misc.NmHealBag;
 import com.hmdzl.spspd.items.misc.PPC;
 import com.hmdzl.spspd.items.misc.RangeBag;
+import com.hmdzl.spspd.items.misc.RewardPaper;
 import com.hmdzl.spspd.items.misc.SavageHelmet;
 import com.hmdzl.spspd.items.misc.UndeadBook;
 import com.hmdzl.spspd.items.nornstone.BlueNornStone;
@@ -146,11 +156,13 @@ import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
 import com.hmdzl.spspd.items.wands.WandOfPoison;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunA;
+import com.hmdzl.spspd.items.weapon.guns.GunB;
 import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.Sling;
 import com.hmdzl.spspd.items.weapon.melee.Dagger;
 import com.hmdzl.spspd.items.weapon.melee.Glaive;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
+import com.hmdzl.spspd.items.weapon.melee.Mace;
 import com.hmdzl.spspd.items.weapon.melee.Rapier;
 import com.hmdzl.spspd.items.weapon.melee.ShortSword;
 import com.hmdzl.spspd.items.weapon.melee.MageBook;
@@ -361,6 +373,15 @@ public enum HeroClass {
 			new ShadowEater().collect();
 			new TestWeapon().upgrade(90).collect();
 
+			new GoldDragonEgg().collect();
+			new VioletDragonEgg().collect();
+			new ShadowDragonEgg().collect();
+			new LightDragonEgg().collect();
+			new GreenDragonEgg().collect();
+			new RedDragonEgg().collect();
+			new BlueDragonEgg().collect();
+			new PocketBall(10).collect();
+
 		for(int i=0; i<199; i++){
 			new ScrollOfMagicalInfusion().identify().collect();
 			new ScrollOfUpgrade().identify().collect();
@@ -381,11 +402,11 @@ public enum HeroClass {
 				new Seedpod.Seed().collect();
 				new ScrollOfRegrowth().collect();
 			}
-			new WandOfFlock().upgrade(10).identify().collect();
-			new WandOfPoison().upgrade(10).identify().collect();
+			//new WandOfFlock().upgrade(10).identify().collect();
+			//new WandOfPoison().upgrade(10).identify().collect();
             new SewerReward().collect();
 		new SaveYourLife().collect();
-		new FireCracker().collect();
+		//new FireCracker().collect();
 
 		Dungeon.gold = 10000;
 		//Dungeon.gold = 10000000;
@@ -460,6 +481,23 @@ public enum HeroClass {
             Dungeon.limitedDrops.strengthPotions.count+=2;
 
 		} else if (Dungeon.skins == 4) {
+            hero.STR += 3;
+            Dungeon.limitedDrops.strengthPotions.count+=3;
+
+            (hero.belongings.weapon = new GunB()).identify();
+            (hero.belongings.armor = new StyrofoamArmor()).identify();
+
+            new TestWeapon().identify().collect();
+			new TestWeapon().identify().collect();
+			new TestWeapon().identify().collect();
+			new TestWeapon().identify().collect();
+
+            new RewardPaper().identify().collect();
+
+			new JumpW().collect();
+
+
+
 
 		} else if (Dungeon.skins == 5) {
 
@@ -686,7 +724,16 @@ public enum HeroClass {
 
 		} else if (Dungeon.skins == 4) {
 
+			hero.STR += 2;
+			Dungeon.limitedDrops.strengthPotions.count+=2;
 
+			(hero.belongings.weapon = new Mace()).identify();
+			(hero.belongings.armor = new LeatherArmor()).identify();
+
+			new LeaderFlag().collect();
+			new JumpP().collect();
+
+			Dungeon.gold += 1000;
 
 		} else if (Dungeon.skins == 5) {
 

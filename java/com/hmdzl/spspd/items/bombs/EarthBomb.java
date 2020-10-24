@@ -46,7 +46,7 @@ public class EarthBomb extends Bomb {
 		for (int i = 0; i < PathFinder.distance.length; i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				Char ch = Actor.findChar(i);
-				if (ch != null){
+				if (ch != null && ch.isAlive()){
 					Buff.prolong(ch, Roots.class,5f);
 					Buff.affect(ch, Ooze.class);
 				}

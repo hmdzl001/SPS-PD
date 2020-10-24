@@ -31,6 +31,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanCorner;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanStop;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanSwitch;
 import com.hmdzl.spspd.effects.Beam;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -74,6 +75,11 @@ public class WandOfFlow extends DamageWand {
 				throwChar(ch, trajectory, strength);
 			}
 		}	
+		Heap heap = Dungeon.level.heaps.get(beam.collisionPos);
+		if (heap != null) {
+			heap.freeze();
+		}			
+		
 	}
 	
 	public static void throwChar(final Char ch, final Ballistica trajectory, int power){

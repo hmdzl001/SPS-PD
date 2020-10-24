@@ -67,7 +67,7 @@ public class FrozenCarpaccio extends MeatFood {
 				break;
 			case 1:
 				GLog.i( Messages.get(FrozenCarpaccio.class, "hard") );
-				Buff.affect( hero, Barkskin.class ).level( hero.HT / 4 );
+				Buff.affect( hero, Barkskin.class ).level( hero.lvl );
 				break;
 			case 2:
 				GLog.i( Messages.get(FrozenCarpaccio.class, "refresh") );

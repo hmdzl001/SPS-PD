@@ -341,7 +341,7 @@ public abstract class Level implements Bundlable {
 					break;
 				 }
 				}
-			} else if (Dungeon.depth > 5 && Dungeon.depth < 22) {
+			} else if (Dungeon.depth > 5 && Dungeon.depth < 21) {
 				switch (Random.Int(10)) {
 				case 0:
 					if (!Dungeon.bossLevel(Dungeon.depth + 1)) {

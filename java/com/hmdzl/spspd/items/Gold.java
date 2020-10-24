@@ -25,6 +25,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.buffs.GoldTouch;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -67,6 +68,11 @@ public class Gold extends Item {
 		Dungeon.gold += quantity;
 		Statistics.goldCollected += quantity;
 		Badges.validateGoldCollected();
+
+		if(Dungeon.skins == 4 && Dungeon.hero.heroClass == HeroClass.WARRIOR){
+			Dungeon.gold += (int)(quantity*0.2);
+			Statistics.goldCollected += quantity;
+		}
 
 		MasterThievesArmband.Thievery thievery = hero
 				.buff(MasterThievesArmband.Thievery.class);

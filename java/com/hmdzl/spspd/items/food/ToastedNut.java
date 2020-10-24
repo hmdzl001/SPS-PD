@@ -41,10 +41,10 @@ public class ToastedNut extends Nut {
 
 			switch (Random.Int(2)) {
 			case 0:
-				Buff.affect(hero, Barkskin.class).level(hero.HT);
+				Buff.affect(hero, Barkskin.class).level(hero.lvl);
 				break;
 			case 1:
-				Buff.affect(hero, Barkskin.class).level(hero.HT*2);
+				Buff.affect(hero, Barkskin.class).level(hero.lvl+2);
 				break;
 			}
 		}

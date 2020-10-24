@@ -49,6 +49,7 @@ public class ItemSpriteSheet {
 	private static final int ROW27 = 26 * 16;
 	private static final int ROW28 = 27 * 16;
 	private static final int ROW29 = 28 * 16;
+    private static final int ROW30 = 29 * 16;
 
 	// Row One: Items which can't be obtained
 	// null warning occupies space 0, should only show up if there's a bug.
@@ -591,6 +592,12 @@ public class ItemSpriteSheet {
 	public static final int NEED_PAPER = ROW29 + 0;
 	public static final int PPC = ROW29 + 1;
 	public static final int H_GEL = ROW29 + 2;
-	public static final int H_RICE = ROW29 + 3;
+	public static final int MIX_RICE = ROW29 + 3;
+	public static final int C_BOW = ROW29 + 4;
+	public static final int H_RICE = ROW29 + 5;
+
+    public static final int LEADER_FLAG = ROW29 + 13;
+	public static final int WATER_BLOCK = ROW29 + 14;
+    public static final int REWARD_PAPER  = ROW30 + 0;
 
 }

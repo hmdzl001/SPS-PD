@@ -530,10 +530,12 @@ public abstract class Mob extends Char {
 
 		if (buff(SoulMark.class) != null) {
 			int restoration = Math.max(damage, HP);
-			Dungeon.hero.buff(Hunger.class).satisfy(restoration*0.5f);
-			Dungeon.hero.HP = (int)Math.ceil(Math.min(Dungeon.hero.HT, Dungeon.hero.HP+(restoration*0.25f)));
+			//Dungeon.hero.buff(Hunger.class).satisfy(restoration*0.5f);
+			Dungeon.hero.HP = (int)Math.ceil(Math.min(Dungeon.hero.HT, Dungeon.hero.HP+(restoration*0.15f)));
 			Dungeon.hero.sprite.emitter().burst( Speck.factory(Speck.HEALING), 1 );
-		}		
+			if (Dungeon.hero.petHP < Dungeon.hero.HT)
+			Dungeon.hero.petHP += (int)Math.ceil(restoration*0.10f);
+		}
 		
 		return damage;
 	}

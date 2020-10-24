@@ -71,6 +71,7 @@ import com.hmdzl.spspd.effects.Lightning;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.KindOfArmor;
+import com.hmdzl.spspd.items.KindofMisc;
 import com.hmdzl.spspd.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
@@ -87,6 +88,7 @@ import com.hmdzl.spspd.items.misc.HorseTotem;
 import com.hmdzl.spspd.items.misc.JumpF;
 import com.hmdzl.spspd.items.misc.JumpP;
 import com.hmdzl.spspd.items.misc.JumpS;
+import com.hmdzl.spspd.items.misc.LeaderFlag;
 import com.hmdzl.spspd.items.misc.PotionOfMage;
 import com.hmdzl.spspd.items.misc.RangeBag;
 import com.hmdzl.spspd.items.misc.SavageHelmet;
@@ -694,7 +696,17 @@ public class Hero extends Char {
 			spendAndNext(TICK);
 			return false;
 		}
-	
+
+		if( Statistics.time == 1  & Dungeon.hero.heroClass == HeroClass.PERFORMER & Dungeon.skins == 4){
+			int people = Dungeon.hero.spp;
+			Dungeon.gold = Math.max(0, Dungeon.gold - people);
+		}
+
+        LeaderFlag lflag = belongings.getItem(LeaderFlag.class);
+        if (Statistics.time == 1){
+            lflag.charge = 1440;
+        }
+
 		Egg egg = belongings.getItem(Egg.class);
 		if (egg!=null){
 			egg.moves++;
@@ -1441,6 +1453,13 @@ public class Hero extends Char {
 					Buff.affect(enemy, DBurning.class).reignite(enemy);
 				}
 				break;
+			case PERFORMER:
+				if (Dungeon.skins == 4) {
+				int people = Dungeon.hero.spp - Dungeon.hero.lvl;
+				if (people > 0 )
+					damage = damage + people;
+			}
+				break;
 			case FOLLOWER:
 				if (Dungeon.skins==4) {
 					Dungeon.hero.spp = Random.Int(100);
@@ -1640,7 +1659,7 @@ public class Hero extends Char {
 				Dungeon.gold -= x;
 				Dungeon.hero.spp +=x;
 				if ( x > 0);
-				damage = (int)(damage*0.3);}
+				damage = (int)(damage*0.7);}
 		}
 		switch (subClass) {
 			case LEADER:
@@ -1760,6 +1779,13 @@ public class Hero extends Char {
 				dmg = Math.max(1,HT / 2);
 			}
 		}
+
+		if (heroClass == HeroClass.PERFORMER && Dungeon.skins == 4) {
+        	int people = Dungeon.hero.spp - Dungeon.hero.lvl;
+        	if (people > 0 )
+        	dmg = (int) Math.ceil(dmg * (1+ (people*0.01)));
+        }
+
 		//if (buff(Hot.class) != null){dmg = (int) Math.ceil(dmg * 1.20);}
 
 		/*DefenceUp drup = buff(DefenceUp.class);
@@ -2045,6 +2071,41 @@ public class Hero extends Char {
 			if (heroClass == HeroClass.SOLDIER){
 				HT+=3;
 			}
+
+			if (heroClass == HeroClass.WARRIOR && Dungeon.skins == 4){
+				Hero hero = Dungeon.hero;
+				KindOfWeapon weapon = hero.belongings.weapon;
+				KindOfArmor armor = hero.belongings.armor;
+				KindofMisc misc1 = hero.belongings.misc1;
+				KindofMisc misc2 = hero.belongings.misc2;
+				KindofMisc misc3 = hero.belongings.misc3;
+				if (weapon != null && weapon.level >= 0 ) {
+					Dungeon.hero.spp += weapon.level+1;
+					hero.belongings.weapon = null;
+					weapon.updateQuickslot();
+				} else if ( armor != null && armor.level >= 0 ) {
+					Dungeon.hero.spp += armor.level+1;
+					hero.belongings.armor = null;
+				} else if ( misc1 != null && misc1.unique == false  ) {
+					Dungeon.hero.spp += misc1.level+1;
+					hero.belongings.misc1 = null;
+				} else if ( misc2 != null && misc2.unique == false  ) {
+					Dungeon.hero.spp += misc2.level+1;
+					hero.belongings.misc2 = null;
+				} else if ( misc3 != null && misc3.unique == false  ) {
+					Dungeon.hero.spp += misc3.level+1;
+					hero.belongings.misc3 = null;
+				} else {
+					Dungeon.gold = 0;
+				}
+
+			}
+
+			if (heroClass == HeroClass.PERFORMER && Dungeon.skins == 4){
+					Dungeon.hero.spp += lvl;
+			}
+
+
 			if (buff(HopeMind.class) != null){
 				HT+=1;
 			}
