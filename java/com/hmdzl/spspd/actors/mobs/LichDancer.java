@@ -111,7 +111,6 @@ public class LichDancer extends Mob {
 		
         if( 3 - breaks > 4 * HP / HT ) {
 			breaks++;
-			spawnTomb();
 			jump();
             return true;
         }
@@ -147,7 +146,7 @@ public class LichDancer extends Mob {
 		int newPos;
 		do {
 			newPos = Random.Int(Level.getLength());
-		} while (Dungeon.level.map[newPos] != Terrain.EMPTY_WELL);
+		} while (Dungeon.level.map[newPos] != Terrain.WELL && Dungeon.level.map[newPos] != Terrain.TENT);
 		sprite.move(pos, newPos);
 		move(newPos);
 
@@ -155,7 +154,7 @@ public class LichDancer extends Mob {
 			CellEmitter.get(newPos).burst(Speck.factory(Speck.WOOL), 6);
 			Sample.INSTANCE.play(Assets.SND_PUFF);
 		}
-
+		spawnTomb();
 		spend(1 / speed());
 	}
 

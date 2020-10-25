@@ -124,10 +124,10 @@ public class ElderAvatar extends Mob {
 	public void spawnObe() {
 		Obelisk a = new Obelisk();
 
-		a.pos = Terrain.EMPTY_WELL;
+		a.pos = Terrain.WELL;
 		do {
 			a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-		} while (Dungeon.level.map[a.pos] != Terrain.EMPTY_WELL
+		} while (Dungeon.level.map[a.pos] != Terrain.WELL
 				|| Actor.findChar(a.pos) != null);
 		GameScene.add(a);
 	}

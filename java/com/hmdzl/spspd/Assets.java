@@ -161,12 +161,15 @@ public class Assets {
 	public static final String TILES_FOREST = "tiles_forest.png";
 	public static final String TILES_TOWN = "tiles_town.png";
 	public static final String TILES_SP = "tiles_sp.png";
+	public static final String TILES_HONEY = "tiles_honey.png";
 	
 	public static final String WATER_SEWERS = "water0.png";
 	public static final String WATER_PRISON = "water1.png";
 	public static final String WATER_CAVES = "water2.png";
 	public static final String WATER_CITY = "water3.png";
 	public static final String WATER_HALLS = "water4.png";
+	public static final String WATER_HONEY = "water5.png";
+	
 	
 	public static final String WEAK_FLOOR   = "custom_tiles/weak_floor.png";
 

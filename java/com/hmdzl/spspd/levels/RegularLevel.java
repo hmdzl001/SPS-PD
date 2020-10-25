@@ -149,7 +149,7 @@ public abstract class RegularLevel extends Level {
 		}
 
 		specials = new ArrayList<Room.Type>(Room.SPECIALS);
-		if (Dungeon.bossLevel(Dungeon.depth + 1) || Dungeon.townCheck(Dungeon.depth)) {
+		if (Dungeon.bossLevel(Dungeon.depth + 1)) {
 			specials.remove(Room.Type.WEAK_FLOOR);
 		}
 		if (Dungeon.skins == 5) {

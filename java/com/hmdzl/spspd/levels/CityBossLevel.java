@@ -87,7 +87,10 @@ public class CityBossLevel extends Level {
 		Painter.fill(this, LEFT, TOP, HALL_WIDTH, HALL_HEIGHT, Terrain.EMPTY);
 		Painter.fill(this, CENTER, TOP, 1, HALL_HEIGHT, Terrain.EMPTY_SP);
   
-        map[(TOP + 1) * getWidth() + CENTER] = Terrain.EMPTY_WELL;
+        map[(TOP + 1) * getWidth() + CENTER] = Terrain.WELL;
+
+		map[(TOP + 1) * getWidth() + CENTER - 1] = Terrain.TENT;
+		map[(TOP + 1) * getWidth() + CENTER + 1] = Terrain.TENT;
   
 		int y = TOP + 1;
 		while (y < TOP + HALL_HEIGHT) {

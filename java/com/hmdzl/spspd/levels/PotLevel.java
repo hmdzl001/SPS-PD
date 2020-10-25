@@ -374,12 +374,12 @@ public class PotLevel extends Level {
 
 	@Override
 	public String tilesTex() {
-		return Assets.TILES_PUZZLE;
+		return Assets.TILES_HONEY;
 	}
 
 	@Override
 	public String waterTex() {
-		return Assets.WATER_PRISON;
+		return Assets.WATER_HONEY;
 	}
 
 	@Override

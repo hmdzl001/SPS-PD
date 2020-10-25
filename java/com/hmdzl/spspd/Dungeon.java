@@ -157,7 +157,6 @@ public class Dungeon {
 	public static boolean dewNorn = false;
 	public static boolean canSave = false;
 	public static boolean gnollmission = false;
-	public static boolean oneDay = false;
 	public static boolean error = false;
 	//public static boolean secondQuest = false;
 
@@ -262,7 +261,6 @@ public class Dungeon {
 		dewNorn = false;
 		canSave = false;
 		gnollmission = false;
-		oneDay =false;
 		error = false;
 	    
 		pars = new int[100];
@@ -950,9 +948,9 @@ public static Level newChallengeLevel(int list, Boolean first){
 				|| depth == 25 || depth>25;
 	}
 
-	public static boolean townCheck(int depth) {
-		return depth > 54 && depth < 66;
-	}	
+	//public static boolean townCheck(int depth) {
+		//return depth > 54 && depth < 66;
+	//}	
 	
 	public static boolean growLevel(int depth) {
 		return depth == 27 || depth == 28 || depth == 32 || depth == 30 || depth == 55;
@@ -1111,7 +1109,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String DEWNORN = "dewNorn";
 	private static final String CANSAVE = "canSave";
 	private static final String GNOLLMISSION = "gnollmission";
-	private static final String ONEDAY = "oneDay";
     private static final String ERROR = "error";
 	private static final String WINGS = "wings";
 	private static final String PARS = "pars";
@@ -1199,7 +1196,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 			bundle.put(DEWNORN, dewNorn);
 			bundle.put(CANSAVE, canSave);
 			bundle.put(GNOLLMISSION, gnollmission);
-			bundle.put(ONEDAY, oneDay);
 			bundle.put(ERROR, error);
 			bundle.put(PARS, pars);
 	
@@ -1395,7 +1391,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 		dewNorn = bundle.getBoolean(DEWNORN);
 		canSave = bundle.getBoolean(CANSAVE);
 		gnollmission = bundle.getBoolean(GNOLLMISSION);
-		oneDay = bundle.getBoolean(ONEDAY);
 		error = bundle.getBoolean(ERROR);
 		pars = bundle.getIntArray(PARS);
 		
@@ -1567,7 +1562,7 @@ public static Level newChallengeLevel(int list, Boolean first){
     }
     
     public static int getMonth(){
- 	   int month=Calendar.getInstance().get(Calendar.MONTH);
+ 	   int month=Calendar.getInstance().get(Calendar.MONTH)+1;
  	   return month;
      }
 

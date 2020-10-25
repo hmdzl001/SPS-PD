@@ -91,10 +91,10 @@ public class King extends Mob {
 	public void spawnTomb() {
 		DwarfKingTomb a = new DwarfKingTomb();
 
-		a.pos = Terrain.EMPTY_WELL;
+		a.pos = Terrain.WELL;
 		do {
 			a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-		} while (Dungeon.level.map[a.pos] != Terrain.EMPTY_WELL
+		} while (Dungeon.level.map[a.pos] != Terrain.WELL
 				|| Actor.findChar(a.pos) != null);
 		GameScene.add(a);
 	}		

@@ -154,10 +154,7 @@ public class TownLevel extends Level {
 		LENGTH = HEIGHT*WIDTH;
 		special=false;
 	}
-	
-		
-    public int mineDepth=0;
-    
+	   
     public int[] scrollspots;
     public int[] storespots;
     public int[] bombpots;
@@ -168,7 +165,6 @@ public class TownLevel extends Level {
 	public int[] skillpots;
 	public int[] pillpots;
 	
-	private static final String MINEDEPTH = "mineDepth";
 	private static final String SCROLLSPOTS = "scrollspots";
 	private static final String STORESPOTS = "storespots";
 	private static final String BOMBPOTS = "bombpots";
@@ -181,7 +177,6 @@ public class TownLevel extends Level {
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(MINEDEPTH, mineDepth);
 		bundle.put(SCROLLSPOTS, scrollspots);
 		bundle.put(STORESPOTS, storespots);
 		bundle.put(BOMBPOTS, bombpots);
@@ -196,7 +191,6 @@ public class TownLevel extends Level {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		mineDepth = bundle.getInt(MINEDEPTH);
 		scrollspots = bundle.getIntArray(SCROLLSPOTS);
 		storespots = bundle.getIntArray(STORESPOTS);
 		bombpots = bundle.getIntArray(BOMBPOTS);
@@ -242,7 +236,7 @@ public class TownLevel extends Level {
 			map[exit] = Terrain.STATUE;
 		}
 		
-		if(storeRefresh()){
+		
 			if (Badges.checkSARRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)){
 			for (int i : sppots) {
 				Heap heap = heaps.get(i);
@@ -326,7 +320,7 @@ public class TownLevel extends Level {
 					}
 				}
 			}
-		}	
+			
 	}
 	
 	public Item storeItem (){
@@ -564,16 +558,6 @@ public class TownLevel extends Level {
 		Item prize;
 		prize = Generator.random(Generator.Category.PILL);
 		return prize;
-	}
-
-	public boolean storeRefresh(){
-		boolean check=false;
-		if (Statistics.realdeepestFloor>mineDepth || Dungeon.oneDay==true){
-			//mineDepth=Statistics.realdeepestFloor;
-			check=true;
-			Dungeon.oneDay=false;
-		}		
-		return check;
 	}
 
   @Override
@@ -1077,6 +1061,7 @@ public class TownLevel extends Level {
 	@Override
 	public String waterTex() {
 		return Assets.WATER_PRISON;
+		//return Assets.WATER_HONEY;
 	}
 
 	@Override

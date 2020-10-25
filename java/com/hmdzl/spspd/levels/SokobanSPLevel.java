@@ -418,11 +418,13 @@ public class SokobanSPLevel extends Level {
 	@Override
 	public String tilesTex() {
 		return Assets.TILES_SP;
+		//return Assets.TILES_HONEY;
 	}
 
 	@Override
 	public String waterTex() {
 		return Assets.WATER_SEWERS;
+		//return Assets.WATER_HONEY;
 	}
 
 	@Override

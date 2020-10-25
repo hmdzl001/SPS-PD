@@ -284,9 +284,9 @@ public class InterlevelScene extends PixelScene {
 		Level level;
 		if ((Dungeon.depth>55) && (Dungeon.depth >= Statistics.realdeepestFloor) && ((Random.Int(100)<101) || Dungeon.depth==56) ){
 			level = Dungeon.newMineBossLevel();	
-		}else if (Dungeon.townCheck(Dungeon.depth) && (Dungeon.depth >= Statistics.realdeepestFloor || Random.Int(10)<2)){
-				level = Dungeon.newLevel();	
-	    }else if (Dungeon.depth >= Statistics.deepestFloor && !Dungeon.townCheck(Dungeon.depth) ){
+		//}else if (Dungeon.townCheck(Dungeon.depth) && (Dungeon.depth >= Statistics.realdeepestFloor || Random.Int(10)<2)){
+			//	level = Dungeon.newLevel();	
+	    }else if (Dungeon.depth >= Statistics.deepestFloor){
 			level = Dungeon.newLevel();
 		} else {
 			Dungeon.depth++;
@@ -324,7 +324,7 @@ public class InterlevelScene extends PixelScene {
 			  Dungeon.depth=40;
 			  Level level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 			  Dungeon.switchLevel(level, level.entrance);
-		} else if (Dungeon.depth > 26 && !Dungeon.townCheck(Dungeon.depth)) {
+		} else if (Dungeon.depth > 26) {
 		  Dungeon.depth=1;
 		  Level level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 		  Dungeon.switchLevel(level, level.entrance);

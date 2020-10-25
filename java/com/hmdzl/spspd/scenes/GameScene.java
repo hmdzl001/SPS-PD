@@ -370,7 +370,7 @@ public class GameScene extends PixelScene {
 				break;
 			}
 			
-			if (Dungeon.hero.isAlive() && Dungeon.depth != 22) {
+			if (Dungeon.hero.isAlive()) {
 				Badges.validateNoKilling();
 			}
 			break;

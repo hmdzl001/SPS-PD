@@ -30,7 +30,7 @@ public class NewPlayer extends NPC {
 
 	{
 		//name = NewPlayer;
-		spriteClass = IceRabbitSprite.class;
+		spriteClass =NewPlayerSprite.class;
 		state = WANDERING;
 		properties.add(Property.UNKNOW);
 	}

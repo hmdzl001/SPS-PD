@@ -1336,7 +1336,7 @@ public class Hero extends Char {
 			InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
 			Game.switchScene(InterlevelScene.class);
 			
-		   } else if (Dungeon.depth > 26 && !Dungeon.townCheck(Dungeon.depth)){
+		   } else if (Dungeon.depth > 26 ){
 				ready();
 			} else if (Dungeon.depth == 55 || Dungeon.depth == 99){
 				ready();
