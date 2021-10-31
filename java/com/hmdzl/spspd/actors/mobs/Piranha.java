@@ -47,7 +47,7 @@ public class Piranha extends Mob {
 		loot = new Meat();
 		lootChance = 1f;			
 		
-        properties.add(Property.BEAST);
+        properties.add(Property.FISHER);
 	}
 
 	public Piranha() {
@@ -147,18 +147,13 @@ public class Piranha extends Mob {
 		}
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(Paralysis.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(Roots.class);
-		IMMUNITIES.add(Frost.class);
-		IMMUNITIES.add(Corruption.class);
+	{
+		immunities.add(Burning.class);
+		immunities.add(Paralysis.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(Roots.class);
+		immunities.add(Frost.class);
+		immunities.add(Corruption.class);
 	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
+	
 }

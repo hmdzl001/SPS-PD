@@ -33,7 +33,7 @@ import com.hmdzl.spspd.ui.ItemSlot;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.ScrollPane;
 import com.hmdzl.spspd.ui.Window;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
@@ -208,8 +208,8 @@ public class WndRanking extends WndTabbed {
 
 			pos += GAP;
 
-			pos = statSlot(this, Messages.get(this, "depth"),
-					Integer.toString(Statistics.deepestFloor), pos);
+			//pos = statSlot(this, Messages.get(this, "depth"),
+					//Integer.toString(Statistics.deepestFloor), pos);
 			pos = statSlot(this, Messages.get(this, "enemies"),
 					Integer.toString(Statistics.enemiesSlain), pos);
 			pos = statSlot(this, Messages.get(this, "gold"),
@@ -225,8 +225,8 @@ public class WndRanking extends WndTabbed {
 					Integer.toString(Statistics.ankhsUsed), pos);
 			
 			pos += GAP;
-			pos = statSlot(this, Messages.get(this, "water"),
-					Integer.toString(Statistics.waters), pos);
+			//pos = statSlot(this, Messages.get(this, "water"),
+					//Integer.toString(Statistics.waters), pos);
 			//pos = statSlot(this, TXT_SHADOW,
 					//Integer.toString(Statistics.shadowYogsKilled), pos);
 		}
@@ -363,12 +363,12 @@ public class WndRanking extends WndTabbed {
 		protected void onTouchDown() {
 			bg.brightness(1.5f);
 			Sample.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
-		};
+		}
 
 		@Override
 		protected void onTouchUp() {
 			bg.brightness(1.0f);
-		};
+		}
 
 		@Override
 		protected void onClick() {
@@ -408,12 +408,12 @@ public class WndRanking extends WndTabbed {
 		protected void onTouchDown() {
 			bg.brightness(1.5f);
 			Sample.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
-		};
+		}
 
 		@Override
 		protected void onTouchUp() {
 			bg.brightness(1.0f);
-		};
+		}
 
 		@Override
 		protected void onClick() {

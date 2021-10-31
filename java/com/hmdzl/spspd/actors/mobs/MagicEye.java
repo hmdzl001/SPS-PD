@@ -17,10 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
@@ -29,18 +25,19 @@ import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
-import com.hmdzl.spspd.items.potions.PotionOfMending;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.MagicEyeSprite;
-
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
 
 public class MagicEye extends Mob {
 
@@ -62,6 +59,7 @@ public class MagicEye extends Mob {
 		lootChance = 0.1f;
 		
 		properties.add(Property.DEMONIC);
+		properties.add(Property.MAGICER);
 		properties.add(Property.ELEMENT);
 	}
 
@@ -89,6 +87,15 @@ public class MagicEye extends Mob {
 	protected float attackDelay() {
 		return 2f;
 	}
+	
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		
+		enemy.damage(damage*3/4, LIGHT_DAMAGE);
+		damage = damage/4;
+
+		return damage;
+	}		
 
 	@Override
 	protected boolean doAttack(Char enemy) {
@@ -123,8 +130,8 @@ public class MagicEye extends Mob {
 			}
 
 			if (hit(this, ch, true)) {
-				ch.damage(Random.NormalIntRange(50, 100), this);
-				damage(Random.NormalIntRange(50, 100), this);
+				ch.damage(Random.NormalIntRange(20, 50),LIGHT_DAMAGE);
+				damage(Random.NormalIntRange(20, 50),LIGHT_DAMAGE );
 				if (Dungeon.visible[pos]) {
 					ch.sprite.flash();
 					CellEmitter.center(pos).burst(PurpleParticle.BURST,
@@ -132,7 +139,7 @@ public class MagicEye extends Mob {
 				}
 
 				if (!ch.isAlive() && ch == Dungeon.hero) {
-					Dungeon.fail( Messages.format(ResultDescriptions.MOB));
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n(Messages.get(this, "kill"));
 				}
 			} else {
@@ -170,25 +177,11 @@ public class MagicEye extends Mob {
 		}
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(WandOfDisintegration.class);
-		RESISTANCES.add(EnchantmentDark.class);
-		
+    {
+		resistances.add(WandOfDisintegration.class);
+		resistances.add(EnchantmentDark.class);
+
+		immunities.add(Terror.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Terror.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
@@ -28,6 +28,10 @@ public class Light extends FlavourBuff {
 	public static final float DURATION = 300f;
 	public static final int DISTANCE = 6;
 
+	{
+		type = buffType.NEUTRAL;
+	}
+	
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target)) {

@@ -20,7 +20,6 @@ package com.hmdzl.spspd.levels.features;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -28,7 +27,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.levels.RegularLevel;
 import com.hmdzl.spspd.levels.Room;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.MobSprite;
@@ -58,8 +57,8 @@ public class Chasm {
 					jumpConfirmed = true;
 					hero.resume();
 				}
-			};
-		});
+			}
+        });
 	}
 
 	
@@ -106,7 +105,7 @@ public class Chasm {
 			public void onDeath() {
 				Badges.validateDeathFromFalling();
 
-				Dungeon.fail(Messages.format(ResultDescriptions.FALL));
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n("You fell to death...");
 			}
 		});

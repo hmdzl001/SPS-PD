@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.items.Item;
 
 
@@ -48,7 +48,7 @@ public class NormalArmor extends Armor {
 	}
 
 	private int max() {
-		return (int) ( 8*tier - 4 );
+		return 8*tier - 4;
 	}
 
 

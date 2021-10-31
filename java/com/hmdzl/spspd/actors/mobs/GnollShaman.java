@@ -17,25 +17,24 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ShamanSprite;
-
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public class GnollShaman extends Mob implements Callback {
 
@@ -59,6 +58,7 @@ public class GnollShaman extends Mob implements Callback {
 		lootChanceOther = 0.02f;
 		
 		properties.add(Property.ORC);
+		properties.add(Property.MAGICER);
 	}
 	
 	@Override
@@ -75,6 +75,15 @@ public class GnollShaman extends Mob implements Callback {
 	public int drRoll() {
 		return Random.NormalIntRange(0, 4);
 	}
+	
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		
+		enemy.damage(damage/2, SHOCK_DAMAGE);
+		damage = damage/2;
+
+		return damage;
+	}	
 
 	@Override
 	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
@@ -95,7 +104,7 @@ public class GnollShaman extends Mob implements Callback {
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((ShamanSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			}
 
 			spend(TIME_TO_ZAP);
@@ -105,7 +114,7 @@ public class GnollShaman extends Mob implements Callback {
 				if (Level.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
-				enemy.damage(dmg, this);
+				enemy.damage(dmg, SHOCK_DAMAGE);
 
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
@@ -115,7 +124,7 @@ public class GnollShaman extends Mob implements Callback {
 					Camera.main.shake(2, 0.3f);
 
 					if (!enemy.isAlive()) {
-						Dungeon.fail( Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE) );
 						//GLog.n(Messages.get(this, "zap_kill"));
 					}
 				}
@@ -133,13 +142,9 @@ public class GnollShaman extends Mob implements Callback {
 		next();
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(LightningTrap.Electricity.class);
+	{
+		resistances.add(LightningTrap.Electricity.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
+
 }

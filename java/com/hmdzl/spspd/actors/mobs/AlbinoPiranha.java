@@ -24,7 +24,7 @@ import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.reward.CaveReward;
 import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
@@ -54,7 +54,7 @@ public class AlbinoPiranha extends Mob {
 		loot = new Meat();
 		lootChance = 0.1f;	
 		
-		properties.add(Property.BEAST);
+		properties.add(Property.FISHER);
 	}
 
 	public AlbinoPiranha() {
@@ -186,18 +186,13 @@ public class AlbinoPiranha extends Mob {
 		}
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(Paralysis.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(Roots.class);
-		IMMUNITIES.add(Frost.class);
-		IMMUNITIES.add(Corruption.class);
+	{
+		immunities.add(Burning.class);
+		immunities.add(Paralysis.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(Roots.class);
+		immunities.add(Frost.class);
+		immunities.add(Corruption.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

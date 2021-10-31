@@ -53,7 +53,7 @@ public class JupitersHorror extends Weapon.Enchantment {
 		if (Random.Int(level + 5) >= 4) {
 
 			if (defender == Dungeon.hero) {
-				Buff.affect(defender, Vertigo.class, Vertigo.duration(defender));
+				Buff.affect(defender, Vertigo.class,10f);
 			} else {
 				Buff.affect(defender, Terror.class, Terror.DURATION).object = attacker
 						.id();

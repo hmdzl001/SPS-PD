@@ -17,17 +17,7 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.DolyaSlate;
-import com.hmdzl.spspd.items.Elevator;
-import com.hmdzl.spspd.levels.HallsBossLevel;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -40,18 +30,23 @@ import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.items.DolyaSlate;
+import com.hmdzl.spspd.items.Elevator;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BurningFistSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -61,9 +56,10 @@ import com.hmdzl.spspd.sprites.PinningFistSprite;
 import com.hmdzl.spspd.sprites.RottingFistSprite;
 import com.hmdzl.spspd.sprites.YogSprite;
 import com.hmdzl.spspd.utils.GLog;
-
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Yog extends Mob {
 
@@ -93,11 +89,7 @@ public class Yog extends Mob {
 				}
 			}
 		}
-		if (yearAlive++ > 0) {
-			return true;
-		} else {
-			return false;
-		}
+        return yearAlive++ > 0;
 	}
 
 	@Override
@@ -244,7 +236,7 @@ public class Yog extends Mob {
 	@Override
 	public void die(Object cause) {
 
-	    ((HallsBossLevel) Dungeon.level).unseal();
+	    Dungeon.level.unseal();
 	
 		for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
 			if (mob instanceof BurningFist || mob instanceof RottingFist || mob instanceof Eye || mob instanceof PinningFist || mob instanceof InfectingFist) {
@@ -272,24 +264,17 @@ public class Yog extends Mob {
 		yell(Messages.get(this, "notice"));
 	}
 
+    {
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+		resistances.add(EnchantmentDark.class);
+		resistances.add(Terror.class);
+		resistances.add(Amok.class);
+		resistances.add(Charm.class);
+		resistances.add(Sleep.class);
+		resistances.add(Burning.class);
+		resistances.add(ToxicGas.class);
+		resistances.add(ScrollOfPsionicBlast.class);
+		resistances.add(Vertigo.class);
 	}
 
 	public static class RottingFist extends Mob {
@@ -328,7 +313,7 @@ public class Yog extends Mob {
 
 		@Override
 		public int damageRoll() {
-			return Random.NormalIntRange(44, 86);
+			return Random.NormalIntRange(44, 76);
 		}
 
 		@Override
@@ -357,31 +342,15 @@ public class Yog extends Mob {
 			return super.act();
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add(ToxicGas.class);
-			RESISTANCES.add(EnchantmentDark.class);
-			
-		}
-
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Amok.class);
-			IMMUNITIES.add(Sleep.class);
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(Poison.class);
-			IMMUNITIES.add(Vertigo.class);
-			IMMUNITIES.add(ToxicGas.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
+		{
+			resistances.add(ToxicGas.class);
+			resistances.add(EnchantmentDark.class);	
+			resistances.add(Amok.class);
+			resistances.add(Sleep.class);
+			resistances.add(Terror.class);
+			resistances.add(Poison.class);
+			resistances.add(Vertigo.class);
+			resistances.add(ToxicGas.class);
 		}
 	}
 
@@ -448,7 +417,7 @@ public class Yog extends Mob {
 					enemy.sprite.flash();
 
 					if (!enemy.isAlive() && enemy == Dungeon.hero) {
-						Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(TXT_KILL, name);
 					}
 					return true;
@@ -475,31 +444,16 @@ public class Yog extends Mob {
 			return super.act();
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add(EnchantmentDark.class);
-
-		}
-
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Amok.class);
-			IMMUNITIES.add(Sleep.class);
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(Burning.class);
-			IMMUNITIES.add(ScrollOfPsionicBlast.class);
-			IMMUNITIES.add(Vertigo.class);
-			IMMUNITIES.add(ToxicGas.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
+		{
+			resistances.add(EnchantmentDark.class);
+			resistances.add(Amok.class);
+			resistances.add(Sleep.class);
+			resistances.add(Terror.class);
+			resistances.add(Burning.class);
+			resistances.add(Fire.class);
+			resistances.add(ScrollOfPsionicBlast.class);
+			resistances.add(Vertigo.class);
+			resistances.add(ToxicGas.class);
 		}
 	}
 	
@@ -547,7 +501,7 @@ public class Yog extends Mob {
 		@Override
 		public int attackProc(Char enemy, int damage) {
 			if (Random.Int(2) == 0) {
-				Buff.affect(enemy, Poison.class).set(Random.Int(7, 9) * Poison.durationFactor(enemy));
+				Buff.affect(enemy, Poison.class).set(Random.Int(7, 9));
 				state = FLEEING;
 			}		
 
@@ -562,32 +516,17 @@ public class Yog extends Mob {
 			return super.act();
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add(ToxicGas.class);
-			RESISTANCES.add(EnchantmentDark.class);
-			
+        {
+			resistances.add(ToxicGas.class);
+			resistances.add(EnchantmentDark.class);
+			resistances.add(Amok.class);
+			resistances.add(Sleep.class);
+			resistances.add(Terror.class);
+			resistances.add(Poison.class);
+			resistances.add(Vertigo.class);
+			resistances.add(ToxicGas.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Amok.class);
-			IMMUNITIES.add(Sleep.class);
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(Poison.class);
-			IMMUNITIES.add(Vertigo.class);
-			IMMUNITIES.add(ToxicGas.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 
 	
@@ -667,7 +606,7 @@ public class Yog extends Mob {
 					enemy.sprite.flash();
 
 					if (!enemy.isAlive() && enemy == Dungeon.hero) {
-						Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						GLog.n(TXT_KILL, name);
 					}
 					return true;
@@ -684,32 +623,17 @@ public class Yog extends Mob {
 		}
 
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add(ToxicGas.class);
-			RESISTANCES.add(EnchantmentDark.class);
-
+		{
+			resistances.add(ToxicGas.class);
+			resistances.add(EnchantmentDark.class);
+			resistances.add(Amok.class);
+			resistances.add(Sleep.class);
+			resistances.add(Terror.class);
+			resistances.add(Burning.class);
+			resistances.add(ScrollOfPsionicBlast.class);
+			resistances.add(Vertigo.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Amok.class);
-			IMMUNITIES.add(Sleep.class);
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(Burning.class);
-			IMMUNITIES.add(ScrollOfPsionicBlast.class);
-			IMMUNITIES.add(Vertigo.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 
 	public static class Larva extends Mob {

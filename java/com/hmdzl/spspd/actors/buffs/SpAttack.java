@@ -20,12 +20,16 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class SpAttack extends FlavourBuff {
 
     public static final float DURATION = 30f;
+	
+    {
+		type = buffType.NEUTRAL;
+	}	
 	
 	@Override
 	public int icon() {

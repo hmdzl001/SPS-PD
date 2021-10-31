@@ -19,9 +19,12 @@ package com.hmdzl.spspd.items.potions;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.blobs.Freezing;
+import com.hmdzl.spspd.actors.blobs.FrostCloud;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -47,6 +50,14 @@ public class PotionOfFrost extends Potion {
 		for (int i = 0; i < Level.getLength(); i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				visible = Freezing.affect(i, fire) || visible;
+			}
+		}
+
+		for (int offset : PathFinder.NEIGHBOURS9){
+			if (!Dungeon.level.solid[cell+offset]) {
+
+				GameScene.add(Blob.seed(cell + offset, 10, FrostCloud.class));
+
 			}
 		}
 

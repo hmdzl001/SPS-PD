@@ -17,23 +17,27 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.GoldTouch;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.MechArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Gold extends Item {
 
@@ -49,6 +53,8 @@ public class Gold extends Item {
 		stackable = true;
 	}
 
+	public static final String AC_UNARMOR = "UNARMOR";
+
 	public Gold() {
 		this(1);
 	}
@@ -59,7 +65,11 @@ public class Gold extends Item {
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
-		return new ArrayList<String>();
+		ArrayList<String> actions = super.actions(hero);
+		actions.remove(AC_DROP);
+		actions.remove(AC_THROW);
+		actions.add(AC_UNARMOR);
+		return actions;
 	}
 
 	@Override
@@ -88,6 +98,17 @@ public class Gold extends Item {
 		Sample.INSTANCE.play(Assets.SND_GOLD, 1, 1, Random.Float(0.9f, 1.1f));
 
 		return true;
+	}
+
+	@Override
+	public void execute(Hero hero, String action) {
+
+		if (action.equals(AC_UNARMOR)) {
+			Buff.detach(hero,MagicArmor.class);
+			Buff.detach(hero,ShieldArmor.class);
+			Buff.detach(hero,MechArmor.class);
+			Buff.detach(hero,EnergyArmor.class);
+		}
 	}
 
 	@Override

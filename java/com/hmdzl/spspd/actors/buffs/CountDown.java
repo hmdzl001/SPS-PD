@@ -18,9 +18,8 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -74,7 +73,7 @@ public class CountDown extends Buff {
 		}
 		
 		if (!target.isAlive() && target == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.COUNTDOWN));
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(TXT_HERO_KILLED, toString());
 		}
 			

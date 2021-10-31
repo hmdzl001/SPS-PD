@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Web;
@@ -30,6 +28,8 @@ import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SpinnerSprite;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public class Spinner extends Mob {
 
@@ -80,7 +80,7 @@ public class Spinner extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(2) == 0) {
 			Buff.affect(enemy, Poison.class).set(
-					Random.Int(7, 9) * Poison.durationFactor(enemy));
+					Random.Int(7, 9));
 			state = FLEEING;
 		}
 
@@ -95,27 +95,11 @@ public class Spinner extends Mob {
 		super.move(step);
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-
-	static {
-		RESISTANCES.add(Poison.class);
+	{
+		resistances.add(Poison.class);
+		immunities.add(Roots.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-	static {
-		IMMUNITIES.add(Roots.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 
 	private class Fleeing extends Mob.Fleeing {
 		@Override

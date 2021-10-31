@@ -19,8 +19,8 @@ package com.hmdzl.spspd.items.weapon.missiles;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
-import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -52,7 +52,7 @@ public class Wave extends MissileWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 		super.proc(attacker, defender, damage);
 		Buff.affect(defender, Amok.class,10f);
-		Buff.affect(defender, Blindness.class,2f);
+		Buff.affect(defender, Charm.class,5f).object=attacker.id();
 	}	
 	
 	@Override

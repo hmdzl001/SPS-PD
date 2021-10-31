@@ -28,7 +28,7 @@ import com.hmdzl.spspd.sprites.LynnSprite;
  
 import com.hmdzl.spspd.windows.WndQuest;
 import com.hmdzl.spspd.windows.WndTinkerer2;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Tinkerer2 extends NPC {
 

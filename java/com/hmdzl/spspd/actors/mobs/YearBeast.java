@@ -54,7 +54,7 @@ import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
 import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BeastYearSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -117,7 +117,7 @@ public class YearBeast extends Mob {
 	}
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}
 	@Override
 	public int attackProc(Char enemy, int damage) {
@@ -224,30 +224,16 @@ public class YearBeast extends Mob {
 		yell(Messages.get(this, "notice"));
 	}
 
-
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Fire.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Burning.class);
+    {
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		resistances.add(ScrollOfPsionicBlast.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Terror.class);
+		immunities.add(Fire.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Burning.class);
 	}
 
 }

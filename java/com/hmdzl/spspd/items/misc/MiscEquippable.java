@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindofMisc;
 import com.hmdzl.spspd.items.artifacts.Artifact;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 
 public class MiscEquippable extends KindofMisc {

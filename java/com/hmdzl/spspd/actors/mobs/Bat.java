@@ -44,10 +44,10 @@ public class Bat extends Mob {
 		flying = true;
 
 		loot = Generator.Category.SEED;
-		lootChance = 0.1667f; // by default, see die()
+		lootChance = 0.15f; // by default, see die()
 
 		lootOther = new Meat();
-		lootChanceOther = 0.5f; // by default, see die()
+		lootChanceOther = 0.3f; // by default, see die()
 		
 		properties.add(Property.BEAST);
 	}
@@ -92,13 +92,4 @@ public class Bat extends Mob {
 		return super.createLoot();
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
 }

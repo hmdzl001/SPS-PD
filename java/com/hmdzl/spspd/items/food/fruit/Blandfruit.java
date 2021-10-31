@@ -34,7 +34,7 @@ import com.hmdzl.spspd.plants.Plant.Seed;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -60,12 +60,10 @@ public class Blandfruit extends Fruit {
 	public boolean isSimilar(Item item) {
 		if (item instanceof Blandfruit) {
 			if (potionAttrib == null) {
-				if (((Blandfruit) item).potionAttrib == null)
-					return true;
+                return ((Blandfruit) item).potionAttrib == null;
 			} else if (((Blandfruit) item).potionAttrib != null) {
-				if (((Blandfruit) item).potionAttrib.getClass() == potionAttrib
-						.getClass())
-					return true;
+                return ((Blandfruit) item).potionAttrib.getClass() == potionAttrib
+                        .getClass();
 			}
 		}
 		return false;
@@ -114,10 +112,10 @@ public class Blandfruit extends Fruit {
 				SpellSprite.show(hero, SpellSprite.FOOD);
 				hero.sprite.operate(hero.pos);
 
-				switch (hero.heroClass) {
+				/*switch (hero.heroClass) {
 				case WARRIOR:
-					if (hero.HP < hero.HT) {
-						hero.HP = Random.Int(hero.HP + 5, hero.HT);
+					if (hero.HP < hero.TRUE_HT) {
+						hero.HP = Random.Int(hero.HP + 5, hero.TRUE_HT);
 						hero.sprite.emitter().burst(
 								Speck.factory(Speck.HEALING), 1);
 					}
@@ -132,7 +130,7 @@ public class Blandfruit extends Fruit {
 				case SOLDIER:
 				case FOLLOWER:
 					break;
-				}
+				}*/
 			}
 		} else {
 			super.execute(hero, action);

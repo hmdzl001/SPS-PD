@@ -17,7 +17,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -27,6 +27,10 @@ public class HighVoice extends FlavourBuff {
 
 	public static final float DURATION = 10f;
 
+    {
+		type = buffType.NEUTRAL;
+	}	
+	
 	@Override
 	public int icon() {
 		return BuffIndicator.VOICE_UP;
@@ -48,9 +52,9 @@ public class HighVoice extends FlavourBuff {
 
 	public void set(float duration) {
 		this.left = duration;
-	};	
-	
-	@Override
+	}
+
+    @Override
 	public boolean act() {
 		if (target.isAlive()) {
 			if (target.buff(HighVoice.class) != null && Random.Int(8) == 0) {
@@ -58,7 +62,7 @@ public class HighVoice extends FlavourBuff {
 					Buff.affect(target,HasteBuff.class,5f);
 					GLog.p(Messages.get(this,"speed",Dungeon.hero.givenName()));
 				} else {
-					target.HP += (int)(target.HT/4);
+					target.HP += target.HT/4;
 				GLog.p(Messages.get(this,"heal",Dungeon.hero.givenName()));
 				}
 			}

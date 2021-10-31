@@ -17,24 +17,25 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.InfJump;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
+
+import java.util.ArrayList;
 
  
  public class Jumpshoes extends Item {
@@ -68,7 +69,7 @@ import com.watabou.utils.Bundle;
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (charge >= 10){
+		if (charge >= 10|| hero.buff(InfJump.class) != null){
 		actions.add(AC_JUMP);
 		}
 		actions.remove(AC_DROP);
@@ -116,7 +117,9 @@ import com.watabou.utils.Bundle;
 						CellEmitter.center(dest).burst(
 						Speck.factory(Speck.DUST), 10);
 						curUser.spendAndNext(JUMP_TIME);
+						if(curUser.buff(InfJump.class) == null){
 						charge -= 10;
+						}
 						updateQuickslot();
 					    }
 				    });
@@ -132,7 +135,7 @@ import com.watabou.utils.Bundle;
 	@Override
 	public void execute(final Hero hero, String action) {
 		if (action.equals(AC_JUMP)) {
-		    if (charge < 10)
+		    if (charge < 10&& hero.buff(InfJump.class) == null)
 				GLog.i(Messages.get(this, "rest"));
                 else {
 			    curUser = hero;
@@ -164,7 +167,7 @@ import com.watabou.utils.Bundle;
 
 	 @Override
 	 public String status() {
-		 return Messages.format("%d", (int)charge/10);
+		 return Messages.format("%d", charge /10);
 	 }
 	
 }

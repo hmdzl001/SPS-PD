@@ -22,7 +22,7 @@ import java.util.HashSet;
 
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.SoulCollect;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -287,32 +287,20 @@ public class Zot extends Mob {
 		yell(Messages.get(this,"notice"));
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		//resistances.add(EnchantmentDark.class);
 		
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Paralysis.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+		immunities.add(EnchantmentDark.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Burning.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Paralysis.class);
 	}
 }

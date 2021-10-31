@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
@@ -67,38 +67,38 @@ public class ItemSlot extends Button {
 		@Override
 		public int image() {
 			return ItemSpriteSheet.CHEST;
-		};
-	};
+		}
+    };
 	public static final Item LOCKED_CHEST = new Item() {
 		@Override
 		public int image() {
 			return ItemSpriteSheet.LOCKED_CHEST;
-		};
-	};
+		}
+    };
 	public static final Item CRYSTAL_CHEST = new Item() {
 		@Override
 		public int image() {
 			return ItemSpriteSheet.CRYSTAL_CHEST;
-		};
-	};
+		}
+    };
 	public static final Item TOMB = new Item() {
 		@Override
 		public int image() {
 			return ItemSpriteSheet.TOMB;
-		};
-	};
+		}
+    };
 	public static final Item SKELETON = new Item() {
 		@Override
 		public int image() {
 			return ItemSpriteSheet.BONES;
-		};
-	};
+		}
+    };
 	public static final Item REMAINS = new Item() {
 		@Override
 		public int image() {
 			return ItemSpriteSheet.REMAINS;
-		};
-	};
+		}
+    };
 
 	public ItemSlot() {
 		super();

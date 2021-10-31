@@ -22,15 +22,10 @@ public class PotionBandolier extends Bag {
 
 	@Override
 	public boolean grab(Item item) {
-		if (item instanceof Potion ||
-				item instanceof Pill ||
-				item instanceof Bomb ||
-				item instanceof Egg
-				){
-			return true;
-		} else {
-			return false;
-		}
+        return item instanceof Potion ||
+                item instanceof Pill ||
+                item instanceof Bomb ||
+                item instanceof Egg;
 	}
 
 	@Override

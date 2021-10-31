@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.actors.blobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.ResultDescriptions;import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -27,7 +27,7 @@ import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.EnergyParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+
 import com.watabou.utils.Random;
 
 public class ElectriShock extends Blob {
@@ -64,7 +64,7 @@ public class ElectriShock extends Blob {
 
 	private void shocking(int pos) {
 		Char ch = Actor.findChar(pos);
-		if (ch != null ) {
+		if (ch != null && !ch.isImmune(this.getClass()) ) {
 			//Buff.detach(ch,Corruption.class);
 			ch.damage( Math.max( 1, Random.Int( ch.HP / 100, ch.HP / 50 ) ), this );
 			Buff.prolong(ch, Paralysis.class,1f);
@@ -99,6 +99,6 @@ public class ElectriShock extends Blob {
 	}
 
 	public void onDeath() {
-		Dungeon.fail(Messages.format(ResultDescriptions.GAS));
+		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 	}	
 }

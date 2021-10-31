@@ -12,7 +12,7 @@
 
  import com.hmdzl.spspd.Dungeon;
  import com.hmdzl.spspd.GamesInProgress;
- import com.hmdzl.spspd.messages.Messages;
+ import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
  import com.hmdzl.spspd.ui.Archs;
  import com.hmdzl.spspd.ui.RedButton;
  import com.hmdzl.spspd.ui.Window;
@@ -294,8 +294,8 @@
                      }
                  } );
              }
-         };
- 
+         }
+
          @Override
          protected void createChildren() {
              super.createChildren();

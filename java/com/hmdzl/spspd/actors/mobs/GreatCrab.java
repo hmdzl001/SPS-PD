@@ -27,7 +27,7 @@ import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GreatCrabSprite;
 import com.hmdzl.spspd.utils.GLog;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class GreatCrab extends Crab {
 		{

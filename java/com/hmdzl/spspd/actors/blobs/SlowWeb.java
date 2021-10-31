@@ -20,11 +20,10 @@ package com.hmdzl.spspd.actors.blobs;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.WebParticle;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class SlowWeb extends Blob {
 
@@ -41,7 +40,7 @@ public class SlowWeb extends Blob {
 				volume += offv;
 
 				Char ch = Actor.findChar(i);
-				if (ch != null) {
+				if (ch != null && !ch.isImmune(this.getClass())) {
 					Buff.prolong(ch, Slow.class, TICK);
 				}
 			}

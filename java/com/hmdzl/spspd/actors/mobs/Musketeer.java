@@ -123,15 +123,10 @@ public class Musketeer extends Mob {
         }
         return damage;
     }
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Terror.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+	
+	{
+		immunities.add(Amok.class);
+		immunities.add(Terror.class);
 	}
 	
 	@Override

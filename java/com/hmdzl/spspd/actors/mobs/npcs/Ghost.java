@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs.npcs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Journal;
@@ -26,27 +24,24 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Roots;
-import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.FetidRat;
 import com.hmdzl.spspd.actors.mobs.GnollTrickster;
 import com.hmdzl.spspd.actors.mobs.GreatCrab;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.eggs.RandomEgg;
-import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.levels.SewerLevel;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GhostSprite;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.hmdzl.spspd.windows.WndQuest;
 import com.hmdzl.spspd.windows.WndSadGhost;
-import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -136,7 +131,7 @@ public class Ghost extends NPC {
 		Sample.INSTANCE.play(Assets.SND_GHOST);
 
 		if (Quest.given) {
-			if (Quest.weapon != null) {
+			if (Quest.artifact != null) {
 				if (Quest.processed) {
 					GameScene.show(new WndSadGhost(this, Quest.type));
 				} else {
@@ -201,16 +196,11 @@ public class Ghost extends NPC {
 		return false;
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Paralysis.class);
-		IMMUNITIES.add(Roots.class);
+	{
+		immunities.add(Paralysis.class);
+		immunities.add(Roots.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 
 	public static class Quest {
 
@@ -223,15 +213,15 @@ public class Ghost extends NPC {
 
 		private static int depth;
 
-		public static Weapon weapon;
-		public static Armor armor;
+		public static Artifact artifact;
+		public static Ring ring;
 		public static Egg pet;
 
 		public static void reset() {
 			spawned = false;
 
-			weapon = null;
-			armor = null;
+			artifact = null;
+			ring = null;
 			pet = null;
 		}
 
@@ -242,8 +232,8 @@ public class Ghost extends NPC {
 		private static final String GIVEN = "given";
 		private static final String PROCESSED = "processed";
 		private static final String DEPTH = "depth";
-		private static final String WEAPON = "weapon";
-		private static final String ARMOR = "armor";
+		private static final String ARTIFACT = "artifact";
+		private static final String RING = "ring";
 		private static final String PET = "pet";
 
 		public static void storeInBundle(Bundle bundle) {
@@ -260,8 +250,8 @@ public class Ghost extends NPC {
 				node.put(DEPTH, depth);
 				node.put(PROCESSED, processed);
 
-				node.put(WEAPON, weapon);
-				node.put(ARMOR, armor);
+				node.put(ARTIFACT, artifact);
+				node.put(RING, ring);
 				node.put(PET, pet);
 			}
 
@@ -280,8 +270,8 @@ public class Ghost extends NPC {
 
 				depth = node.getInt(DEPTH);
 
-				weapon = (Weapon) node.get(WEAPON);
-				armor = (Armor) node.get(ARMOR);
+				artifact = (Artifact) node.get(ARTIFACT);
+				ring = (Ring) node.get(RING);
 				pet = (Egg) node.get(PET);
 			} else {
 				reset();
@@ -309,27 +299,15 @@ public class Ghost extends NPC {
 				depth = Dungeon.depth;
 
 				do {
-					weapon = Generator.randomWeapon(10);
-				} while (weapon instanceof MissileWeapon);
-				armor = Generator.randomArmor(10);
+					artifact = Generator.randomArtifact();
+				} while (artifact.cursed);
+				do {
+					ring = Generator.randomRing();
+				} while (ring.cursed);
 
-				for (int i = 1; i <= 3; i++) {
-					Item another;
-					do {
-						another = Generator.randomWeapon(10 + i);
-					} while (another instanceof MissileWeapon);
-					if (another.level >= weapon.level) {
-						weapon = (Weapon) another;
-					}
-					another = Generator.randomArmor(10 + i);
-					if (another.level >= armor.level) {
-						armor = (Armor) another;
-					}
-				}
-
-				pet = (Egg) new RandomEgg();
-				weapon.identify();
-				armor.identify();
+				pet = new RandomEgg();
+				artifact.identify();
+				ring.identify();
 			}
 		}
 
@@ -349,8 +327,8 @@ public class Ghost extends NPC {
 		}
 
 		public static void complete() {
-			weapon = null;
-			armor = null;
+			artifact = null;
+			ring = null;
 			pet = null;
 
 			Journal.remove(Journal.Feature.GHOST);

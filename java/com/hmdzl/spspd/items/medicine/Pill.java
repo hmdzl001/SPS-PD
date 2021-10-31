@@ -31,7 +31,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -70,8 +70,8 @@ public class Pill extends Item {
 				/*int healEnergy = Math.max(7, Math.round(energy / 40));
 				switch (hero.heroClass) {
 					case WARRIOR:
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min(hero.HP + Random.Int(3, healEnergy), hero.HT);
+						if (hero.HP < hero.TRUE_HT) {
+							hero.HP = Math.min(hero.HP + Random.Int(3, healEnergy), hero.TRUE_HT);
 							hero.sprite.emitter()
 									.burst(Speck.factory(Speck.HEALING), 1);
 						}
@@ -79,28 +79,28 @@ public class Pill extends Item {
 					case MAGE:
 						Buff.affect(hero, Recharging.class, 4f);
 						ScrollOfRecharging.charge(hero);
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.HT);
+						if (hero.HP < hero.TRUE_HT) {
+							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.TRUE_HT);
 							hero.sprite.emitter()
 									.burst(Speck.factory(Speck.HEALING), 1);
 						}
 						break;
 					case ROGUE:
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.HT);
+						if (hero.HP < hero.TRUE_HT) {
+							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.TRUE_HT);
 							hero.sprite.emitter()
 									.burst(Speck.factory(Speck.HEALING), 1);
 						}
 					case HUNTRESS:
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.HT);
+						if (hero.HP < hero.TRUE_HT) {
+							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.TRUE_HT);
 							hero.sprite.emitter()
 									.burst(Speck.factory(Speck.HEALING), 1);
 						}
 						break;
 					case PERFORMER:
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.HT);
+						if (hero.HP < hero.TRUE_HT) {
+							hero.HP = Math.min((hero.HP + Random.Int(1, 3)), hero.TRUE_HT);
 							hero.sprite.emitter()
 									.burst(Speck.factory(Speck.HEALING), 1);
 						}

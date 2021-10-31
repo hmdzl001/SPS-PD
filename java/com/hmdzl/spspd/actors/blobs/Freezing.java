@@ -34,7 +34,7 @@ public class Freezing {
 	public static boolean affect(int cell, Fire fire) {
 
 		Char ch = Actor.findChar(cell);
-		if (ch != null) {
+		if (ch != null ) {
 			if (Level.water[ch.pos]) {
 				Buff.prolong(ch, Frost.class,
 						Frost.duration(ch) * Random.Float(5f, 7.5f));

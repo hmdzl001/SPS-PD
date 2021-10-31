@@ -53,8 +53,8 @@ public class Toast extends Component {
 			@Override
 			protected void onClick() {
 				onClose();
-			};
-		};
+			}
+        };
 		add(close);
 
 		text = PixelScene.renderText(8);
@@ -83,5 +83,5 @@ public class Toast extends Component {
 	}
 
 	protected void onClose() {
-	};
+	}
 }

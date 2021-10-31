@@ -18,47 +18,42 @@
  
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
+import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.BoxStar;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Frost;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Sleep;
+import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.IceRabbitSprite;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
-import com.hmdzl.spspd.actors.blobs.CorruptGas;
-import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.levels.Terrain;
+import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ICE_DAMAGE;
 
 
 public class UIcecorps extends Mob {
@@ -107,7 +102,7 @@ public class UIcecorps extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}
 	
 
@@ -116,6 +111,9 @@ public class UIcecorps extends Mob {
 		if (Random.Int(2) == 0) {
 			Buff.affect(enemy, StoneIce.class).level(3);
 		}
+		
+		enemy.damage(damage/2, ICE_DAMAGE);
+		damage = damage/2;
 
 		return damage;
 	}	
@@ -213,36 +211,23 @@ public class UIcecorps extends Mob {
 		}
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(Chill.class);
-		IMMUNITIES.add(Frost.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Paralysis.class);
-	    IMMUNITIES.add(Bleeding.class);
-		IMMUNITIES.add(CorruptGas.class);
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Burning.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(Chill.class);
+		immunities.add(Frost.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Paralysis.class);
+	    immunities.add(Bleeding.class);
+		immunities.add(CorruptGas.class);
 		
 	}
-	
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-	
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
+
 }	

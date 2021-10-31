@@ -21,28 +21,21 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
-import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.actors.mobs.SewerHeart;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.effects.particles.SnowParticle;
-import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.items.armor.Armor.Glyph;
-import com.hmdzl.spspd.items.misc.FourClover;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
+import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.items.misc.FourClover;
+import com.hmdzl.spspd.sprites.ItemSprite;
+import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class Lightglyph extends Glyph {
 
@@ -72,10 +65,7 @@ public class Lightglyph extends Glyph {
 		int level = (int) GameMath.gate(0, armor.level, 6);
 
 		if (Random.Int(level / 2 + 5) >= 4) {
-
-			int duration = Random.IntRange(4, 7);
-			Buff.affect(attacker, Charm.class, Charm.durationFactor(attacker)
-					* duration).object = defender.id();
+			Buff.affect(attacker, Charm.class,  Random.IntRange( 4, 7 )).object = defender.id();
 		    Buff.affect(attacker, Amok.class,10f);
 			attacker.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
 		} 

@@ -17,18 +17,18 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Frost;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
+import com.hmdzl.spspd.items.wands.WandOfFirebolt;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.FireElementalSprite;
 import com.watabou.utils.Random;
@@ -53,6 +53,7 @@ public class FireElemental extends Mob {
 		lootChanceOther = 0.02f; // by default, see die()
 		
 		properties.add(Property.ELEMENT);
+		properties.add(Property.MAGICER);
 	}
 
 	@Override
@@ -75,13 +76,16 @@ public class FireElemental extends Mob {
 		if (Random.Int(2) == 0) {
 			Buff.affect(enemy, Burning.class).reignite(enemy);
 		}
+		
+		enemy.damage(damage, DamageType.FIRE_DAMAGE);
+		damage = 0;
 
 		return damage;
 	}
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}		
 
 	@Override
@@ -101,15 +105,13 @@ public class FireElemental extends Mob {
 		}
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(Fire.class);
-		IMMUNITIES.add(WandOfFirebolt.class);
+	{
+		immunities.add(Burning.class);
+		immunities.add(Fire.class);
+		immunities.add(WandOfFirebolt.class);
+		immunities.add(EnchantmentFire2.class);
+		immunities.add(EnchantmentFire.class);
+		immunities.add(DamageType.FireDamage.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

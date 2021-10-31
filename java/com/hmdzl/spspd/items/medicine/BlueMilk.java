@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.items.medicine;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
@@ -25,10 +26,9 @@ import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.watabou.utils.Random;
 
 public class BlueMilk extends Pill {
 
@@ -51,25 +51,13 @@ public class BlueMilk extends Pill {
 		}
 		
 	   if (action.equals(AC_EAT)) {
-		
-		   switch (Random.Int(10)) {
-			case 1:
 				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					Buff.affect(mob, Slow.class, Slow.duration(mob));
+					Buff.affect(mob, Slow.class, 50f);
+					Buff.affect(mob, AttackDown.class, 50f).level(50);
 				}
-				Buff.affect(hero, HasteBuff.class, 20f);
+				Buff.affect(hero, HasteBuff.class, 10f);
 				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
-				break;
-			case 0: case 2: case 3: case 4: case 5: 
-			case 6: case 7: case 8: case 9: case 10:
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					Buff.affect(mob, Slow.class, Slow.duration(mob));
-					Buff.affect(mob, BerryRegeneration.class).level(mob.HP/2);
-				}
-				Buff.affect(hero, HasteBuff.class, 20f);
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
-				break;
-			}
+
 		}
 	   
 	   super.execute(hero, action);

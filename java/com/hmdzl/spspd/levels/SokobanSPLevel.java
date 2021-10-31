@@ -53,7 +53,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
@@ -123,8 +123,8 @@ public class SokobanSPLevel extends Level {
 		Item prize;
 		switch (Random.Int(2)) {
 		case 0:
-			prize = Generator.random(Generator.Category.ARTIFACT);;
-			break;
+			prize = Generator.random(Generator.Category.ARTIFACT);
+            break;
 		case 1:
 			prize = Generator.random(Generator.Category.RING);
 			break;
@@ -316,8 +316,8 @@ public class SokobanSPLevel extends Level {
 	  mobs.add(REN);
 
 	  Mob KOSTIS = new Kostis12345();
-	  KOSTIS.pos = 7 + WIDTH * 9;;
-	  mobs.add(KOSTIS);
+	  KOSTIS.pos = 7 + WIDTH * 9;
+       mobs.add(KOSTIS);
 
 	  TestMob test4 = new TestMob();
 	  test4.pos = 15 + WIDTH * 3;

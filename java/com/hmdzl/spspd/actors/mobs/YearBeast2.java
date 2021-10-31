@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Fire;
@@ -38,7 +36,6 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.items.eggs.YearPetEgg;
@@ -48,12 +45,16 @@ import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
 import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
+import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.BeastYearSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public class YearBeast2 extends Mob {
 	protected static final float SPAWN_DELAY = 1f;
@@ -104,7 +105,7 @@ public class YearBeast2 extends Mob {
 	}
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}
 	@Override
 	public int attackProc(Char enemy, int damage) {
@@ -168,10 +169,10 @@ public class YearBeast2 extends Mob {
 	public void damage(int dmg, Object src) {
 
 		if(src instanceof Wand) {
-			dmg = (int)(dmg/3);
+			dmg = dmg/3;
 		}
 
-        if ( src instanceof FireCracker) {
+        if ( src instanceof FireCracker || src instanceof MoneyPack) {
             times=0;
         }
 
@@ -194,30 +195,16 @@ public class YearBeast2 extends Mob {
 		yell(Messages.get(this, "notice"));
 	}
 
-
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Fire.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Burning.class);
+    {
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		resistances.add(ScrollOfPsionicBlast.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Terror.class);
+		immunities.add(Fire.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Burning.class);
 	}
 
 }

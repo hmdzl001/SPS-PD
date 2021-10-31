@@ -20,7 +20,7 @@ package com.hmdzl.spspd.utils;
 import android.util.Log;
 
 import com.watabou.utils.Signal;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class GLog {
 

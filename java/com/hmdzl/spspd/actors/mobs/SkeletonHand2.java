@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.SkeletonHand2Sprite;
 import com.watabou.utils.Random;
 
@@ -93,18 +94,13 @@ public class SkeletonHand2 extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2;
+		return Level.distance( pos, enemy.pos ) <= 2;
 	}
 	
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(Fire.class);
-		IMMUNITIES.add(WandOfFirebolt.class);
+	{
+		immunities.add(Burning.class);
+		immunities.add(Fire.class);
+		immunities.add(WandOfFirebolt.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

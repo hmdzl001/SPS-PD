@@ -20,29 +20,23 @@ package com.hmdzl.spspd.items.misc;
 import java.util.ArrayList;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndItem;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-
-import static com.hmdzl.spspd.ui.ActionIndicator.action;
 
 public class NmHealBag extends Item {
 
@@ -86,7 +80,7 @@ public class NmHealBag extends Item {
 			   Dungeon.hero.spp = 0;
 			   Buff.detach(hero, Poison.class);
 			   Buff.detach(hero, Cripple.class);
-			   Buff.detach(hero, Weakness.class);
+			   Buff.detach(hero, STRdown.class);
 			   Buff.detach(hero, Bleeding.class);
 			   Buff.detach(hero, AttackDown.class);
 			   Buff.detach(hero, ArmorBreak.class);
@@ -108,7 +102,7 @@ public class NmHealBag extends Item {
 		 } else
 		 if (action.equals(AC_ADD)) {
         	if (hero.HP > 10) {
-				Dungeon.hero.spp += (int)(hero.HP/4);
+				Dungeon.hero.spp += hero.HP/4;
                 hero.HP = 1;
         	}
 			hero.spendAndNext(1f);

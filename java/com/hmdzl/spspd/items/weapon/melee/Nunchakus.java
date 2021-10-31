@@ -26,7 +26,7 @@ import com.watabou.utils.Random;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Nunchakus extends MeleeWeapon {
 
@@ -46,7 +46,7 @@ public class Nunchakus extends MeleeWeapon {
 		DLY-=0.05f;
 		}
 
-		MIN+=3;
+		MIN+=2;
 		MAX+=1;
 		
 		return super.upgrade(enchant);

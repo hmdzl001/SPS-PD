@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import com.watabou.utils.Random;
-
 public class TownLayouts {
 	
 	//32X32
@@ -46,6 +44,7 @@ public class TownLayouts {
 	private static final int C = Terrain.TENT;
 	private static final int H = Terrain.BED;
 	private static final int I = Terrain.EMBERS;
+	private static final int J = Terrain.GLASS_WALL;
 	
 	//private static final int V = Terrain.TRAP_AIR;
 	
@@ -54,29 +53,29 @@ public class TownLayouts {
 		M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 
 		M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	O, 	O, 	O, 	M,
 		M, 	M, 	M, 	M, 	E, 	M, 	T, 	M, 	M, 	M, 	M, 	M, 	E, 	E, 	M, 	M, 	M, 	M, 	M, 	R, 	R, 	R, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M, 	M, 	M, 	M, 	O, 	E, 	O, 	M,
-		M, 	M, 	M, 	E, 	E, 	E, 	W, 	S, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	T, 	C, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	G, 	O, 	O, 	G, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	M,
+		M, 	M, 	M, 	E, 	E, 	E, 	W, 	S, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	T, 	C, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	J, 	O, 	O, 	G, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	M,
 		M, 	M, 	O, 	E, 	E, 	E, 	L, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	T, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	W, 	O, 	O, 	G, 	G, 	G, 	O, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	D, 	M,
-		M, 	M, 	O, 	E, 	T, 	E, 	G, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	T, 	W, 	W, 	S, 	W, 	W, 	O, 	G, 	G, 	G, 	W, 	E, 	E, 	D, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	O, 	O, 	O, 	H, 	W, 	M, 	M, 	E, 	M,
+		M, 	M, 	O, 	E, 	T, 	E, 	J, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	T, 	W, 	W, 	S, 	W, 	W, 	O, 	G, 	G, 	G, 	W, 	E, 	E, 	D, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	O, 	O, 	O, 	H, 	W, 	M, 	M, 	E, 	M,
 		M, 	M, 	O, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	L, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	E, 	M,
-		M, 	M, 	M, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	G, 	W, 	W, 	M, 	M, 	E, 	M,
-		M, 	M, 	M, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	G, 	G, 	G, 	O, 	W, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	R, 	R, 	R, 	R, 	R, 	R, 	M, 	E, 	M,
-		M, 	M, 	M, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	G, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	G, 	R, 	R, 	R, 	R, 	R, 	R, 	M, 	E, 	M,
-		M, 	M, 	M, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	G, 	O, 	O, 	O, 	G, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	D, 	W, 	W, 	R, 	R, 	R, 	R, 	R, 	U, 	T, 	E, 	M,
-		M, 	M, 	M, 	M, 	E, 	E, 	W, 	W, 	W, 	D, 	W, 	W, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	R, 	R, 	R, 	M, 	M, 	M, 
-		M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	W, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	G, 	E, 	E, 	E, 	R, 	R, 	R, 	M, 	M, 	M,
-		M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	Y, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	H, 	O, 	H, 	W, 	W, 	D, 	W, 	W,  W, 	W, 	M, 	M, 	M,
+		M, 	M, 	M, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	J, 	W, 	W, 	M, 	M, 	E, 	M,
+		M, 	M, 	M, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	G, 	G, 	G, 	O, 	W, 	E, 	E, 	W, 	W, 	J, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	R, 	R, 	R, 	R, 	R, 	R, 	M, 	E, 	M,
+		M, 	M, 	M, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	G, 	O, 	O, 	O, 	W, 	E, 	E, 	W, 	R, 	J, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	J, 	R, 	R, 	R, 	R, 	R, 	R, 	M, 	E, 	M,
+		M, 	M, 	M, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	G, 	O, 	O, 	O, 	J, 	E, 	E, 	W, 	R, 	J, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	D, 	W, 	W, 	R, 	R, 	R, 	R, 	R, 	U, 	T, 	E, 	M,
+		M, 	M, 	M, 	M, 	E, 	E, 	W, 	W, 	W, 	D, 	W, 	W, 	O, 	O, 	O, 	W, 	E, 	E, 	W, 	W, 	J, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	R, 	R, 	R, 	M, 	M, 	M,
+		M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	W, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	J, 	E, 	E, 	E, 	R, 	R, 	R, 	M, 	M, 	M,
+		M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	W, 	E, 	E, 	E, 	W, 	W, 	Y, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	H, 	O, 	H, 	W, 	W, 	D, 	W, 	W,  W, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E,  W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
-		M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	G, 	O, 	P, 	P, 	O, 	W, 	M, 	M, 	M, 
+		M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	J, 	O, 	P, 	P, 	O, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	U, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	D, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
 		M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	U, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
-		M, 	M, 	M, 	W, 	W, 	W, 	W, 	W, 	G, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M, 	M, 
+		M, 	M, 	M, 	W, 	W, 	W, 	W, 	W, 	J, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	W, 	O, 	O, 	G, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	O, 	R, 	R, 	R, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
 		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	O, 	R, 	U, 	R, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
-		M, 	M, 	M, 	W, 	O, 	O, 	G, 	G, 	G, 	G, 	G, 	W, 	E, 	E, 	E, 	E, 	O, 	R, 	R, 	R, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	G, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
-		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	G, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
+		M, 	M, 	M, 	W, 	O, 	O, 	G, 	G, 	G, 	G, 	G, 	W, 	E, 	E, 	E, 	E, 	O, 	R, 	R, 	R, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	J, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M,
+		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	J, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	U, 	O, 	U, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
 		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	O, 	O, 	O, 	W, 	B, 	B, 	B, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
 		M, 	M, 	M, 	W, 	W, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	U, 	O, 	U, 	W, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	D, 	W, 	W, 	W, 	M, 	M, 	M, 

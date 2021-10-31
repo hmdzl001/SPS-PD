@@ -17,23 +17,21 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ElectriShock;
+import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Locked;
-import com.hmdzl.spspd.actors.buffs.Shocked;
-import com.hmdzl.spspd.actors.buffs.StoneIce;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock2;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.sprites.ScarecrowSprite;
 import com.watabou.utils.Bundle;
-
-import java.util.HashSet;
 
 public class TestMob2 extends Mob {
 	
@@ -75,7 +73,7 @@ public class TestMob2 extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		Buff.affect(enemy,StoneIce.class).level(10);
+		Buff.affect(enemy,BeCorrupt.class).level(100);
 		return damage;
 	}
 
@@ -114,25 +112,13 @@ public class TestMob2 extends Mob {
 		
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> WEAKNESS = new HashSet<Class<?>>();
-	static {
-		WEAKNESS.add(ElectriShock.class);
-		WEAKNESS.add(WandOfLightning.class);
-		WEAKNESS.add(EnchantmentShock.class);
-		WEAKNESS.add(EnchantmentShock2.class);
+	{
+		weakness.add(DamageType.ShockDamage.class);
+		weakness.add(ElectriShock.class);
+		weakness.add(WandOfLightning.class);
+		weakness.add(EnchantmentShock.class);
+		weakness.add(EnchantmentShock2.class);
 	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	@Override
-	public HashSet<Class<?>> weakness() {
-		return WEAKNESS;
-	}
-
 
 	private final String SKILL = "skill";
 

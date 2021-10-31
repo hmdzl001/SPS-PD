@@ -43,22 +43,17 @@ public class KeyRing extends Bag {
 
 	@Override
 	public boolean grab(Item item) {
-		if (item instanceof Key
-			||  item instanceof TenguKey
-			||  item instanceof PotKey
-			||  item instanceof AncientCoin
-			||  item instanceof ConchShell
-			||  item instanceof Bone
-			||  item instanceof TriForce
-			||  item instanceof DolyaSlate
-		    ||  item instanceof Ring 
-			||  item instanceof TreasureMap
-			||  item instanceof ChallengeBook
-				){
-			return true;
-			} else {
-			return false;
-			}
+        return item instanceof Key
+                || item instanceof TenguKey
+                || item instanceof PotKey
+                || item instanceof AncientCoin
+                || item instanceof ConchShell
+                || item instanceof Bone
+                || item instanceof TriForce
+                || item instanceof DolyaSlate
+                || item instanceof Ring
+                || item instanceof TreasureMap
+                || item instanceof ChallengeBook;
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -22,6 +21,8 @@ public class MechArmor extends Buff {
 			if (level <= 1) {
 				detach();
 				Buff.detach( target, ShieldArmor.class );
+				Buff.detach( target, MagicArmor.class );
+				Buff.detach( target, EnergyArmor.class );
 			}
 
 		 } else {

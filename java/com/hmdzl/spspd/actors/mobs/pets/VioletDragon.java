@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.VioletDragonSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -106,7 +106,7 @@ public class VioletDragon extends PET implements Callback{
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((VioletDragonSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			} else {
 				zap();
 			}
@@ -126,7 +126,7 @@ public class VioletDragon extends PET implements Callback{
 			int dmg = damageRoll()*2;
 			enemy.damage(dmg, this);
 			
-			Buff.affect(enemy,Poison.class).set(Poison.durationFactor(enemy) * (level + 1));
+			Buff.affect(enemy,Poison.class).set(level + 1);
 			
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());

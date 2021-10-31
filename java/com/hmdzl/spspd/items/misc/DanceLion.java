@@ -17,29 +17,28 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.buffs.Rhythm2;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.items.Item;
-
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
 
 public class DanceLion extends Item {
 
@@ -109,7 +108,7 @@ public class DanceLion extends Item {
 		} else if (action.equals(AC_STAND)) {
 			Buff.affect(curUser,DefenceUp.class,20f).level(30);
 			if(hero.subClass == HeroSubClass.SUPERSTAR){	
-				Buff.affect(curUser,ShieldArmor.class).level(Dungeon.hero.lvl*2);
+				Buff.affect(curUser,EnergyArmor.class).level(Dungeon.hero.lvl*2);
 			}
 			charge -= 40;
 			hero.spendAndNext(1f);
@@ -157,6 +156,6 @@ public class DanceLion extends Item {
 	}	
 	 @Override
 	 public String status() {
-			 return Messages.format("%d", (int)charge/40);
+			 return Messages.format("%d", charge /40);
 	 }	
 }

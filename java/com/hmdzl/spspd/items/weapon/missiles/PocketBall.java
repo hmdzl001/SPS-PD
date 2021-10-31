@@ -21,7 +21,7 @@ package com.hmdzl.spspd.items.weapon.missiles;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.items.PocketBallFull;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.hmdzl.spspd.Assets;
@@ -67,7 +67,7 @@ public class PocketBall extends MissileWeapon {
 			);
             Dungeon.level.drop( pbf, cell ).sprite.drop();
 			((PET) Actor.findChar(cell)).sprite.killAndErase();
-			((PET) Actor.findChar(cell)).destroy();
+			Actor.findChar(cell).destroy();
 			Dungeon.hero.haspet=false;
 			GLog.n(Messages.get(this, "get_pet"));
         } else

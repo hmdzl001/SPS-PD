@@ -50,14 +50,16 @@ private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing( 0x00FF00 );
 		// lvl 1 - 40%
 		// lvl 2 - 50%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int level = Math.max(0, weapon.level);
-
-		if (Random.Int(level + 15) >= 15 || (fcb != null && Random.Int(level + 15) >= 10)) {
-		Buff.prolong(defender, Shocked.class,2f);
-		return true;
-		} else {
-			return false;
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+		}		
+		if (Random.Int(4) == 1) {
+		Buff.prolong(defender, Shocked.class,3f);
 		}
+		return true;
 	}
 	@Override
 	public Glowing glowing() {

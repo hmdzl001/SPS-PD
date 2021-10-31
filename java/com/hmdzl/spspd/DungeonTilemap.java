@@ -67,8 +67,8 @@ public class DungeonTilemap extends Tilemap {
 			protected void onComplete() {
 				tile.killAndErase();
 				killAndErase();
-			};
-		});
+			}
+        });
 	}
 
 	public static PointF tileToWorld(int pos) {
@@ -88,8 +88,8 @@ public class DungeonTilemap extends Tilemap {
 	
 	public static PointF raisedTileCenterToWorld( int pos ) {
 		return new PointF(
-				(pos % Dungeon.level.WIDTH + 0.5f) * SIZE,
-				(pos / Dungeon.level.WIDTH + 0.1f) * SIZE );
+				(pos % Level.WIDTH + 0.5f) * SIZE,
+				(pos / Level.WIDTH + 0.1f) * SIZE );
 	}	
 
 	@Override

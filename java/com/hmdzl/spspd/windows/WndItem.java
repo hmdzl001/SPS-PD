@@ -25,7 +25,7 @@ import com.hmdzl.spspd.ui.ItemSlot;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.Window;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -81,8 +81,8 @@ public class WndItem extends Window {
 						hide();
 						if (owner != null && owner.parent != null) owner.hide();
 						if (Dungeon.hero.isAlive()) item.execute( Dungeon.hero, action );
-					};
-				};
+					}
+                };
 				btn.setSize(Math.max(BUTTON_WIDTH, btn.reqWidth()),
 						BUTTON_HEIGHT);
 				if (x + btn.width() > WIDTH) {

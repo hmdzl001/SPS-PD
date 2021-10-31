@@ -17,24 +17,13 @@
  */
 package com.hmdzl.spspd.items.armor.normalarmor;
 
-import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.ArmorBreak;
-import com.hmdzl.spspd.actors.buffs.AttackDown;
-import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.GrowSeed;
-import com.hmdzl.spspd.actors.buffs.Ooze;
-import com.hmdzl.spspd.actors.buffs.Shocked;
-import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class LifeArmor extends NormalArmor {
  
@@ -109,7 +98,7 @@ public class LifeArmor extends NormalArmor {
 			if (time > 1) {
 				time--;
 			} else {
-				Dungeon.hero.HP += charge;
+				Dungeon.hero.HP += Math.min(Dungeon.hero.HT-Dungeon.hero.HP, charge);
 				charge = 0;
 			}
 			
@@ -148,6 +137,6 @@ public class LifeArmor extends NormalArmor {
 	
 		if (glyph != null) {
 			glyph.proc(this, attacker, defender, damage);
-		}	;
-	};
+		}
+    }
 }

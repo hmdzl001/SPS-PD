@@ -17,42 +17,38 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Blindness;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.Chill;
-import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.buffs.GlassShield;
-import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.Weakness;
-import com.hmdzl.spspd.effects.Chains;
-import com.hmdzl.spspd.effects.Pushing;
-import com.hmdzl.spspd.items.ArmorKit;
-import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.TenguKey;
-import com.hmdzl.spspd.items.artifacts.EtherealChains;
-import com.hmdzl.spspd.items.bombs.DungeonBomb;
-import com.hmdzl.spspd.items.wands.WandOfFlow;
-import com.hmdzl.spspd.items.wands.WandOfLight;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
-import com.hmdzl.spspd.levels.PrisonBossLevel;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.actors.buffs.Chill;
+import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.STRdown;
+import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.Chains;
+import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.ArmorKit;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.TenguKey;
+import com.hmdzl.spspd.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban2;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
+import com.hmdzl.spspd.items.wands.WandOfLight;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Blindweed;
 import com.hmdzl.spspd.plants.Firebloom;
 import com.hmdzl.spspd.plants.Icecap;
@@ -214,7 +210,7 @@ public class PrisonWander extends Mob {
 					|| Level.adjacent(newPos, hero.pos)
 					|| Actor.findChar(newPos) != null);
 
-			Buff.affect(hero, Weakness.class,5f);
+			Buff.affect(hero, STRdown.class,5f);
 			hero.sprite.move(pos, newPos);
 			hero.move(newPos);
 
@@ -245,7 +241,7 @@ public class PrisonWander extends Mob {
 		
 		Badges.validateBossSlain();
 	    
-	    ((PrisonBossLevel) Dungeon.level).unseal();
+	    Dungeon.level.unseal();
 
 		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
 
@@ -273,42 +269,24 @@ public class PrisonWander extends Mob {
 		breaks = bundle.getInt( BREAKS );
 	}	
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> WEAKNESS = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
-	static {
-		WEAKNESS.add(WandOfLight.class);
-		WEAKNESS.add(EnchantmentLight.class);
+	{
+		weakness.add(WandOfLight.class);
+		weakness.add(EnchantmentLight.class);
 
-		IMMUNITIES.add(Burning.class);
-		RESISTANCES.add(ToxicGas.class);
-		IMMUNITIES.add(Poison.class);
-		IMMUNITIES.add(Chill.class);
-		IMMUNITIES.add(Blindness.class);
-		IMMUNITIES.add(Vertigo.class);
-		RESISTANCES.add(EnchantmentDark.class);
+		immunities.add(Burning.class);
+		resistances.add(ToxicGas.class);
+		immunities.add(Poison.class);
+		immunities.add(Chill.class);
+		immunities.add(Blindness.class);
+		immunities.add(Vertigo.class);
+		//resistances.add(EnchantmentDark.class);
 		
 
-		IMMUNITIES.add(Icecap.class);
-		IMMUNITIES.add(Firebloom.class);
-		IMMUNITIES.add(Blindweed.class);
-		IMMUNITIES.add(Stormvine.class);
-		IMMUNITIES.add(Sorrowmoss.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	@Override
-	public HashSet<Class<?>> weakness() {
-		return WEAKNESS;
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+		immunities.add(Icecap.class);
+		immunities.add(Firebloom.class);
+		immunities.add(Blindweed.class);
+		immunities.add(Stormvine.class);
+		immunities.add(Sorrowmoss.class);
 	}
 
 	public static class SeekBombP extends Mob {

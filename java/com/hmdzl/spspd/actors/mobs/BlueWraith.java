@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BlueWraithSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
@@ -50,7 +51,7 @@ public class BlueWraith extends Wraith  {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(10) == 0) {
-			Buff.affect(enemy, Vertigo.class, Vertigo.duration(enemy));
+			Buff.affect(enemy, Vertigo.class, 5f);
 			Buff.affect(enemy, Terror.class, Terror.DURATION).object = enemy.id();
 		}
 
@@ -81,7 +82,7 @@ public class BlueWraith extends Wraith  {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}		
 	
 	public static BlueWraith spawnAt(int pos) {

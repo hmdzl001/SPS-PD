@@ -19,27 +19,11 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.Thief;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.food.meatfood.ChargrilledMeat;
-import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
-import com.hmdzl.spspd.items.rings.RingOfElements.Resistance;
-import com.hmdzl.spspd.items.scrolls.Scroll;
-import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
-import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -98,9 +82,13 @@ public class DBurning extends Buff implements Hero.Doom {
 	}
 
 	public void reignite(Char ch) {
-		left = duration(ch);
+		left = DURATION;
 	}
 
+	public void reignite( Char ch, float duration ) {
+		left = duration;
+	}
+	
 	@Override
 	public int icon() {
 		return BuffIndicator.FIRE;
@@ -122,11 +110,6 @@ public class DBurning extends Buff implements Hero.Doom {
 	public String toString() {
 		return Messages.get(this, "name");
 	}
-
-	public static float duration(Char ch) {
-		Resistance r = ch.buff(Resistance.class);
-        return r != null ? r.durationFactor() * DURATION : DURATION;	
-	}
 	
 	@Override
 	public String desc() {
@@ -138,7 +121,7 @@ public class DBurning extends Buff implements Hero.Doom {
 
 		Badges.validateDeathFromFire();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.BURNING));
+		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n(TXT_BURNED_TO_DEATH);
 	}
 }

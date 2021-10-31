@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.items.summon;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -35,6 +32,9 @@ import com.hmdzl.spspd.sprites.ExMobileSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.sprites.MobileSprite;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Mobile extends Item {
 
@@ -124,6 +124,7 @@ public class Mobile extends Item {
 			state = HUNTING;
 			HP = HT= 100;
 			evadeSkill = 0;
+			baseSpeed=2;
 			ally=true;
 			properties.add(Property.MECH);
 		}
@@ -190,7 +191,7 @@ public class Mobile extends Item {
 
 		@Override
 		protected boolean canAttack(Char enemy) {
-            return Dungeon.level.distance( pos, enemy.pos ) <= 6 ;
+            return Level.distance( pos, enemy.pos ) <= 6 ;
 		}
 
 		@Override
@@ -215,6 +216,7 @@ public class Mobile extends Item {
 			state = HUNTING;
 			HP = HT = 300;
 			evadeSkill = 35;
+			baseSpeed=2;
 			ally=true;
 			properties.add(Property.MECH);
 		}
@@ -280,7 +282,7 @@ public class Mobile extends Item {
 
 		@Override
 		protected boolean canAttack(Char enemy) {
-			return Dungeon.level.distance(pos, enemy.pos) <= 6;
+			return Level.distance(pos, enemy.pos) <= 6;
 		}
 
 		@Override

@@ -17,46 +17,38 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Belongings;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.ImpShopkeeper;
 import com.hmdzl.spspd.actors.mobs.npcs.Shopkeeper;
 import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.armor.normalarmor.PlateArmor;
-import com.hmdzl.spspd.items.eggs.Egg;
-import com.hmdzl.spspd.items.eggs.RandomEgg;
-import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
-import com.hmdzl.spspd.items.summon.FairyCard;
-import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
-import com.hmdzl.spspd.items.Weightstone;
-import com.hmdzl.spspd.items.challengelists.CourageChallenge;
-import com.hmdzl.spspd.items.challengelists.PowerChallenge;
-import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
-import com.hmdzl.spspd.items.food.staplefood.Pasty;
-import com.hmdzl.spspd.items.journalpages.Town;
-import com.hmdzl.spspd.items.journalpages.SafeSpotPage;
-import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.MailArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.ScaleArmor;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.bags.PotionBandolier;
 import com.hmdzl.spspd.items.bags.ScrollHolder;
 import com.hmdzl.spspd.items.bags.SeedPouch;
 import com.hmdzl.spspd.items.bags.WandHolster;
+import com.hmdzl.spspd.items.challengelists.CourageChallenge;
+import com.hmdzl.spspd.items.challengelists.PowerChallenge;
+import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
+import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.items.eggs.RandomEgg;
+import com.hmdzl.spspd.items.food.staplefood.Pasty;
+import com.hmdzl.spspd.items.journalpages.SafeSpotPage;
+import com.hmdzl.spspd.items.journalpages.Town;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
+import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
+import com.hmdzl.spspd.items.summon.FairyCard;
+import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.summon.Mobile;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunA;
@@ -65,18 +57,17 @@ import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.melee.special.Brick;
-import com.hmdzl.spspd.items.weapon.melee.special.DragonBoat;
-import com.hmdzl.spspd.items.weapon.melee.special.KeyWeapon;
-import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.items.weapon.missiles.PocketBall;
 import com.hmdzl.spspd.levels.HallsLevel;
-import com.hmdzl.spspd.levels.LastShopLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.plants.Plant;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ShopPainter extends Painter {
 
@@ -131,7 +122,7 @@ public class ShopPainter extends Painter {
 		case 1:
 			itemsToSpawn.add(new GunA().identify());
 			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new Pumpkin());
+			itemsToSpawn.add(new Brick());
 		    itemsToSpawn.add(new DolyaSlate().identify());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());

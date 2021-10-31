@@ -17,20 +17,20 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.GlassShield;
-import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
+import com.hmdzl.spspd.actors.buffs.BeCorrupt;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
-
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.sprites.SuffererSprite;
 import com.watabou.utils.Random;
 
-public class Sufferer extends Mob {
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
+
+ public class Sufferer extends Mob {
 
 	{
 		spriteClass = SuffererSprite.class;
@@ -45,12 +45,13 @@ public class Sufferer extends Mob {
 		lootChance = 0.35f;
 		
 		properties.add(Property.DEMONIC);
+		properties.add(Property.MAGICER);
 		properties.add(Property.HUMAN);
 	}
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(12+adj(0), 40+adj(1));
+		return Random.NormalIntRange(7+adj(0), 10+adj(1));
 	}
 
 	@Override
@@ -65,6 +66,18 @@ public class Sufferer extends Mob {
 	}
 
 	@Override
+	public int attackProc(Char enemy, int damage) {
+		if (Random.Int(3) == 0) {
+			Buff.affect(enemy, BeCorrupt.class).level(20);
+		}
+		
+		enemy.damage(damage, DARK_DAMAGE);
+		damage = 0;
+
+		return damage;
+	}
+
+	@Override
 	public int defenseProc(Char enemy, int damage) {
 
 		int dmg = damage;
@@ -74,23 +87,12 @@ public class Sufferer extends Mob {
 
 		return super.defenseProc(enemy, damage);
 	}	
-	
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
+
+	{
+		immunities.add(Amok.class);
+		immunities.add(Terror.class);
+		immunities.add(Sleep.class);
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Sleep.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

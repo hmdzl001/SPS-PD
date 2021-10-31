@@ -17,12 +17,9 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
@@ -30,6 +27,9 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
 import com.hmdzl.spspd.windows.IconTitle;
+import com.hmdzl.spspd.windows.WndDocument;
+
+import java.util.ArrayList;
 
 public class Whistle extends Item {
 
@@ -57,8 +57,8 @@ public class Whistle extends Item {
 	public void execute(Hero hero, String action) {
 
 		
-		if (action == AC_CALL) {	
-			GameScene.show( new WndWhistle(this) );
+		if (action == AC_CALL) {
+			GameScene.show( new WndDocument() );
 		} else {
 
 			super.execute(hero, action);
@@ -77,6 +77,8 @@ public class Whistle extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
+
+
 	private static class WndWhistle extends Window {
 		
 		private static final int BTN_SIZE	= 32;

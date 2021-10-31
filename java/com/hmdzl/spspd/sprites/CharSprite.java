@@ -39,7 +39,7 @@ import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.ui.CharHealthIndicator;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.MovieClip;
@@ -290,14 +290,14 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		switch (state) {
 			case BURNING:
 				burning = emitter();
-				burning.pour( FlameParticle.FACTORY, 0.06f );
+				burning.pour( FlameParticle.FACTORY, 0.1f );
 				if (visible) {
 					Sample.INSTANCE.play( Assets.SND_BURNING );
 				}
 				break;
 			case LEVITATING:
 				levitation = emitter();
-				levitation.pour( Speck.factory( Speck.JET ), 0.02f );
+				levitation.pour( Speck.factory( Speck.JET ), 0.2f );
 				break;
 			case INVISIBLE:
 				PotionOfInvisibility.melt( ch );
@@ -326,7 +326,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				
 			case REGROW:
 				regrow = emitter();
-				regrow.pour( LeafParticle.LEVEL_SPECIFIC, 0.06f );
+				regrow.pour( LeafParticle.LEVEL_SPECIFIC, 0.1f );
 				break;				
 			case HEALING:
 				healing = emitter();

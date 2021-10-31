@@ -87,7 +87,7 @@ public class NeptuneShock extends Weapon.Enchantment {
 		}
 
 		affected.add(ch);
-		ch.damage(Level.water[ch.pos] && !ch.flying ? (int) (damage * 2)
+		ch.damage(Level.water[ch.pos] && !ch.flying ? damage * 2
 				: damage, this);
 
 		ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);

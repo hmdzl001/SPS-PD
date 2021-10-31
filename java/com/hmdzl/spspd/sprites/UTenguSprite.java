@@ -95,7 +95,7 @@ public class UTenguSprite extends MobSprite {
 		  				enemy.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		  			}
 		  		if(Random.Int(20)==0){
-		  			Buff.affect(enemy, Slow.class, Slow.duration(enemy) / 2);
+		  			Buff.affect(enemy, Slow.class, 4f);
 		  		}
 		  				  		
 		  		if(Random.Int(30)==0){

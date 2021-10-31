@@ -20,13 +20,17 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class Recharging extends FlavourBuff {
 
     public static final float DURATION = 40f;
 
+    {
+		type = buffType.POSITIVE;
+	}	
+	
 	@Override
 	public int icon() {
 		return BuffIndicator.RECHARGING;
@@ -49,5 +53,6 @@ public class Recharging extends FlavourBuff {
 	@Override
 	public String desc() {
 		return Messages.get(this, "desc", dispTurns());
-	}
+	}	
+
 }

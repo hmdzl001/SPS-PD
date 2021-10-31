@@ -26,7 +26,6 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-
 import com.watabou.utils.Random;
 
 public class BuildBomb extends Bomb {
@@ -47,7 +46,7 @@ public class BuildBomb extends Bomb {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}
 
-				if (Level.flamable[c]) {
+				if (Level.flamable[c] || Dungeon.level.map[c] == Terrain.GLASS_WALL) {
 					Level.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 					terrainAffected = true;
@@ -57,11 +56,12 @@ public class BuildBomb extends Bomb {
 				if (ch != null) {
 					// those not at the center of the blast take damage less
 					// consistently.
+
+
 					int minDamage = ch.HT/12;
 					int maxDamage = ch.HT/5;
 
-					int dmg = Random.NormalIntRange(minDamage, maxDamage)
-							- Math.max(ch.drRoll(),0);
+					int dmg = Random.NormalIntRange(minDamage, maxDamage);
 					if (dmg > 0) {
 						ch.damage(dmg, this);
 					}

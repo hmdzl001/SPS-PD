@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
  
 import com.watabou.utils.Bundle;
@@ -187,7 +187,7 @@ public class RelicMeleeWeapon extends Weapon {
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, MIN, MAX, STR);
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known2", ACU, DLY, RCH);
-;           if (Dungeon.hero.STR() > typicalSTR()){
+            if (Dungeon.hero.STR() > typicalSTR()){
 				info += " " + Messages.get(MeleeWeapon.class, "excess_str", Dungeon.hero.STR() - typicalSTR());
 			}
 		} else {

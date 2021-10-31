@@ -36,7 +36,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -173,7 +173,7 @@ public abstract class PET extends NPC {
 	public void die(Object cause) {
 		super.die(cause);	 
 		Dungeon.hero.haspet=false;
-		Statistics.petDies++;
+		//Statistics.petDies++;
 	    GLog.n(Messages.get(this,"pet_died"));
 	}
 
@@ -186,14 +186,14 @@ public abstract class PET extends NPC {
 			if (enemy == null
 					|| !enemy.isAlive()
 					|| !Dungeon.level.mobs.contains(enemy)
-					|| Dungeon.level.distance(enemy.pos, Dungeon.hero.pos) > 8
+					|| Level.distance(enemy.pos, Dungeon.hero.pos) > 8
 					|| state == WANDERING) {
 				
 				HashSet<Mob> enemies = new HashSet<>();
 				for (Mob mob : Dungeon.level.mobs) {
 					if (mob.hostile
 							&& Level.fieldOfView[mob.pos]
-							&& Dungeon.level.distance(mob.pos, Dungeon.hero.pos) <= 8
+							&& Level.distance(mob.pos, Dungeon.hero.pos) <= 8
 							&& mob.state != mob.PASSIVE) {
 						enemies.add(mob);
 					}
@@ -203,7 +203,7 @@ public abstract class PET extends NPC {
 				Char closest = null;
 				for (Char curr : enemies){
 					if (closest == null
-							|| Dungeon.level.distance(pos, curr.pos) < Dungeon.level.distance(pos, closest.pos)){
+							|| Level.distance(pos, curr.pos) < Level.distance(pos, closest.pos)){
 						closest = curr;
 					}
 				}
@@ -276,7 +276,7 @@ public abstract class PET extends NPC {
 
 
 
-		if (!Dungeon.level.passable[pos]){
+		if (!Level.passable[pos]){
 			return true;
 		}
 
@@ -297,21 +297,15 @@ public abstract class PET extends NPC {
 
 	}	
 	
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add( ToxicGas.class );
-		IMMUNITIES.add( VenomGas.class );
-		IMMUNITIES.add( Burning.class );
-		IMMUNITIES.add( ScrollOfPsionicBlast.class );
-		IMMUNITIES.add( CorruptGas.class );
-		IMMUNITIES.add( NmGas.class );
+	{
+		immunities.add( ToxicGas.class );
+		immunities.add( VenomGas.class );
+		immunities.add( Burning.class );
+		immunities.add( ScrollOfPsionicBlast.class );
+		immunities.add( CorruptGas.class );
+		immunities.add( NmGas.class );
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}	
-	
 		/*private class Wandering extends Mob.Wandering {
 			
 			@Override

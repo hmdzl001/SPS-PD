@@ -18,15 +18,14 @@
 package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.DogPetSprite;
-import com.hmdzl.spspd.sprites.NewSnakeSprite;
-import com.hmdzl.spspd.sprites.SnakeSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class DogPet extends PET {
 	
@@ -63,20 +62,14 @@ public class DogPet extends PET {
 	}
 
 	@Override
-	protected boolean act() {		
-		
-
+	protected boolean act() {
+		if (Level.adjacent(pos, Dungeon.hero.pos)) {
+			if ((hero.buff(ShieldArmor.class) == null)) {
+				Buff.affect(hero, ShieldArmor.class).level(level * 2);
+			}
+		}
 		return super.act();
 	}
-	
-	@Override
-	public int attackProc(Char enemy, int damage) {
-		if (Random.Int(8) == 0) {
-			Buff.affect(Dungeon.hero,ShieldArmor.class).level(level*2);
-		}
-
-		return damage;
-	}	
 	
 /*
 	@Override

@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -34,8 +32,8 @@ import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
@@ -44,6 +42,8 @@ import com.hmdzl.spspd.sprites.RedWraithSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public class RedWraith extends Mob {
 
@@ -103,7 +103,7 @@ public class RedWraith extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(4) == 0) {
-			Buff.affect(enemy, Vertigo.class, Vertigo.duration(enemy));
+			Buff.affect(enemy, Vertigo.class, 5f);
 			Buff.affect(enemy, Terror.class, Terror.DURATION).object = enemy.id();
 		}
 
@@ -112,7 +112,7 @@ public class RedWraith extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}	
 	
 	@Override
@@ -176,24 +176,19 @@ public class RedWraith extends Mob {
 		}
 	}
 
-	protected static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(Paralysis.class);
-		IMMUNITIES.add(Roots.class);
-		IMMUNITIES.add(Frost.class);
+	{
+		//immunities.add(EnchantmentDark.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Burning.class);
+		immunities.add(Paralysis.class);
+		immunities.add(Roots.class);
+		immunities.add(Frost.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

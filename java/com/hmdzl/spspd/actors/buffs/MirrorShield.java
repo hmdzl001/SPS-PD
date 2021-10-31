@@ -18,17 +18,15 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.rings.RingOfElements.Resistance;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class MirrorShield extends FlavourBuff {
 
     {
-		type = buffType.POSITIVE;
+		type = buffType.NEUTRAL;
 	}
 
 		public int proc(int damage, Char attacker) {

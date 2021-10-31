@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.utils.Bundle;
 
@@ -77,7 +77,7 @@ abstract public class ClassSkill extends Item {
 			classSkill = new FollowerSkill();
 			break;			
 		}
-        classSkill.charge = 0;
+        charge = 0;
 		return classSkill;
 	}
 	

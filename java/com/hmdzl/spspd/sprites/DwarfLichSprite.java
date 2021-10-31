@@ -27,7 +27,6 @@ import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.levels.Level;
-
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
@@ -89,7 +88,7 @@ public class DwarfLichSprite extends MobSprite {
 											
 
 					if (ch == Dungeon.hero && !ch.isAlive()){
-						Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					}
 				}
 			}

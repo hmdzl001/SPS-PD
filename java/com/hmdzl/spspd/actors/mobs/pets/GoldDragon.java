@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.mobs.pets;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.GoldDragonSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -100,7 +100,7 @@ public class GoldDragon extends PET implements Callback{
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((GoldDragonSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			} else {
 				zap();
 			}

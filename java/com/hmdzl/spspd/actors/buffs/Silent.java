@@ -17,9 +17,7 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.rings.RingOfElements.Resistance;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class Silent extends FlavourBuff {
@@ -45,8 +43,4 @@ public class Silent extends FlavourBuff {
 		return Messages.get(this, "desc", dispTurns());
 	}
 
-	public static float duration(Char ch) {
-		Resistance r = ch.buff(Resistance.class);
-		return r != null ? r.durationFactor() * DURATION : DURATION;
-	}
 }

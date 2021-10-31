@@ -33,30 +33,24 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.LeafParticle;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.Armor.Glyph;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
-import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class Revivalglyph extends Glyph {
 
@@ -95,7 +89,7 @@ public class Revivalglyph extends Glyph {
 			Buff.detach(defender, Burning.class);
 			Buff.detach(defender, Ooze.class);
 			Buff.detach(defender, Tar.class);
-			Buff.detach(defender, Weakness.class);
+			Buff.detach(defender, STRdown.class);
 			Buff.detach(defender, Vertigo.class);
 			Buff.detach(defender, Poison.class);
 			Buff.detach(defender, Cripple.class);

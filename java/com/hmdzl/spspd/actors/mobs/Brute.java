@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.BruteSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -104,13 +104,8 @@ public class Brute extends Mob {
 		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
 	}	*/
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Terror.class);
+	{
+		immunities.add(Terror.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

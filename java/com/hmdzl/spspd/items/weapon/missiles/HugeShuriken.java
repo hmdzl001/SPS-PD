@@ -19,6 +19,7 @@ package com.hmdzl.spspd.items.weapon.missiles;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.AttackDown;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -48,6 +49,7 @@ public class HugeShuriken extends MissileWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 		Buff.affect(defender, AttackDown.class,10f).level(70);
+		Buff.affect(defender, BeOld.class).set(10f);
 		super.proc(attacker, defender, damage);
 	}
 	@Override

@@ -26,7 +26,7 @@ import com.watabou.utils.Random;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class MageBook extends MeleeWeapon {
 

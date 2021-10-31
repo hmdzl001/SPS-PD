@@ -17,20 +17,16 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
-import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
-import com.hmdzl.spspd.items.wands.WandOfFirebolt;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.sprites.ScarecrowSprite;
 import com.watabou.utils.Bundle;
-
-import java.util.HashSet;
 
 public class TestMob extends Mob {
 	
@@ -45,7 +41,9 @@ public class TestMob extends Mob {
 
 		state = PASSIVE;
 
-		properties.add(Property.PLANT);
+		//properties.add(Property.PLANT);
+
+		properties.add(Property.ELEMENT);
 	}
 
 
@@ -99,35 +97,16 @@ public class TestMob extends Mob {
 		
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> WEAKNESS = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		WEAKNESS.add(Burning.class);
-		WEAKNESS.add(WandOfFirebolt.class);
+	{
+		//WEAKNESS.add(Burning.class);
+		//WEAKNESS.add(WandOfFirebolt.class);
 		//WEAKNESS.add(TestWeapon.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Vertigo.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Vertigo.class);
 	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	@Override
-	public HashSet<Class<?>> weakness() {
-		return WEAKNESS;
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-
 
 	private final String SKILL = "skill";
 

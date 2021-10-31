@@ -1,7 +1,7 @@
 package com.hmdzl.spspd.actors.blobs;
 
 import com.hmdzl.spspd.effects.BlobEmitter;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.GooSprite;
 
 /**

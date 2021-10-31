@@ -20,10 +20,10 @@ package com.hmdzl.spspd.items.weapon.melee.special;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.actors.buffs.Tar;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -63,7 +63,7 @@ public class Lollipop extends MeleeWeapon {
 		}	
 		if (Random.Int(50) == 1 ){
             Buff.prolong(attacker, Shieldblock.class, 5f);
-			Buff.prolong(attacker, Weakness.class, 20f);
+			Buff.prolong(attacker, STRdown.class, 20f);
             attacker.HT -= Math.min(15,attacker.HT-1);
 			Dungeon.hero.belongings.weapon = null;
 			GLog.n(Messages.get(KindOfWeapon.class,"destory"));

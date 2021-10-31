@@ -19,12 +19,9 @@ package com.hmdzl.spspd.items.weapon.enchantments;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Hot;
 import com.hmdzl.spspd.actors.buffs.Tar;
-import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
@@ -47,13 +44,16 @@ public class EnchantmentFire2 extends Weapon.Enchantment {
 		// lvl 1 - 50%
 		// lvl 2 - 60%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int lvl = Math.max(0, weapon.level);
-				if(fcb != null && Random.Int(2) == 1){
-			defender.damage(Random.Int(damage/6), this);
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
+		defender.damage((int)(Random.Int(level,maxdmg)*0.75), this);
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
 		}
 		if (defender.isAlive()){
-		Buff.prolong(defender, Hot.class,Math.min(30,lvl+1));
-		Buff.affect(defender, Tar.class);
+		Buff.prolong(defender, Hot.class,3f);
+		if (Random.Int(3)==1)
+		   Buff.affect(defender, Tar.class);
 		defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		return true;
 		} else {

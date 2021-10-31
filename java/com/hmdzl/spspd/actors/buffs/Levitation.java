@@ -19,14 +19,19 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
+
 
 public class Levitation extends FlavourBuff {
 
 	public static final float DURATION = 20f;
 
+    {
+		type = buffType.POSITIVE;
+	}
+	
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target)) {
@@ -64,5 +69,6 @@ public class Levitation extends FlavourBuff {
 	@Override
 	public String desc() {
 		return Messages.get(this, "desc", dispTurns());
-	}
+	}	
+
 }

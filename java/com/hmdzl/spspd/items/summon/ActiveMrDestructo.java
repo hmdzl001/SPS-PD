@@ -17,14 +17,13 @@
  */
 package com.hmdzl.spspd.items.summon;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.buffs.ArmorBreak;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
@@ -42,6 +41,9 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.sprites.MrDestructo2dot0Sprite;
 import com.hmdzl.spspd.sprites.MrDestructoSprite;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ActiveMrDestructo extends Item {
 
@@ -247,6 +249,7 @@ public class ActiveMrDestructo extends Item {
 				if (hit(this, ch, true)) {
 					ch.damage(Random.NormalIntRange(Dungeon.depth, Dungeon.depth+12), this);
 					damage(Random.NormalIntRange(5, 10), this);
+					Buff.affect(ch,ArmorBreak.class,3f).level(30);
 
 					if (Dungeon.visible[pos]) {
 						ch.sprite.flash();
@@ -255,7 +258,7 @@ public class ActiveMrDestructo extends Item {
 					}
 
 					if (!ch.isAlive() && ch == Dungeon.hero) {
-						Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "kill"));
 					}
 				} else {
@@ -270,27 +273,12 @@ public class ActiveMrDestructo extends Item {
 		public void beckon(int cell) {
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add(EnchantmentDark.class);
-
+        {
+			resistances.add(EnchantmentDark.class);
+			immunities.add(Terror.class);
+			immunities.add(ToxicGas.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(ToxicGas.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 	public static class MrDestructo2dot0 extends Mob {
 
@@ -413,6 +401,7 @@ public class ActiveMrDestructo extends Item {
 				}
 
 				if (hit(this, ch, true)) {
+					Buff.affect(ch,ArmorBreak.class,3f).level(50);
 					ch.damage(Random.NormalIntRange(Dungeon.depth+20, Dungeon.depth+32), this);
 					damage(Random.NormalIntRange(5, 10), this);
 
@@ -423,7 +412,7 @@ public class ActiveMrDestructo extends Item {
 					}
 
 					if (!ch.isAlive() && ch == Dungeon.hero) {
-						Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "kill"));
 					}
 				} else {
@@ -438,27 +427,12 @@ public class ActiveMrDestructo extends Item {
 		public void beckon(int cell) {
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add(EnchantmentDark.class);
-
+        {
+			resistances.add(EnchantmentDark.class);
+			immunities.add(Terror.class);
+			immunities.add(ToxicGas.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(ToxicGas.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 
 }

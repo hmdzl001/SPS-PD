@@ -17,12 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
@@ -72,10 +66,8 @@ import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Snake;
 import com.hmdzl.spspd.actors.mobs.pets.Spider;
 import com.hmdzl.spspd.actors.mobs.pets.Stone;
-
 import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
-
 import com.hmdzl.spspd.actors.mobs.pets.YearPet;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.particles.FlowParticle;
@@ -83,15 +75,14 @@ import com.hmdzl.spspd.effects.particles.WindParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
-import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
-import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
@@ -100,16 +91,17 @@ import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
 import com.hmdzl.spspd.levels.painters.Painter;
+import com.hmdzl.spspd.levels.traps.AirTrap;
 import com.hmdzl.spspd.levels.traps.ChangeSheepTrap;
 import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.HeapGenTrap;
-import com.hmdzl.spspd.levels.traps.*;
-import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.ui.CustomTileVisual;
+import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.mechanics.ShadowCaster;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.ItemSprite;
+import com.hmdzl.spspd.ui.CustomTileVisual;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.audio.Sample;
@@ -118,15 +110,21 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 import com.watabou.utils.SparseArray;
 
-public abstract class Level implements Bundlable {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 
-	public static enum Feeling {
-		NONE, CHASM, WATER, GRASS, DARK, TRAP
-	};
+public abstract class  Level implements Bundlable {
 
-	
-	
-	/*  -W-1 -W  -W+1
+	public enum Feeling {
+		NONE, CHASM, WATER, GRASS, DARK, TRAP, SPECIAL_FLOOR
+	}
+
+
+
+    /*  -W-1 -W  -W+1
 	 *  -1    P  +1
 	 *  W-1   W  W+1
 	 * 
@@ -192,6 +190,7 @@ public abstract class Level implements Bundlable {
 	public static boolean[] losBlockHigh = new boolean[getLength()];
 	public static boolean[] losBlockLow	 = new boolean[getLength()];	
 	public static boolean[] flamable = new boolean[getLength()];
+	//public static boolean[] crashable = new boolean[getLength()];
 	public static boolean[] shockable = new boolean[getLength()];
 	public static boolean[] secret = new boolean[getLength()];
 	public static boolean[] solid = new boolean[getLength()];
@@ -213,7 +212,7 @@ public abstract class Level implements Bundlable {
 	public boolean special = false;
 	public boolean cleared = false;
 	public boolean forcedone = false;
-	public boolean sealedlevel = false;
+	//public boolean sealedlevel = false;
 
 	public HashSet<Mob> mobs;
 	public SparseArray<Heap> heaps;
@@ -250,7 +249,7 @@ public abstract class Level implements Bundlable {
 	private static final String RESET = "reset";
 	private static final String FORCEDONE = "forcedone";
 	private static final String GENPETNEXT = "genpetnext";
-	private static final String SEALEDLEVEL = "sealedlevel";
+	//private static final String SEALEDLEVEL = "sealedlevel";
 
 	
 	public void create() {
@@ -326,7 +325,7 @@ public abstract class Level implements Bundlable {
 				if (Dungeon.depth == 4 && !Dungeon.earlygrass) {
 					feeling = Feeling.GRASS;
 				} else {
-				  switch (Random.Int(10)) {
+				  switch (Random.Int(8)) {
 				  case 0:
 				  	if (!Dungeon.bossLevel(Dungeon.depth + 1)) {
 				 		feeling = Feeling.CHASM;
@@ -335,14 +334,18 @@ public abstract class Level implements Bundlable {
 				  case 1:
 					feeling = Feeling.WATER;
 					break;
-				  case 2: case 3: case 4:
+				  case 2: case 3:
 					feeling = Feeling.GRASS;
 					Dungeon.earlygrass = true;
 					break;
+					  case 4: case 5:
+						  feeling = Feeling.SPECIAL_FLOOR;
+						  break;
+
 				 }
 				}
 			} else if (Dungeon.depth > 5 && Dungeon.depth < 21) {
-				switch (Random.Int(10)) {
+				switch (Random.Int(8)) {
 				case 0:
 					if (!Dungeon.bossLevel(Dungeon.depth + 1)) {
 						feeling = Feeling.CHASM;
@@ -361,16 +364,22 @@ public abstract class Level implements Bundlable {
 					addItemToSpawn(new Torch());
 					viewDistance = (int) Math.ceil(viewDistance / 3f);
 					break;
+                    case 4:
+                        feeling = Feeling.SPECIAL_FLOOR;
+                        break;
 				}
 			} else if (Dungeon.depth > 20 && Dungeon.depth < 27) {
-				switch (Random.Int(10)) {
+				switch (Random.Int(8)) {
 				case 1:
 					feeling = Feeling.WATER;
 					break;
 				case 2: 
 					feeling = Feeling.GRASS;
 					break;
-				case 3:
+
+					case 3:
+                        feeling = Feeling.SPECIAL_FLOOR;
+                        break;
 				case 0:
 					feeling = Feeling.DARK;
 					addItemToSpawn(new Torch());
@@ -407,6 +416,7 @@ public abstract class Level implements Bundlable {
 		do {
 			Arrays.fill(map, feeling == Feeling.CHASM ? Terrain.CHASM
 					: (feeling == Feeling.TRAP ? Terrain.TRAP_AIR : Terrain.WALL));
+					//: (feeling == Feeling.SPECIAL_FLOOR ? Terrain.GLASS_WALL : Terrain.WALL)));
 
 			pitRoomNeeded = pitNeeded;
 			weakFloorCreated = false;
@@ -457,7 +467,7 @@ public abstract class Level implements Bundlable {
 		reset = bundle.getBoolean(RESET);
 		forcedone = bundle.getBoolean(FORCEDONE);
 		genpetnext = bundle.getBoolean(GENPETNEXT);
-		sealedlevel = bundle.getBoolean(SEALEDLEVEL);
+		//sealedlevel = bundle.getBoolean(SEALEDLEVEL);
 
 		weakFloorCreated = false;
 
@@ -546,7 +556,7 @@ public abstract class Level implements Bundlable {
 		bundle.put(RESET, reset);
 		bundle.put(FORCEDONE, forcedone);
 		bundle.put(GENPETNEXT, genpetnext);
-		bundle.put(SEALEDLEVEL, sealedlevel);
+		//bundle.put(SEALEDLEVEL, sealedlevel);
 	}
 
 	public int tunnelTile() {
@@ -1103,6 +1113,7 @@ public abstract class Level implements Bundlable {
             losBlockHigh[i]	= losBlockLow[i] && (flags & Terrain.SOLID) != 0 ;			
 			flamable[i] = (flags & Terrain.FLAMABLE) != 0;
 			//shockable[i] = (flags & Terrain.SHOCKABLE) != 0;
+			//crashable[i] = (flags & Terrain.CRASHABLE) != 0;
 			secret[i] = (flags & Terrain.SECRET) != 0;
 			solid[i] = (flags & Terrain.SOLID) != 0;
 			avoid[i] = (flags & Terrain.AVOID) != 0;
@@ -1220,6 +1231,7 @@ public abstract class Level implements Bundlable {
 		losBlockHigh[cell]	= losBlockLow[cell] && (flags & Terrain.SOLID) != 0;		
 		flamable[cell] = (flags & Terrain.FLAMABLE) != 0;
 		//shockable[cell] = (flags & Terrain.SHOCKABLE) != 0;
+		//crashable[cell] = (flags & Terrain.CRASHABLE) != 0;
 		secret[cell] = (flags & Terrain.SECRET) != 0;
 		solid[cell] = (flags & Terrain.SOLID) != 0;
 		avoid[cell] = (flags & Terrain.AVOID) != 0;
@@ -1755,7 +1767,7 @@ public abstract class Level implements Bundlable {
 			}
 		}
 
-		if ((sighted && sense > 1) || !sighted) {
+		if (!sighted || sense > 1) {
 
 			int ax = Math.max(0, cx - sense);
 			int bx = Math.min(cx + sense, getWidth() - 1);
@@ -1968,6 +1980,8 @@ public abstract class Level implements Bundlable {
 			return Messages.get(Level.class, "alchemy_name");
 		case Terrain.SHRUB:
 			return Messages.get(Level.class, "shrub_name");
+		case Terrain.GLASS_WALL:
+			return Messages.get(Level.class, "glass_name");
 		default:
 			return Messages.get(Level.class, "default_name");
 		}
@@ -2031,6 +2045,8 @@ public abstract class Level implements Bundlable {
 			return Messages.get(Level.class, "alchemy_desc");
 		case Terrain.EMPTY_WELL:
 			return Messages.get(Level.class, "empty_well_desc");
+		case Terrain.GLASS_WALL:
+			return Messages.get(Level.class, "glass_desc");
 	 case Terrain.WOOL_RUG:
 			return Messages.get(Level.class, "wool_rug_desc");
 		default:	
@@ -2061,6 +2077,11 @@ public static final int FLEECING_TRAP = 65;
 	public boolean darkness(){
 		return (Dungeon.isChallenged(Challenges.DARKNESS) || Dungeon.level.feeling == Feeling.DARK);
 	}
+
+	public boolean glasstown(){
+		return  Dungeon.level.feeling == Feeling.SPECIAL_FLOOR;
+	}	
+	
 	public static int getWidth() {
 		return WIDTH;
 	}

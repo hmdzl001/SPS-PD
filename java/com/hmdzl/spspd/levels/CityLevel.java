@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.Imp;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.traps.*;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
@@ -105,6 +105,14 @@ public class CityLevel extends RegularLevel {
 				map[i] = Terrain.WALL_DECO;
 			}
 		}
+
+		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+
+				map[i] = Terrain.GLASS_WALL;
+			}
+		}
+
 
 		while (true) {
 			int pos = roomEntrance.random();

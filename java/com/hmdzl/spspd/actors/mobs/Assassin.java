@@ -21,7 +21,7 @@ import java.util.HashSet;
 
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.buffs.Locked;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.actors.Actor;
@@ -115,16 +115,9 @@ public class Assassin extends Mob {
 		}
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
-		
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		//resistances.add(EnchantmentDark.class);
 	}
 }

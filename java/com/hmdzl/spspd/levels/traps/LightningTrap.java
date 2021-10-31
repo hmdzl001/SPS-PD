@@ -20,20 +20,19 @@
  */
 package com.hmdzl.spspd.levels.traps;
 
-import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.TrapSprite;
-import com.watabou.noosa.Camera;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Lightning;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
+import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
+import com.watabou.noosa.Camera;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class LightningTrap extends Trap {
 				Camera.main.shake( 2, 0.3f );
 
 				if (!ch.isAlive()) {
-					Dungeon.fail(ResultDescriptions.TRAP);
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					GLog.n( Messages.get(this, "ondeath") );
 				}
 			}

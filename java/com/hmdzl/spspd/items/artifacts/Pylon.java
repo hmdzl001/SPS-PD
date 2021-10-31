@@ -34,7 +34,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
@@ -160,8 +160,8 @@ public class Pylon extends Artifact {
 				Buff buff = Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class);
 				if (buff != null) buff.detach();
 
-				for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] ))
-					if (mob instanceof DriedRose.GhostHero) mob.destroy();
+				//for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] ))
+					//if (mob instanceof DriedRose.GhostHero) mob.destroy();
 
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;
 				InterlevelScene.returnDepth = returnDepth;
@@ -171,11 +171,12 @@ public class Pylon extends Artifact {
 			
 			
 		} else if (action == AC_RANKUP) {
-			hero.HT +=5;
+			hero.TRUE_HT +=5;
 			hero.hitSkill++;
 			hero.evadeSkill++;
 			hero.magicSkill++;
 			level = 0;
+			Dungeon.hero.updateHT(true);
 			hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "rankup"));
 		}else {
 			

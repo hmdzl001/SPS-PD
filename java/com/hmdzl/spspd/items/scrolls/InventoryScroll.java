@@ -23,7 +23,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndOptions;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 
 public abstract class InventoryScroll extends Scroll {
@@ -51,7 +51,7 @@ public abstract class InventoryScroll extends Scroll {
 			protected void onSelect( int index ) {
 				switch (index) {
 				case 0:
-					curUser.spendAndNext( TIME_TO_READ );
+					//curUser.spendAndNext( TIME_TO_READ );
 					identifiedByUse = false;
 					break;
 				case 1:
@@ -59,8 +59,8 @@ public abstract class InventoryScroll extends Scroll {
 					break;
 				}
 			}
-			public void onBackPressed() {};
-		} );
+			public void onBackPressed() {}
+        } );
 	}
 	
 	protected abstract void onItemSelected( Item item );

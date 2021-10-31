@@ -81,7 +81,7 @@ public class ErrorArmor extends NormalArmor {
 				break;
 			case 4 :
 				if (defender.HP < defender.HT){
-					defender.HP += (int)((defender.HT)/10);
+					defender.HP += (defender.HT)/10;
 					defender.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f,1);}
 				break;
 			case 5 :
@@ -102,6 +102,6 @@ public class ErrorArmor extends NormalArmor {
 
 		if (glyph != null) {
 			glyph.proc(this, attacker, defender, damage);
-		}	;
-	};
+		}
+    }
 }

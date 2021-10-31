@@ -26,7 +26,7 @@ import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.scenes.RankingsScene;
 import com.hmdzl.spspd.scenes.TitleScene;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.Window;

@@ -17,10 +17,13 @@
  */
 package com.hmdzl.spspd.items.weapon.missiles;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -53,7 +56,19 @@ public class NormalBomb extends MissileWeapon {
 	public ItemSprite.Glowing glowing() {
 		return BROWN;
 	}
-	
+
+
+	@Override
+	protected void onThrow(int cell) {
+
+		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+			if (Level.fieldOfView[mob.pos]) {
+				Buff.affect(mob,Blindness.class,5f);
+				mob.beckon(cell);
+			}
+		}
+	}
+
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 		super.proc(attacker, defender, damage);

@@ -57,7 +57,7 @@ public class Gnoll extends Mob {
 	protected boolean canAttack(Char enemy) {if (buff(Locked.class) != null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}	
 	
 	@Override

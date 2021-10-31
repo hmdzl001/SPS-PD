@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.blobs;
 
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.BlobEmitter;
@@ -36,12 +36,13 @@ public class HealLight extends Blob implements Hero.Doom{
 		Char ch;
 		for (int i = 0; i < LENGTH; i++) {
 			if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
-                if (ch.HP<ch.HT){
-					ch.HP+=ch.HT/25;
-					ch.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
+				if (!ch.isImmune(this.getClass())) {
+					if (ch.HP < ch.HT) {
+						ch.HP += ch.HT / 25;
+						ch.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
+					}
 				}
 			}
-
         }
 	}
 	

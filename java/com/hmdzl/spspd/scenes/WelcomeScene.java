@@ -10,7 +10,7 @@ import com.watabou.noosa.Camera;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.ui.Component;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.RenderedText;
 import com.hmdzl.spspd.ui.ExitButton;
 

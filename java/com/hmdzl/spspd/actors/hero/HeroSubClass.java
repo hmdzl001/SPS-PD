@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.actors.hero;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Bundle;
 
 public enum HeroSubClass {

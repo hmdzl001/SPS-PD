@@ -38,7 +38,7 @@ import com.hmdzl.spspd.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.ItemSlot;

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 
 import com.hmdzl.spspd.sprites.Xavier251998Sprite;
 import com.hmdzl.spspd.windows.WndQuest;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -38,7 +38,7 @@ public class Tinkerer5 extends NPC {
 	}
 
 	private static final String TXT_DUNGEON = "We used to mine stone ore out of the mines. "
-			                                  +"But now a powerful dargon ruin the enter and watch in there."
+			                                  +"But now a powerful dragon ruin the enter and watch in there."
 			                                  +"Be careful if you enter its space.";
 	
 	

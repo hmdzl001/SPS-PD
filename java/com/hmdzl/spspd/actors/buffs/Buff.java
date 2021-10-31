@@ -17,27 +17,47 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import java.text.DecimalFormat;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.ui.BuffIndicator;
+
+import java.text.DecimalFormat;
+import java.util.HashSet;
 
 public class Buff extends Actor {
 
 	public Char target;
 
-	public enum buffType {POSITIVE, NEGATIVE, NEUTRAL, SILENT};
-	public buffType type = buffType.SILENT;
+	public enum buffType {POSITIVE, NEGATIVE, NEUTRAL, SILENT}
+
+    public buffType type = buffType.SILENT;
+
+	//public HashSet<Class<?>> resistances = new HashSet<Class<?>>();
+
+	protected HashSet<Class> resistances = new HashSet<>();
+	public HashSet<Class> resistances() {
+		return new HashSet<>(resistances);
+	}
+
+	//public HashSet<Class<?>> immunities = new HashSet<Class<?>>();
+
+	protected HashSet<Class> immunities = new HashSet<>();
 	
-	public HashSet<Class<?>> resistances = new HashSet<Class<?>>();
+	public HashSet<Class> immunities() {
+		return new HashSet<>(immunities);
+	}
 
-	public HashSet<Class<?>> immunities = new HashSet<Class<?>>();
-
+	//public HashSet<Class<?>> weakness = new HashSet<Class<?>>();
+	
+    protected HashSet<Class> weakness = new HashSet<>();
+	public HashSet<Class> weakness() {
+		return new HashSet<>(weakness);
+	}	
+	
 	public boolean attachTo(Char target) {
 
-		if (target.immunities().contains(getClass())) {
+		//if (target.immunities().contains(getClass())) {
+		if (target.isImmune( getClass() )) {
 			return false;
 		}
 
@@ -48,11 +68,12 @@ public class Buff extends Actor {
 			if (target.sprite != null) fx( true );
 			return true;
 		} else
+			this.target = null;
 			return false;	
 	}
 
 	public void detach() {
-		fx( false );
+		if (target.sprite != null) fx( false );
 		target.remove(this);
 	}
 
@@ -68,9 +89,9 @@ public class Buff extends Actor {
 	
 	public void fx(boolean on) {
 		//do nothing by default
-	};	
-	
-	public String heroMessage(){
+	}
+
+    public String heroMessage(){
 		return null;
 	}	
 	
@@ -97,7 +118,7 @@ public class Buff extends Actor {
 	public static <T extends FlavourBuff> T append(Char target,
 			Class<T> buffClass, float duration) {
 		T buff = append(target, buffClass);
-		buff.spend(duration);
+		buff.spend(duration * target.resist(buffClass)*target.weak(buffClass));
 		return buff;
 	}
 
@@ -113,14 +134,14 @@ public class Buff extends Actor {
 	public static <T extends FlavourBuff> T affect(Char target,
 			Class<T> buffClass, float duration) {
 		T buff = affect(target, buffClass);
-		buff.spend(duration);
+		buff.spend(duration * target.resist(buffClass)*target.weak(buffClass));
 		return buff;
 	}
 
 	public static <T extends FlavourBuff> T prolong(Char target,
 			Class<T> buffClass, float duration) {
 		T buff = affect(target, buffClass);
-		buff.postpone(duration);
+		buff.postpone(duration * target.resist(buffClass)*target.weak(buffClass));
 		return buff;
 	}
 

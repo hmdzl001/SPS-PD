@@ -18,9 +18,10 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Random;
+
 
 /**
  * Created by debenhame on 19/11/2014.
@@ -70,7 +71,7 @@ public class BloodImbue extends FlavourBuff {
 		immunities.add(Roots.class);
 		immunities.add(Slow.class);
 		immunities.add(Bleeding.class);
-		immunities.add(Weakness.class);
+		immunities.add(STRdown.class);
 	}
 
 }

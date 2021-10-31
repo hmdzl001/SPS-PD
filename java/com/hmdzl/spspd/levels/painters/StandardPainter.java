@@ -39,7 +39,8 @@ public class StandardPainter extends Painter {
 
 	public static void paint(Level level, Room room) {
 
-		fill(level, room, Terrain.WALL);
+		fill(level, room, Terrain.WALL );
+
 		for (Room.Door door : room.connected.values()) {
 			door.set(Room.Door.Type.REGULAR);
 		}
@@ -66,63 +67,74 @@ public class StandardPainter extends Painter {
 			}
 		}
 
-		if (!Dungeon.bossLevel() && Random.Int(5) == 0) {
-			switch (Random.Int(7)) {
-			case 0:
-				if (level.feeling != Level.Feeling.GRASS) {
-					if (Math.min(room.width(), room.height()) >= 4
-							&& Math.max(room.width(), room.height()) >= 6) {
-						paintGraveyard(level, room);
+		if (!Dungeon.bossLevel() && Random.Int(4) == 0) {
+			switch (Random.Int(8)) {
+				case 0:
+					if (level.feeling != Level.Feeling.GRASS) {
+						if (Math.min(room.width(), room.height()) >= 5
+								&& Math.max(room.width(), room.height()) >= 6) {
+							paintGraveyard(level, room);
+							return;
+						}
+						break;
+					} else {
+						// Burned room
+					}
+				case 1:
+					if (Dungeon.depth > 1) {
+						paintBurned(level, room);
 						return;
 					}
 					break;
-				} else {
-					// Burned room
-				}
-			case 1:
-				if (Dungeon.depth > 1) {
-					paintBurned(level, room);
-					return;
-				}
-				break;
-			case 2:
-				if (Math.max(room.width(), room.height()) >= 4) {
-					paintStriped(level, room);
-					return;
-				}
-				break;
-			case 3:
-				if (room.width() >= 6 && room.height() >= 6) {
-					paintStudy(level, room);
-					return;
-				}
-				break;
-			case 4:
-				if (room.width() >= 6 && room.height() >= 6) {
-					paintStudy2(level, room);
-					return;
-				}
-				break;				
-			case 5:
-				if (level.feeling != Level.Feeling.WATER) {
-					if (room.connected.size() == 2 && room.width() >= 4
-							&& room.height() >= 4) {
-						paintBridge(level, room);
+				case 2:
+					if (Math.max(room.width(), room.height()) >= 4) {
+						paintStriped(level, room);
 						return;
 					}
 					break;
-				} else {
-					// Fissure
-				}
-			case 6:
-				if (!Dungeon.bossLevel()
-						&& !Dungeon.bossLevel(Dungeon.depth + 1) 
-						&& (Dungeon.depth < 22 || Dungeon.depth > 100)
-						&& Math.min(room.width(), room.height()) >= 5) {
-					paintFissure(level, room);
-					return;
-				}
-				break;
+				case 3:
+					if (room.width() >= 6 && room.height() >= 6) {
+						paintStudy(level, room);
+						return;
+					}
+					break;
+				case 4:
+					if (room.width() >= 6 && room.height() >= 6) {
+						paintStudy2(level, room);
+						return;
+					}
+					break;
+				case 5:
+					if (level.feeling != Level.Feeling.WATER) {
+						if (room.connected.size() == 2 && room.width() >= 4
+								&& room.height() >= 4) {
+							paintBridge(level, room);
+							return;
+						}
+						break;
+					} else {
+						// Fissure
+					}
+				case 6:
+					if (!Dungeon.bossLevel()
+							&& !Dungeon.bossLevel(Dungeon.depth + 1)
+							&& (Dungeon.depth < 22 || Dungeon.depth > 100)
+							&& Math.min(room.width(), room.height()) >= 5) {
+						paintFissure(level, room);
+						return;
+					}
+					break;
+				case 7:
+					if (level.feeling != Level.Feeling.SPECIAL_FLOOR) {
+						if (Math.min(room.width(), room.height()) >= 6
+								&& Math.max(room.width(), room.height()) >= 6) {
+							paintGlassN(level, room);
+							return;
+						}
+						break;
+					} else {
+						// Burned room
+					}
 			}
 		}
 
@@ -354,6 +366,36 @@ public class StandardPainter extends Painter {
 
 //		set( bonus, room.center(), Terrain.PEDESTAL );
 	}	
+	
+	private static void paintGlassN( Level level, Room room ) {
+
+		fill(level, room.left + 1, room.top + 1, room.width() - 1,
+				room.height() - 1, Terrain.EMPTY_SP);
+		fill(level, room.left + 2, room.top + 2, room.width() - 3,
+				room.height() - 3, Terrain.GLASS_WALL);
+
+		for (Point door : room.connected.values()) {
+			if (door.x == room.left) {
+				set(level, door.x + 1, door.y, Terrain.EMPTY);
+			} else if (door.x == room.right) {
+				set(level, door.x - 1, door.y, Terrain.EMPTY);
+			} else if (door.y == room.top) {
+				set(level, door.x, door.y + 1, Terrain.EMPTY);
+			} else if (door.y == room.bottom) {
+				set(level, door.x, door.y - 1, Terrain.EMPTY);
+			}
+		}
+		Point center = room.center();
+		set(level, center, Terrain.PEDESTAL);
+		level.drop(Generator.random(Random.oneOf(Generator.Category.ARTIFACT,
+				Generator.Category.RING)), (room.center().x + center.y
+				* Level.getWidth()));
+
+
+//
+		
+	}		
+	
 
 	private static void paintBridge(Level level, Room room) {
 

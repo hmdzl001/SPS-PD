@@ -21,7 +21,7 @@
 package com.hmdzl.spspd.levels.traps;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.watabou.noosa.audio.Sample;
 import com.hmdzl.spspd.Assets;

@@ -17,42 +17,41 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.blobs.Web;
-import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.effects.Pushing;
-import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.items.UpgradeBlobViolet;
-import com.hmdzl.spspd.items.wands.WandOfFirebolt;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
-import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.levels.features.Door;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Badges.Badge;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.GooWarn;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.blobs.Web;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Ooze;
+import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.actors.buffs.Terror;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
+import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.UpgradeBlobViolet;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
+import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.SewerBossLevel;
+import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.features.Door;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GooSprite;
@@ -62,6 +61,8 @@ import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Goo extends Mob {
 	{
@@ -222,7 +223,7 @@ public class Goo extends Mob {
 			
 			 if(goosAlive==0){
 			
-			((SewerBossLevel) Dungeon.level).unseal();
+			Dungeon.level.unseal();
 
 			GameScene.bossSlain();
 			Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();	
@@ -267,7 +268,7 @@ public class Goo extends Mob {
 	public void notice() {
 		super.notice();
 		yell("GLURP-GLURP!");
-		((SewerBossLevel) Dungeon.level).seal();
+		Dungeon.level.seal();
 		if (!spawnedMini){
 	    PoisonGoo.spawnAround(pos);
 	    spawnedMini = true;
@@ -292,35 +293,20 @@ public class Goo extends Mob {
 		pumpedUp = bundle.getInt(PUMPEDUP);
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> WEAKNESS = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(EnchantmentDark.class);
-		
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(EnchantmentDark.class);
+		resistances.add(EnchantmentDark2.class);
 
-		IMMUNITIES.add(Roots.class);
+		immunities.add(Roots.class);
 
-		WEAKNESS.add(Burning.class);
-		WEAKNESS.add(WandOfFirebolt.class);
-		WEAKNESS.add(EnchantmentFire.class);
+		weakness.add(Burning.class);
+		weakness.add(WandOfFirebolt.class);
+		weakness.add(EnchantmentFire.class);
+		weakness.add(EnchantmentFire2.class);
+		weakness.add(DamageType.FireDamage.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-
-	@Override
-	public HashSet<Class<?>> weakness() {
-		return WEAKNESS;
-	}
 
 	public static class PoisonGoo extends Mob {
 
@@ -373,7 +359,7 @@ public class Goo extends Mob {
 		public int attackProc(Char enemy, int damage) {
 			if (Random.Int(1) == 0) {
 				Buff.affect(enemy, Poison.class).set(
-						Random.Int(7, 10) * Poison.durationFactor(enemy));
+						Random.Int(4, 7));
 				state = FLEEING;
 			}
 
@@ -489,7 +475,7 @@ public class Goo extends Mob {
 			}
 
 			if(goosAlive==0){
-				((SewerBossLevel) Dungeon.level).unseal();
+				Dungeon.level.unseal();
 
 				GameScene.bossSlain();
 				Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
@@ -511,27 +497,10 @@ public class Goo extends Mob {
 			yell("GLURP-GLURP!");
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-		static {
-			RESISTANCES.add(ToxicGas.class);
-			RESISTANCES.add(EnchantmentDark.class);
-
-		}
-
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-		static {
-			IMMUNITIES.add(Roots.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
+		{
+			resistances.add(ToxicGas.class);
+			resistances.add(EnchantmentDark.class);
+			immunities.add(Roots.class);
 		}
 
 		private class Fleeing extends Mob.Fleeing {

@@ -28,14 +28,14 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DragonkingSprite;
-import com.hmdzl.spspd.sprites.NewDargon02Sprite;
+import com.hmdzl.spspd.sprites.NewDragon02Sprite;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.actors.blobs.ShockWeb;
 
 
 public class Dragonking extends Mob {
 	{
-		spriteClass = NewDargon02Sprite.class;
+		spriteClass = NewDragon02Sprite.class;
 		baseSpeed = 1f;
 
 		HP = HT = 100;
@@ -84,16 +84,10 @@ public class Dragonking extends Mob {
 
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		//resistances.add(EnchantmentDark.class);
 		
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
 	}
 }

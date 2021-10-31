@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.items.rings;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class RingOfEvasion extends Ring {
 
@@ -28,7 +28,7 @@ public class RingOfEvasion extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",level,level/5);
+			return Messages.get(this, "stats",level,Math.min(6,(int)(level/5)));
 		} else {
 			return "???";
 		}

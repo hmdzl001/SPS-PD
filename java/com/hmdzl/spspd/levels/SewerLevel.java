@@ -18,21 +18,20 @@
 package com.hmdzl.spspd.levels;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.hero.HeroClass;
-import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.actors.mobs.GnollArcher;
+import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer1;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
-import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.items.food.fruit.Cloudberry;
 import com.hmdzl.spspd.items.food.fruit.Moonberry;
+import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.levels.traps.AlarmTrap;
 import com.hmdzl.spspd.levels.traps.ChillingTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
@@ -42,7 +41,7 @@ import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
 import com.hmdzl.spspd.levels.traps.WornTrap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Scene;
@@ -122,6 +121,13 @@ public class SewerLevel extends RegularLevel {
 			}
 		}
 
+		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+
+				map[i] = Terrain.GLASS_WALL;
+			}
+		}
+
 		for (int i = getWidth() + 1; i < getLength() - getWidth() - 1; i++) {
 			if (map[i] == Terrain.EMPTY) {
 
@@ -142,9 +148,16 @@ public class SewerLevel extends RegularLevel {
 				map[pos] = Terrain.SIGN;
 				break;
 			}
-		}	
-		
-		setPar();
+		}
+
+		for (int i = 0; i < getLength(); i++) {
+
+			if (map[i] == Terrain.EXIT && Dungeon.depth == 1) {
+				map[i] = Terrain.LOCKED_EXIT;
+				//sealedlevel = true;
+			}
+		}
+			setPar();
 		
 		
 	}
@@ -158,7 +171,7 @@ public class SewerLevel extends RegularLevel {
 			addItemToSpawn(new Blueberry());
 			addItemToSpawn(new Cloudberry());
 			addItemToSpawn(new Blackberry());
-			
+			addItemToSpawn(new Mushroom());
 			//addItemToSpawn(new Spectacles());
 			//addItemToSpawn(new Towel());
 			
@@ -174,9 +187,9 @@ public class SewerLevel extends RegularLevel {
 			Actor.occupyCell(npc);
 		}
 
-		if (Dungeon.depth == 2){
-			addItemToSpawn(new Mushroom());
-		}
+		//if (Dungeon.depth == 2){
+		//
+		//}
 				
 		Ghost.Quest.spawn(this);
 		spawnGnoll(this);

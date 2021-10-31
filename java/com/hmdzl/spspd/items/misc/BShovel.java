@@ -31,7 +31,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -93,7 +93,7 @@ public class BShovel extends Item {
 				int c = hero.pos + n;
 
 				if (c >= 0 && c < Level.getLength()) {
-					if (Dungeon.level.map[c] == Terrain.WALL && Level.insideMap(c)) {
+					if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL) && Level.insideMap(c)) {
 						Level.set(c, Terrain.DOOR);
 						GameScene.updateMap(c);
 						Dungeon.observe();
@@ -149,7 +149,7 @@ public class BShovel extends Item {
 
 	@Override
 	public String status() {
-		return Messages.format("%d", (int)charge/65);
+		return Messages.format("%d", charge /65);
 	}
 	
 	@Override

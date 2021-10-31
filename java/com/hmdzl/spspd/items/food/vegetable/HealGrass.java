@@ -19,6 +19,7 @@ package com.hmdzl.spspd.items.food.vegetable;
 
 import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -38,8 +39,9 @@ public class HealGrass extends Vegetable {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			hero.HP = Math.min(hero.HP + hero.HT/5, hero.HT);
+			//hero.HP = Math.min(hero.HP + hero.HT/5, hero.HT);
 			Buff.affect(hero, BerryRegeneration.class).level(20);
+			Buff.affect(hero,MagicArmor.class).level(hero.HT/5);
 		}
 	}
 

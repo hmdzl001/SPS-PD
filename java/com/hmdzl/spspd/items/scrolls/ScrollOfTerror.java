@@ -23,12 +23,13 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfTerror extends Scroll {
@@ -53,7 +54,7 @@ public class ScrollOfTerror extends Scroll {
 				Buff.affect(mob, Terror.class, Terror.DURATION).object = curUser
 						.id();
 				Buff.affect(mob, HasteBuff.class, Terror.DURATION*.5f);
-
+                Buff.affect(mob,ShadowCurse.class);
 				count++;
 				affected = mob;
 			}

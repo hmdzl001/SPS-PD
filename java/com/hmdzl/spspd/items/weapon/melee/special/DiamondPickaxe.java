@@ -17,10 +17,7 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.special;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Hunger;
@@ -28,11 +25,9 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.BookBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.DoorBlock;
@@ -41,7 +36,7 @@ import com.hmdzl.spspd.items.weapon.missiles.buildblock.WallBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WoodenBlock;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -49,6 +44,8 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class DiamondPickaxe extends MeleeWeapon {
 
@@ -197,7 +194,69 @@ public class DiamondPickaxe extends MeleeWeapon {
 					});
 
 					return;
+				}  else if (Dungeon.level.map[pos] == Terrain.GLASS_WALL && Level.insideMap(pos)) {
+
+					hero.spend(TIME_TO_MINE);
+					hero.busy();
+
+					hero.sprite.attack(pos, new Callback() {
+
+						@Override
+						public void call() {
+
+							CellEmitter.center(pos).burst(
+									Speck.factory(Speck.STAR), 7);
+							Sample.INSTANCE.play(Assets.SND_EVOKE);
+
+							Level.set(pos, Terrain.EMBERS);
+							GameScene.updateMap(pos);
+
+							Hunger hunger = hero.buff(Hunger.class);
+							if (hunger != null && !hunger.isStarving()) {
+								hunger.satisfy(-10);
+								BuffIndicator.refreshHero();
+							}
+
+							hero.onOperateComplete();
+						}
+					});
+
+					return;
 				}  else if (Dungeon.level.map[pos] == Terrain.BARRICADE && Level.insideMap(pos)) {
+
+					hero.spend(TIME_TO_MINE);
+					hero.busy();
+
+					hero.sprite.attack(pos, new Callback() {
+
+						@Override
+						public void call() {
+
+							CellEmitter.center(pos).burst(
+									Speck.factory(Speck.STAR), 7);
+							Sample.INSTANCE.play(Assets.SND_EVOKE);
+
+							Level.set(pos, Terrain.EMBERS);
+							GameScene.updateMap(pos);
+
+							WoodenBlock wooden = new WoodenBlock();
+
+							if (Random.Int(60)==1){
+								Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), hero.pos).sprite.drop();
+							} else Dungeon.level.drop(wooden, hero.pos).sprite.drop();
+
+							Hunger hunger = hero.buff(Hunger.class);
+							if (hunger != null && !hunger.isStarving()) {
+								hunger.satisfy(-10);
+								BuffIndicator.refreshHero();
+							}
+
+							hero.onOperateComplete();
+						}
+					});
+
+					return;
+				}  else if(Dungeon.level.map[pos] == Terrain.BARRICADE && Level.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -286,12 +345,8 @@ public class DiamondPickaxe extends MeleeWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 
-		if (Random.Int(10) < 1 && !(defender.properties().contains(Char.Property.BOSS)) && !(defender.properties().contains(Char.Property.MINIBOSS))) {
-			defender.damage(Random.Int(defender.HP/4, defender.HP/2), this);
-			defender.sprite.emitter().burst(ShadowParticle.UP, 5);
-			if (!defender.isAlive() && attacker instanceof Hero) {
-				Badges.validateGrimWeapon();
-			}
+		if (Random.Int(10) < 1 && defender.isAlive() ) {
+			defender.damage(damage, attacker);
 		}
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);

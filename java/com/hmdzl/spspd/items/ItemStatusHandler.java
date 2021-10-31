@@ -47,7 +47,7 @@ public class ItemStatusHandler<T extends Item> {
 
         for (int i=0; i < items.length - exclude; i++) {
 
-            Class<? extends T> item = (Class<? extends T>)(items[i]);
+            Class<? extends T> item = items[i];
 
             int index = Random.Int( labelsLeft.size() - exclude);
 
@@ -60,7 +60,7 @@ public class ItemStatusHandler<T extends Item> {
 
         for(int i = items.length - exclude; i < items.length; i++)
         {
-            Class<? extends T> item = (Class<? extends T>)(items[i]);
+            Class<? extends T> item = items[i];
 
             labels.put( item, allLabels[i] );
 

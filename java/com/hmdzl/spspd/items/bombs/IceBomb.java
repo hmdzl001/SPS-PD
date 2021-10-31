@@ -22,12 +22,13 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.FrostGas;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-
 import com.watabou.utils.Random;
 
 public class IceBomb extends Bomb {
@@ -47,12 +48,13 @@ public class IceBomb extends Bomb {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}
                 GameScene.add(Blob.seed(c, 10, FrostGas.class));
-				
 
 				Char ch = Actor.findChar(c);
 				if (ch != null) {
 					// those not at the center of the blast take damage less
 					// consistently.
+					Buff.affect(ch,FrostIce.class).level(10);
+
 					int minDamage = ch.HT/20;
 					int maxDamage = ch.HT/10;
 

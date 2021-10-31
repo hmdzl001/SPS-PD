@@ -17,27 +17,28 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Arcane;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.InfJump;
+import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 
 public class JumpM extends Item {
@@ -72,7 +73,7 @@ public class JumpM extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (charge >= 15){
+		if (charge >= 15 || hero.buff(InfJump.class) != null){
 		actions.add(AC_JUMP);
 		}
 		actions.remove(AC_DROP);
@@ -106,7 +107,9 @@ public class JumpM extends Item {
 				curUser.spendAndNext(JUMP_TIME);
 				if (Random.Int(10) > 3 ){
 					Buff.affect(curUser, Arcane.class, 10f);}
-				charge -= 15;
+				if(curUser.buff(InfJump.class) == null){
+						charge -= 15;
+				}		
 				updateQuickslot();
 
 				/*curUser.busy();
@@ -137,7 +140,7 @@ public class JumpM extends Item {
 	@Override
 	public void execute(final Hero hero, String action) {
 		if (action.equals(AC_JUMP)) {
-		    if (charge < 15)
+		    if (charge < 15&& hero.buff(InfJump.class) == null)
 				GLog.i(Messages.get(Jumpshoes.class, "rest"));
                 else {
 			    curUser = hero;
@@ -169,7 +172,7 @@ public class JumpM extends Item {
 
 	 @Override
 	 public String status() {
-		 return Messages.format("%d", (int)charge/15);
+		 return Messages.format("%d", charge /15);
 	 }
 
 }

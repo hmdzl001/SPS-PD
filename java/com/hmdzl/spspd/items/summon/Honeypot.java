@@ -366,16 +366,11 @@ public class Honeypot extends Item {
 			return super.getCloser(target);
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Poison.class);
-			IMMUNITIES.add(Amok.class);
+        {
+			immunities.add(Poison.class);
+			immunities.add(Amok.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 	public static class SteelBee extends NPC {
 
@@ -450,7 +445,7 @@ public class Honeypot extends Item {
 
 		@Override
 		public boolean interact() {
-			if (Dungeon.level.passable[pos] || Dungeon.hero.flying) {
+			if (Level.passable[pos] || Dungeon.hero.flying) {
 			int curPos = pos;
 
 			moveSprite(pos, Dungeon.hero.pos);
@@ -467,16 +462,8 @@ public class Honeypot extends Item {
 			}
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-		static {
-			IMMUNITIES.add(Poison.class);
+		{
+			immunities.add(Poison.class);
 		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
-
 	}
 }

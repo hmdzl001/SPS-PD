@@ -18,17 +18,6 @@
 package com.hmdzl.spspd.items.weapon.missiles;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.mobs.Assassin;
-import com.hmdzl.spspd.actors.mobs.Bat;
-import com.hmdzl.spspd.actors.mobs.Brute;
-import com.hmdzl.spspd.actors.mobs.Gnoll;
-import com.hmdzl.spspd.actors.mobs.GoldThief;
-import com.hmdzl.spspd.actors.mobs.Rat;
-import com.hmdzl.spspd.actors.mobs.RatBoss;
-import com.hmdzl.spspd.actors.mobs.GnollShaman;
-import com.hmdzl.spspd.actors.mobs.Fiend;
-import com.hmdzl.spspd.actors.mobs.Thief;
-import com.hmdzl.spspd.actors.mobs.GnollArcher;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -62,10 +51,10 @@ public class ForestDart extends MissileWeapon {
 		
        if (    defender.properties().contains(Char.Property.BOSS)
     		|| defender.properties().contains(Char.Property.HUMAN)
-    		//|| defender.properties().contains(Char.Property.GNOLL)
     		|| defender.properties().contains(Char.Property.ORC)
     		|| defender.properties().contains(Char.Property.BEAST)
     		|| defender.properties().contains(Char.Property.PLANT)
+			|| defender.properties().contains(Char.Property.FISHER)
     		){
     	   defender.damage(Random.Int(damage*5,damage*8), this);
        } else {

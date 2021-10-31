@@ -21,7 +21,6 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.sprites.NewSnakeSprite;
-import com.hmdzl.spspd.sprites.SnakeSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -70,7 +69,7 @@ public class Snake extends PET {
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(10) == 0) {
 			Buff.affect(enemy, Poison.class).set(
-					Random.Int(5, 7) * Poison.durationFactor(enemy));
+					Random.Int(5, 7));
 		}
 
 		return damage;

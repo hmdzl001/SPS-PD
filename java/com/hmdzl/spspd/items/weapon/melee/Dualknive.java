@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items.weapon.melee;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.actors.Char;
@@ -53,7 +53,7 @@ public class Dualknive extends MeleeWeapon {
 			RCH++;
 		}
 		
-		MIN+=2;
+		MIN+=1;
         MAX+=1;
 		
 		return super.upgrade(enchant);

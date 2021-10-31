@@ -20,7 +20,7 @@ package com.hmdzl.spspd.sprites;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.effects.DeathRay;
+import com.hmdzl.spspd.effects.Beam.LightRay;
 import com.watabou.noosa.TextureFilm;
 
 public class BrokenRobotSprite extends MobSprite {
@@ -62,7 +62,7 @@ public class BrokenRobotSprite extends MobSprite {
 
 		if (anim == attack) {
 			if (Dungeon.visible[ch.pos] || Dungeon.visible[attackPos]) {
-				parent.add(new DeathRay(center(), DungeonTilemap
+				parent.add(new LightRay(center(), DungeonTilemap
 						.tileCenterToWorld(attackPos)));
 			}
 		}

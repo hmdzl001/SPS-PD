@@ -36,13 +36,9 @@ public class SeedPouch extends Bag {
 
 	@Override
 	public boolean grab(Item item) {
-		if (item instanceof Plant.Seed
-			|| item instanceof StoneOre
-			|| item instanceof NornStone){
-		return true;
-		} else {
-		return false;
-		}
+        return item instanceof Plant.Seed
+                || item instanceof StoneOre
+                || item instanceof NornStone;
 	}
 	
 	@Override

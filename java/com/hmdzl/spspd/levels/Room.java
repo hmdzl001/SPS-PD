@@ -17,25 +17,21 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.ShatteredPixelDungeon;
-import com.hmdzl.spspd.levels.painters.ArmoryPainter;
 import com.hmdzl.spspd.levels.painters.BarricadedPainter;
 import com.hmdzl.spspd.levels.painters.BlacksmithPainter;
 import com.hmdzl.spspd.levels.painters.BossExitPainter;
+import com.hmdzl.spspd.levels.painters.CookingPainter;
 import com.hmdzl.spspd.levels.painters.CryptPainter;
 import com.hmdzl.spspd.levels.painters.EntrancePainter;
 import com.hmdzl.spspd.levels.painters.ExitPainter;
 import com.hmdzl.spspd.levels.painters.GardenPainter;
-import com.hmdzl.spspd.levels.painters.LaboratoryPainter;
+import com.hmdzl.spspd.levels.painters.secrets.GlassRoomPainter;
+import com.hmdzl.spspd.levels.painters.JunglePainter;
 import com.hmdzl.spspd.levels.painters.LibraryPainter;
 import com.hmdzl.spspd.levels.painters.MagicWellPainter;
+import com.hmdzl.spspd.levels.painters.MaterialPainter;
+import com.hmdzl.spspd.levels.painters.MemoryPainter;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.painters.PassagePainter;
 import com.hmdzl.spspd.levels.painters.PitPainter;
@@ -47,17 +43,22 @@ import com.hmdzl.spspd.levels.painters.StandardPainter;
 import com.hmdzl.spspd.levels.painters.StatuePainter;
 import com.hmdzl.spspd.levels.painters.StoragePainter;
 import com.hmdzl.spspd.levels.painters.TrapsPainter;
-import com.hmdzl.spspd.levels.painters.TreasuryPainter;
 import com.hmdzl.spspd.levels.painters.TunnelPainter;
 import com.hmdzl.spspd.levels.painters.VaultPainter;
 import com.hmdzl.spspd.levels.painters.WeakFloorPainter;
-import com.hmdzl.spspd.levels.painters.MemoryPainter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 import com.watabou.utils.Rect;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Room extends Rect implements Graph.Node, Bundlable {
 
@@ -67,7 +68,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	public int distance;
 	public int price = 1;
 
-	public static enum Type {
+	public enum Type {
 		NULL(null), 
 		STANDARD(StandardPainter.class), 
 		ENTRANCE(EntrancePainter.class), 
@@ -77,14 +78,14 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		PASSAGE(PassagePainter.class), 
 		SHOP(ShopPainter.class), 
 		BLACKSMITH(BlacksmithPainter.class), 
-		TREASURY(TreasuryPainter.class), 
-		ARMORY(ArmoryPainter.class), 
+		JUNGLE(JunglePainter.class),
+		MATERIAL(MaterialPainter.class),
 		LIBRARY(LibraryPainter.class), 
-		LABORATORY(LaboratoryPainter.class), 
+		COOKING(CookingPainter.class),
 		VAULT(VaultPainter.class), 
 		TRAPS(TrapsPainter.class), 
 		STORAGE(StoragePainter.class),
-		BARRICADED	( BarricadedPainter.class ),
+		BARRICADED	(BarricadedPainter.class ),
 		MAGIC_WELL(MagicWellPainter.class), 
 		GARDEN(GardenPainter.class), 
 		CRYPT(CryptPainter.class), 
@@ -94,11 +95,12 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		WEAK_FLOOR(WeakFloorPainter.class), 
 		PIT(PitPainter.class), 
 		RAT_KING2(RatKingPainter2.class), 
-		MEMORY(MemoryPainter.class);
+		MEMORY(MemoryPainter.class),
+		GLASSROOM(GlassRoomPainter .class);
 
 		private Method paint;
 
-		private Type(Class<? extends Painter> painter) {
+		Type(Class<? extends Painter> painter) {
 			try {
 				paint = painter.getMethod("paint", Level.class, Room.class);
 			} catch (Exception e) {
@@ -113,13 +115,13 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 				ShatteredPixelDungeon.reportException(e);
 			}
 		}
-	};
+	}
 
-	public static final ArrayList<Type> SPECIALS = new ArrayList<Type>(
+    public static final ArrayList<Type> SPECIALS = new ArrayList<Type>(
 			Arrays.asList(Type.WEAK_FLOOR, Type.MAGIC_WELL, Type.CRYPT,
-					Type.POOL, Type.GARDEN, Type.LIBRARY, Type.ARMORY,
-					Type.TREASURY, Type.TRAPS, Type.STORAGE, Type.STATUE,
-					Type.LABORATORY, Type.VAULT, Type.MEMORY, Type.BARRICADED));
+					Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,
+					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE,
+					Type.COOKING, Type.VAULT, Type.MEMORY, Type.BARRICADED));
 	
 	public static final ArrayList<Type> SPECIALSFORT = new ArrayList<Type>(
 			Arrays.asList(Type.GARDEN, Type.GARDEN, Type.GARDEN, Type.GARDEN,
@@ -146,8 +148,8 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	public void addNeigbour(Room other) {
 
 		Rect i = intersect(other);
-		if ((i.width() == 0 && i.height() >= 3)
-				|| (i.height() == 0 && i.width() >= 3)) {
+		if ((i.width() == 0 && i.height() >= 2)
+				|| (i.height() == 0 && i.width() >= 2)) {
 			neigbours.add(other);
 			other.neigbours.add(this);
 		}
@@ -272,7 +274,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 
 	public static class Door extends Point {
 
-		public static enum Type {
+		public enum Type {
 			EMPTY, TUNNEL, REGULAR, UNLOCKED, HIDDEN, BARRICADE, LOCKED, ONEWAY
 		}
 

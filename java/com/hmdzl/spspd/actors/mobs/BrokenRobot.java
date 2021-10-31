@@ -17,18 +17,14 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.TarGas;
+import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -36,19 +32,20 @@ import com.hmdzl.spspd.effects.particles.BlastParticle;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BrokenRobotSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
-
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
 
 public class BrokenRobot extends Mob {
 
@@ -72,6 +69,7 @@ public class BrokenRobot extends Mob {
 		loot = new ScrollOfRecharging();
 		lootChance = 0.25f; // by default, see die()
 		
+		properties.add(Property.MAGICER);
 		properties.add(Property.MECH);
 	}
 
@@ -151,7 +149,7 @@ public class BrokenRobot extends Mob {
 			}
 
 			if (hit(this, ch, true)) {
-				ch.damage(Random.NormalIntRange(2, 8+adj(0)), this);
+				ch.damage(Random.NormalIntRange(2, 8+adj(0)), LIGHT_DAMAGE);
 
 				if (Dungeon.visible[pos]) {
 					ch.sprite.flash();
@@ -160,7 +158,7 @@ public class BrokenRobot extends Mob {
 				}
 
 				if (!ch.isAlive() && ch == Dungeon.hero) {
-					Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n(Messages.get(this, "kill"));
 				}
 			} else {
@@ -246,25 +244,10 @@ public class BrokenRobot extends Mob {
 		}
 	}
 	
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(EnchantmentDark.class);
+	{
 		
+		immunities.add(Terror.class);
+		immunities.add(ToxicGas.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(ToxicGas.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

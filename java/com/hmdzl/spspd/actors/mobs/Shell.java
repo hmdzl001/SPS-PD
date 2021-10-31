@@ -17,27 +17,22 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.RedDewdrop;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ShellSprite;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -142,7 +137,7 @@ public class Shell extends Mob implements Callback {
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((ShellSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			}			
 			zapAll(10);
 			spend(TIME_TO_ZAP);
@@ -164,7 +159,7 @@ public class Shell extends Mob implements Callback {
 					Camera.main.shake(2, 0.3f);
 
 					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "kill"));
 					}
 				}
@@ -194,7 +189,7 @@ public class Shell extends Mob implements Callback {
 			
 			
 			  if (visible) {
-				((ShellSprite) sprite).zap(mob.pos);
+				sprite.zap(mob.pos);
 			  }
 
 			  mob.damage(mobDmg, this);
@@ -215,7 +210,7 @@ public class Shell extends Mob implements Callback {
 		boolean visibleHero = Level.fieldOfView[pos]
 				|| Level.fieldOfView[hero.pos];
 		if (visibleHero && Random.Int(4) > 2 ) {
-			((ShellSprite) sprite).zap(hero.pos);
+			sprite.zap(hero.pos);
 		}
 		
 		heroDmg = Random.Int(Math.round(shellCharge/4), Math.round(shellCharge/2));
@@ -249,7 +244,7 @@ public void zapAround(int dmg){
 							|| Level.fieldOfView[ch.pos];
 					  
 					  if (visible) {
-						((ShellSprite) sprite).zap(ch.pos);
+						sprite.zap(ch.pos);
 					  }
 					
 			  if (Level.water[ch.pos] && !ch.flying) {
@@ -276,7 +271,7 @@ public void zapAround(int dmg){
 						|| Level.fieldOfView[ch.pos];
 				  
 				  if (visible) {
-					((ShellSprite) sprite).zap(ch.pos);
+					sprite.zap(ch.pos);
 				  }
 
 				ch.damage(heroDmg, this);
@@ -302,28 +297,11 @@ public void zapAround(int dmg){
 		
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		//resistances.add(EnchantmentDark.class);
 		
-		RESISTANCES.add(LightningTrap.Electricity.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(Terror.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-
-	
+		resistances.add(LightningTrap.Electricity.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(Terror.class);
+	}	
 }

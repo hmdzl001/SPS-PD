@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.potions.Potion;
 
 import com.hmdzl.spspd.items.scrolls.Scroll;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Seedpod;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -88,11 +88,11 @@ public class UpgradeEatBall extends Item {
 			Item result;
 			if (item != null) {
 		        if (item.isUpgradable()) {
-					result = eatUpgradable((Item) item);
+					result = eatUpgradable(item);
 		        } else if (item instanceof Scroll
 				      || item instanceof Potion
 				      || item instanceof Stylus) {
-					result = eatStandard((Item) item);
+					result = eatStandard(item);
 		        } else {
 					result = null;
 				}

@@ -20,11 +20,12 @@ package com.hmdzl.spspd.actors.mobs.pets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.CoconutSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class CocoCat extends PET {
 	
@@ -84,7 +85,7 @@ public class CocoCat extends PET {
 	@Override
 	protected boolean canAttack(Char enemy) {
 
-		return Dungeon.level.distance( pos, enemy.pos ) <= 4 ;
+		return Level.distance( pos, enemy.pos ) <= 4 ;
 	
 	}
 	

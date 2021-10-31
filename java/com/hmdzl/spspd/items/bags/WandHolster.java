@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class WandHolster extends Bag {
 
@@ -39,16 +39,12 @@ public class WandHolster extends Bag {
 
 	@Override
 	public boolean grab(Item item) {
-		if (item instanceof Wand
-				|| item instanceof TriforceOfCourage
-				|| item instanceof TriforceOfPower
-				|| item instanceof TriforceOfWisdom
-				|| item instanceof SpAmmo
-				|| item instanceof GunWeapon){
-			return true;
-		} else {
-			return false;
-		}
+        return item instanceof Wand
+                || item instanceof TriforceOfCourage
+                || item instanceof TriforceOfPower
+                || item instanceof TriforceOfWisdom
+                || item instanceof SpAmmo
+                || item instanceof GunWeapon;
 
 	}
 

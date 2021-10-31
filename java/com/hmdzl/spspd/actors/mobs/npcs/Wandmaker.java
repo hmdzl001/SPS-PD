@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs.npcs;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Journal;
 import com.hmdzl.spspd.actors.Actor;
@@ -29,31 +27,32 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.quest.CorpseDust;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.wands.WandOfAcid;
-import com.hmdzl.spspd.items.wands.WandOfCharm;
-import com.hmdzl.spspd.items.wands.WandOfFlock;
-import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
-import com.hmdzl.spspd.items.wands.WandOfMeteorite;
 import com.hmdzl.spspd.items.wands.WandOfBlood;
+import com.hmdzl.spspd.items.wands.WandOfCharm;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
-import com.hmdzl.spspd.items.wands.WandOfLightning;
-import com.hmdzl.spspd.items.wands.WandOfPoison;
-import com.hmdzl.spspd.items.wands.WandOfLight;
-import com.hmdzl.spspd.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
+import com.hmdzl.spspd.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.items.wands.WandOfLight;
+import com.hmdzl.spspd.items.wands.WandOfLightning;
+import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
+import com.hmdzl.spspd.items.wands.WandOfMeteorite;
+import com.hmdzl.spspd.items.wands.WandOfSwamp;
 import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.levels.PrisonLevel;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Rotberry;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.WandmakerSprite;
-
 import com.hmdzl.spspd.windows.WndQuest;
 import com.hmdzl.spspd.windows.WndWandmaker;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.messages.Messages;
+
+import java.util.ArrayList;
 
 public class Wandmaker extends NPC {
 
@@ -251,7 +250,7 @@ public class Wandmaker extends NPC {
 					wand2 = new WandOfFlock();
 					break;
 				case 2:
-					wand2 = new WandOfPoison();
+					wand2 = new WandOfSwamp();
 					break;
 				case 3:
 					wand2 = new WandOfMeteorite();

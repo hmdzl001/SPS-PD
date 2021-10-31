@@ -28,7 +28,7 @@ import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Button;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class QuickSlotButton extends Button implements WndBag.Listener {
 

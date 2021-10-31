@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ConfusionGas;
 import com.hmdzl.spspd.actors.blobs.DarkGas;
@@ -26,29 +24,14 @@ import com.hmdzl.spspd.actors.blobs.ParalyticGas;
 import com.hmdzl.spspd.actors.blobs.TarGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
-import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.items.scrolls.ScrollOfRage;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.CharSprite;
-import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.GreatMossSprite;
-import com.hmdzl.spspd.sprites.WarlockSprite;
 
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 public class Greatmoss extends Mob {
@@ -131,27 +114,15 @@ public class Greatmoss extends Mob {
 		super.die(cause);
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(TarGas.class);
-		IMMUNITIES.add(Tar.class);
+	{
+		immunities.add(Amok.class);
+		immunities.add(Terror.class);
+		immunities.add(Sleep.class);
+		immunities.add(TarGas.class);
+		immunities.add(Tar.class);
 
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
+
 }

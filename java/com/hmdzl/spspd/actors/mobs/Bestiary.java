@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
 import com.watabou.utils.Random;
 
 public class Bestiary {
@@ -37,13 +36,15 @@ public class Bestiary {
 		@SuppressWarnings("unchecked")
 		Class<? extends Mob> cl = (Class<? extends Mob>) mobClass(depth);
 
-		if (Random.Int(30) == 0) {
+		if (Random.Int(15) == 0) {
 			if (cl == Rat.class) {
 				cl = Albino.class;
 			} else if (cl == Thief.class) {
 				cl = Bandit.class;
 			} else if (cl == Brute.class) {
 				cl = Shielded.class;
+			} else if (cl == IceBug.class) {
+				cl = BombBug.class;
 			} else if (cl == Monk.class) {
 				cl = Senior.class;
 			} else if (cl == Scorpio.class) {
@@ -152,19 +153,19 @@ public class Bestiary {
 		case 12:
 			chances = new float[] { 1, 0.9f, 0.7f, 0.5f, 0.3f ,0.9f,1 };
 			classes = new Class<?>[] { Bat.class, Skeleton.class, Brute.class,
-					GnollShaman.class,Spinner.class,SandMob.class,BombBug.class };
+					GnollShaman.class,Spinner.class,SandMob.class,IceBug.class };
 			break;
 		case 13:
 			chances = new float[] { 1, 1, 0.9f, 0.7f, 0.6f, 0.7f,0.4f, 0.02f,1 };
 			classes = new Class<?>[] { Bat.class, Skeleton.class, Brute.class,
 					GnollShaman.class,Spinner.class, BrokenRobot.class,SandMob.class,
-					FireElemental.class,BombBug.class };
+					FireElemental.class,IceBug.class };
 			break;
 		case 14:
 			chances = new float[] { 1, 1, 1, 0.9f,0.8f,0.6f,0.6f,0.04f, 0.02f,1 };
 			classes = new Class<?>[] {  Bat.class, Skeleton.class, Brute.class,
 					GnollShaman.class,Spinner.class, BrokenRobot.class,SandMob.class,
-					FireElemental.class, Monk.class,BombBug.class};
+					FireElemental.class, Monk.class,IceBug.class};
 			break;
 
 		case 15:
@@ -216,24 +217,26 @@ public class Bestiary {
 
 			break;
 		case 21:
-				chances = new float[] { 0.8f,0.8f, 1, 1, 1, 0.2f, 0.2f };
+				chances = new float[] { 0.8f,0.8f, 1, 1, 1, 0.2f, 0.2f,0.5f };
 				classes = new Class<?>[] {Musketeer.class, DwarfLich.class,
-						Succubus.class, Eye.class, DemonGoo.class, DemonFlower.class, Sufferer.class};
+						Succubus.class, Eye.class, DemonGoo.class, DemonFlower.class, Sufferer.class,DemonTraper.class};
 				break;
 		case 22:
-			chances = new float[] { 1, 1, 1, 0.5f,0.5f, 0.5f,0.5f };
+			chances = new float[] { 1, 1, 1, 0.5f,0.5f, 0.5f,0.5f, 1};
 			classes = new Class<?>[] { Succubus.class, Eye.class, DemonGoo.class,
-					Scorpio.class,ThiefImp.class , DemonFlower.class, Sufferer.class};
+					Scorpio.class,ThiefImp.class , DemonFlower.class, Sufferer.class
+					,DemonTraper.class};
 			break;
 		case 23:
-			chances = new float[] { 1, 1, 1, 0.5f,0.5f, 0.5f,0.5f };
+			chances = new float[] { 1, 1, 1, 0.5f,0.5f, 0.5f,0.5f,1 };
 			classes = new Class<?>[] { Succubus.class, Eye.class, DemonGoo.class,
-					Scorpio.class,ThiefImp.class , DemonFlower.class, Sufferer.class};
+					Scorpio.class,ThiefImp.class , DemonFlower.class, Sufferer.class
+					,DemonTraper.class};
 			break;
 		case 24:
-			chances = new float[] { 1, 1, 1, 1, 1, 1, 1 };
+			chances = new float[] { 1, 1, 1, 1, 1, 1, 1, 1 };
 			classes = new Class<?>[] {Succubus.class, Eye.class, DemonGoo.class,
-					Scorpio.class,ThiefImp.class, DemonFlower.class, Sufferer.class
+					Scorpio.class,ThiefImp.class, DemonFlower.class, Sufferer.class,DemonTraper.class
 					};
 			break;
 
@@ -333,15 +336,15 @@ public class Bestiary {
 		return classes[Random.chances(chances)];
 	}
 
-	public static boolean isUnique(Char mob) {
-		return mob instanceof Goo 
-		    || mob instanceof Tengu
-			|| mob instanceof DM300 
-			|| mob instanceof King
-			|| mob instanceof Yog.BurningFist
-			|| mob instanceof Yog.RottingFist
-			|| mob instanceof FetidRat
-			|| mob instanceof GnollTrickster
-			|| mob instanceof GreatCrab;
-	}
+	//public static boolean isUnique(Char mob) {
+	//	return mob instanceof Goo 
+	//	    || mob instanceof Tengu
+	//		|| mob instanceof DM300 
+	//		|| mob instanceof King
+	//		|| mob instanceof Yog.BurningFist
+	//		|| mob instanceof Yog.RottingFist
+	//		|| mob instanceof FetidRat
+	//		|| mob instanceof GnollTrickster
+	//		|| mob instanceof GreatCrab;
+	//}
 }

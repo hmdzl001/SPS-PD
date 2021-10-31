@@ -113,13 +113,7 @@ public class SommonSkeleton extends Mob {
 	}	
 
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(EnchantmentDark.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
+	//{
+		//IMMUNITIES.add(EnchantmentDark.class);
+	//}
 }

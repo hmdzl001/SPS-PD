@@ -24,7 +24,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.NoodlemireSprite;
 
 import com.hmdzl.spspd.windows.WndQuest;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Bundle;
 
 public class Tinkerer4 extends NPC {

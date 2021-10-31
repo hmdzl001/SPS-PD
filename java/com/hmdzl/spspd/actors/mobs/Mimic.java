@@ -157,13 +157,7 @@ public class Mimic extends Mob {
 		return m;
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+	{
+		immunities.add(ScrollOfPsionicBlast.class);
 	}
 }

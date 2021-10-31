@@ -30,7 +30,7 @@ import com.hmdzl.spspd.items.food.staplefood.NormalRation;
 import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.MonkSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
@@ -104,14 +104,8 @@ public class Monk extends Mob {
 		return damage;
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Terror.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+    {
+		immunities.add(Amok.class);
+		immunities.add(Terror.class);
 	}
 }

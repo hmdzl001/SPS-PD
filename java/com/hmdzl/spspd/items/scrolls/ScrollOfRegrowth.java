@@ -22,12 +22,12 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.Regrowth;
 import com.hmdzl.spspd.actors.blobs.Water;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
+import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
@@ -56,7 +56,7 @@ public class ScrollOfRegrowth extends Scroll {
 
 		ArrayList<Integer> plantCandidates = new ArrayList<>();
 		
-		PathFinder.buildDistanceMap( Dungeon.hero.pos, BArray.not( Dungeon.level.solid, null ), 2 );
+		PathFinder.buildDistanceMap( Dungeon.hero.pos, BArray.not(Level.solid, null ), 2 );
 		for (int i = 0; i < PathFinder.distance.length; i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				Char ch = Actor.findChar(i);
@@ -99,6 +99,12 @@ public class ScrollOfRegrowth extends Scroll {
 			Dungeon.level.plant( plant, plantPos);
 		}
 
+		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+			if (Level.fieldOfView[mob.pos]) {
+				Buff.affect(mob,GrowSeed.class).reignite(mob,6f);
+			}
+		}
+
 	
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Invisibility.dispel();
@@ -111,7 +117,7 @@ public class ScrollOfRegrowth extends Scroll {
 	@Override
 	public void empoweredRead() {
         doRead();
-        Buff.affect(curUser, Dewcharge.class,50f);
+        Buff.affect(curUser, Dewcharge.class).level(50);
 	}	
 
 	@Override

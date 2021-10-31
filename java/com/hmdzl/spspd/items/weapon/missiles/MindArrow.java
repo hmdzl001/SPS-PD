@@ -19,11 +19,10 @@ package com.hmdzl.spspd.items.weapon.missiles;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.utils.Random;
 
 public class MindArrow extends MissileWeapon {
 
@@ -52,6 +51,7 @@ public class MindArrow extends MissileWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 		super.proc(attacker, defender, damage);
         defender.damage(Dungeon.hero.spp,this);
+		Buff.affect(defender,BeCorrupt.class).level(Dungeon.hero.spp);
 	}	
 
 	@Override

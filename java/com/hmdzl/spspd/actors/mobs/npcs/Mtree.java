@@ -80,7 +80,7 @@
 
 		@Override
 		public boolean interact() {
-			if (Dungeon.level.passable[pos] || Dungeon.hero.flying) {
+			if (Level.passable[pos] || Dungeon.hero.flying) {
 			int curPos = pos;
 
 			moveSprite(pos, Dungeon.hero.pos);
@@ -97,15 +97,8 @@
 			}
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-		static {
-			IMMUNITIES.add(Poison.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
+		{
+			immunities.add(Poison.class);
 		}
 
 	}

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.ChallengeBook;
 import com.hmdzl.spspd.items.weapon.melee.special.Goei;
 import com.hmdzl.spspd.sprites.RENSprite;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class RENnpc extends NPC {
@@ -33,8 +33,8 @@ public class RENnpc extends NPC {
 	{
 		//name = "RENnpc";
 		spriteClass = RENSprite.class;
-		properties.add(Property.ELF);;
-	}
+		properties.add(Property.ELF);
+    }
 
 	@Override
 	protected boolean act() {

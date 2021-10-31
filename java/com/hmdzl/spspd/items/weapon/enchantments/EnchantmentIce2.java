@@ -19,12 +19,9 @@ package com.hmdzl.spspd.items.weapon.enchantments;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Cold;
-import com.hmdzl.spspd.actors.buffs.Frost;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.actors.buffs.Wet;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
@@ -48,12 +45,16 @@ public class EnchantmentIce2 extends Weapon.Enchantment {
 		// lvl 1 - 40%
 		// lvl 2 - 50%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int lvl = Math.max(0, weapon.level);
-				if(fcb != null && Random.Int(2) == 1){
-			defender.damage(Random.Int(damage/6), this);
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
 		}
-		Buff.prolong(defender, Wet.class, Math.min(30,lvl+2));
-		Buff.prolong(defender, Cold.class, Math.min(30,lvl+2));
+
+		if (Random.Int(3) >= 1) {
+			Buff.affect(defender, FrostIce.class).level(Random.Int(level,maxdmg));
+		}
 		defender.sprite.emitter().burst(SnowParticle.FACTORY, 5);
 		
 		return true;

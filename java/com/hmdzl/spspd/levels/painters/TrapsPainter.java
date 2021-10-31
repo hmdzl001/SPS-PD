@@ -83,7 +83,7 @@ public class TrapsPainter extends Painter {
 		for(int cell : room.getCells()) {
 			if (level.map[cell] == Terrain.TRAP){
 				try {
-					level.setTrap(((Trap) trapClass.newInstance()).reveal(), cell);
+					level.setTrap(trapClass.newInstance().reveal(), cell);
 				} catch (Exception e) {
 					ShatteredPixelDungeon.reportException(e);
 				}

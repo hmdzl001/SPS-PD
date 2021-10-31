@@ -18,16 +18,14 @@
 package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GreenDragonSprite;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -111,7 +109,7 @@ public class GreenDragon extends PET implements Callback{
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((GreenDragonSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			}
 
 			spend(TIME_TO_ZAP);
@@ -132,7 +130,7 @@ public class GreenDragon extends PET implements Callback{
 					Camera.main.shake(2, 0.3f);
 
 					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.NAMED));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(TXT_LIGHTNING_KILLED, name);
 					}
 				}

@@ -17,11 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.items.misc.SkillOfMig;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
@@ -30,22 +25,25 @@ import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.STRdown;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.Weakness;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.items.misc.SkillOfMig;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEnergy;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.OtilukeSprite;
-
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 
 public class Otiluke extends Mob implements Callback {
 
@@ -67,6 +65,7 @@ public class Otiluke extends Mob implements Callback {
 		lootChance = 1f;
 
 		properties.add(Property.ELEMENT);
+		properties.add(Property.MAGICER);
 		properties.add(Property.BOSS);
 		
 	}	
@@ -110,6 +109,14 @@ public class Otiluke extends Mob implements Callback {
 	}
 	
 	
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		
+		enemy.damage(damage/2, ENERGY_DAMAGE);
+		damage = damage/2;
+
+		return damage;
+	}	
 
 	
 	@Override
@@ -131,7 +138,7 @@ public class Otiluke extends Mob implements Callback {
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((OtilukeSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			} else {
 				zap();
 			}
@@ -145,14 +152,14 @@ public class Otiluke extends Mob implements Callback {
 
 		if (hit(this, enemy, true)) {
 			if (enemy == Dungeon.hero && Random.Int(2) == 0) {
-				Buff.prolong(enemy, Weakness.class, Weakness.duration(enemy));
+				Buff.prolong(enemy, STRdown.class, 6f);
 			}
 
 			int dmg = Random.Int(100, 160+adj(0));
-			enemy.damage(dmg, this);
+			enemy.damage(dmg,EnchantmentEnergy.class);
 
 			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(Messages.get(this, "kill"));
 			}
 		} else {
@@ -178,31 +185,21 @@ public class Otiluke extends Mob implements Callback {
 		
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		//resistances.add(EnchantmentDark.class);
 		
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Paralysis.class);
+		//immunities.add(EnchantmentDark.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Burning.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Paralysis.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}}
+}

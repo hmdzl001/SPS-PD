@@ -29,7 +29,7 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class SpKnuckles extends MeleeWeapon {
 
@@ -63,7 +63,7 @@ public class SpKnuckles extends MeleeWeapon {
 		}	
 		
 		if (attacker.buff(ShieldArmor.class) == null){
-		    Buff.affect(attacker, ShieldArmor.class).level((int)(attacker.HT/10));
+		    Buff.affect(attacker, ShieldArmor.class).level(attacker.HT/10);
 		}		
 		
 		

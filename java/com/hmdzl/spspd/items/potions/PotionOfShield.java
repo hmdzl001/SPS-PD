@@ -18,15 +18,21 @@
 package com.hmdzl.spspd.items.potions;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.watabou.noosa.audio.Sample;
 
 public class PotionOfShield extends Potion {
 
 	//private static final float ALPHA = 0.4f;
+
+	private static final int DISTANCE = 2;
 
 	{
 		//name = "Potion of shield";
@@ -36,9 +42,10 @@ public class PotionOfShield extends Potion {
 	@Override
 	public void apply(Hero hero) {
 		setKnown();
-		if (hero.buff(ShieldArmor.class) == null){
-		   Buff.affect(hero, ShieldArmor.class).level(hero.HT/2);
-		} else Buff.affect(hero, DefenceUp.class,50f).level(50);
+		if (hero.buff(ShieldArmor.class) == null && hero.buff(MagicArmor.class) == null){
+		   Buff.affect(hero, ShieldArmor.class).level(hero.HT/3);
+			Buff.affect(hero, MagicArmor.class).level(hero.HT/3);
+		} else Buff.affect(hero, DefenceUp.class,30f).level(50);
 		Sample.INSTANCE.play(Assets.SND_MELD);
 	}
 
@@ -46,6 +53,16 @@ public class PotionOfShield extends Potion {
 	public String desc() {
 		return "Drinking this potion will temporarily speed up your actions.";
 	}*/
+
+	@Override
+	public void shatter(int cell) {
+
+				Char ch = Actor.findChar(cell);
+				if (ch != null) {
+					Buff.prolong(ch, Shieldblock.class,3f);
+				}
+
+	}
 
 	@Override
 	public int price() {

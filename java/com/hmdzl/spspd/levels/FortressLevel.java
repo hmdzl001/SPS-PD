@@ -17,17 +17,17 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer3;
-import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.items.TriforceOfPower;
+import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class FortressLevel extends RegularLevel {
 
@@ -171,26 +171,29 @@ public class FortressLevel extends RegularLevel {
 	}
 
 	@Override
-		protected void createItems() {
+	protected void createItems() {
 		
 		addItemToSpawn(new Mushroom());
 		
+		super.createItems();
+
+		spawnnpc(this, roomEntrance);
+			
+	}
+
+		public static void spawnnpc(FortressLevel level,Room room) {
+	
 		Tinkerer3 npc = new Tinkerer3();
 		do {
-			npc.pos = randomRespawnCell();
-		} while (npc.pos == -1 || heaps.get(npc.pos) != null);
-		mobs.add(npc);
-		Actor.occupyCell(npc);
+				npc.pos = room.random();
+			} while (level.map[npc.pos] == Terrain.ENTRANCE
+					|| level.map[npc.pos] == Terrain.SIGN);
+			level.mobs.add(npc);
+		    Actor.occupyCell(npc);
 
+	}
 		
-			super.createItems();
-
-			spawn(this, roomEntrance);
-			
-	
-			
-		}
-
+		
 		public static void spawn(FortressLevel level, Room room) {
 		int pos;
 			do {pos = room.random();}

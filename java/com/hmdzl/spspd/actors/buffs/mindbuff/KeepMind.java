@@ -27,14 +27,14 @@ import com.hmdzl.spspd.actors.buffs.Cold;
 import com.hmdzl.spspd.actors.buffs.Dry;
 import com.hmdzl.spspd.actors.buffs.Hot;
 import com.hmdzl.spspd.actors.buffs.Wet;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class KeepMind extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.MIND_BUFF;
+		return BuffIndicator.CRAZY_MIND;
 	}
 
 	@Override

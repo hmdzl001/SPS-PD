@@ -17,18 +17,17 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.sprites.OrcSprite;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.OrcSprite;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public class Orc extends Mob {
 
@@ -36,8 +35,8 @@ public class Orc extends Mob {
 		spriteClass = OrcSprite.class;
 		state = SLEEPING;
 
-		HP = HT = 200+(Dungeon.depth*10);
-		evadeSkill = 18+(Math.round((Dungeon.depth)/2));
+		HP = HT = 400;
+		evadeSkill = 30;
 
 		EXP = 22;
 		maxLvl = 40;
@@ -73,25 +72,11 @@ public class Orc extends Mob {
 		super.damage(dmg, src);
 	}	
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
+    {
+		immunities.add(Amok.class);
+		immunities.add(Terror.class);
+		immunities.add(CorruptGas.class);
+		immunities.add(Vertigo.class);
 	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(CorruptGas.class);
-		IMMUNITIES.add(Vertigo.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
+	
 }

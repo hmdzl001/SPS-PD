@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.items.weapon.enchantments;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Lightning;
@@ -28,10 +25,12 @@ import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class EnchantmentShock extends Weapon.Enchantment {
 
@@ -47,7 +46,8 @@ public class EnchantmentShock extends Weapon.Enchantment {
 		// lvl 1 - 40%
 		// lvl 2 - 50%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int level = Math.max(0, weapon.level);
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
 
 		if (Random.Int(level + 4) >= 3) {
 
@@ -57,10 +57,10 @@ public class EnchantmentShock extends Weapon.Enchantment {
 			affected.clear();
 			affected.add(attacker);
 
-			hit(defender, Random.Int(1, damage / 2));
+			hit(defender, (int)(Random.Int(level,maxdmg)*0.75));
 			
-			if(fcb != null && Random.Int(2) == 1){
-			hit(defender, Random.Int(1, damage / 2));
+			if(fcb != null){
+			   defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
 		    }
 
 			attacker.sprite.parent.add(new Lightning( attacker.pos, defender.pos, null ));
@@ -86,7 +86,7 @@ public class EnchantmentShock extends Weapon.Enchantment {
 		}
 
 		affected.add(ch);
-		ch.damage(Level.water[ch.pos] && !ch.flying ? (int) (damage * 2)
+		ch.damage(Level.water[ch.pos] && !ch.flying ? damage * 2
 				: damage, this);
 
 		ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);

@@ -87,7 +87,7 @@ import com.watabou.utils.Random;
 
 				} else
 					Buff.affect(enemy, Poison.class).set(
-							(effect - 2) * Poison.durationFactor(enemy));
+							(effect - 2));
 
 			}
 			return damage;

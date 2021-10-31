@@ -30,11 +30,10 @@ import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
-import com.hmdzl.spspd.items.rings.RingOfElements.Resistance;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.ui.BuffIndicator;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
+import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
 
 public class Frost extends FlavourBuff {
@@ -119,11 +118,6 @@ public class Frost extends FlavourBuff {
 		return Messages.get(this, "desc", dispTurns());
 	}
 
-	public static float duration(Char ch) {
-		Resistance r = ch.buff(Resistance.class);
-		return r != null ? r.durationFactor() * DURATION : DURATION;
-	}
-
 	{
 		immunities.add( Chill.class );
 		immunities.add( FrostGas.class );
@@ -131,5 +125,7 @@ public class Frost extends FlavourBuff {
 		immunities.add( Cold.class );
 		immunities.add(WeatherOfSnow.class);
 	}
-
+	public static float duration( Char ch ) {
+		return DURATION;
+	}
 }

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ShopkeeperSprite;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndTradeItem;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Shopkeeper extends NPC {
 

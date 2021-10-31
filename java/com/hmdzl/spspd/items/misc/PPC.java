@@ -20,33 +20,21 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Hunger;
-import com.hmdzl.spspd.actors.buffs.WarGroove;
 import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.CrazyMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.LoseMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.TerrorMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.WeakMind;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.MindArrow;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -116,17 +104,17 @@ public class PPC extends Item {
 				hero.sprite.operate(hero.pos);
 				hero.busy();
 				charge -= 20;
-				if (Dungeon.hero.buff(WeakMind.class) != null) {
-					Buff.detach(Dungeon.hero, WeakMind.class);
-				} else if (Dungeon.hero.buff(AmokMind.class) != null) {
-					Buff.detach(Dungeon.hero, AmokMind.class);
-				} else if (Dungeon.hero.buff(CrazyMind.class) != null) {
-					Buff.detach(Dungeon.hero, CrazyMind.class);
-				} else if (Dungeon.hero.buff(TerrorMind.class) != null) {
-					Buff.detach(Dungeon.hero, TerrorMind.class);
-				} else if (Dungeon.hero.buff(LoseMind.class) != null) {
-					Buff.detach(Dungeon.hero, LoseMind.class);
-				}
+			 if (Dungeon.hero.buff(CrazyMind.class) != null) {
+				 Buff.detach(Dungeon.hero, CrazyMind.class);
+			 } else if (Dungeon.hero.buff(WeakMind.class) != null) {
+				 Buff.detach(Dungeon.hero, WeakMind.class);
+			 } else if (Dungeon.hero.buff(AmokMind.class) != null) {
+				 Buff.detach(Dungeon.hero, AmokMind.class);
+			 } else if (Dungeon.hero.buff(TerrorMind.class) != null) {
+				 Buff.detach(Dungeon.hero, TerrorMind.class);
+			 } else if (Dungeon.hero.buff(LoseMind.class) != null) {
+				 Buff.detach(Dungeon.hero, LoseMind.class);
+			 }
 
 				Dungeon.hero.HP += Dungeon.hero.HT / 5;
 				Dungeon.hero.spp = 0;
@@ -134,7 +122,7 @@ public class PPC extends Item {
 			if (action.equals(AC_MIND)) {
 				hero.sprite.operate(hero.pos);
 				hero.busy();
-				charge -= 5;
+				charge -= 2;
                 Dungeon.level.drop(new MindArrow(5), hero.pos).sprite.drop();
 			} else {
 				super.execute(hero, action);

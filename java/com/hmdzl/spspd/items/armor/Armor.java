@@ -36,7 +36,7 @@ import com.hmdzl.spspd.items.armor.glyphs.RecoilGlyph;
 import com.hmdzl.spspd.items.armor.glyphs.Revivalglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Testglyph;
 import com.hmdzl.spspd.items.rings.RingOfEvasion;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
@@ -175,7 +175,7 @@ public class Armor extends KindOfArmor {
 	public int drRoll(Hero hero) {
 		int encumbrance = STR() - hero.STR();
 		int dr = super.drRoll(hero);
-		return encumbrance > 0 ?  Math.max((int)(Math.round(dr)*(1-encumbrance/3)),0) :Math.round(dr);
+		return encumbrance > 0 ?  Math.max(Math.round(dr)*(1-encumbrance/3),0) :Math.round(dr);
 	}	
 	
 

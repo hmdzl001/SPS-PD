@@ -89,7 +89,7 @@ public class RogueSkill extends ClassSkill {
 	public void doSpecial3() {
 
 		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 10)) {
+			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
 				Buff.affect(mob, Silent.class,9999f);
 				Buff.affect(mob, Disarm.class,5f);
 				Buff.affect(mob, ArmorBreak.class, 10f).level(50);

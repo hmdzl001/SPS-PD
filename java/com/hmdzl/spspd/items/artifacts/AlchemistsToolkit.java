@@ -14,7 +14,7 @@ import com.hmdzl.spspd.items.potions.PotionOfExperience;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -184,8 +184,8 @@ public class AlchemistsToolkit extends Artifact {
 			// would only trigger if an upgraded toolkit was gained through
 			// transmutation or bones.
 		} else {
-			result += Messages.get(this, "need_fix");;
-		}
+			result += Messages.get(this, "need_fix");
+        }
 		return result;
 	}
 

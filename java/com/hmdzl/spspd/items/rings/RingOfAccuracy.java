@@ -17,9 +17,7 @@
  */
 package com.hmdzl.spspd.items.rings;
 
-import com.hmdzl.spspd.messages.Messages;
-
-import java.text.DecimalFormat;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class RingOfAccuracy extends Ring {
 
@@ -30,7 +28,7 @@ public class RingOfAccuracy extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",level,level/10);
+			return Messages.get(this, "stats",level,Math.min(3,(int)(level/10)));
 		} else {
 			return "???";
 		}

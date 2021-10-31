@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -44,6 +42,8 @@ import com.hmdzl.spspd.sprites.WraithSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public class Wraith extends Mob {
 
@@ -78,7 +78,7 @@ public class Wraith extends Mob {
 
     @Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 4 ;
+		return Level.distance( pos, enemy.pos ) <= 4 ;
 	}
 	
 	
@@ -108,7 +108,7 @@ public class Wraith extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(10) == 0) {
-			Buff.affect(enemy, Vertigo.class, Vertigo.duration(enemy));
+			Buff.affect(enemy, Vertigo.class,5f);
 			Buff.affect(enemy, Terror.class, Terror.DURATION).object = enemy.id();
 		}
 
@@ -167,24 +167,18 @@ public class Wraith extends Mob {
 		}
 	}
 
-	protected static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(Paralysis.class);
-		IMMUNITIES.add(Roots.class);
-		IMMUNITIES.add(Frost.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+	{
+		//immunities.add(EnchantmentDark.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Burning.class);
+		immunities.add(Paralysis.class);
+		immunities.add(Roots.class);
+		immunities.add(Frost.class);
 	}
 }

@@ -49,11 +49,10 @@ public class WandOfCharm extends Wand {
 			processSoulMark(ch, chargesPerCast());
 
 			if (ch == Dungeon.hero) {
-				Buff.affect(ch, Vertigo.class, Vertigo.duration(ch));
+				Buff.affect(ch, Vertigo.class,5f);
 			} else {
 				Buff.affect(ch, Amok.class, chargesPerCast() + level());
-				Buff.affect(ch, Charm.class, Charm.durationFactor(ch)
-					* Random.IntRange(chargesPerCast(), 3*level())).object = curUser.id();
+				Buff.affect(ch, Charm.class, Random.IntRange(chargesPerCast(), 3*level())).object = curUser.id();
 			    ch.sprite.centerEmitter().start(Speck.factory(Speck.HEART),
 					0.2f, 5);
 			    Sample.INSTANCE.play(Assets.SND_CHARMS);

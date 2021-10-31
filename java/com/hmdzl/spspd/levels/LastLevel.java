@@ -22,7 +22,7 @@ import java.util.Arrays;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.items.PuddingCup;
 import com.hmdzl.spspd.levels.painters.Painter;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;

@@ -18,13 +18,11 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.rings.RingOfElements.Resistance;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -67,7 +65,7 @@ public class GrowSeed extends Buff implements Hero.Doom {
 			for (int n : Level.NEIGHBOURS8) {
 				Char ch = Actor.findChar(n+p);
 				if (ch != null && ch != target && ch.isAlive()) {
-					ch.HP +=Random.Int( Math.min(dmg,ch.HT - ch.HP));
+					ch.HP +=Random.IntRange( 1, Math.min(dmg,ch.HT - ch.HP));
 				}
 			}
 
@@ -89,8 +87,12 @@ public class GrowSeed extends Buff implements Hero.Doom {
 	}	
 	
 	public void reignite(Char ch) {
-		left = duration(ch);
+		left = DURATION;
 	}	
+	
+	public void reignite( Char ch, float duration ) {
+		left = duration;
+	}
 	
 	@Override
 	public int icon() {
@@ -118,13 +120,8 @@ public class GrowSeed extends Buff implements Hero.Doom {
 		return Messages.get(this, "desc", dispTurns(left));
 	}
 
-	public static float duration(Char ch) {
-		Resistance r = ch.buff(Resistance.class);
-		return r != null ? r.durationFactor() * DURATION : DURATION;
-	}
-
 	@Override
 	public void onDeath() {
-		Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 	}
 }

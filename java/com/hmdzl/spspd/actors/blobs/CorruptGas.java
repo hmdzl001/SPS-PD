@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class CorruptGas extends Blob implements Hero.Doom {
@@ -44,11 +44,11 @@ public class CorruptGas extends Blob implements Hero.Doom {
 		for (int i = 0; i < LENGTH; i++) {
 			if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
 				
-				if (!ch.immunities().contains(ConfusionGas.class)){
+				if (!ch.isImmune(ConfusionGas.class)){
 					Buff.prolong(ch, Vertigo.class, 2);
 			      }
 				
-			    if (!ch.immunities().contains(this.getClass())){
+			    if (!ch.isImmune(this.getClass())){
 				  Buff.affect(ch, Bleeding.class).set(bleedDamage);
 				  Buff.prolong(ch, Cripple.class, Cripple.DURATION);
 

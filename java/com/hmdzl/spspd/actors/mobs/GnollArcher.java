@@ -32,7 +32,7 @@ import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.GnollArcherSprite;
 import com.hmdzl.spspd.utils.GLog;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class GnollArcher extends Mob {
@@ -63,7 +63,7 @@ public class GnollArcher extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		Ballistica attack = new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE);
-				if (buff(Locked.class) != null){
+		if (buff(Locked.class) != null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		

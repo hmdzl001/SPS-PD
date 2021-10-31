@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
@@ -50,6 +51,7 @@ public class DarkBomb extends Bomb {
 				Char ch = Actor.findChar(c);
 				if (ch != null){
 				Buff.affect(ch, Terror.class, Terror.DURATION).object = curUser.id();
+				Buff.affect(ch, ShadowCurse.class);
 				if (ch.properties().contains(Char.Property.HUMAN)
 						|| 	ch.properties().contains(Char.Property.PLANT)
 						|| ch.properties().contains(Char.Property.ORC)

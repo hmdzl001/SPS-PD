@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.items.scrolls;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
@@ -34,18 +34,22 @@ public class ScrollOfSacrifice extends Scroll {
 	@Override
 	public void doRead() {
 
-		if(Dungeon.sacrifice==0){Dungeon.hero.HT +=5;
+		if(Dungeon.sacrifice==0){Dungeon.hero.TRUE_HT +=5;
 			Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "use_1"));
+		Dungeon.hero.updateHT(true);
+		
 		}
 	    else if(Dungeon.sacrifice > 0){Dungeon.hero.STR++;
 			Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "use_2"));
 	    }
-        if(Dungeon.sacrifice > 1) {Dungeon.hero.HT-= Random.Int(5*Dungeon.sacrifice,Dungeon.hero.HT/5);
+        if(Dungeon.sacrifice > 1) {
+			Dungeon.hero.TRUE_HT-= Random.Int(5*Dungeon.sacrifice,Dungeon.hero.TRUE_HT/5);
+			Dungeon.hero.updateHT(true);
 			GLog.w(Messages.get(this, "use_lot"));
         }
 
-        if(Dungeon.hero.HP > Dungeon.hero.HT)
-		{Dungeon.hero.HP = Dungeon.hero.HT;}
+        if(Dungeon.hero.HP > Dungeon.hero.TRUE_HT)
+		{Dungeon.hero.HP = Dungeon.hero.TRUE_HT;}
 
 		setKnown();
 

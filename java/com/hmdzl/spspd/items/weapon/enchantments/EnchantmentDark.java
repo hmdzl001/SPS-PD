@@ -43,19 +43,17 @@ public class EnchantmentDark extends Weapon.Enchantment {
 		// lvl 1 ~ 9%
 		// lvl 2 ~ 10%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int level = Math.max(0, weapon.level);
-		int dmg = damage;
-		defender.damage(Random.Int(dmg/6), this);
-				if(fcb != null && Random.Int(2) == 1){
-			defender.damage(Random.Int(dmg/6), this);
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
+		defender.damage((int)(Random.Int(level,maxdmg)*0.75), this);
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
 		}
-		if (Random.Int(level + 15) >= 15) {
-            Buff.prolong(defender, Terror.class,5f);
+		if (Random.Int(4) == 1) {
+            Buff.prolong(defender, Terror.class,3f);
             defender.sprite.emitter().burst(ShadowParticle.UP, 5);
-			return true;
-		} else {
-			return false;
 		}
+		return true;
 	}
 
 	@Override

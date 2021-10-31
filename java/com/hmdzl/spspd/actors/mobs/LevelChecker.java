@@ -55,7 +55,7 @@ public class LevelChecker extends Mob {
 			Dungeon.hero.exp=0;
 			Dungeon.hero.lvl=1;
 			
-			//Dungeon.hero.HT=30;
+			//Dungeon.hero.TRUE_HT=30;
 			//Dungeon.hero.hitSkill=10;
 			//Dungeon.hero.evadeSkill=5;
 			damage = 0;

@@ -17,26 +17,25 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Muscle;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
-
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
+import java.util.ArrayList;
+
 public class DemoScroll extends Item {
 	
     public static final String AC_READ = "READ";
+	public static final String AC_READ2 = "READ2";
 	{
 		//name = "DemoScroll";
 		image = ItemSpriteSheet.DEMO_SCROLL;
@@ -52,7 +51,8 @@ public class DemoScroll extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (charge < hero.lvl && hero.HT >  hero.lvl) actions.add(AC_READ);
+		if (Dungeon.hero.spp < hero.lvl && hero.TRUE_HT >  hero.lvl) actions.add(AC_READ);
+		if (charge>10 ) actions.add(AC_READ2);
 		return actions;
 	}
 	
@@ -92,23 +92,29 @@ public class DemoScroll extends Item {
 		default:
 			break;
         }
-		 charge ++;
+		 Dungeon.hero.spp ++;
 		 hero.sprite.operate(hero.pos);
 		hero.busy();
 		hero.spend(2f);
-		 int dmg = charge+1;
+		 int dmg = Dungeon.hero.spp+1;
           hero.damage(dmg,this);
 		 if (!hero.isAlive()) {
-				Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n("The Chalice sucks your life essence dry...");
 			}
-		 Dungeon.hero.HT-= Math.min(dmg,hero.HT-1);
+		 Dungeon.hero.TRUE_HT-= Math.min(dmg,hero.TRUE_HT-1);
+		 Dungeon.hero.updateHT(false);
 		 GLog.w(Messages.get(this, "htdown"));
             //hero.hitSkill++;
             //hero.evadeSkill++;
             //hero.magicSkill++;
 		    
 			//detach(hero.belongings.backpack);
+		} else if (action.equals(AC_READ2)) {
+            charge -= 10;
+            Dungeon.hero.TRUE_HT++;
+			Dungeon.hero.updateHT(true);
+			GLog.w(Messages.get(this, "htup"));
 		} else {
 			super.execute(hero, action);
 
@@ -122,7 +128,12 @@ public class DemoScroll extends Item {
 		return info;
 	}
 
-	
+
+	@Override
+	public String status() {
+		return Messages.format("%d", charge);
+	}
+
 	@Override
 	public boolean isUpgradable() {
 		return false;

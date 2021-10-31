@@ -20,37 +20,37 @@
  */
 package com.hmdzl.spspd.items.wands;
 
-import java.util.ArrayList;
-
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Recharging;
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.actors.buffs.SoulMark;
-import com.hmdzl.spspd.actors.hero.HeroClass;
-import com.hmdzl.spspd.actors.hero.HeroSubClass;
-import com.hmdzl.spspd.items.misc.GnollMark;
-import com.hmdzl.spspd.items.rings.Ring;
-import com.hmdzl.spspd.items.rings.RingOfEnergy;
-import com.hmdzl.spspd.messages.Messages;
-import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.actors.buffs.Silent;
+import com.hmdzl.spspd.actors.buffs.SoulMark;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
+import com.hmdzl.spspd.items.misc.GnollMark;
+import com.hmdzl.spspd.items.rings.Ring;
+import com.hmdzl.spspd.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.ui.QuickSlotButton;
 import com.hmdzl.spspd.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public abstract class Wand extends Item {
 
@@ -200,9 +200,9 @@ public abstract class Wand extends Item {
 	
 	public String statsDesc(){
 		return Messages.get(this, "stats_desc");
-	};	
-	
-	@Override
+	}
+
+    @Override
 	public boolean isIdentified() {
 		return super.isIdentified() && curChargeKnown;
 	}
@@ -403,7 +403,7 @@ public abstract class Wand extends Item {
 	protected class Charger extends Buff {
 		
 		private static final float BASE_CHARGE_DELAY = 10f;
-		private static final float SCALING_CHARGE_ADDITION = 50f;
+		private static final float SCALING_CHARGE_ADDITION = 40f;
 		private static final float NORMAL_SCALE_FACTOR = 0.95f;
 
 		private static final float CHARGE_BUFF_BONUS = 0.25f;
@@ -434,16 +434,20 @@ public abstract class Wand extends Item {
 		}
 
 		private void gainCharge(){
-			int missingCharges = maxCharges - curCharges;
-
-			missingCharges += Ring.getBonus(target, RingOfEnergy.Energy.class);
-			missingCharges = Math.max(0, missingCharges);
+			int missingCharges = 0;
+			missingCharges += Math.min(0.75f, 0.25f * Ring.getBonus(target, RingOfEnergy.Energy.class)/10);
+			//missingCharges = Math.max(0, missingCharges);
             if (Dungeon.hero.heroClass==HeroClass.MAGE && Dungeon.skins==2){
-				missingCharges+=2;
+			missingCharges+=0.05f;
 			}
+			if (partialCharge < missingCharges)
+				partialCharge = missingCharges;
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
-					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
-			partialCharge += 1f/turnsToCharge;
+					+ (SCALING_CHARGE_ADDITION - Math.max(1, missingCharges)));
+					
+			partialCharge += 0.02f;
+			//partialCharge += 0.01f*Math.min(1,missingCharges/10);
+		
 			Recharging bonus = target.buff(Recharging.class);
 			if (bonus != null && bonus.remainder() > 0f){
 				partialCharge += CHARGE_BUFF_BONUS * bonus.remainder();

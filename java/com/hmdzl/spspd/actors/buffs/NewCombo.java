@@ -30,7 +30,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
@@ -153,8 +153,8 @@ public class NewCombo extends Buff implements ActionIndicator.Action {
 		}
 
 		private enum finisherType{
-			CLOBBER, CLEAVE, SLAM, CRUSH;
-		}
+			CLOBBER, CLEAVE, SLAM, CRUSH
+        }
 
 		private CellSelector.Listener finisher = new CellSelector.Listener() {
 
@@ -245,7 +245,7 @@ public class NewCombo extends Buff implements ActionIndicator.Action {
 						}
 						break;
 					case SLAM:
-						Buff.affect(target,ShieldArmor.class).level((int)(dmg/5));
+						Buff.affect(target,ShieldArmor.class).level(dmg/5);
 						break;
 					default:
 						//nothing

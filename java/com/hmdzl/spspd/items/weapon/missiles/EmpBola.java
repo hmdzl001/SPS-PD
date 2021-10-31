@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.weapon.missiles;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -52,7 +52,7 @@ public class EmpBola extends MissileWeapon {
 		super.proc(attacker, defender, damage);
 		Buff.prolong(defender, Cripple.class, Cripple.DURATION);
 		Buff.prolong(defender, Shocked.class, 5f);
-		Buff.detach(defender, ShieldArmor.class);
+		Buff.detach(defender, EnergyArmor.class);
 		if(defender.properties().contains(Char.Property.MECH)){
 			defender.damage(defender.HT/3,this);
 		}

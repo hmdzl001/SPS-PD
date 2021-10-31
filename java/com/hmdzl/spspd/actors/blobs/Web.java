@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.WebParticle;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Web extends Blob {
 
@@ -40,7 +40,7 @@ public class Web extends Blob {
 				volume += offv;
 
 				Char ch = Actor.findChar(i);
-				if (ch != null) {
+				if (ch != null && !ch.isImmune(this.getClass())) {
 					Buff.prolong(ch, Roots.class, TICK);
 				}
 			}

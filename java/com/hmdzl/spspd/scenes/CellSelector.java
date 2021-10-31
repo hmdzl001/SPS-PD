@@ -101,7 +101,7 @@ public class CellSelector extends TouchArea {
 
 			int zoom = Math.round(camera.zoom);
 			camera.zoom(zoom);
-			ShatteredPixelDungeon.zoom((int) (zoom - PixelScene.defaultZoom));
+			ShatteredPixelDungeon.zoom(zoom - PixelScene.defaultZoom);
 
 			dragging = true;
 			if (t == touch) {
@@ -161,7 +161,7 @@ public class CellSelector extends TouchArea {
 
 			int zoom = Math.round(camera.zoom);
 			camera.zoom(zoom);
-			ShatteredPixelDungeon.zoom((int) (zoom - PixelScene.defaultZoom));
+			ShatteredPixelDungeon.zoom(zoom - PixelScene.defaultZoom);
 		}
 	}
 

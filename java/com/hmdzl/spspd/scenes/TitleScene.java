@@ -25,7 +25,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.effects.BannerSprites;
 import com.hmdzl.spspd.effects.Fireball;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 //import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.ChangesButton;

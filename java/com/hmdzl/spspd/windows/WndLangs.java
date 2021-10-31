@@ -23,7 +23,7 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.SPSSettings;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.messages.Languages;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.scenes.TitleScene;
 import com.hmdzl.spspd.ui.RedButton;

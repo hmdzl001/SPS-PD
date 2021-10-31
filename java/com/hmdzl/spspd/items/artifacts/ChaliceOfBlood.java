@@ -1,25 +1,24 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.hmdzl.spspd.windows.WndOptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 /**
  * Created by debenhame on 27/08/2014.
@@ -73,8 +72,8 @@ public class ChaliceOfBlood extends Artifact {
 					protected void onSelect(int index) {
 						if (index == 0)
 							prick(Dungeon.hero);
-					};
-				});
+					}
+                });
 
 			} else {
 				prick(hero);
@@ -96,7 +95,7 @@ public class ChaliceOfBlood extends Artifact {
 	}
 
 	private void prick(Hero hero) {
-		int damage = 3 * (level * level);
+		int damage = 2 * (level * level);
 
 		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);
 		if (armor != null) {
@@ -117,9 +116,10 @@ public class ChaliceOfBlood extends Artifact {
 		}
 		
 		hero.damage(damage, this);
+		Buff.affect(hero,Bleeding.class).set(level * level);
 
 		if (!hero.isAlive()) {
-			Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 			//GLog.n("The Chalice sucks your life essence dry...");
 		} else {
 			upgrade();

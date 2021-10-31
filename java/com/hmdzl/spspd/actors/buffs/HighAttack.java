@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -53,11 +53,7 @@ public class HighAttack extends Buff {
 	
 	@Override
 	public boolean attachTo(Char target) {
-		if (super.attachTo(target)) {
-			return true;
-		} else {
-			return false;
-		}
+        return super.attachTo(target);
 	}
 	
 	public boolean act() {

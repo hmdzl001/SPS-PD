@@ -43,7 +43,7 @@ public class PoisonTrap extends Trap{
 		//Char ch = Actor.findChar( pos );
 
 		if (ch != null) {
-			Buff.affect( ch, Poison.class ).set( Poison.durationFactor( ch ) * (4 + Dungeon.depth / 2) );
+			Buff.affect( ch, Poison.class ).set(4 + Dungeon.depth / 2 );
 		}
 
 		CellEmitter.center( pos ).burst( PoisonParticle.SPLASH, 3 );

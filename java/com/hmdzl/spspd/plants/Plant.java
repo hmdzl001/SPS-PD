@@ -35,7 +35,7 @@ import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.sprites.PlantSprite;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
@@ -57,15 +57,6 @@ public class Plant implements Bundlable {
 			Buff.affect(ch, Barkskin.class).level(((Hero) ch).lvl);
 		}
 		wither();
-	}
-
-	public static boolean checkPhase(int cell) {
-	Plant plant = Dungeon.level.plants.get(cell);
-	if (plant instanceof Phaseshift || plant instanceof Flytrap) {
-		return true; 
-		}	else {
-			return false;
-			}
 	}
 	
 	public void wither() {

@@ -51,7 +51,7 @@ import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -165,7 +165,7 @@ public class PotionOfMage extends Item {
 
 	@Override
 	public String status() {
-		return Messages.format("%d", (int)charge/70);
+		return Messages.format("%d", charge /70);
 	}
 	
 	@Override

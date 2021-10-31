@@ -32,6 +32,7 @@ import com.hmdzl.spspd.actors.blobs.DarkGas;
 import com.hmdzl.spspd.actors.blobs.ParalyticGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Tar;
@@ -42,7 +43,6 @@ import com.hmdzl.spspd.items.bombs.DangerousBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.potions.PotionOfExperience;
-import com.hmdzl.spspd.levels.CavesBossLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
@@ -53,7 +53,9 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public class Hybrid extends Mob {
 
@@ -102,7 +104,7 @@ public class Hybrid extends Mob {
 
 		if (Dungeon.level.map[step] == Terrain.INACTIVE_TRAP) {
 	       if (state == FLEEING){
-			   Buff.affect(this,ShieldArmor.class).level(200);
+			   Buff.affect(this,EnergyArmor.class).level(200);
 			   yell(Messages.get(this, "shield"));
 			   state = HUNTING;
 		   }
@@ -115,9 +117,12 @@ public class Hybrid extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(5) == 0) {
 			Buff.affect(enemy, Poison.class).set(
-					Random.Int(7, 9) * Poison.durationFactor(enemy));
+					Random.Int(8, 10));
 			state = FLEEING;
 		}
+
+		enemy.damage(damage/2, ENERGY_DAMAGE);
+		damage = damage/2;
 
 	
 		return damage;
@@ -129,6 +134,7 @@ public class Hybrid extends Mob {
 			Buff.affect(enemy, Tar.class);
 			state = HUNTING;
 		}
+		
 		return super.defenseProc(enemy, damage);
 	}
 	
@@ -175,14 +181,14 @@ public class Hybrid extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
 		GameScene.bossSlain();
-		((CavesBossLevel) Dungeon.level).unseal();
+		Dungeon.level.unseal();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Badges.validateBossSlain();
 
@@ -254,17 +260,11 @@ public class Hybrid extends Mob {
         breaks = bundle.getInt( BREAKS );
     }	
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
-	static {
-		IMMUNITIES.add(ToxicGas.class );
-		IMMUNITIES.add(ParalyticGas.class);
-		IMMUNITIES.add(DarkGas.class);
-		IMMUNITIES.add(ConfusionGas.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+	{
+		immunities.add(ToxicGas.class );
+		immunities.add(ParalyticGas.class);
+		immunities.add(DarkGas.class);
+		immunities.add(ConfusionGas.class);
 	}
 	
 	public static class Mixers extends Mob {
@@ -283,7 +283,7 @@ public class Hybrid extends Mob {
 
 		@Override
 		public int damageRoll() {
-			return Random.NormalIntRange(25, 55 );
+			return Random.NormalIntRange(25, 55);
 		}
 
 		@Override
@@ -291,6 +291,16 @@ public class Hybrid extends Mob {
 			return 100;
 		}
 
+	@Override
+	public int attackProc(Char enemy, int damage) {
+
+		enemy.damage(damage/4, SHOCK_DAMAGE);
+		damage = damage*3/4;
+
+		return damage;
+	}		
+			
+		
 		@Override
 		public int drRoll() {
 			return 0;

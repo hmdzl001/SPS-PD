@@ -1,6 +1,5 @@
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -19,13 +18,14 @@ public class ShieldArmor extends Buff {
 		}
 
 		public int absorb(int damage) {
-			if (level <= damage) {
-				detach();
-				return damage - level;
-			} else {
-				level -= damage;
-				return 0;
-			}
+
+        if (level <= damage) {
+            detach();
+            return damage - level;
+        } else {
+            level -= damage;
+            return 0;
+        }
 		}
 
 		public void level(int value) {

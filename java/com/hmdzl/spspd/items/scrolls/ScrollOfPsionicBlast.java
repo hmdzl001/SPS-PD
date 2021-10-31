@@ -19,17 +19,14 @@ package com.hmdzl.spspd.items.scrolls;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.SuperArcane;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
-
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Random;
 
 public class ScrollOfPsionicBlast extends Scroll {
 
@@ -49,15 +46,15 @@ public class ScrollOfPsionicBlast extends Scroll {
 		Sample.INSTANCE.play(Assets.SND_BLAST);
 		Invisibility.dispel();
 
+		int people = 0;
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			if (Level.fieldOfView[mob.pos] && !mob.properties().contains(Char.Property.BOSS)) {
-				mob.damage(mob.HT, this);
-			} else mob.damage(1, this);
+			mob.beckon(curUser.pos);
+			if (mob instanceof Mob && !(mob instanceof NPC)){
+				people++;
+			}
 		}
+		Buff.prolong(curUser, SuperArcane.class, 30f).level(people);
 
-		curUser.damage(Math.max(curUser.HT / 5, curUser.HP / 2), this);
-		Buff.prolong(curUser, Paralysis.class, Random.Int(4, 6));
-		Buff.prolong(curUser, Blindness.class, Random.Int(6, 9));
 		Dungeon.observe();
 
 		setKnown();

@@ -50,7 +50,7 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.SewerBossLevel;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.PlagueDoctorSprite;
 import com.hmdzl.spspd.sprites.ShadowRatSprite;
@@ -92,7 +92,7 @@ public class PlagueDoctor extends Mob {
 	public void notice() {
 		super.notice();
 		yell(Messages.get(this, "notice"));
-		((SewerBossLevel) Dungeon.level).seal();
+		Dungeon.level.seal();
 		if (!spawnedshadow) {
 			Buff.affect(hero, ShadowRatSummon.class);
 			spawnedshadow = true;
@@ -132,7 +132,7 @@ public class PlagueDoctor extends Mob {
 			if (Random.Int(2) == 0) {
 				switch (Random.Int (4)) {
 					case 0:
-						enemy.HP += (int)((enemy.HT)/10);
+						enemy.HP += (enemy.HT)/10;
 						enemy.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f,1);
 						break;
 					case 1:
@@ -215,7 +215,7 @@ public class PlagueDoctor extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		((SewerBossLevel) Dungeon.level).unseal();
+		Dungeon.level.unseal();
 
 		GameScene.bossSlain();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
@@ -268,17 +268,11 @@ public class PlagueDoctor extends Mob {
 		return Random.NormalIntRange(0, 5);
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
-	static {
-		IMMUNITIES.add(ToxicGas.class );
-		IMMUNITIES.add(ParalyticGas.class);
-		IMMUNITIES.add(DarkGas.class);
-		IMMUNITIES.add(ConfusionGas.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+	{
+		immunities.add(ToxicGas.class );
+		immunities.add(ParalyticGas.class);
+		immunities.add(DarkGas.class);
+		immunities.add(ConfusionGas.class);
 	}
 
     private static final String BREAKS	= "breaks";
@@ -318,7 +312,7 @@ public class PlagueDoctor extends Mob {
 				int pos = 0;
 				do {
 					pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-				} while (!Dungeon.level.passable[pos] || Actor.findChar(pos) != null);
+				} while (!Level.passable[pos] || Actor.findChar(pos) != null);
 				ShadowRat.spawnAt(pos);
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 			}
@@ -409,17 +403,12 @@ public class PlagueDoctor extends Mob {
 			return 0;
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
-		static {
-			IMMUNITIES.add( ToxicGas.class );
-			IMMUNITIES.add(Poison.class);
-			IMMUNITIES.add(Burning.class);
+		{
+			immunities.add( ToxicGas.class );
+			immunities.add(Poison.class);
+			immunities.add(Burning.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 
 		public static void spawnAround(int pos) {
 			for (int n : Level.NEIGHBOURS8) {

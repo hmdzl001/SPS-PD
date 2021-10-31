@@ -23,7 +23,6 @@ package com.hmdzl.spspd.levels.traps;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Beam;
@@ -31,7 +30,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -65,7 +64,7 @@ public class DisintegrationTrap extends Trap {
 			if (ch == Dungeon.hero){
 				Hero hero = (Hero)ch;
 				if (!hero.isAlive()){
-					Dungeon.fail(ResultDescriptions.TRAP);
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n( Messages.get(this, "ondeath") );
 				} else {
 					Item item = hero.belongings.randomUnequipped();

@@ -18,14 +18,14 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class ExitFind extends FlavourBuff {
 
 	public static final float DURATION = 1f;
 
 	{
-		type = buffType.POSITIVE;
+		type = buffType.NEUTRAL;
 	}
 
 	@Override

@@ -21,24 +21,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.ConfusionGas;
-import com.hmdzl.spspd.actors.blobs.CorruptGas;
-import com.hmdzl.spspd.actors.blobs.ElectriShock;
-import com.hmdzl.spspd.actors.blobs.Fire;
-import com.hmdzl.spspd.actors.blobs.Freezing;
-import com.hmdzl.spspd.actors.blobs.ParalyticGas;
-import com.hmdzl.spspd.actors.blobs.Regrowth;
-import com.hmdzl.spspd.actors.blobs.ShockWeb;
-import com.hmdzl.spspd.actors.blobs.StenchGas;
-import com.hmdzl.spspd.actors.blobs.ToxicGas;
-import com.hmdzl.spspd.actors.blobs.VenomGas;
-import com.hmdzl.spspd.actors.blobs.weather.WeatherOfRain;
-import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSand;
-import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSnow;
-import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSun;
-import com.hmdzl.spspd.actors.blobs.Web;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Random;
 
@@ -76,5 +59,6 @@ public class Needling extends FlavourBuff {
 	@Override
 	public String desc() {
 		return Messages.get(this, "desc", dispTurns());
-	}
+	}	
+
 }

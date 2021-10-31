@@ -17,21 +17,20 @@
  */
 package com.hmdzl.spspd.windows;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.ScrollPane;
 import com.hmdzl.spspd.ui.Window;
-
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
+
+import java.util.ArrayList;
 
 public class WndCatalogus extends WndTabbed {
 
@@ -42,12 +41,6 @@ public class WndCatalogus extends WndTabbed {
 	private static final int HEIGHT_L = 128;
 
 	private static final int ITEM_HEIGHT = 18;
-
-	private static final int TAB_WIDTH = 50;
-
-	private static final String TXT_POTIONS = "Potions";
-	private static final String TXT_SCROLLS = "Scrolls";
-	private static final String TXT_TITLE = "Catalogus";
 
 	private RenderedText txtTitle;
 	private ScrollPane list;
@@ -92,15 +85,15 @@ public class WndCatalogus extends WndTabbed {
 				super.select(value);
 				WndCatalogus.showPotions = value;
 				updateList();
-			};
-		}, new LabeledTab(Messages.get(this, "scrolls")) {
+			}
+        }, new LabeledTab(Messages.get(this, "scrolls")) {
 			@Override
 			protected void select(boolean value) {
 				super.select(value);
 				WndCatalogus.showPotions = !value;
 				updateList();
-			};
-		} };
+			}
+        } };
 		for (Tab tab : tabs) {
 			add(tab);
 		}
@@ -164,7 +157,7 @@ public class WndCatalogus extends WndTabbed {
 					sprite.view(item.image(), null);
 					label.text(item.name());
 				} else {
-					sprite.view(127, null);
+					sprite.view(0, null);
 					label.text(item.trueName());
 					label.hardlight(0xCCCCCC);
 				}

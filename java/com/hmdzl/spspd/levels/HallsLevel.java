@@ -17,18 +17,32 @@
  */
 package com.hmdzl.spspd.levels;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.actors.mobs.Sentinel;
-import com.hmdzl.spspd.items.DwarfHammer;
 import com.hmdzl.spspd.items.Torch;
-import com.hmdzl.spspd.levels.traps.*;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.levels.traps.BlazingTrap;
+import com.hmdzl.spspd.levels.traps.CursingTrap;
+import com.hmdzl.spspd.levels.traps.DisarmingTrap;
+import com.hmdzl.spspd.levels.traps.DisintegrationTrap;
+import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
+import com.hmdzl.spspd.levels.traps.FlockTrap;
+import com.hmdzl.spspd.levels.traps.FrostTrap;
+import com.hmdzl.spspd.levels.traps.GrimTrap;
+import com.hmdzl.spspd.levels.traps.GrippingTrap;
+import com.hmdzl.spspd.levels.traps.GuardianTrap;
+import com.hmdzl.spspd.levels.traps.LightningTrap;
+import com.hmdzl.spspd.levels.traps.OozeTrap;
+import com.hmdzl.spspd.levels.traps.SpearTrap;
+import com.hmdzl.spspd.levels.traps.StormTrap;
+import com.hmdzl.spspd.levels.traps.SummoningTrap;
+import com.hmdzl.spspd.levels.traps.TeleportationTrap;
+import com.hmdzl.spspd.levels.traps.VenomTrap;
+import com.hmdzl.spspd.levels.traps.WeakeningTrap;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Scene;
@@ -36,10 +50,12 @@ import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
+import javax.microedition.khronos.opengles.GL10;
+
 public class HallsLevel extends RegularLevel {
 
 	{
-		minRoomSize = 6;
+		minRoomSize = 7;
 
 		viewDistance = Math.max(25 - Dungeon.depth, 1);
 
@@ -121,6 +137,14 @@ public class HallsLevel extends RegularLevel {
 			}
 		}
 
+		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+
+				map[i] = Terrain.GLASS_WALL;
+			}
+		}
+
+
 		while (true) {
 			int pos = roomEntrance.random();
 			if (pos != entrance) {
@@ -131,12 +155,12 @@ public class HallsLevel extends RegularLevel {
 		
          for (int i = 0; i < getLength(); i++) {
 			
-			if (map[i]==Terrain.EXIT){map[i] = Terrain.PEDESTAL; 
-			     sealedlevel=true;
-			    if(Dungeon.depth==24){
-			    	Sentinel sentinel = new Sentinel();
-				    sentinel.pos = i;
-				    mobs.add(sentinel);}
+			if (map[i]==Terrain.EXIT){map[i] = Terrain.LOCKED_EXIT; 
+			     //sealedlevel=true;
+			   // if(Dungeon.depth==24){
+			    //	Sentinel sentinel = new Sentinel();
+				 //   sentinel.pos = i;
+				 //   mobs.add(sentinel);}
 			}			
 			
 		}
@@ -148,7 +172,7 @@ public class HallsLevel extends RegularLevel {
 	
 	@Override
 	protected void createItems() {
-		if (Dungeon.depth!=25){addItemToSpawn(new DwarfHammer());}
+		if (Dungeon.depth!=25){addItemToSpawn(new SkeletonKey(Dungeon.depth));}
 		super.createItems();
 	}
 

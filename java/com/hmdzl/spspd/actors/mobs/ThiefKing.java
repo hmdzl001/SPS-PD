@@ -21,7 +21,7 @@ import java.util.HashSet;
 
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.AdamantRing;
@@ -104,13 +104,8 @@ public class ThiefKing extends Mob implements Callback {
 		yell(Messages.get(this,"notice",Dungeon.hero.givenName()));
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(LightningTrap.Electricity.class);
+	{
+		resistances.add(LightningTrap.Electricity.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
 }

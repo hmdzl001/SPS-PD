@@ -20,7 +20,7 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.input.Touchscreen.Touch;

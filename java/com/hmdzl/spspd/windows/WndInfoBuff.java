@@ -22,7 +22,7 @@ package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;

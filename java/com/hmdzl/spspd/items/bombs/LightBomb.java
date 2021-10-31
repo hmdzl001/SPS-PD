@@ -22,6 +22,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.LightShootAttack;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.levels.Level;
@@ -48,6 +49,7 @@ public class LightBomb extends Bomb {
 				Char ch = Actor.findChar(c);
 				if (ch != null){
 				Buff.affect(ch, Blindness.class,10f );
+				Buff.affect(ch,LightShootAttack.class).level(10);
 				if ( ch.properties().contains(Char.Property.UNDEAD)
 					|| 	ch.properties().contains(Char.Property.UNKNOW)
 					|| ch.properties().contains(Char.Property.MECH)

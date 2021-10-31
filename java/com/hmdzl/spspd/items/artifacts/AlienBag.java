@@ -1,20 +1,20 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
 
 /**
  * Created by dachhack on 10/15/2015.
@@ -66,7 +66,7 @@ public class AlienBag extends Artifact {
 				GLog.i(Messages.get(this, "no_charge"));
 			else {	
 			    charge = 0;
-                Buff.affect(hero,ShieldArmor.class).level(level * 20);
+                Buff.affect(hero,EnergyArmor.class).level(level * 20);
 				Buff.affect(hero,DefenceUp.class,20).level(level * 5);
 				hero.spend(1f);
 				updateQuickslot();	

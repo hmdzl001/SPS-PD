@@ -20,7 +20,7 @@ public class Stormvine extends Plant {
 		super.activate(ch);
 
 		if (ch != null) {
-			Buff.affect(ch, Vertigo.class, Vertigo.duration(ch));
+			Buff.affect(ch, Vertigo.class, 10f);
 		}
 	}
 

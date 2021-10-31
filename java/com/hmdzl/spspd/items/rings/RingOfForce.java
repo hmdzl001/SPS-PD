@@ -1,6 +1,7 @@
 package com.hmdzl.spspd.items.rings;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 import java.text.DecimalFormat;
 
@@ -13,10 +14,10 @@ public class RingOfForce extends Ring {
 		//name = "Ring of Force";
 		initials = 3;
 	}
-	
+		;
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100 * Math.min(3f,((level*1.00/10)*1f))), 3 + level, 3 * level + 12);
+			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100 * Math.min(3f,((level*1.00/10)*1f))), Dungeon.hero.STR/2 + level, Dungeon.hero.STR/2 * level + Dungeon.hero.STR/2);
 		} else {
 			return "???";
 		}

@@ -17,15 +17,7 @@
  */
 package com.hmdzl.spspd.items.food;
 
-import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.items.food.completefood.CompleteFood;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -45,11 +37,12 @@ public class Honey extends Food {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)) {
-			 hero.HT = hero.HT + (Random.Int(4, 8));
-			 //hero.HP = hero.HP+Math.min(((hero.HT-hero.HP)/2), hero.HT-hero.HP);
+			 hero.TRUE_HT = hero.TRUE_HT + (Random.Int(4, 8));
+			 hero.updateHT(true);
+			 //hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
 				//Buff.detach(hero, Poison.class);
 				//Buff.detach(hero, Cripple.class);
-				//Buff.detach(hero, Weakness.class);
+				//Buff.detach(hero, STRdown.class);
 				//Buff.detach(hero, Bleeding.class);
 
 				//hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);

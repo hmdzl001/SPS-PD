@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.hero;
 
-import java.util.Iterator;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.Item;
@@ -31,9 +29,12 @@ import com.hmdzl.spspd.items.keys.Key;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Iterator;
 
 public class Belongings implements Iterable<Item> {
 
@@ -267,6 +268,13 @@ public class Belongings implements Iterable<Item> {
 				count++;
 				gunweapon.updateQuickslot();
 				}
+			if (item instanceof ShootGun) {
+				ShootGun shootgun = (ShootGun) item;
+				shootgun.charge =  Math.min(3,shootgun.charge  + 1);
+				count++;
+				shootgun.updateQuickslot();
+			}
+
 			}
 		return count;
 	}

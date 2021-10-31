@@ -42,7 +42,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfIdentify;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -101,7 +101,7 @@ public class UnstableSpellbook extends Artifact {
 			actions.add(AC_READ);
 		if (isEquipped( hero ) && level< levelCap && !cursed)
 			actions.add(AC_ADD);
-		if (isEquipped(hero) && level > 3 && !cursed)
+		if (!isEquipped(hero) && level > 3 && !cursed )
 			actions.add(AC_SONG);			
 		return actions;
 	}
@@ -142,29 +142,49 @@ public class UnstableSpellbook extends Artifact {
 			GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
 		} else if (action.equals( AC_SONG )) {
 			curUser = hero;
-			switch (Random.Int(3)){
+			switch (level){
 				case 0:
-					Dungeon.hero.hitSkill++;
-					Dungeon.hero.evadeSkill++;
-					GLog.w(Messages.get(SkillOfAtk.class, "skillup"));
-					GLog.w(Messages.get(SkillOfDef.class, "skillup"));
-					break;
 				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
 					Buff.affect(hero, AttackUp.class,level*10f).level(25);
 					Buff.affect(hero, DefenceUp.class,level*10f).level(25);
 					Buff.affect(hero, Arcane.class,level*10f);
 					Buff.affect(hero, TargetShoot.class,level*10f);
 					break;
-				case 2:
+				case 8:
+				case 9:
+					Buff.affect(hero, AttackUp.class,level*10f).level(25);
+					Buff.affect(hero, DefenceUp.class,level*10f).level(25);
+					Buff.affect(hero, Arcane.class,level*10f);
+					Buff.affect(hero, TargetShoot.class,level*10f);
+					Dungeon.hero.hitSkill++;
+					Dungeon.hero.evadeSkill++;
+					GLog.w(Messages.get(SkillOfAtk.class, "skillup"));
+					GLog.w(Messages.get(SkillOfDef.class, "skillup"));
+					break;
+				case 10:
+					Buff.affect(hero, AttackUp.class,level*10f).level(25);
+					Buff.affect(hero, DefenceUp.class,level*10f).level(25);
+					Buff.affect(hero, Arcane.class,level*10f);
+					Buff.affect(hero, TargetShoot.class,level*10f);
+					Dungeon.hero.hitSkill++;
+					Dungeon.hero.evadeSkill++;
+					GLog.w(Messages.get(SkillOfAtk.class, "skillup"));
+					GLog.w(Messages.get(SkillOfDef.class, "skillup"));
 					Dungeon.hero.magicSkill++;
 					Buff.affect(hero, Invisibility.class, level*10f );
 					Buff.affect(hero, HasteBuff.class, level*3f );
 					GLog.w(Messages.get(SkillOfMig.class, "skillup"));
 					break;
 			}
-			level-=4;
-			exp-=100;
 			curUser.spendAndNext(1f);
+			detach(curUser.belongings.backpack);
+			Dungeon.level.drop(new UnstableSpellbook(),hero.pos);
 			updateQuickslot();
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
@@ -262,7 +282,7 @@ public class UnstableSpellbook extends Artifact {
 				item.detach(hero.belongings.backpack);
 				GLog.h(Messages.get(UnstableSpellbook.class, "exp",consumedpts));
 				
-				int levelChk = ((level*2)+1)*10;
+				int levelChk = (level+20);
 								
 				if (consumedpts > levelChk && level<10) {
 					upgrade();

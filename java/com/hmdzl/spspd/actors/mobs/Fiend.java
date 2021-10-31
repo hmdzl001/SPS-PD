@@ -17,21 +17,20 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.FiendSprite;
-
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
@@ -95,7 +94,7 @@ public class Fiend extends Mob implements Callback {
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((FiendSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			} else {
 				zap();
 			}
@@ -109,14 +108,14 @@ public class Fiend extends Mob implements Callback {
 
 		if (hit(this, enemy, true)) {
 			if (enemy == Dungeon.hero && Random.Int(5) == 0) {
-				Buff.prolong(enemy, Weakness.class, Weakness.duration(enemy));
+				Buff.prolong(enemy, STRdown.class,5f);
 			}
 
 			int dmg = Random.Int(20, 45);
 			enemy.damage(dmg, this);
 
 			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail( Messages.format(ResultDescriptions.MOB));
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(Messages.get(this, "kill"));
 			}
 		} else {

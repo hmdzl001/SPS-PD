@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
  
 
 public class WndQuest extends WndTitledMessage {

@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Venom;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Bundle;
 
 public class VenomGas extends Blob {
@@ -43,7 +43,7 @@ public class VenomGas extends Blob {
 			Char ch;
 			for (int i = 0; i < LENGTH; i++) {
 				if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
-					if (!ch.immunities().contains(this.getClass()))
+					if (!ch.isImmune(this.getClass()))
 						Buff.affect(ch, Venom.class).set(2f, strength);
 				}
 			}

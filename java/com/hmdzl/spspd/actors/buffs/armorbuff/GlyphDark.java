@@ -5,15 +5,19 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.CountDown;
 import com.hmdzl.spspd.actors.buffs.DeadRaise;
 import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.mobs.DwarfLich;
 import com.hmdzl.spspd.actors.mobs.Fiend;
 import com.hmdzl.spspd.actors.mobs.Warlock;
+import com.hmdzl.spspd.items.armor.glyphs.Darkglyph;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
 
 public class GlyphDark extends Buff {
 
         {
-            immunities.add( Weakness.class );
+            immunities.add( STRdown.class );
 			immunities.add( CountDown.class );
 			immunities.add( DeadRaise.class );
             immunities.add( Silent.class );
@@ -22,6 +26,12 @@ public class GlyphDark extends Buff {
             resistances.add( DwarfLich.class );
             resistances.add( Warlock.class );
             resistances.add( Fiend.class );
+
+            immunities.add( EnchantmentDark2.class );
+            immunities.add( EnchantmentDark.class );
+			immunities.add(Darkglyph.class );
+			immunities.add(DamageType.DarkDamage.class);
+
         }
 
 	}

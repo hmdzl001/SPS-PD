@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.weapon.missiles.Skull;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -264,29 +264,15 @@ public class King extends Mob {
 		yell(Messages.get(this,"meeting"));
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(ToxicGas.class);
+		//resistances.add(EnchantmentDark.class);
 		
-		RESISTANCES.add(WandOfDisintegration.class);
+		resistances.add(WandOfDisintegration.class);
+		immunities.add(Paralysis.class);
+		immunities.add(Vertigo.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Paralysis.class);
-		IMMUNITIES.add(Vertigo.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 
 	public static class Undead extends Mob {
 
@@ -361,16 +347,11 @@ public class King extends Mob {
 			return 5;
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(EnchantmentDark.class);
-			IMMUNITIES.add(Paralysis.class);
+	    {
+			//immunities.add(EnchantmentDark.class);
+			immunities.add(Paralysis.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 	
     public static class DwarfKingTomb extends Mob  {
@@ -430,11 +411,7 @@ public class King extends Mob {
 			   }
 			}
 		}
-       if (kingAlive>0){
-		return true;
-       } else {
-      return false;
-       }
+        return kingAlive > 0;
 	}
 
 	@Override
@@ -459,7 +436,7 @@ public class King extends Mob {
 		}
 		
 		GameScene.bossSlain();
-		((CityBossLevel) Dungeon.level).unseal();
+		Dungeon.level.unseal();
 	
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();

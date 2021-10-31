@@ -66,7 +66,7 @@ public class WarriorSkill extends ClassSkill {
 
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos]) {
-				if (Dungeon.level.distance(curUser.pos, mob.pos) <= 3){
+				if (Level.distance(curUser.pos, mob.pos) <= 3){
 					Buff.affect(mob, AttackUp.class).level(10);
 				} else {
 				Buff.affect(mob, Disarm.class, curUser.STR);
@@ -88,7 +88,7 @@ public class WarriorSkill extends ClassSkill {
 
 		for (Mob mob : Dungeon.level.mobs) {
 			if (mob instanceof PET) {
-				mob.HP += (int)mob.HT/2;
+				mob.HP += mob.HT /2;
 			}
 		}
 		Buff.affect(curUser,ShieldArmor.class).level(curUser.HT/2);
@@ -96,7 +96,7 @@ public class WarriorSkill extends ClassSkill {
 			Char mob = Actor.findChar(curUser.pos
 					+ Level.NEIGHBOURS8[i]);
 			if (mob != null && mob != curUser && !(mob instanceof PET ) ) {
-				mob.damage((int)curUser.HT/2, this);
+				mob.damage(curUser.HT /2, this);
 			}
 
 		}

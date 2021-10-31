@@ -17,9 +17,12 @@
  */
 package com.hmdzl.spspd.items.weapon.missiles;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.Ooze;
@@ -33,15 +36,12 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.actors.Char;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;
 
 import java.util.ArrayList;
 
@@ -277,6 +277,38 @@ public class TaurcenBow extends Weapon {
 					TaurcenBow.charge = 0;
 				}
 
+				if (Random.Int(8) ==  0) {
+					if (arrow == Arrow.NONE) {
+						if (defender.isAlive())
+							Buff.affect(defender, ArmorBreak.class, 5f).level(40);
+						defender.damage(DMG, this);
+					}
+					if (arrow == Arrow.FIRE) {
+						if (defender.isAlive())
+							Buff.affect(defender, Burning.class).reignite(defender);
+						defender.damage(DMG / 2, this);
+
+					}
+					if (arrow == Arrow.ICE) {
+						defender.damage(DMG / 2, this);
+						if (defender.isAlive()) {
+							Buff.prolong(defender, Wet.class, 5f);
+							Buff.prolong(defender, Slow.class, 5f);
+						}
+
+					}
+					if (arrow == Arrow.POSION) {
+						defender.damage(DMG / 4, this);
+						if (defender.isAlive()) Buff.affect(defender, Ooze.class);
+
+					}
+					if (arrow == Arrow.ELE) {
+						if (defender.isAlive()) Buff.affect(defender, Shocked.class, 3f);
+						Buff.affect(attacker, AttackUp.class, 10f).level(30);
+						defender.damage(DMG / 3, this);
+
+					}
+				}
 			}
 
 			if (enchantment != null) {

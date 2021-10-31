@@ -17,37 +17,35 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.items.quest.GnollClothes;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.sprites.GnollKingSprite;
-import com.hmdzl.spspd.sprites.GnollKeeperSprite;
-import com.hmdzl.spspd.items.AdamantRing;
-import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.buffs.Roots;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.items.AdamantRing;
+import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.quest.GnollClothes;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.GnollKeeperSprite;
+import com.hmdzl.spspd.sprites.GnollKingSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -151,7 +149,7 @@ public class GnollKing extends Mob {
 		if (breaks == 3){
 			if (Random.Int(2) == 0) {
 			    if(enemy == Dungeon.hero){
-			    Buff.prolong(enemy, Weakness.class, 3);
+			    Buff.prolong(enemy, STRdown.class, 3);
 			    }
 		    }
 		}
@@ -175,7 +173,7 @@ public class GnollKing extends Mob {
 	@Override
 	public void damage(int dmg, Object src) {
 	
-		dmg = Random.Int(10,20);
+		dmg = Math.min(dmg,20);
 		
 		if (breaks == 2){
 		    if (dmg > 15){
@@ -189,8 +187,8 @@ public class GnollKing extends Mob {
 	protected boolean canAttack(Char enemy) {
 		
 		if (breaks == 2){
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;}
-		else return Dungeon.level.distance( pos, enemy.pos ) <= 1;
+		return Level.distance( pos, enemy.pos ) <= 2 ;}
+		else return Level.distance( pos, enemy.pos ) <= 1;
 	}
 
 	@Override
@@ -216,35 +214,24 @@ public class GnollKing extends Mob {
 	}
 	
 	
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Paralysis.class);
-	    IMMUNITIES.add(Bleeding.class);
-		IMMUNITIES.add(CorruptGas.class);
+    {
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		//resistances.add(EnchantmentDark.class);
+		immunities.add(EnchantmentDark.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Burning.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Paralysis.class);
+	    immunities.add(Bleeding.class);
+		immunities.add(CorruptGas.class);
 	}
 	
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-	
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
 	
 	private static final String BREAKS	= "breaks";
 	

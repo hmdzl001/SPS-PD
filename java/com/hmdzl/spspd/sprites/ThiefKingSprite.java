@@ -108,11 +108,11 @@ public class ThiefKingSprite extends MobSprite {
 		 	  
 		  		
 		  		if(Random.Int(10)==0){
-		  			Buff.affect(enemy, Slow.class, Slow.duration(enemy) / 2);
+		  			Buff.affect(enemy, Slow.class, 2f);
 		  		}
 		  				  		
 		  		if(Random.Int(10)==0){
-		  			Buff.affect(enemy, Poison.class).set(Random.Int(7, 9) * Poison.durationFactor(enemy));
+		  			Buff.affect(enemy, Poison.class).set(Random.Int(7, 9));
 		  		}
 		  		
 			play(cast);

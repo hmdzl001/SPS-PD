@@ -17,26 +17,27 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
-import com.hmdzl.spspd.items.food.completefood.GoldenNut;
-import com.hmdzl.spspd.items.reward.PrisonReward;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.BeOld;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Bone;
 import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
+import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
+import com.hmdzl.spspd.items.food.completefood.GoldenNut;
+import com.hmdzl.spspd.items.reward.PrisonReward;
+import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.MossySkeletonSprite;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public class MossySkeleton extends Mob {
 
@@ -70,6 +71,14 @@ public class MossySkeleton extends Mob {
 	@Override
 	protected float attackDelay() {
 		return 2f-(Math.min(1.5f, Statistics.skeletonsKilled/50));
+	}
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		if (Random.Int(3) == 0) {
+			Buff.affect(enemy, BeOld.class).set(20);
+		}
+		return damage;
 	}
 	
 	@Override
@@ -124,13 +133,8 @@ public class MossySkeleton extends Mob {
 		return 10+Statistics.skeletonsKilled/5;
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(EnchantmentDark.class);
+	{
+		//immunities.add(EnchantmentDark.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

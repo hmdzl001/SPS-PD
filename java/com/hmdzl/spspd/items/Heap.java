@@ -17,10 +17,6 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -47,15 +43,15 @@ import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.scrolls.Scroll;
-import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
+import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.AresSword;
 import com.hmdzl.spspd.items.weapon.melee.relic.CromCruachAxe;
+import com.hmdzl.spspd.items.weapon.melee.relic.JupitersWraith;
 import com.hmdzl.spspd.items.weapon.melee.relic.LokisFlail;
 import com.hmdzl.spspd.items.weapon.melee.relic.NeptunusTrident;
-import com.hmdzl.spspd.items.weapon.melee.relic.JupitersWraith;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -63,6 +59,10 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 
 public class Heap implements Bundlable {
 
@@ -334,9 +334,10 @@ public class Heap implements Bundlable {
 						return;
 					}
 					// unique and upgraded items can endure the blast
-				} else if (!(item.level > 0 || item.unique))
-					items.remove(item);
+				//} else if (!(item.level > 0 || item.unique))
 
+			} else if (item instanceof Gold)
+					items.remove(item);
 			}
 
 			if (items.isEmpty())

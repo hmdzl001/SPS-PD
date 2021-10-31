@@ -27,7 +27,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndCatalogus;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.Image;
@@ -74,15 +74,15 @@ public class Toolbar extends Component {
 			protected void onClick() {
 				examining = false;
 				Dungeon.hero.rest(false);
-			};
+			}
 
-			@Override
+            @Override
 			protected boolean onLongClick() {
 				examining = false;
 				Dungeon.hero.rest(true);
 				return true;
-			};
-		});
+			}
+        });
 		
 		add(btnSearch = new Tool(20, 7, 20, 24) {
 			@Override
@@ -100,8 +100,8 @@ public class Toolbar extends Component {
             protected boolean onLongClick() {
                 Dungeon.hero.search(true); 
 				return true;
-            };
-		} );
+            }
+        } );
 
 		/*add(btnInfo = new Tool(40, 7, 21, 24) {
 			@Override
@@ -148,21 +148,21 @@ public class Toolbar extends Component {
 			protected boolean onLongClick() {
 				GameScene.show(new WndCatalogus());
 				return true;
-			};
+			}
 
-			@Override
+            @Override
 			protected void createChildren() {
 				super.createChildren();
 				gold = new GoldIndicator();
 				add(gold);
-			};
+			}
 
-			@Override
+            @Override
 			protected void layout() {
 				super.layout();
 				gold.fill(this);
-			};
-		});
+			}
+        });
 
 		add(btnQuick = new QuickslotTool(105, 7, 22, 24, 0));
 
@@ -311,9 +311,9 @@ public class Toolbar extends Component {
 				active = value;
 			}
 		}
-	};
+	}
 
-	private static class QuickslotTool extends Tool {
+    private static class QuickslotTool extends Tool {
 
 		private QuickSlotButton slot;
 

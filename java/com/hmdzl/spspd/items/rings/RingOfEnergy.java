@@ -1,8 +1,6 @@
 package com.hmdzl.spspd.items.rings;
 
-import com.hmdzl.spspd.messages.Messages;
-
-import java.text.DecimalFormat;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 /**
  * Created by debenhame on 10/09/2014.
@@ -17,7 +15,7 @@ public class RingOfEnergy extends Ring {
 	
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (Math.pow(1.05f, level) - 1f)));
+			return Messages.get(this, "stats",  1.25*level);
 		} else {
 			return "???";
 		}

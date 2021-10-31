@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.actors.mobs.pets;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.VelociroosterSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;

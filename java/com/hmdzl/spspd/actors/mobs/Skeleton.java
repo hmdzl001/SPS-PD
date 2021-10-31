@@ -17,23 +17,19 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SkeletonSprite;
-
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -91,7 +87,7 @@ public class Skeleton extends Mob {
 		}
 
 		if (heroKilled) {
-			Dungeon.fail( Messages.format(ResultDescriptions.MOB));
+			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 			//GLog.n(Messages.get(this, "kill"));
 		}
 	}
@@ -131,15 +127,9 @@ public class Skeleton extends Mob {
 		enemySeen = true;
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(EnchantmentDark.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
+	//{
+		//IMMUNITIES.add(EnchantmentDark.class);
+	//}
 	
 	public static void spawnAround(int pos) {
 		for (int n : Level.NEIGHBOURS4) {

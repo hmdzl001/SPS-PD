@@ -20,10 +20,10 @@ package com.hmdzl.spspd.actors.blobs;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.ShockWebParticle;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class ShockWeb extends Blob {
 
@@ -40,10 +40,10 @@ public class ShockWeb extends Blob {
 				volume += offv;
 
 				Char ch = Actor.findChar(i);
-				if (ch != null) {
+				if (ch != null && !ch.isImmune(this.getClass())) {
 					int damage = 5;
 				    ch.damage(damage, this);
-					Buff.prolong(ch, Roots.class, TICK);
+					Buff.prolong(ch, Shocked.class, TICK);
 				}
 			}
 		}

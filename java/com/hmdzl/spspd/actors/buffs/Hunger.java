@@ -20,11 +20,10 @@ package com.hmdzl.spspd.actors.buffs;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -213,7 +212,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 		Badges.validateDeathFromHunger();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.HUNGER));
+		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n(TXT_DEATH);
 	}
 }

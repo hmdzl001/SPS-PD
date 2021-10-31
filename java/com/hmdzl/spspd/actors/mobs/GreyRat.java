@@ -106,35 +106,20 @@ public class GreyRat extends Mob {
      
      }
 	
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(ToxicGas.class);
+		//resistances.add(EnchantmentDark.class);
 
+		immunities.add(Amok.class);
+		immunities.add(Sleep.class);
+		immunities.add(Terror.class);
+		immunities.add(Burning.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Poison.class);
+		immunities.add(StenchGas.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Poison.class);
-		IMMUNITIES.add(StenchGas.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-	
 
 	
 }

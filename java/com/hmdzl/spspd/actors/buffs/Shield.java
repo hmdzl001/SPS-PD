@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class Shield extends Buff {
@@ -30,7 +30,7 @@ public class Shield extends Buff {
 	//private int hits = Math.max(2, Math.round(Statistics.deepestFloor/5)+3);
 	
 	{
-		type = buffType.POSITIVE;
+		type = buffType.NEUTRAL;
 	}		
 	
 	@Override

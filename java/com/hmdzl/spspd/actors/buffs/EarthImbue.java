@@ -1,3 +1,4 @@
+
 /*
  * Pixel Dungeon
  * Copyright (C) 2012-2014  Oleg Dolya
@@ -21,8 +22,9 @@ package com.hmdzl.spspd.actors.buffs;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
+
 
 /**
  * Created by debenhame on 19/11/2014.
@@ -31,6 +33,10 @@ public class EarthImbue extends FlavourBuff {
 
 	public static final float DURATION = 30f;
 
+    {
+		type = buffType.POSITIVE;
+	}		
+	
 	public void proc(Char enemy) {
 		Buff.affect(enemy, Roots.class, 2);
 		CellEmitter.bottom(enemy.pos).start(EarthParticle.FACTORY, 0.05f, 8);
@@ -55,5 +61,6 @@ public class EarthImbue extends FlavourBuff {
 		immunities.add(Paralysis.class);
 		immunities.add(Roots.class);
 		immunities.add(Slow.class);
-	}
+	}	
+
 }

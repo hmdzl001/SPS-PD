@@ -40,15 +40,11 @@ public class HeartOfScarecrow extends Bag {
 	
 	@Override
 	public boolean grab(Item item) {
-		if (item instanceof MeleeWeapon
-			||item instanceof MissileWeapon
-			||item instanceof RelicMeleeWeapon
-			|| item instanceof Armor
-			||item instanceof ShadowEaterKey){
-		return true;
-		} else {
-		return false;
-		}
+        return item instanceof MeleeWeapon
+                || item instanceof MissileWeapon
+                || item instanceof RelicMeleeWeapon
+                || item instanceof Armor
+                || item instanceof ShadowEaterKey;
 	}
 
 	@Override

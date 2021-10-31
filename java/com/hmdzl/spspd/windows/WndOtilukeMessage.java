@@ -20,7 +20,7 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.items.Palantir;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
@@ -50,12 +50,12 @@ public class WndOtilukeMessage extends Window {
 		add(titlebar);
 
 		RenderedTextMultiline message = PixelScene
-				.renderMultiline(TXT_MESSAGE, 6);
+				.renderMultiline(Messages.get(this, "message"), 6);
 		message.maxWidth(WIDTH);
 		message.setPos(0,titlebar.bottom() + GAP);
 		add(message);
 
-		RedButton btnReward = new RedButton(TXT_REWARD) {
+		RedButton btnReward = new RedButton(Messages.get(this, "ok")) {
 			@Override
 			protected void onClick() {				
 				hide();

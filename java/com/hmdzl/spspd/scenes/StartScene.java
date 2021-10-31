@@ -32,7 +32,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.ExitButton;
 import com.hmdzl.spspd.ui.Icons;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.windows.WndChallenges;
 import com.hmdzl.spspd.windows.WndClass;
@@ -497,7 +497,8 @@ public class StartScene extends PixelScene {
 
         public WndSkin() {
             super(Messages.get(Skins.class, "title"), Messages.get(Skins.class, "info"),Messages.get(Skins.class, "normal"),
-                    Messages.get(Skins.class, "first"),Messages.get(Skins.class, "second"),Messages.get(Skins.class, "third"),Messages.get(Skins.class, "fourth"),Messages.get(Skins.class, "fifth"));
+                    Messages.get(Skins.class, "first"),Messages.get(Skins.class, "second"),Messages.get(Skins.class, "third"),
+					Messages.get(Skins.class, "fourth"),Messages.get(Skins.class, "fifth"),Messages.get(Skins.class, "sixth"));
         }
 
      @Override

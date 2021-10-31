@@ -51,7 +51,7 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.RegularLevel;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.traps.Trap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.DiscardedItemSprite;
@@ -293,6 +293,9 @@ public class GameScene extends PixelScene {
 			break;
 		case DARK:
 			GLog.w(Messages.get(this, "dark"));
+			break;
+		case SPECIAL_FLOOR:
+			GLog.w(Messages.get(this, "spfloor"));
 			break;
 		default:
 		}

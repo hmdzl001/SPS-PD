@@ -47,7 +47,7 @@ import com.watabou.utils.Random;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class LinkSword extends MeleeWeapon {
 	public Buff passiveBuff;
@@ -229,7 +229,7 @@ public class LinkSword extends MeleeWeapon {
 					break;
 				case 5:
 					if (attacker.buff(ShieldArmor.class) == null){
-					    Buff.affect(attacker, ShieldArmor.class).level((int)(attacker.HT/10));
+					    Buff.affect(attacker, ShieldArmor.class).level(attacker.HT/10);
 					}
 					break;
 				case 6:
@@ -295,7 +295,7 @@ public class LinkSword extends MeleeWeapon {
 								if (ch.isAlive() && Random.Int(2) == 0) {
 									Buff.affect(ch, Vertigo.class, 5f);
 								}
-								ch.damage((int) (ch.HT / 20), this);
+								ch.damage(ch.HT / 20, this);
 							}
 						}
 					};

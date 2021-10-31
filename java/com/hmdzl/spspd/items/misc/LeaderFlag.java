@@ -22,13 +22,8 @@ package com.hmdzl.spspd.items.misc;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Awareness;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.HasteBuff;
-import com.hmdzl.spspd.actors.buffs.Hunger;
-import com.hmdzl.spspd.actors.buffs.MechArmor;
-import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.BookBlock;
@@ -39,14 +34,12 @@ import com.hmdzl.spspd.items.weapon.missiles.buildblock.WaterBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WoodenBlock;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -57,7 +50,7 @@ public class LeaderFlag extends Item {
 	public static final String AC_EXILE = "EXILE";
 	public static final String AC_LEVY = "LEVY";
 
-	private static final float TIME_TO_DIG = 1f;
+	private static final float TIME_TO_USE = 1f;
 
 	{
 		//name = "LeaderFlag";
@@ -91,8 +84,12 @@ public class LeaderFlag extends Item {
 		
         if (charge >= 600){	
 		actions.add(AC_RECRUIT);
-		actions.add(AC_EXILE);
 		}
+
+		if (hero.spp > hero.lvl && charge >= 600){
+			actions.add(AC_EXILE);
+		}
+
 		if (charge >= 100){
 		actions.add(AC_REMOVE);
 		}
@@ -164,6 +161,12 @@ public class LeaderFlag extends Item {
 						Dungeon.observe();
 					}
 
+					if (Dungeon.level.map[c] == Terrain.GLASS_WALL && Level.insideMap(c)) {
+						Level.set(c, Terrain.EMPTY);
+						GameScene.updateMap(c);
+						Dungeon.observe();
+					}
+
 					Level.set(c, Terrain.EMPTY);
 					GameScene.updateMap(c);
 					Dungeon.observe();
@@ -171,8 +174,10 @@ public class LeaderFlag extends Item {
 
 
 				}
-				hero.spend(TIME_TO_DIG);
-				hero.busy();
+				curUser = hero;
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				curUser.spendAndNext(1f);
 			}
 			charge -= 100;
 			updateQuickslot();
@@ -182,26 +187,31 @@ public class LeaderFlag extends Item {
 
 		} else if( action.equals( AC_RECRUIT )){ 
 		    charge-=600;
-		    Dungeon.hero.spp += hero.lvl;	
-            hero.spend(TIME_TO_DIG);
-			hero.busy();		   
+		    Dungeon.hero.spp += hero.lvl;
+		  curUser = hero;
+		  Sample.INSTANCE.play(Assets.SND_BURNING);
+		  curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+		  curUser.spendAndNext(1f);
 		} else if( action.equals( AC_EXILE )){ 
 		    charge-=600;
 		    Dungeon.gold = Math.max(0, (hero.spp - hero.lvl)*10 );
 		    Dungeon.hero.spp += hero.lvl;
-		    hero.spend(TIME_TO_DIG);
-			hero.busy();
+		  curUser = hero;
+		  Sample.INSTANCE.play(Assets.SND_BURNING);
+		  curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+		  curUser.spendAndNext(1f);
 		} else if( action.equals( AC_LEVY )){ 
 		    charge-=1000;
 		    int c = Math.max((int)(hero.spp/50),1);
-			for (int i = 0; i < c ; i++ ){
-				Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
+		    if (c > 0) {
+				for (int i = 0; i < c; i++) {
+					Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
+				}
 			}
-		  hero.spend(TIME_TO_DIG);
-			  hero.busy();
-		  Sample.INSTANCE.play(Assets.SND_DRINK);
-
-		  hero.sprite.operate(hero.pos);
+		  curUser = hero;
+		  Sample.INSTANCE.play(Assets.SND_BURNING);
+		  curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+		  curUser.spendAndNext(1f);
 		   	
 		} else {
 			super.execute(hero, action);

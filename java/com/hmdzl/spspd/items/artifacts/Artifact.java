@@ -9,7 +9,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindofMisc;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
  
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -230,9 +230,9 @@ public class Artifact extends KindofMisc {
 		className = className.replaceAll("(\\p{Ll})(\\p{Lu})", "$1 $2");
 
 		return className;
-	};
+	}
 
-	@Override
+    @Override
 	public Item random() {
 		if (Random.Float() < 0.3f) {
 			cursed = true;

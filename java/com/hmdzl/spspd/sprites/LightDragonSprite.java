@@ -23,32 +23,40 @@ import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.effects.Beam;
 import com.watabou.noosa.TextureFilm;
 
+import java.util.Calendar;
+
 public class LightDragonSprite extends MobSprite {
 	private int attackPos;
 	//Frames 1-4 are idle, 5-8 are moving, 9-12 are attack and the last are for death RBVG
-	
+	public boolean festive;	
 	private int[] points = new int[2];
 
 	public LightDragonSprite() {
 		super();
-
-		texture(Assets.PETDRAGON);
+		final Calendar calendar = Calendar.getInstance();
+		festive = (calendar.get(Calendar.MONTH) == 10 && calendar
+				.get(Calendar.WEEK_OF_MONTH) > 2);		
+		
+		final int c = festive ? 0 : 16;
+		
+		texture(Assets.LIGHTDRAGON);
+		
 
 		TextureFilm frames = new TextureFilm(texture, 16, 16);
 
 		idle = new Animation(2, true);
-		idle.frames(frames, 96, 97, 98, 99);
+		idle.frames(frames, c + 0, c + 1, c + 2, c + 3);
 
 		run = new Animation(8, true);
-		run.frames(frames, 100, 101, 102, 103);
+		run.frames(frames, c + 4, c + 5, c + 6,c +  7);
 
 		attack = new Animation(8, false);
-		attack.frames(frames, 104, 105, 106, 107);
+		attack.frames(frames, c + 8, c + 9, c + 10, c + 11);
 
 		zap = attack.clone();
 		
 		die = new Animation(8, false);
-		die.frames(frames, 108, 109, 110, 111);
+		die.frames(frames, c + 12, c + 13, c + 14, c + 15);
 
 		play(idle);
 	}

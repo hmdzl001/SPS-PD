@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.mobs;
 import java.util.HashSet;
 
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
@@ -166,7 +166,7 @@ public class ShadowYog extends Mob  {
 	public void die(Object cause) {
 		super.die(cause);
 		
-		Statistics.shadowYogsKilled++;
+		//Statistics.shadowYogsKilled++;
 
       for (Mob mob : Dungeon.level.mobs) {
 			
@@ -197,24 +197,20 @@ public class ShadowYog extends Mob  {
 		yell(Messages.get(this,"illusion"));
 	}
 	
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
+	{
 
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Paralysis.class);
-		IMMUNITIES.add(Vertigo.class);
+		immunities.add(EnchantmentDark.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Burning.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Paralysis.class);
+		immunities.add(Vertigo.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
+
 
 	}

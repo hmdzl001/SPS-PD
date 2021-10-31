@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.items.rings;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class RingOfMagic extends Ring {
 

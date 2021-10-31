@@ -19,27 +19,25 @@ package com.hmdzl.spspd.items.armor.glyphs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Frost;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.particles.SnowParticle;
-import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.items.armor.Armor.Glyph;
-import com.hmdzl.spspd.items.misc.FourClover;
-import com.hmdzl.spspd.sprites.CharSprite;
-import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
-import com.hmdzl.spspd.ui.BuffIndicator;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
- 
+import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.particles.SnowParticle;
+import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.items.misc.FourClover;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.sprites.CharSprite;
+import com.hmdzl.spspd.sprites.ItemSprite;
+import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
+import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -151,9 +149,9 @@ public class Iceglyph extends Glyph {
 
 		public void prolong(int damage) {
 			this.damage += damage;
-		};
+		}
 
-		@Override
+        @Override
 		public int icon() {
 			return BuffIndicator.DEFERRED;
 		}
@@ -172,7 +170,7 @@ public class Iceglyph extends Glyph {
 				if (target == Dungeon.hero && !target.isAlive()) {
 
 					Glyph glyph = new Iceglyph();
-					Dungeon.fail(Messages.format(ResultDescriptions.GLYPH));
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n("%s killed you...", glyph.name());
 
 					Badges.validateDeathFromGlyph();

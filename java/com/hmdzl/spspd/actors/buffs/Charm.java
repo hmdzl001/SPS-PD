@@ -17,9 +17,7 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.rings.RingOfElements.Resistance;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -55,11 +53,6 @@ public class Charm extends FlavourBuff {
 		return Messages.get(this, "name");
 	}
 
-	public static float durationFactor(Char ch) {
-		Resistance r = ch.buff(Resistance.class);
-		return r != null ? r.durationFactor() : 1;
-	}
-	
 	@Override
 	public String heroMessage() {
 		return Messages.get(this, "heromsg");

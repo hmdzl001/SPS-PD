@@ -18,13 +18,15 @@
 package com.hmdzl.spspd.items.medicine;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.BeCorrupt;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
@@ -49,24 +51,14 @@ public class DeathCap extends Pill {
 		}
 		
 	   if (action.equals(AC_EAT)) {
-		   switch (Random.Int(10)) {
-			case 1:
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					mob.damage(Math.max(5,Math.round(mob.HP/2)), this);
-				}
-				hero.damage(Math.max(1,Math.round(hero.HP/4)), this);
-				Buff.prolong(hero, Blindness.class, Random.Int(5, 7));
-				break;
-			case 0: case 2: case 3: case 4: case 5: 
-			case 6: case 7: case 8: case 9: case 10:
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					mob.damage(Math.max(3,Math.round(mob.HP/2)), this);
-					mob.aggro(hero);
-				}
-				hero.damage(Math.max(1,Math.round(hero.HP/4)), this);
-				Buff.prolong(hero, Blindness.class, Random.Int(6, 9));
-				break;
-			}
+		   for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+			   Buff.affect(mob, BeOld.class).set(50);
+			   Buff.affect(mob, BeCorrupt.class).level(50);
+		   }
+		   int damage = Math.max(0,(Dungeon.depth) - Random.IntRange(0, hero.drRoll()));
+		   hero.damage(Math.max(1,Math.round(hero.HP/2)), this);
+		   Buff.prolong(hero, Cripple.class, Cripple.DURATION);
+
 		}
 	   
 	   super.execute(hero, action);

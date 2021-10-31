@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items.weapon.missiles;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -50,8 +50,8 @@ public class PoisonDart extends MissileWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		Buff.affect(defender, Poison.class).set(
-				Poison.durationFactor(defender) * (10));
+		Buff.affect(defender, Poison.class).set(10);
+		Buff.affect(defender, FrostIce.class).level(10);
 		super.proc(attacker, defender, damage);
 	}
 

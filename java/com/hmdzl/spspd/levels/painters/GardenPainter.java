@@ -70,7 +70,7 @@ public class GardenPainter extends Painter {
 			Dungeon.limitedDrops.shopcart.drop();
 		}
 				
-		if (Random.Int(100)==0 && (Dungeon.getMonth()==4 || Dungeon.getMonth()==5)){
+		if (Random.Int(50)==0 && (Dungeon.getMonth()==4 || Dungeon.getMonth()==5)){
 			int pos;
 			do {pos = room.random();}
 			while (level.heaps.get(pos) != null);

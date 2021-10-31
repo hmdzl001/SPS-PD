@@ -17,22 +17,8 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.items.DolyaSlate;
-import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.items.artifacts.GlassTotem;
-import com.hmdzl.spspd.items.bombs.DungeonBomb;
-import com.hmdzl.spspd.items.keys.SkeletonKey;
-import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -40,12 +26,22 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.DolyaSlate;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.artifacts.GlassTotem;
+import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban4;
+import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.CityBossLevel;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BatteryTombSprite;
 import com.hmdzl.spspd.sprites.LichDancerSprite;
@@ -54,6 +50,10 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 
 public class LichDancer extends Mob {
 
@@ -75,6 +75,7 @@ public class LichDancer extends Mob {
 		lootChanceOther= 1f;
 
 		properties.add(Property.UNDEAD);
+		properties.add(Property.MAGICER);
 		properties.add(Property.BOSS);
 
 	}
@@ -120,7 +121,7 @@ public class LichDancer extends Mob {
 
 			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 				int p = enemy.pos + PathFinder.NEIGHBOURS8[i];
-				if (Actor.findChar( p ) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
+				if (Actor.findChar( p ) == null && (Level.passable[p] || Level.avoid[p])) {
 					spawnPoints.add( p );
 				}
 			}
@@ -163,6 +164,10 @@ public class LichDancer extends Mob {
 		if (Random.Int(5) == 0) {
 			Buff.prolong(enemy, Vertigo.class,3f);
 		}
+		
+		enemy.damage(damage/2, ENERGY_DAMAGE);
+		damage = damage/2;
+
         return damage;
 	}
 
@@ -193,7 +198,7 @@ public class LichDancer extends Mob {
 			}
 		 
 		 GameScene.bossSlain();
-		((CityBossLevel) Dungeon.level).unseal();
+		Dungeon.level.unseal();
 	
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();
@@ -220,11 +225,7 @@ public class LichDancer extends Mob {
                 }
             }
         }
-        if (batteryAlive > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return batteryAlive > 0;
     }	
 	
 	@Override
@@ -242,29 +243,16 @@ public class LichDancer extends Mob {
 		yell(Messages.get(this,"notice"));
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(EnchantmentDark.class);
 		
-		RESISTANCES.add(WandOfDisintegration.class);
+		resistances.add(WandOfDisintegration.class);
+
+		immunities.add(Paralysis.class);
+		immunities.add(Vertigo.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Paralysis.class);
-		IMMUNITIES.add(Vertigo.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 	
     public static class BatteryTomb extends Mob  {
 
@@ -283,7 +271,7 @@ public class LichDancer extends Mob {
 		lootChance = 0.05f;
 
 		properties.add(Property.MECH);
-		properties.add(Property.BOSS);
+		properties.add(Property.MINIBOSS);
 	}
 	
 	@Override

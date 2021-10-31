@@ -31,7 +31,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -96,7 +96,7 @@ public class Shovel extends Item {
 				if(charge < 40){
 					GLog.i(Messages.get(Shovel.class, "break"));
 					return;
-				} else if (Dungeon.level.map[pos] == Terrain.WALL && Level.insideMap(pos)) {
+				} else if ((Dungeon.level.map[pos] == Terrain.WALL || Dungeon.level.map[pos] == Terrain.GLASS_WALL)&& Level.insideMap(pos)) {
 					hero.spend(TIME_TO_DIG);
 					hero.busy();
 					hero.sprite.attack(pos, new Callback() {
@@ -155,7 +155,7 @@ public class Shovel extends Item {
 
 	@Override
 	public String status() {
-		return Messages.format("%d", (int)charge/40);
+		return Messages.format("%d", charge /40);
 	}
 	
 	@Override

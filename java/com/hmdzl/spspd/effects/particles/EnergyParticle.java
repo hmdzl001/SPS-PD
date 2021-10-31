@@ -35,8 +35,8 @@ public class EnergyParticle extends PixelParticle {
 		@Override
 		public boolean lightMode() {
 			return true;
-		};
-	};
+		}
+    };
 
 	public EnergyParticle() {
 		super();

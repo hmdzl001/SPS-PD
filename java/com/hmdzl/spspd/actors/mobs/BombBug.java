@@ -17,34 +17,26 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.actors.buffs.StoneIce;
-import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.StoneIce;
+import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.SkeletonSprite;
-
-import com.hmdzl.spspd.sprites.SpiderJumpSprite;
+import com.hmdzl.spspd.sprites.BombBugSprite;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class BombBug extends Mob {
+import java.util.HashSet;
+
+public class BombBug extends IceBug {
 
 	{
-		spriteClass = SpiderJumpSprite.class;
+		spriteClass = BombBugSprite.class;
 
 		HP = HT = 80+(adj(0)*Random.NormalIntRange(2, 5));
 		evadeSkill = 15+adj(0);
@@ -61,7 +53,7 @@ public class BombBug extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(15, 20+adj(0));
+		return Random.NormalIntRange(10, 15+adj(0));
 	}
 
 		
@@ -96,16 +88,6 @@ public class BombBug extends Mob {
 	    return Random.NormalIntRange(2, 5);
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(EnchantmentDark.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-	
 	public static void spawnAround(int pos) {
 		for (int n : Level.NEIGHBOURS4) {
 			int cell = pos + n;

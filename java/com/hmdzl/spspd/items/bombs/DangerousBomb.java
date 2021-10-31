@@ -29,7 +29,6 @@ import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-
 import com.watabou.utils.Random;
 
 public class DangerousBomb extends Bomb {
@@ -56,7 +55,7 @@ public class DangerousBomb extends Bomb {
 					terrainAffected = true;
 				}
 
-				if (Dungeon.level.map[c] == Terrain.WALL  && Level.insideMap(c)){
+				if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL ) && Level.insideMap(c)){
 					Level.set(c, Terrain.EMPTY);
 					GameScene.updateMap(c);
 					terrainAffected = true;
@@ -84,7 +83,7 @@ public class DangerousBomb extends Bomb {
 						if (ch == Dungeon.hero && !ch.isAlive())
 							// constant is used here in the rare instance a player
 							// is killed by a double bomb.
-							Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+							Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					}
 				}
 			}

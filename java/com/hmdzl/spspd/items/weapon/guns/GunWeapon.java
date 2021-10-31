@@ -19,7 +19,7 @@ import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -93,7 +93,7 @@ public class GunWeapon extends Weapon {
 	}
 
 	private int max() {
-		return (int) (tier * tier - tier + 8);
+		return tier * tier - tier + 8;
 	}
 
 	public int typicalSTR() {
@@ -102,7 +102,7 @@ public class GunWeapon extends Weapon {
 
 	public Item upgrade() {
 		MIN += 2;
-		MAX += 2 + tier/2;
+		MAX += 3 + tier/2;
 		maxammo += 10;
 
 		return super.upgrade();
@@ -315,6 +315,10 @@ public class GunWeapon extends Weapon {
 			image = ItemSpriteSheet.AMMO;
 			STR = Math.max(typicalSTR(),Dungeon.hero.STR);
 			ACU = 1.3f;
+
+			DLY = (Dungeon.hero.subClass == HeroSubClass.AGENT && Dungeon.hero.justMoved) ?
+					0.1f : 1f;
+
 		}
 
 		public int damageRoll(Hero owner) {

@@ -40,7 +40,7 @@ import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DemonGooSprite;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -186,28 +186,13 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
        	//yell(Messages.get(this, "die"));
 	}
 	
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(EnchantmentDark.class);
-		
+	{
+		resistances.add(ToxicGas.class);
+
+		immunities.add(Roots.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-	
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
 
-	static {
-		IMMUNITIES.add(Roots.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 		
 	
 }

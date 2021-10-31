@@ -52,7 +52,7 @@ import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.items.bags.Bag;
@@ -89,7 +89,7 @@ import static com.hmdzl.spspd.Dungeon.hero;
 
 public class WndBag extends WndTabbed {
 
-	public static enum Mode {
+	public enum Mode {
 		ALL, 
 		UNIDENTIFED, 
 		UPGRADEABLE, 
@@ -117,8 +117,8 @@ public class WndBag extends WndTabbed {
 		STONE,
 		TRANMSUTABLE,
 		AMMO,
-		EATABLE;
-	}
+		EATABLE
+    }
 
 	protected static final int COLS_P = 5;
 	protected static final int COLS_L = 6;
@@ -523,14 +523,14 @@ public class WndBag extends WndTabbed {
 		protected void onTouchDown() {
 			bg.brightness(1.5f);
 			Sample.INSTANCE.play(Assets.SND_CLICK, 0.7f, 0.7f, 1.2f);
-		};
+		}
 
-		@Override
+        @Override
 		protected void onTouchUp() {
 			bg.brightness(1.0f);
-		};
+		}
 
-		@Override
+        @Override
 		protected void onClick() {
 			if (listener != null) {
 

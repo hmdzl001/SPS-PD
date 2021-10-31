@@ -19,11 +19,9 @@ package com.hmdzl.spspd.items.food.vegetable;
 
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackDown;
-import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -43,10 +41,10 @@ public class DreamLeaf extends Vegetable {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			Buff.detach(hero, Poison.class);
+			//Buff.detach(hero, Poison.class);
 			Buff.detach(hero, Cripple.class);
-			Buff.detach(hero, Weakness.class);
-			Buff.detach(hero, Bleeding.class);
+			Buff.detach(hero, STRdown.class);
+			//Buff.detach(hero, Bleeding.class);
 			Buff.detach(hero, AttackDown.class);
 			Buff.detach(hero, ArmorBreak.class);
 		}

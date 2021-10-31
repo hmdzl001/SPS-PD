@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import com.hmdzl.spspd.levels.traps.*;
-import com.watabou.utils.SparseArray;
-
 public class Terrain {
 
 	public static final int CHASM = 0;
@@ -52,7 +49,7 @@ public class Terrain {
 	public static final int SIGN = 29;
 	
 	public static final int TRAP_AIR = 30;
-	public static final int EMPTY_AIR = 31;
+	public static final int GLASS_WALL = 31;
 	
 	public static final int WELL = 34;
 	public static final int STATUE = 35;
@@ -109,6 +106,7 @@ public class Terrain {
 	public static final int AVOID = 0x20;
 	public static final int LIQUID = 0x40;
 	public static final int PIT = 0x80;
+	//public static final int CRASHABLE = 0x03;
 	//public static final int SHOCKABLE = 0x200;
 
 	public static final int UNSTITCHABLE = 0x100;
@@ -122,6 +120,7 @@ public class Terrain {
 		flags[WATER] = PASSABLE | LIQUID | UNSTITCHABLE  /*SHOCKABLE*/;
 		flags[WALL] = LOS_BLOCKING | SOLID | UNSTITCHABLE;
 		flags[UNBREAK_WALL] = flags[WALL];
+		flags[GLASS_WALL] = flags[STATUE] ;
 		flags[DOOR] = PASSABLE | LOS_BLOCKING | FLAMABLE | SOLID | UNSTITCHABLE;
 		flags[OPEN_DOOR] = PASSABLE | FLAMABLE | UNSTITCHABLE;
 		flags[ENTRANCE] = PASSABLE/* | SOLID */;
@@ -154,9 +153,9 @@ public class Terrain {
 		flags[BOOKSHELF] = flags[BARRICADE] | UNSTITCHABLE;
 		flags[ALCHEMY] = PASSABLE;
 		//flags[ALCHEMY] = SOLID;
-		flags[SHRUB] =  FLAMABLE | SOLID | LOS_BLOCKING;;
+		flags[SHRUB] =  FLAMABLE | SOLID | LOS_BLOCKING;
 
-		flags[CHASM_WALL] = flags[CHASM];
+        flags[CHASM_WALL] = flags[CHASM];
 		flags[CHASM_FLOOR] = flags[CHASM];
 		flags[CHASM_FLOOR_SP] = flags[CHASM];
 		flags[CHASM_WATER] = flags[CHASM];
@@ -195,9 +194,9 @@ public class Terrain {
 		for (int i = WATER_TILES; i < WATER_TILES + 16; i++) {
 			flags[i] = flags[WATER];
 		}
-	};
+	}
 
-	public static int discover(int terr) {
+    public static int discover(int terr) {
 		switch (terr) {
 		case SECRET_DOOR:
 			return DOOR;

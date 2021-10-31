@@ -39,7 +39,7 @@ public class ScrollOfUpgrade extends InventoryScroll {
 	@Override
 	protected void onItemSelected(Item item) {
 
-		ScrollOfRemoveCurse.uncurse(Dungeon.hero, item);
+		//ScrollOfRemoveCurse.uncurse(Dungeon.hero, item);
 		item.upgrade();
 
 		upgrade(curUser);

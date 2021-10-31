@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.BrownBatSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;

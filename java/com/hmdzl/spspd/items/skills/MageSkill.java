@@ -23,11 +23,12 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.CountDown;
 import com.hmdzl.spspd.actors.buffs.Frost;
+import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.buffs.Ooze;
-import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.actors.mobs.FireElemental;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
@@ -49,7 +50,7 @@ public class MageSkill extends ClassSkill {
 	public void doSpecial() {
 
 		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 10)) {
+			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
 				Buff.affect(mob, Burning.class).reignite(mob);
 				Buff.affect(mob, Ooze.class);
 				Buff.affect(mob, Slow.class, 8);
@@ -71,7 +72,7 @@ public class MageSkill extends ClassSkill {
 	@Override
 	public void doSpecial2() {
 		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 10)) {
+			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
 				Buff.affect(mob, CountDown.class);
 				for (int n : Level.NEIGHBOURS4) {
 					int c = mob.pos + n;
@@ -104,9 +105,11 @@ public class MageSkill extends ClassSkill {
 	public void doSpecial3() {
 
 		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 10)) {
+
+			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
 				int dmg = (int) (Dungeon.hero.lvl * (1 + 0.1 * Dungeon.hero.magicSkill())) ;
                 mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), this );
+                if (!(mob instanceof FireElemental))
 				Buff.prolong(mob, Frost.class, 8);
 			}
 		}
@@ -125,7 +128,7 @@ public class MageSkill extends ClassSkill {
 	@Override
 	public void doSpecial4() {
 		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 4)) {
+			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 4)) {
 				Buff.prolong(mob, Shocked.class, 8);
 			}
 		}

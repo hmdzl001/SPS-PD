@@ -43,6 +43,8 @@ public class ResultDescriptions {
 	public static final String FALL = "FALL";
 	public static final String COUNTDOWN = "COUNTDOWN";
 	public static final String CHEAT = "CHEAT";
+	
+	public static final String LOSE = "LOSE";
 
 	public static final String WIN = "WIN";
 	public static final String WIN2 = "WIN2";

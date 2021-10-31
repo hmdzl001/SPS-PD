@@ -19,13 +19,12 @@ package com.hmdzl.spspd.actors.blobs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class ToxicGas extends Blob implements Hero.Doom {
@@ -45,7 +44,10 @@ public class ToxicGas extends Blob implements Hero.Doom {
 					damage++;
 				}
 
-				ch.damage(damage, this);
+					if (!ch.isImmune(this.getClass())) {
+
+						ch.damage(damage, this);
+					}
 			}
 		}
 	}
@@ -67,7 +69,7 @@ public class ToxicGas extends Blob implements Hero.Doom {
 
 		Badges.validateDeathFromGas();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.GAS));
+		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n("You died from a toxic gas..");
 	}
 }

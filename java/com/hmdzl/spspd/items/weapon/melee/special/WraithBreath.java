@@ -39,8 +39,8 @@ public class WraithBreath extends MeleeWeapon {
 
 	@Override
 	public Item upgrade(boolean enchant) {
-		MAX+= 2;
-		MIN+= 2;
+		MAX+= 1;
+		MIN+= 1;
 		return super.upgrade(enchant);
 	}
 
@@ -48,7 +48,7 @@ public class WraithBreath extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		if (Random.Int(100) < 50) {
-			Buff.affect(defender, Vertigo.class, Vertigo.duration(defender));
+			Buff.affect(defender, Vertigo.class, 10f);
 			Buff.affect(defender, Terror.class, Terror.DURATION).object = attacker.id();
 		}
 

@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.Amulet;
 import com.hmdzl.spspd.items.PotKey;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.HoneyPooootSprite;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndDream;
 import com.watabou.utils.Random;
 

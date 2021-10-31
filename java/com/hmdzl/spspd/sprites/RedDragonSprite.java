@@ -24,30 +24,40 @@ import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 
+import java.util.Calendar;
+
 public class RedDragonSprite extends MobSprite {
 	
 	//Frames 1-4 are idle, 5-8 are moving, 9-12 are attack and the last are for death 
+	public boolean festive;
 
 	public RedDragonSprite() {
 		super();
 
-		texture(Assets.PETDRAGON);
+		final Calendar calendar = Calendar.getInstance();
+		festive = (calendar.get(Calendar.MONTH) == 10 && calendar
+				.get(Calendar.WEEK_OF_MONTH) > 2);		
+		
+		final int c = festive ? 0 : 16;
+		
+		texture(Assets.REDDRAGON);
+		
 
 		TextureFilm frames = new TextureFilm(texture, 16, 16);
 
 		idle = new Animation(2, true);
-		idle.frames(frames, 0, 1, 2, 3);
+		idle.frames(frames, c + 0, c + 1, c + 2, c + 3);
 
 		run = new Animation(8, true);
-		run.frames(frames, 4, 5, 6, 7);
+		run.frames(frames, c + 4, c + 5, c + 6,c +  7);
 
 		attack = new Animation(8, false);
-		attack.frames(frames, 8, 9, 10, 11);
+		attack.frames(frames, c + 8, c + 9, c + 10, c + 11);
 
 		zap = attack.clone();
 		
 		die = new Animation(8, false);
-		die.frames(frames, 12, 13, 14, 15);
+		die.frames(frames, c + 12, c + 13, c + 14, c + 15);
 
 		play(idle);
 	}

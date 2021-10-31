@@ -34,7 +34,7 @@ import com.hmdzl.spspd.items.ItemStatusHandler;
 import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
 import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -101,9 +101,9 @@ public abstract class Scroll extends Item {
 		super.sync();
 		image = handler.image(this);
 		rune = handler.label(this);
-	};
+	}
 
-	@Override
+    @Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		actions.add(AC_READ);
@@ -147,7 +147,7 @@ public abstract class Scroll extends Item {
 	public abstract void empoweredRead();
 	
 	protected void readAnimation() {
-		curUser.spend( TIME_TO_READ );
+		//curUser.spend( TIME_TO_READ );
 		curUser.busy();
 		((HeroSprite)curUser.sprite).read();
 		if (Dungeon.isChallenged(Challenges.ITEM_PHOBIA)){

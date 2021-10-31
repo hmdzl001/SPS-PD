@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.wands;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
@@ -31,10 +29,11 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class WandOfLightning extends DamageWand {
 
@@ -74,7 +73,7 @@ public class WandOfLightning extends DamageWand {
 		}
 		// Everything is processed in fx() method
 		if (!curUser.isAlive()) {
-			Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 			//GLog.n("You killed yourself with your own Wand of Lightning...");
 		}
 
@@ -87,7 +86,7 @@ public class WandOfLightning extends DamageWand {
 		
 		affected.add( ch );
 
-		for (int i : Level.NEIGHBOURS8) {
+		for (int i : Level.NEIGHBOURS4) {
 			int cell = ch.pos + i;
 
 			Char n = Actor.findChar( cell );

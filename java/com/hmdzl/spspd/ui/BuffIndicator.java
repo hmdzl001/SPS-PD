@@ -124,7 +124,18 @@ public class BuffIndicator extends Component {
 	
 	public static final int STONE_ICE = 84;
 	public static final int MAGICWEAK = 85;
-	public static final int MIND_BUFF = 86;
+	public static final int ICE_BITE = 86;
+	public static final int ZERO_DEW = 87;
+
+	public static final int FROST_BITE = 88;
+	public static final int INF_JUMP = 89;
+	public static final int LIGHT_ATK = 90;
+	public static final int BE_CORRUPT = 91;
+	public static final int BE_OLD = 92;
+	public static final int CRAZY_MIND = 93;
+	//public static final int ZERO_DEW = 94;
+
+
 
 	public static final int SIZE = 7;
 
@@ -261,8 +272,8 @@ public class BuffIndicator extends Component {
 					protected void updateValues( float progress ) {
 						super.updateValues( progress );
 						image.scale.set( 1 + 5 * progress );
-					};
-				} );
+					}
+                } );
 			}
 		}
 		

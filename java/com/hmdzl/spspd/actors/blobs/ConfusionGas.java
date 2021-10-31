@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class ConfusionGas extends Blob {
 
@@ -35,7 +35,7 @@ public class ConfusionGas extends Blob {
 		Char ch;
 		for (int i = 0; i < LENGTH; i++) {
 			if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
-				if (!ch.immunities().contains(this.getClass()))
+				if (!ch.isImmune(this.getClass()))
 					Buff.prolong(ch, Vertigo.class, 2);
 				    Buff.prolong(ch, Locked.class,2f);
 			}

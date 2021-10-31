@@ -20,8 +20,6 @@ package com.hmdzl.spspd.items.food.completefood;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class Chocolate extends CompleteFood {
@@ -29,7 +27,7 @@ public class Chocolate extends CompleteFood {
 	{
 		//name = "Chocolate";
 		image = ItemSpriteSheet.CHOCOLATE;
-		energy = 600;
+		energy = 300;
 		hornValue = 5;
 		 
 	}

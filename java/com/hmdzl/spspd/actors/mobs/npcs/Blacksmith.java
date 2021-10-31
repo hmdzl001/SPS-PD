@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs.npcs;
 
-import java.util.Collection;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
@@ -37,19 +35,20 @@ import com.hmdzl.spspd.items.TriforceOfWisdom;
 import com.hmdzl.spspd.items.quest.DarkGold;
 import com.hmdzl.spspd.items.quest.Pickaxe;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.items.weapon.melee.special.ShadowEater;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Room.Type;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BlacksmithSprite;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBlacksmith;
 import com.hmdzl.spspd.windows.WndQuest;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Collection;
 
 public class Blacksmith extends NPC {
 
@@ -105,8 +104,7 @@ public class Blacksmith extends NPC {
 
 		if (!Quest.given) {
 
-			GameScene.show(new WndQuest(this, 
-			Quest.alternative ? Messages.get(this, "blood_1") : Messages.get(this, "gold_1")) {
+			GameScene.show(new WndQuest(this,  Messages.get(this, "gold_1")) {
 
 				@Override
 				public void onBackPressed() {
@@ -119,32 +117,12 @@ public class Blacksmith extends NPC {
 
 					Dungeon.level.drop(pick, Dungeon.hero.pos).sprite.drop();
 	
-				};
-			});
+				}
+            });
 
 			Journal.add(Journal.Feature.TROLL);
 
 		} else if (!Quest.completed) {
-			if (Quest.alternative) {
-
-				Pickaxe pick = Dungeon.hero.belongings.getItem(Pickaxe.class);
-				if (pick == null) {
-					tell(Messages.get(this, "lost_pick"));
-				} else if (!pick.bloodStained) {
-					tell(Messages.get(this, "blood_2"));
-				} else {
-					//if (pick.isEquipped(Dungeon.hero)) {
-					//	pick.doUnequip(Dungeon.hero, false);
-					//}
-					//pick.detach(Dungeon.hero.belongings.backpack);
-					yell( Messages.get(this, "keeppickaxe"));
-					tell(Messages.get(this, "completed"));
-
-					Quest.completed = true;
-					Quest.reforged = false;
-				}
-
-			} else {
 
 				Pickaxe pick = Dungeon.hero.belongings.getItem(Pickaxe.class);
 				DarkGold gold = Dungeon.hero.belongings.getItem(DarkGold.class);
@@ -164,7 +142,6 @@ public class Blacksmith extends NPC {
 					Quest.reforged = false;
 				}
 
-			}
 		} else if (!Quest.reforged) {
 
 			GameScene.show(new WndBlacksmith(this, Dungeon.hero));
@@ -316,7 +293,7 @@ public class Blacksmith extends NPC {
 
 		private static boolean spawned;
 
-		private static boolean alternative;
+		//private static boolean alternative;
 		private static boolean given;
 		private static boolean completed;
 		private static boolean reforged;
@@ -331,7 +308,7 @@ public class Blacksmith extends NPC {
 		private static final String NODE = "blacksmith";
 
 		private static final String SPAWNED = "spawned";
-		private static final String ALTERNATIVE = "alternative";
+		//private static final String ALTERNATIVE = "alternative";
 		private static final String GIVEN = "given";
 		private static final String COMPLETED = "completed";
 		private static final String REFORGED = "reforged";
@@ -343,7 +320,7 @@ public class Blacksmith extends NPC {
 			node.put(SPAWNED, spawned);
 
 			if (spawned) {
-				node.put(ALTERNATIVE, alternative);
+				//node.put(ALTERNATIVE, alternative);
 				node.put(GIVEN, given);
 				node.put(COMPLETED, completed);
 				node.put(REFORGED, reforged);
@@ -357,7 +334,7 @@ public class Blacksmith extends NPC {
 			Bundle node = bundle.getBundle(NODE);
 
 			if (!node.isNull() && (spawned = node.getBoolean(SPAWNED))) {
-				alternative = node.getBoolean(ALTERNATIVE);
+				//alternative = node.getBoolean(ALTERNATIVE);
 				given = node.getBoolean(GIVEN);
 				completed = node.getBoolean(COMPLETED);
 				reforged = node.getBoolean(REFORGED);
@@ -379,12 +356,8 @@ public class Blacksmith extends NPC {
 
 						spawned = true;
 						
-						Handcannon saw = Dungeon.hero.belongings.getItem(Handcannon.class);
-						if (saw==null){
-						   alternative = Random.Int(2) == 0;
-						} else {
-							alternative = false;
-						}
+						//alternative = Random.Int(2) == 0;
+	
 						given = false;
 
 						break;

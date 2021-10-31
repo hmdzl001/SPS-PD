@@ -174,7 +174,7 @@ public class CallCoconut extends Item {
 		@Override
 		protected boolean canAttack(Char enemy) {
 
-			return Dungeon.level.distance(pos, enemy.pos) <= 4;
+			return Level.distance(pos, enemy.pos) <= 4;
 
 		}
 
@@ -265,7 +265,7 @@ public class CallCoconut extends Item {
 		@Override
 		protected boolean canAttack(Char enemy) {
 
-			return Dungeon.level.distance(pos, enemy.pos) <= 4;
+			return Level.distance(pos, enemy.pos) <= 4;
 
 		}
 

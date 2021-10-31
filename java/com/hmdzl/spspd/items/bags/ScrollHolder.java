@@ -46,19 +46,14 @@ public class ScrollHolder extends Bag {
 
 	@Override
 	public boolean grab(Item item) {
-		if (item instanceof Scroll
-				||  item instanceof ActiveMrDestructo
-				||  item instanceof CallCoconut
-				||  item instanceof Mobile
-				||  item instanceof FairyCard
-				||  item instanceof OrbOfZot
-				||  item instanceof JournalPage
-				||  item instanceof ChallengeList
-				){
-			return true;
-			} else {
-			return false;
-			}
+        return item instanceof Scroll
+                || item instanceof ActiveMrDestructo
+                || item instanceof CallCoconut
+                || item instanceof Mobile
+                || item instanceof FairyCard
+                || item instanceof OrbOfZot
+                || item instanceof JournalPage
+                || item instanceof ChallengeList;
 	}
 
 	@Override

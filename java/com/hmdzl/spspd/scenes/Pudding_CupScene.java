@@ -19,7 +19,7 @@ package com.hmdzl.spspd.scenes;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.effects.Flare;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.watabou.noosa.Camera;

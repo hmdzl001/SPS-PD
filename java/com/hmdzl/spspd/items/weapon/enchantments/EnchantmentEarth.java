@@ -20,11 +20,8 @@ package com.hmdzl.spspd.items.weapon.enchantments;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
-import com.hmdzl.spspd.actors.buffs.Roots;
-import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
@@ -47,15 +44,14 @@ public class EnchantmentEarth extends Weapon.Enchantment {
 		// lvl 1 - 50%
 		// lvl 2 - 60%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int level = Math.max(0, weapon.level);
-
-		int dmg = damage;
-		defender.damage(Random.Int(dmg/6), this);
-				if(fcb != null && Random.Int(2) == 1){
-			defender.damage(Random.Int(dmg/6), this);
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
+		defender.damage((int)(Random.Int(level,maxdmg)*0.75), this);
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
 		}
 
-		if (Random.Int(level + 15) >= 30) {
+		if (Random.Int(10) == 1) {
 			Buff.affect(defender, GrowSeed.class).reignite(defender);
 			CellEmitter.bottom(defender.pos).start(EarthParticle.FACTORY, 0.05f, 8);
 			return true;

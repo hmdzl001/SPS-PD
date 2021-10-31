@@ -19,9 +19,9 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.sprites.ZombieSprite;
@@ -73,29 +73,16 @@ public class Zombie extends Mob {
 	
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (Random.Int(5) == 0) {
-			Buff.affect(enemy, Poison.class).set(
-					Random.Int(7, 9) * Poison.durationFactor(enemy));
+		if (Random.Int(3) == 0) {
+			Buff.affect(enemy, BeOld.class).set(20);
 		}
 
 		return damage;
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> WEAKNESS = new HashSet<Class<?>>();
-	static {
-		WEAKNESS.add(Burning.class);
-		WEAKNESS.add(WandOfFirebolt.class);
-		RESISTANCES.add(ToxicGas.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	@Override
-	public HashSet<Class<?>> weakness() {
-		return WEAKNESS;
+	{
+		weakness.add(Burning.class);
+		weakness.add(WandOfFirebolt.class);
+		resistances.add(ToxicGas.class);
 	}
 }

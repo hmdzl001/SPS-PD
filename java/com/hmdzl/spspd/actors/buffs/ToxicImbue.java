@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -51,9 +51,9 @@ public class ToxicImbue extends Buff {
 
 	public void set(float duration) {
 		this.left = duration;
-	};
+	}
 
-	@Override
+    @Override
 	public boolean act() {
 		GameScene.add(Blob.seed(target.pos, 50, ToxicGas.class));
 

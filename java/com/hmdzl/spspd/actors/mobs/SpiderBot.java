@@ -94,27 +94,12 @@ public class SpiderBot extends Mob {
 		super.move(step);
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
+	{
+		resistances.add(Bleeding.class);
 
-	static {
-		RESISTANCES.add(Bleeding.class);
+		immunities.add(Roots.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-	static {
-		IMMUNITIES.add(Roots.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 
 	private class Fleeing extends Mob.Fleeing {
 		@Override

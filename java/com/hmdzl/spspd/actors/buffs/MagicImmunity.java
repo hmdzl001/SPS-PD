@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.blobs.ConfusionGas;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.blobs.ParalyticGas;
@@ -29,8 +27,9 @@ import com.hmdzl.spspd.actors.mobs.Eye;
 import com.hmdzl.spspd.actors.mobs.Warlock;
 import com.hmdzl.spspd.actors.mobs.Yog;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
+
 
 public class MagicImmunity extends FlavourBuff {
 
@@ -69,6 +68,7 @@ public class MagicImmunity extends FlavourBuff {
 		immunities.add(Yog.BurningFist.class);
 		immunities.add(BrokenRobot.class);
 		immunities.add(CorruptGas.class);
-	}
+	}	
+
 }
 

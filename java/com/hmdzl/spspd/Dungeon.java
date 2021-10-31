@@ -17,27 +17,13 @@
  */
 package com.hmdzl.spspd;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.actbuff.NmImbue;
-import com.hmdzl.spspd.items.artifacts.DriedRose;
-import com.hmdzl.spspd.levels.ChaosLevel;
-import com.hmdzl.spspd.levels.PotLevel;
-import com.hmdzl.spspd.levels.ShadowEaterLevel;
-import com.hmdzl.spspd.levels.SokobanSPLevel;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Light;
+import com.hmdzl.spspd.actors.buffs.actbuff.NmImbue;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.mobs.npcs.Blacksmith;
@@ -47,53 +33,57 @@ import com.hmdzl.spspd.actors.mobs.npcs.Wandmaker;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.levels.BattleLevel;
+import com.hmdzl.spspd.levels.BossRushLevel;
 import com.hmdzl.spspd.levels.CatacombLevel;
 import com.hmdzl.spspd.levels.CavesBossLevel;
 import com.hmdzl.spspd.levels.CavesLevel;
+import com.hmdzl.spspd.levels.ChaosLevel;
 import com.hmdzl.spspd.levels.ChasmLevel;
 import com.hmdzl.spspd.levels.CityBossLevel;
 import com.hmdzl.spspd.levels.CityLevel;
 import com.hmdzl.spspd.levels.CrabBossLevel;
 import com.hmdzl.spspd.levels.DeadEndLevel;
-import com.hmdzl.spspd.levels.FieldLevel;
 import com.hmdzl.spspd.levels.FieldBossLevel;
+import com.hmdzl.spspd.levels.FieldLevel;
 import com.hmdzl.spspd.levels.FishingLevel;
 import com.hmdzl.spspd.levels.FortressLevel;
 import com.hmdzl.spspd.levels.HallsBossLevel;
 import com.hmdzl.spspd.levels.HallsLevel;
 import com.hmdzl.spspd.levels.InfestBossLevel;
 import com.hmdzl.spspd.levels.LastLevel;
-import com.hmdzl.spspd.levels.LastShopLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.MinesBossLevel;
+import com.hmdzl.spspd.levels.PotLevel;
 import com.hmdzl.spspd.levels.PrisonBossLevel;
 import com.hmdzl.spspd.levels.PrisonLevel;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.SafeLevel;
 import com.hmdzl.spspd.levels.SewerBossLevel;
 import com.hmdzl.spspd.levels.SewerLevel;
+import com.hmdzl.spspd.levels.ShadowEaterLevel;
 import com.hmdzl.spspd.levels.SkeletonBossLevel;
 import com.hmdzl.spspd.levels.SokobanCastle;
 import com.hmdzl.spspd.levels.SokobanIntroLevel;
 import com.hmdzl.spspd.levels.SokobanPuzzlesLevel;
+import com.hmdzl.spspd.levels.SokobanSPLevel;
 import com.hmdzl.spspd.levels.SokobanTeleportLevel;
 import com.hmdzl.spspd.levels.TenguDenLevel;
 import com.hmdzl.spspd.levels.ThiefBossLevel;
 import com.hmdzl.spspd.levels.ThiefCatchLevel;
-import com.hmdzl.spspd.levels.BossRushLevel;
 import com.hmdzl.spspd.levels.TownLevel;
 import com.hmdzl.spspd.levels.VaultLevel;
 import com.hmdzl.spspd.levels.ZotBossLevel;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.StartScene;
 import com.hmdzl.spspd.ui.QuickSlotButton;
 import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
-
 import com.hmdzl.spspd.windows.WndResurrect;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundlable;
@@ -102,12 +92,20 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 import com.watabou.utils.SparseArray;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashSet;
+
 public class Dungeon {
 
 	// enum of items which have limited spawns, records how many have spawned
 	// could all be their own separate numbers, but this allows iterating, much
 	// nicer for bundling/initializing.
-	public static enum limitedDrops {
+	public enum limitedDrops {
 		// limited world drops
 		strengthPotions,
 
@@ -700,7 +698,7 @@ public static Level newJournalLevel(int page, Boolean first){
 		level = Dungeon.newLevel();
 	}
 
-	level.first = first;
+	Level.first = first;
 	level.create();
 
 	Statistics.qualifiedForNoKilling = !bossLevel();
@@ -774,7 +772,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		level = Dungeon.newLevel();
 	}
 
-	level.first = first;
+	Level.first = first;
 	level.create();
 
 	Statistics.qualifiedForNoKilling = !bossLevel();
@@ -795,18 +793,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		if (depth > Statistics.deepestFloor && depth < 27) {
 			Statistics.deepestFloor = depth;
 
-			if (Statistics.qualifiedForNoKilling) {
-				Statistics.completedWithNoKilling = true;
-			} else {
-				Statistics.completedWithNoKilling = false;
-			}
-		}
-		
-		if (depth==6){
-			Statistics.sewerKills=Statistics.enemiesSlain;
-		}
-		if (depth==10){
-			Statistics.prisonKills=Statistics.enemiesSlain-Statistics.sewerKills;
+            Statistics.completedWithNoKilling = Statistics.qualifiedForNoKilling;
 		}
 
 		Arrays.fill(visible, false);
@@ -816,28 +803,28 @@ public static Level newChallengeLevel(int list, Boolean first){
 		case 1:
 			//level = new PrisonBossLevel();
 			//level = new SewerLevel();
-			//hero.HT=999;
-			//hero.HP=hero.HT;
+			//hero.TRUE_HT=999;
+			//hero.HP=hero.TRUE_HT;
 			//break;
 		case 2:
 			//level = new HallsLevel();
-			//hero.HT=999;
-			//hero.HP=hero.HT;
+			//hero.TRUE_HT=999;
+			//hero.HP=hero.TRUE_HT;
 			//break;
 		case 3:
 		case 4:
 			//level = new CavesLevel();
 			level = new SewerLevel();
-			//hero.HT=999;
-			//hero.HP=hero.HT;
+			//hero.TRUE_HT=999;
+			//hero.HP=hero.TRUE_HT;
 			break;
 		case 5:
 			level = new SewerBossLevel();
 			break;
 		case 6:
 			//level = new HallsLevel();
-			//hero.HT=999;
-			//hero.HP=hero.HT;
+			//hero.TRUE_HT=999;
+			//hero.HP=hero.TRUE_HT;
 			//break;
 		case 7:
 		case 8:
@@ -898,16 +885,15 @@ public static Level newChallengeLevel(int list, Boolean first){
 		level.create();
 
 		Statistics.qualifiedForNoKilling = !bossLevel();
-		if (depth<26 && !Dungeon.bossLevel(depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
-			Buff.prolong(Dungeon.hero, Dewcharge.class, Dewcharge.DURATION+(Math.max(Statistics.prevfloormoves,1)));
+		if (depth<25 && !Dungeon.bossLevel(depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
+			Buff.affect(Dungeon.hero, Dewcharge.class).level( (int)(Dewcharge.DURATION+(Math.max(Statistics.prevfloormoves,1))) );
 		    //GLog.p("You feel the dungeon charge with dew!");
 		}
 		NmImbue nm = Dungeon.hero.buff(NmImbue.class);
-         if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.skins == 4 && nm == null ){
+        if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.skins == 4 && nm == null ){
 			
 			Buff.affect(Dungeon.hero,NmImbue.class);
-		}		
-		
+		}
 		/*if(Dungeon.hero.heroClass == HeroClass.PERFORMER){
 			//Buff.prolong(Dungeon.hero,Rhythm.class,50);
 			Buff.affect(Dungeon.hero,GlassShield.class).turns(3);
@@ -944,7 +930,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static boolean notClearableLevel(int depth) {
-		return depth == 1 || depth ==2 ||depth == 5 || depth == 10 || depth == 15 || depth == 20 
+		return depth == 1 ||depth == 5 || depth == 10 || depth == 15 || depth == 20
 				|| depth == 25 || depth>25;
 	}
 
@@ -963,7 +949,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	public static boolean sokobanLevel(int depth) {
 		return  depth == 51 || depth == 52 || depth == 53 || depth == 54;
 	}
-	
+
 	//public static boolean dropLevel(int depth) {
 		//return depth == 40;
 	//}
@@ -973,7 +959,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	public static void switchLevel(final Level level, int pos) {
 
 		Dungeon.level = level;
-		DriedRose.restoreGhostHero( level, pos );
+		//DriedRose.restoreGhostHero( level, pos );
 		Actor.init();
 
 		Actor respawner = level.respawner();
@@ -1157,7 +1143,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		}
 	}
 
-	public static void saveGame(String fileName) throws IOException {
+	public static void saveGame(String fileName) {
 		try {
 			Bundle bundle = new Bundle();
 
@@ -1280,16 +1266,15 @@ public static Level newChallengeLevel(int list, Boolean first){
 		}
 	}
 
-	public static void loadGame(HeroClass cl) throws IOException {
+	public static void loadGame(HeroClass cl) {
 		loadGame(gameFile(cl), true);
 	}
 
-	public static void loadGame(String fileName) throws IOException {
+	public static void loadGame(String fileName) {
 		loadGame(fileName, false);
 	}
 
-	public static void loadGame(String fileName, boolean fullLoad)
-			throws IOException {
+	public static void loadGame(String fileName, boolean fullLoad) {
         try{
 		Bundle bundle = gameBundle(fileName);
 
@@ -1462,7 +1447,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		Hero.preview(info, bundle.getBundle(HERO));
 	}
 
-	public static void fail( String desc ) {
+	public static void fail(String desc) {
 		resultDescription = desc;
 		if (hero.belongings.getItem(Ankh.class) == null) {
 			Rankings.INSTANCE.submit(false);

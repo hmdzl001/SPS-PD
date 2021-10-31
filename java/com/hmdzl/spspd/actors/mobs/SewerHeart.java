@@ -25,7 +25,6 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Badges.Badge;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -42,9 +41,8 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.SewerBossLevel;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Rotberry;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -54,8 +52,6 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 import static com.hmdzl.spspd.Dungeon.hero;
 
@@ -89,10 +85,10 @@ public class SewerHeart extends Mob {
 	public void notice() {
 		super.notice();
 		//yell("GLURP-GLURP!");
-		((SewerBossLevel) Dungeon.level).seal();
+		Dungeon.level.seal();
 		if (!spawnedLasher){
-			Buff.affect(hero, LasherSpawner.class);;
-			spawnedLasher = true;
+			Buff.affect(hero, LasherSpawner.class);
+            spawnedLasher = true;
 		}
 		state = PASSIVE;
 	}
@@ -221,7 +217,7 @@ public class SewerHeart extends Mob {
 
 		for (int pos : beam.subPath(1, beam.dist)) {
 
-			if (Dungeon.level.flamable[pos]) {
+			if (Level.flamable[pos]) {
 
 				Dungeon.level.destroy( pos );
 				GameScene.updateMap( pos );
@@ -243,7 +239,7 @@ public class SewerHeart extends Mob {
 				}
 
 				if (!ch.isAlive() && ch == Dungeon.hero) {
-					Dungeon.fail( Messages.format(ResultDescriptions.BURNING));
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				}
 			} else {
 				ch.sprite.showStatus( CharSprite.NEUTRAL,  ch.defenseVerb() );
@@ -261,7 +257,7 @@ public class SewerHeart extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		((SewerBossLevel) Dungeon.level).unseal();
+		Dungeon.level.unseal();
 
 		GameScene.bossSlain();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
@@ -341,16 +337,10 @@ public class SewerHeart extends Mob {
 		breaks = bundle.getInt( BREAKS );
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
-	static {
-		IMMUNITIES.add( ToxicGas.class );
+	{
+		immunities.add( ToxicGas.class );
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-	
 	public static class LasherSpawner extends Buff {
 
 		int spawnPower = 0;
@@ -372,7 +362,7 @@ public class SewerHeart extends Mob {
 				int pos = 0;
 				do{
 					pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-				} while (!Dungeon.level.passable[pos] || Actor.findChar( pos ) != null);
+				} while (!Level.passable[pos] || Actor.findChar( pos ) != null);
 				SewerLasher.spawnAt(pos);
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 			}
@@ -485,14 +475,8 @@ public class SewerHeart extends Mob {
 			return Random.NormalIntRange(2, 8);
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
-		static {
-			IMMUNITIES.add( ToxicGas.class );
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
+		{
+			immunities.add( ToxicGas.class );
 		}
 
 		public static void spawnAround(int pos) {

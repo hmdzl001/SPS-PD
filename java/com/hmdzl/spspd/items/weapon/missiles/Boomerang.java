@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.sprites.MissileSprite;
@@ -165,8 +165,8 @@ public class Boomerang extends MissileWeapon {
 		}
 
 		if(reinforced){
-			info += "\n\n" + Messages.get(Item.class, "reinforced");;
-		}		
+			info += "\n\n" + Messages.get(Item.class, "reinforced");
+        }
 		
 		return info;
 	}

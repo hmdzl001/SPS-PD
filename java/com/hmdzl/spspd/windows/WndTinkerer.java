@@ -24,11 +24,12 @@ import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer1;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.quest.Mushroom;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
@@ -138,15 +139,16 @@ public class WndTinkerer extends Window {
 		if (type==1){
 		    tinkerer.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
 			Statistics.prevfloormoves=500;
-			Buff.prolong(Dungeon.hero, Dewcharge.class, Dewcharge.DURATION+50);
+			Buff.affect(Dungeon.hero, Dewcharge.class).level(350);
 	        GLog.p(Messages.get(this,"dungeon"));
 		} else if (type==2){
 			tinkerer.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
 			Statistics.prevfloormoves=500;
-			Buff.prolong(Dungeon.hero, Dewcharge.class, Dewcharge.DURATION+50);
+			Buff.affect(Dungeon.hero, Dewcharge.class).level(350);
 	        GLog.p(Messages.get(this,"dungeon"));
 		}
-		
+		Dungeon.level.drop(new SkeletonKey(1), tinkerer.pos).sprite.drop();
+
 		tinkerer.destroy();
 
 		tinkerer.sprite.die();

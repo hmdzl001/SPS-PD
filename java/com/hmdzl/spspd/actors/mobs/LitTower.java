@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -34,11 +31,13 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.OtiluckStoneSprite;
-
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 
 public class LitTower extends Mob implements Callback {
 	
@@ -62,6 +61,7 @@ public class LitTower extends Mob implements Callback {
 
 		properties.add(Property.MECH);
 		properties.add(Property.BOSS);
+		properties.add(Property.MAGICER);
 	}
 	
 	@Override
@@ -146,18 +146,18 @@ public class LitTower extends Mob implements Callback {
 		
 		Char hero=Dungeon.hero;
 				
-	    int mobDmg=Random.Int(200, 300);
+	    int mobDmg=Random.Int(100, 200);
 		
 		
 		 boolean visible = Level.fieldOfView[pos] || Level.fieldOfView[loc];
 			
 			
 			  if (visible) {
-				((OtiluckStoneSprite) sprite).zap(loc);
+				sprite.zap(loc);
 			  }
 			
 			  
-			  hero.damage(mobDmg, this);
+			  hero.damage(mobDmg,ENERGY_DAMAGE);
 
 			  hero.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 			  hero.sprite.flash();
@@ -170,29 +170,14 @@ public class LitTower extends Mob implements Callback {
 	}
 	
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(EnchantmentDark.class);
 		
-		RESISTANCES.add(LightningTrap.Electricity.class);
+		resistances.add(LightningTrap.Electricity.class);
+
+		immunities.add(ToxicGas.class);
+		immunities.add(Terror.class);
+		immunities.add(ConfusionGas.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(ConfusionGas.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-
-	
 }

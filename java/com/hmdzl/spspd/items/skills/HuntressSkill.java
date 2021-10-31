@@ -38,7 +38,7 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -159,7 +159,7 @@ public class HuntressSkill extends ClassSkill {
 	public void doSpecial4() {
 
 		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 10)) {
+			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
 				Buff.prolong(mob, Roots.class, 8);
 				Buff.affect(mob, GrowSeed.class);
 			}

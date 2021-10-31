@@ -17,13 +17,10 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Water;
@@ -37,9 +34,9 @@ import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.buffs.Ooze;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
@@ -49,18 +46,19 @@ import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class DewVial extends Item {
 
@@ -185,7 +183,7 @@ public class DewVial extends Item {
 			 if (volume > 350 ){
 				 hero.damage(hero.HT,this);
 				 if (!hero.isAlive()) {
-					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+					 Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				 }
 			 }
 			if (volume > 0) {
@@ -227,10 +225,10 @@ public class DewVial extends Item {
 			 if (volume > 350 ){
 				 hero.damage(hero.HT,this);
 				 if (!hero.isAlive()) {
-					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+					 Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				 }
 			 }
-			Statistics.waters++;			
+			//Statistics.waters++;
 			int positive = 0;
 			int negative = 0;
 
@@ -284,7 +282,7 @@ public class DewVial extends Item {
          	if (volume > 350 ){
 			 hero.damage(hero.HT,this);
 			 if (!hero.isAlive()) {
-				 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+				 Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 			 }
 		 }
 			Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
@@ -302,7 +300,7 @@ public class DewVial extends Item {
 			 if (volume > 350 ){
 				 hero.damage(hero.HT,this);
 				 if (!hero.isAlive()) {
-					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+					 Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				 }
 			 }
 			boolean procced = uncurse(hero, hero.belongings.backpack.items.toArray(new Item[0]));
@@ -324,7 +322,7 @@ public class DewVial extends Item {
 			 if (volume > 350 ){
 				 hero.damage(hero.HT,this);
 				 if (!hero.isAlive()) {
-					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+					 Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				 }
 			 }
 			curUser = hero;
@@ -335,7 +333,7 @@ public class DewVial extends Item {
 			 if (volume > 350 ){
 				 hero.damage(hero.HT,this);
 				 if (!hero.isAlive()) {
-					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+					 Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				 }
 			 }
 			Buff.affect(hero, Light.class, 80f);
@@ -349,13 +347,13 @@ public class DewVial extends Item {
 			 if (volume > 350 ){
 				 hero.damage(hero.HT,this);
 				 if (!hero.isAlive()) {
-					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+					 Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				 }
 			 }
              Buff.detach(hero, Burning.class);
              Buff.detach(hero, Ooze.class);
              Buff.detach(hero, Tar.class);
-             Buff.detach(hero, Weakness.class);
+             Buff.detach(hero, STRdown.class);
              Buff.detach(hero, Vertigo.class);
 
              if (Random.Int(8) == 0) {
@@ -375,7 +373,7 @@ public class DewVial extends Item {
          	if (volume > 350 ){
          		hero.damage(hero.HT,this);
 				if (!hero.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				}
 			}
 			Buff.affect(hero, MindVision.class, 2f);
@@ -389,7 +387,7 @@ public class DewVial extends Item {
 			 if (volume > 350 ){
 				 hero.damage(hero.HT,this);
 				 if (!hero.isAlive()) {
-					 Dungeon.fail(Messages.format(ResultDescriptions.CHEAT));
+					 Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				 }
 			 }
 			 volume = volume - 10 - rejection;
@@ -479,7 +477,7 @@ public class DewVial extends Item {
 	};
 	
 	private void upgrade(Item item) {
-        int n = Random.Int(Math.min(1,(int)(Statistics.deepestFloor/24)) , Math.max(2,(int)(Statistics.deepestFloor/6)));
+        int n = Random.Int(Math.min(1, Statistics.deepestFloor/24) , Math.max(2, Statistics.deepestFloor/6));
 
 		//GLog.w(Messages.get(this, "looks_better", item.name()));
 		for(int i=0; i<n; i++) {

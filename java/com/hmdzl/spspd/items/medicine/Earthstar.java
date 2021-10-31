@@ -19,13 +19,13 @@ package com.hmdzl.spspd.items.medicine;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
+import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
@@ -51,31 +51,13 @@ public class Earthstar extends Pill {
 		
 	   if (action.equals(AC_EAT)) {
 
-		   switch (Random.Int(10)) {
-			case 1:
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					int damage = Math.max(0,(Dungeon.depth + 3) - Random.IntRange(0, mob.drRoll() / 2));
-					Buff.affect(mob, Bleeding.class).set(damage);
-					Buff.prolong(mob, Cripple.class, Cripple.DURATION*2);
-				}
-				int damage = Math.max(0,(Dungeon.depth) - Random.IntRange(0, hero.drRoll()));
-				hero.damage(Math.max(1,Math.round(hero.HP/2)), this);
-				Buff.affect(hero, Bleeding.class).set(damage);
-				Buff.prolong(hero, Cripple.class, Cripple.DURATION);
-				break;
-			case 0: case 2: case 3: case 4: case 5: 
-			case 6: case 7: case 8: case 9: case 10:
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					int mobdamage = Math.max(0,(Dungeon.depth + 3) - Random.IntRange(0, mob.drRoll() / 2));
-					Buff.affect(mob, Bleeding.class).set(mobdamage);
-					Buff.prolong(mob, Cripple.class, Cripple.DURATION*2);
-						}
-				int herodamage = Math.max(0,(Dungeon.depth) - Random.IntRange(0, hero.drRoll()/2));
-				hero.damage(Math.max(1,Math.round(hero.HP/2)), this);
-				Buff.affect(hero, Bleeding.class).set(herodamage);
-				Buff.prolong(hero, Cripple.class,  Cripple.DURATION);
-				break;
-			}
+		   for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+			   mob.damage(Math.max(5,Math.round(mob.HP/2)), this);
+			   Buff.affect(mob, Bleeding.class).set(Random.Int(mob.HP/8,mob.HP/4));
+
+		   }
+		   hero.damage(Math.max(1,Math.round(hero.HP/4)), this);
+		   Buff.prolong(hero, Blindness.class, Random.Int(5, 7));
 		}
 	   
 	   super.execute(hero, action);

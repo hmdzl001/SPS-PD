@@ -17,32 +17,21 @@
  */
 package com.hmdzl.spspd.items.armor.glyphs;
 
-import android.icu.util.Calendar;
-
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Hunger;
-import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
-import com.hmdzl.spspd.actors.mobs.DwarfLich;
-import com.hmdzl.spspd.actors.mobs.Fiend;
-import com.hmdzl.spspd.actors.mobs.Warlock;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.Armor.Glyph;
 import com.hmdzl.spspd.items.misc.FourClover;
-import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
-import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class Darkglyph extends Glyph {
 
@@ -75,7 +64,7 @@ public class Darkglyph extends Glyph {
 			int healing = Random.Int(attacker.HP/10);
 
 			if (healing > 0) {
-			defender.HP += Random.Int(Math.min(healing, defender.HT - defender.HP)/2);
+			defender.HP += Random.Int(Math.min(healing, (defender.HT - defender.HP)/4)/2);
 			defender.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			//defender.sprite.showStatus(CharSprite.POSITIVE,Integer.toString(healing));
 			attacker.damage(healing, this);

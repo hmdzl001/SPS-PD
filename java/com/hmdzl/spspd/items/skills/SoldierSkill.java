@@ -34,7 +34,7 @@ import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Awareness;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
@@ -86,7 +86,7 @@ public class SoldierSkill extends ClassSkill {
 		SoldierSkill.charge += 12;
 	    Buff.detach(curUser, Poison.class);
 		Buff.detach(curUser, Cripple.class);
-		Buff.detach(curUser, Weakness.class);
+		Buff.detach(curUser, STRdown.class);
 		Buff.detach(curUser, Burning.class);
 		Buff.detach(curUser, Ooze.class);
 		Buff.detach(curUser, Chill.class);
@@ -235,16 +235,11 @@ public class SoldierSkill extends ClassSkill {
 			super.die(cause);
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(ToxicGas.class);
+        {
+			immunities.add(Terror.class);
+			immunities.add(ToxicGas.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 	public static class SeekingHugeBomb extends Mob {
 		{
@@ -307,16 +302,11 @@ public class SoldierSkill extends ClassSkill {
 			super.die(cause);
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(ToxicGas.class);
+	    {
+			immunities.add(Terror.class);
+			immunities.add(ToxicGas.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 }
 

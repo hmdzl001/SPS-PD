@@ -27,6 +27,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Wound;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -61,7 +62,7 @@ public class SpearTrap extends Trap {
 			damage -= Random.IntRange( 0, ch.drRoll());
 			ch.damage( Math.max(damage, 0) , this);
 			if (!ch.isAlive() && ch == Dungeon.hero){
-				Dungeon.fail(ResultDescriptions.TRAP);
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n( Messages.get(this, "ondeath") );
 			}
 		}

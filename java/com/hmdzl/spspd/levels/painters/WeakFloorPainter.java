@@ -24,7 +24,7 @@ import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.CustomTileVisual;
 
 public class WeakFloorPainter extends Painter {

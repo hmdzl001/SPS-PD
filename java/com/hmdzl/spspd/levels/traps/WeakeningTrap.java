@@ -24,7 +24,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Heap;
@@ -46,9 +46,9 @@ public class WeakeningTrap extends Trap{
 
 		//Char ch = Actor.findChar( pos );
 		if (ch == Dungeon.hero){
-			Buff.prolong( ch, Weakness.class, Weakness.duration(ch)*2f);
+			Buff.prolong( ch, STRdown.class, 10f);
 		} else if (ch != null) {
-			Buff.prolong( ch, Slow.class, Slow.duration(ch));
+			Buff.prolong( ch, Slow.class,10f);
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
 		if (heap != null) {heap.poison();}

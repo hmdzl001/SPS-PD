@@ -20,7 +20,7 @@
  */
 package com.hmdzl.spspd.actors.mobs.npcs;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.SheepSprite;
 import com.watabou.utils.Random;
 

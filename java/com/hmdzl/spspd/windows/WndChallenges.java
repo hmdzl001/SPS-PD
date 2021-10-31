@@ -26,7 +26,7 @@ import com.hmdzl.spspd.ui.CheckBox;
 import com.hmdzl.spspd.ui.IconButton;
 import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.Window;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.RenderedText;
 
 public class WndChallenges extends Window {

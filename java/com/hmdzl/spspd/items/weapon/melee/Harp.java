@@ -26,7 +26,7 @@ import com.watabou.utils.Random;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Harp extends MeleeWeapon {
 
@@ -42,7 +42,8 @@ public class Harp extends MeleeWeapon {
 
 	@Override
 	public Item upgrade(boolean enchant) {    
-		MIN+=4;
+		MIN+=3;
+		MAX+=1;
 		return super.upgrade(enchant);
     }
 	

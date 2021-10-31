@@ -17,13 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
@@ -41,11 +34,20 @@ import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.painters.ShopPainter;
-import com.hmdzl.spspd.levels.traps.*;
+import com.hmdzl.spspd.levels.traps.FireTrap;
+import com.hmdzl.spspd.levels.traps.Trap;
+import com.hmdzl.spspd.levels.traps.WornTrap;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Random;
 import com.watabou.utils.Rect;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class RegularLevel extends Level {
 
@@ -84,7 +86,7 @@ public abstract class RegularLevel extends Level {
 			Graph.buildDistanceMap(rooms, roomExit);
 			distance = roomEntrance.distance();
 
-			if (retry++ > 10) {
+			if (retry++ > 15) {
 				return false;
 			}
 
@@ -146,38 +148,39 @@ public abstract class RegularLevel extends Level {
 			} else {
 				shop.type = Room.Type.SHOP;
 			}
-		}
 
+		}		
+		
 		specials = new ArrayList<Room.Type>(Room.SPECIALS);
 		if (Dungeon.bossLevel(Dungeon.depth + 1)) {
 			specials.remove(Room.Type.WEAK_FLOOR);
 		}
 		if (Dungeon.skins == 5) {
 			// no sense in giving an armor reward room on a run with no armor.
-		    specials.remove(Room.Type.CRYPT);
+		    //specials.remove(Room.Type.CRYPT);
 		}
 		//if (Dungeon.isChallenged(Challenges.NO_HERBALISM)) {
 			// sorry warden, no lucky sungrass or blandfruit seeds for you!
 			//specials.remove(Room.Type.GARDEN);
 		//}
 		
-		if (Dungeon.depth > 21 && Dungeon.depth < 25) {
+		if ((Dungeon.depth > 21 && Dungeon.depth < 25) || Dungeon.depth == 1 ) {
 				specials.remove(Room.Type.WEAK_FLOOR);
 		}
 		
 		if (Dungeon.depth > 50 && Dungeon.depth < 100) {
 			specials.remove(Room.Type.WEAK_FLOOR);
-			specials.remove(Room.Type.ARMORY);
+			specials.remove(Room.Type.MATERIAL);
 			specials.remove(Room.Type.CRYPT);
 			specials.remove(Room.Type.GARDEN);
-			specials.remove(Room.Type.LABORATORY);
+			specials.remove(Room.Type.COOKING);
 			specials.remove(Room.Type.LIBRARY);
 			specials.remove(Room.Type.MAGIC_WELL);
 			specials.remove(Room.Type.POOL);
 			specials.remove(Room.Type.STATUE);
 			specials.remove(Room.Type.STORAGE);
 			specials.remove(Room.Type.TRAPS);
-			specials.remove(Room.Type.TREASURY);
+			specials.remove(Room.Type.JUNGLE);
 			specials.remove(Room.Type.VAULT);
 	}
 		
@@ -239,9 +242,9 @@ public abstract class RegularLevel extends Level {
 						pitRoomNeeded = false;
 
 						} else if (Dungeon.depth % 5 == 2
-							&& specials.contains(Type.LABORATORY)) {
+							&& specials.contains(Type.COOKING)) {
 
-						r.type = Type.LABORATORY;
+						r.type = Type.COOKING;
 
 					} else if (specials.contains(Type.MAGIC_WELL)) {
 
@@ -404,7 +407,7 @@ public abstract class RegularLevel extends Level {
 	}
 
 	protected int minRoomSize = 7;
-	protected int maxRoomSize = 9;
+	protected int maxRoomSize = 10;
 
 	protected void split(Rect rect) {
 

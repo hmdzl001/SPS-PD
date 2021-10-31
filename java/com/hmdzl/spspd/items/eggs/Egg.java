@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.eggs;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
@@ -35,7 +33,6 @@ import com.hmdzl.spspd.actors.mobs.pets.RedDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Scorpion;
 import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Spider;
-
 import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.effects.Pushing;
@@ -49,6 +46,8 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Egg extends Item {
 

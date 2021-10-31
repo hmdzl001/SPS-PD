@@ -367,11 +367,22 @@ public class Assets {
 
 	public static final String ATV9 = "atv9.png";
 
-	public static final String NEW_DARGON_01 = "newdargon01.png";
-	public static final String NEW_DARGON_02 = "newdargon02.png";
+	public static final String NEW_DRAGON_01 = "newdragon01.png";
+	public static final String NEW_DRAGON_02 = "newdragon02.png";
 
 	public static final String PIG_PET = "pig.png";
 	public static final String DATURA = "datura.png";
+
+	public static final String REDDRAGON = "reddragon.png";
+	public static final String BLUEDRAGON = "bluedragon.png";
+	public static final String GREENDRAGON = "greendragon.png";
+	public static final String VIOLETDRAGON = "violetdragon.png";
+	public static final String SHADOWDRAGON = "shadowdragon.png";
+	public static final String LIGHTDRAGON = "lightdragon.png";
+	public static final String GOLDDRAGON = "golddragon.png";
+	public static final String BUGDRAGON = "bugdragon.png";
+	
+	public static final String ICEBUG = "icebug.png";
 
 }
 

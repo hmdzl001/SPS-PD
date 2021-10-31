@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.windows;
 
-import java.util.Locale;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
@@ -30,24 +28,23 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.items.food.Nut;
+import com.hmdzl.spspd.items.food.completefood.Garbage;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
+import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
-import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfFrost;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
-import com.hmdzl.spspd.items.food.completefood.Garbage;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.items.food.meatfood.Meat;
-import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
-import com.hmdzl.spspd.items.food.Nut;
-import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
@@ -58,14 +55,15 @@ import com.hmdzl.spspd.ui.HealthBar;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.Window;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
-import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.RenderedText;
+import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.ui.Button;
+
+import java.util.Locale;
 
 public class WndHero extends WndTabbed {
 
@@ -147,8 +145,8 @@ public class WndHero extends WndTabbed {
 			protected void select(boolean value) {
 				super.select(value);
 				stats.visible = stats.active = selected;
-			};
-		});
+			}
+        });
 		
 		if(Dungeon.dewDraw || Dungeon.dewWater){
 		add(new LabeledTab(Messages.get(this, "dew")) {
@@ -156,8 +154,8 @@ public class WndHero extends WndTabbed {
 			protected void select(boolean value) {
 				super.select(value);
 				levelstats.visible = levelstats.active = selected;
-			};
-		});
+			}
+        });
 		}
 
 		if (heropet!=null){
@@ -166,8 +164,8 @@ public class WndHero extends WndTabbed {
 			protected void select(boolean value) {
 				super.select(value);
 				pet.visible = pet.active = selected;
-			};
-		});
+			}
+        });
 		}
 
 		add(new LabeledTab(Messages.get(this, "buffs")) {
@@ -175,8 +173,8 @@ public class WndHero extends WndTabbed {
 			protected void select(boolean value) {
 				super.select(value);
 				buffs.visible = buffs.active = selected;
-			};
-		});
+			}
+        });
 		
 		resize(WIDTH, (int) Math.max(stats.height(), buffs.height()));
 
@@ -216,8 +214,8 @@ public class WndHero extends WndTabbed {
 				protected void onClick() {
 				    hide();
 					GameScene.show(new WndCatalogus());
-				};
-			};
+				}
+            };
 			btnCatalogus.setRect(0, title.height(),
 					btnCatalogus.reqWidth() + 2, btnCatalogus.reqHeight() + 2);
 			add(btnCatalogus);
@@ -308,8 +306,8 @@ public class WndHero extends WndTabbed {
 				protected void onClick() {
 					hide();
 					GameScene.show(new WndCatalogus());
-				};
-			};
+				}
+            };
 			btnCatalogus.setRect(0, title.height(),
 					btnCatalogus.reqWidth() + 2, btnCatalogus.reqHeight() + 2);
 			add(btnCatalogus);
@@ -524,11 +522,7 @@ public class WndHero extends WndTabbed {
 				@Override
 				protected void onClick() {
 					hide();
-					if (heropet.stay){
-					   heropet.stay = false;
-					} else {
-						heropet.stay = true;
-					}
+                    heropet.stay = !heropet.stay;
 				}
 			};
 
@@ -640,6 +634,7 @@ public class WndHero extends WndTabbed {
 		if (petType==4){//red dragon - fire
 			if (item instanceof Meat
 				|| item instanceof PotionOfLiquidFlame
+				|| item instanceof Fruit
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -648,6 +643,7 @@ public class WndHero extends WndTabbed {
 		if (petType==5){//green dragon - lit
 			if (item instanceof Meat
 				|| item instanceof ScrollOfRecharging
+				|| item instanceof Fruit
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -656,6 +652,8 @@ public class WndHero extends WndTabbed {
 		if (petType==6){//violet dragon - poison
 			if (item instanceof Meat
 				|| item instanceof PotionOfToxicGas
+				|| item instanceof Fruit
+				|| item instanceof StoneOre	
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -663,6 +661,8 @@ public class WndHero extends WndTabbed {
 		if (petType==7){//blue dragon - ice
 			if (item instanceof Meat
 				|| item instanceof PotionOfFrost
+				|| item instanceof Fruit
+				|| item instanceof StoneOre				
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
@@ -683,14 +683,15 @@ public class WndHero extends WndTabbed {
 			}
 		}
 		if (petType==10){//light dragon
-			if (item instanceof Potion
+			if (item instanceof Meat
+			    ||item instanceof Vegetable
+				|| item instanceof Fruit
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
 		}
 		if (petType==11){//bug dragon
-			if (item instanceof Potion
-				|| item instanceof PetFood){				
+			if (item instanceof Food){
 				nomnom=true;
 			}
 		}
@@ -715,8 +716,7 @@ public class WndHero extends WndTabbed {
 			}
 		}
 		if (petType==15){//GoldDragon
-			if (item instanceof Meat
-				|| item instanceof PetFood){				
+			if (item instanceof Food){				
 				nomnom=true;
 			}
 		}

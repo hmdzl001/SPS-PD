@@ -17,15 +17,15 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
+
+import java.util.ArrayList;
 
 public class DwarfHammer extends Item {
 
@@ -54,7 +54,7 @@ public class DwarfHammer extends Item {
 
 		if (action == AC_BREAK) {
 
-			if (Dungeon.bossLevel() || Dungeon.depth > 25 || Dungeon.depth < 21) {
+			if ((Dungeon.bossLevel() || Dungeon.depth > 25 || Dungeon.depth < 21) && Dungeon.depth != 1) {
 				hero.spend(DwarfHammer.TIME_TO_USE);
 				GLog.w(Messages.get(this, "prevent"));
 				return;
@@ -74,7 +74,7 @@ public class DwarfHammer extends Item {
 		  if (hero.pos != Dungeon.level.exit)	{
 			  detach(Dungeon.hero.belongings.backpack);			  
 			  		 
-			  Dungeon.level.sealedlevel=false;
+			 // Dungeon.level.sealedlevel=false;
 			  
 			  //Dungeon.level.map[Dungeon.level.exit]=Terrain.EMPTY;
 			  //GameScene.updateMap(Dungeon.level.exit);

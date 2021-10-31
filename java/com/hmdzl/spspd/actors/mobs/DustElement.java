@@ -17,15 +17,17 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.DustElementSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
 
 public class DustElement extends Mob {
 
@@ -62,6 +64,8 @@ public class DustElement extends Mob {
 			Dungeon.observe();
 		}
 
+		enemy.damage(damage, EARTH_DAMAGE);
+		damage = 0;
 		return damage;
 	}
 

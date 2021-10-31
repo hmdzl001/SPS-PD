@@ -18,15 +18,13 @@
 package com.hmdzl.spspd.items.weapon.enchantments;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.DamageUp;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -46,21 +44,23 @@ public class EnchantmentEnergy extends Weapon.Enchantment {
 		// lvl 1 - 22%
 		// lvl 2 - 30%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int level = Math.max(0, weapon.level);
-
-		int dmg = damage;
-		defender.damage(Random.Int(dmg/6), this);
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
+		
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage(Random.Int(dmg/6), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
 		}
 
-		if (Random.Int(level + 15) >= 15) {
-			Buff.prolong(attacker, AttackUp.class,10f).level(15);
-			attacker.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
-			return true;
-		} else {
-			return false;
-		}
+		if (attacker.buff(DamageUp.class) == null) {
+			Buff.affect(attacker, DamageUp.class).level(Random.Int(level,maxdmg));
+		} else Buff.affect(defender, Cripple.class,3f);
+
+		attacker.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
+		return true;
+		//} else {
+			//return false;
+		//}
 	}
 
 	@Override

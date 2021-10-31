@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.relic;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -30,6 +28,8 @@ import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
+
+import java.util.ArrayList;
 
 public class NeptunusTrident extends RelicMeleeWeapon {
 
@@ -89,7 +89,7 @@ public class NeptunusTrident extends RelicMeleeWeapon {
 				
 				Char ch = Actor.findChar(n);
 				if (ch != null && ch != hero) {
-					Buff.affect(ch, Slow.class, Slow.duration(ch) / 3 + level);
+					Buff.affect(ch, Slow.class, level/10);
 				}
 				
 				Dungeon.level.map[n] = t;

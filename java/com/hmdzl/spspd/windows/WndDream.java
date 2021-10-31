@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.PuddingCup;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.weapon.melee.block.GoblinShield;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.RedButton;
@@ -58,10 +58,11 @@ public class WndDream extends Window {
 		RedButton btnReward = new RedButton(Messages.get(this, "buy")) {
 			@Override
 			protected void onClick() {
-                 Dungeon.hero.HT = 50;
+                 Dungeon.hero.TRUE_HT = 50;
                  Dungeon.hero.hitSkill -= (Dungeon.hero.lvl-1);
 				 Dungeon.hero.evadeSkill -= (Dungeon.hero.lvl-1);
 				 Dungeon.hero.lvl = 1;
+				 Dungeon.hero.updateHT(false);
 				hide();
 			}
 		};

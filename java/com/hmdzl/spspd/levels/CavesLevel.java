@@ -29,7 +29,7 @@ import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.traps.*;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Scene;
@@ -123,11 +123,8 @@ public class CavesLevel extends RegularLevel {
 	protected boolean assignRoomType() {
 		super.assignRoomType();
 
-		if (!Blacksmith.Quest.spawn(rooms) && Dungeon.depth == 14)
-			return false;
-
-		return true;
-	}
+        return Blacksmith.Quest.spawn(rooms) || Dungeon.depth != 14;
+    }
 
 	@Override
 	protected void decorate() {
@@ -209,6 +206,14 @@ public class CavesLevel extends RegularLevel {
 				map[i] = Terrain.WALL_DECO;
 			}
 		}
+
+		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+
+				map[i] = Terrain.GLASS_WALL;
+			}
+		}
+
 
 		while (true) {
 			int pos = roomEntrance.random();

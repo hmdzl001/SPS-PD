@@ -17,23 +17,24 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.BossRush;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.sprites.AdultDragonVioletSprite;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
-import com.hmdzl.spspd.sprites.NewDargon01Sprite;
+import com.hmdzl.spspd.sprites.NewDragon01Sprite;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public class AdultDragonViolet extends Mob implements Callback{
 
@@ -41,7 +42,7 @@ public class AdultDragonViolet extends Mob implements Callback{
 	private static final float TIME_TO_ZAP = 1f;
 
 	{
-		spriteClass = NewDargon01Sprite.class;
+		spriteClass = NewDragon01Sprite.class;
 		baseSpeed = 1.5f;
 
 		HP = HT = 8000;
@@ -102,7 +103,7 @@ public class AdultDragonViolet extends Mob implements Callback{
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((NewDargon01Sprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			} else {
 				zap();
 			}
@@ -123,7 +124,8 @@ public class AdultDragonViolet extends Mob implements Callback{
 			int dmg = damageRoll();
 			enemy.damage(dmg, this);
 			
-			Buff.affect(enemy,Poison.class).set(Poison.durationFactor(enemy));
+			//Buff.affect(enemy,Poison.class).set(Random.Int(10, 20));
+			Buff.affect(enemy,BeOld.class).set(20);
 			
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
@@ -141,16 +143,9 @@ public class AdultDragonViolet extends Mob implements Callback{
 		next();
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
 		
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
 	}
 }

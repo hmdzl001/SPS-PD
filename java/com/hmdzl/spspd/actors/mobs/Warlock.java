@@ -17,25 +17,24 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.WarlockSprite;
-
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
 
 public class Warlock extends Mob implements Callback {
 
@@ -59,11 +58,12 @@ public class Warlock extends Mob implements Callback {
 		lootChanceOther = 0.02f; // by default, see die()
 		
 		properties.add(Property.DWARF);
+		properties.add(Property.MAGICER);
 	}
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(12, 25+adj(0));
+		return Random.NormalIntRange(12, 24+adj(0));
 	}
 
 	@Override
@@ -76,6 +76,15 @@ public class Warlock extends Mob implements Callback {
 		return Random.NormalIntRange(4, 8);
 	}
 
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		
+		enemy.damage(damage/2, DARK_DAMAGE);
+		damage = damage/2;
+
+		return damage;
+	}		
+	
 	@Override
 	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
@@ -95,7 +104,7 @@ public class Warlock extends Mob implements Callback {
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((WarlockSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			} else {
 				zap();
 			}
@@ -109,14 +118,14 @@ public class Warlock extends Mob implements Callback {
 
 		if (hit(this, enemy, true)) {
 			if (enemy == Dungeon.hero && Random.Int(2) == 0) {
-				Buff.prolong(enemy, Weakness.class, Weakness.duration(enemy));
+				Buff.prolong(enemy, STRdown.class,10f);
 			}
 
 			int dmg = Random.Int(16, 24+adj(0));
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, DARK_DAMAGE);
 
 			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(Messages.get(this, "kill"));
 			}
 		} else {
@@ -140,13 +149,7 @@ public class Warlock extends Mob implements Callback {
 		return loot;
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(EnchantmentDark.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
+	{
+		resistances.add(EnchantmentDark.class);
 	}
 }

@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
@@ -29,12 +26,12 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.Amok;
+import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Corruption;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.Feed;
-import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.actors.buffs.Sleep;
@@ -55,6 +52,7 @@ import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.misc.DemoScroll;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.misc.PPC;
 import com.hmdzl.spspd.items.misc.Shovel;
@@ -63,18 +61,20 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Level.Feeling;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
-
-import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public abstract class Mob extends Char {
-	
-	{
+
+    {
 		name = Messages.get(this, "name");
 	}
 	
@@ -554,11 +554,11 @@ public abstract class Mob extends Char {
 	  if (type == 0){
 		adjustment = Dungeon.depth;
 	  } else if (type == 1){
-		adjustment = (int) Dungeon.depth/2;
+		adjustment = Dungeon.depth /2;
 	  } else if (type == 2){
-		 adjustment = (int) Dungeon.depth/4;
+		 adjustment = Dungeon.depth /4;
 	  } else if (type == 3){
-		 adjustment = (int) Dungeon.depth*2;
+		 adjustment = Dungeon.depth *2;
 	  } else adjustment = 1;
 
 		return adjustment;
@@ -576,6 +576,11 @@ public abstract class Mob extends Char {
 		if (state != HUNTING) {
 			alerted = true;
 		}
+
+		BeCorrupt beco = buff(BeCorrupt.class);
+       if( beco != null)	{
+		   dmg = (int) Math.ceil(dmg * 1.2);
+	   }
 		//alerted = true;
 
 		super.damage(dmg, src);
@@ -617,7 +622,8 @@ public abstract class Mob extends Char {
 			
 		}
 		if(Dungeon.hero.buff(Feed.class)!=null){
-			Dungeon.hero.HT++;
+			Dungeon.hero.TRUE_HT++;
+			Dungeon.hero.updateHT(true);
 			//Buff.affect(Dungeon.hero,GlassShield.class).turns(3)
 		}
 	
@@ -660,20 +666,19 @@ public abstract class Mob extends Char {
 			SandMob.MiniSand mnsand = (SandMob.MiniSand) this;
 			generation=mnsand.generation;
 		}
-		
-		if (Dungeon.hero.buff(Dewcharge.class) != null && generation==0) {
+
+		Dewcharge dewing = Dungeon.hero.buff(Dewcharge.class);
+		if (Dungeon.hero.buff(Dewcharge.class) != null && dewing.isDewing() && generation==0) {
 			explodeDewHigh(pos);
 		}
 		
-		if (!Dungeon.level.cleared && originalgen && !checkOriginalGenMobs() && Dungeon.depth>2 
+		if (!Dungeon.level.cleared && originalgen && !checkOriginalGenMobs() && Dungeon.depth>1
 		&& Dungeon.depth<25 && !Dungeon.bossLevel(Dungeon.depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
 			Dungeon.level.cleared=true;
 			GameScene.levelCleared();		
 			if(Dungeon.depth>0){Statistics.prevfloormoves=Math.max(Dungeon.pars[Dungeon.depth]-Dungeon.level.currentmoves,0);
 			   if (Statistics.prevfloormoves>1){
 			     GLog.h(Messages.get(this, "clear1"), Statistics.prevfloormoves);
-			   } else if (Statistics.prevfloormoves==1){
-			     GLog.h(Messages.get(this, "clear2")); 
 			   } else if (Statistics.prevfloormoves==0){
 				 GLog.h(Messages.get(this, "clear3"));
 			   }
@@ -716,6 +721,9 @@ public abstract class Mob extends Char {
 		
 		PPC ppc = Dungeon.hero.belongings.getItem(PPC.class);
 		if (ppc!=null) {ppc.charge++;}
+
+		DemoScroll dc = Dungeon.hero.belongings.getItem(DemoScroll.class);
+		if (dc!=null) {dc.charge++;}
 		
 		if (Dungeon.isChallenged(Challenges.NIGHTMARE_VIRUS) && !(this instanceof Virus)) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
@@ -887,9 +895,9 @@ public abstract class Mob extends Char {
 	}
 
 	public interface AiState {
-		public boolean act(boolean enemyInFOV, boolean justAlerted);
+		boolean act(boolean enemyInFOV, boolean justAlerted);
 
-		public String status();
+		String status();
 	}
 
 	private class Sleeping implements AiState {

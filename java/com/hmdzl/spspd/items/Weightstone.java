@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -106,8 +106,8 @@ public class Weightstone extends Item {
 		@Override
 		public void onSelect(Item item) {
 			if (item != null) {
-				Weightstone.this.apply((Weapon) item);;
-			}
+				Weightstone.this.apply((Weapon) item);
+            }
 		}
 	};
 

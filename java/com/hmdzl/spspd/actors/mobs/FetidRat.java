@@ -81,13 +81,8 @@ import com.watabou.utils.Random;
 			Ghost.Quest.process();
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(StenchGas.class);
+		{
+			immunities.add(StenchGas.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}

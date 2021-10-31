@@ -27,13 +27,13 @@ import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Disarm;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.HighLight;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
@@ -51,6 +51,7 @@ public class GnollMark extends Item {
 	public static final String AC_LIGHT = "LIGHT";
 	public static final String AC_DARK = "DARK";
 	public static final String AC_EARTH = "EARTH";
+	public static final String AC_LIFE = "LIFE";
 	private static final String AC_CHOOSE = "CHOOSE";
 	private static final float TIME_TO_DIG = 1f;
 
@@ -62,7 +63,7 @@ public class GnollMark extends Item {
 		 
 	}
 	
-	public final int fullCharge = 40;
+	public final int fullCharge = 60;
 	public int charge = 0;
 	private static final String CHARGE = "charge";
 
@@ -86,6 +87,9 @@ public class GnollMark extends Item {
 			actions.add(AC_DARK);
 			actions.add(AC_EARTH);
 		}
+		if (hero.HP > hero.HT/5)
+		actions.add(AC_LIFE);
+	
         actions.remove( AC_THROW );
         actions.remove( AC_DROP );
 		return actions;
@@ -108,26 +112,26 @@ public class GnollMark extends Item {
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 			hero.spendAndNext(1f);
 			updateQuickslot();
-			charge-=20;
+			charge-=30;
 
 	  } else if( action.equals( AC_DARK ) ) {
 		    curUser = hero;
 		  	Buff.affect(hero, Recharging.class, 40f);
 			Buff.affect(hero, Arcane.class, 40f);
-		    Buff.affect(hero, Weakness.class, 40f);
+		    Buff.affect(hero, STRdown.class, 40f);
 			Buff.affect(hero, Disarm.class, 40f);
 
 			  hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 			  Sample.INSTANCE.play(Assets.SND_BURNING);
 			  hero.spendAndNext(1f);
 			  updateQuickslot();
-			  charge-=20;
+			  charge-=30;
 
 	  } else  if (action.equals( AC_EARTH )){
 		    curUser = hero;
 
-			curUser.HP += curUser.HT/5;
-			Buff.affect(hero, ShieldArmor.class).level(hero.HT/5);
+			//curUser.HP += curUser.HT/5;
+			Buff.affect(hero, EnergyArmor.class).level(hero.HT/5);
 			Buff.affect(hero, BerryRegeneration.class).level(hero.HT / 5);
 			Buff.affect(hero, Rhythm.class, 40f);
 
@@ -136,16 +140,31 @@ public class GnollMark extends Item {
 			  Sample.INSTANCE.play(Assets.SND_BURNING);
 			  hero.spendAndNext(1f);
 			  updateQuickslot();
-			  charge-=20;
+			  charge-=30;
 
-		} else super.execute(hero, action);
+		} else if (action.equals( AC_LIFE )){
+            curUser = hero;
+
+            curUser.HP -= curUser.HT/5;
+			curUser.TRUE_HT -= curUser.TRUE_HT/5;
+
+
+
+
+            hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+            Sample.INSTANCE.play(Assets.SND_BURNING);
+            hero.spendAndNext(1f);
+            updateQuickslot();
+            charge+=curUser.HT/5;
+
+        } else super.execute(hero, action);
 
 
 	}
 
 	@Override
 	public String status() {
-		return Messages.format("%d", (int)charge/25);
+		return Messages.format("%d", charge /30);
 	}
 	
 	@Override

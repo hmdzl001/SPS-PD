@@ -1,0 +1,184 @@
+/*
+ * Pixel Dungeon
+ * Copyright (C) 2012-2015 Oleg Dolya
+ *
+ * Shattered Pixel Dungeon
+ * Copyright (C) 2014-2021 Evan Debenham
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
+package com.hmdzl.spspd.infos;
+
+import com.hmdzl.spspd.actors.mobs.AlbinoPiranha;
+import com.hmdzl.spspd.actors.mobs.Assassin;
+import com.hmdzl.spspd.actors.mobs.BambooMob;
+import com.hmdzl.spspd.actors.mobs.Bat;
+import com.hmdzl.spspd.actors.mobs.BlueWraith;
+import com.hmdzl.spspd.actors.mobs.BrokenRobot;
+import com.hmdzl.spspd.actors.mobs.BrownBat;
+import com.hmdzl.spspd.actors.mobs.Brute;
+import com.hmdzl.spspd.actors.mobs.Crab;
+import com.hmdzl.spspd.actors.mobs.DM300;
+import com.hmdzl.spspd.actors.mobs.DemonFlower;
+import com.hmdzl.spspd.actors.mobs.DemonGoo;
+import com.hmdzl.spspd.actors.mobs.DustElement;
+import com.hmdzl.spspd.actors.mobs.DwarfLich;
+import com.hmdzl.spspd.actors.mobs.ElderAvatar;
+import com.hmdzl.spspd.actors.mobs.Eye;
+import com.hmdzl.spspd.actors.mobs.Fiend;
+import com.hmdzl.spspd.actors.mobs.FireElemental;
+import com.hmdzl.spspd.actors.mobs.FireRabbit;
+import com.hmdzl.spspd.actors.mobs.Gnoll;
+import com.hmdzl.spspd.actors.mobs.GnollArcher;
+import com.hmdzl.spspd.actors.mobs.GnollShaman;
+import com.hmdzl.spspd.actors.mobs.GoldOrc;
+import com.hmdzl.spspd.actors.mobs.GoldThief;
+import com.hmdzl.spspd.actors.mobs.Golem;
+import com.hmdzl.spspd.actors.mobs.Goo;
+import com.hmdzl.spspd.actors.mobs.Greatmoss;
+import com.hmdzl.spspd.actors.mobs.Guard;
+import com.hmdzl.spspd.actors.mobs.Hybrid;
+import com.hmdzl.spspd.actors.mobs.IceBug;
+import com.hmdzl.spspd.actors.mobs.King;
+import com.hmdzl.spspd.actors.mobs.LichDancer;
+import com.hmdzl.spspd.actors.mobs.LiveMoss;
+import com.hmdzl.spspd.actors.mobs.ManySkeleton;
+import com.hmdzl.spspd.actors.mobs.Mimic;
+import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.Monk;
+import com.hmdzl.spspd.actors.mobs.MossySkeleton;
+import com.hmdzl.spspd.actors.mobs.Musketeer;
+import com.hmdzl.spspd.actors.mobs.Orc;
+import com.hmdzl.spspd.actors.mobs.PatrolUAV;
+import com.hmdzl.spspd.actors.mobs.Piranha;
+import com.hmdzl.spspd.actors.mobs.PlagueDoctor;
+import com.hmdzl.spspd.actors.mobs.PrisonWander;
+import com.hmdzl.spspd.actors.mobs.Rat;
+import com.hmdzl.spspd.actors.mobs.SandMob;
+import com.hmdzl.spspd.actors.mobs.Scorpio;
+import com.hmdzl.spspd.actors.mobs.SewerHeart;
+import com.hmdzl.spspd.actors.mobs.Skeleton;
+import com.hmdzl.spspd.actors.mobs.SpiderBot;
+import com.hmdzl.spspd.actors.mobs.SpiderQueen;
+import com.hmdzl.spspd.actors.mobs.Spinner;
+import com.hmdzl.spspd.actors.mobs.Succubus;
+import com.hmdzl.spspd.actors.mobs.Sufferer;
+import com.hmdzl.spspd.actors.mobs.Swarm;
+import com.hmdzl.spspd.actors.mobs.Tank;
+import com.hmdzl.spspd.actors.mobs.Tengu;
+import com.hmdzl.spspd.actors.mobs.TestMob;
+import com.hmdzl.spspd.actors.mobs.Thief;
+import com.hmdzl.spspd.actors.mobs.ThiefImp;
+import com.hmdzl.spspd.actors.mobs.TrollWarrior;
+import com.hmdzl.spspd.actors.mobs.Warlock;
+import com.hmdzl.spspd.actors.mobs.Wraith;
+import com.hmdzl.spspd.actors.mobs.Yog;
+import com.hmdzl.spspd.actors.mobs.Zombie;
+
+import java.util.Collection;
+import java.util.LinkedHashMap;
+
+public enum NewMobCatalog {
+	
+	SEWER,
+	PRISON,
+	CAVE,
+	CITY,
+	HALL,
+	EX,
+	ETC;
+	
+	private LinkedHashMap<Class<? extends Mob>,Boolean> seen = new LinkedHashMap<>();
+	
+	public Collection<Class<? extends Mob>> mob(){
+		return seen.keySet();
+	}
+
+	static {
+		SEWER.seen.put( Rat.class , true);
+		SEWER.seen.put( BrownBat.class , true);
+		SEWER.seen.put( DustElement.class , true);
+		SEWER.seen.put( LiveMoss.class , true);
+		SEWER.seen.put( Swarm.class , true);
+		SEWER.seen.put( Crab.class , true);
+		SEWER.seen.put( PatrolUAV.class , true);
+		SEWER.seen.put( Goo.class , true);
+		SEWER.seen.put( SewerHeart.class , true);
+		SEWER.seen.put( PlagueDoctor.class , true);
+
+		PRISON.seen.put( Thief.class , true);
+		PRISON.seen.put( Gnoll.class , true);
+		PRISON.seen.put( Guard.class , true);
+		PRISON.seen.put( Zombie.class , true);
+		PRISON.seen.put( BambooMob.class , true);
+		PRISON.seen.put( Assassin.class , true);
+		PRISON.seen.put( TrollWarrior.class , true);
+		PRISON.seen.put( FireRabbit.class , true);
+		PRISON.seen.put( Tengu.class , true);
+		PRISON.seen.put( PrisonWander.class , true);
+		PRISON.seen.put( Tank.class , true);
+
+		CAVE.seen.put( Bat.class , true);
+		CAVE.seen.put( Skeleton.class , true);
+        CAVE.seen.put( GnollShaman.class , true);
+		CAVE.seen.put( Brute.class , true);
+		CAVE.seen.put( SandMob.class , true);
+		CAVE.seen.put( Spinner.class , true);
+		CAVE.seen.put( IceBug.class , true);
+		CAVE.seen.put( BrokenRobot.class , true);
+		CAVE.seen.put( Hybrid.class , true);
+		CAVE.seen.put( DM300.class , true);
+		CAVE.seen.put( SpiderQueen.class , true);
+
+		CITY.seen.put( FireElemental.class , true);
+		CITY.seen.put( Warlock.class , true);
+		CITY.seen.put( Monk.class , true);
+		CITY.seen.put( SpiderBot.class , true);
+		CITY.seen.put( Golem.class , true);
+		CITY.seen.put( Musketeer.class , true);
+		CITY.seen.put( DwarfLich.class , true);
+		CITY.seen.put( ManySkeleton.class , true);
+		CITY.seen.put( LichDancer.class , true);
+		CITY.seen.put( ElderAvatar.class , true);
+		CITY.seen.put( King.class , true);
+
+		HALL.seen.put( Succubus.class , true);
+		HALL.seen.put( Eye.class , true);
+		HALL.seen.put( DemonGoo.class , true);
+		HALL.seen.put( DemonFlower.class , true);
+		HALL.seen.put( Sufferer.class , true);
+		HALL.seen.put( ThiefImp.class , true);
+		HALL.seen.put( Scorpio.class , true);
+		HALL.seen.put( Yog.class , true);
+
+		EX.seen.put( GnollArcher.class , true);
+		EX.seen.put( MossySkeleton.class , true);
+		EX.seen.put( AlbinoPiranha.class , true);
+		EX.seen.put( GoldThief.class , true);
+		EX.seen.put( BlueWraith.class , true);
+		EX.seen.put( Orc.class , true);
+		EX.seen.put( GoldOrc.class , true);
+		EX.seen.put( Fiend.class , true);
+
+		ETC.seen.put( Wraith.class , true);
+		ETC.seen.put( Greatmoss.class , true);
+		ETC.seen.put( Piranha.class , true);
+		ETC.seen.put( Mimic.class , true);
+		ETC.seen.put( TestMob.class , true);
+		ETC.seen.put( Rat.class , true);
+
+	}
+
+}

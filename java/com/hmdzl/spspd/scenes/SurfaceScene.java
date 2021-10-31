@@ -44,7 +44,7 @@ import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class SurfaceScene extends PixelScene {
 
@@ -144,8 +144,8 @@ public class SurfaceScene extends PixelScene {
 			@Override
 			protected void onClick(Touch touch) {
 				pet.jump();
-			};
-		});
+			}
+        });
 
 		for (int i = 0; i < nPatches; i++) {
 			GrassPatch patch = new GrassPatch((i - 0.5f) * GrassPatch.WIDTH,

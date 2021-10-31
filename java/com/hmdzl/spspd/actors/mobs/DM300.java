@@ -44,7 +44,7 @@ import com.hmdzl.spspd.items.TomeOfMastery;
 import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
 import com.hmdzl.spspd.levels.CavesBossLevel;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
@@ -108,7 +108,7 @@ public class DM300 extends Mob implements Callback {
 		do {
 			a.pos = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
 			b.pos = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
-		} while (!Dungeon.level.passable[a.pos] || !Dungeon.level.passable[b.pos] || a.pos == b.pos);
+		} while (!Level.passable[a.pos] || !Level.passable[b.pos] || a.pos == b.pos);
 		
 		GameScene.add(a);
 		GameScene.add(b);	
@@ -182,7 +182,7 @@ public class DM300 extends Mob implements Callback {
 			 if(bossAlive==0){
 				 
 					GameScene.bossSlain();
-					((CavesBossLevel) Dungeon.level).unseal();
+					Dungeon.level.unseal();
 					Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 					Badges.validateBossSlain();
 			 }
@@ -230,27 +230,11 @@ public class DM300 extends Mob implements Callback {
 		next();
 	}
 	
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(EnchantmentDark.class);
-		
+	{
+		immunities.add(ToxicGas.class);
+		immunities.add(Terror.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(Terror.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 
 public static class Tower extends Mob implements Callback {
 
@@ -404,7 +388,7 @@ public static class Tower extends Mob implements Callback {
 			 if(bossAlive==0){
 				 
 					GameScene.bossSlain();
-					((CavesBossLevel) Dungeon.level).unseal();
+					Dungeon.level.unseal();
 					Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 					Dungeon.level.drop(new Gold(Random.Int(3000, 6000)), pos).sprite.drop();
 
@@ -413,28 +397,12 @@ public static class Tower extends Mob implements Callback {
 			 explodeDew(pos);
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(EnchantmentDark.class);
-		
-		RESISTANCES.add(LightningTrap.Electricity.class);
-	}
+	{
+		resistances.add(LightningTrap.Electricity.class);
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(ConfusionGas.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+		immunities.add(ToxicGas.class);
+		immunities.add(Terror.class);
+		immunities.add(ConfusionGas.class);
 	}
 
 	

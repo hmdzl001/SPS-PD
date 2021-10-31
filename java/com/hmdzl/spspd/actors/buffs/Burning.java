@@ -19,7 +19,6 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Fire;
@@ -30,12 +29,11 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.ChargrilledMeat;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
-import com.hmdzl.spspd.items.rings.RingOfElements.Resistance;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -141,6 +139,10 @@ public class Burning extends Buff implements Hero.Doom {
 	public void reignite(Char ch) {
 		left = duration(ch);
 	}
+	
+	public void reignite( Char ch, float duration ) {
+		left = duration;
+	}
 
 	@Override
 	public int icon() {
@@ -165,11 +167,10 @@ public class Burning extends Buff implements Hero.Doom {
 	}
 
 	public static float duration(Char ch) {
-		Resistance r = ch.buff(Resistance.class);
 		Tar tar = ch.buff(Tar.class);
 		if (ch.isAlive() && tar!=null){
 		return DURATION;
-		} else return r != null ? r.durationFactor() * DURATION : DURATION;
+		} else return DURATION;
 		
 	}
 	
@@ -183,7 +184,7 @@ public class Burning extends Buff implements Hero.Doom {
 
 		Badges.validateDeathFromFire();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.BURNING));
+		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n(TXT_BURNED_TO_DEATH);
 	}
 }

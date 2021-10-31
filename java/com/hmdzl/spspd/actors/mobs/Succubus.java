@@ -17,27 +17,26 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Light;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.scrolls.ScrollOfLullaby;
-
+import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.SuccubusSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Succubus extends Mob {
 
@@ -73,8 +72,7 @@ public class Succubus extends Mob {
 	public int attackProc(Char enemy, int damage) {
 
 		if (Random.Int(3) == 0) {
-			Buff.affect(enemy, Charm.class, Charm.durationFactor(enemy)
-					* Random.IntRange(3, 7)).object = id();
+			Buff.affect(enemy, Charm.class, Random.IntRange(3, 7)).object = id();
 			enemy.sprite.centerEmitter().start(Speck.factory(Speck.HEART),
 					0.2f, 5);
 			Sample.INSTANCE.play(Assets.SND_CHARMS);
@@ -147,23 +145,8 @@ public class Succubus extends Mob {
 		return Random.NormalIntRange(5, 10);
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		
+    {
+		immunities.add(Sleep.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Sleep.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

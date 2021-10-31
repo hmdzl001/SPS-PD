@@ -1,5 +1,6 @@
 package com.hmdzl.spspd.items.rings;
 
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.messages.Messages;
 
 /**
@@ -14,7 +15,7 @@ public class RingOfMight extends Ring {
 	
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",level/5,level*8);
+			return Messages.get(this, "stats",(int)(level/5),Math.min(0,level*100/15));
 		} else {
 			return "???";
 		}
@@ -25,6 +26,10 @@ public class RingOfMight extends Ring {
 	@Override
 	protected RingBuff buff() {
 		return new Might();
+	}
+
+	public static int strengthBonus( Char target ){
+		return getBonus( target, Might.class );
 	}
 
 

@@ -24,32 +24,39 @@ import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 
+import java.util.Calendar;
+
 public class BugDragonSprite extends MobSprite {
 	
 	//Frames 1-4 are idle, 5-8 are moving, 9-12 are attack and the last are for death RBVG
-	
+	public boolean festive;	
 	private int[] points = new int[2];
 
 	public BugDragonSprite() {
 		super();
+		final Calendar calendar = Calendar.getInstance();
+		festive = (calendar.get(Calendar.MONTH) == 10 && calendar
+				.get(Calendar.WEEK_OF_MONTH) > 2);
 
-		texture(Assets.PETDRAGON);
+		final int c = 0 ;
+
+		texture(Assets.BUGDRAGON);
 
 		TextureFilm frames = new TextureFilm(texture, 16, 16);
 
 		idle = new Animation(2, true);
-		idle.frames(frames, 112, 113, 114, 115);
+		idle.frames(frames, c + 0, c + 1, c + 2, c + 3);
 
 		run = new Animation(8, true);
-		run.frames(frames, 116, 117, 118, 119);
+		run.frames(frames, c + 4, c + 5, c + 6,c +  7);
 
 		attack = new Animation(8, false);
-		attack.frames(frames, 120, 121, 122, 123);
+		attack.frames(frames, c + 8, c + 9, c + 10, c + 11);
 
 		zap = attack.clone();
-		
+
 		die = new Animation(8, false);
-		die.frames(frames, 124, 125, 126, 127);
+		die.frames(frames, c + 12, c + 13, c + 14, c + 15);
 
 		play(idle);
 	}

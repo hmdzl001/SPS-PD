@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.weapon.melee;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 import com.watabou.utils.Random;
 
@@ -72,7 +72,7 @@ public class MeleeWeapon extends Weapon {
 	
 	public Item upgrade(boolean enchant) {
 		MIN++;
-		MAX += tier;
+		MAX += 1 + tier/2;
 		durable += 10;
 
 		return super.upgrade(enchant);

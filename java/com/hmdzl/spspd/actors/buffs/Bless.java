@@ -37,13 +37,16 @@ import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSnow;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSun;
 import com.hmdzl.spspd.actors.blobs.Web;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class Bless extends FlavourBuff {
 
     public static final float DURATION = 30f;
 
+	{
+		type = buffType.NEUTRAL;
+	}
 	@Override
 	public int icon() {
 		return BuffIndicator.BLESS;
@@ -55,27 +58,27 @@ public class Bless extends FlavourBuff {
 	}
 
 	{
-		immunities.add( ParalyticGas.class );
-		immunities.add( ToxicGas.class );
-		immunities.add( ConfusionGas.class );
-		immunities.add( StenchGas.class );
-		immunities.add( VenomGas.class );
-		immunities.add( CorruptGas.class );
-		immunities.add( Fire.class );
-		immunities.add( Freezing.class );
-		immunities.add( ElectriShock.class );
-		immunities.add( LightningTrap.Electricity.class );
-		immunities.add( Regrowth.class );
-		immunities.add( Web.class );
-		immunities.add( ShockWeb.class );
-		immunities.add( Hot.class );
-		immunities.add( Cold.class );
-		immunities.add( Wet.class );
-		immunities.add( Dry.class );
-		immunities.add(WeatherOfRain.class);
-		immunities.add(WeatherOfSand.class);
-		immunities.add(WeatherOfSnow.class);
-		immunities.add(WeatherOfSun.class);
+		resistances.add( ParalyticGas.class );
+		resistances.add( ToxicGas.class );
+		resistances.add( ConfusionGas.class );
+		resistances.add( StenchGas.class );
+		resistances.add( VenomGas.class );
+		resistances.add( CorruptGas.class );
+		resistances.add( Fire.class );
+		resistances.add( Freezing.class );
+		resistances.add( ElectriShock.class );
+		resistances.add( LightningTrap.Electricity.class );
+		resistances.add( Regrowth.class );
+		resistances.add( Web.class );
+		resistances.add( ShockWeb.class );
+		resistances.add( Hot.class );
+		resistances.add( Cold.class );
+		resistances.add( Wet.class );
+		resistances.add( Dry.class );
+		resistances.add(WeatherOfRain.class);
+		resistances.add(WeatherOfSand.class);
+		resistances.add(WeatherOfSnow.class);
+		resistances.add(WeatherOfSun.class);
 	}	
 	
 	@Override

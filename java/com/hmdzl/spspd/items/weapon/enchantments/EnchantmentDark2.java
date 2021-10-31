@@ -18,8 +18,8 @@
 package com.hmdzl.spspd.items.weapon.enchantments;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
@@ -43,10 +43,12 @@ public class EnchantmentDark2 extends Weapon.Enchantment {
 		// lvl 1 ~ 9%
 		// lvl 2 ~ 10%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int lvl = Math.max(0, weapon.level);
-		Buff.prolong(defender, AttackDown.class,5f).level(Math.min(50,lvl+5));
-				if(fcb != null && Random.Int(2) == 1){
-			defender.damage(Random.Int(damage/6), this);
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
+		Buff.affect(defender, ShadowCurse.class);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
+		if(fcb != null && Random.Int(2) == 1){
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
 		}
 		defender.sprite.emitter().burst(ShadowParticle.UP, 5);
 		return true;

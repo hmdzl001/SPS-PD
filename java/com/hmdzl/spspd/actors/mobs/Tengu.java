@@ -31,7 +31,7 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
 import com.hmdzl.spspd.levels.PrisonBossLevel;
 import com.hmdzl.spspd.levels.traps.PoisonTrap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
@@ -99,7 +99,7 @@ public class Tengu extends Mob {
 		yell(Messages.get(this,"die"));	
 		GameScene.bossSlain();	
 	    Badges.validateBossSlain();	
-	    ((PrisonBossLevel) Dungeon.level).unseal();
+	    Dungeon.level.unseal();
 	    Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
 		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		
@@ -198,26 +198,14 @@ public class Tengu extends Mob {
 		yell(Messages.get(this, "notice", Dungeon.hero.givenName()));
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> WEAKNESS = new HashSet<Class<?>>();
-	static {
-		WEAKNESS.add(WandOfLight.class);
-		WEAKNESS.add(EnchantmentLight.class);
+	{
+		weakness.add(WandOfLight.class);
+		weakness.add(EnchantmentLight.class);
 
-		RESISTANCES.add(Burning.class);
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
+		resistances.add(Burning.class);
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		resistances.add(EnchantmentDark.class);
 		
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	@Override
-	public HashSet<Class<?>> weakness() {
-		return WEAKNESS;
 	}
 }

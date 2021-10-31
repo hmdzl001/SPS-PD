@@ -123,7 +123,7 @@ public class MirrorImage extends NPC {
 
 	@Override
 	public boolean interact() {
-		if (!Dungeon.level.passable[pos]){
+		if (!Level.passable[pos]){
 			return true;
 		}
 		if (this.buff(MagicalSleep.class) != null) {
@@ -150,14 +150,9 @@ public class MirrorImage extends NPC {
 		return true;
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(Burning.class);
+	{
+		immunities.add(ToxicGas.class);
+		immunities.add(Burning.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

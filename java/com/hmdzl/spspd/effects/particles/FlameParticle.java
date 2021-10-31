@@ -32,8 +32,8 @@ public class FlameParticle extends PixelParticle.Shrinking {
 		@Override
 		public boolean lightMode() {
 			return true;
-		};
-	};
+		}
+    };
 
 	public FlameParticle() {
 		super();

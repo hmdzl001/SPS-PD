@@ -90,7 +90,7 @@ public class ErrorW extends MeleeWeapon {
             Buff.affect(defender, Bleeding.class).set(5);
 			break;
 	    case 3 :
-            Buff.affect(defender, Vertigo.class, Vertigo.duration(defender));
+            Buff.affect(defender, Vertigo.class,5f);
 			Buff.affect(defender, Terror.class, Terror.DURATION).object = attacker.id();
 			break;
 		case 4 :
@@ -101,7 +101,7 @@ public class ErrorW extends MeleeWeapon {
 		    break;
 		case 6 :
             if (attacker.HP < attacker.HT){
-			attacker.HP += (int)((attacker.HT)/10);
+			attacker.HP += (attacker.HT)/10;
 			attacker.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f,1);}
 			break;
 		case 7 :

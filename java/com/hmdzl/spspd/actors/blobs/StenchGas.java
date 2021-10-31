@@ -6,7 +6,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 /**
  * Created by debenhame on 08/10/2014.
@@ -20,7 +20,7 @@ public class StenchGas extends Blob {
 		Char ch;
 		for (int i = 0; i < LENGTH; i++) {
 			if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
-				if (!ch.immunities().contains(this.getClass()))
+				if (!ch.isImmune(this.getClass()))
 					Buff.affect(ch, Ooze.class);
 			}
 		}

@@ -35,7 +35,6 @@ import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -95,7 +94,7 @@ public class WandOfMeteorite extends DamageWand {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 2);
 				}
 
-				if (Level.flamable[c]) {
+				if ((Level.flamable[c] ||  Dungeon.level.map[c] == Terrain.GLASS_WALL ) && Level.insideMap(c)) {
 					Level.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 				}
@@ -112,7 +111,7 @@ public class WandOfMeteorite extends DamageWand {
 
 
 			if (!curUser.isAlive()) {
-				Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n("You killed yourself with your own Wand of Avalanche...");
 			}
 		}

@@ -54,7 +54,7 @@ public class HugeBomb extends Bomb {
 					terrainAffected = true;
 				}
 
-				if (Dungeon.level.map[c] == Terrain.WALL  && Level.insideMap(c)){
+				if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL ) && Level.insideMap(c)){
 					Level.set(c, Terrain.EMPTY);
 					GameScene.updateMap(c);
 					terrainAffected = true;

@@ -221,5 +221,5 @@ public class WndTabbed extends Window {
 			btLabel.am = selected ? 1.0f : 0.6f;
 		}
 	}
-
+	
 }

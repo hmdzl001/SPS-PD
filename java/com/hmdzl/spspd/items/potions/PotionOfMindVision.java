@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.misc.Spectacles.MagicSight;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class PotionOfMindVision extends Potion {
 

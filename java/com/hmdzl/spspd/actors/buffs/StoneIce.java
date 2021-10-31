@@ -19,12 +19,9 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.rings.RingOfElements;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.CharSprite;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -73,6 +70,7 @@ public class StoneIce extends Buff {
 			} 
 			
             Buff.detach( target, Burning.class);
+			Buff.detach( target, FrostIce.class);
 	
 		} else {
 			detach();
@@ -109,9 +107,9 @@ public class StoneIce extends Buff {
 
 	public void set(float duration) {
 		this.left = duration;
-	};
+	}
 
-	public float level() { return left; }
+    public float level() { return left; }
 
 	public void level(int value) {
 		if (left < value) {
@@ -129,7 +127,7 @@ public class StoneIce extends Buff {
 	public void onDeath() {
 
 		Badges.validateDeathFromFire();
-		Dungeon.fail(Messages.format(ResultDescriptions.BURNING));
+		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 
 	}	
 	

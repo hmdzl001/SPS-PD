@@ -75,7 +75,7 @@ public class Scorpio extends Mob {
 		if (buff(Locked.class) != null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
-		return Dungeon.level.distance( pos, enemy.pos ) <= 2 ;
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}
 	
 
@@ -108,14 +108,9 @@ public class Scorpio extends Mob {
 		}
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
+	{
 		
-		RESISTANCES.add(Poison.class);
+		resistances.add(Poison.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
 }

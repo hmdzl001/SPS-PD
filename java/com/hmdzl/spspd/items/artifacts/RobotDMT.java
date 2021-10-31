@@ -1,8 +1,5 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
@@ -20,7 +17,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
 import com.hmdzl.spspd.items.wands.WandOfError;
 import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
 import com.hmdzl.spspd.items.weapon.missiles.ErrorAmmo;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -28,6 +25,9 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by dachhack on 10/15/2015.
@@ -105,7 +105,7 @@ public class RobotDMT extends Artifact {
 						GLog.w(Messages.get(this,"justice"));
 						break;
 					case 6:
-						Buff.affect(hero,Dewcharge.class, 100f);
+						Buff.affect(hero,Dewcharge.class).level(100);
 						GLog.w(Messages.get(this,"soul"));
 						break;
 					case 7:

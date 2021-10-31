@@ -18,6 +18,8 @@
 package com.hmdzl.spspd.items.weapon.enchantments;
 
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
@@ -27,41 +29,40 @@ import com.watabou.utils.Random;
 
 public class EnchantmentLight extends Weapon.Enchantment {
 
-private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
+	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing(0xFFFF44);
 
 	@Override
 	public boolean proc(RelicMeleeWeapon weapon, Char attacker, Char defender, int damage) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean proc(Weapon weapon, Char attacker, Char defender, int damage) {
 		// lvl 0 - 20%
 		// lvl 1 - 33%
 		// lvl 2 - 43%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int level = Math.max(0, weapon.level);
+		int level = Math.min(20, attacker.HT / 10);
+		int maxdmg = level + weapon.level;
+		defender.damage((int) (Random.Int(level, maxdmg) * 0.75), this);
+		if (fcb != null && Random.Int(2) == 1) {
+			defender.damage((int) (Random.Int(level, maxdmg) * 0.50), this);
+		}
+		if (Random.Int(3) >= 1) {
+			Buff.prolong(defender, Blindness.class, 4f);
 
-		int dmg = damage;
-		defender.damage(Random.Int(dmg/6), this);		
-		if(fcb != null && Random.Int(2) == 1){
-			defender.damage(Random.Int(dmg/6), this);
 		}
-		if (Random.Int(level + 15) >= 30) {
-		if (defender.properties().contains(Char.Property.DEMONIC) || defender.properties().contains(Char.Property.UNDEAD)){
-			defender.damage((int)(damage*0.5),this);
-		    }
-		}
+
 
 		//if (Random.Int(level + 15) >= 15) {
-			//Buff.prolong(defender, Blindness.class,5f);
-			//defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6);
-		return true;
-		//} else {
-			//return false;
-		//}
-	}
+		//Buff.prolong(defender, Blindness.class,5f);
+		//defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6);
 
+		//} else {
+		return false;
+		//}
+
+	}
 	@Override
 	public Glowing glowing() {
 		return YELLOW;

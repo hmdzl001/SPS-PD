@@ -79,8 +79,8 @@ public class StatusPane extends Component {
 					Camera.main.focusOn(sprite);
 				}
 				GameScene.show(new WndHero());
-			};
-		});
+			}
+        });
 
 		btnMenu = new MenuButton();
 		add(btnMenu);

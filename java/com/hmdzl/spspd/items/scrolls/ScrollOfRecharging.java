@@ -18,16 +18,20 @@
 package com.hmdzl.spspd.items.scrolls;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.SpellSprite;
 import com.hmdzl.spspd.effects.particles.EnergyParticle;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.messages.Messages;
 
 public class ScrollOfRecharging extends Scroll {
 	
@@ -51,7 +55,13 @@ public class ScrollOfRecharging extends Scroll {
 		GLog.i(Messages.get(this, "surge"));
 		SpellSprite.show( curUser, SpellSprite.CHARGE );
 		setKnown();
-		
+
+		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+			if (Level.fieldOfView[mob.pos]) {
+				Buff.affect(mob,Shocked.class,6f);
+			}
+		}
+
 		readAnimation();
 	}
 	

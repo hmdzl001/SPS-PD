@@ -99,26 +99,12 @@ public class Golem extends Mob {
 		super.die(cause);
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
+	{
+		immunities.add(Amok.class);
+		immunities.add(Terror.class);
+		immunities.add(Sleep.class);
+		immunities.add(TarGas.class);
+		immunities.add(Tar.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(TarGas.class);
-		IMMUNITIES.add(Tar.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

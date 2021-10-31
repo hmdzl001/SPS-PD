@@ -32,7 +32,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 
@@ -190,8 +190,9 @@ public class Pasty extends StapleFood {
 					GLog.p(Messages.get(Pasty.class,"worker"));
 					break;
 				case CHILD:
-					hero.HP = hero.HT;
-					hero.HT +=3;
+					hero.HP = hero.TRUE_HT;
+					hero.TRUE_HT +=3;
+					hero.updateHT(true);
 					Buff.affect(hero,Blindness.class, 20f);
 					Buff.affect(hero,Vertigo.class, 20f);
 					break;

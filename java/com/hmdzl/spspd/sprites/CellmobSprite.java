@@ -3,7 +3,7 @@ package com.hmdzl.spspd.sprites;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.effects.DeathRay;
+import com.hmdzl.spspd.effects.Beam.DeathRay;
 import com.watabou.noosa.TextureFilm;
 
 public class CellmobSprite extends MobSprite {

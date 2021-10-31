@@ -21,7 +21,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
@@ -45,8 +45,7 @@ public class Meat extends MeatFood {
 			switch (Random.Int(15)) {
 			case 0:
 				GLog.w(Messages.get(this,"bad"));
-				Buff.affect(hero, Poison.class).set(
-						Poison.durationFactor(hero) * hero.HT / 5);
+				Buff.affect(hero, Poison.class).set(hero.HT / 5);
 				break;
 			}
 		}

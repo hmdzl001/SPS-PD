@@ -71,7 +71,7 @@ public class AssassinSprite extends MobSprite {
 		 	  
 		  		
 		  		if(Random.Int(5)==0){
-		  			Buff.affect(enemy, Slow.class, Slow.duration(enemy));
+		  			Buff.affect(enemy, Slow.class, 5f);
 		  		}
 		  				  		
 		  		

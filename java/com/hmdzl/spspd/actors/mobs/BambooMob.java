@@ -101,35 +101,19 @@ public class BambooMob extends Mob {
 			return true;
 		}
 		
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<>();
+		private static final HashSet<Class<?>> resistances = new HashSet<>();
 
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> WEAKNESS = new HashSet<Class<?>>();
-	static {
-		WEAKNESS.add(ToxicGas.class);
-		WEAKNESS.add(Ooze.class);
-		WEAKNESS.add(PoisonGas.class);
+	{
+		weakness.add(ToxicGas.class);
+		weakness.add(Ooze.class);
+		weakness.add(PoisonGas.class);
 
-		IMMUNITIES.add(Roots.class);
+		resistances.add(Roots.class);
 
-		WEAKNESS.add(Burning.class);
-		WEAKNESS.add(Wand.class);
-		WEAKNESS.add(EnchantmentFire.class);
-		WEAKNESS.add(Poison.class);
+		weakness.add(Wand.class);
+		weakness.add(Poison.class);
 
 	}
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
 
-	@Override
-	public HashSet<Class<?>> weakness() {
-		return WEAKNESS;
-	}
 }

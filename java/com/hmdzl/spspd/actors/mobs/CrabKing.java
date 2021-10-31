@@ -36,7 +36,7 @@ import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CrabKingSprite;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -52,7 +52,7 @@ public class CrabKing extends Mob {
 		EXP = 20;
 		evadeSkill = 30;
 
-		properties.add(Property.BEAST);
+		properties.add(Property.FISHER);
 		properties.add(Property.BOSS);
 	}
 
@@ -158,16 +158,10 @@ public class CrabKing extends Mob {
 		yell(Messages.get(this,"notice"));
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
 		
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
 }

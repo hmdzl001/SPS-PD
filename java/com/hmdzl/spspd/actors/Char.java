@@ -17,32 +17,40 @@
  */
 package com.hmdzl.spspd.actors;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.ElectriShock;
+import com.hmdzl.spspd.actors.blobs.Fire;
+import com.hmdzl.spspd.actors.blobs.FrostGas;
+import com.hmdzl.spspd.actors.blobs.HealLight;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.BeCorrupt;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Bless;
+import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
+import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Cold;
 import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.DamageUp;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Disarm;
+import com.hmdzl.spspd.actors.buffs.Dry;
 import com.hmdzl.spspd.actors.buffs.EarthImbue;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.FireImbue;
 import com.hmdzl.spspd.actors.buffs.Frost;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.actors.buffs.FrostImbue;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
@@ -50,36 +58,65 @@ import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.HighAttack;
 import com.hmdzl.spspd.actors.buffs.Hot;
 import com.hmdzl.spspd.actors.buffs.Hunger;
+import com.hmdzl.spspd.actors.buffs.LightShootAttack;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.MagicWeak;
+import com.hmdzl.spspd.actors.buffs.MagicalSleep;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.Needling;
+import com.hmdzl.spspd.actors.buffs.Ooze;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.ParyAttack;
+import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.buffs.Rhythm2;
+import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Shocked;
+import com.hmdzl.spspd.actors.buffs.Shocked2;
+import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.SoulMark;
+import com.hmdzl.spspd.actors.buffs.Speed;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.actors.buffs.Tar;
-import com.hmdzl.spspd.actors.buffs.MagicalSleep;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.buffs.Speed;
+import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.Wet;
 import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.TerrorMind;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
-import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.effects.Lightning;
+import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.armor.glyphs.Darkglyph;
+import com.hmdzl.spspd.items.armor.glyphs.Earthglyph;
+import com.hmdzl.spspd.items.armor.glyphs.Electricityglyph;
+import com.hmdzl.spspd.items.armor.glyphs.Lightglyph;
+import com.hmdzl.spspd.items.rings.RingOfElements;
 import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.items.wands.WandOfAcid;
+import com.hmdzl.spspd.items.wands.WandOfBlood;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
+import com.hmdzl.spspd.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.items.wands.WandOfLight;
+import com.hmdzl.spspd.items.wands.WandOfLightning;
+import com.hmdzl.spspd.items.wands.WandOfMeteorite;
+import com.hmdzl.spspd.items.wands.WandOfSwamp;
+import com.hmdzl.spspd.items.weapon.Weapon;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth2;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight2;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock2;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
@@ -87,13 +124,16 @@ import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public abstract class Char extends Actor {
 
@@ -106,6 +146,8 @@ public abstract class Char extends Actor {
 	public String name = "mob";
 
 	public int HT;
+	public int TRUE_HT;
+	public int EX_HT;
 	public int HP;
 
 	protected float baseSpeed = 1;
@@ -129,6 +171,9 @@ public abstract class Char extends Actor {
 	private static final String TAG_HP = "HP";
 	private static final String TAG_HT = "HT";
 	private static final String BUFFS = "buffs";
+	private static final String TRUEHT = "ture_HT";
+	private static final String EXHT = "EX_HT";
+
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -139,6 +184,8 @@ public abstract class Char extends Actor {
 		bundle.put(TAG_HP, HP);
 		bundle.put(TAG_HT, HT);
 		bundle.put(BUFFS, buffs);
+		bundle.put(TRUEHT, TRUE_HT);
+		bundle.put(EXHT, EX_HT);
 	}
 
 	@Override
@@ -149,6 +196,8 @@ public abstract class Char extends Actor {
 		pos = bundle.getInt(POS);
 		HP = bundle.getInt(TAG_HP);
 		HT = bundle.getInt(TAG_HT);
+		TRUE_HT = bundle.getInt(TRUEHT);
+		EX_HT = bundle.getInt(EXHT);
 
 		for (Bundlable b : bundle.getCollection(BUFFS)) {
 			if (b != null) {
@@ -199,7 +248,7 @@ public abstract class Char extends Actor {
 
 			StoneIce si = buff(StoneIce.class);
 		if ( si != null){
-			dmg *= 1.4;
+			dmg *= 1.4f;
 		}			
 			
 			DamageUp dmgup = buff(DamageUp.class);
@@ -252,11 +301,11 @@ public abstract class Char extends Actor {
 
 			if (!enemy.isAlive() && visibleFight) {
 				if (enemy == Dungeon.hero) {
-					if (Bestiary.isUnique(this)) {
-						Dungeon.fail(Messages.format(ResultDescriptions.UNIQUE));
-					} else {
-						Dungeon.fail(Messages.format(ResultDescriptions.MOB));
-					}
+					//if (Bestiary.isUnique(this)) {
+						//Dungeon.fail(Messages.format(ResultDescriptions.UNIQUE));
+					//} else {
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//}
 
 				} 
 			}
@@ -314,7 +363,7 @@ public abstract class Char extends Actor {
 		if (buff(Shocked.class)!=null){
 			Buff.detach(this,Shocked.class);
 			Buff.affect(this, Disarm.class,5f);
-            damage(this.HP/10,this);
+            damage(this.HP/10,Shocked.class);
 			ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 			arcs.add(new Lightning.Arc(pos - Level.WIDTH, pos + Level.WIDTH));
 			arcs.add(new Lightning.Arc(pos - 1, pos + 1));
@@ -340,6 +389,8 @@ public abstract class Char extends Actor {
 		} else if (buff(MechArmor.class) != null) {
 			return baseSpeed * 1.5f;
 		} else	if (buff(StoneIce.class) != null) {
+			return baseSpeed * 0.8f;
+		} else	if (buff(FrostIce.class) != null) {
 			return baseSpeed * 0.8f;
 		} else{
 			return baseSpeed;
@@ -396,27 +447,71 @@ public abstract class Char extends Actor {
 		}
 
 		ShieldArmor sarmor = buff(ShieldArmor.class);
-		if (sarmor != null && !(src instanceof Hunger)) {
+		MagicArmor magicarmor = buff(MagicArmor.class);
+		MechArmor marmor = buff(MechArmor.class);
+		EnergyArmor earmor = buff(EnergyArmor.class);
+		if(!(src instanceof Hunger)) {
+			//if (!(src instanceof DamageType) && !(src instanceof Buff) && !(src instanceof Blob)
+					//&& !(src instanceof Wand) && !(src instanceof Weapon.Enchantment) && !(src instanceof Armor.Glyph)) {
+
+			//} else {
+
+			if (sarmor != null && !(src instanceof Buff) &&
+					!(src instanceof DamageType) && !(src instanceof Blob) && !(src instanceof Wand) ) {
 				dmg = sarmor.absorb(dmg);
+				//GLog.w(Messages.get(this, "htdown", src, dmg));
+			}
+		if (magicarmor != null && (src instanceof DamageType || src instanceof Buff ||
+				src instanceof Blob || src instanceof Wand )){ dmg = magicarmor.absorb(dmg);
+			//GLog.w(Messages.get(this, "htdown",src,dmg));
+			}
+	//}
+			if (marmor != null ) {
+				dmg = marmor.absorb(dmg);
+			}
+
 		}
 
-		MechArmor marmor = buff(MechArmor.class);
-		if (marmor != null && !(src instanceof Hunger)) {
-			dmg = marmor.absorb(dmg);
+		if (earmor != null ) {
+			dmg = earmor.absorb(dmg);
 		}
-		
-		if (HP <= 0 || dmg < 0) {
-			return;
+
+		if(this.properties().contains(Property.UNKNOW)){
+			if (((src instanceof Char)&& ((Char) src).properties().contains(Property.MAGICER)) ||
+			src instanceof Buff || src instanceof DamageType ||
+			src instanceof Blob || src instanceof Weapon.Enchantment || src instanceof Armor.Glyph ||
+			src instanceof Wand) dmg = (int)(dmg*1.25);
+                else dmg = (int)(dmg*0.75);
+		}
+
+		if(this.properties().contains(Property.ELEMENT)){
+			if (((src instanceof Char)&& ((Char) src).properties().contains(Property.MAGICER)) ||
+
+			src instanceof Buff || src instanceof DamageType ||
+			src instanceof Blob || src instanceof Weapon.Enchantment || src instanceof Armor.Glyph ||
+			src instanceof Wand
+			) dmg = (int)(dmg*0.75);
+			else dmg = (int)(dmg*1.25);
+		}
+
+		if(this.properties().contains(Property.TROLL)){
+			 dmg = (int)(dmg*0.6);
+		}
+
+		if(this.properties().contains(Property.ALIEN)){
+			dmg = (int)(dmg*1.4);
 		}
 
 		Class<?> srcClass = src.getClass();
-		if (immunities().contains(srcClass)) {
+		if (isImmune( srcClass )) {
 			dmg = 0;
-		} else if (resistances().contains(srcClass)) {
+			} else if (isResist( srcClass )) {
 			dmg = Random.IntRange(0, dmg);
-		} else if (weakness().contains(srcClass)) {
-			dmg = Random.IntRange(dmg+1, 2*dmg);
+			} else if (isWeak(srcClass)) {
+			dmg = Random.IntRange(dmg+dmg/2, 2*dmg+dmg/2);
 		}
+
+
 
 		if (buff(Paralysis.class) != null) {
 			if (Random.Int(dmg) >= Random.Int(HP)) {
@@ -434,6 +529,11 @@ public abstract class Char extends Actor {
 				Buff.detach(this, GlassShield.class);
 			}
 		}
+
+		if (HP <= 0 || dmg < 0) {
+			return;
+		}
+
        //if (dmg > HP){
 		//Buff.detach(this,Corruption.class);}
 		HP -= dmg;
@@ -574,20 +674,6 @@ public abstract class Char extends Actor {
 	
 	public void updateSpriteState() {
 		for (Buff buff : buffs) {
-			/*if (buff instanceof Burning) {
-				sprite.add(CharSprite.State.BURNING);
-			} else if (buff instanceof Levitation) {
-				sprite.add(CharSprite.State.LEVITATING);
-			} else if (buff instanceof Invisibility
-					|| buff instanceof CloakOfShadows.cloakStealth) {
-				sprite.add(CharSprite.State.INVISIBLE);
-			} else if (buff instanceof Stun || buff instanceof Shieldblock) {
-				sprite.add(CharSprite.State.PARALYSED);
-			} else if (buff instanceof Frost) {
-				sprite.add(CharSprite.State.FROZEN);
-			} else if (buff instanceof Light) {
-				sprite.add(CharSprite.State.ILLUMINATED);
-			}*/
 			buff.fx( true );
 		}
 	}
@@ -654,77 +740,177 @@ public abstract class Char extends Actor {
 		return EMPTY;
 	}
 
-	 //protected final HashSet<Class> resistances = new HashSet<>();
+	protected final HashSet<Class> resistances = new HashSet<>();
 
-	//returns percent effectiveness after resistances
+	//returns percent effectiveness after resisances
 	//TODO currently resistances reduce effectiveness by a static 50%, and do not stack.
-	//public float resist( Class effect ){
-		//HashSet<Class> resists = new HashSet<>(resistances);
-	//	for (Property p : properties()){
-	//		resists.addAll(p.resistances());
-	//	}
-	//	for (Buff b : buffs()){
-	//		resists.addAll(b.resistances());
-	//	}
+	public float resist( Class effect ){
+		HashSet<Class> resists = new HashSet<>(resistances);
+		for (Property p : properties()){
+			resists.addAll(p.resistances());
+		}
+		for (Buff b : buffs()){
+			resists.addAll(b.resistances());
+		}
 
-	//	float result = 1f;
-	//	for (Class c : resists){
-	//		if (c.isAssignableFrom(effect)){
-	//			result *= 0.5f;
-	//		}
-	//	}
-	//	return result * RingOfElements.restore(this, effect);
-	//}
+		float result = 1f;
+		for (Class c : resists){
+			if (c.isAssignableFrom(effect)){
+				result *= 0.5f;
+			}
+		}
+		return result * RingOfElements.Rresist(this, effect);
+	}
 
-	//protected final HashSet<Class> immunities = new HashSet<>();
+	protected final HashSet<Class> weakness = new HashSet<>();
+	
+	public float weak( Class effect ){
+		HashSet<Class> weaks = new HashSet<>(weakness);
+		for (Property p : properties()){
+			weaks.addAll(p.resistances());
+		}
+		for (Buff b : buffs()){
+			weaks.addAll(b.resistances());
+		}
 
-	//public boolean isImmune(Class effect ){
-		//HashSet<Class> immunes = new HashSet<>(immunities);
-		//for (Property p : properties()){
-			//immunes.addAll(p.immunities());
-		//}
-		//for (Buff b : buffs()){
-			//immunes.addAll(b.immunities());
-		//}
+		float result = 1f;
+		for (Class c : weaks){
+			if (c.isAssignableFrom(effect)){
+				result *= 1.5f;
+			}
+		}
+		return result * RingOfElements.Rresist(this, effect);
+	}
 
-		//for (Class c : immunes){
-			//if (c.isAssignableFrom(effect)){
-			//	return true;
-			//}
-	//	}
-		//return false;
-	//}
+	public boolean isResist( Class effect ){
+		HashSet<Class> resists = new HashSet<>(resistances);
+		for (Property p : properties()){
+			resists.addAll(p.resistances());
+		}
+		for (Buff b : buffs()){
+			resists.addAll(b.resistances());
+		}
+		for (Class c : resists){
+			if (c.isAssignableFrom(effect)){
+				return true;
+			}
+		}
+		return false;
+	}
 
+	public boolean isWeak( Class effect ){
+		HashSet<Class> weaks = new HashSet<>(weakness);
+		for (Property p : properties()){
+			weaks.addAll(p.resistances());
+		}
+		for (Buff b : buffs()){
+			weaks.addAll(b.resistances());
+		}
+		for (Class c : weaks){
+			if (c.isAssignableFrom(effect)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+    protected final HashSet<Class> immunities = new HashSet<>();	
+
+	public boolean isImmune(Class effect ){
+		HashSet<Class> immunes = new HashSet<>(immunities);
+		for (Property p : properties()){
+			immunes.addAll(p.immunities());
+		}
+		for (Buff b : buffs()){
+			immunes.addAll(b.immunities());
+		}
+		
+		for (Class c : immunes){
+			if (c.isAssignableFrom(effect)){
+				return true;
+			}
+		}
+		return false;
+	}	
+	
 	protected HashSet<Property> properties = new HashSet<>();
 
-	public HashSet<Property> properties() { return properties; }
+	public HashSet<Property> properties() { 
+	    return new HashSet<>(properties); 
+	}
 
 	public enum Property{
 		BOSS,
 		MINIBOSS,
 		IMMOVABLE,
+		MAGICER,
 
-		HUMAN,
-        ORC,
-		ELF,
-		//GNOLL,
-		DWARF,
-		TROLL,
-		DEMONIC,
-		GOBLIN,
+		HUMAN( new HashSet<Class>( ),
+				new HashSet<Class>( ),
+				new HashSet<Class>( )
+		),
+        ORC( new HashSet<Class>( Arrays.asList(Bleeding.class,Poison.class) ),
+				new HashSet<Class>( Arrays.asList(Roots.class)  ),
+				new HashSet<Class>( Arrays.asList(BeCorrupt.class,BeOld.class) )
+		),
+		FISHER( new HashSet<Class>( Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class) ),
+				new HashSet<Class>( ),
+				new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class))
+		),
+		ELF( new HashSet<Class>( Arrays.asList(BeOld.class) ),
+				new HashSet<Class>( ),
+				new HashSet<Class>( Arrays.asList(Vertigo.class,Blindness.class))
+		),
+		DWARF( new HashSet<Class>(  Arrays.asList(Paralysis.class , Ooze.class,GrowSeed.class ) ),
+				new HashSet<Class>( Arrays.asList(Cripple.class, Roots.class) ),
+				new HashSet<Class>(  Arrays.asList(ShadowCurse.class,EnchantmentDark.class, EnchantmentDark2.class,Darkglyph.class,WandOfBlood.class))
+		),
+		TROLL( new HashSet<Class>( ),
+				new HashSet<Class>( ),
+				new HashSet<Class>(  Arrays.asList(Buff.class) )
+		),
+		DEMONIC( new HashSet<Class>(Arrays.asList(ShadowCurse.class,EnchantmentDark.class, EnchantmentDark2.class,Darkglyph.class,WandOfBlood.class) ),
+				new HashSet<Class>( ),
+				new HashSet<Class>( Arrays.asList(WandOfLightning.class,EnchantmentLight.class, EnchantmentLight2.class,Lightglyph.class,LightShootAttack.class) )
+		),
+		GOBLIN( new HashSet<Class>( Arrays.asList(WandOfLightning.class,ElectriShock.class,EnchantmentShock.class,EnchantmentShock2.class,Shocked.class,Shocked2.class,Electricityglyph.class) ),
+				new HashSet<Class>( ),
+				new HashSet<Class>( Arrays.asList(EnchantmentEarth.class , EnchantmentEarth2.class,Earthglyph.class,WandOfSwamp.class,WandOfAcid.class ) )
+		),
 
-        BEAST,
-		DRAGON,
-		PLANT( new HashSet<Class>(),
+        BEAST( new HashSet<Class>( Arrays.asList(Hot.class,Cold.class,Dry.class,Wet.class)),
+				new HashSet<Class>(  ),
+				new HashSet<Class>( Arrays.asList( BeOld.class, EnchantmentDark.class, EnchantmentDark2.class, Blindness.class) )
+		),
+		DRAGON( new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class) ),
+				new HashSet<Class>(  Arrays.asList(BeCorrupt.class,BeOld.class,AttackDown.class) ),
+				new HashSet<Class>(  Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class) )
+		),
+		PLANT( new HashSet<Class>(Arrays.asList(Roots.class, Cripple.class, Ooze.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class)),
 		        new HashSet<Class>( Arrays.asList(Burning.class, WandOfFirebolt.class,EnchantmentFire.class,EnchantmentFire2.class))
 				),
-		ELEMENT,
+		ELEMENT( new HashSet<Class>( ),
+				new HashSet<Class>( ),
+				new HashSet<Class>( )
+		),
 
-		MECH,
-		UNDEAD,
-		ALIEN,
-		UNKNOW;
+		MECH( new HashSet<Class>(  Arrays.asList(Fire.class, FrostGas.class, Frost.class,Burning.class)),
+				new HashSet<Class>( Arrays.asList(Charm.class, Terror.class) ),
+				new HashSet<Class>(  Arrays.asList(Ooze.class,WandOfAcid.class, WandOfSwamp.class,EnchantmentEarth.class,EnchantmentEarth2.class))
+		),
+		UNDEAD( new HashSet<Class>( Arrays.asList(Cold.class, FrostGas.class, Frost.class,BeCorrupt.class)),
+				new HashSet<Class>( Arrays.asList(Bleeding.class, HealLight.class, Poison.class,BeOld.class)),
+				new HashSet<Class>(Arrays.asList(Blindness.class, WandOfLight.class,EnchantmentLight.class,EnchantmentLight2.class) )
+		),
+		ALIEN( new HashSet<Class>( Arrays.asList(Buff.class) ),
+				new HashSet<Class>( ),
+				new HashSet<Class>( )
+		),
+		UNKNOW( new HashSet<Class>( ),
+				new HashSet<Class>( ),
+				new HashSet<Class>( )
+		);
 
 		private HashSet<Class> resistances;
 		private HashSet<Class> immunities;
@@ -736,14 +922,13 @@ public abstract class Char extends Actor {
 
 		Property( HashSet<Class> resistances, HashSet<Class> immunities,HashSet<Class> weakness){
 			this.resistances = resistances;
-			this.immunities = immunities;
+			this.immunities = immunities ;
 			this.weakness = weakness;
 		}
 
 		public HashSet<Class> resistances(){
 			return new HashSet<>(resistances);
 		}
-
 		public HashSet<Class> immunities(){
 			return new HashSet<>(immunities);
 		}

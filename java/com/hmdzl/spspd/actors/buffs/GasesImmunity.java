@@ -28,13 +28,18 @@ import com.hmdzl.spspd.actors.blobs.weather.WeatherOfRain;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSand;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSnow;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSun;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
+
 
 public class GasesImmunity extends FlavourBuff {
 
-	public static final float DURATION = 15f;
+	public static final float DURATION = 20f;
 
+    {
+		type = buffType.POSITIVE;
+	}	
+	
 	@Override
 	public int icon() {
 		return BuffIndicator.IMMUNITY;
@@ -64,4 +69,5 @@ public class GasesImmunity extends FlavourBuff {
 	public String desc() {
 		return Messages.get(this, "desc", dispTurns());
 	}	
+
 }

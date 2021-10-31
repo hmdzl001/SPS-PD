@@ -36,7 +36,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.utils.Callback;
 import com.watabou.noosa.audio.Sample;
@@ -82,7 +82,7 @@ public class FollowerSkill extends ClassSkill {
 				people++;
 			}
 		}
-		int goldearn = (int)(people*(Dungeon.hero.lvl/10+100));
+		int goldearn = people*(Dungeon.hero.lvl/10+100);
 		Dungeon.gold+= goldearn;
 		Dungeon.hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, goldearn);
 	}
@@ -91,7 +91,7 @@ public class FollowerSkill extends ClassSkill {
 	public void doSpecial3() {
 
 		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Dungeon.level.distance(curUser.pos, mob.pos) <= 10)) {
+			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
 				Buff.affect(mob, Terror.class, 10f).object = curUser.id();
 				Buff.prolong(mob, Blindness.class, 10f);
 			}

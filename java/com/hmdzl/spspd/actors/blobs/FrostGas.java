@@ -27,7 +27,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class FrostGas extends Blob {
 
@@ -60,7 +60,7 @@ public class FrostGas extends Blob {
 
 	private void ice(int pos) {
 					Char ch = Actor.findChar( pos );
-					if (ch != null && !ch.immunities().contains(this.getClass())) {
+					if (ch != null && !ch.isImmune(this.getClass())) {
 						if (ch.buff(Frost.class) != null){
 							Buff.affect(ch, Frost.class, 2f);
 						} else {

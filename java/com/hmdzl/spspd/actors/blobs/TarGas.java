@@ -25,7 +25,7 @@ import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Tar;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -40,7 +40,7 @@ public class TarGas extends Blob {
 		Char ch;
 		for (int i = 0; i < LENGTH; i++) {
 			if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
-				if (!ch.immunities().contains(this.getClass()))
+				if (!ch.isImmune(this.getClass()))
 					Buff.affect(ch,Tar.class);
 		         if ( ch.buff( Burning.class ) != null ) {GameScene.add(Blob.seed(ch.pos, 2, Fire.class));
                 }	

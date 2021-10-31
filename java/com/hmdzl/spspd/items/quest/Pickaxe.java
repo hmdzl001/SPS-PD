@@ -17,18 +17,15 @@
  */
 package com.hmdzl.spspd.items.quest;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Hunger;
-import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Ooze;
-import com.hmdzl.spspd.actors.buffs.Bleeding;
+import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.Bat;
 import com.hmdzl.spspd.actors.mobs.ElderAvatar;
 import com.hmdzl.spspd.actors.mobs.King;
 import com.hmdzl.spspd.actors.mobs.LichDancer;
@@ -40,14 +37,14 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Pickaxe extends Weapon {
 
@@ -57,7 +54,7 @@ public class Pickaxe extends Weapon {
 
 	private static final String TXT_NO_VEIN = "There is no dark gold vein near you to mine";
 
-	private static final Glowing BLOODY = new Glowing(0x550000);
+	//private static final Glowing BLOODY = new Glowing(0x550000);
 
 	{
 		//name = "pickaxe";
@@ -72,7 +69,7 @@ public class Pickaxe extends Weapon {
 		MAX = 22;
 	}
 
-	public boolean bloodStained = false;
+	//public boolean bloodStained = false;
 	
 	
 		
@@ -176,10 +173,10 @@ public class Pickaxe extends Weapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		if (!bloodStained && defender instanceof Bat ) {
-			bloodStained = true;
-			updateQuickslot();
-		}
+		//if (!bloodStained && defender instanceof Bat ) {
+		//	bloodStained = true;
+		//	updateQuickslot();
+	//	}
 		if (defender instanceof King.DwarfKingTomb || defender instanceof ElderAvatar.Obelisk || defender instanceof LichDancer.BatteryTomb){
 			defender.damage(Random.Int(100,200), this);
 		}
@@ -193,7 +190,7 @@ public class Pickaxe extends Weapon {
 			break;
 		case 3 :
             Buff.affect(defender, Poison.class).set(
-					Random.Int(7, 10) * Poison.durationFactor(defender) );
+					Random.Int(7, 10) );
 			break;	
 		default:
 			break;
@@ -204,26 +201,26 @@ public class Pickaxe extends Weapon {
 		}
 	}
 
-	private static final String BLOODSTAINED = "bloodStained";
+	//private static final String BLOODSTAINED = "bloodStained";
 
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
+	//@Override
+	//public void storeInBundle(Bundle bundle) {
+	//	super.storeInBundle(bundle);
 
-		bundle.put(BLOODSTAINED, bloodStained);
-	}
+	//	bundle.put(BLOODSTAINED, bloodStained);
+	//}
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
+	//@Override
+	//public void restoreFromBundle(Bundle bundle) {
+	//	super.restoreFromBundle(bundle);
 
-		bloodStained = bundle.getBoolean(BLOODSTAINED);
-	}
+	//	bloodStained = bundle.getBoolean(BLOODSTAINED);
+	//}
 
-	@Override
-	public Glowing glowing() {
-		return bloodStained ? BLOODY : null;
-	}
+	//@Override
+//	public Glowing glowing() {
+	//	return bloodStained ? BLOODY : null;
+	//}
 
 	/*@Override
 	public String info() {

@@ -18,9 +18,8 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.effects.Splash;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PointF;
@@ -51,9 +50,9 @@ public class Bleeding extends Buff {
 
 	public void set(int level) {
 		this.level = level;
-	};
+	}
 
-	@Override
+    @Override
 	public int icon() {
 		return BuffIndicator.BLEEDING;
 	}
@@ -77,7 +76,7 @@ public class Bleeding extends Buff {
 				}
 
 				if (target == Dungeon.hero && !target.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.BLEEDING));
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n("You bled to death...");
 				}
 

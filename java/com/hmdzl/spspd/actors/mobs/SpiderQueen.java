@@ -17,12 +17,9 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Badges.Badge;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -46,15 +43,14 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.TomeOfMastery;
 import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
-import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.CavesBossLevel;
-import com.hmdzl.spspd.levels.features.Door;
-import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.features.Door;
+import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SpiderEggSprite;
 import com.hmdzl.spspd.sprites.SpiderGoldSprite;
@@ -63,8 +59,10 @@ import com.hmdzl.spspd.sprites.SpiderMindSprite;
 import com.hmdzl.spspd.sprites.SpiderNormalSprite;
 import com.hmdzl.spspd.sprites.SpiderQueenSprite;
 import com.hmdzl.spspd.utils.GLog;
-
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class SpiderQueen extends Mob {
 
@@ -116,7 +114,7 @@ public class SpiderQueen extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(2) == 0) {
 			Buff.affect(enemy, Poison.class).set(
-					Random.Int(7, 9) * Poison.durationFactor(enemy));
+					Random.Int(7, 9));
 			state = FLEEING;
 		}
 
@@ -166,7 +164,7 @@ public class SpiderQueen extends Mob {
 	public void die(Object cause) {
 
 		GameScene.bossSlain();
-		((CavesBossLevel) Dungeon.level).unseal();
+		Dungeon.level.unseal();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Badges.validateBossSlain();
 
@@ -208,28 +206,12 @@ public class SpiderQueen extends Mob {
 		yell(Messages.get(this, "notice"));
 	}
 	
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-
-	static {
-		RESISTANCES.add(Poison.class);
+    {
+		resistances.add(Poison.class);
+		immunities.add(Slow.class);
+		immunities.add(Roots.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-	static {
-		IMMUNITIES.add(Slow.class);
-		IMMUNITIES.add(Roots.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 
 	private class Fleeing extends Mob.Fleeing {
 		@Override
@@ -302,21 +284,16 @@ public class SpiderQueen extends Mob {
 			return super.act();
 		}
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Amok.class);
-			IMMUNITIES.add(Sleep.class);
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(Poison.class);
-			IMMUNITIES.add(Vertigo.class);
-			IMMUNITIES.add(ToxicGas.class);
-			IMMUNITIES.add(Slow.class);
+		{
+			immunities.add(Amok.class);
+			immunities.add(Sleep.class);
+			immunities.add(Terror.class);
+			immunities.add(Poison.class);
+			immunities.add(Vertigo.class);
+			immunities.add(ToxicGas.class);
+			immunities.add(Slow.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}
 
 	public static class SpiderWorker extends Mob {
@@ -353,29 +330,13 @@ public class SpiderQueen extends Mob {
 			return Random.NormalIntRange(6, 10);
 		}
 
+        {
+			resistances.add(Poison.class);
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-
-		static {
-			RESISTANCES.add(Poison.class);
+			immunities.add(Roots.class);
+			immunities.add(SlowWeb.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-		static {
-			IMMUNITIES.add(Roots.class);
-			IMMUNITIES.add(SlowWeb.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 
 		public static SpiderWorker spawnAt(int pos) {
 
@@ -435,26 +396,9 @@ public class SpiderQueen extends Mob {
 			return super.act();
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-
-		static {
-			RESISTANCES.add(Poison.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-		static {
-			IMMUNITIES.add(Roots.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
+		{
+			resistances.add(Poison.class);
+			immunities.add(Roots.class);
 		}
 
 		public static SpiderMind spawnAt(int pos) {
@@ -548,26 +492,11 @@ public class SpiderQueen extends Mob {
 			delay = BLINK_DELAY;
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
 
-		static {
-			RESISTANCES.add(Poison.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-		static {
-			IMMUNITIES.add(Roots.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
+		{
+			resistances.add(Poison.class);
+		
+			immunities.add(Roots.class);
 		}
 
 		public static SpiderJumper spawnAt(int pos) {
@@ -625,28 +554,12 @@ public class SpiderQueen extends Mob {
 			return super.defenseProc(enemy, damage);
 		}
 
-		private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-
-		static {
-			RESISTANCES.add(Poison.class);
+		{
+			resistances.add(Poison.class);
+			immunities.add(ConfusionGas.class);
+			immunities.add(Roots.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> resistances() {
-			return RESISTANCES;
-		}
-
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-
-		static {
-			IMMUNITIES.add(ConfusionGas.class);
-			IMMUNITIES.add(Roots.class);
-		}
-
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 
 		public static SpiderGold spawnAt(int pos) {
 

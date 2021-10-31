@@ -23,6 +23,29 @@ import com.watabou.utils.Bundle;
 
 public class Statistics {
 
+	private static final String GOLD = "score";
+	private static final String DEEPEST = "maxDepth";
+	private static final String REALDEEPEST = "maxDepthReal";
+	private static final String SLAIN = "enemiesSlain";
+	private static final String FOOD = "foodEaten";
+	private static final String EGG = "eggBreak";
+	private static final String ALCHEMY = "potionsCooked";
+	private static final String PIRANHAS = "priranhas";
+	private static final String WATERS = "waters";
+	private static final String ARCHERS = "archers";
+	private static final String SKELETONS = "skeletons";
+	private static final String ASSASSINS = "assassins";
+	private static final String APIRANHAS = "apiranhas";
+	private static final String THIEVES = "thieves";
+	private static final String NIGHT = "nightHunt";
+	private static final String ANKHS = "ankhsUsed";
+	private static final String DURATION = "duration";
+	private static final String FLOORMOVES = "floormoves";
+	private static final String PREVFLOORMOVES = "prevfloormoves";
+	private static final String MOVES = "moves";
+	private static final String TIME = "time";
+	private static final String AMULET = "amuletObtained";
+	private static final String ORB = "orbObtained";
 	public static int goldCollected;
 	public static int deepestFloor;
 	public static int realdeepestFloor;
@@ -36,29 +59,17 @@ public class Statistics {
 	public static int assassinsKilled;
 	public static int albinoPiranhasKilled;
 	public static int goldThievesKilled;
-	public static int shadowYogsKilled;
 	public static int nightHunt;
 	public static int ankhsUsed;
-	public static int ballsCooked;
-	public static int waters;
-	public static int sewerKills;
-	public static int prisonKills;
-	public static int petDies;
-
 	public static float duration;
 	public static int floormoves;
 	public static int prevfloormoves;
 	public static int moves;
 	public static float time;
-	
-	
 	public static boolean qualifiedForNoKilling = false;
 	public static boolean completedWithNoKilling = false;
-	
-
 	public static boolean amuletObtained = false;
 	public static boolean orbObtained = false;
-
 
 	public static void reset() {
 
@@ -69,21 +80,15 @@ public class Statistics {
 		foodEaten = 0;
 		eggBreak = 0;
 		potionsCooked = 0;
-		
+
 		piranhasKilled = 0;
 		archersKilled = 0;
 		assassinsKilled = 0;
 		skeletonsKilled = 0;
 		albinoPiranhasKilled = 0;
 		goldThievesKilled = 0;
-		shadowYogsKilled = 0;
 		nightHunt = 0;
 		ankhsUsed = 0;
-		ballsCooked = 0;
-		waters = 0;
-		sewerKills = 0;
-		prisonKills = 0;
-		petDies = 0;
 
 		duration = 0;
 		moves = 0;
@@ -97,37 +102,6 @@ public class Statistics {
 		orbObtained = false;
 
 	}
-
-	private static final String GOLD = "score";
-	private static final String DEEPEST = "maxDepth";
-	private static final String REALDEEPEST = "maxDepthReal";
-	private static final String SLAIN = "enemiesSlain";
-	private static final String FOOD = "foodEaten";
-	private static final String EGG = "eggBreak";
-	private static final String ALCHEMY = "potionsCooked";
-	private static final String PIRANHAS = "priranhas";
-	private static final String WATERS = "waters";
-	
-	private static final String ARCHERS = "archers";
-	private static final String SKELETONS = "skeletons";
-	private static final String ASSASSINS = "assassins";
-	private static final String APIRANHAS = "apiranhas";
-	private static final String THIEVES = "thieves";
-	private static final String SYOGS = "syogs";
-	private static final String BALLS = "balls";
-	private static final String PRISONKILLS = "prisonKills";
-	private static final String SEWERKILLS = "sewerKills";
-	private static final String PETDIES = "petDies";
-	
-	private static final String NIGHT = "nightHunt";
-	private static final String ANKHS = "ankhsUsed";
-	private static final String DURATION = "duration";
-	private static final String FLOORMOVES = "floormoves";
-	private static final String PREVFLOORMOVES = "prevfloormoves";
-	private static final String MOVES = "moves";
-	private static final String TIME = "time";
-	private static final String AMULET = "amuletObtained";
-	private static final String ORB = "orbObtained";
 
 	public static void storeInBundle(Bundle bundle) {
 		bundle.put(GOLD, goldCollected);
@@ -143,8 +117,6 @@ public class Statistics {
 		bundle.put(ASSASSINS, assassinsKilled);
 		bundle.put(APIRANHAS, albinoPiranhasKilled);
 		bundle.put(THIEVES, goldThievesKilled);
-		bundle.put(SYOGS, shadowYogsKilled);
-		bundle.put(BALLS, ballsCooked);
 		bundle.put(NIGHT, nightHunt);
 		bundle.put(ANKHS, ankhsUsed);
 		bundle.put(DURATION, duration);
@@ -154,10 +126,6 @@ public class Statistics {
 		bundle.put(TIME, time);
 		bundle.put(AMULET, amuletObtained);
 		bundle.put(ORB, orbObtained);
-		bundle.put(WATERS, waters);
-		bundle.put(SEWERKILLS, sewerKills);
-		bundle.put(PRISONKILLS, prisonKills);
-		bundle.put(PETDIES, petDies);
 	}
 
 	public static void restoreFromBundle(Bundle bundle) {
@@ -169,18 +137,12 @@ public class Statistics {
 		eggBreak = bundle.getInt(EGG);
 		potionsCooked = bundle.getInt(ALCHEMY);
 		piranhasKilled = bundle.getInt(PIRANHAS);
-		waters = bundle.getInt(WATERS);
-		sewerKills = bundle.getInt(SEWERKILLS);
-		prisonKills = bundle.getInt(PRISONKILLS);
-		petDies = bundle.getInt(PETDIES);
-		
+
 		archersKilled = bundle.getInt(ARCHERS);
 		skeletonsKilled = bundle.getInt(SKELETONS);
 		assassinsKilled = bundle.getInt(ASSASSINS);
 		albinoPiranhasKilled = bundle.getInt(APIRANHAS);
 		goldThievesKilled = bundle.getInt(THIEVES);
-		shadowYogsKilled = bundle.getInt(SYOGS);
-		ballsCooked = bundle.getInt(BALLS);
 		
 		nightHunt = bundle.getInt(NIGHT);
 		ankhsUsed = bundle.getInt(ANKHS);

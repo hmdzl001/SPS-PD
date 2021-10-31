@@ -17,21 +17,21 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.levels.Room.Type;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SewerBossLevel extends RegularLevel {
 
@@ -66,7 +66,7 @@ public class SewerBossLevel extends RegularLevel {
 		// the room must be at least 4x4 and be nearer the top of the map(so
 		// that it is less likely something connects to the top)
 		do {
-			if (retry++ > 20) {
+			if (retry++ > 6) {
 				return false;
 			}
 			roomEntrance = Random.element(rooms);
@@ -80,14 +80,14 @@ public class SewerBossLevel extends RegularLevel {
 		Room curRoom = null;
 		Room lastRoom = roomEntrance;
 		// we make 4 rooms, last iteration is tieing the final room to the start
-		for (int i = 0; i <= 4; i++) {
+		for (int i = 0; i <= 9; i++) {
 			retry = 0;
 			// find a suitable room the first four times
 			// suitable room should be empty, have a distance of 2 from the
 			// current room, and not touch the entrance.
-			if (i < 4) {
+			if (i < 9) {
 				do {
-					if (retry++ > 20) {
+					if (retry++ > 12) {
 						return false;
 					}
 					curRoom = Random.element(rooms);

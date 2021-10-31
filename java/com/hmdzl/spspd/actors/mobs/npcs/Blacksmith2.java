@@ -34,7 +34,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ElectricwelderSprite;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBlacksmith2;
 import com.hmdzl.spspd.windows.WndQuest;
@@ -169,12 +169,9 @@ public class Blacksmith2 extends NPC {
 		AdamantWeapon weapon1 = Dungeon.hero.belongings.getItem(AdamantWeapon.class);
 		AdamantRing ring1 = Dungeon.hero.belongings.getItem(AdamantRing.class);
 		AdamantWand wand1 = Dungeon.hero.belongings.getItem(AdamantWand.class);
-		
-		if(armor1!=null ||  weapon1!=null || ring1!=null || wand1!=null) {
-			return true;
-		}
-		   return false;		
-	}
+
+        return armor1 != null || weapon1 != null || ring1 != null || wand1 != null;
+    }
 	
 	
 	

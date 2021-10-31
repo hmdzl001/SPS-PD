@@ -46,7 +46,7 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Badges {
 
@@ -127,7 +127,7 @@ public class Badges {
 
 		public int image;
 
-		private Badge(int image) {
+		Badge(int image) {
 			this(image, false);
 		}
 		

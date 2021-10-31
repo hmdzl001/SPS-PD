@@ -17,13 +17,18 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
+
 
 public class TargetShoot extends FlavourBuff {
 
 	public static final float DURATION = 30f;
-
+	
+    {
+		type = buffType.POSITIVE;
+	}
+	
 	@Override
 	public int icon() {
 		return BuffIndicator.MARK;
@@ -37,5 +42,6 @@ public class TargetShoot extends FlavourBuff {
 	@Override
 	public String desc() {
 		return Messages.get(this, "desc", dispTurns());
-	}
+	}	
+
 }

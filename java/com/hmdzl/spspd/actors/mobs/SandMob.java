@@ -155,17 +155,12 @@ public class SandMob extends Mob {
 		}
 	}		
 
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(EnchantmentEarth.class);
-			IMMUNITIES.add(EnchantmentEarth2.class);
-			IMMUNITIES.add(Paralysis.class);
+		{
+			immunities.add(EnchantmentEarth.class);
+			immunities.add(EnchantmentEarth2.class);
+			immunities.add(Paralysis.class);
 		}
 
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
 	}	
 
 }

@@ -39,7 +39,7 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight2;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock2;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.Item;
@@ -184,7 +184,7 @@ public class Weapon extends KindOfWeapon {
 		
 		int bonus = 0;
 		for (Buff buff : hero.buffs(RingOfAccuracy.Accuracy.class)) {
-			bonus += ((RingOfAccuracy.Accuracy) buff).level;
+			bonus += Math.min(((RingOfAccuracy.Accuracy) buff).level,30);
 		}
         if (Dungeon.hero.subClass == HeroSubClass.JOKER){
 			bonus += 10;
@@ -192,7 +192,7 @@ public class Weapon extends KindOfWeapon {
 		if (hero.buff(MechArmor.class) != null){
 			bonus += 10;
 		}
-		RCH += (int)(bonus/10);
+		RCH += bonus/10;
         return RCH;
 	}
 	

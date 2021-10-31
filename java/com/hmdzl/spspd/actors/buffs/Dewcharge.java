@@ -17,17 +17,80 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
+import com.watabou.utils.Bundle;
 
-public class Dewcharge extends FlavourBuff {
+public class Dewcharge extends Buff {
 
 	public static final float DURATION = 300f;
+	
+	private int dewleft = 0;
+	
+	private static final String DEWLEFT = "dewleft";
+
+	public boolean isDewing() {
+		return dewleft > 2;
+	}
 
 	@Override
-	public int icon() {
-		return BuffIndicator.DEWCHARGE;
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(DEWLEFT, dewleft);
 	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		dewleft = bundle.getInt(DEWLEFT);
+	}	
+	
+	@Override
+	public int icon() {
+		if (dewleft < 2) {
+            return BuffIndicator.NONE;
+		} else {
+			return BuffIndicator.DEWCHARGE;
+		}
+
+	}
+	
+	@Override
+	public boolean act() {
+		if (target.isAlive()) {
+
+			spend(TICK);
+			boolean statusUpdated = false;
+			if (dewleft > 2) {
+			dewleft = dewleft-1;
+			} 
+			
+			if (dewleft < 2){
+				statusUpdated = true;
+			}
+			
+			if (statusUpdated) {
+				BuffIndicator.refreshHero();
+			}
+			
+		} else {
+
+			detach();
+
+		}
+
+		return true;
+	}	
+	
+	public int level() {
+		return dewleft;
+	}
+
+	public void level(int value) {
+		if (dewleft < value) {
+			dewleft = value;
+		}
+	}	
 
 	@Override
 	public String toString() {
@@ -36,7 +99,7 @@ public class Dewcharge extends FlavourBuff {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", dispTurns(cooldown()+1));
+		return Messages.get(this, "desc", dewleft-2);
 	}
 	
 }

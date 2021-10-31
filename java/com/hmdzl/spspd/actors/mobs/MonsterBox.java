@@ -170,13 +170,8 @@ public class MonsterBox extends Mob {
 		return m;
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
+	{
+		immunities.add(ScrollOfPsionicBlast.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

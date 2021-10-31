@@ -46,7 +46,7 @@ public class Bandit extends Thief {
 
 		Buff.prolong(enemy, Blindness.class, Random.Int(5, 12));
 		Buff.affect(enemy, Poison.class).set(
-				Random.Int(5, 7) * Poison.durationFactor(enemy));
+				Random.Int(5, 7));
 		Buff.prolong(enemy, Cripple.class, Cripple.DURATION);
 			Dungeon.observe();
 

@@ -17,26 +17,46 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.HashMap;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.normalarmor.BulletArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.CDArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.CeramicsArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.ClothArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.MachineArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.MailArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.MultiplelayerArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.PhantomArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.PlateArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.ProtectiveclothingArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.ScaleArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.StoneArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.StyrofoamArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.VestArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
+import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
+import com.hmdzl.spspd.items.artifacts.Artifact;
+import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
+import com.hmdzl.spspd.items.artifacts.ChaliceOfBlood;
+import com.hmdzl.spspd.items.artifacts.CloakOfShadows;
+import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.items.artifacts.EyeOfSkadi;
 import com.hmdzl.spspd.items.artifacts.GlassTotem;
+import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
+import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.RobotDMT;
+import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
+import com.hmdzl.spspd.items.artifacts.TalismanOfForesight;
+import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
+import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.bombs.Bomb;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.bombs.DarkBomb;
@@ -64,6 +84,7 @@ import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
 import com.hmdzl.spspd.items.eggs.SpiderEgg;
 import com.hmdzl.spspd.items.eggs.VelociroosterEgg;
 import com.hmdzl.spspd.items.eggs.VioletDragonEgg;
+import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.Foamedbeverage;
@@ -86,21 +107,27 @@ import com.hmdzl.spspd.items.food.completefood.Ricefood;
 import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.items.food.completefood.Vegetableroll;
 import com.hmdzl.spspd.items.food.completefood.Vegetablesoup;
+import com.hmdzl.spspd.items.food.fruit.Blackberry;
+import com.hmdzl.spspd.items.food.fruit.Blueberry;
+import com.hmdzl.spspd.items.food.fruit.Cloudberry;
+import com.hmdzl.spspd.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.items.food.staplefood.NormalRation;
+import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
+import com.hmdzl.spspd.items.food.staplefood.Pasty;
+import com.hmdzl.spspd.items.medicine.BlueMilk;
+import com.hmdzl.spspd.items.medicine.DeathCap;
+import com.hmdzl.spspd.items.medicine.Earthstar;
+import com.hmdzl.spspd.items.medicine.GoldenJelly;
+import com.hmdzl.spspd.items.medicine.GreenSpore;
 import com.hmdzl.spspd.items.medicine.Hardpill;
+import com.hmdzl.spspd.items.medicine.JackOLantern;
 import com.hmdzl.spspd.items.medicine.Magicpill;
 import com.hmdzl.spspd.items.medicine.Musicpill;
 import com.hmdzl.spspd.items.medicine.Pill;
+import com.hmdzl.spspd.items.medicine.PixieParasol;
 import com.hmdzl.spspd.items.medicine.Powerpill;
 import com.hmdzl.spspd.items.medicine.Shootpill;
 import com.hmdzl.spspd.items.medicine.Smashpill;
-import com.hmdzl.spspd.items.medicine.PixieParasol;
-import com.hmdzl.spspd.items.medicine.GreenSpore;
-import com.hmdzl.spspd.items.medicine.GoldenJelly;
-import com.hmdzl.spspd.items.medicine.Earthstar;
-import com.hmdzl.spspd.items.medicine.DeathCap;
-import com.hmdzl.spspd.items.medicine.JackOLantern;
-import com.hmdzl.spspd.items.medicine.BlueMilk;
 import com.hmdzl.spspd.items.misc.JumpF;
 import com.hmdzl.spspd.items.misc.JumpH;
 import com.hmdzl.spspd.items.misc.JumpM;
@@ -108,79 +135,6 @@ import com.hmdzl.spspd.items.misc.JumpP;
 import com.hmdzl.spspd.items.misc.JumpR;
 import com.hmdzl.spspd.items.misc.JumpS;
 import com.hmdzl.spspd.items.misc.JumpW;
-import com.hmdzl.spspd.items.potions.PotionOfMixing;
-import com.hmdzl.spspd.items.potions.PotionOfShield;
-import com.hmdzl.spspd.items.rings.RingOfEnergy;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
-import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
-import com.hmdzl.spspd.items.summon.FairyCard;
-import com.hmdzl.spspd.items.summon.Mobile;
-import com.hmdzl.spspd.items.wands.WandOfFlow;
-import com.hmdzl.spspd.items.wands.WandOfLight;
-import com.hmdzl.spspd.items.wands.WandOfMeteorite;
-import com.hmdzl.spspd.items.wands.WandOfTCloud;
-import com.hmdzl.spspd.items.weapon.guns.GunA;
-import com.hmdzl.spspd.items.weapon.guns.GunB;
-import com.hmdzl.spspd.items.weapon.guns.GunC;
-import com.hmdzl.spspd.items.weapon.guns.GunD;
-import com.hmdzl.spspd.items.weapon.guns.GunE;
-import com.hmdzl.spspd.items.weapon.melee.Club;
-import com.hmdzl.spspd.items.weapon.melee.FightGloves;
-import com.hmdzl.spspd.items.weapon.melee.Flute;
-import com.hmdzl.spspd.items.weapon.melee.Harp;
-import com.hmdzl.spspd.items.weapon.melee.HolyWater;
-import com.hmdzl.spspd.items.weapon.melee.Lance;
-import com.hmdzl.spspd.items.weapon.melee.Mace;
-import com.hmdzl.spspd.items.weapon.melee.PrayerWheel;
-import com.hmdzl.spspd.items.weapon.melee.Rapier;
-import com.hmdzl.spspd.items.weapon.melee.StoneCross;
-import com.hmdzl.spspd.items.weapon.melee.Triangolo;
-import com.hmdzl.spspd.items.weapon.melee.Trumpet;
-import com.hmdzl.spspd.items.weapon.melee.Wardurm;
-import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
-import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
-import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
-import com.hmdzl.spspd.items.weapon.melee.special.RunicBlade;
-import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
-import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
-import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
-import com.hmdzl.spspd.items.weapon.missiles.NormalBomb;
-import com.hmdzl.spspd.items.weapon.missiles.RiceBall;
-import com.hmdzl.spspd.items.weapon.missiles.ShatteredAmmo;
-import com.hmdzl.spspd.items.weapon.missiles.Skull;
-import com.hmdzl.spspd.items.weapon.missiles.Smoke;
-import com.hmdzl.spspd.items.weapon.missiles.Wave;
-import com.hmdzl.spspd.plants.NutPlant;
-import com.hmdzl.spspd.plants.Rotberry;
-import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.items.armor.normalarmor.ClothArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.MailArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.PlateArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.ScaleArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
-import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
-import com.hmdzl.spspd.items.artifacts.Artifact;
-import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
-import com.hmdzl.spspd.items.artifacts.ChaliceOfBlood;
-import com.hmdzl.spspd.items.artifacts.CloakOfShadows;
-import com.hmdzl.spspd.items.artifacts.DriedRose;
-import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
-import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
-import com.hmdzl.spspd.items.artifacts.EyeOfSkadi;
-import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
-import com.hmdzl.spspd.items.artifacts.TalismanOfForesight;
-import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
-import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
-import com.hmdzl.spspd.items.bags.Bag;
-import com.hmdzl.spspd.items.food.fruit.Blackberry;
-import com.hmdzl.spspd.items.food.fruit.Blueberry;
-import com.hmdzl.spspd.items.food.fruit.Cloudberry;
-import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.items.food.fruit.Moonberry;
-import com.hmdzl.spspd.items.food.staplefood.Pasty;
-import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.items.nornstone.BlueNornStone;
 import com.hmdzl.spspd.items.nornstone.GreenNornStone;
 import com.hmdzl.spspd.items.nornstone.NornStone;
@@ -197,14 +151,17 @@ import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.potions.PotionOfMending;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfMindVision;
+import com.hmdzl.spspd.items.potions.PotionOfMixing;
 import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.items.potions.PotionOfParalyticGas;
 import com.hmdzl.spspd.items.potions.PotionOfPurity;
+import com.hmdzl.spspd.items.potions.PotionOfShield;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.items.rings.RingOfElements;
+import com.hmdzl.spspd.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.items.rings.RingOfEvasion;
 import com.hmdzl.spspd.items.rings.RingOfForce;
 import com.hmdzl.spspd.items.rings.RingOfFuror;
@@ -224,46 +181,85 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfRage;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
+import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTerror;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
+import com.hmdzl.spspd.items.summon.FairyCard;
+import com.hmdzl.spspd.items.summon.Mobile;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.items.wands.WandOfCharm;
+import com.hmdzl.spspd.items.wands.WandOfAcid;
 import com.hmdzl.spspd.items.wands.WandOfBlood;
+import com.hmdzl.spspd.items.wands.WandOfCharm;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
+import com.hmdzl.spspd.items.wands.WandOfError;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
+import com.hmdzl.spspd.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
-import com.hmdzl.spspd.items.wands.WandOfPoison;
-import com.hmdzl.spspd.items.wands.WandOfFreeze;
-import com.hmdzl.spspd.items.wands.WandOfAcid;
-import com.hmdzl.spspd.items.wands.WandOfError;
+import com.hmdzl.spspd.items.wands.WandOfMeteorite;
+import com.hmdzl.spspd.items.wands.WandOfSwamp;
+import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.items.weapon.melee.BattleAxe;
-import com.hmdzl.spspd.items.weapon.melee.Dualknive;
-import com.hmdzl.spspd.items.weapon.melee.MageBook;
-import com.hmdzl.spspd.items.weapon.melee.Nunchakus;
-import com.hmdzl.spspd.items.weapon.melee.Dagger;
-import com.hmdzl.spspd.items.weapon.melee.Glaive;
-import com.hmdzl.spspd.items.weapon.melee.Knuckles;
+import com.hmdzl.spspd.items.weapon.guns.GunA;
+import com.hmdzl.spspd.items.weapon.guns.GunB;
+import com.hmdzl.spspd.items.weapon.guns.GunC;
+import com.hmdzl.spspd.items.weapon.guns.GunD;
+import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.melee.AssassinsBlade;
-import com.hmdzl.spspd.items.weapon.melee.Scimitar;
-import com.hmdzl.spspd.items.weapon.melee.Handaxe;
-import com.hmdzl.spspd.items.weapon.melee.ShortSword;
-import com.hmdzl.spspd.items.weapon.melee.Spear;
-import com.hmdzl.spspd.items.weapon.melee.special.Spork;
-import com.hmdzl.spspd.items.weapon.melee.Whip;
-import com.hmdzl.spspd.items.weapon.melee.WarHammer;
+import com.hmdzl.spspd.items.weapon.melee.BattleAxe;
+import com.hmdzl.spspd.items.weapon.melee.Club;
+import com.hmdzl.spspd.items.weapon.melee.Dagger;
+import com.hmdzl.spspd.items.weapon.melee.Dualknive;
+import com.hmdzl.spspd.items.weapon.melee.FightGloves;
+import com.hmdzl.spspd.items.weapon.melee.Flute;
+import com.hmdzl.spspd.items.weapon.melee.Glaive;
 import com.hmdzl.spspd.items.weapon.melee.Gsword;
 import com.hmdzl.spspd.items.weapon.melee.Halberd;
+import com.hmdzl.spspd.items.weapon.melee.Handaxe;
+import com.hmdzl.spspd.items.weapon.melee.Harp;
+import com.hmdzl.spspd.items.weapon.melee.HolyWater;
+import com.hmdzl.spspd.items.weapon.melee.Knuckles;
+import com.hmdzl.spspd.items.weapon.melee.Lance;
+import com.hmdzl.spspd.items.weapon.melee.Mace;
+import com.hmdzl.spspd.items.weapon.melee.MageBook;
+import com.hmdzl.spspd.items.weapon.melee.Nunchakus;
+import com.hmdzl.spspd.items.weapon.melee.PrayerWheel;
+import com.hmdzl.spspd.items.weapon.melee.Rapier;
+import com.hmdzl.spspd.items.weapon.melee.Scimitar;
+import com.hmdzl.spspd.items.weapon.melee.ShortSword;
+import com.hmdzl.spspd.items.weapon.melee.Spear;
+import com.hmdzl.spspd.items.weapon.melee.StoneCross;
+import com.hmdzl.spspd.items.weapon.melee.Triangolo;
+import com.hmdzl.spspd.items.weapon.melee.Trumpet;
+import com.hmdzl.spspd.items.weapon.melee.WarHammer;
+import com.hmdzl.spspd.items.weapon.melee.Wardrum;
+import com.hmdzl.spspd.items.weapon.melee.Whip;
+import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
 import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
+import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
+import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
+import com.hmdzl.spspd.items.weapon.melee.special.RunicBlade;
+import com.hmdzl.spspd.items.weapon.melee.special.Spork;
 import com.hmdzl.spspd.items.weapon.melee.special.TekkoKagi;
 import com.hmdzl.spspd.items.weapon.melee.special.WraithBreath;
 import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
-import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
+import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
+import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
+import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
 import com.hmdzl.spspd.items.weapon.missiles.IncendiaryDart;
+import com.hmdzl.spspd.items.weapon.missiles.NormalBomb;
+import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
+import com.hmdzl.spspd.items.weapon.missiles.RiceBall;
+import com.hmdzl.spspd.items.weapon.missiles.ShatteredAmmo;
+import com.hmdzl.spspd.items.weapon.missiles.Skull;
+import com.hmdzl.spspd.items.weapon.missiles.Smoke;
 import com.hmdzl.spspd.items.weapon.missiles.Tamahawk;
+import com.hmdzl.spspd.items.weapon.missiles.Wave;
 import com.hmdzl.spspd.plants.BlandfruitBush;
 import com.hmdzl.spspd.plants.Blindweed;
 import com.hmdzl.spspd.plants.Dewcatcher;
@@ -273,18 +269,22 @@ import com.hmdzl.spspd.plants.Fadeleaf;
 import com.hmdzl.spspd.plants.Firebloom;
 import com.hmdzl.spspd.plants.Flytrap;
 import com.hmdzl.spspd.plants.Icecap;
+import com.hmdzl.spspd.plants.NutPlant;
 import com.hmdzl.spspd.plants.Phaseshift;
-import com.hmdzl.spspd.plants.Seedpod;
 import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.Rotberry;
+import com.hmdzl.spspd.plants.Seedpod;
 import com.hmdzl.spspd.plants.Sorrowmoss;
 import com.hmdzl.spspd.plants.Starflower;
 import com.hmdzl.spspd.plants.Stormvine;
 import com.hmdzl.spspd.plants.Sungrass;
 import com.watabou.utils.Random;
 
+import java.util.HashMap;
+
 public class Generator {
 
-	public static enum Category {
+	public enum Category {
 		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),
 		POTION(500, Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
 		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),SEED4(0,	Plant.Seed.class),
@@ -298,7 +298,7 @@ public class Generator {
 		public float prob;
 		public Class<? extends Item> superClass;
 
-		private Category(float prob, Class<? extends Item> superClass) {
+		Category(float prob, Class<? extends Item> superClass) {
 			this.prob = prob;
 			this.superClass = superClass;
 		}
@@ -313,9 +313,9 @@ public class Generator {
 			return item instanceof Bag ? Integer.MAX_VALUE
 					: Integer.MAX_VALUE - 1;
 		}
-	};
+	}
 
-	private static HashMap<Category, Float> categoryProbs = new HashMap<Generator.Category, Float>();
+    private static HashMap<Category, Float> categoryProbs = new HashMap<Generator.Category, Float>();
 	
 	//private static final float[] INITIAL_ARTIFACT_PROBS = new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
@@ -347,7 +347,7 @@ public class Generator {
 
 		Category.WAND.classes = new Class<?>[] { WandOfAcid.class,
 				WandOfFreeze.class, WandOfFirebolt.class,
-				WandOfLight.class, WandOfPoison.class, WandOfBlood.class,
+				WandOfLight.class, WandOfSwamp.class, WandOfBlood.class,
 				WandOfLightning.class, WandOfCharm.class,
 				WandOfFlow.class, WandOfFlock.class,
 				WandOfMagicMissile.class, WandOfDisintegration.class,
@@ -361,7 +361,7 @@ public class Generator {
 				Nunchakus.class, Scimitar.class,Whip.class,Spork.class, Rapier.class,
 				AssassinsBlade.class,BattleAxe.class,Glaive.class,Handcannon.class,Club.class,
                 Gsword.class, Halberd.class, WarHammer.class, RunicBlade.class, Lance.class,
-				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class,
+				Triangolo.class, Flute.class, Wardrum.class, Trumpet.class, Harp.class,
 				WoodenStaff.class, Mace.class, HolyWater.class, PrayerWheel.class, StoneCross.class
 		};
 		Category.WEAPON.probs = new float[] {
@@ -391,7 +391,7 @@ public class Generator {
 				Nunchakus.class, Scimitar.class,Whip.class, Rapier.class,
 				AssassinsBlade.class,BattleAxe.class,Glaive.class,Club.class,
 				Gsword.class, Halberd.class, WarHammer.class, Lance.class,
-				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class,
+				Triangolo.class, Flute.class, Wardrum.class, Trumpet.class, Harp.class,
 				WoodenStaff.class, Mace.class, HolyWater.class, PrayerWheel.class, StoneCross.class};
 		Category.MELEEWEAPON.probs = new float[] {
 				1,1,1,1,
@@ -424,7 +424,7 @@ public class Generator {
 		};
 
 		Category.MUSICWEAPON.classes = new Class<?>[] {
-				Triangolo.class, Flute.class, Wardurm.class, Trumpet.class, Harp.class};
+				Triangolo.class, Flute.class, Wardrum.class, Trumpet.class, Harp.class};
 		Category.MUSICWEAPON.probs = new float[] {
 				1,1,1,1,1,
 		};
@@ -602,7 +602,7 @@ public class Generator {
 	public static Item random(Class<? extends Item> cl) {
 		try {
 
-			return ((Item) cl.newInstance()).random();
+			return cl.newInstance().random();
 
 		} catch (Exception e) {
 

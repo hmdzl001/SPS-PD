@@ -18,16 +18,20 @@
 package com.hmdzl.spspd.items.scrolls;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.LightShootAttack;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
-import com.hmdzl.spspd.utils.GLog;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfRemoveCurse extends Scroll {
@@ -52,7 +56,7 @@ public class ScrollOfRemoveCurse extends Scroll {
 				curUser.belongings.misc2, curUser.belongings.misc3 )
 				|| procced;
 
-		Buff.detach(curUser, Weakness.class);
+		Buff.detach(curUser, STRdown.class);
 
 		if (procced) {
 			GLog.p(Messages.get(this, "cleansed") );
@@ -83,6 +87,12 @@ public class ScrollOfRemoveCurse extends Scroll {
                 	   if (bagItem.cursed==false) {procced = true;}
                      }
 				}
+			}
+		}
+
+		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+			if (Level.fieldOfView[mob.pos]) {
+				Buff.affect(mob,LightShootAttack.class).level(6);
 			}
 		}
 

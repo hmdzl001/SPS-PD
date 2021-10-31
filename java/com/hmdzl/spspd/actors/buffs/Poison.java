@@ -19,13 +19,11 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PoisonParticle;
-import com.hmdzl.spspd.items.rings.RingOfElements.Resistance;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -50,9 +48,9 @@ public class Poison extends Buff implements Hero.Doom {
 
 	public void set(float duration) {
 		this.left = duration;
-	};
+	}
 
-	@Override
+    @Override
 	public int icon() {
 		return BuffIndicator.POISON;
 	}
@@ -101,16 +99,11 @@ public class Poison extends Buff implements Hero.Doom {
 		return true;
 	}
 
-	public static float durationFactor(Char ch) {
-		Resistance r = ch.buff(Resistance.class);
-		return r != null ? r.durationFactor() : 1;
-	}
-
 	@Override
 	public void onDeath() {
 		Badges.validateDeathFromPoison();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.POISON));
+		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n("You died from poison...");
 	}
 }

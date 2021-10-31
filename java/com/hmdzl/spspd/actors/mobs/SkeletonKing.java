@@ -17,21 +17,19 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.blobs.Fire;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.actors.buffs.Weakness;
 import com.hmdzl.spspd.items.AdamantWeapon;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
-
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SkeletonKingSprite;
 import com.watabou.utils.Random;
@@ -75,7 +73,7 @@ public class SkeletonKing extends Mob {
 		boolean result = super.act();
 
 		if (state == FLEEING && buff(Terror.class) == null && enemy != null
-				&& enemySeen && enemy.buff(Weakness.class) == null) {
+				&& enemySeen && enemy.buff(STRdown.class) == null) {
 			state = HUNTING;
 		}
 		return result;
@@ -85,7 +83,7 @@ public class SkeletonKing extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(2) == 0) {
 			if(enemy == Dungeon.hero){
-			 Buff.prolong(enemy, Weakness.class, Weakness.duration(enemy));
+			 Buff.prolong(enemy, STRdown.class,10f);
 			state = FLEEING;
 			}
 		}
@@ -95,7 +93,7 @@ public class SkeletonKing extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 3;
+		return Level.distance( pos, enemy.pos ) <= 3;
 	}
 	
 	@Override
@@ -120,15 +118,10 @@ public class SkeletonKing extends Mob {
 		yell(Messages.get(this,  "notice", Dungeon.hero.givenName()));
 	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(Fire.class);
-		IMMUNITIES.add(WandOfFirebolt.class);
+	{
+		immunities.add(Burning.class);
+		immunities.add(Fire.class);
+		immunities.add(WandOfFirebolt.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

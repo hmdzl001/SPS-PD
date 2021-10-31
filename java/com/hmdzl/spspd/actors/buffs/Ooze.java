@@ -18,9 +18,8 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Random;
 
@@ -58,7 +57,7 @@ public class Ooze extends Buff {
 			else if (Random.Int(2) == 0)
 				target.damage(1, this);
 			if (!target.isAlive() && target == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.OOZE));
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(TXT_HERO_KILLED, toString());
 			}
 			spend(TICK);

@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.items.potions;
 
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 
 public class PotionOfMight extends Potion {
@@ -33,8 +33,9 @@ public class PotionOfMight extends Potion {
 	public void apply(Hero hero) {
 		setKnown();
 		
-		hero.HT += 10;
+		hero.TRUE_HT += 10;
 		hero.HP += 10;
+		hero.updateHT(true);
 		
 		hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "msg_1"));
 	}

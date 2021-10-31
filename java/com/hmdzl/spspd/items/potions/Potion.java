@@ -43,7 +43,7 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndOptions;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -116,9 +116,9 @@ public class Potion extends Item {
 		super.sync();
 		image = handler.image(this);
 		color = handler.label(this);
-	};
+	}
 
-	@Override
+    @Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		actions.add(AC_DRINK);
@@ -146,8 +146,7 @@ public class Potion extends Item {
 						}
 					}
 
-					;
-				});
+                });
 
 			} else {
 				drink(hero);
@@ -182,8 +181,8 @@ public class Potion extends Item {
 					if (index == 0) {
 						Potion.super.doThrow(hero);
 					}
-				};
-			});
+				}
+            });
 
 		} else {
 			super.doThrow(hero);
@@ -205,7 +204,7 @@ public class Potion extends Item {
 
 	@Override
 	protected void onThrow(int cell) {
-		if (Dungeon.level.map[cell] == Terrain.WELL || Level.pit[cell] || Plant.checkPhase(cell)) {
+		if (Dungeon.level.map[cell] == Terrain.WELL || Level.pit[cell] ) {
 
 			super.onThrow(cell);
 

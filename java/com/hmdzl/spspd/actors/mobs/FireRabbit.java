@@ -28,7 +28,8 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.FireRabbitSprite;
 import com.watabou.utils.Random;
 
@@ -70,7 +71,7 @@ public class FireRabbit extends Mob {
 			Buff.affect(enemy, Burning.class).reignite(enemy);
 			yell( Messages.get(this, "yell") );
 		}
-        if (Dungeon.level.distance( pos, enemy.pos ) == 3){
+        if (Level.distance( pos, enemy.pos ) == 3){
 			damage = 0;
 			Buff.affect(enemy, ArmorBreak.class,5f).level(20);
 		}
@@ -79,20 +80,15 @@ public class FireRabbit extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Dungeon.level.distance( pos, enemy.pos ) <= 3 ;
+		return Level.distance( pos, enemy.pos ) <= 3 ;
 	}		
 
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Locked.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(Fire.class);
-		IMMUNITIES.add(WandOfFirebolt.class);
+	{
+		immunities.add(Locked.class);
+		immunities.add(Burning.class);
+		immunities.add(Fire.class);
+		immunities.add(WandOfFirebolt.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

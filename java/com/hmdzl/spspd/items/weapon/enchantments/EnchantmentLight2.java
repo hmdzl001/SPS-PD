@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items.weapon.enchantments;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.LightShootAttack;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
@@ -43,11 +43,15 @@ private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 		// lvl 1 - 33%
 		// lvl 2 - 43%
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
-		int lvl = Math.max(0, weapon.level);		
-		Buff.prolong(defender, Blindness.class,Math.min(50,lvl+5));
+		int level = Math.min(20, attacker.HT/10);
+		int maxdmg = level + weapon.level;
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage(Random.Int(damage/6), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
 		}		
+		if (Random.Int(3) == 1) {
+		Buff.affect(defender, LightShootAttack.class).level(5);
+		}
 		defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6);
 		return true;
 

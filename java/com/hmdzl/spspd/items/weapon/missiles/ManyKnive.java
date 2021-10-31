@@ -40,7 +40,7 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 import java.util.ArrayList;
 

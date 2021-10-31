@@ -57,16 +57,10 @@ public class Albino extends Rat {
 		return super.act();
 	}
 	
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(CorruptGas.class);
-		IMMUNITIES.add(Vertigo.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
+	{
+		immunities.add(Amok.class);
+		immunities.add(Terror.class);
+		immunities.add(CorruptGas.class);
+		immunities.add(Vertigo.class);
 	}
 }

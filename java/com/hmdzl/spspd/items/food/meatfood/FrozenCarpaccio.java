@@ -26,12 +26,12 @@ import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.Weakness;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
@@ -57,9 +57,9 @@ public class FrozenCarpaccio extends MeatFood {
 	@Override
 	public int price() {
 		return 3 * quantity;
-	};
-	
-	public static void effect(Hero hero){
+	}
+
+    public static void effect(Hero hero){
 		switch (Random.Int( 5 )) {
 			case 0:
 				GLog.i( Messages.get(FrozenCarpaccio.class, "invisbility") );
@@ -73,7 +73,7 @@ public class FrozenCarpaccio extends MeatFood {
 				GLog.i( Messages.get(FrozenCarpaccio.class, "refresh") );
 				Buff.detach( hero, Poison.class );
 				Buff.detach( hero, Cripple.class );
-				Buff.detach( hero, Weakness.class );
+				Buff.detach( hero, STRdown.class );
 				Buff.detach( hero, Bleeding.class );
 				Buff.detach( hero, Drowsy.class );
 				Buff.detach( hero, Slow.class );

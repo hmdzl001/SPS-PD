@@ -31,17 +31,50 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.Torch;
-import com.hmdzl.spspd.items.eggs.Egg;
-import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
+import com.hmdzl.spspd.items.bombs.HugeBomb;
+import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.items.food.Honey;
+import com.hmdzl.spspd.items.food.Nut;
+import com.hmdzl.spspd.items.food.WaterItem;
+import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
+import com.hmdzl.spspd.items.food.completefood.Crystalnucleus;
+import com.hmdzl.spspd.items.food.completefood.Foamedbeverage;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
+import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
+import com.hmdzl.spspd.items.food.completefood.Garbage;
+import com.hmdzl.spspd.items.food.completefood.Gel;
+import com.hmdzl.spspd.items.food.completefood.Hamburger;
+import com.hmdzl.spspd.items.food.completefood.Herbmeat;
+import com.hmdzl.spspd.items.food.completefood.HoneyGel;
+import com.hmdzl.spspd.items.food.completefood.HoneyWater;
+import com.hmdzl.spspd.items.food.completefood.Honeymeat;
+import com.hmdzl.spspd.items.food.completefood.Honeyrice;
+import com.hmdzl.spspd.items.food.completefood.Icecream;
+import com.hmdzl.spspd.items.food.completefood.Kebab;
+import com.hmdzl.spspd.items.food.completefood.Meatroll;
+import com.hmdzl.spspd.items.food.completefood.MoonCake;
+import com.hmdzl.spspd.items.food.completefood.NutCake;
+import com.hmdzl.spspd.items.food.completefood.PerfectFood;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.completefood.Porksoup;
+import com.hmdzl.spspd.items.food.completefood.Ricefood;
+import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
+import com.hmdzl.spspd.items.food.completefood.Vegetableroll;
+import com.hmdzl.spspd.items.food.completefood.Vegetablesoup;
 import com.hmdzl.spspd.items.food.completefood.ZongZi;
+import com.hmdzl.spspd.items.food.fruit.Blandfruit;
+import com.hmdzl.spspd.items.food.fruit.Fruit;
+import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.items.food.staplefood.NormalRation;
+import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
+import com.hmdzl.spspd.items.food.staplefood.StapleFood;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
+import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.medicine.BlueMilk;
 import com.hmdzl.spspd.items.medicine.DeathCap;
 import com.hmdzl.spspd.items.medicine.Earthstar;
@@ -56,42 +89,12 @@ import com.hmdzl.spspd.items.medicine.Powerpill;
 import com.hmdzl.spspd.items.medicine.RealgarWine;
 import com.hmdzl.spspd.items.medicine.Shootpill;
 import com.hmdzl.spspd.items.medicine.Smashpill;
-import com.hmdzl.spspd.items.potions.PotionOfMixing;
-import com.hmdzl.spspd.items.summon.Honeypot;
-import com.hmdzl.spspd.items.bombs.HugeBomb;
-import com.hmdzl.spspd.items.food.completefood.Chickennugget;
-import com.hmdzl.spspd.items.food.completefood.Crystalnucleus;
-import com.hmdzl.spspd.items.food.completefood.Foamedbeverage;
-import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
-import com.hmdzl.spspd.items.food.completefood.Garbage;
-import com.hmdzl.spspd.items.food.completefood.Gel;
-import com.hmdzl.spspd.items.food.completefood.Hamburger;
-import com.hmdzl.spspd.items.food.completefood.Herbmeat;
-import com.hmdzl.spspd.items.food.completefood.HoneyGel;
-import com.hmdzl.spspd.items.food.completefood.HoneyWater;
-import com.hmdzl.spspd.items.food.completefood.Honeymeat;
-import com.hmdzl.spspd.items.food.completefood.Honeyrice;
-import com.hmdzl.spspd.items.food.completefood.Icecream;
-import com.hmdzl.spspd.items.food.completefood.Kebab;
-import com.hmdzl.spspd.items.food.completefood.Meatroll;
-import com.hmdzl.spspd.items.food.completefood.Porksoup;
-import com.hmdzl.spspd.items.food.completefood.Ricefood;
-import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
-import com.hmdzl.spspd.items.food.completefood.Vegetableroll;
-import com.hmdzl.spspd.items.food.completefood.Vegetablesoup;
-import com.hmdzl.spspd.items.food.fruit.Blandfruit;
-import com.hmdzl.spspd.items.food.fruit.Fruit;
-import com.hmdzl.spspd.items.food.meatfood.MeatFood;
-import com.hmdzl.spspd.items.food.Nut;
-import com.hmdzl.spspd.items.food.completefood.PerfectFood;
-import com.hmdzl.spspd.items.food.completefood.PetFood;
-import com.hmdzl.spspd.items.food.Honey;
-import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
-import com.hmdzl.spspd.items.food.staplefood.StapleFood;
-import com.hmdzl.spspd.items.food.vegetable.Vegetable;
+import com.hmdzl.spspd.items.medicine.Timepill;
 import com.hmdzl.spspd.items.potions.Potion;
+import com.hmdzl.spspd.items.potions.PotionOfMixing;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
+import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.weapon.spammo.BattleAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.BlindAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.DewAmmo;
@@ -375,6 +378,8 @@ public class WndAlchemy extends Window {
 			result = new PerfectFood();
 		} else if (vegetables.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && fruits.size() == 1 ){
 			result = new PerfectFood();
+		} else if ( ore.size() == 4 && water.size() == 1){
+			result = new Timepill();
 		} else if ( ore.size() == 3 && water.size() == 1 && seeds.size() == 1 ){
 			result = new Crystalnucleus();
 		} else if ( staplefoods.size() ==2 && vegetables.size() == 1 && meatfoods.size() == 2 ){
@@ -391,7 +396,10 @@ public class WndAlchemy extends Window {
 			result = new Musicpill();
 		} else if (meatfoods.size() ==2  && potions.size() == 1 && seeds.size() ==1 ){
 			result = new Magicpill();
-
+		} else if ( nut.size() == 5 ){
+			result = new Chocolate();
+		} else if ( nut.size() == 4 ){
+			result = new NormalRation();
 		} else if (staplefoods.size() ==1  && vegetables.size() == 1 && meatfoods.size() ==1 ){
 			result = new ZongZi();
 		} else if (water.size() ==1  && fireseed.size() == 1 && rootseed.size() ==1 ){
@@ -451,6 +459,22 @@ public class WndAlchemy extends Window {
 			result = new Kebab();
 		} else if (water.size() == 1 && vegetables.size() == 2 ){
 			result = new Vegetablesoup();
+		} else if (staplefoods.size() ==1  && nut.size() == 1 && honey.size() ==1 ){
+			result = new NutCake();
+		} else if (staplefoods.size() ==1  && nut.size() == 2 ){
+			result = new MoonCake();
+
+		} else if ( nut.size() == 3 ){
+			result = new OverpricedRation();
+		} else if (nut.size() == 2 && water.size() == 1){
+			result = new PetFood();
+		} else if ( nut.size() == 2 && potions.size()==1){
+			result = new FoodFans();
+		} else if ( nut.size() == 2 && scrolls.size()==1){
+			result = new Frenchfries();
+		} else if ( honey.size() == 1 && gels.size() == 1 ){
+			result = new HoneyGel();
+
 		} else if (honey.size() == 1  && staplefoods.size() ==1  ){
 			result = new Honeyrice();
 		} else if (honey.size() == 1  && meatfoods.size() ==1  ){
@@ -467,28 +491,12 @@ public class WndAlchemy extends Window {
 			result = new Vegetableroll();
 		} else if ( ore.size() == 1 && water.size() == 1 ){
 			result = new Gel();
-		} else if ( nut.size() == 5 ){
-			result = new Chocolate();
-		} else if ( nut.size() == 4 ){
-			result = new NormalRation();
-		} else if ( nut.size() == 3 ){
-			result = new OverpricedRation();
-		} else if (nut.size() == 2 && water.size() == 1){
-			result = new PetFood();
-		} else if ( nut.size() == 2 && potions.size()==1){
-			result = new FoodFans();
-		} else if ( nut.size() == 2 && scrolls.size()==1){
-			result = new Frenchfries();
-		} else if ( honey.size() == 1 && gels.size() == 1 ){
-			result = new HoneyGel();
-
 		} else if ( ore.size() == 1 && seeds.size() == 1 && scrolls.size() == 1 ){
 			result = new BuildBomb();
 		} else if ( bbomb.size() == 1 && seeds.size() == 2 ){
 			result = Generator.random( Generator.Category.BOMBS );
 	    } else if ( bbomb.size() == 2 ){
 		    result = new HugeBomb();
-
         } else if ( ore.size() == 2 ){
             result = new HeavyAmmo();
 		} else if ( ore.size() == 1 && nutseed.size()==1){

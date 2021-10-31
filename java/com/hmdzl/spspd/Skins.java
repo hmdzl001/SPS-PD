@@ -25,6 +25,8 @@ public class Skins {
 	public static final int THIRD = 3;
 	public static final int FOURTH = 4;
 	public static final int FIFTH = 5;
+	public static final int SIXTH = 6;
+
 
 	public static final String[] NAME_IDS = {
 			"normal",
@@ -32,10 +34,11 @@ public class Skins {
 			"second",
 			"third",
 			"fourth",
-			"fifth"
+			"fifth",
+			"sixth"
 		};
 
 	public static final int[] MASKS = {
-	        NORMAL, FIRST,SECOND,THIRD,FOURTH,FIFTH };
+	        NORMAL, FIRST,SECOND,THIRD,FOURTH,FIFTH,SIXTH };
 
 }

@@ -72,27 +72,12 @@ public class GoldOrc extends Mob {
 		super.damage(dmg, src);
 	}		
 
-
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-	}
-
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
-
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(CorruptGas.class);
-		IMMUNITIES.add(Vertigo.class);
+	{
+		immunities.add(Amok.class);
+		immunities.add(Terror.class);
+		immunities.add(CorruptGas.class);
+		immunities.add(Vertigo.class);
 
 	}
 
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

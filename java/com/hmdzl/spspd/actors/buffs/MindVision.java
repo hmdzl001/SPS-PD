@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class MindVision extends FlavourBuff {
@@ -27,6 +27,10 @@ public class MindVision extends FlavourBuff {
 
 	public int distance = 2;
 
+	{
+		type = buffType.NEUTRAL;
+	}	
+	
 	@Override
 	public int icon() {
 		return BuffIndicator.MIND_VISION;

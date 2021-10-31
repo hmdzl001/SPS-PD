@@ -28,7 +28,7 @@ import com.hmdzl.spspd.sprites.TinkererSprite;
  
 import com.hmdzl.spspd.windows.WndQuest;
 import com.hmdzl.spspd.windows.WndTinkerer;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Tinkerer1 extends NPC {
 

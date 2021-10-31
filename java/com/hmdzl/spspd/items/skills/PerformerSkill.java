@@ -41,7 +41,7 @@ import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.watabou.noosa.audio.Sample;
@@ -58,7 +58,7 @@ public class PerformerSkill extends ClassSkill {
 
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos]) {
-				Buff.affect(mob, Charm.class,Charm.durationFactor(mob)*5f).object = curUser.id();
+				Buff.affect(mob, Charm.class,5f).object = curUser.id();
 				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
 				Buff.affect(mob, Amok.class, 10f);
 				Buff.prolong(mob, HasteBuff.class, 5f);

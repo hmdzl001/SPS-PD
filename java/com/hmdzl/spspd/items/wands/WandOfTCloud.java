@@ -19,7 +19,6 @@ package com.hmdzl.spspd.items.wands;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -38,7 +37,7 @@ import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -246,7 +245,7 @@ public class WandOfTCloud extends Wand {
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((TCloudSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			}
 
 			spend(TIME_TO_ZAP);
@@ -266,7 +265,7 @@ public class WandOfTCloud extends Wand {
 					Camera.main.shake(2, 0.3f);
 
 					if (!enemy.isAlive()) {
-						Dungeon.fail( Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "zap_kill"));
 					}
 				}
@@ -432,7 +431,7 @@ public class WandOfTCloud extends Wand {
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
-				((KeKeSprite) sprite).zap(enemy.pos);
+				sprite.zap(enemy.pos);
 			}
 
 			spend(TIME_TO_ZAP);
@@ -452,7 +451,7 @@ public class WandOfTCloud extends Wand {
 					Camera.main.shake(2, 0.3f);
 
 					if (!enemy.isAlive()) {
-						Dungeon.fail( Messages.format(ResultDescriptions.MOB));
+						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "zap_kill"));
 					}
 				}

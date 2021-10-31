@@ -18,17 +18,18 @@
  
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.items.wands.WandOfFlow;
-
-import java.util.HashSet;
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
+import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
@@ -36,19 +37,16 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.melee.block.TenguSword;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.UTenguSprite;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.actors.blobs.CorruptGas;
-import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.mechanics.Ballistica;
-import com.watabou.noosa.audio.Sample;
 
 
 
@@ -138,7 +136,7 @@ public class UTengu extends Mob {
 	@Override
 	public void damage(int dmg, Object src) {
 
-		dmg = Random.Int(10,20);
+		dmg = Math.min(dmg,20);
 		if (dmg > 15){
 			GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
 		}
@@ -160,8 +158,8 @@ public class UTengu extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (breaks <2){
-		return Dungeon.level.distance( pos, enemy.pos ) <= 4;}
-		else return Dungeon.level.distance( pos, enemy.pos ) <= 1;
+		return Level.distance( pos, enemy.pos ) <= 4;}
+		else return Level.distance( pos, enemy.pos ) <= 1;
 	}	
 	
 	@Override
@@ -179,7 +177,7 @@ public class UTengu extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		Char ch;
 
-		if (Random.Int( 5 ) >= 3 && Dungeon.level.distance( pos, enemy.pos )<= 1){
+		if (Random.Int( 5 ) >= 3 && Level.distance( pos, enemy.pos )<= 1){
 			int oppositeTengu = enemy.pos + (enemy.pos - pos);
 			Ballistica trajectory = new Ballistica(enemy.pos, oppositeTengu, Ballistica.MAGIC_BOLT);
 			WandOfFlow.throwChar(enemy, trajectory, 1);
@@ -248,35 +246,23 @@ public class UTengu extends Mob {
 	
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Paralysis.class);
-	    IMMUNITIES.add(Bleeding.class);
-		IMMUNITIES.add(CorruptGas.class);
+	{
+		resistances.add(ToxicGas.class);
+		resistances.add(Poison.class);
+		//resistances.add(EnchantmentDark.class);
+		//immunities.add(EnchantmentDark.class);
+		immunities.add(Terror.class);
+		immunities.add(Amok.class);
+		immunities.add(Charm.class);
+		immunities.add(Sleep.class);
+		immunities.add(Burning.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(Vertigo.class);
+		immunities.add(Paralysis.class);
+	    immunities.add(Bleeding.class);
+		immunities.add(CorruptGas.class);
 		
-	}
-	
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-	
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
 	}
 	
 }	

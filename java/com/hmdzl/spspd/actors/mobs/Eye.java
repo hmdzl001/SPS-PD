@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
@@ -32,15 +29,16 @@ import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.EyeSprite;
-
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
 
 public class Eye extends Mob {
 
@@ -66,13 +64,14 @@ public class Eye extends Mob {
 		lootChanceOther = 0.5f; // by default, see die()
 		
 		properties.add(Property.DEMONIC);
+		properties.add(Property.MAGICER);
 	}
 
 	private Ballistica beam;
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(10, 20);
+		return Random.NormalIntRange(20, 30);
 	}
 
 	private int hitCell;
@@ -85,6 +84,15 @@ public class Eye extends Mob {
 		return beam.subPath(1, beam.dist).contains(enemy.pos);
 	}
 	
+	
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		
+		enemy.damage(damage*3/4, LIGHT_DAMAGE);
+		damage = damage/4;
+
+		return damage;
+	}	
 
 	@Override
 	public int hitSkill(Char target) {
@@ -129,7 +137,7 @@ public class Eye extends Mob {
 			}
 
 			if (hit(this, ch, true)) {
-				ch.damage(Random.NormalIntRange(14, 20+adj(0)), this);
+				ch.damage(Random.NormalIntRange(14, 20+adj(0)), LIGHT_DAMAGE);
 
 				if (Dungeon.visible[pos]) {
 					ch.sprite.flash();
@@ -138,7 +146,7 @@ public class Eye extends Mob {
 				}
 
 				if (!ch.isAlive() && ch == Dungeon.hero) {
-					Dungeon.fail(Messages.format(ResultDescriptions.MOB));
+					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n(Messages.get(this, "kill"));
 				}
 			} else {
@@ -177,24 +185,12 @@ public class Eye extends Mob {
 		}
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(WandOfDisintegration.class);
-		RESISTANCES.add(EnchantmentDark.class);
+	{
+		resistances.add(WandOfDisintegration.class);
+		resistances.add(EnchantmentDark.class);
+
+		immunities.add(Terror.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
 
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		IMMUNITIES.add(Terror.class);
-	}
-
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
 }

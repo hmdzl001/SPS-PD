@@ -21,7 +21,7 @@
 package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.levels.traps.Trap;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.TrapSprite;
 
 public class WndInfoTrap extends WndTitledMessage {

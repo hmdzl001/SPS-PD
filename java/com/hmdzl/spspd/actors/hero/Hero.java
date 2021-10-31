@@ -17,66 +17,116 @@
  */
 package com.hmdzl.spspd.actors.hero;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-
+import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.GamesInProgress;
+import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.Statistics;
+import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.NmGas;
 import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.Barkskin;
+import com.hmdzl.spspd.actors.buffs.BeCorrupt;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.actors.buffs.BoxStar;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.actors.buffs.Combo;
 import com.hmdzl.spspd.actors.buffs.DBurning;
 import com.hmdzl.spspd.actors.buffs.DamageUp;
 import com.hmdzl.spspd.actors.buffs.DeadRaise;
+import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Disarm;
+import com.hmdzl.spspd.actors.buffs.Drowsy;
 import com.hmdzl.spspd.actors.buffs.Dry;
+import com.hmdzl.spspd.actors.buffs.Fury;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.GoldTouch;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.HighAttack;
 import com.hmdzl.spspd.actors.buffs.HighLight;
 import com.hmdzl.spspd.actors.buffs.HighVoice;
+import com.hmdzl.spspd.actors.buffs.Hunger;
+import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Locked;
+import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.MirrorShield;
 import com.hmdzl.spspd.actors.buffs.Muscle;
 import com.hmdzl.spspd.actors.buffs.NewCombo;
 import com.hmdzl.spspd.actors.buffs.Notice;
+import com.hmdzl.spspd.actors.buffs.OnePunch;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.ParyAttack;
+import com.hmdzl.spspd.actors.buffs.Regeneration;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Silent;
+import com.hmdzl.spspd.actors.buffs.SnipersMark;
+import com.hmdzl.spspd.actors.buffs.Strength;
+import com.hmdzl.spspd.actors.buffs.SuperArcane;
 import com.hmdzl.spspd.actors.buffs.Terror;
+import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.buffs.WarGroove;
-import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.BalanceFaith;
-import com.hmdzl.spspd.actors.buffs.mindbuff.CrazyMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.DemonFaith;
-import com.hmdzl.spspd.actors.buffs.mindbuff.HopeMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.HumanFaith;
-import com.hmdzl.spspd.actors.buffs.mindbuff.KeepMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.LifeFaith;
-import com.hmdzl.spspd.actors.buffs.mindbuff.LoseMind;
 import com.hmdzl.spspd.actors.buffs.faithbuff.MechFaith;
+import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.CrazyMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.HopeMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.KeepMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.LoseMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.TerrorMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.WeakMind;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.SommonSkeleton;
+import com.hmdzl.spspd.actors.mobs.npcs.NPC;
+import com.hmdzl.spspd.actors.mobs.pets.PET;
+import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.CheckedCell;
+import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.Lightning;
+import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.Amulet;
+import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.Heap.Type;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfArmor;
+import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.KindofMisc;
+import com.hmdzl.spspd.items.OrbOfZot;
 import com.hmdzl.spspd.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
+import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
+import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.Pylon;
+import com.hmdzl.spspd.items.artifacts.TalismanOfForesight;
+import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.items.keys.GoldenKey;
+import com.hmdzl.spspd.items.keys.GoldenSkeletonKey;
+import com.hmdzl.spspd.items.keys.IronKey;
+import com.hmdzl.spspd.items.keys.Key;
+import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.Ankhshield;
 import com.hmdzl.spspd.items.misc.AttackShield;
+import com.hmdzl.spspd.items.misc.AutoPotion.AutoHealPotion;
 import com.hmdzl.spspd.items.misc.BShovel;
 import com.hmdzl.spspd.items.misc.CopyBall;
 import com.hmdzl.spspd.items.misc.DanceLion;
@@ -85,94 +135,48 @@ import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.misc.HealBag;
 import com.hmdzl.spspd.items.misc.HorseTotem;
+import com.hmdzl.spspd.items.misc.JumpA;
 import com.hmdzl.spspd.items.misc.JumpF;
+import com.hmdzl.spspd.items.misc.JumpH;
+import com.hmdzl.spspd.items.misc.JumpM;
 import com.hmdzl.spspd.items.misc.JumpP;
+import com.hmdzl.spspd.items.misc.JumpR;
 import com.hmdzl.spspd.items.misc.JumpS;
+import com.hmdzl.spspd.items.misc.JumpW;
+import com.hmdzl.spspd.items.misc.Jumpshoes;
 import com.hmdzl.spspd.items.misc.LeaderFlag;
+import com.hmdzl.spspd.items.misc.MissileShield;
 import com.hmdzl.spspd.items.misc.PotionOfMage;
 import com.hmdzl.spspd.items.misc.RangeBag;
 import com.hmdzl.spspd.items.misc.SavageHelmet;
+import com.hmdzl.spspd.items.misc.SeriousPunch;
 import com.hmdzl.spspd.items.misc.Shovel;
-import com.hmdzl.spspd.items.rings.RingOfMagic;
-import com.hmdzl.spspd.items.wands.WandOfFlow;
-import com.hmdzl.spspd.items.misc.MissileShield;
-import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.GamesInProgress;
-import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.Statistics;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Barkskin;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Combo;
-import com.hmdzl.spspd.actors.buffs.Dewcharge;
-import com.hmdzl.spspd.actors.buffs.Drowsy;
-import com.hmdzl.spspd.actors.buffs.Fury;
-import com.hmdzl.spspd.actors.buffs.Hunger;
-import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.Light;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.actors.buffs.Regeneration;
-import com.hmdzl.spspd.actors.buffs.SnipersMark;
-import com.hmdzl.spspd.actors.buffs.Strength;
-import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.actors.mobs.npcs.NPC;
-import com.hmdzl.spspd.actors.mobs.pets.PET;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.CheckedCell;
-import com.hmdzl.spspd.effects.Flare;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.Amulet;
-import com.hmdzl.spspd.items.Ankh;
-import com.hmdzl.spspd.items.Dewdrop;
-import com.hmdzl.spspd.items.eggs.Egg;
-import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.Heap.Type;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
-import com.hmdzl.spspd.items.artifacts.DriedRose;
-import com.hmdzl.spspd.items.artifacts.TalismanOfForesight;
-import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
-import com.hmdzl.spspd.items.keys.GoldenKey;
-import com.hmdzl.spspd.items.keys.GoldenSkeletonKey;
-import com.hmdzl.spspd.items.keys.IronKey;
-import com.hmdzl.spspd.items.keys.Key;
-import com.hmdzl.spspd.items.keys.SkeletonKey;
-import com.hmdzl.spspd.items.misc.AutoPotion.AutoHealPotion;
+import com.hmdzl.spspd.items.misc.UndeadBook;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
-import com.hmdzl.spspd.items.rings.RingOfElements;
+import com.hmdzl.spspd.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.items.rings.RingOfForce;
 import com.hmdzl.spspd.items.rings.RingOfFuror;
 import com.hmdzl.spspd.items.rings.RingOfHaste;
+import com.hmdzl.spspd.items.rings.RingOfMagic;
 import com.hmdzl.spspd.items.rings.RingOfMight;
 import com.hmdzl.spspd.items.rings.RingOfTenacity;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.items.misc.Jumpshoes;
-import com.hmdzl.spspd.items.misc.JumpW;
-import com.hmdzl.spspd.items.misc.JumpM;
-import com.hmdzl.spspd.items.misc.JumpR;
-import com.hmdzl.spspd.items.misc.JumpH;
-import com.hmdzl.spspd.items.misc.Ankhshield;
-import com.hmdzl.spspd.items.OrbOfZot;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.AlchemyPot;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Sign;
+import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Sungrass;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -183,19 +187,22 @@ import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.ui.AttackIndicator;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.ui.QuickSlotButton;
+import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndAscend;
 import com.hmdzl.spspd.windows.WndDescend;
 import com.hmdzl.spspd.windows.WndMessage;
 import com.hmdzl.spspd.windows.WndResurrect;
 import com.hmdzl.spspd.windows.WndTradeItem;
-import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.hmdzl.spspd.Dungeon.hero;
 
@@ -256,7 +263,8 @@ public class Hero extends Char {
 		super();
 		name = Messages.get(this, "name");
 
-		HP = HT = 30;
+		HP = TRUE_HT = HT = 30;
+		EX_HT = 0;
 		STR = STARTING_STR;
 		magicSkill = STARTING_MAGIC;
 		
@@ -267,11 +275,33 @@ public class Hero extends Char {
 		visibleEnemies = new ArrayList<Mob>();
 	}
 
+
+	public void updateHT( boolean boostHP ){
+		int curHT = HT;
+		EX_HT = 0;
+		for (Buff buff : buffs(RingOfMight.Might.class)) {
+			EX_HT = (int)(Math.min((TRUE_HT * RingOfMight.strengthBonus(this)/15),TRUE_HT * 2));
+		}
+		HT = TRUE_HT + EX_HT;
+		//float multiplier = RingOfMight.HTMultiplier(this);
+		//HT = Math.round(multiplier * HT);
+		
+		//if (buff(ElixirOfMight.HTBoost.class) != null){
+			//HT += buff(ElixirOfMight.HTBoost.class).boost();
+		//}
+	
+		if (boostHP){
+			HP += Math.max(HT - curHT, 0);
+		}
+		HP = Math.min(HP, HT);
+	}
+	
+	
 	public int STR() {
 		int STR = this.STR;
 
 		for (Buff buff : buffs(RingOfMight.Might.class)) {
-			STR += (int)(((RingOfMight.Might) buff).level/5);
+			STR += (int)(RingOfMight.strengthBonus(this)/5);
 		}
 
 		if (buff(Muscle.class)!= null)
@@ -297,6 +327,9 @@ public class Hero extends Char {
 			magicSkill += 10;
         if (buff(LoseMind.class)!= null)
             magicSkill -= 5;
+		SuperArcane sarcane = buff(SuperArcane.class);
+		if (sarcane!= null)
+			magicSkill += Math.max(5,sarcane.level());
 
 		return magicSkill;
 	}	
@@ -464,10 +497,10 @@ public class Hero extends Char {
 		if (barkskin != null) {
 			dr += barkskin.level();
 		}
-		if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.skins == 2) {
+		if (Dungeon.hero.heroClass == HeroClass.SOLDIER && (Dungeon.skins == 2 || Dungeon.skins == 6)) {
 			dr += Dungeon.hero.lvl;
 		}
-		return (int)dr;
+		return dr;
 	}
 
 	@Override
@@ -480,21 +513,40 @@ public class Hero extends Char {
 			bonus += ((RingOfForce.Force) buff).level;
 		}
 
+
 		if (wep != null) {
 			dmg = wep.damageRoll(this);
 		} else {
 			int str = 6;
-			dmg = bonus == 0 ? str > 1 ? Random.NormalIntRange(1, str) : 1
-					: bonus > 0 ? str > 0 ? Random.NormalIntRange(str / 2
-							+ bonus, (int) (str * 0.5f * bonus) + str * 2) : 1
-							: 0;
+			dmg = 
+			bonus == 0 ? 
+			str > 1 ? 
+			Random.NormalIntRange(1, str) 
+			: 1
+			: bonus > 0 ? 
+			str > 0 ? 
+			Random.NormalIntRange(str / 2 + bonus, (int) (str * 0.5f * bonus) + str * 2) 
+			: 1
+			: 0;
 		}
+
+
+		if (wep == null && Dungeon.hero.heroClass==HeroClass.SOLDIER && Dungeon.skins == 2) {
+             dmg+= Dungeon.hero.lvl* (Dungeon.hero.STR-10)* Dungeon.hero.HP/Dungeon.hero.HT;
+		}
+
 		if (bonus > 0){ dmg *= Math.min(3f,(1f + (bonus*1.00/10)*1f));}
-		
+
 		if (dmg < 0)
 			dmg = 0;
 
 		if (buff(Fury.class) != null){ dmg *= 1.30f; }
+		
+		OnePunch op = buff(OnePunch.class);
+		if (op != null){ 
+		    dmg *= 1f+op.level()*0.10f;
+            Buff.detach(this,OnePunch.class);		
+		}
 
 		if (Dungeon.skins == 4 && Dungeon.hero.heroClass == HeroClass.FOLLOWER){
 			 if (Dungeon.hero.spp < 40){
@@ -529,8 +581,10 @@ public class Hero extends Char {
 		if (buff(BloodAngry.class) != null){ dmg *= 1.50f; }
 
 		if (buff(Rhythm2.class) != null){ dmg *= 1.20f; }
+		
+		if (buff(CrazyMind.class) != null && Random.Int(10) == 0){ dmg = 0; }
 
-        if (buff(CrazyMind.class) != null){ dmg *= 0.80f; }
+        if (buff(CrazyMind.class) != null){ dmg *= 1.20f; }
         if (buff(LoseMind.class) != null){ dmg *= 1.20f; }
         if (buff(AmokMind.class) != null){ dmg *= 1.20f; }
         if (buff(WeakMind.class) != null){ dmg *= 1.20f; }
@@ -551,7 +605,7 @@ public class Hero extends Char {
 		if (hunger != null && hunger.isHungry()) { dmg *= 0.9f;}
 		if (hunger != null && hunger.isOverfed()) { dmg *= 1.2f; }
 		
-		return (int) dmg;
+		return dmg;
 		
 	}
 	
@@ -590,12 +644,24 @@ public class Hero extends Char {
 			return false;
 
 		//can always attack adjacent enemies
-		if (Dungeon.level.adjacent(pos, enemy.pos))
+		if (Level.adjacent(pos, enemy.pos))
 			return true;
 
+		int bonus = 0;
+		for (Buff buff : hero.buffs(RingOfAccuracy.Accuracy.class)) {
+			bonus += Math.min(((RingOfAccuracy.Accuracy) buff).level,30);
+		}
+		if (Dungeon.hero.subClass == HeroSubClass.JOKER){
+			bonus += 10;
+		}
+		if (hero.buff(MechArmor.class) != null){
+			bonus += 10;
+		}
+
+		int emptyarange = (int)(1+bonus/10);
 		KindOfWeapon wep = hero.belongings.weapon;
 
-		if (wep != null && Dungeon.level.distance( pos, enemy.pos ) <= wep.reachFactor(this)){
+		if (wep != null && Level.distance( pos, enemy.pos ) <= wep.reachFactor(this)){
 
 			boolean[] passable = BArray.not(Level.solid, null);
 			for (Mob m : Dungeon.level.mobs)
@@ -605,7 +671,17 @@ public class Hero extends Char {
 
 			return PathFinder.distance[pos] <= wep.reachFactor(this);
 
-		} else {
+		} else if (wep == null && Level.distance( pos, enemy.pos ) <= emptyarange){
+				
+			boolean[] passable = BArray.not(Level.solid, null);
+			for (Mob m : Dungeon.level.mobs)
+				passable[m.pos] = false;
+
+			PathFinder.buildDistanceMap(enemy.pos, passable, emptyarange);
+
+			return PathFinder.distance[pos] <= emptyarange;
+
+		} else{
 			return false;
 		}
 	}
@@ -652,9 +728,9 @@ public class Hero extends Char {
 		}
 		
 		super.spend(time);
-	};
+	}
 
-	public void spendAndNext(float time) {
+    public void spendAndNext(float time) {
 		busy();
 		spend(time);
 		next();
@@ -697,15 +773,14 @@ public class Hero extends Char {
 			return false;
 		}
 
-		if( Statistics.time == 1  & Dungeon.hero.heroClass == HeroClass.PERFORMER & Dungeon.skins == 4){
-			int people = Dungeon.hero.spp;
-			Dungeon.gold = Math.max(0, Dungeon.gold - people);
+		if(Dungeon.hero.heroClass == HeroClass.PERFORMER & Dungeon.skins == 4){
+			if (Statistics.time == 1 ) {
+				LeaderFlag lflag = belongings.getItem(LeaderFlag.class);
+				int people = Dungeon.hero.spp;
+				Dungeon.gold = Math.max(0, Dungeon.gold - people);
+				lflag.charge = 1440;
+			}
 		}
-
-        LeaderFlag lflag = belongings.getItem(LeaderFlag.class);
-        if (Statistics.time == 1){
-            lflag.charge = 1440;
-        }
 
 		Egg egg = belongings.getItem(Egg.class);
 		if (egg!=null){
@@ -742,6 +817,9 @@ public class Hero extends Char {
 
 		JumpF jumpf = belongings.getItem(JumpF.class);
 		if (jumpf!=null && jumpf.charge<jumpf.fullCharge) {jumpf.charge++;}
+		
+		JumpA jumpa = belongings.getItem(JumpA.class);
+		if (jumpa!=null && jumpa.charge<jumpa.fullCharge) {jumpa.charge++;}
 		
 		Shovel shovel = belongings.getItem(Shovel.class);
 		if (shovel!=null && shovel.charge<shovel.fullCharge) {shovel.charge++;}
@@ -1200,8 +1278,9 @@ public class Hero extends Char {
 		}
 		
 		
-		if (pos == stairs && pos == Dungeon.level.exit && !Dungeon.level.sealedlevel){
-
+		//if (pos == stairs && pos == Dungeon.level.exit && !Dungeon.level.sealedlevel){
+		if (pos == stairs && pos == Dungeon.level.exit){
+			
 			curAction = null;
 			
 			if(Dungeon.dewDraw || Dungeon.dewWater) {
@@ -1224,11 +1303,7 @@ public class Hero extends Char {
 			  hero.petCooldown=pet.cooldown;
 			  pet.destroy();
 			  petfollow=true;
-			} else if (hero.haspet && hero.petfollow) {
-				petfollow=true;
-			} else {
-				petfollow=false;
-			}
+			} else petfollow = hero.haspet && hero.petfollow;
 	
 			Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 			if (buff != null) buff.detach();
@@ -1284,19 +1359,15 @@ public class Hero extends Char {
 				  hero.petCooldown=pet.cooldown;
 				  pet.destroy();
 				  petfollow=true;
-				} else if (hero.haspet && hero.petfollow) {
-					petfollow=true;
-				} else {
-					petfollow=false;
-				}
+				} else petfollow = hero.haspet && hero.petfollow;
 				
 				Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 				if (buff != null)
 					buff.detach();
 
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
-					if (mob instanceof DriedRose.GhostHero)
-						mob.destroy();
+				//for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
+					//if (mob instanceof DriedRose.GhostHero)
+						//mob.destroy();
                 
 				InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
 				Game.switchScene(InterlevelScene.class);
@@ -1319,19 +1390,15 @@ public class Hero extends Char {
 			  hero.petCooldown=pet.cooldown;
 			  pet.destroy();
 			  petfollow=true;
-			} else if (hero.haspet && hero.petfollow) {
-				petfollow=true;
-			} else {
-				petfollow=false;
-			}
+			} else petfollow = hero.haspet && hero.petfollow;
 			
 			Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 			if (buff != null)
 				buff.detach();
 
-			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
-				if (mob instanceof DriedRose.GhostHero)
-					mob.destroy();
+			//for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
+				//if (mob instanceof DriedRose.GhostHero)
+					//mob.destroy();
             
 			InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
 			Game.switchScene(InterlevelScene.class);
@@ -1360,19 +1427,15 @@ public class Hero extends Char {
 				  hero.petCooldown=pet.cooldown;
 				  pet.destroy();
 				  petfollow=true;
-				} else if (hero.haspet && hero.petfollow) {
-					petfollow=true;
-				} else {
-					petfollow=false;
-				}
+				} else petfollow = hero.haspet && hero.petfollow;
 				
 				Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 				if (buff != null)
 					buff.detach();
 
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
-					if (mob instanceof DriedRose.GhostHero)
-						mob.destroy();
+				//for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
+					//if (mob instanceof DriedRose.GhostHero)
+						//mob.destroy();
                 
 				InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
 				Game.switchScene(InterlevelScene.class);
@@ -1440,6 +1503,9 @@ public class Hero extends Char {
 
 		AttackShield atkshield = belongings.getItem(AttackShield.class);
 		if (atkshield!=null && atkshield.charge<atkshield.fullCharge) {atkshield.charge++;}
+		
+		SeriousPunch spunch = belongings.getItem(SeriousPunch.class);
+		if (spunch!=null) {spunch.charge++;}
 		
 		CopyBall copyball = belongings.getItem(CopyBall.class);
 		if (copyball!=null && copyball.charge<copyball.fullCharge) {copyball.charge++;}
@@ -1519,7 +1585,7 @@ public class Hero extends Char {
 					Buff.prolong(enemy,Charm.class,6f).object = id();
 				}
 			case ARTISAN:
-				if (enemy.HP <= damage && Random.Int(6) == 0) {
+				if (enemy.HP <= damage && Random.Int(15) == 0) {
 				Dungeon.level.drop(Generator.random(), enemy.pos).sprite.drop();
 				}
 				break;
@@ -1528,14 +1594,14 @@ public class Hero extends Char {
 		if (buff(Shocked.class)!=null){
 			Buff.detach(this,Shocked.class);
 			Buff.affect(this, Disarm.class,5f);
-			damage(this.HP/10,this);
+			damage(this.HP/10,Shocked.class);
 			ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 			arcs.add(new Lightning.Arc(pos - Level.WIDTH, pos + Level.WIDTH));
 			arcs.add(new Lightning.Arc(pos - 1, pos + 1));
 			sprite.parent.add( new Lightning( arcs, null ) );
 		}
 		if (buff(GoldTouch.class)!=null){
-			if (rangedWeapon == null && Dungeon.gold  < (int)((1000000/(Math.max(1,20-Statistics.deepestFloor))))) {
+			if (rangedWeapon == null && Dungeon.gold  < (1000000/(Math.max(1,20-Statistics.deepestFloor)))) {
 				int earngold = Math.min(1000 * hero.lvl, damage);
 				Dungeon.gold += earngold;
 
@@ -1550,12 +1616,14 @@ public class Hero extends Char {
 
 		if (buff(MechFaith.class)!= null && ((enemy.properties().contains(Property.BEAST))
 				|| (enemy.properties().contains(Property.PLANT))
+			|| (enemy.properties().contains(Property.FISHER))
 				|| (enemy.properties().contains(Property.ELEMENT))) ){
 			damage=(int)(damage*1.5);
 		}
 
 		if (buff(LifeFaith.class)!= null && ((enemy.properties().contains(Property.MECH))
 				|| (enemy.properties().contains(Property.ALIEN))
+				|| (enemy.properties().contains(Property.DWARF))
 				|| (enemy.properties().contains(Property.GOBLIN))) ){
 			damage=(int)(damage*1.5);
 		}
@@ -1563,7 +1631,7 @@ public class Hero extends Char {
 		if (buff(DemonFaith.class)!= null && ((enemy.properties().contains(Property.HUMAN))
 				|| (enemy.properties().contains(Property.ORC))
 				|| (enemy.properties().contains(Property.ELF))
-				|| (enemy.properties().contains(Property.DWARF))
+
 				|| (enemy.properties().contains(Property.TROLL)))){
 			damage=(int)(damage*1.5);
 		}
@@ -1607,6 +1675,9 @@ public class Hero extends Char {
 	public int defenseProc(Char enemy, int damage) {
 
 		KindOfArmor arm = belongings.armor;
+
+		UndeadBook ub = belongings.getItem(UndeadBook.class);
+		if (ub!=null) {ub.charge++;}
 
 		if (buff(HighVoice.class)!=null &&  Random.Int(5) == 0){
 			Buff.affect(this, GlassShield.class).turns(2);
@@ -1660,6 +1731,12 @@ public class Hero extends Char {
 				Dungeon.hero.spp +=x;
 				if ( x > 0);
 				damage = (int)(damage*0.7);}
+			case PERFORMER:
+				if (Dungeon.skins == 2){
+					if 	 (Dungeon.level.map[this.pos] == Terrain.WATER) {
+						Buff.prolong(this, Invisibility.class,2f);
+					}
+				}
 		}
 		switch (subClass) {
 			case LEADER:
@@ -1719,6 +1796,7 @@ public class Hero extends Char {
 			if (buff(LifeFaith.class) != null) {
 				if ((enemy.properties().contains(Property.BEAST))
 						|| (enemy.properties().contains(Property.PLANT))
+					|| (enemy.properties().contains(Property.FISHER))
 						|| (enemy.properties().contains(Property.ELEMENT))) {
 					dmg = (int) Math.ceil(dmg * 0.75);
 				}
@@ -1727,6 +1805,7 @@ public class Hero extends Char {
 			if (buff(MechFaith.class) != null) {
 				if ((enemy.properties().contains(Property.MECH))
 						|| (enemy.properties().contains(Property.ALIEN))
+						|| (enemy.properties().contains(Property.DWARF))
 						|| (enemy.properties().contains(Property.GOBLIN))) {
 					dmg = (int) Math.ceil(dmg * 0.75);
 				}
@@ -1736,7 +1815,7 @@ public class Hero extends Char {
 				if ((enemy.properties().contains(Property.HUMAN))
 						|| (enemy.properties().contains(Property.ORC))
 						|| (enemy.properties().contains(Property.ELF))
-						|| (enemy.properties().contains(Property.DWARF))
+
 						|| (enemy.properties().contains(Property.TROLL))) {
 					dmg = (int) Math.ceil(dmg * 0.75);
 				}
@@ -2046,30 +2125,30 @@ public class Hero extends Char {
 			lvl++;
 
 			if (Dungeon.isChallenged(Challenges.LISTLESS)){
-				HT += 2;
+				TRUE_HT += 2;
 				HP += 1;
 				hitSkill++;
 				evadeSkill++;
 			} else if (lvl < 12) {
-			HT += 4;
+			TRUE_HT += 4;
 			HP += 4;
 			hitSkill++;
 			evadeSkill++;
 			} else {
-			HT += 5;
+			TRUE_HT += 5;
 			HP += 5;
 			hitSkill++;
 			evadeSkill++;}
 			FourClover.FourCloverBless fcb = buff(FourClover.FourCloverBless.class);
 			if (fcb != null){
-				HT+=5;
+				TRUE_HT+=5;
 				magicSkill++;
 				Dungeon.gold+=1000;
 				hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, 1000);
 				
 			}
 			if (heroClass == HeroClass.SOLDIER){
-				HT+=3;
+				TRUE_HT+=3;
 			}
 
 			if (heroClass == HeroClass.WARRIOR && Dungeon.skins == 4){
@@ -2079,21 +2158,21 @@ public class Hero extends Char {
 				KindofMisc misc1 = hero.belongings.misc1;
 				KindofMisc misc2 = hero.belongings.misc2;
 				KindofMisc misc3 = hero.belongings.misc3;
-				if (weapon != null && weapon.level >= 0 ) {
-					Dungeon.hero.spp += weapon.level+1;
+				if (weapon != null ) {
+					Dungeon.hero.spp +=Math.max(1, weapon.level+1);
 					hero.belongings.weapon = null;
 					weapon.updateQuickslot();
-				} else if ( armor != null && armor.level >= 0 ) {
-					Dungeon.hero.spp += armor.level+1;
+				} else if ( armor != null ) {
+					Dungeon.hero.spp += Math.max(1,armor.level+1);
 					hero.belongings.armor = null;
 				} else if ( misc1 != null && misc1.unique == false  ) {
-					Dungeon.hero.spp += misc1.level+1;
+					Dungeon.hero.spp += Math.max(1,misc1.level+1);
 					hero.belongings.misc1 = null;
 				} else if ( misc2 != null && misc2.unique == false  ) {
-					Dungeon.hero.spp += misc2.level+1;
+					Dungeon.hero.spp += Math.max(1,misc2.level+1);
 					hero.belongings.misc2 = null;
 				} else if ( misc3 != null && misc3.unique == false  ) {
-					Dungeon.hero.spp += misc3.level+1;
+					Dungeon.hero.spp += Math.max(1,misc3.level+1);
 					hero.belongings.misc3 = null;
 				} else {
 					Dungeon.gold = 0;
@@ -2101,13 +2180,13 @@ public class Hero extends Char {
 
 			}
 
-			if (heroClass == HeroClass.PERFORMER && Dungeon.skins == 4){
+			if (heroClass == HeroClass.PERFORMER && (Dungeon.skins == 4 || Dungeon.skins == 6)){
 					Dungeon.hero.spp += lvl;
 			}
 
 
 			if (buff(HopeMind.class) != null){
-				HT+=1;
+				TRUE_HT+=1;
 			}
 			if (lvl < 10) {
 				updateAwareness();
@@ -2130,6 +2209,7 @@ public class Hero extends Char {
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 
+			hero.updateHT(true);
 			buff(Hunger.class).satisfy(10);
 			if(hero.heroClass == HeroClass.PERFORMER){
 				Buff.prolong(hero,Rhythm.class,100);
@@ -2164,6 +2244,14 @@ public class Hero extends Char {
 		return buff(Hunger.class) != null
 				&& buff(Hunger.class).isOverfed();
 	}	
+	
+	public boolean isBeOld() {
+		return buff(BeOld.class) != null;
+	}	
+	
+	public boolean isBeCorrupt() {
+		return buff(BeCorrupt.class) != null;
+	}		
 
 	@Override
 	public void add(Buff buff) {
@@ -2180,10 +2268,12 @@ public class Hero extends Char {
 			}
 
 			if (buff instanceof RingOfMight.Might) {
-				if (((RingOfMight.Might) buff).level > 0) {
-					HT += ((RingOfMight.Might) buff).level * 8;
-				}
-			} else if (buff instanceof Paralysis || buff instanceof Vertigo) {
+				//if (((RingOfMight.Might) buff).level > 0) {
+			//		HT += ((RingOfMight.Might) buff).level * 8;
+			//	}
+				Dungeon.hero.updateHT(false);
+			} else
+				if (buff instanceof Paralysis || buff instanceof Vertigo) {
 				interrupt();
 			}
 
@@ -2195,14 +2285,14 @@ public class Hero extends Char {
 	public void remove(Buff buff) {
 		super.remove(buff);
 		if (buff instanceof RingOfMight.Might) {
-			if (((RingOfMight.Might) buff).level > 0) {
-				HT -= ((RingOfMight.Might) buff).level * 8;
-				hero.damage(1, this);
-				if (!hero.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
-				}
-
-			}
+			//if (((RingOfMight.Might) buff).level > 0) {
+				//HT -= ((RingOfMight.Might) buff).level * 8;
+				//hero.damage(1, this);
+				//if (!hero.isAlive()) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.ITEM));
+			//}
+			Dungeon.hero.updateHT(false);
+			//}
 		}
 
 		BuffIndicator.refreshHero();
@@ -2552,10 +2642,16 @@ public class Hero extends Char {
 
 	}
 
-	@Override
+	/*@Override
 	public HashSet<Class<?>> resistances() {
-		RingOfElements.Resistance r = buff(RingOfElements.Resistance.class);
+		RingOfElements.RingResistance r = buff(RingOfElements.RingResistance.class);
 		return r == null ? super.resistances() : r.resistances();
+	}
+	
+	@Override
+	public HashSet<Class<?>> weakness() {
+		RingOfElements.RingResistance r = buff(RingOfElements.RingResistance.class);
+		return r == null ? super.weakness() : r.weakness();
 	}
 
 	@Override
@@ -2566,14 +2662,14 @@ public class Hero extends Char {
 				immunities.add(immunity);
 		}
 		return immunities;
-	}
+	}*/
 
 	@Override
 	public void next() {
 		super.next();
 	}
 
-	public static interface Doom {
-		public void onDeath();
+	public interface Doom {
+		void onDeath();
 	}
 }

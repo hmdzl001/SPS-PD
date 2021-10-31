@@ -90,19 +90,15 @@ public class PatrolUAV extends Mob {
 	}
 
 	
-		private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-		static {
-			IMMUNITIES.add(Amok.class);
-			IMMUNITIES.add(Sleep.class);
-			IMMUNITIES.add(Terror.class);
-			IMMUNITIES.add(Burning.class);
-			IMMUNITIES.add(Vertigo.class);
-			IMMUNITIES.add(ElectriShock.class);
-			IMMUNITIES.add(WandOfLightning.class);
+		{
+			immunities.add(Amok.class);
+			immunities.add(Sleep.class);
+			immunities.add(Terror.class);
+			immunities.add(Burning.class);
+			immunities.add(Vertigo.class);
+			immunities.add(ElectriShock.class);
+			immunities.add(WandOfLightning.class);
 		}
-		@Override
-		public HashSet<Class<?>> immunities() {
-			return IMMUNITIES;
-		}
+
 	
 }

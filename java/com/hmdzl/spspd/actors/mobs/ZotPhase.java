@@ -79,13 +79,9 @@ public class ZotPhase extends Mob{
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(LightningTrap.Electricity.class);
+	{
+		resistances.add(LightningTrap.Electricity.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
+
 }

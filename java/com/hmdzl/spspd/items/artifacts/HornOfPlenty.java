@@ -18,7 +18,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.fruit.Blandfruit;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -82,10 +82,10 @@ public class HornOfPlenty extends Artifact {
 
 				// if you get at least 100 food energy from the horn
 				if (charge >= 3) {
-					switch (hero.heroClass) {
+					/*switch (hero.heroClass) {
 					case WARRIOR:
-						if (hero.HP < hero.HT) {
-							hero.HP = Math.min(hero.HP + 5, hero.HT);
+						if (hero.HP < hero.TRUE_HT) {
+							hero.HP = Math.min(hero.HP + 5, hero.TRUE_HT);
 							hero.sprite.emitter().burst(
 									Speck.factory(Speck.HEALING), 1);
 						}
@@ -100,7 +100,7 @@ public class HornOfPlenty extends Artifact {
 					case SOLDIER:
 					case FOLLOWER:
 						break;
-					}
+					}*/
 
 					Statistics.foodEaten++;
 				}

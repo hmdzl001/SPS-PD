@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
@@ -27,13 +27,13 @@ public class HighLight extends FlavourBuff {
 	public static final float DURATION = 500f;
 	public static final int DISTANCE = 10;
 
+    {
+		type = buffType.NEUTRAL;
+	}	
+	
 	@Override
 	public boolean attachTo(Char target) {
-		if (super.attachTo(target)) {
-			return true;
-		} else {
-			return false;
-		}
+        return super.attachTo(target);
 	}
 
 	@Override

@@ -17,8 +17,8 @@
  */
 package com.hmdzl.spspd.items.food.vegetable;
 
-import com.hmdzl.spspd.actors.buffs.Barkskin;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -38,7 +38,7 @@ public class NutVegetable extends Vegetable {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Barkskin.class).level(hero.lvl-1);
+			Buff.affect(hero, ShieldArmor.class).level(hero.HT/5);
 		}
 	}
 

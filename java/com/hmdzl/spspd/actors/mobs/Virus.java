@@ -39,7 +39,7 @@ public class Virus extends Mob {
 	protected static final float SPAWN_DELAY = 1f;
 	{
 		spriteClass = ErrorSprite.class;
-		HP = HT = (int)Dungeon.hero.HT/5;
+		HP = HT = Dungeon.hero.HT /5;
 		EXP = 0;
 		evadeSkill = Dungeon.hero.evadeSkill;
 
@@ -94,18 +94,12 @@ public class Virus extends Mob {
 		//in other words, can't be directly affected by buffs/debuffs.
 	}		
 	
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(CorruptGas.class);
+    { 
+		//immunities.add(EnchantmentDark.class);
+		immunities.add(Burning.class);
+		immunities.add(ToxicGas.class);
+		immunities.add(ScrollOfPsionicBlast.class);
+		immunities.add(CorruptGas.class);
 	}
 	
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}	
 }	

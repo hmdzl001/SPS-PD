@@ -71,7 +71,7 @@ public class WndSadGhost extends Window {
 		RedButton btnWeapon = new RedButton( Messages.get(this, "weapon")) {
 			@Override
 			protected void onClick() {
-				selectReward(ghost, Ghost.Quest.weapon);
+				selectReward(ghost, Ghost.Quest.artifact);
 			}
 		};
 		btnWeapon.setRect(0, message.top() + message.height() + GAP, WIDTH,
@@ -82,7 +82,7 @@ public class WndSadGhost extends Window {
 			RedButton btnArmor = new RedButton( Messages.get(this, "armor")) {
 				@Override
 				protected void onClick() {
-					selectReward(ghost, Ghost.Quest.armor);
+					selectReward(ghost, Ghost.Quest.ring);
 				}
 			};
 			btnArmor.setRect(0, btnWeapon.bottom() + GAP, WIDTH, BTN_HEIGHT);

@@ -131,8 +131,7 @@ public class Bag extends Item implements Iterable<Item> {
 			if (item != null)
 				((Item) item).collect(this);
 		}
-		;
-	}
+    }
 
 	public boolean contains(Item item) {
 		for (Item i : items) {

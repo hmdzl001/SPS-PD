@@ -17,19 +17,18 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
-
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DwarfLichSprite;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
 
 public class DwarfLich extends Mob {
 	
@@ -51,6 +50,7 @@ public class DwarfLich extends Mob {
 		lootChanceOther = 0.3f;
 		
 		properties.add(Property.UNDEAD);
+		properties.add(Property.MAGICER);
 		properties.add(Property.DWARF);
 	}
 
@@ -89,6 +89,15 @@ public class DwarfLich extends Mob {
 		super.die(cause);
 	}
 
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		
+		enemy.damage(damage/2,  DARK_DAMAGE );
+		damage = damage/2;
+
+		return damage;
+	}		
+	
 	public static void spawnAround(int pos) {
 		for (int n : Level.NEIGHBOURS4) {
 			int cell = pos + n;
@@ -110,14 +119,10 @@ public class DwarfLich extends Mob {
     
     }
 	
-	private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	static {
+	{
 		
-		RESISTANCES.add(Poison.class);
+		resistances.add(Poison.class);
 	}
 
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}
+
 }

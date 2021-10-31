@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items.potions;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 
 public class PotionOfStrength extends Potion {

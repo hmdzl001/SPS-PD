@@ -22,10 +22,9 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Web;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.NewSpinnerSprite;
-import com.hmdzl.spspd.sprites.SpiderSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
@@ -75,11 +74,11 @@ public class Spider extends PET {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (cooldown>0 && Random.Int(10) == 0) {
-			Buff.affect(enemy, Poison.class).set(Random.Int(7, 9) * Poison.durationFactor(enemy));
+			Buff.affect(enemy, Poison.class).set(Random.Int(7, 9) );
 			GameScene.add(Blob.seed(enemy.pos, Random.Int(5, 7), Web.class));
 		}
 		if (cooldown==0) {
-			Buff.affect(enemy, Poison.class).set(Random.Int(10, 25) * Poison.durationFactor(enemy));
+			Buff.affect(enemy, Poison.class).set(Random.Int(10, 25));
 			GameScene.add(Blob.seed(enemy.pos, Random.Int(8, 9), Web.class));
 			damage+=damage;
 			cooldown=500;

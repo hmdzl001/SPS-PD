@@ -34,8 +34,11 @@ public class Ballistica {
 	public static final int STOP_TARGET = 1; //ballistica will stop at the target cell
 	public static final int STOP_CHARS = 2; //ballistica will stop on first char hit
 	public static final int STOP_TERRAIN = 4; //ballistica will stop on terrain(LOS blocking, impassable, etc.)
+	//public static final int STOP_BLOCK = 8; //ballistica will stop on terrain(LOS blocking, impassable, etc.)
 
 	public static final int PROJECTILE =  	STOP_TARGET	| STOP_CHARS	| STOP_TERRAIN;
+
+	//public static final int GLASSPASS =   STOP_CHARS | STOP_BLOCK ;
 
 	public static final int MAGIC_BOLT =    STOP_CHARS  | STOP_TERRAIN;
 
@@ -105,7 +108,9 @@ public class Ballistica {
 
 			if ((stopTerrain && cell != sourcePos && Level.losBlockHigh[cell])
 					|| (cell != sourcePos && stopChars && Actor.findChar( cell ) != null)
-					|| (cell == to && stopTarget)){
+					|| (cell == to && stopTarget)
+
+					){
 				collide(cell);
 			}
 

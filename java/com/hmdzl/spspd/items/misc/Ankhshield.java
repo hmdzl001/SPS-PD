@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.hmdzl.spspd.Assets;
@@ -123,7 +123,7 @@ import com.watabou.noosa.audio.Sample;
 
 	 @Override
 	 public String status() {
-		 return Messages.format("%d", (int)charge/120);
+		 return Messages.format("%d", charge /120);
 	 }
 
 }
