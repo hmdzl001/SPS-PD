@@ -18,16 +18,21 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
 
 public class ShadowCurse extends Buff {
 	
 	private int ticks = 0;
 
 	private static final String TICKS = "ticks";
+	private boolean first = false;
 	
 	{
 		type = buffType.NEGATIVE;
@@ -44,8 +49,12 @@ public class ShadowCurse extends Buff {
 		super.restoreFromBundle(bundle);
 		ticks = bundle.getInt(TICKS);
 	}
-	
-	
+
+	@Override
+	public boolean attachTo(Char target) {
+		first = true;
+		return super.attachTo(target);
+	}
 	@Override
 	public int icon() {
 		return BuffIndicator.COUNTDOWN;
@@ -64,10 +73,16 @@ public class ShadowCurse extends Buff {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
+			if (target.isAlive()) {
+				if (first == true) {
+					target.damage(Math.min(1000, target.HT / 30), DARK_DAMAGE);
+					first = false;
+				}
+			}
 			ticks++;
 			if (ticks>3){
 				target.sprite.emitter().burst(ShadowParticle.CURSE, 6);
-				target.damage(Math.round(target.HT / 8), this);
+				target.damage(Math.round(target.HT / 10), DARK_DAMAGE);
 				detach();
 			}
 		}

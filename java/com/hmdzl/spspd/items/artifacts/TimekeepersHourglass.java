@@ -12,7 +12,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -44,9 +44,9 @@ public class TimekeepersHourglass extends Artifact {
 		level = 0;
 		levelCap = 5;
 
-		charge = 10 + level * 2;
+		charge = 5 + level;
 		partialCharge = 0;
-		chargeCap = 10 + level * 2;
+		chargeCap = 5 + level;
 
 		defaultAction = AC_ACTIVATE;
 	}
@@ -146,7 +146,7 @@ public class TimekeepersHourglass extends Artifact {
 
 	@Override
 	public Item upgrade() {
-		chargeCap += 2;
+		chargeCap += 1;
 
 		// for artifact transmutation.
 		while (level + 1 > sandBags)
@@ -172,7 +172,7 @@ public class TimekeepersHourglass extends Artifact {
 
 	@Override
 	public void updateArtifact() {
-		chargeCap = 10 + level*2;
+		chargeCap = 5 + level;
 	}
 
 	private static final String SANDBAGS = "sandbags";
@@ -235,15 +235,15 @@ public class TimekeepersHourglass extends Artifact {
 
 		@Override
 		public boolean attachTo(Char target) {
-			spend(charge);
-			((Hero) target).spendAndNext(charge);
+			spend(4f);
+			((Hero) target).spendAndNext(4f);
 
 			// shouldn't punish the player for going into stasis frequently
 			Hunger hunger = target.buff(Hunger.class);
 			if (hunger != null && !hunger.isStarving())
-				hunger.satisfy(charge);
+				hunger.satisfy(4f);
 
-			charge = 0;
+			charge --;
 
 			target.invisible++;
 
@@ -279,8 +279,8 @@ public class TimekeepersHourglass extends Artifact {
 		public boolean processTime(float time) {
 			partialTime += time;
 
-			while (partialTime >= 1f) {
-				partialTime--;
+			while (partialTime >= 4f) {
+				partialTime-=4f;
 				charge--;
 			}
 
@@ -321,8 +321,7 @@ public class TimekeepersHourglass extends Artifact {
 			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
 				mob.sprite.remove(CharSprite.State.PARALYSED);
 			Group.freezeEmitters = false;
-
-			charge = 0;
+			charge--;
 			updateQuickslot();
 			super.detach();
 			activeBuff = null;
@@ -366,7 +365,7 @@ public class TimekeepersHourglass extends Artifact {
 		public boolean doPickUp(Hero hero) {
 			TimekeepersHourglass hourglass = hero.belongings
 					.getItem(TimekeepersHourglass.class);
-			if (hourglass != null && !hourglass.cursed) {
+			if (hourglass != null && !hourglass.cursed && hourglass.level< hourglass.levelCap) {
 				hourglass.upgrade();
 				Sample.INSTANCE.play(Assets.SND_DEWDROP);
 				if (hourglass.level == hourglass.levelCap)

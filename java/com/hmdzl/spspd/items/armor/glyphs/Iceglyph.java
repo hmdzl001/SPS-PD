@@ -103,13 +103,13 @@ public class Iceglyph extends Glyph {
 		//RESISTANCES.add( Chill.class );
 		//IMMUNITIES.add(WeatherOfSnow.class );
 
-		//RESISTS.add( DisintegrationTrap.class );
-		//RESISTS.add( GrimTrap.class );
+		//REDUCE.add( DisintegrationTrap.class );
+		//REDUCE.add( GrimTrap.class );
 
-		//RESISTS.add( Shaman.class );
-		//RESISTS.add( Warlock.class );
-		//RESISTS.add( Eye.class );
-		//RESISTS.add( Yog.BurningFist.class );
+		//REDUCE.add( Shaman.class );
+		//REDUCE.add( Warlock.class );
+		//REDUCE.add( Eye.class );
+		//REDUCE.add( Yog.BurningFist.class );
 	//}
 
 

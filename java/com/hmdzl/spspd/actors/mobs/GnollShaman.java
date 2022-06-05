@@ -23,6 +23,8 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
@@ -60,7 +62,12 @@ public class GnollShaman extends Mob implements Callback {
 		properties.add(Property.ORC);
 		properties.add(Property.MAGICER);
 	}
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return new SandalsOfNature();
+	}
+
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(14, 20+adj(0));
@@ -86,7 +93,8 @@ public class GnollShaman extends Mob implements Callback {
 	}	
 
 	@Override
-	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+	protected boolean canAttack(Char enemy) {
+		if (buff(Silent.class) != null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;

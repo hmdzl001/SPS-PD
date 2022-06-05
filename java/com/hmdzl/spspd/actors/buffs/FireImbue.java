@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -74,7 +74,7 @@ public class FireImbue extends Buff {
 
 	public void proc(Char enemy) {
 		if (Random.Int(2) == 0)
-			Buff.affect(enemy, Burning.class).reignite(enemy);
+			Buff.affect(enemy, Burning.class).set(3);
 
 		enemy.sprite.emitter().burst(FlameParticle.FACTORY, 2);
 	}

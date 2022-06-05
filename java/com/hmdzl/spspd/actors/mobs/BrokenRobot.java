@@ -32,7 +32,9 @@ import com.hmdzl.spspd.effects.particles.BlastParticle;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
@@ -74,6 +76,11 @@ public class BrokenRobot extends Mob {
 	}
 
 	private Ballistica beam;
+
+	@Override
+	public Item SupercreateLoot(){
+		return new RobotDMT();
+	}
 
 	@Override
 	public int drRoll() {

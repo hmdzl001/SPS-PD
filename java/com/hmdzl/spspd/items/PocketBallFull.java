@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
@@ -25,13 +26,13 @@ import com.hmdzl.spspd.actors.mobs.pets.Bunny;
 import com.hmdzl.spspd.actors.mobs.pets.ButterflyPet;
 import com.hmdzl.spspd.actors.mobs.pets.Chocobo;
 import com.hmdzl.spspd.actors.mobs.pets.CocoCat;
-
 import com.hmdzl.spspd.actors.mobs.pets.Datura;
 import com.hmdzl.spspd.actors.mobs.pets.DogPet;
 import com.hmdzl.spspd.actors.mobs.pets.Fly;
 import com.hmdzl.spspd.actors.mobs.pets.GentleCrab;
 import com.hmdzl.spspd.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.actors.mobs.pets.GreenDragon;
+import com.hmdzl.spspd.actors.mobs.pets.Haro;
 import com.hmdzl.spspd.actors.mobs.pets.Kodora;
 import com.hmdzl.spspd.actors.mobs.pets.LeryFire;
 import com.hmdzl.spspd.actors.mobs.pets.LightDragon;
@@ -44,12 +45,9 @@ import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Snake;
 import com.hmdzl.spspd.actors.mobs.pets.Spider;
 import com.hmdzl.spspd.actors.mobs.pets.Stone;
-
 import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
-
 import com.hmdzl.spspd.actors.mobs.pets.YearPet;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -333,7 +331,15 @@ public class PocketBallFull extends Item {
                     pet.HP = pet.HT = pet_ht;
                     pet.level = pet_level;
                     pet.experience = pet_exp;
-                }					
+                }	
+                if (Dungeon.hero.petType==29){
+                    Haro pet = new Haro();
+                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+                    pet.HP = pet.HT = pet_ht;
+                    pet.level = pet_level;
+                    pet.experience = pet_exp;
+                }
+				
                 //pet.pos = Random.element(spawnPoints);
                // GameScene.add(pet);
 

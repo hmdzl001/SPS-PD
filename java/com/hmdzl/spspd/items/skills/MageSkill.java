@@ -51,7 +51,7 @@ public class MageSkill extends ClassSkill {
 
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
-				Buff.affect(mob, Burning.class).reignite(mob);
+				Buff.affect(mob, Burning.class).set(6f);
 				Buff.affect(mob, Ooze.class);
 				Buff.affect(mob, Slow.class, 8);
 				Buff.prolong(mob, Roots.class, 3);
@@ -129,7 +129,7 @@ public class MageSkill extends ClassSkill {
 	public void doSpecial4() {
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 4)) {
-				Buff.prolong(mob, Shocked.class, 8);
+				Buff.affect(mob, Shocked.class).level(8);
 			}
 		}
 

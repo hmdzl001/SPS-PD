@@ -21,11 +21,15 @@
 
 package com.hmdzl.spspd.infos;
 
+import com.hmdzl.spspd.actors.mobs.Acidic;
+import com.hmdzl.spspd.actors.mobs.Albino;
 import com.hmdzl.spspd.actors.mobs.AlbinoPiranha;
 import com.hmdzl.spspd.actors.mobs.Assassin;
 import com.hmdzl.spspd.actors.mobs.BambooMob;
+import com.hmdzl.spspd.actors.mobs.Bandit;
 import com.hmdzl.spspd.actors.mobs.Bat;
 import com.hmdzl.spspd.actors.mobs.BlueWraith;
+import com.hmdzl.spspd.actors.mobs.BombBug;
 import com.hmdzl.spspd.actors.mobs.BrokenRobot;
 import com.hmdzl.spspd.actors.mobs.BrownBat;
 import com.hmdzl.spspd.actors.mobs.Brute;
@@ -33,6 +37,7 @@ import com.hmdzl.spspd.actors.mobs.Crab;
 import com.hmdzl.spspd.actors.mobs.DM300;
 import com.hmdzl.spspd.actors.mobs.DemonFlower;
 import com.hmdzl.spspd.actors.mobs.DemonGoo;
+import com.hmdzl.spspd.actors.mobs.DragonRider;
 import com.hmdzl.spspd.actors.mobs.DustElement;
 import com.hmdzl.spspd.actors.mobs.DwarfLich;
 import com.hmdzl.spspd.actors.mobs.ElderAvatar;
@@ -68,7 +73,10 @@ import com.hmdzl.spspd.actors.mobs.PrisonWander;
 import com.hmdzl.spspd.actors.mobs.Rat;
 import com.hmdzl.spspd.actors.mobs.SandMob;
 import com.hmdzl.spspd.actors.mobs.Scorpio;
+import com.hmdzl.spspd.actors.mobs.Senior;
 import com.hmdzl.spspd.actors.mobs.SewerHeart;
+import com.hmdzl.spspd.actors.mobs.Shielded;
+import com.hmdzl.spspd.actors.mobs.Shit;
 import com.hmdzl.spspd.actors.mobs.Skeleton;
 import com.hmdzl.spspd.actors.mobs.SpiderBot;
 import com.hmdzl.spspd.actors.mobs.SpiderQueen;
@@ -81,7 +89,9 @@ import com.hmdzl.spspd.actors.mobs.Tengu;
 import com.hmdzl.spspd.actors.mobs.TestMob;
 import com.hmdzl.spspd.actors.mobs.Thief;
 import com.hmdzl.spspd.actors.mobs.ThiefImp;
+import com.hmdzl.spspd.actors.mobs.TimeKeeper;
 import com.hmdzl.spspd.actors.mobs.TrollWarrior;
+import com.hmdzl.spspd.actors.mobs.Vagrant;
 import com.hmdzl.spspd.actors.mobs.Warlock;
 import com.hmdzl.spspd.actors.mobs.Wraith;
 import com.hmdzl.spspd.actors.mobs.Yog;
@@ -108,17 +118,21 @@ public enum NewMobCatalog {
 
 	static {
 		SEWER.seen.put( Rat.class , true);
+		SEWER.seen.put( Albino.class , true);
 		SEWER.seen.put( BrownBat.class , true);
 		SEWER.seen.put( DustElement.class , true);
 		SEWER.seen.put( LiveMoss.class , true);
 		SEWER.seen.put( Swarm.class , true);
 		SEWER.seen.put( Crab.class , true);
+		SEWER.seen.put( Shit.class , true);
+		SEWER.seen.put( Vagrant.class , true);
 		SEWER.seen.put( PatrolUAV.class , true);
 		SEWER.seen.put( Goo.class , true);
 		SEWER.seen.put( SewerHeart.class , true);
 		SEWER.seen.put( PlagueDoctor.class , true);
 
 		PRISON.seen.put( Thief.class , true);
+		PRISON.seen.put( Bandit.class , true);
 		PRISON.seen.put( Gnoll.class , true);
 		PRISON.seen.put( Guard.class , true);
 		PRISON.seen.put( Zombie.class , true);
@@ -134,9 +148,12 @@ public enum NewMobCatalog {
 		CAVE.seen.put( Skeleton.class , true);
         CAVE.seen.put( GnollShaman.class , true);
 		CAVE.seen.put( Brute.class , true);
+		CAVE.seen.put(Shielded.class , true);
 		CAVE.seen.put( SandMob.class , true);
 		CAVE.seen.put( Spinner.class , true);
 		CAVE.seen.put( IceBug.class , true);
+		CAVE.seen.put( BombBug.class , true);
+		CAVE.seen.put( TimeKeeper.class , true);
 		CAVE.seen.put( BrokenRobot.class , true);
 		CAVE.seen.put( Hybrid.class , true);
 		CAVE.seen.put( DM300.class , true);
@@ -145,11 +162,13 @@ public enum NewMobCatalog {
 		CITY.seen.put( FireElemental.class , true);
 		CITY.seen.put( Warlock.class , true);
 		CITY.seen.put( Monk.class , true);
+		CITY.seen.put( Senior.class , true);
 		CITY.seen.put( SpiderBot.class , true);
 		CITY.seen.put( Golem.class , true);
 		CITY.seen.put( Musketeer.class , true);
 		CITY.seen.put( DwarfLich.class , true);
 		CITY.seen.put( ManySkeleton.class , true);
+		CITY.seen.put( DragonRider.class , true);
 		CITY.seen.put( LichDancer.class , true);
 		CITY.seen.put( ElderAvatar.class , true);
 		CITY.seen.put( King.class , true);
@@ -161,6 +180,7 @@ public enum NewMobCatalog {
 		HALL.seen.put( Sufferer.class , true);
 		HALL.seen.put( ThiefImp.class , true);
 		HALL.seen.put( Scorpio.class , true);
+		HALL.seen.put( Acidic.class , true);
 		HALL.seen.put( Yog.class , true);
 
 		EX.seen.put( GnollArcher.class , true);

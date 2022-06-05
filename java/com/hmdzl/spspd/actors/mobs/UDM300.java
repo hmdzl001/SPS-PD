@@ -154,7 +154,7 @@ public class UDM300 extends Mob {
 		}	
 		if (breaks == 2 ){
 		    if (Random.Int(2) == 0) {
-			    Buff.affect(enemy, Burning.class).reignite(enemy);
+			    Buff.affect(enemy, Burning.class).set(3f);
 		        state = FLEEING;
 			}
 		}	

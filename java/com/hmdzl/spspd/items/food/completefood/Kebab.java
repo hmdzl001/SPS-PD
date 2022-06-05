@@ -17,7 +17,10 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
-import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -39,6 +42,14 @@ public class Kebab extends CompleteFood {
 	@Override
 	public int price() {
 		return 5 * quantity;
+	}
+	
+		public void execute(Hero hero, String action) {
+		super.execute(hero, action);
+		if (action.equals(AC_EAT)){
+			Buff.affect(hero,MagicArmor.class).level(hero.HT/4);
+			Buff.affect(hero,AttackUp.class,50f).level(40);
+		}
 	}
 
 }

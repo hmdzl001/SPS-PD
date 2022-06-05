@@ -21,6 +21,8 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
 import com.hmdzl.spspd.sprites.SeniorSprite;
 import com.watabou.utils.Random;
 
@@ -30,6 +32,11 @@ public class Senior extends Monk {
 		spriteClass = SeniorSprite.class;
 		
 		properties.add(Property.DWARF);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new HornOfPlenty();
 	}
 
 	@Override

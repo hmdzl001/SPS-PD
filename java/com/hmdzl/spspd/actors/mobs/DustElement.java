@@ -22,6 +22,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.DustElementSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -44,6 +45,11 @@ public class DustElement extends Mob {
 		lootChance = 0.5f;
 		
 		properties.add(Property.ELEMENT);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.NORNSTONE);
 	}
 
 	@Override

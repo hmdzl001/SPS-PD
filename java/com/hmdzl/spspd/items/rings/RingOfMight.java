@@ -15,7 +15,7 @@ public class RingOfMight extends Ring {
 	
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",(int)(level/5),Math.min(0,level*100/15));
+			return Messages.get(this, "stats",(int)(level/5),Math.min(200,level*100/15));
 		} else {
 			return "???";
 		}

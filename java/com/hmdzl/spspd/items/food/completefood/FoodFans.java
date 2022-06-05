@@ -45,7 +45,7 @@ public class FoodFans extends CompleteFood {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-             Buff.affect(hero, ShieldArmor.class).level(75);
+             Buff.affect(hero, ShieldArmor.class).level(hero.HT/2);
 			 Buff.affect(hero, Bless.class,50f);
 		}
 	}

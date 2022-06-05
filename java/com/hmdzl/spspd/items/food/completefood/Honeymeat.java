@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
+import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -37,12 +39,13 @@ public class Honeymeat extends CompleteFood {
 
 		if (action.equals(AC_EAT)) {
 			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(2, 5));
+			Buff.affect(hero,AttackUp.class,50f).level(20);
 			//hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
 			//Buff.detach(hero, Poison.class);
 			//Buff.detach(hero, Cripple.class);
 			//Buff.detach(hero, STRdown.class);
 			//Buff.detach(hero, Bleeding.class);
-hero.updateHT(true);
+             hero.updateHT(true);
 			//hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
 
 		}

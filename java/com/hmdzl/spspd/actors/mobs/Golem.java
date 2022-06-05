@@ -17,22 +17,20 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.TarGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
-import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Sleep;
+import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.mobs.npcs.Imp;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GolemSprite;
-
 import com.watabou.utils.Random;
 
 public class Golem extends Mob {
@@ -50,6 +48,11 @@ public class Golem extends Mob {
 		lootChance = 0.5f;
 		
 		properties.add(Property.MECH);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.GUNWEAPON);
 	}
 
 	@Override

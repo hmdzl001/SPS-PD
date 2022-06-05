@@ -38,10 +38,12 @@ import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.TomeOfMastery;
 import com.hmdzl.spspd.items.bombs.DangerousBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.MKbox;
 import com.hmdzl.spspd.items.potions.PotionOfExperience;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
@@ -185,6 +187,11 @@ public class Hybrid extends Mob {
 	}
 
 	@Override
+	public Item SupercreateLoot(){
+			return new MKbox();
+	}	
+	
+	@Override
 	public void die(Object cause) {
 		super.die(cause);
 		GameScene.bossSlain();
@@ -214,7 +221,10 @@ public class Hybrid extends Mob {
 			break;		
 			case FOLLOWER:
 			badgeToCheck = Badge.MASTERY_FOLLOWER;
-			break;			
+			break;		
+			case ASCETIC:
+					badgeToCheck = Badge.MASTERY_ASCETIC;
+					break;			
 		}
 		
 		Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();

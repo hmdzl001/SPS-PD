@@ -24,12 +24,12 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.items.Generator;
 import com.watabou.utils.Random;
 
 public class Fire extends Blob {
@@ -114,7 +114,7 @@ public class Fire extends Blob {
 	private void burn(int pos) {
 		Char ch = Actor.findChar(pos);
 		if (ch != null ) {
-			Buff.affect(ch, Burning.class).reignite(ch);
+			Buff.affect(ch, Burning.class).set(4f);
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
 		if (heap != null) {

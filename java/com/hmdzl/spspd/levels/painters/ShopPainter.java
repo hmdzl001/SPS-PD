@@ -57,7 +57,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.melee.special.Brick;
-import com.hmdzl.spspd.items.weapon.missiles.PocketBall;
+import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.levels.HallsLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;

@@ -101,7 +101,7 @@ public class ScrollOfRegrowth extends Scroll {
 
 		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 			if (Level.fieldOfView[mob.pos]) {
-				Buff.affect(mob,GrowSeed.class).reignite(mob,6f);
+				Buff.affect(mob,GrowSeed.class).set(6f);
 			}
 		}
 

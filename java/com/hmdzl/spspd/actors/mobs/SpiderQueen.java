@@ -40,17 +40,19 @@ import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.TomeOfMastery;
 import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
+import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SpiderEggSprite;
 import com.hmdzl.spspd.sprites.SpiderGoldSprite;
@@ -62,7 +64,6 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class SpiderQueen extends Mob {
 
@@ -159,6 +160,11 @@ public class SpiderQueen extends Mob {
 		}
 
 	}
+	
+	@Override
+	public Item SupercreateLoot(){
+			return new TaurcenBow().identify();
+	}	
 
 	@Override
 	public void die(Object cause) {
@@ -190,6 +196,9 @@ public class SpiderQueen extends Mob {
 					break;				
 				case FOLLOWER:
 					badgeToCheck = Badge.MASTERY_FOLLOWER;
+					break;
+				case ASCETIC:
+					badgeToCheck = Badge.MASTERY_ASCETIC;
 					break;
 		}
 	

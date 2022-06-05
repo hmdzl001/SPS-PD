@@ -21,7 +21,7 @@
 
 package com.hmdzl.spspd.infos;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -70,6 +70,9 @@ public enum NewDocument {
 		STORY_GUIDE.pages.put("tribe", true);
 		STORY_GUIDE.pages.put("homeless", true);
 		STORY_GUIDE.pages.put("overseas", true);
+		STORY_GUIDE.pages.put("damagetype", true);
+		STORY_GUIDE.pages.put("enemy", true);
+		STORY_GUIDE.pages.put("weapon", true);
 
 		//sewers
 		//ALCHEMY_GUIDE.pages.put("Potions",              DeviceCompat.isDebug());

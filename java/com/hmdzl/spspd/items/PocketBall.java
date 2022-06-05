@@ -15,30 +15,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.weapon.missiles;
+package com.hmdzl.spspd.items;
 
 
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
-import com.hmdzl.spspd.items.PocketBallFull;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 
-public class PocketBall extends MissileWeapon {
+public class PocketBall extends Item {
 
 	{
 		//name = "pocket ball";
 		image = ItemSpriteSheet.POCKETBALL_EMPTY;
-
-		STR = 10;
-		MIN = 1;
-		MAX = 10;
 
 		stackable = true;
 	}
@@ -67,15 +62,26 @@ public class PocketBall extends MissileWeapon {
 			);
             Dungeon.level.drop( pbf, cell ).sprite.drop();
 			((PET) Actor.findChar(cell)).sprite.killAndErase();
-			Actor.findChar(cell).destroy();
-			Dungeon.hero.haspet=false;
+			Actor.findChar(cell).die(null);
+			//Actor.findChar(cell).destroy();
+
+			Dungeon.hero.haspet = false;
 			GLog.n(Messages.get(this, "get_pet"));
-        } else
-		miss(cell);
+        } else super.onThrow(cell);
     }
 
 	@Override
 	public int price() {
 		return 100 * quantity;
 	}
+
+    @Override
+    public boolean isUpgradable() {
+        return false;
+    }
+
+    @Override
+    public boolean isIdentified() {
+        return true;
+    }
 }

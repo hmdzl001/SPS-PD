@@ -47,7 +47,7 @@ public class Icecream extends CompleteFood {
 			Buff.detach(hero, Burning.class);
 			Buff.detach(hero, STRdown.class);
 			//Buff.detach(hero, Bleeding.class);
-hero.updateHT(true);
+            hero.updateHT(true);
 			hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
 
 		}

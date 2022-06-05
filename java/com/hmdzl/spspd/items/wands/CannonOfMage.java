@@ -69,10 +69,10 @@ public class CannonOfMage extends DamageWand {
 					ch.damage((int) (damageRoll() * (1 + 0.3 * Dungeon.hero.magicSkill())), this);
 					break;
 				case 1:
-					Buff.affect(ch, Burning.class).reignite(ch);
+					Buff.affect(ch, Burning.class).set(3f);
 					break;
 				case 2:
-					Buff.affect(ch, Shocked.class, 5f);
+					Buff.affect(ch, Shocked.class).set(5f);
 					break;
 				case 3:
 					Buff.affect(ch, Ooze.class);

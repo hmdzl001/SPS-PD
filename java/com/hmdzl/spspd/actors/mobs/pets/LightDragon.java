@@ -20,12 +20,12 @@ package com.hmdzl.spspd.actors.mobs.pets;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.LightDragonSprite;
 import com.hmdzl.spspd.utils.GLog;
-
 import com.watabou.utils.Random;
 
 public class LightDragon extends PET{
@@ -91,7 +91,7 @@ public class LightDragon extends PET{
 	public int attackProc(Char enemy, int damage) {
 		if (cooldown == 0) {
 			cooldown=500;
-			enemy.damage(enemy.HP/4,this);
+			enemy.damage(enemy.HP/4,DamageType.LIGHT_DAMAGE);
 			Buff.affect(enemy, Blindness.class, 10f);
 		}
 		return damage;

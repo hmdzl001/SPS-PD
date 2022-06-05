@@ -18,8 +18,6 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.effects.Speck;
 import com.watabou.noosa.TextureFilm;
 
 public class GuardSprite extends MobSprite {
@@ -49,9 +47,6 @@ public class GuardSprite extends MobSprite {
 	@Override
 	public void die() {
 		super.die();
-		if (Dungeon.visible[ch.pos]) {
-			emitter().burst(Speck.factory(Speck.BONE), 6);
-		}
 	}
 
 	@Override

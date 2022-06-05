@@ -23,8 +23,10 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Flag;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.FishCracker;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.HBBSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class HBB extends NPC {
@@ -89,5 +91,8 @@ public class HBB extends NPC {
 		}
 		return false;
 	}
-
+	@Override
+	public Item SupercreateLoot(){
+		return new FishCracker();
+	}
 }

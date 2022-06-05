@@ -4,6 +4,8 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.NouthSouth;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ARealManSprite;
 import com.hmdzl.spspd.windows.WndMix;
@@ -55,5 +57,8 @@ public class ARealMan extends NPC {
         GameScene.show(new WndMix());
 		return true;
 	}
-	
+	@Override
+	public Item SupercreateLoot(){
+		return new NouthSouth();
+	}
 }

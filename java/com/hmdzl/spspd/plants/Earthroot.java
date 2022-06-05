@@ -20,13 +20,13 @@ package com.hmdzl.spspd.plants;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
 import com.hmdzl.spspd.items.potions.PotionOfParalyticGas;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
- 
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Bundle;
 
@@ -41,7 +41,7 @@ public class Earthroot extends Plant {
 		super.activate(ch);
 
 		if (ch != null) {
-			Buff.affect(ch, Armor.class).level = ch.HT;
+			Buff.affect(ch, ShieldArmor.class).level(ch.HT/4);
 		}
 
 		if (Dungeon.visible[pos]) {

@@ -46,7 +46,9 @@ public class Assets {
 	public static final String HUNTRESS = "ranger.png";
 	public static final String PERFORMER = "performer.png";
 	public static final String SOLDIER = "soldier.png";
-	public static final String FOLLOWER = "follower.png";
+	public static final String FOLLOWER = "follower.png";	
+	public static final String ASCETIC = "ascetic.png";
+	
 	public static final String AVATARS = "avatars.png";
 	public static final String PET = "pet.png";
 
@@ -383,6 +385,15 @@ public class Assets {
 	public static final String BUGDRAGON = "bugdragon.png";
 	
 	public static final String ICEBUG = "icebug.png";
+	public static final String DRAGONRIDER = "dragonrider.png";
+	public static final String SHIT = "shit.png";
+	public static final String TIMEKEEPER = "timekeeper.png";
+	public static final String VAGRANT = "vagrant.png";
 
+	public static final String LEVELCHECKER = "levelchecker.png";
+	public static final String GOLDCOLLECTOR = "goldcollector.png";
+
+	public static final String BONESTAR = "bonestar.png";
+	public static final String HARO = "haro.png";
 }
 

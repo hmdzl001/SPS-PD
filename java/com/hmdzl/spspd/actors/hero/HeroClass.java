@@ -27,8 +27,10 @@ import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Elevator;
 import com.hmdzl.spspd.items.ExpOre;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.Palantir;
+import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.items.PowerHand;
 import com.hmdzl.spspd.items.SaveYourLife;
 import com.hmdzl.spspd.items.SoulCollect;
@@ -50,6 +52,7 @@ import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.artifacts.CloakOfShadows;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.Pylon;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.bags.KeyRing;
@@ -68,14 +71,7 @@ import com.hmdzl.spspd.items.challengelists.PowerChallenge;
 import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
 import com.hmdzl.spspd.items.challengelists.SewerChallenge;
 import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
-import com.hmdzl.spspd.items.eggs.BlueDragonEgg;
-import com.hmdzl.spspd.items.eggs.GoldDragonEgg;
-import com.hmdzl.spspd.items.eggs.GreenDragonEgg;
-import com.hmdzl.spspd.items.eggs.LightDragonEgg;
 import com.hmdzl.spspd.items.eggs.RandomEgg;
-import com.hmdzl.spspd.items.eggs.RedDragonEgg;
-import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
-import com.hmdzl.spspd.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.items.food.Honey;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.MoonCake;
@@ -97,6 +93,7 @@ import com.hmdzl.spspd.items.misc.Ankhshield;
 import com.hmdzl.spspd.items.misc.AttackShield;
 import com.hmdzl.spspd.items.misc.AttackShoes;
 import com.hmdzl.spspd.items.misc.BShovel;
+import com.hmdzl.spspd.items.misc.BigBattery;
 import com.hmdzl.spspd.items.misc.CopyBall;
 import com.hmdzl.spspd.items.misc.DanceLion;
 import com.hmdzl.spspd.items.misc.DemoScroll;
@@ -129,11 +126,6 @@ import com.hmdzl.spspd.items.misc.SavageHelmet;
 import com.hmdzl.spspd.items.misc.SeriousPunch;
 import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.misc.UndeadBook;
-import com.hmdzl.spspd.items.nornstone.BlueNornStone;
-import com.hmdzl.spspd.items.nornstone.GreenNornStone;
-import com.hmdzl.spspd.items.nornstone.OrangeNornStone;
-import com.hmdzl.spspd.items.nornstone.PurpleNornStone;
-import com.hmdzl.spspd.items.nornstone.YellowNornStone;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
@@ -143,7 +135,6 @@ import com.hmdzl.spspd.items.potions.PotionOfMindVision;
 import com.hmdzl.spspd.items.potions.PotionOfPurity;
 import com.hmdzl.spspd.items.potions.PotionOfShield;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
-import com.hmdzl.spspd.items.reward.SewerReward;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.items.rings.RingOfElements;
@@ -160,12 +151,14 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfIdentify;
 import com.hmdzl.spspd.items.scrolls.ScrollOfLullaby;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
+import com.hmdzl.spspd.items.scrolls.ScrollOfMirrorImage;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRage;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTerror;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.wands.CannonOfMage;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
@@ -192,17 +185,15 @@ import com.hmdzl.spspd.items.weapon.melee.Whip;
 import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
 import com.hmdzl.spspd.items.weapon.melee.special.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.special.EleKatana;
+import com.hmdzl.spspd.items.weapon.melee.special.HolyMace;
 import com.hmdzl.spspd.items.weapon.melee.special.LinkSword;
-import com.hmdzl.spspd.items.weapon.melee.special.ShadowEater;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.items.weapon.melee.zero.EmptyPotion;
 import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ElfBow;
 import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
-import com.hmdzl.spspd.items.weapon.missiles.ErrorAmmo;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.PocketBall;
 import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
 import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
 import com.hmdzl.spspd.items.weapon.missiles.Skull;
@@ -225,7 +216,8 @@ public enum HeroClass {
 	HUNTRESS( "huntress", "huntress_name"),
 	PERFORMER( "performer", "performer_name"),
 	SOLDIER( "soldier", "soldier_name"),
-	FOLLOWER( "follower", "follower_name");
+	FOLLOWER( "follower", "follower_name"),
+	ASCETIC( "ascetic", "ascetic_name");
 	
 
 	private String title;
@@ -270,7 +262,11 @@ public enum HeroClass {
 			
 		case FOLLOWER:
 			initFollower( hero );
-			break;			
+			break;
+			
+		case ASCETIC:
+			initAscetic( hero );
+			break;				
 			
 		}			
 		
@@ -388,21 +384,21 @@ public enum HeroClass {
 
 
 			new SoulCollect().collect();
-			new ErrorAmmo(20).collect();
+			//new ErrorAmmo(20).collect();
 			new PowerHand().collect();
 			new TomeOfMastery().collect();
-			new ShadowEater().collect();
-			new TestWeapon().upgrade(90).collect();
+			//new ShadowEater().collect();
+			new TestWeapon().identify().collect();
 			//new UnstableSpellbook().upgrade(4).collect();
 
-			new GoldDragonEgg().collect();
-			new VioletDragonEgg().collect();
-			new ShadowDragonEgg().collect();
-			new LightDragonEgg().collect();
-			new GreenDragonEgg().collect();
-			new RedDragonEgg().collect();
-			new BlueDragonEgg().collect();
-			new PocketBall(10).collect();
+		//	new GoldDragonEgg().collect();
+		//	new VioletDragonEgg().collect();
+			//new ShadowDragonEgg().collect();
+		//	new LightDragonEgg().collect();
+			//new GreenDragonEgg().collect();
+			//new RedDragonEgg().collect();
+			//new BlueDragonEgg().collect();
+			//new PocketBall(10).collect();
 
 			//new Whistle().collect();
 
@@ -416,11 +412,11 @@ public enum HeroClass {
 			new PotionOfMindVision().identify().collect();
 			new PotionOfStrength().identify().collect();
 			new PotionOfShield().identify().collect();
-			new YellowNornStone().collect();
-			new BlueNornStone().collect();
-			new OrangeNornStone().collect();
-			new PurpleNornStone().collect();
-			new GreenNornStone().collect();
+		//	new YellowNornStone().collect();
+		//	new BlueNornStone().collect();
+		//	new OrangeNornStone().collect();
+			//new PurpleNornStone().collect();
+			//new GreenNornStone().collect();
 	   }
 			for(int i=0; i<10; i++){
 				new Seedpod.Seed().collect();
@@ -442,19 +438,21 @@ public enum HeroClass {
 			new RingOfSharpshooting().upgrade(10).identify().collect();
 			new RingOfTenacity().upgrade(10).identify().collect();
 
-
-
-
-            new SewerReward().collect();
+			//new SewerReward().collect();
 		new SaveYourLife().collect();
-		//new FireCracker().collect();
+		new GreatRune().collect();
+		//new DewVial().collect();
+		//new CrystalVial().collect();
+			//new SandalsOfNature().collect();
 
+			new MasterThievesArmband().upgrade(5).collect();
+			new AlienBag().collect();
 		Dungeon.gold = 10000;
 		//Dungeon.gold = 10000000;
 		hero.TRUE_HT=hero.HP=10000;
 		Dungeon.hero.updateHT(false);
 		//hero.STR = hero.STR + 20;
-		Dungeon.depth = 4;
+		Dungeon.depth = 1;
 
 		}
 	}
@@ -475,6 +473,8 @@ public enum HeroClass {
 				return Badges.Badge.MASTERY_SOLDIER;
 			case FOLLOWER:
 				return Badges.Badge.MASTERY_FOLLOWER;
+			case ASCETIC:
+				return Badges.Badge.MASTERY_ASCETIC;
 		}
 
 		return null;
@@ -498,7 +498,8 @@ public enum HeroClass {
 
 		} else if (Dungeon.skins == 2) {
 				hero.TRUE_HT+=36;
-			Dungeon.hero.updateHT(false);
+			    hero.HP+=36;
+			    Dungeon.hero.updateHT(false);
 				hero.STR -=4;
 				hero.hitSkill-=4;
 				hero.evadeSkill+=1;
@@ -884,6 +885,7 @@ public enum HeroClass {
 
 		}else if (Dungeon.skins == 2) {
 				hero.TRUE_HT+=5;
+			hero.HP+=5;
 			Dungeon.hero.updateHT(false);
 				hero.STR += 6;
 				hero.magicSkill+=5;
@@ -917,6 +919,7 @@ public enum HeroClass {
 
 		} else if (Dungeon.skins == 6) {
 			hero.TRUE_HT+=5;
+			hero.HP+=5;
 			Dungeon.hero.updateHT(false);
 			hero.STR += 6;
 			hero.magicSkill+=5;
@@ -1002,6 +1005,75 @@ public enum HeroClass {
 
 	}		
 	
+	private static void initAscetic(Hero hero) {
+
+		if (Dungeon.skins == 1) {
+			hero.STR+=4;
+			(hero.belongings.weapon = new HolyMace()).identify().upgrade(1);
+			(hero.belongings.armor = new LeatherArmor()).identify().upgrade(1);
+			Dungeon.limitedDrops.strengthPotions.count+=4;
+			//new CannonOfMage().identify().collect();
+			new JumpA().collect();
+		} else if (Dungeon.skins == 2) {
+			//hero.TRUE_HT-=10;
+			//Dungeon.hero.updateHT(false);
+			//hero.hitSkill-=5;
+			//hero.evadeSkill+=2;
+			//hero.magicSkill+=3;
+			//(hero.belongings.weapon = new Dagger()).identify();
+			//(hero.belongings.armor = new VestArmor()).identify();
+			//new WandOfFirebolt().upgrade(1).identify().collect();
+			//new WandOfFreeze().upgrade(1).identify().collect();
+			//new WandOfLightning().upgrade(1).identify().collect();
+			//new GnollMark().collect();
+			//new JumpM().collect();
+		}  else if (Dungeon.skins == 3) {
+
+			//(hero.belongings.weapon = new WoodenStaff()).identify();
+			//(hero.belongings.armor = new VestArmor()).identify();
+
+			//new WandOfFirebolt().identify().collect();
+			//new WandOfFreeze().identify().collect();
+			//new GnollMark().collect();
+			//new PotionOfMage().identify().collect();
+
+		} else if (Dungeon.skins == 4) {
+
+			//(hero.belongings.weapon = new ElfBow()).identify();
+			//(hero.belongings.armor = new VestArmor()).identify();
+
+			//new JumpM().collect();
+			//new ScrollOfRegrowth().identify().collect();
+
+		} else if (Dungeon.skins == 5) {
+
+        } else if (Dungeon.skins == 6) {
+           // (hero.belongings.weapon = new ShortSword()).identify();
+          //  (hero.belongings.armor = new ClothArmor()).identify();
+
+          //  new GnollMark().collect();
+          //  new WandOfLight().identify().collect();
+          //  new Powerpill().collect();
+          //  new Smashpill().collect();
+          //  new Hardpill().collect();
+          //  new JumpW().collect();
+
+		} else {
+			(hero.belongings.weapon = new TrickSand()).identify();
+			(hero.belongings.armor = new VestArmor()).identify();
+			//new WandOfMagicMissile().identify().collect();
+			new BigBattery().collect();
+			new ActiveMrDestructo().collect();
+			//new PotionOfMage().identify().collect();
+			new JumpA().collect();
+
+		}
+		hero.magicSkill = hero.magicSkill + 3;
+		new ScrollOfMirrorImage().setKnown();
+		new PotionOfShield().setKnown();
+	
+	}	
+	
 	public String title() {
 		return Messages.get(HeroClass.class, title);
 	}
@@ -1027,7 +1099,9 @@ public enum HeroClass {
 		case SOLDIER:
 			return Assets.SOLDIER;	
 		case FOLLOWER:
-			return Assets.FOLLOWER;				
+			return Assets.FOLLOWER;	
+		case ASCETIC:
+			return Assets.ASCETIC;					
 		}
 		
 		return null;
@@ -1077,6 +1151,12 @@ public enum HeroClass {
 					Messages.get(HeroClass.class, "follower_desc_item"),
 					Messages.get(HeroClass.class, "follower_desc_loadout"),
 					Messages.get(HeroClass.class, "follower_desc_misc"),
+			};	
+		case ASCETIC:
+			return new String[]{
+					Messages.get(HeroClass.class, "ascetic_desc_item"),
+					Messages.get(HeroClass.class, "ascetic_desc_loadout"),
+					Messages.get(HeroClass.class, "ascetic_desc_misc"),
 			};				
 		}
 		return null;

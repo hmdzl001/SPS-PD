@@ -17,25 +17,25 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Corruption;
-import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
-import com.hmdzl.spspd.items.food.completefood.GoldenNut;
-import com.hmdzl.spspd.items.reward.CaveReward;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.actors.buffs.Corruption;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.items.ConchShell;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.bombs.FishingBomb;
+import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
+import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
+import com.hmdzl.spspd.items.reward.CaveReward;
+import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.AlbinoPiranhaSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
@@ -99,7 +99,12 @@ public class AlbinoPiranha extends Mob {
 			return super.act();
 		}
 	}
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return new FishingBomb();
+	}
+
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(Statistics.albinoPiranhasKilled/2, 4 + Statistics.albinoPiranhasKilled);

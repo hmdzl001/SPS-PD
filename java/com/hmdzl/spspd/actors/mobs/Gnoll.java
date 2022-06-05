@@ -17,11 +17,12 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.artifacts.GlassTotem;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.GnollSprite;
 import com.watabou.utils.Random;
@@ -45,6 +46,12 @@ public class Gnoll extends Mob {
 		lootChanceOther = 0.5f; // by default, see die()
 		
 		properties.add(Property.ORC);
+	}
+
+
+	@Override
+	public Item SupercreateLoot(){
+		return new GlassTotem();
 	}
 
 	@Override

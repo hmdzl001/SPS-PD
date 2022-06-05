@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.ShockWebParticle;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 
 public class ShockWeb extends Blob {
 
@@ -43,7 +43,7 @@ public class ShockWeb extends Blob {
 				if (ch != null && !ch.isImmune(this.getClass())) {
 					int damage = 5;
 				    ch.damage(damage, this);
-					Buff.prolong(ch, Shocked.class, TICK);
+					Buff.affect(ch, Shocked.class).level((int)TICK);
 				}
 			}
 		}

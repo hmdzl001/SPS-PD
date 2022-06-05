@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.food;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
@@ -26,10 +24,11 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Locked;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.Recharging;
-import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.WarGroove;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
@@ -38,11 +37,13 @@ import com.hmdzl.spspd.effects.SpellSprite;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Food extends Item {
 
@@ -109,6 +110,9 @@ public class Food extends Item {
 						break;
 					case FOLLOWER:
                         Dungeon.gold+=10;
+						break;
+				    case ASCETIC:
+                       Buff.affect(hero, MagicArmor.class).level(10);
 						break;
 				}
 

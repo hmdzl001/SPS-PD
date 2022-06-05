@@ -35,17 +35,18 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Disarm;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
@@ -55,11 +56,12 @@ import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.bombs.DangerousBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban4;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ElderAvatarSprite;
 import com.hmdzl.spspd.sprites.GolemSprite;
@@ -71,8 +73,6 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class ElderAvatar extends Mob {
 
@@ -262,6 +262,11 @@ public class ElderAvatar extends Mob {
 		TheMech.spawnAround(pos);
 	}
 
+	@Override
+	public Item SupercreateLoot(){
+			return new GunOfSoldier().identify();
+	}	
+	
 	@Override
 	public void die(Object cause) {
 
@@ -587,7 +592,7 @@ public class ElderAvatar extends Mob {
 
 		@Override
 		public int attackProc(Char enemy, int damage) {
-			Buff.affect(enemy, Burning.class).reignite(enemy);
+			Buff.affect(enemy, Burning.class).set(3f);
 			return damage;
 		}
 

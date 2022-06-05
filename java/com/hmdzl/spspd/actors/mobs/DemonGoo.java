@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -32,17 +29,20 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.weapon.missiles.Skull;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DemonGooSprite;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class DemonGoo extends Mob {
 	
@@ -69,8 +69,13 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
 		properties.add(Property.DEMONIC);
 	}
 
-	private static final float SPLIT_DELAY = 1f;	
-	
+	private static final float SPLIT_DELAY = 1f;
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Skull(3);
+	}
+
 	@Override
 	protected boolean act() {
 		boolean result = super.act();
@@ -156,7 +161,7 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
 		DemonGoo clone = new DemonGoo();
 		clone.demonGooGeneration = demonGooGeneration + 1;
 		if (buff(Burning.class) != null) {
-			Buff.affect(clone, Burning.class).reignite(clone);
+			Buff.affect(clone, Burning.class).set(3f);
 		}
 		if (buff(Poison.class) != null) {
 			Buff.affect(clone, Poison.class).set(2);

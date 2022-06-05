@@ -36,7 +36,7 @@ public class Bestiary {
 		@SuppressWarnings("unchecked")
 		Class<? extends Mob> cl = (Class<? extends Mob>) mobClass(depth);
 
-		if (Random.Int(15) == 0) {
+		if (Random.Int(8) == 0) {
 			if (cl == Rat.class) {
 				cl = Albino.class;
 			} else if (cl == Thief.class) {
@@ -67,28 +67,33 @@ public class Bestiary {
 				
 		switch (depth) {
 			case 1:
-				chances = new float[]{1, 1, 0.02f};
-				classes = new Class<?>[]{Rat.class, BrownBat.class,
+				chances = new float[]{1, 1,1,
+						0.02f};
+				classes = new Class<?>[]{Rat.class, BrownBat.class,Shit.class,
 						RatBoss.class};
 				break;
 			case 2:
-				chances = new float[]{1, 1, 0.7f, 0.5f};
-				classes = new Class<?>[]{Rat.class, BrownBat.class,
+				chances = new float[]{1, 1,1,
+						0.7f, 0.5f};
+				classes = new Class<?>[]{Rat.class, BrownBat.class,Shit.class,
 						DustElement.class, LiveMoss.class};
 				break;
 			case 3:
-				chances = new float[]{1, 1, 0.8f, 0.6f, 0.4f, 0.2f, 0.7f };
+				chances = new float[]{1, 1,1,
+						0.8f, 0.6f, 0.4f,
+						0.2f, 0.7f,0.5f};
 				classes = new Class<?>[]{
-						Rat.class, BrownBat.class,
-						DustElement.class, LiveMoss.class,
-						Swarm.class, Crab.class,PatrolUAV.class};
+						Rat.class, BrownBat.class,Shit.class,
+						DustElement.class, LiveMoss.class, Swarm.class,
+						Crab.class,PatrolUAV.class,Vagrant.class};
 				break;
 			case 4:
-				chances = new float[]{1, 1, 0.9f, 0.7f, 0.5f, 0.3f, 0.02f, 0.02f,0.7f};
-				classes = new Class<?>[]{Rat.class, BrownBat.class,
-						DustElement.class, LiveMoss.class,
-						Swarm.class, Crab.class,
-						Gnoll.class, Thief.class,PatrolUAV.class};
+				chances = new float[]{1, 1,1,
+						0.9f, 0.7f, 0.5f,
+						0.3f,0.7f,0.5f};
+				classes = new Class<?>[]{Rat.class, BrownBat.class,Shit.class,
+						DustElement.class, LiveMoss.class, Swarm.class,
+						Crab.class,PatrolUAV.class,Vagrant.class};
 				break;
 			case 5:
 				if (Random.Int(3) == 1) {
@@ -104,30 +109,39 @@ public class Bestiary {
 				break;
 
 			case 6:
-				chances = new float[]{0.8f, 0.8f, 1, 1,0.5f};
-				classes = new Class<?>[]{Swarm.class, Crab.class,
-						Thief.class, Gnoll.class,PatrolUAV.class};
+				chances = new float[]{ 1, 1,0.5f,
+						0.5f,0.5f};
+				classes = new Class<?>[]{Thief.class, Gnoll.class,PatrolUAV.
+						class,Guard.class,Vagrant.class
+				};
 				break;
 			case 7:
-				chances = new float[]{0.6f, 1, 1, 0.4f,0.2f,0.2f};
-				classes = new Class<?>[]{Crab.class,
-						Thief.class, Gnoll.class,
-						Guard.class, Zombie.class,BambooMob.class};
+				chances = new float[]{ 1, 1, 0.4f,
+						0.2f,0.2f};
+				classes = new Class<?>[]{Thief.class, Gnoll.class, Guard.class,
+						Zombie.class,BambooMob.class};
 				break;
 			case 8:
-				chances = new float[]{1, 1, 0.5f, 0.4f, 0.3f,0.7f,0.5f,1f};
-				classes = new Class<?>[]{Thief.class, Gnoll.class,
-						Guard.class, Assassin.class, TrollWarrior.class, Zombie.class,FireRabbit.class,BambooMob.class};
+				chances = new float[]{1, 1, 0.5f,
+						0.4f, 0.3f,0.7f,
+						0.5f,1f,0.5f};
+				classes = new Class<?>[]{Thief.class, Gnoll.class, Guard.class,
+						Assassin.class, TrollWarrior.class, Zombie.class,
+						FireRabbit.class,BambooMob.class,GoldCollector.class};
 				break;
 			case 9:
 				if (Dungeon.sporkAvail) {
-					chances = new float[]{1, 1, 0.1f,1,0.5f};
-					classes = new Class<?>[]{Assassin.class, TrollWarrior.class, BanditKing.class, Zombie.class,BambooMob.class};
+					chances = new float[]{1, 1, 0.1f,
+							1,0.5f};
+					classes = new Class<?>[]{Assassin.class, TrollWarrior.class, BanditKing.class,
+							Zombie.class,BambooMob.class};
 				} else {
-					chances = new float[]{1, 1, 0.8f, 0.6f, 0.5f, 0.02f, 0.01f,1f,0.8f ,1};
-					classes = new Class<?>[]{Thief.class, Gnoll.class,
-							Guard.class, Assassin.class, TrollWarrior.class,
-							Bat.class, Brute.class, Zombie.class,FireRabbit.class,BambooMob.class};
+					chances = new float[]{1, 1, 0.8f,
+							0.6f, 0.5f,1f,
+							0.8f ,1,0.5f};
+					classes = new Class<?>[]{Thief.class, Gnoll.class, Guard.class,
+							Assassin.class, TrollWarrior.class, Zombie.class
+							,FireRabbit.class,BambooMob.class,GoldCollector.class};
 				}
 				break;
 
@@ -146,26 +160,34 @@ public class Bestiary {
 			break;
 
 		case 11:
-			chances = new float[] { 0.8f, 0.6f, 1, 0.7f, 0.5f,0.5f };
-			classes = new Class<?>[] { Assassin.class, TrollWarrior.class,
-					Bat.class, Skeleton.class,Brute.class,FireRabbit.class };
+			chances = new float[] { 0.8f, 0.6f, 1,
+					0.7f, 0.5f,0.5f };
+			classes = new Class<?>[] { Assassin.class, TrollWarrior.class, Bat.class,
+					Skeleton.class,Brute.class,FireRabbit.class };
 			break;
 		case 12:
-			chances = new float[] { 1, 0.9f, 0.7f, 0.5f, 0.3f ,0.9f,1 };
+			chances = new float[] { 1, 0.9f, 0.7f,
+					0.5f, 0.3f ,0.9f,
+					1 ,0.3f};
 			classes = new Class<?>[] { Bat.class, Skeleton.class, Brute.class,
-					GnollShaman.class,Spinner.class,SandMob.class,IceBug.class };
+					GnollShaman.class,Spinner.class,SandMob.class,
+					IceBug.class,TimeKeeper.class };
 			break;
 		case 13:
-			chances = new float[] { 1, 1, 0.9f, 0.7f, 0.6f, 0.7f,0.4f, 0.02f,1 };
+			chances = new float[] { 1, 1, 0.9f,
+					0.7f, 0.6f, 0.7f,
+					0.4f,1 ,0.3f};
 			classes = new Class<?>[] { Bat.class, Skeleton.class, Brute.class,
-					GnollShaman.class,Spinner.class, BrokenRobot.class,SandMob.class,
-					FireElemental.class,IceBug.class };
+					GnollShaman.class,Spinner.class, BrokenRobot.class,
+					SandMob.class,IceBug.class,TimeKeeper.class };
 			break;
 		case 14:
-			chances = new float[] { 1, 1, 1, 0.9f,0.8f,0.6f,0.6f,0.04f, 0.02f,1 };
+			chances = new float[] { 1, 1, 1,
+					0.9f,0.8f,0.6f,
+					0.6f,1 ,0.3f};
 			classes = new Class<?>[] {  Bat.class, Skeleton.class, Brute.class,
-					GnollShaman.class,Spinner.class, BrokenRobot.class,SandMob.class,
-					FireElemental.class, Monk.class,IceBug.class};
+					GnollShaman.class,Spinner.class, BrokenRobot.class,
+					SandMob.class,IceBug.class,TimeKeeper.class};
 			break;
 
 		case 15:
@@ -182,26 +204,35 @@ public class Bestiary {
 			break;
 
 		case 16:
-			chances = new float[] { 0.8f, 0.6f, 1, 1, 0.4f };
-			classes = new Class<?>[] { GnollShaman.class,BrokenRobot.class,
-					FireElemental.class, Warlock.class, Monk.class };
+			chances = new float[] { 0.8f, 0.6f, 1,
+					1, 0.4f };
+			classes = new Class<?>[] { GnollShaman.class,BrokenRobot.class, FireElemental.class,
+					Warlock.class, Monk.class };
 			break;
 		case 17:
-			chances = new float[] { 1, 1, 0.8f, 0.4f,0.4f ,0.2f };
+			chances = new float[] { 1, 1, 0.8f,
+					0.4f,0.4f ,0.2f,
+					0.2f };
 			classes = new Class<?>[] { FireElemental.class, Warlock.class,Monk.class,
-					Golem.class,SpiderBot.class, Musketeer.class};
+					Golem.class,SpiderBot.class, Musketeer.class,
+					LevelChecker.class};
 			break;
 		case 18:
-			chances = new float[] { 1, 1, 1, 0.8f,0.8f, 0.6f, 0.2f,0.1f };
-			classes = new Class<?>[] { FireElemental.class, Warlock.class,Monk.class,
-					Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class,ManySkeleton.class };
+			chances = new float[] { 1, 1, 1, 0.8f,
+					0.8f, 0.8f, 0.6f,
+					0.2f,0.1f, 0.6f };
+			classes = new Class<?>[] { FireElemental.class, Warlock.class,Monk.class,DragonRider.class,
+					Golem.class, SpiderBot.class,Musketeer.class,
+					DwarfLich.class,ManySkeleton.class,LevelChecker.class };
 			break;
 		case 19:
 			
-			chances = new float[] { 1, 1, 1, 1, 1,0.8f, 0.6f, 0.02f,0.3f };
-			classes = new Class<?>[] { FireElemental.class, Warlock.class,Monk.class,
-					Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class,
-					Succubus.class,ManySkeleton.class};
+			chances = new float[] { 1, 1, 1, 1,
+					1,1,0.8f, 0.6f,
+					0.3f,0.6f };
+			classes = new Class<?>[] { FireElemental.class, Warlock.class,Monk.class,DragonRider.class,
+					Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class ,
+					ManySkeleton.class,LevelChecker.class};
 			break;
 		case 20:
 			if (Random.Int(3) ==1) {
@@ -217,26 +248,32 @@ public class Bestiary {
 
 			break;
 		case 21:
-				chances = new float[] { 0.8f,0.8f, 1, 1, 1, 0.2f, 0.2f,0.5f };
-				classes = new Class<?>[] {Musketeer.class, DwarfLich.class,
-						Succubus.class, Eye.class, DemonGoo.class, DemonFlower.class, Sufferer.class,DemonTraper.class};
+				chances = new float[] { 0.8f,0.8f, 0.8f,
+						1, 1, 1,
+						0.2f, 0.2f};
+				classes = new Class<?>[] {Musketeer.class, DwarfLich.class,DragonRider.class,
+						Succubus.class, Eye.class, DemonGoo.class,
+						DemonFlower.class, Sufferer.class/*,DemonTraper.class*/};
 				break;
 		case 22:
-			chances = new float[] { 1, 1, 1, 0.5f,0.5f, 0.5f,0.5f, 1};
+			chances = new float[] { 1, 1, 1,
+					0.5f,0.5f, 0.5f,0.5f};
 			classes = new Class<?>[] { Succubus.class, Eye.class, DemonGoo.class,
 					Scorpio.class,ThiefImp.class , DemonFlower.class, Sufferer.class
-					,DemonTraper.class};
+					/*,DemonTraper.class*/};
 			break;
 		case 23:
-			chances = new float[] { 1, 1, 1, 0.5f,0.5f, 0.5f,0.5f,1 };
+			chances = new float[] { 1, 1, 1,
+					0.5f,0.5f, 0.5f,0.5f };
 			classes = new Class<?>[] { Succubus.class, Eye.class, DemonGoo.class,
 					Scorpio.class,ThiefImp.class , DemonFlower.class, Sufferer.class
-					,DemonTraper.class};
+					/*,DemonTraper.class*/};
 			break;
 		case 24:
-			chances = new float[] { 1, 1, 1, 1, 1, 1, 1, 1 };
+			chances = new float[] { 1, 1, 1,
+					1, 1, 1, 1 };
 			classes = new Class<?>[] {Succubus.class, Eye.class, DemonGoo.class,
-					Scorpio.class,ThiefImp.class, DemonFlower.class, Sufferer.class,DemonTraper.class
+					Scorpio.class,ThiefImp.class, DemonFlower.class, Sufferer.class/*,DemonTraper.class*/
 					};
 			break;
 
@@ -263,17 +300,17 @@ public class Bestiary {
 			break;	
 				
 		case 31:
-			chances = new float[] { 1, 0.1f };
-			classes = new Class<?>[] { BlueWraith.class, DwarfLich.class};
+			chances = new float[] { 1, 0.1f,0.3f,0.3f };
+			classes = new Class<?>[] { BlueWraith.class, DwarfLich.class,Zombie.class,ManySkeleton.class};
 			break;
 			    
 		case 32:
-			chances = new float[] { 1,0.05f };
-			classes = new Class<?>[] { Orc.class, GoldOrc.class};
+			chances = new float[] { 1,0.05f,0.5f };
+			classes = new Class<?>[] { Orc.class, GoldOrc.class,Greatmoss.class};
 			break;
 		case 33:
-			chances = new float[] { 1, 0.2f };
-			classes = new Class<?>[] { FlyingProtector.class, FireElemental.class };
+			chances = new float[] { 1, 0.2f,0.2f,0.4f };
+			classes = new Class<?>[] { FlyingProtector.class, FireElemental.class,LevelChecker.class,PatrolUAV.class };
 			break;
 		case 35:
 			chances = new float[] {1, 1 };
@@ -295,10 +332,33 @@ public class Bestiary {
 		    chances = new float[] {1};
 			classes = new Class<?>[] {Dragonking.class};
 			break;
+		case 84:	
+			chances = new float[] {
+			1,1,1,1,
+			1,1,1,
+			1,1,
+			1,1,1,1,
+			1,1,1,
+			1,1,1,1,
+			1,1,1,
+			1,1,1,1,
+			1,1,1,1
+			};
+			classes = new Class<?>[] {
+			Rat.class, BrownBat.class,DustElement.class, LiveMoss.class,
+			Swarm.class, Crab.class,PatrolUAV.class,
+			Thief.class, Gnoll.class,
+			Guard.class, Assassin.class, TrollWarrior.class, Zombie.class,
+			Bat.class, Skeleton.class, Brute.class,
+			GnollShaman.class,Spinner.class, BrokenRobot.class,SandMob.class,
+			FireElemental.class, Warlock.class,Monk.class,
+			Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class,
+			BambooMob.class,Greatmoss.class,Piranha.class,DragonRider.class
+			};
+			break;			
 		case 85:
 		    chances = new float[] {
-				1,1,
-			1,1,
+			1,1,1,1,
 			1,1,1,
 			1,1,
 			1,1,1,1,
@@ -310,20 +370,19 @@ public class Bestiary {
 			1,1,
 			1,1};
 			classes = new Class<?>[] {
-				Rat.class, BrownBat.class,
-						DustElement.class, LiveMoss.class,
-						Swarm.class, Crab.class,PatrolUAV.class,
-						Thief.class, Gnoll.class,
-						Guard.class, Assassin.class, TrollWarrior.class, Zombie.class,
-						Bat.class, Skeleton.class, Brute.class,
-					GnollShaman.class,Spinner.class, BrokenRobot.class,SandMob.class,
-					FireElemental.class, Warlock.class,Monk.class,
-					Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class,
-					Succubus.class, Eye.class, DemonGoo.class,
-					Scorpio.class,ThiefImp.class, DemonFlower.class, Sufferer.class,
-					 BlueWraith.class, 
-					  Orc.class,FlyingProtector.class,
-                      GoldOrc.class, Fiend.class };
+			Rat.class, BrownBat.class,DustElement.class, LiveMoss.class,
+			Swarm.class, Crab.class,PatrolUAV.class,
+			Thief.class, Gnoll.class,
+			Guard.class, Assassin.class, TrollWarrior.class, Zombie.class,
+			Bat.class, Skeleton.class, Brute.class,
+			GnollShaman.class,Spinner.class, BrokenRobot.class,SandMob.class,
+			FireElemental.class, Warlock.class,Monk.class,
+			Golem.class, SpiderBot.class,Musketeer.class, DwarfLich.class,
+			Succubus.class, Eye.class, DemonGoo.class,
+			Scorpio.class,ThiefImp.class, DemonFlower.class, Sufferer.class,
+			BlueWraith.class, 
+			Orc.class,FlyingProtector.class,
+            GoldOrc.class, Fiend.class };
 			break;			
 			
 		default:

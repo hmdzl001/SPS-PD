@@ -20,8 +20,9 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BrownBatSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
@@ -48,6 +49,11 @@ public class BrownBat extends Mob {
 		
 		properties.add(Property.BEAST);
 		
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.SEED4);
 	}
 
 	@Override

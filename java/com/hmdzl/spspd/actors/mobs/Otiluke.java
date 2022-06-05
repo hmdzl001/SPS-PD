@@ -32,8 +32,10 @@ import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.misc.SkillOfMig;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
+import com.hmdzl.spspd.items.wands.CannonOfMage;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEnergy;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -176,6 +178,12 @@ public class Otiluke extends Mob implements Callback {
 	public void call() {
 		next();
 	}
+	
+
+	@Override
+	public Item SupercreateLoot(){
+			return new CannonOfMage().identify();
+	}	
 	
 
 	@Override

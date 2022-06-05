@@ -17,13 +17,12 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class ZongZi extends CompleteFood {
@@ -48,6 +47,8 @@ public class ZongZi extends CompleteFood {
 		if (action.equals(AC_EAT)){
              Buff.affect(hero, Tar.class);
 			 Buff.affect(hero, Slow.class, 30f);
+			 Buff.affect(hero,MagicArmor.class).level(hero.HT/4);
+			 Buff.affect(hero,AttackUp.class,50f).level(20);
 		}
 	}
 

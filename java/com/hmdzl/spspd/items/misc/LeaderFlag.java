@@ -135,6 +135,9 @@ public class LeaderFlag extends Item {
 					if (Dungeon.level.map[c] == Terrain.DOOR && Level.insideMap(c)) {
 						DoorBlock door = new DoorBlock();
 						Dungeon.level.drop(door, hero.pos).sprite.drop();
+						Level.set(c, Terrain.EMPTY);
+						GameScene.updateMap(c);
+						Dungeon.observe();
 					}
 
 					if (Dungeon.level.map[c] == Terrain.BOOKSHELF && Level.insideMap(c)) {

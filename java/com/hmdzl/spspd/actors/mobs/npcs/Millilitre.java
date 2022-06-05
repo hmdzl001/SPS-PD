@@ -22,11 +22,12 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.CrossPhoto;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.MillilitreSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndIssic;
-import com.hmdzl.spspd.windows.WndSaidBySun;
 import com.watabou.utils.Random;
 
 public class Millilitre extends NPC {
@@ -88,5 +89,8 @@ public class Millilitre extends NPC {
 		}
 		return true;
 	}
-
+	@Override
+	public Item SupercreateLoot(){
+		return new CrossPhoto();
+	}
 }

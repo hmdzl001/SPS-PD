@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
@@ -29,8 +27,10 @@ import com.hmdzl.spspd.actors.buffs.Corruption;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.challengelists.CaveChallenge;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
+import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.PiranhaSprite;
 import com.watabou.utils.Random;
@@ -55,6 +55,11 @@ public class Piranha extends Mob {
 
 		HP = HT = 40 + Dungeon.depth * 5;
 		evadeSkill = 10 + Dungeon.depth * 2;
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new HugeShuriken(4);
 	}
 
 	@Override

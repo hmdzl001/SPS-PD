@@ -38,17 +38,19 @@ import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.ArmorKit;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.TenguKey;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban2;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.SavageHelmet;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Blindweed;
 import com.hmdzl.spspd.plants.Firebloom;
 import com.hmdzl.spspd.plants.Icecap;
@@ -231,6 +233,11 @@ public class PrisonWander extends Mob {
 		yell(Messages.get(this, "notice"));
 	
 	}
+	
+	@Override
+	public Item SupercreateLoot(){
+			return new SavageHelmet();
+	}	
 	
 	@Override
 	public void die(Object cause) {

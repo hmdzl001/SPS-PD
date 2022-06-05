@@ -83,7 +83,7 @@ import com.watabou.utils.Random;
 
 					if (Level.flamable[enemy.pos])
 						GameScene.add(Blob.seed(enemy.pos, 4, Fire.class));
-					Buff.affect(enemy, Burning.class).reignite(enemy);
+					Buff.affect(enemy, Burning.class).set(3f);
 
 				} else
 					Buff.affect(enemy, Poison.class).set(

@@ -18,6 +18,8 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.sprites.CrabSprite;
 import com.watabou.utils.Random;
@@ -38,6 +40,11 @@ public class Crab extends Mob {
 		lootChance = 0.5f;
 		
 		properties.add(Property.FISHER);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.ARMOR);
 	}
 
 	@Override

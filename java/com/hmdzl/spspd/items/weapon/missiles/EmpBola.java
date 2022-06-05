@@ -51,7 +51,7 @@ public class EmpBola extends MissileWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 		super.proc(attacker, defender, damage);
 		Buff.prolong(defender, Cripple.class, Cripple.DURATION);
-		Buff.prolong(defender, Shocked.class, 5f);
+		Buff.affect(defender, Shocked.class).level(5);
 		Buff.detach(defender, EnergyArmor.class);
 		if(defender.properties().contains(Char.Property.MECH)){
 			defender.damage(defender.HT/3,this);

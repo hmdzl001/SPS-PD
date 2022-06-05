@@ -37,12 +37,12 @@ public class ExitPainter extends Painter {
 			door.set(Room.Door.Type.REGULAR);
 		}
 
-		if ((Dungeon.hero.lvl > 14 + Dungeon.depth) && Dungeon.depth < 25 &&  !Dungeon.isChallenged(Challenges.TEST_TIME)){
-			LevelChecker lc = new LevelChecker();
-			lc.pos = room.random();
-			level.mobs.add(lc);
-			Actor.occupyCell(lc);
-		}
+		//if ((Dungeon.hero.lvl > 14 + Dungeon.depth) && Dungeon.depth < 25 &&  !Dungeon.isChallenged(Challenges.TEST_TIME)){
+		//	LevelChecker lc = new LevelChecker();
+		//	lc.pos = room.random();
+		//	level.mobs.add(lc);
+		//	Actor.occupyCell(lc);
+		//}
 
 		level.exit = room.random(1);
 		if (Dungeon.isChallenged(Challenges.TEST_TIME)) {

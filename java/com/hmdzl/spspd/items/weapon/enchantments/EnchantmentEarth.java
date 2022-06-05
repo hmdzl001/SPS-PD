@@ -29,6 +29,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
+
 public class EnchantmentEarth extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing( 0x996600 );
@@ -46,13 +48,13 @@ public class EnchantmentEarth extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.75), this);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.75), EARTH_DAMAGE);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), EARTH_DAMAGE);
 		}
 
 		if (Random.Int(10) == 1) {
-			Buff.affect(defender, GrowSeed.class).reignite(defender);
+			Buff.affect(defender, GrowSeed.class).set(3f);
 			CellEmitter.bottom(defender.pos).start(EarthParticle.FACTORY, 0.05f, 8);
 			return true;
 		} else {

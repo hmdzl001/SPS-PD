@@ -29,11 +29,10 @@ public class Tamahawk extends MissileWeapon {
 	{
 		//name = "tomahawk";
 		image = ItemSpriteSheet.TOMAHAWK;
+		STR = 10;
 
-		STR = 16;
-
-		MIN = 70;
-		MAX = 140;
+		MIN = 1;
+		MAX = 5;
 	}
 
 	public Tamahawk() {
@@ -48,7 +47,7 @@ public class Tamahawk extends MissileWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 		super.proc(attacker, defender, damage);
-		Buff.affect(defender, Bleeding.class).set(damage);
+		Buff.affect(defender, Bleeding.class).set(defender.HP/5);
 	}
 
 	@Override

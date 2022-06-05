@@ -27,7 +27,7 @@ public class Honeyrice extends CompleteFood {
 	{
 		//name = "honeyrice";
 		image = ItemSpriteSheet.H_RICE;
-		energy = 400;
+		energy = 500;
 		hornValue = 3;
 		 
 	}
@@ -45,13 +45,13 @@ public class Honeyrice extends CompleteFood {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)) {
-			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(3, 6));
+			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(2, 5));
 			//hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
 			//Buff.detach(hero, Poison.class);
 			//Buff.detach(hero, Cripple.class);
 			//Buff.detach(hero, STRdown.class);
 			//Buff.detach(hero, Bleeding.class);
-hero.updateHT(true);
+            hero.updateHT(true);
 			//hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
 
 		}

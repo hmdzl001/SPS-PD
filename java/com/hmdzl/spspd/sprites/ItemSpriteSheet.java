@@ -51,6 +51,7 @@ public class ItemSpriteSheet {
 	private static final int ROW29 = 28 * 16;
     private static final int ROW30 = 29 * 16;
 	private static final int ROW31 = 30 * 16;
+	private static final int ROW32 = 31 * 16;
 
 	// Row One: Items which can't be obtained
 	// null warning occupies space 0, should only show up if there's a bug.
@@ -608,6 +609,13 @@ public class ItemSpriteSheet {
 	public static final int STRAWBERRY  = ROW30 + 6;
 	public static final int CHERRY  = ROW30 + 7;
 	public static final int MOON_CAKE  = ROW30 + 8;
+	public static final int HARO_THE_PET  = ROW30 + 9;
+    public static final int BIG_BATTERY = ROW30 + 10;
+    public static final int ASCETIC_SHELL = ROW30 + 11;
+	public static final int GREATRUNE = ROW30 + 12;
+	public static final int SHATTERED_FIRE = ROW30 + 13;
+	public static final int HOLY_MACE = ROW30 + 14;
+	public static final int GREAT_PILL = ROW30 + 15;
 
 	public static final int INFO  = ROW31 + 0;
 	public static final int INFO_1  = ROW31 + 1;
@@ -624,6 +632,18 @@ public class ItemSpriteSheet {
 	public static final int INFO2_4  = ROW31 + 12;
 	public static final int INFO2_5  = ROW31 + 13;
 	public static final int INFO2_6  = ROW31 + 14;
+
+	public static final int BOTTLE_FLOWER  = ROW32 + 0;
+	public static final int AFLY_SOCK  = ROW32 + 1;
+	public static final int TEMPEST_B  = ROW32 + 2;
+	public static final int CATSHARK  = ROW32 + 3;
+	public static final int FISH_FOOD  = ROW32 + 4;
+	public static final int N_S  = ROW32 + 5;
+	public static final int TEST_CLOAK  = ROW32 + 6;
+	public static final int CROSS_PHOTO  = ROW32 + 7;
+	//public static final int N_S  = ROW32 + 8;
+	//public static final int N_S  = ROW32 + 9;
+
 
 
 }

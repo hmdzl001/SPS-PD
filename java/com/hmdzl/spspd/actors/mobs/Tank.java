@@ -17,41 +17,41 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.items.ArmorKit;
-import com.hmdzl.spspd.items.TenguKey;
-import com.hmdzl.spspd.items.artifacts.DriedRose;
-import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
-import com.hmdzl.spspd.items.wands.WandOfFlow;
-import com.hmdzl.spspd.items.wands.WandOfLight;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
-import com.hmdzl.spspd.levels.PrisonBossLevel;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.ArmorKit;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.TenguKey;
+import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.journalpages.Sokoban2;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.Shovel;
+import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
+import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TankSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Tank extends Mob {
 
@@ -118,6 +118,11 @@ public class Tank extends Mob {
 		
 	    super.die(cause);
 	}
+	
+	@Override
+	public Item SupercreateLoot(){
+			return new Shovel();
+	}	
 	
 	@Override
 	public boolean act() {

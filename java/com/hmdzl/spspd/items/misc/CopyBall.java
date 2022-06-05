@@ -150,8 +150,8 @@ public class CopyBall extends Item {
 		@Override
 		public void proc(Char attacker, Char defender, int damage) {
 			if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
-			Buff.affect(defender, AttackDown.class, 10f).level(35);
-			Buff.affect(defender, ArmorBreak.class, 10f).level(35);
+			Buff.affect(defender, AttackDown.class, 30f).level(70);
+			Buff.affect(defender, ArmorBreak.class, 30f).level(70);
             Buff.prolong(defender, Vertigo.class, 5f);
 			} else {
 				Buff.affect(defender,Corruption.class);

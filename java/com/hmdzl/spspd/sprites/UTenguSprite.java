@@ -91,7 +91,7 @@ public class UTenguSprite extends MobSprite {
 				});
 		 	  
 		  		if(Random.Int(15)==0){
-		  				Buff.affect(enemy, Burning.class).reignite(enemy);
+		  				Buff.affect(enemy, Burning.class).set(3f);
 		  				enemy.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		  			}
 		  		if(Random.Int(20)==0){

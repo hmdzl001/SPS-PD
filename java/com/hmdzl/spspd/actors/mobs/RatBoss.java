@@ -21,6 +21,8 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.SaveYourLife;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.sprites.RatBossSprite;
 import com.watabou.utils.Random;
@@ -46,6 +48,11 @@ public class RatBoss extends Mob {
 	}
 
 	private boolean spawnedRats = false;
+
+	@Override
+	public Item SupercreateLoot(){
+		return new SaveYourLife();
+	}
 			
 	@Override
 	public int damageRoll() {

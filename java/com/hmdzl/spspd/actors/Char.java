@@ -31,6 +31,7 @@ import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.BeOld;
+import com.hmdzl.spspd.actors.buffs.BeTired;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Blindness;
@@ -78,6 +79,7 @@ import com.hmdzl.spspd.actors.buffs.Shocked2;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.SoulMark;
 import com.hmdzl.spspd.actors.buffs.Speed;
+import com.hmdzl.spspd.actors.buffs.SpeedImbue;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
@@ -89,8 +91,6 @@ import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
-import com.hmdzl.spspd.effects.Lightning;
-import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.glyphs.Darkglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Earthglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Electricityglyph;
@@ -106,17 +106,6 @@ import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMeteorite;
 import com.hmdzl.spspd.items.wands.WandOfSwamp;
-import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth2;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight2;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock2;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
@@ -131,9 +120,10 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public abstract class Char extends Actor {
 
@@ -147,7 +137,7 @@ public abstract class Char extends Actor {
 
 	public int HT;
 	public int TRUE_HT;
-	public int EX_HT;
+	//public int EX_HT;
 	public int HP;
 
 	protected float baseSpeed = 1;
@@ -185,7 +175,7 @@ public abstract class Char extends Actor {
 		bundle.put(TAG_HT, HT);
 		bundle.put(BUFFS, buffs);
 		bundle.put(TRUEHT, TRUE_HT);
-		bundle.put(EXHT, EX_HT);
+		//bundle.put(EXHT, EX_HT);
 	}
 
 	@Override
@@ -197,7 +187,7 @@ public abstract class Char extends Actor {
 		HP = bundle.getInt(TAG_HP);
 		HT = bundle.getInt(TAG_HT);
 		TRUE_HT = bundle.getInt(TRUEHT);
-		EX_HT = bundle.getInt(EXHT);
+		//EX_HT = bundle.getInt(EXHT);
 
 		for (Bundlable b : bundle.getCollection(BUFFS)) {
 			if (b != null) {
@@ -360,14 +350,10 @@ public abstract class Char extends Actor {
 	}
 
 	public int attackProc(Char enemy, int damage) {
-		if (buff(Shocked.class)!=null){
+		if (buff(Shocked.class)!=null && Shocked.first == false){
 			Buff.detach(this,Shocked.class);
 			Buff.affect(this, Disarm.class,5f);
-            damage(this.HP/10,Shocked.class);
-			ArrayList<Lightning.Arc> arcs = new ArrayList<>();
-			arcs.add(new Lightning.Arc(pos - Level.WIDTH, pos + Level.WIDTH));
-			arcs.add(new Lightning.Arc(pos - 1, pos + 1));
-			sprite.parent.add( new Lightning( arcs, null ) );
+            damage(this.HP/10,SHOCK_DAMAGE);
 		}
 
 		return damage;
@@ -392,6 +378,8 @@ public abstract class Char extends Actor {
 			return baseSpeed * 0.8f;
 		} else	if (buff(FrostIce.class) != null) {
 			return baseSpeed * 0.8f;
+		} else	if (buff(SpeedImbue.class) != null) {
+			return baseSpeed * 2f;
 		} else{
 			return baseSpeed;
 		}
@@ -446,6 +434,11 @@ public abstract class Char extends Actor {
 			dmg = (int) Math.ceil(dmg *1.5);
 		}
 
+		if (buff(BeTired.class) != null) {
+			BeTired.level++;
+		}
+
+
 		ShieldArmor sarmor = buff(ShieldArmor.class);
 		MagicArmor magicarmor = buff(MagicArmor.class);
 		MechArmor marmor = buff(MechArmor.class);
@@ -479,7 +472,7 @@ public abstract class Char extends Actor {
 		if(this.properties().contains(Property.UNKNOW)){
 			if (((src instanceof Char)&& ((Char) src).properties().contains(Property.MAGICER)) ||
 			src instanceof Buff || src instanceof DamageType ||
-			src instanceof Blob || src instanceof Weapon.Enchantment || src instanceof Armor.Glyph ||
+			src instanceof Blob ||
 			src instanceof Wand) dmg = (int)(dmg*1.25);
                 else dmg = (int)(dmg*0.75);
 		}
@@ -488,7 +481,7 @@ public abstract class Char extends Actor {
 			if (((src instanceof Char)&& ((Char) src).properties().contains(Property.MAGICER)) ||
 
 			src instanceof Buff || src instanceof DamageType ||
-			src instanceof Blob || src instanceof Weapon.Enchantment || src instanceof Armor.Glyph ||
+			src instanceof Blob ||
 			src instanceof Wand
 			) dmg = (int)(dmg*0.75);
 			else dmg = (int)(dmg*1.25);
@@ -503,13 +496,9 @@ public abstract class Char extends Actor {
 		}
 
 		Class<?> srcClass = src.getClass();
-		if (isImmune( srcClass )) {
-			dmg = 0;
-			} else if (isResist( srcClass )) {
-			dmg = Random.IntRange(0, dmg);
-			} else if (isWeak(srcClass)) {
-			dmg = Random.IntRange(dmg+dmg/2, 2*dmg+dmg/2);
-		}
+		if (isImmune( srcClass )) dmg = 0;
+		if (isResist( srcClass )) dmg = Random.IntRange(dmg/4, dmg*3/4);
+		if (isWeak(srcClass)) dmg = Random.IntRange(dmg + dmg / 2, 2 * dmg + dmg / 2);
 
 
 
@@ -727,23 +716,25 @@ public abstract class Char extends Actor {
 	}
 
 	private static final HashSet<Class<?>> EMPTY = new HashSet<Class<?>>();
-
 	public HashSet<Class<?>> resistances() {
 		return EMPTY;
 	}
-
 	public HashSet<Class<?>> immunities() {
 		return EMPTY;
 	}
-	
 	public HashSet<Class<?>> weakness() {
 		return EMPTY;
 	}
-
 	protected final HashSet<Class> resistances = new HashSet<>();
 
 	//returns percent effectiveness after resisances
 	//TODO currently resistances reduce effectiveness by a static 50%, and do not stack.
+
+	public float RingFix( Class effect ){
+		float result = 1f;
+		return result * RingOfElements.fintime(this, effect);
+	}
+
 	public float resist( Class effect ){
 		HashSet<Class> resists = new HashSet<>(resistances);
 		for (Property p : properties()){
@@ -759,7 +750,7 @@ public abstract class Char extends Actor {
 				result *= 0.5f;
 			}
 		}
-		return result * RingOfElements.Rresist(this, effect);
+		return result;
 	}
 
 	protected final HashSet<Class> weakness = new HashSet<>();
@@ -767,10 +758,10 @@ public abstract class Char extends Actor {
 	public float weak( Class effect ){
 		HashSet<Class> weaks = new HashSet<>(weakness);
 		for (Property p : properties()){
-			weaks.addAll(p.resistances());
+			weaks.addAll(p.weakness());
 		}
 		for (Buff b : buffs()){
-			weaks.addAll(b.resistances());
+			weaks.addAll(b.weakness());
 		}
 
 		float result = 1f;
@@ -779,7 +770,7 @@ public abstract class Char extends Actor {
 				result *= 1.5f;
 			}
 		}
-		return result * RingOfElements.Rresist(this, effect);
+		return result;
 	}
 
 	public boolean isResist( Class effect ){
@@ -801,10 +792,10 @@ public abstract class Char extends Actor {
 	public boolean isWeak( Class effect ){
 		HashSet<Class> weaks = new HashSet<>(weakness);
 		for (Property p : properties()){
-			weaks.addAll(p.resistances());
+			weaks.addAll(p.weakness());
 		}
 		for (Buff b : buffs()){
-			weaks.addAll(b.resistances());
+			weaks.addAll(b.weakness());
 		}
 		for (Class c : weaks){
 			if (c.isAssignableFrom(effect)){
@@ -853,7 +844,7 @@ public abstract class Char extends Actor {
 				new HashSet<Class>( Arrays.asList(Roots.class)  ),
 				new HashSet<Class>( Arrays.asList(BeCorrupt.class,BeOld.class) )
 		),
-		FISHER( new HashSet<Class>( Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class) ),
+		FISHER( new HashSet<Class>( Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class)),
 				new HashSet<Class>( ),
 				new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class))
 		),
@@ -863,32 +854,32 @@ public abstract class Char extends Actor {
 		),
 		DWARF( new HashSet<Class>(  Arrays.asList(Paralysis.class , Ooze.class,GrowSeed.class ) ),
 				new HashSet<Class>( Arrays.asList(Cripple.class, Roots.class) ),
-				new HashSet<Class>(  Arrays.asList(ShadowCurse.class,EnchantmentDark.class, EnchantmentDark2.class,Darkglyph.class,WandOfBlood.class))
+				new HashSet<Class>(  Arrays.asList(ShadowCurse.class,DamageType.DarkDamage.class,Darkglyph.class,WandOfBlood.class))
 		),
 		TROLL( new HashSet<Class>( ),
 				new HashSet<Class>( ),
 				new HashSet<Class>(  Arrays.asList(Buff.class) )
 		),
-		DEMONIC( new HashSet<Class>(Arrays.asList(ShadowCurse.class,EnchantmentDark.class, EnchantmentDark2.class,Darkglyph.class,WandOfBlood.class) ),
+		DEMONIC( new HashSet<Class>(Arrays.asList(ShadowCurse.class,DamageType.DarkDamage.class,Darkglyph.class,WandOfBlood.class) ),
 				new HashSet<Class>( ),
-				new HashSet<Class>( Arrays.asList(WandOfLightning.class,EnchantmentLight.class, EnchantmentLight2.class,Lightglyph.class,LightShootAttack.class) )
+				new HashSet<Class>( Arrays.asList(WandOfLightning.class,DamageType.LightDamage.class,Lightglyph.class,LightShootAttack.class) )
 		),
-		GOBLIN( new HashSet<Class>( Arrays.asList(WandOfLightning.class,ElectriShock.class,EnchantmentShock.class,EnchantmentShock2.class,Shocked.class,Shocked2.class,Electricityglyph.class) ),
+		GOBLIN( new HashSet<Class>( Arrays.asList(WandOfLightning.class,ElectriShock.class,DamageType.ShockDamage.class,Shocked.class,Shocked2.class,Electricityglyph.class) ),
 				new HashSet<Class>( ),
-				new HashSet<Class>( Arrays.asList(EnchantmentEarth.class , EnchantmentEarth2.class,Earthglyph.class,WandOfSwamp.class,WandOfAcid.class ) )
+				new HashSet<Class>( Arrays.asList(DamageType.EarthDamage.class,Earthglyph.class,WandOfSwamp.class,WandOfAcid.class ) )
 		),
 
         BEAST( new HashSet<Class>( Arrays.asList(Hot.class,Cold.class,Dry.class,Wet.class)),
 				new HashSet<Class>(  ),
-				new HashSet<Class>( Arrays.asList( BeOld.class, EnchantmentDark.class, EnchantmentDark2.class, Blindness.class) )
+				new HashSet<Class>( Arrays.asList( BeOld.class, DamageType.DarkDamage.class, Blindness.class) )
 		),
 		DRAGON( new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class) ),
 				new HashSet<Class>(  Arrays.asList(BeCorrupt.class,BeOld.class,AttackDown.class) ),
 				new HashSet<Class>(  Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class) )
 		),
-		PLANT( new HashSet<Class>(Arrays.asList(Roots.class, Cripple.class, Ooze.class)),
+		PLANT( new HashSet<Class>(Arrays.asList(Roots.class, Cripple.class, Ooze.class,DamageType.LightDamage.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class)),
-		        new HashSet<Class>( Arrays.asList(Burning.class, WandOfFirebolt.class,EnchantmentFire.class,EnchantmentFire2.class))
+		        new HashSet<Class>( Arrays.asList(Burning.class, WandOfFirebolt.class,DamageType.FireDamage.class))
 				),
 		ELEMENT( new HashSet<Class>( ),
 				new HashSet<Class>( ),
@@ -897,11 +888,11 @@ public abstract class Char extends Actor {
 
 		MECH( new HashSet<Class>(  Arrays.asList(Fire.class, FrostGas.class, Frost.class,Burning.class)),
 				new HashSet<Class>( Arrays.asList(Charm.class, Terror.class) ),
-				new HashSet<Class>(  Arrays.asList(Ooze.class,WandOfAcid.class, WandOfSwamp.class,EnchantmentEarth.class,EnchantmentEarth2.class))
+				new HashSet<Class>(  Arrays.asList(Ooze.class,WandOfAcid.class, WandOfSwamp.class,DamageType.EarthDamage.class))
 		),
 		UNDEAD( new HashSet<Class>( Arrays.asList(Cold.class, FrostGas.class, Frost.class,BeCorrupt.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, HealLight.class, Poison.class,BeOld.class)),
-				new HashSet<Class>(Arrays.asList(Blindness.class, WandOfLight.class,EnchantmentLight.class,EnchantmentLight2.class) )
+				new HashSet<Class>(Arrays.<Class>asList(Blindness.class, WandOfLight.class, DamageType.LightDamage.class))
 		),
 		ALIEN( new HashSet<Class>( Arrays.asList(Buff.class) ),
 				new HashSet<Class>( ),

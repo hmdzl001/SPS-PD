@@ -23,13 +23,11 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EnergyArmor;
-import com.hmdzl.spspd.actors.buffs.GoldTouch;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
-import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -84,12 +82,10 @@ public class Gold extends Item {
 			Statistics.goldCollected += quantity;
 		}
 
-		MasterThievesArmband.Thievery thievery = hero
-				.buff(MasterThievesArmband.Thievery.class);
-		GoldTouch goldtouch = hero
-				.buff(GoldTouch.class);
-		if (thievery != null && goldtouch == null)
-			thievery.collect(quantity);
+		//MasterThievesArmband.Thievery thievery = hero.buff(MasterThievesArmband.Thievery.class);
+		//GoldTouch goldtouch = hero.buff(GoldTouch.class);
+		//if (thievery != null && goldtouch == null)
+			//thievery.collect(quantity);
 
 		GameScene.pickUp(this);
 		hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, quantity);

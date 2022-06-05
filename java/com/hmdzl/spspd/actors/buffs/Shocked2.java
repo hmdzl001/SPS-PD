@@ -22,12 +22,14 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
-public class Shocked2 extends Buff {
+public class Shocked2 extends Buff implements Hero.Doom{
 
     //private static final String TXT_DISARMED = "Sudden shock have made you drop your %s on the ground!";
 
@@ -41,7 +43,7 @@ public class Shocked2 extends Buff {
 	private static final String LEFT = "left";
 	private static final String POS = "pos";
 	public static final float DURATION = 5f;
-
+	private boolean first = false;
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -59,16 +61,16 @@ public class Shocked2 extends Buff {
 		@Override
 		public boolean attachTo(Char target) {
 			pos = target.pos;
+			first = true;
 			return super.attachTo(target);
 		}	
 	
 	public boolean act() {
 
 		if (target.isAlive()) {
-			
 			if (target.pos != pos) {
-				pos = 0;
-				if (target.pos != -1)  pos = target.pos;
+				//pos = 0;
+				//if (target.pos != -1)  pos = target.pos;
 				target.damage(Math.min(1000,target.HT/20),this);
 				Buff.affect(target,Roots.class,5f);
 				detach();
@@ -86,14 +88,6 @@ public class Shocked2 extends Buff {
 		}		
 
 		return true;
-	}	
-
-	public void reignite(Char ch) {
-		left = duration(ch);
-	}
-
-	public void reignite( Char ch, float duration ) {
-		left = duration;
 	}	
 	
 	@Override

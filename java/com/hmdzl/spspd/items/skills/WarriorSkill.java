@@ -17,26 +17,28 @@
  */
 package com.hmdzl.spspd.items.skills;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Disarm;
-import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.SpAttack;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
+import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.utils.Callback;
 import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 import java.util.HashMap;
 
@@ -57,8 +59,9 @@ public class WarriorSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Buff.prolong(curUser, BloodImbue.class,30f);
-		WarriorSkill.charge += 10;
+		if (Random.Int(2)==0) Dungeon.level.drop(Generator.random(Generator.Category.WEAPON), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		 else Dungeon.level.drop(Generator.random(Generator.Category.ARMOR), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);;
+		WarriorSkill.charge += 25;
 	}
 
 	@Override
@@ -117,8 +120,9 @@ public class WarriorSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
+		Buff.prolong(curUser, BloodImbue.class,30f);
 		Buff.prolong(curUser, SpAttack.class,30f);
-		WarriorSkill.charge += 8;
+		WarriorSkill.charge += 10;
 	}
 
 	/*protected static CellSelector.Listener leaper = new CellSelector.Listener() {

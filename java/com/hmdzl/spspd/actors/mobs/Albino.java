@@ -17,19 +17,19 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.items.food.meatfood.Meat;
-import com.hmdzl.spspd.sprites.AlbinoSprite;
-import com.watabou.utils.Random;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.AlbinoSprite;
+import com.watabou.utils.Random;
 
 public class Albino extends Rat {
 
@@ -50,7 +50,12 @@ public class Albino extends Rat {
 		super.die(cause);
 		Badges.validateRare(this);
 	}
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.HIGHFOOD);
+	}
+
 	@Override
 	public boolean act() {
 		GameScene.add(Blob.seed(pos, 15, CorruptGas.class));

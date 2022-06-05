@@ -24,12 +24,12 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Terror;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
+import com.hmdzl.spspd.items.weapon.melee.Whip;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SpinnerSprite;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class Spinner extends Mob {
 
@@ -48,6 +48,11 @@ public class Spinner extends Mob {
 		FLEEING = new Fleeing();
 		
 		properties.add(Property.BEAST);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Whip();
 	}
 
 	@Override

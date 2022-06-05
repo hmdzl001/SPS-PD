@@ -91,7 +91,7 @@ public class ErrorArmor extends NormalArmor {
 				Buff.prolong(attacker, ArmorBreak.class, 5f).level(35);
 				break;
 			case 7 :
-				Buff.affect(attacker, GrowSeed.class).reignite(attacker);
+				Buff.affect(attacker, GrowSeed.class).set(6f);
 				break;
 			case 8 :
 				Buff.affect(attacker, Shocked.class);

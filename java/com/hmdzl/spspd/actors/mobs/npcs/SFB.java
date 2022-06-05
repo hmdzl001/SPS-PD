@@ -21,8 +21,10 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.wands.WandOfShatteredFireblast;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.SFBSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class SFB extends NPC {
@@ -31,6 +33,7 @@ public class SFB extends NPC {
 		//name = "Shattered Flame Blast";
 		spriteClass = SFBSprite.class;
 		properties.add(Property.UNKNOW);
+
 	}
 
 	@Override
@@ -83,4 +86,10 @@ public class SFB extends NPC {
 		}
 		return true;
 	}
-}
+
+	@Override
+	public Item SupercreateLoot(){
+			return new WandOfShatteredFireblast();
+		}
+
+	}

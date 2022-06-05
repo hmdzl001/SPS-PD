@@ -809,7 +809,14 @@ public class WndHero extends WndTabbed {
 				|| item instanceof PetFood){				
 				nomnom=true;
 			}
+		}
+		if (petType==29){//haro
+			if (item instanceof StoneOre
+				|| item instanceof PetFood){				
+				nomnom=true;
+			}
 		}		
+		
 		
 
 

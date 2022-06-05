@@ -86,9 +86,6 @@ public class StoneIce extends Buff {
 		return true;
 	}	
 
-	public void reignite(Char ch) {
-		left = duration(ch);
-	}
 
 	@Override
 	public int icon() {

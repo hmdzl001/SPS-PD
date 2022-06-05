@@ -51,7 +51,7 @@ import com.hmdzl.spspd.items.weapon.melee.relic.CromCruachAxe;
 import com.hmdzl.spspd.items.weapon.melee.relic.JupitersWraith;
 import com.hmdzl.spspd.items.weapon.melee.relic.LokisFlail;
 import com.hmdzl.spspd.items.weapon.melee.relic.NeptunusTrident;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -246,7 +246,7 @@ public class Heap implements Bundlable {
 		if (type == Type.MIMIC) {
 			Mimic m = Mimic.spawnAt(pos, items);
 			if (m != null) {
-				Buff.affect(m, Burning.class).reignite(m);
+				Buff.affect(m, Burning.class).set(3);
 				m.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 				destroy();
 			}

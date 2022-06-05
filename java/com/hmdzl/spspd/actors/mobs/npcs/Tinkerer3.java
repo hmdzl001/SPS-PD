@@ -18,17 +18,20 @@
 package com.hmdzl.spspd.actors.mobs.npcs;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.quest.Mushroom;
+import com.hmdzl.spspd.levels.FortressLevel;
+import com.hmdzl.spspd.levels.Room;
+import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TinkererSprite;
- 
 import com.hmdzl.spspd.windows.WndQuest;
 import com.hmdzl.spspd.windows.WndTinkerer3;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Tinkerer3 extends NPC {
 
@@ -91,4 +94,28 @@ public class Tinkerer3 extends NPC {
 			new WndQuest( this, text ));
 	}
 
+	public static class Quest {
+
+		private static boolean spawned;
+
+		public static void reset() {
+			spawned = false;
+		}
+
+		public static void spawn(FortressLevel level, Room room) {
+			if (!spawned && Dungeon.depth==32) {
+
+				Tinkerer3 npc = new Tinkerer3();
+				do {
+					npc.pos = room.random();
+				} while (level.map[npc.pos] == Terrain.ENTRANCE
+						|| level.map[npc.pos] == Terrain.SIGN);
+				level.mobs.add(npc);
+				Actor.occupyCell(npc);
+
+				spawned = true;
+			}
+		}
+
+		}
 }

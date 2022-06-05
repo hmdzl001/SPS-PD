@@ -17,11 +17,11 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class Hamburger extends CompleteFood {
@@ -45,6 +45,8 @@ public class Hamburger extends CompleteFood {
 
 		if (action.equals(AC_EAT)){
 			hero.HP+= hero.HT/5;
+			Buff.affect(hero,MagicArmor.class).level(hero.HT/3);
+			Buff.affect(hero,AttackUp.class,50f).level(70);
 			hero.sprite.emitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
 		}
 	}

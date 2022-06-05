@@ -1056,6 +1056,9 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String FO_GAME_FILE	= "follower.dat";
 	private static final String FO_DEPTH_FILE	= "follower%d.dat";
 	
+	private static final String AS_GAME_FILE = "ascetic.dat";
+	private static final String AS_DEPTH_FILE = "ascetic%d.dat";	
+	
 	private static final String VERSION = "version";
 	private static final String SKINS	= "skins";
 	private static final String CHALLENGES = "challenges";
@@ -1116,7 +1119,9 @@ public static Level newChallengeLevel(int list, Boolean first){
 		case SOLDIER:
 			return SO_GAME_FILE;
 		case FOLLOWER:
-			return FO_GAME_FILE;				
+			return FO_GAME_FILE;	
+	    case ASCETIC:
+			return AS_GAME_FILE;			
 		default:
 			return RG_GAME_FILE;
 		}
@@ -1137,7 +1142,9 @@ public static Level newChallengeLevel(int list, Boolean first){
 		case SOLDIER:
 			return SO_DEPTH_FILE;
 		case FOLLOWER:
-			return FO_DEPTH_FILE;				
+			return FO_DEPTH_FILE;
+		case ASCETIC:
+			return AS_DEPTH_FILE;					
 		default:
 			return RG_DEPTH_FILE;
 		}

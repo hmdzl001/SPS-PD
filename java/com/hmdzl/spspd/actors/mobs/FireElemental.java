@@ -25,11 +25,13 @@ import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.plants.Firebloom;
 import com.hmdzl.spspd.sprites.FireElementalSprite;
 import com.watabou.utils.Random;
 
@@ -57,6 +59,11 @@ public class FireElemental extends Mob {
 	}
 
 	@Override
+	public Item SupercreateLoot(){
+		return new Firebloom.Seed();
+	}
+
+	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(16, 20+adj(1));
 	}
@@ -74,7 +81,7 @@ public class FireElemental extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(2) == 0) {
-			Buff.affect(enemy, Burning.class).reignite(enemy);
+			Buff.affect(enemy, Burning.class).set(3);
 		}
 		
 		enemy.damage(damage, DamageType.FIRE_DAMAGE);

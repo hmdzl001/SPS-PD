@@ -253,7 +253,7 @@ public class TaurcenBow extends Weapon {
 					TaurcenBow.charge = 0;
 				}
 				if (arrow == Arrow.FIRE) {
-					if (defender.isAlive())Buff.affect(defender, Burning.class).reignite(defender);
+					if (defender.isAlive())Buff.affect(defender, Burning.class).set(3f);
 					defender.damage(DMG/2,this);
 					TaurcenBow.charge = 0;
 				}
@@ -271,7 +271,7 @@ public class TaurcenBow extends Weapon {
 					TaurcenBow.charge = 0;
 				}
 				if (arrow == Arrow.ELE) {
-					if (defender.isAlive())Buff.affect(defender, Shocked.class,3f);
+					if (defender.isAlive())Buff.affect(defender, Shocked.class).level(3);
 					Buff.affect(attacker, AttackUp.class,10f).level(30);
 					defender.damage(DMG/3,this);
 					TaurcenBow.charge = 0;
@@ -285,7 +285,7 @@ public class TaurcenBow extends Weapon {
 					}
 					if (arrow == Arrow.FIRE) {
 						if (defender.isAlive())
-							Buff.affect(defender, Burning.class).reignite(defender);
+							Buff.affect(defender, Burning.class).set(3f);
 						defender.damage(DMG / 2, this);
 
 					}
@@ -303,7 +303,7 @@ public class TaurcenBow extends Weapon {
 
 					}
 					if (arrow == Arrow.ELE) {
-						if (defender.isAlive()) Buff.affect(defender, Shocked.class, 3f);
+						if (defender.isAlive()) Buff.affect(defender, Shocked.class).level(3);
 						Buff.affect(attacker, AttackUp.class, 10f).level(30);
 						defender.damage(DMG / 3, this);
 

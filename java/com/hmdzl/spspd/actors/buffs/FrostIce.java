@@ -25,6 +25,8 @@ import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptio
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ICE_DAMAGE;
+
 public class FrostIce extends Buff {
 	
     private int pos;
@@ -32,7 +34,7 @@ public class FrostIce extends Buff {
 	private static final String LEFT = "left";
 	private static final String POS = "pos";
 	private static final float DURATION = 8f;
-
+    private boolean first = false;
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -55,6 +57,7 @@ public class FrostIce extends Buff {
 	
 		@Override
 		public boolean attachTo(Char target) {
+            first = true;
 			pos = target.pos;
 			return super.attachTo(target);
 		}	
@@ -62,11 +65,14 @@ public class FrostIce extends Buff {
 	public boolean act() {
 
 		if (target.isAlive()) {
-			
+            if (first == true) {
+                target.damage(Math.min(1000, target.HT / 30), ICE_DAMAGE);
+                first = false;
+            }
 			if (target.pos != pos) {
 				pos = 0;
 				if (target.pos != -1)  pos = target.pos;
-				target.damage(Math.min(500,(int)(target.HT/30)),this);
+				target.damage(Math.min(500,(int)(target.HT/30)),ICE_DAMAGE);
 			} 
 			
             Buff.detach( target, Burning.class);
@@ -84,14 +90,6 @@ public class FrostIce extends Buff {
 
 		return true;
 	}	
-
-	public void reignite(Char ch) {
-		left = duration(ch);
-	}
-	
-	public void reignite( Char ch, float duration ) {
-		left = duration;
-	}
 
 	@Override
 	public int icon() {

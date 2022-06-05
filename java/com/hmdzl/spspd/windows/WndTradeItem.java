@@ -20,33 +20,30 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
-import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.Shopkeeper;
 import com.hmdzl.spspd.items.ChallengeBook;
+import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.EquipableItem;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
-import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.items.bags.KeyRing;
 import com.hmdzl.spspd.items.bags.PotionBandolier;
 import com.hmdzl.spspd.items.bags.ScrollHolder;
 import com.hmdzl.spspd.items.bags.SeedPouch;
+import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.items.bags.WandHolster;
 import com.hmdzl.spspd.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
-import com.hmdzl.spspd.items.DolyaSlate;
-import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.ItemSlot;
-import com.hmdzl.spspd.ui.Window;
-import com.hmdzl.spspd.utils.GLog;
- 
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
+import com.hmdzl.spspd.ui.Window;
+import com.hmdzl.spspd.utils.GLog;
 
 public class WndTradeItem extends Window {
 
@@ -147,36 +144,36 @@ public class WndTradeItem extends Window {
 			};
 
 			
-			final MasterThievesArmband.Thievery thievery = Dungeon.hero
-					.buff(MasterThievesArmband.Thievery.class);
-			if (thievery != null) {
-				final float chance = thievery.stealChance(price);
-				RedButton btnSteal = new RedButton( Messages.get(this, "steal", Math.min(100, (int)(chance*100)))) {
-					@Override
-					protected void onClick() {
-						if (thievery.steal(price)) {
-							Hero hero = Dungeon.hero;
-							Item item = heap.pickUp();
-							int price = (int)Math.max((1 - chance) * price(item) , 0);
-							Dungeon.gold -= price;
-							hide();
-							if (!item.doPickUp(hero)) {
-								Dungeon.level.drop(item, heap.pos).sprite.drop();
-							}
-						} else {
-							for (Mob mob : Dungeon.level.mobs) {
-							}
-							hide();
-						}
-					}
-				};
-				btnSteal.setRect(0, btnBuy.bottom() + GAP, WIDTH, BTN_HEIGHT);
-				btnSteal.enable(price <= Dungeon.gold);
-				add(btnSteal);
+			//final MasterThievesArmband.Thievery thievery = Dungeon.hero
+				//	.buff(MasterThievesArmband.Thievery.class);
+			//if (thievery != null) {
+			//	final float chance = thievery.stealChance(price);
+				//RedButton btnSteal = new RedButton( Messages.get(this, "steal", Math.min(100, (int)(chance*100)))) {
+				//	@Override
+				//	protected void onClick() {
+				//		if (thievery.steal(price)) {
+				///			Hero hero = Dungeon.hero;
+				//			Item item = heap.pickUp();
+					//		int price = (int)Math.max((1 - chance) * price(item) , 0);
+				//			Dungeon.gold -= price;
+				//			hide();
+				//			if (!item.doPickUp(hero)) {
+				//				Dungeon.level.drop(item, heap.pos).sprite.drop();
+				//			}
+				//		} else {
+				//			for (Mob mob : Dungeon.level.mobs) {
+				//			}
+				//			hide();
+			//			}
+			//		}
+			//	};
+				//btnSteal.setRect(0, btnBuy.bottom() + GAP, WIDTH, BTN_HEIGHT);
+				//btnSteal.enable(price <= Dungeon.gold);
+			//	add(btnSteal);
 
-				btnCancel
-						.setRect(0, btnSteal.bottom() + GAP, WIDTH, BTN_HEIGHT);
-			} else
+				//btnCancel
+						//.setRect(0, btnSteal.bottom() + GAP, WIDTH, BTN_HEIGHT);
+		//	} else
 				btnCancel.setRect(0, btnBuy.bottom() + GAP, WIDTH, BTN_HEIGHT);
 
 			add(btnCancel);

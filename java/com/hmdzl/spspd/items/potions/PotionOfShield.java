@@ -21,7 +21,6 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Shieldblock;
@@ -42,10 +41,10 @@ public class PotionOfShield extends Potion {
 	@Override
 	public void apply(Hero hero) {
 		setKnown();
-		if (hero.buff(ShieldArmor.class) == null && hero.buff(MagicArmor.class) == null){
+		//if (hero.buff(ShieldArmor.class) == null && hero.buff(MagicArmor.class) == null){
 		   Buff.affect(hero, ShieldArmor.class).level(hero.HT/3);
 			Buff.affect(hero, MagicArmor.class).level(hero.HT/3);
-		} else Buff.affect(hero, DefenceUp.class,30f).level(50);
+		//} else Buff.affect(hero, DefenceUp.class,30f).level(50);
 		Sample.INSTANCE.play(Assets.SND_MELD);
 	}
 
@@ -57,10 +56,9 @@ public class PotionOfShield extends Potion {
 	@Override
 	public void shatter(int cell) {
 
-				Char ch = Actor.findChar(cell);
-				if (ch != null) {
-					Buff.prolong(ch, Shieldblock.class,3f);
-				}
+		Char ch = Actor.findChar(cell);
+		if (ch != null) {
+			Buff.prolong(ch, Shieldblock.class,5f); }
 
 	}
 

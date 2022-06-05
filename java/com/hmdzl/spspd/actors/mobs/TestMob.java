@@ -41,9 +41,9 @@ public class TestMob extends Mob {
 
 		state = PASSIVE;
 
-		//properties.add(Property.PLANT);
+		properties.add(Property.PLANT);
 
-		properties.add(Property.ELEMENT);
+		//properties.add(Property.ELEMENT);
 	}
 
 

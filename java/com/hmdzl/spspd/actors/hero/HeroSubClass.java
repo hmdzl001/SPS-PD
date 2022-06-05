@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.actors.hero;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
 
 public enum HeroSubClass {
@@ -43,7 +43,10 @@ public enum HeroSubClass {
 	LEADER( "leader" ),
 
 	PASTOR("pastor"),
-	ARTISAN("artisan");
+	ARTISAN("artisan"),
+
+	MONK("monk"),
+	HACKER("hacker");
 
 	private String title;
 	

@@ -18,11 +18,12 @@
 package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.sprites.ShadowDragonSprite;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
+import com.hmdzl.spspd.sprites.ShadowDragonSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -119,7 +120,7 @@ public class ShadowDragon extends PET implements Callback{
 		if (hit(this, enemy, true)) {			
 
 			int dmg = damageRoll()*3;
-			enemy.damage(dmg, this);			
+			enemy.damage(dmg, DamageType.DARK_DAMAGE);
 			
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());

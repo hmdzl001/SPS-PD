@@ -18,27 +18,15 @@
 package com.hmdzl.spspd.actors.mobs.npcs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Journal;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.mobs.Golem;
-import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.actors.mobs.Monk;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.quest.DwarfToken;
-import com.hmdzl.spspd.items.rings.Ring;
-import com.hmdzl.spspd.levels.CityLevel;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.eggs.HaroEgg;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AshWolfSprite;
-import com.hmdzl.spspd.sprites.ImpSprite;
- 
-import com.hmdzl.spspd.windows.WndImp;
-import com.hmdzl.spspd.windows.WndQuest;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class AshWolf extends NPC {
 
@@ -104,6 +92,9 @@ public class AshWolf extends NPC {
 			}	
 		return false;
 	}
-
+	@Override
+	public Item SupercreateLoot(){
+		return new HaroEgg();
+	}
 
 }

@@ -19,9 +19,12 @@ package com.hmdzl.spspd.items.armor;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.armor.glyphs.AdaptGlyph;
 import com.hmdzl.spspd.items.armor.glyphs.Changeglyph;
@@ -36,16 +39,17 @@ import com.hmdzl.spspd.items.armor.glyphs.RecoilGlyph;
 import com.hmdzl.spspd.items.armor.glyphs.Revivalglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Testglyph;
 import com.hmdzl.spspd.items.rings.RingOfEvasion;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.sprites.ItemSprite;
-
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static java.lang.reflect.Array.newInstance;
 
 public class Armor extends KindOfArmor {
 
@@ -175,7 +179,7 @@ public class Armor extends KindOfArmor {
 	public int drRoll(Hero hero) {
 		int encumbrance = STR() - hero.STR();
 		int dr = super.drRoll(hero);
-		return encumbrance > 0 ?  Math.max(Math.round(dr)*(1-encumbrance/3),0) :Math.round(dr);
+		return encumbrance > 0 ?  Math.max(Math.round(dr)*(1-encumbrance/3),0) :Math.round(dr) - encumbrance;
 	}	
 	
 
@@ -225,6 +229,11 @@ public class Armor extends KindOfArmor {
 		return this;
 	}
 
+	public Armor inscribe( Glyph glyph ) {
+		this.glyph = glyph;
+		return this;
+	}	
+	
 	public Armor hasglyph( Glyph gph ) {
 		glyph = gph;
 		return this;
@@ -270,6 +279,12 @@ public class Armor extends KindOfArmor {
 				Electricityglyph.class, Fireglyph.class, Iceglyph.class,
 				Lightglyph.class, Revivalglyph.class, Testglyph.class,
 		        AdaptGlyph.class, RecoilGlyph.class};
+				
+		private static final Class<?>[] randomA = new Class<?>[] { Changeglyph.class,
+				Crystalglyph.class, Darkglyph.class, Earthglyph.class,
+				Electricityglyph.class, Fireglyph.class, Iceglyph.class,
+				Lightglyph.class, Revivalglyph.class, Testglyph.class,
+		        AdaptGlyph.class, RecoilGlyph.class};				
 
 		private static final float[] chances = new float[] { 1, 1, 1, 1, 1, 1,
 				1, 1, 1, 1,1,1 };
@@ -280,6 +295,10 @@ public class Armor extends KindOfArmor {
 		public abstract int proc(Armor armor, Char attacker, Char defender,
 				int damage);
 
+		public String name() {
+				return name( Messages.get(this, "glyph") );		
+		}				
+				
 		public String name(String armorName) {
 			return Messages.get(this, "name", armorName);
 		}
@@ -312,6 +331,13 @@ public class Armor extends KindOfArmor {
 		}
 
 		@SuppressWarnings("unchecked")
+		public static Glyph Chooserandom( Class<? extends Glyph> ... toIgnore ) {
+			
+			return randomA( toIgnore );
+	
+		}		
+		
+		@SuppressWarnings("unchecked")
 		public static Glyph random() {
 			try {
 				return ((Class<Glyph>) glyphs[Random.chances(chances)])
@@ -330,6 +356,17 @@ public class Armor extends KindOfArmor {
 				return null;
 			}
 		}
+		
+		@SuppressWarnings("unchecked")
+		public static Glyph randomA( Class<? extends Glyph> ... toIgnore ){
+			ArrayList<Class<?>> glyphs = new ArrayList<>(Arrays.asList(randomA));
+			glyphs.removeAll(Arrays.asList(toIgnore));
+			if (glyphs.isEmpty()) {
+				return random();
+			} else {
+				return (Glyph)newInstance(Random.element(glyphs));
+			}
+		}	
 
 	}
 }

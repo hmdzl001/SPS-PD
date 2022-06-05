@@ -19,6 +19,8 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.SheepFur;
 import com.hmdzl.spspd.sprites.SokobanSheepSwitchSprite;
 
 public class SheepSokobanSwitch extends NPC {
@@ -62,5 +64,8 @@ public boolean interact() {
 	Dungeon.hero.busy();    
 	return true;
  }
-
+	@Override
+	public Item SupercreateLoot(){
+		return new SheepFur();
+	}
 }

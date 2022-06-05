@@ -1,8 +1,5 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -15,7 +12,7 @@ import com.hmdzl.spspd.effects.particles.EarthParticle;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -25,6 +22,9 @@ import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by debenhame on 08/09/2014.
@@ -36,7 +36,7 @@ public class SandalsOfNature extends Artifact {
 		image = ItemSpriteSheet.ARTIFACT_SANDALS;
 
 		level = 0;
-		levelCap = 3;
+		levelCap = 10;
 
 		charge = 0;
 
@@ -55,7 +55,7 @@ public class SandalsOfNature extends Artifact {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && level < 3 && !cursed)
+		if (isEquipped(hero) && level < 10 && !cursed)
 			actions.add(AC_FEED);
 		if (isEquipped(hero) && charge > 0)
 			actions.add(AC_ROOT);
@@ -107,7 +107,7 @@ public class SandalsOfNature extends Artifact {
 
 	@Override
 	public String desc() {
-		String desc = Messages.get(this, "desc_" + (level+1));
+		String desc = Messages.get(this, "desc_" + ((int)(level/3)));
 		
 		if (isEquipped(Dungeon.hero)) {
 			desc += "\n\n";
@@ -129,15 +129,15 @@ public class SandalsOfNature extends Artifact {
 
 	@Override
 	public Item upgrade() {
-		if (level < 0)
-			image = ItemSpriteSheet.ARTIFACT_SANDALS;
-		else if (level == 0)
+		if (level < 3)
+		     image = ItemSpriteSheet.ARTIFACT_SANDALS;
+		else if (level < 6)
 			image = ItemSpriteSheet.ARTIFACT_SHOES;
-		else if (level == 1)
+		else if (level < 9)
 			image = ItemSpriteSheet.ARTIFACT_BOOTS;
-		else if (level >= 2)
+		else if (level >= 9)
 			image = ItemSpriteSheet.ARTIFACT_GREAVES;
-		name = Messages.get(this, "name_" + (level+1));
+		name = Messages.get(this, "name");
 		return super.upgrade();
 	}
 
@@ -185,10 +185,10 @@ public class SandalsOfNature extends Artifact {
 					Sample.INSTANCE.play(Assets.SND_PLANT);
 					hero.busy();
 					hero.spend(2f);
-					if (seeds.size() >= 3 + (level * 3)) {
+					if (seeds.size() > level) {
 						seeds.clear();
 						upgrade();
-						if (level >= 1 && level <= 3) {
+						if (level >= 1 && level <= 10) {
 							GLog.p(Messages.get(SandalsOfNature.class, "levelup"));
 						}
 

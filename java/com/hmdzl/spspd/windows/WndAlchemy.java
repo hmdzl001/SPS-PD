@@ -28,21 +28,23 @@ import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.bombs.HugeBomb;
 import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.items.food.FishCracker;
 import com.hmdzl.spspd.items.food.Honey;
 import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.Crystalnucleus;
-import com.hmdzl.spspd.items.food.completefood.Foamedbeverage;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
 import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
@@ -70,7 +72,6 @@ import com.hmdzl.spspd.items.food.completefood.ZongZi;
 import com.hmdzl.spspd.items.food.fruit.Blandfruit;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.meatfood.MeatFood;
-import com.hmdzl.spspd.items.food.staplefood.NormalRation;
 import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.items.food.staplefood.StapleFood;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
@@ -78,7 +79,9 @@ import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.medicine.BlueMilk;
 import com.hmdzl.spspd.items.medicine.DeathCap;
 import com.hmdzl.spspd.items.medicine.Earthstar;
+import com.hmdzl.spspd.items.medicine.Foamedbeverage;
 import com.hmdzl.spspd.items.medicine.GoldenJelly;
+import com.hmdzl.spspd.items.medicine.Greaterpill;
 import com.hmdzl.spspd.items.medicine.GreenSpore;
 import com.hmdzl.spspd.items.medicine.Hardpill;
 import com.hmdzl.spspd.items.medicine.JackOLantern;
@@ -348,6 +351,11 @@ public class WndAlchemy extends Window {
 		ArrayList<StapleFood> staplefoods = filterInput(StapleFood.class);
 		ArrayList<MeatFood> meatfoods = filterInput(MeatFood.class);
 
+		ArrayList<Weightstone> ws = filterInput(Weightstone.class);
+		ArrayList<Stylus> sty = filterInput(Stylus.class);
+
+		ArrayList<FishCracker> fishs = filterInput(FishCracker.class);
+
 		ArrayList<Potion> potions = filterInput(Potion.class);
 		ArrayList<Scroll> scrolls = filterInput(Scroll.class);
         ArrayList<Gel> gels = filterInput(Gel.class);
@@ -378,6 +386,8 @@ public class WndAlchemy extends Window {
 			result = new PerfectFood();
 		} else if (vegetables.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && fruits.size() == 1 ){
 			result = new PerfectFood();
+		} else if (fishs.size() == 1){
+			result = new PerfectFood();
 		} else if ( ore.size() == 4 && water.size() == 1){
 			result = new Timepill();
 		} else if ( ore.size() == 3 && water.size() == 1 && seeds.size() == 1 ){
@@ -399,9 +409,11 @@ public class WndAlchemy extends Window {
 		} else if ( nut.size() == 5 ){
 			result = new Chocolate();
 		} else if ( nut.size() == 4 ){
-			result = new NormalRation();
+			result = new OverpricedRation();
 		} else if (staplefoods.size() ==1  && vegetables.size() == 1 && meatfoods.size() ==1 ){
 			result = new ZongZi();
+		} else if (fruits.size() ==1  && potions.size() == 2 ){
+			result = new Greaterpill();
 		} else if (water.size() ==1  && fireseed.size() == 1 && rootseed.size() ==1 ){
 			result = new RealgarWine();
 		} else if (water.size() ==1  && vegetables.size() == 1 && dewseed.size() ==1 ){
@@ -448,7 +460,7 @@ public class WndAlchemy extends Window {
 		} else if (meatfoods.size() ==1  && water.size() == 1 && vegetables.size() ==1 ){
 			result = new Porksoup();
 		} else if ( ore.size() == 1 && water.size() == 2 && seeds.size() == 1 && fruits.size() == 1){
-			result = new Foamedbeverage();
+			result = new Foamedbeverage(5);
 		} else if (fruits.size() == 2  && water.size() == 1  ){
 			result = new Fruitsalad();
 		} else if (vegetables.size() == 2 && meatfoods.size() == 1){
@@ -465,7 +477,7 @@ public class WndAlchemy extends Window {
 			result = new MoonCake();
 
 		} else if ( nut.size() == 3 ){
-			result = new OverpricedRation();
+			result = new StoneOre();
 		} else if (nut.size() == 2 && water.size() == 1){
 			result = new PetFood();
 		} else if ( nut.size() == 2 && potions.size()==1){
@@ -533,6 +545,8 @@ public class WndAlchemy extends Window {
 			result = new EvolveAmmo();
 		} else if ( ore.size() == 1 && trapseed.size() == 1  ){
 			result = new BattleAmmo();
+		} else if ( ws.size() == 1 && sty.size() == 1  ){
+			result = new GreatRune();
 		} else if ( miscroll.size() == 1  ){
 			result = new Weightstone();
 		} else if ( gels.size() == 1  ){

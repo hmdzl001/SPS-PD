@@ -42,6 +42,8 @@ public class Icecap extends Plant {
 
 		Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
 
+		//GameScene.add(Blob.seed(pos, 5, FrostCloud.class));
+
 		for (int i = 0; i < Level.getLength(); i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				Freezing.affect(i, fire);

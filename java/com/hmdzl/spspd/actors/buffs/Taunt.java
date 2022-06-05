@@ -17,10 +17,28 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.ui.BuffIndicator;
+
 public class Taunt extends Buff {
 
 	{
 		type = buffType.NEGATIVE;
+	}
+
+	@Override
+	public int icon() {
+		return BuffIndicator.TAR;
+	}
+
+	@Override
+	public String toString() {
+		return Messages.get(this, "name");
+	}
+
+	@Override
+	public String desc() {
+		return Messages.get(this, "desc");
 	}
 
 	@Override

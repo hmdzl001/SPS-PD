@@ -43,14 +43,17 @@ public class GoldenNut extends CompleteFood {
 			case 0:
 				hero.TRUE_HT+=40;
 				hero.STR+=1;
-				hero.sprite.showStatus(CharSprite.POSITIVE, "+1 str, +60 ht");
+				hero.hitSkill++;
+				hero.evadeSkill++;
+				hero.magicSkill++;
+				hero.sprite.showStatus(CharSprite.POSITIVE, "+1 all, +40 ht");
                 hero.updateHT(true);
 				Badges.validateStrengthAttained();
 				break;
 			case 1:
 				hero.TRUE_HT+=10;
 				hero.STR+=2;
-				hero.sprite.showStatus(CharSprite.POSITIVE, "+2 str, +30 ht");
+				hero.sprite.showStatus(CharSprite.POSITIVE, "+2 str, +10 ht");
 				hero.updateHT(true);
 				Badges.validateStrengthAttained();
 				break;

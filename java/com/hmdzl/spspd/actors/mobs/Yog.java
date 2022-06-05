@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -41,12 +42,14 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Elevator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.PuddingCup;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BurningFistSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -230,6 +233,11 @@ public class Yog extends Mob {
 
 	@Override
 	public void beckon(int cell) {
+	}
+	
+	@Override
+	public Item SupercreateLoot(){
+			return new PuddingCup();
 	}
 
 	@SuppressWarnings("unchecked")

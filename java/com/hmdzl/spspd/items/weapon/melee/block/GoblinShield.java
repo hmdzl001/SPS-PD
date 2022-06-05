@@ -95,7 +95,7 @@ public class GoblinShield extends MeleeWeapon {
 				case 0:
 					break;
 				case 1:
-					Buff.affect(defender, Burning.class).reignite(defender);
+					Buff.affect(defender, Burning.class).set(3f);
 					break;
 				case 2:
 					Buff.affect(defender, Frost.class, 3f);

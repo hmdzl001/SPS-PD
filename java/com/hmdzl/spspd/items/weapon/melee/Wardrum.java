@@ -18,18 +18,20 @@
 package com.hmdzl.spspd.items.weapon.melee;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.watabou.utils.Random;
 import com.hmdzl.spspd.utils.GLog;
+import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 
 public class Wardrum extends MeleeWeapon {
 
@@ -63,7 +65,7 @@ public class Wardrum extends MeleeWeapon {
 				int dmg = Random.Int( MIN, MAX );
 				int effectiveDamage = Math.max( dmg - dr, 0 );
 
-				ch.damage( effectiveDamage/2, attacker );
+				ch.damage( effectiveDamage/2, ENERGY_DAMAGE);
 
 				Buff.prolong(ch, Vertigo.class, 3f);
 				Buff.prolong(ch, Terror.class, 3f).object = attacker.id();

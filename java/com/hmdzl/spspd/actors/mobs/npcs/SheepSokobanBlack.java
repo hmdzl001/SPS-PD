@@ -23,6 +23,8 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.SheepFur;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.SokobanBlackSheepSprite;
 
@@ -102,5 +104,8 @@ public boolean interact() {
 	Dungeon.hero.busy();  
     return true;	
  }
-
+	@Override
+	public Item SupercreateLoot(){
+		return new SheepFur();
+	}
 }

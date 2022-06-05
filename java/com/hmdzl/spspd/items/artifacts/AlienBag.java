@@ -10,8 +10,10 @@ import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
+import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -34,13 +36,14 @@ public class AlienBag extends Artifact {
 		chargeCap = 100;
 		
 
-		defaultAction = AC_SHIELD;
+		defaultAction = AC_CHOOSE;
 	}
 
     public static final String AC_SHIELD = "SHIELD";
 	public static final String AC_BOMB = "BOMB";
 	public static final String AC_FLY = "FLY";
 	public static final String AC_ETC = "ETC";
+	private static final String AC_CHOOSE = "CHOOSE";
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
@@ -50,14 +53,15 @@ public class AlienBag extends Artifact {
             actions.add(AC_FLY);
         }
         if (level > 1) actions.add(AC_BOMB);
-		//if (level > 2 && !isEquipped(hero) )
-			//actions.add(AC_ETC);
+		if (level > 2) actions.add(AC_ETC);
 		return actions;
 	}
 
 	@Override
 	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
+		if (action.equals( AC_CHOOSE )) {
+			GameScene.show(new WndItem(null, this, true));
+		}
 		if (action.equals(AC_SHIELD)) {
    
 			if (!isEquipped(hero))
@@ -81,15 +85,27 @@ public class AlienBag extends Artifact {
 				updateQuickslot();	
 			
 		} else if (action.equals(AC_FLY)) {
-			    charge = 0;
-               	Buff.affect(hero, Invisibility.class, level * 5f);
+			if (!isEquipped(hero))
+				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
+			else if (charge != chargeCap)
+				GLog.i(Messages.get(this, "no_charge"));
+			else {
+				charge = 0;
+				Buff.affect(hero, Invisibility.class, level * 5f);
 				Buff.affect(hero, Levitation.class, level * 5f);
-			    Buff.affect(hero, HasteBuff.class, level * 5f);
+				Buff.affect(hero, HasteBuff.class, level * 5f);
 				hero.spend(1f);
-				updateQuickslot();	
+				updateQuickslot();
+			}
 		} else if (action.equals(AC_ETC)) {
-			hero.spend(1f);
+			level-=2;
+			for(int i=0; i<level/2; i++) {
+				Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), hero.pos).sprite.drop();
+			}
+			hero.spend(5f);
+			updateQuickslot();
 		}
+		super.execute(hero, action);
 	}
 	
 	public int level(){
@@ -135,11 +151,11 @@ public class AlienBag extends Artifact {
 
 			return true;
 		}
-		public void gainExp( float levelPortion ) {
+		public void gainExp( ) {
 			if (cursed) return;
-			exp += Math.round(levelPortion*100);
-			if (exp > 100+level()*50 && level() < levelCap){
-				exp -= 100+level()*50;
+			exp += 1;
+			if (exp > 10+level()*5 && level() < levelCap){
+				exp -= 10+level()*5;
 				GLog.p( Messages.get(this, "levelup") );
 				upgrade();
 			}

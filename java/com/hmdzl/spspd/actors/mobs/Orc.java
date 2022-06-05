@@ -17,17 +17,20 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.OrcSprite;
+import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class Orc extends Mob {
 
@@ -38,7 +41,7 @@ public class Orc extends Mob {
 		HP = HT = 400;
 		evadeSkill = 30;
 
-		EXP = 22;
+		EXP = 10;
 		maxLvl = 40;
 		
 		properties.add(Property.ORC);
@@ -70,7 +73,19 @@ public class Orc extends Mob {
 			GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
 			}
 		super.damage(dmg, src);
-	}	
+	}
+
+	@Override
+	public void die(Object cause) {
+
+		super.die(cause);
+		Statistics.orcsKilled++;
+		GLog.w(Messages.get(Mob.class,"killcount", Statistics.orcsKilled));
+
+		if (Statistics.orcsKilled %10 == 0){
+			Dungeon.level.drop(new Ankh(), pos).sprite.drop();
+		}
+	}
 
     {
 		immunities.add(Amok.class);

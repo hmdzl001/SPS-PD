@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.melee.StoneCross;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -55,6 +56,11 @@ public class Skeleton extends Mob {
 		lootChance = 0.15f;
 		
 		properties.add(Property.UNDEAD);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new StoneCross();
 	}
 
 	@Override

@@ -33,6 +33,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ExitFind;
 import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.buffs.Shadows;
+import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
@@ -53,6 +54,7 @@ import com.hmdzl.spspd.actors.mobs.pets.Fly;
 import com.hmdzl.spspd.actors.mobs.pets.GentleCrab;
 import com.hmdzl.spspd.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.actors.mobs.pets.GreenDragon;
+import com.hmdzl.spspd.actors.mobs.pets.Haro;
 import com.hmdzl.spspd.actors.mobs.pets.Kodora;
 import com.hmdzl.spspd.actors.mobs.pets.LeryFire;
 import com.hmdzl.spspd.actors.mobs.pets.LightDragon;
@@ -97,7 +99,7 @@ import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.HeapGenTrap;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.mechanics.ShadowCaster;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
@@ -139,6 +141,9 @@ public abstract class  Level implements Bundlable {
 	//public static int LENGTH = (WIDTH-2) * (HEIGHT-2);	
 
 	public static final int[] NEIGHBOURS4 = { -getWidth(), +1, +getWidth(), -1 };
+
+	public static final int[] NEIGHBOURS4OUT = { +1 + getWidth(), +1 - getWidth(), -1 + getWidth(), -1 - getWidth() };	
+	
 	public static final int[] NEIGHBOURS8 = { +1, -1, +getWidth(), -getWidth(),
 			+1 + getWidth(), +1 - getWidth(), -1 + getWidth(), -1 - getWidth() };
 	public static final int[] NEIGHBOURS9 = { 0, +1, -1, +getWidth(), -getWidth(),
@@ -160,6 +165,15 @@ public abstract class  Level implements Bundlable {
 			-1, -2, +2 - getWidth(), +1 - getWidth(), -getWidth(), -1 - getWidth(), -2 - getWidth(),
 			+2 - 2 * getWidth(), +1 - 2 * getWidth(), -2 * getWidth(), -1 - 2 * getWidth(),
 			-2 - 2 * getWidth() };
+			
+	public static final int[] NEIGHBOURS8OUT2 = { +2 + 2 * getWidth(),
+			+1 + 2 * getWidth(), 2 * getWidth(), -1 + 2 * getWidth(), -2 + 2 * getWidth(),
+			+2 + getWidth(), -2 + getWidth(), +2, -2, +2 - getWidth(), -2 - getWidth(),
+			+2 - 2 * getWidth(), +1 - 2 * getWidth(), -2 * getWidth(), -1 - 2 * getWidth(),
+			-2 - 2 * getWidth() };	
+
+	public static final int[] NEIGHBOURS8OUT = { +2 + 2 * getWidth(), 2 * getWidth(), -2 + 2 * getWidth(),
+		 +2, -2, +2 - 2 * getWidth(),  -2 * getWidth(),-2 - 2 * getWidth() };				
 
 	protected static final float TIME_TO_RESPAWN = 50;
 	protected static final int REGROW_TIMER = 10;
@@ -678,9 +692,7 @@ public abstract class  Level implements Bundlable {
 						GameScene.add(mob);
 					}
 				}
-				spend(Dungeon.level.feeling == Feeling.DARK
-						|| Statistics.amuletObtained ? TIME_TO_RESPAWN / 2
-						: TIME_TO_RESPAWN);
+				spend(TIME_TO_RESPAWN );
 				return true;
 			}
 		};
@@ -823,6 +835,10 @@ public abstract class  Level implements Bundlable {
 				   }	
 				   if (Dungeon.hero.petType==28){
 					   Datura pet = new Datura();
+						  spawnPet(pet,petpos,heropos);					 
+				   }	
+			   if (Dungeon.hero.petType==29){
+					   Haro pet = new Haro();
 						  spawnPet(pet,petpos,heropos);					 
 				   }					   
 				}
@@ -1842,8 +1858,23 @@ public abstract class  Level implements Bundlable {
 					fieldOfView[p + getWidth()] = true;
 					fieldOfView[p - getWidth()] = true;
 
-			}			
+			}
+			for (Mob mob : mobs) {
+				if (mob.isAlive() && mob.buff(WatchOut.class) != null) {
+					int p = mob.pos;
+					fieldOfView[p] = true;
+					fieldOfView[p + 1] = true;
+					fieldOfView[p - 1] = true;
+					fieldOfView[p + getWidth() + 1] = true;
+					fieldOfView[p + getWidth() - 1] = true;
+					fieldOfView[p - getWidth() + 1] = true;
+					fieldOfView[p - getWidth() - 1] = true;
+					fieldOfView[p + getWidth()] = true;
+					fieldOfView[p - getWidth()] = true;
+				}
+			}
 		}
+		
 
 		for (Heap heap : heaps.values())
 						if (!heap.seen && fieldOfView[heap.pos])

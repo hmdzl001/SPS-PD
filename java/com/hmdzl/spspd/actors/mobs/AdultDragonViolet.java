@@ -24,17 +24,14 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.BossRush;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.NewDragon01Sprite;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class AdultDragonViolet extends Mob implements Callback{
 
@@ -57,7 +54,11 @@ public class AdultDragonViolet extends Mob implements Callback{
 	}
 
 	private int timeToJump = JUMP_DELAY;
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return new BossRush();
+	}
 	
 	@Override
 	public int damageRoll() {

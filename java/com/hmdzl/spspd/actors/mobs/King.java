@@ -17,19 +17,8 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.items.DolyaSlate;
-import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.items.artifacts.ChaliceOfBlood;
-import com.hmdzl.spspd.items.keys.SkeletonKey;
-import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.items.weapon.missiles.Skull;
-import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -40,11 +29,21 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.items.DolyaSlate;
+import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.artifacts.ChaliceOfBlood;
 import com.hmdzl.spspd.items.journalpages.Sokoban4;
+import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.UndeadBook;
+import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.weapon.missiles.Skull;
 import com.hmdzl.spspd.levels.CityBossLevel;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DwarfKingTombSprite;
 import com.hmdzl.spspd.sprites.KingSprite;
@@ -80,6 +79,11 @@ public class King extends Mob {
 
 		Undead.count = 0;
 
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new UndeadBook();
 	}
 
 	private boolean nextPedestal = true;

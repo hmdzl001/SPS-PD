@@ -23,7 +23,7 @@ import com.watabou.noosa.Image;
 
 public enum Icons {
 
-	SKULL, BUSY, COMPASS, INFO, PREFS, WARNING, TARGET, MASTERY, WATA, SHPX, WARRIOR, MAGE, ROGUE, HUNTRESS, PERFORMER, SOLDIER, FOLLOWER, CLOSE, DEPTH, SLEEP, ALERT, 
+	SKULL, BUSY, COMPASS, INFO, PREFS, WARNING, TARGET, MASTERY, WATA, SHPX, WARRIOR, MAGE, ROGUE, HUNTRESS, PERFORMER, SOLDIER, FOLLOWER, ASCETIC, CLOSE, DEPTH, SLEEP, ALERT, 
 	BACKPACK, SEED_POUCH, SCROLL_HOLDER, POTION_BANDOLIER, WAND_HOLSTER, CHECKED, UNCHECKED, EXIT, CHALLENGE_OFF, CHALLENGE_ON, RESUME, SHOP_CART, KEYRING,
 	LAN, NOTES, SAVELOAD, HOS, LOST;
 
@@ -84,6 +84,9 @@ public enum Icons {
 			break;	
 		case FOLLOWER:
 			icon.frame(icon.texture.uvRect(86, 62, 97, 73));
+			break;	
+		case ASCETIC:
+			icon.frame(icon.texture.uvRect(102, 62, 115, 74));
 			break;				
 		case CLOSE:
 			icon.frame(icon.texture.uvRect(0, 45, 13, 58));
@@ -170,7 +173,9 @@ public enum Icons {
 		case SOLDIER:
 			return get(SOLDIER);
 		case FOLLOWER:
-			return get(FOLLOWER);			
+			return get(FOLLOWER);
+		case ASCETIC:
+			return get(ASCETIC);				
 		default:
 			return null;
 		}

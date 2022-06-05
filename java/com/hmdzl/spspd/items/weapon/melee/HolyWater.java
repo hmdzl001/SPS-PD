@@ -18,16 +18,17 @@
 package com.hmdzl.spspd.items.weapon.melee;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.weapon.Weapon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
-public class HolyWater extends MeleeWeapon {
+public class  HolyWater extends MeleeWeapon {
 
 	{
 		//name = "holywater";
@@ -37,7 +38,7 @@ public class HolyWater extends MeleeWeapon {
 	}
 
 	public HolyWater() {
-		super(3, 0.8f, 1f, 1);
+		super(3, 0.8f, 1.2f, 1);
 	}
 	
 	public static int charge = 0;
@@ -62,7 +63,7 @@ public class HolyWater extends MeleeWeapon {
 			ACU+=0.05f;
 		}
 		
-		if (ACU > 1.2f && DLY > 0.8f){
+		if (ACU > 1.2f && DLY > 1f){
 			DLY-=0.05f;
 		}
 	
@@ -72,6 +73,17 @@ public class HolyWater extends MeleeWeapon {
 		return super.upgrade(enchant);
     }
 
+	@Override
+	public int damageRoll(Hero hero) {
+
+		int damage = super.damageRoll(hero);
+		 if (charge >= 14) {
+			damage = 5*damage;
+		 }
+		return Math.round(damage);
+	}
+		
+	
 	
    @Override
     public void proc(Char attacker, Char defender, int damage) {
@@ -79,8 +91,7 @@ public class HolyWater extends MeleeWeapon {
 	   int DMG = damage;
  
         if (charge >= 14) {
-		    defender.damage(5*damage ,this);
-			attacker.HP += Math.min(damage,attacker.HT-attacker.HT);
+			attacker.HP += Math.min((int)(damage/5),attacker.HT-attacker.HT);
 			charge = 0;
 		}
 	   

@@ -24,8 +24,8 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
@@ -48,7 +48,7 @@ public class MysteryMeat extends MeatFood {
 			switch (Random.Int(5)) {
 			case 0:
 				GLog.w(Messages.get(this,"hot"));
-				Buff.affect(hero, Burning.class).reignite(hero);
+				Buff.affect(hero, Burning.class).set(5f);
 				break;
 			case 1:
 				GLog.w(Messages.get(this,"legs"));

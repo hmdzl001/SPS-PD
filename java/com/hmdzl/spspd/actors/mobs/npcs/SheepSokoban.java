@@ -20,6 +20,8 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.SheepFur;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.SokobanSheepSprite;
 
@@ -95,4 +97,8 @@ public boolean interact() {
     
 }
 
+	@Override
+	public Item SupercreateLoot(){
+		return new SheepFur();
+	}
 }

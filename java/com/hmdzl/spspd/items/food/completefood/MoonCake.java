@@ -19,6 +19,7 @@ package com.hmdzl.spspd.items.food.completefood;
 
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -45,7 +46,8 @@ public class MoonCake extends CompleteFood {
 		if (action.equals(AC_EAT)) {
 			//hero.TRUE_HT = hero.TRUE_HT + (Random.Int(4, 8));
 			//hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
-            Buff.affect(hero, MagicArmor.class).level(50);
+            Buff.affect(hero, MagicArmor.class).level(hero.HT/3);
+			Buff.affect(hero, ShieldArmor.class).level(hero.HT/3);
 			//Buff.detach(hero, Bleeding.class);
             //hero.updateHT(true);
 			//hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);

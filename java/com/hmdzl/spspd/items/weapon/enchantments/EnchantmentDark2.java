@@ -28,6 +28,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
+
 public class EnchantmentDark2 extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
@@ -46,9 +48,9 @@ public class EnchantmentDark2 extends Weapon.Enchantment {
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
 		Buff.affect(defender, ShadowCurse.class);
-		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), DARK_DAMAGE);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), DARK_DAMAGE);
 		}
 		defender.sprite.emitter().burst(ShadowParticle.UP, 5);
 		return true;

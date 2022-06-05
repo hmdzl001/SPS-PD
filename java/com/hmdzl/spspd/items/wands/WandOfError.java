@@ -154,7 +154,7 @@ public class WandOfError extends Wand {
 				switch (Random.Int(2)){
 					case 0:
 						if (ch != null)
-							Buff.affect(ch, Burning.class).reignite(ch);
+							Buff.affect(ch, Burning.class).set(5f);
 						break;
 					case 1:
 						if (ch!= null)

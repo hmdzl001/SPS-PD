@@ -45,16 +45,14 @@ public class PerfectFood extends CompleteFood {
 
 		if (action.equals(AC_EAT)){
 			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(3, 7));
-			Buff.affect(hero, BerryRegeneration.class).level(10);
-			Buff.affect(hero, Bless.class,10f);
+			Buff.affect(hero, Bless.class,50f);
 			Buff.affect(hero, Light.class,50f);
 			hero.HP = Math.min(hero.HP + hero.TRUE_HT/10, hero.TRUE_HT);
-			Buff.affect(hero, HasteBuff.class,5f);
-			Buff.affect(hero, Levitation.class,5f);
-			Buff.affect( hero, Recharging.class, 2f ); //half of a charge
-			ScrollOfRecharging.charge( hero );
-            hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
+			Buff.affect(hero, HasteBuff.class,25f);
+			Buff.affect(hero, Levitation.class,25f);
 			hero.updateHT(true);
+			
+			
 		}
 	}
 

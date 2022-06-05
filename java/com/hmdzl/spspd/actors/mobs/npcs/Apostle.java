@@ -22,10 +22,10 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.ApostleBox;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ApostleSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.windows.WndDream;
 import com.watabou.utils.Random;
 
 public class Apostle extends NPC {
@@ -88,5 +88,8 @@ public class Apostle extends NPC {
 		}
 		return true;
 	}
-
+	@Override
+	public Item SupercreateLoot(){
+		return new ApostleBox();
+	}
 }

@@ -32,6 +32,8 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
+
 public class EnchantmentShock extends Weapon.Enchantment {
 
     private static ItemSprite.Glowing GREEN = new ItemSprite.Glowing( 0x00FF00 );
@@ -60,7 +62,7 @@ public class EnchantmentShock extends Weapon.Enchantment {
 			hit(defender, (int)(Random.Int(level,maxdmg)*0.75));
 			
 			if(fcb != null){
-			   defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			   defender.damage((int)(Random.Int(level,maxdmg)*0.50), SHOCK_DAMAGE);
 		    }
 
 			attacker.sprite.parent.add(new Lightning( attacker.pos, defender.pos, null ));
@@ -87,7 +89,7 @@ public class EnchantmentShock extends Weapon.Enchantment {
 
 		affected.add(ch);
 		ch.damage(Level.water[ch.pos] && !ch.flying ? damage * 2
-				: damage, this);
+				: damage, SHOCK_DAMAGE);
 
 		ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 		ch.sprite.flash();

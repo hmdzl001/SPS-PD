@@ -17,12 +17,10 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Badges.Badge;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -39,22 +37,21 @@ import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.TomeOfMastery;
 import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
-import com.hmdzl.spspd.levels.CavesBossLevel;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.misc.HorseTotem;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.traps.LightningTrap;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DM300Sprite;
 import com.hmdzl.spspd.sprites.TowerSprite;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -167,6 +164,11 @@ public class DM300 extends Mob implements Callback {
 	}
 
 	@Override
+	public Item SupercreateLoot(){
+			return new HorseTotem().identify();
+	}	
+	
+	@Override
 	public void die(Object cause) {
 
 		super.die(cause);
@@ -209,7 +211,10 @@ public class DM300 extends Mob implements Callback {
 					break;	
 				case FOLLOWER:
 					badgeToCheck = Badge.MASTERY_FOLLOWER;
-					break;						
+					break;	
+			case ASCETIC:
+					badgeToCheck = Badge.MASTERY_ASCETIC;
+					break;					
 				}
 				
 				

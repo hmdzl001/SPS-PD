@@ -17,9 +17,11 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -53,6 +55,9 @@ public class Porksoup extends CompleteFood {
 			Buff.detach(hero, Cripple.class);
 			Buff.detach(hero, STRdown.class);
 			Buff.detach(hero, Bleeding.class);
+			Buff.affect(hero,MagicArmor.class).level(hero.HT/4);
+			Buff.affect(hero,AttackUp.class,50f).level(20);
+			
 		}
 	}
 

@@ -25,6 +25,8 @@ import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
@@ -68,6 +70,11 @@ public class Eye extends Mob {
 	}
 
 	private Ballistica beam;
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.WAND);
+	}
 
 	@Override
 	public int drRoll() {

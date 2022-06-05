@@ -21,6 +21,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.LiveMossSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -45,6 +46,11 @@ public class LiveMoss extends Mob {
 	}
 
 	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.SUMMONED);
+	}
+
+	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(3, 6+adj(0));
 	}
@@ -62,7 +68,7 @@ public class LiveMoss extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(3) == 0 && !liveseed) {
-			Buff.affect(enemy, GrowSeed.class).reignite(enemy);
+			Buff.affect(enemy, GrowSeed.class).set(5f);
 			liveseed=true;
 		}
 

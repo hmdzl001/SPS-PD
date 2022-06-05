@@ -43,14 +43,15 @@ import com.hmdzl.spspd.actors.buffs.Speed;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.PotionOfMage;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.SewerBossLevel;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.PlagueDoctorSprite;
 import com.hmdzl.spspd.sprites.ShadowRatSprite;
@@ -58,8 +59,6 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 import static com.hmdzl.spspd.Dungeon.hero;
 
@@ -245,7 +244,10 @@ public class PlagueDoctor extends Mob {
 					break;					
 					case FOLLOWER:
 					badgeToCheck = Badge.MASTERY_FOLLOWER;
-					break;				
+					break;	
+			case ASCETIC:
+					badgeToCheck = Badge.MASTERY_ASCETIC;
+					break;					
 		}
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
 	}
@@ -267,6 +269,11 @@ public class PlagueDoctor extends Mob {
 	public int drRoll() {
 		return Random.NormalIntRange(0, 5);
 	}
+	
+	@Override
+	public Item SupercreateLoot(){
+			return new PotionOfMage().identify();
+	}	
 
 	{
 		immunities.add(ToxicGas.class );

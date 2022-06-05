@@ -17,14 +17,14 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.StenchGas;
-import com.hmdzl.spspd.sprites.AcidicSprite;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.wands.WandOfAcid;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.AcidicSprite;
 import com.watabou.utils.Random;
 
 public class Acidic extends Scorpio {
@@ -63,4 +63,8 @@ public class Acidic extends Scorpio {
 		immunities.add(StenchGas.class);
 	}
 
+	@Override
+	public Item SupercreateLoot(){
+		return new WandOfAcid();
+	}
 }

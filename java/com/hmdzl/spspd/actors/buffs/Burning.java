@@ -41,6 +41,8 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.FIRE_DAMAGE;
+
 public class Burning extends Buff implements Hero.Doom {
 
 	private static final String TXT_BURNS_UP = "%s burns up!";
@@ -77,7 +79,7 @@ public class Burning extends Buff implements Hero.Doom {
 				Buff.prolong(target, Light.class, TICK * 1.01f);
 			}
 
-			target.damage(Random.Int(1, Math.min(1000,target.HT/20)), this);
+			target.damage(Random.Int(1, Math.min(1000,target.HT/20)), FIRE_DAMAGE);
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero) {
@@ -136,14 +138,6 @@ public class Burning extends Buff implements Hero.Doom {
 		return true;
 	}
 
-	public void reignite(Char ch) {
-		left = duration(ch);
-	}
-	
-	public void reignite( Char ch, float duration ) {
-		left = duration;
-	}
-
 	@Override
 	public int icon() {
 		return BuffIndicator.FIRE;
@@ -164,6 +158,18 @@ public class Burning extends Buff implements Hero.Doom {
 	@Override
 	public String toString() {
 		return Messages.get(this, "name");
+	}
+
+	public void set(float duration) {
+		this.left = duration;
+	}
+
+	public float level() { return left; }
+
+	public void level(int value) {
+		if (left < value) {
+			left = value;
+		}
 	}
 
 	public static float duration(Char ch) {

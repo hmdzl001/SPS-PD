@@ -19,11 +19,14 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
 
 public class LightShootAttack extends Buff {
 	
@@ -64,7 +67,7 @@ public class LightShootAttack extends Buff {
 		if (target.isAlive()) {
 			int dist = Level.distance(target.pos, pos);
 			if (dist < 3) {
-				target.damage(Math.min(500,(int)(target.HT/30)),this);
+				target.damage(Math.min(500,(int)(target.HT/30)),LIGHT_DAMAGE);
 			} else detach();
 			
             //Buff.detach( target, Burning.class);
@@ -82,14 +85,6 @@ public class LightShootAttack extends Buff {
 
 		return true;
 	}	
-
-	public void reignite(Char ch) {
-		left = duration(ch);
-	}
-	
-	public void reignite( Char ch, float duration ) {
-		left = duration;
-	}
 
 	@Override
 	public int icon() {

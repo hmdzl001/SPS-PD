@@ -18,8 +18,10 @@
 package com.hmdzl.spspd.actors.mobs.npcs;
 
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.SheepFur;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.SheepSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class SheepSokobanStop extends NPC {
@@ -60,5 +62,8 @@ public boolean interact() {
 	  yell( Messages.get(this, Random.element(LINE_KEYS)));
     return false;
 }
-
+	@Override
+	public Item SupercreateLoot(){
+		return new SheepFur();
+	}
 }

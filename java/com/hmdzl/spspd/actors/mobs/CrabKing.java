@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -30,13 +28,14 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.AdamantArmor;
 import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.melee.special.Tree;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CrabKingSprite;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -57,7 +56,12 @@ public class CrabKing extends Mob {
 	}
 
 	private int timeToJump = JUMP_DELAY;
-	
+
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Tree();
+	}
 	
 	@Override
 	public int damageRoll() {

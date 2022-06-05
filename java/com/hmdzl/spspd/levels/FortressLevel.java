@@ -19,7 +19,6 @@ package com.hmdzl.spspd.levels;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer3;
 import com.hmdzl.spspd.items.TriforceOfPower;
 import com.hmdzl.spspd.items.quest.Mushroom;
@@ -177,21 +176,21 @@ public class FortressLevel extends RegularLevel {
 		
 		super.createItems();
 
-		spawnnpc(this, roomEntrance);
+		Tinkerer3.Quest.spawn(this, roomEntrance);
 			
 	}
 
-		public static void spawnnpc(FortressLevel level,Room room) {
+		//public static void spawnnpc(FortressLevel level,Room room) {
 	
-		Tinkerer3 npc = new Tinkerer3();
-		do {
-				npc.pos = room.random();
-			} while (level.map[npc.pos] == Terrain.ENTRANCE
-					|| level.map[npc.pos] == Terrain.SIGN);
-			level.mobs.add(npc);
-		    Actor.occupyCell(npc);
+		//Tinkerer3 npc = new Tinkerer3();
+		///do {
+		//		npc.pos = room.random();
+		//	} while (level.map[npc.pos] == Terrain.ENTRANCE
+		//			|| level.map[npc.pos] == Terrain.SIGN);
+		//	level.mobs.add(npc);
+		//    Actor.occupyCell(npc);
 
-	}
+	//}
 		
 		
 		public static void spawn(FortressLevel level, Room room) {

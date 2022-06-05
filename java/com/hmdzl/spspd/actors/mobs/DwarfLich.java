@@ -20,8 +20,10 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
+import com.hmdzl.spspd.items.weapon.melee.TrickSand;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -52,6 +54,11 @@ public class DwarfLich extends Mob {
 		properties.add(Property.UNDEAD);
 		properties.add(Property.MAGICER);
 		properties.add(Property.DWARF);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new TrickSand();
 	}
 
 	@Override

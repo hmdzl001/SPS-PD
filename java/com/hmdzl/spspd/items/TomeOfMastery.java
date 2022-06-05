@@ -98,7 +98,11 @@ public class TomeOfMastery extends Item {
 			case FOLLOWER:
 				way1 = HeroSubClass.PASTOR;
 				way2 = HeroSubClass.ARTISAN;
-				break;				
+				break;	
+			case ASCETIC:
+				way1 = HeroSubClass.MONK;
+				way2 = HeroSubClass.HACKER;
+			break;								
 			}
 			GameScene.show(new WndChooseWay(this, way1, way2));
 

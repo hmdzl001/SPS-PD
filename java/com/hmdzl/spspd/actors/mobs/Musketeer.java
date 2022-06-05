@@ -17,17 +17,18 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.LightShootAttack;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.particles.EnergyParticle;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
+import com.hmdzl.spspd.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.MusketeerSprite;
@@ -58,6 +59,11 @@ public class Musketeer extends Mob {
 		
 		properties.add(Property.DWARF);
 	}
+
+    @Override
+    public Item SupercreateLoot(){
+        return new ToyGun();
+    }
 
     @Override
     public boolean act() {
@@ -120,6 +126,9 @@ public class Musketeer extends Mob {
         int dist = Level.distance(pos, enemy.pos);
         if (dist > 1 && Random.Int(4)< 1 ){
             Buff.affect(enemy, ArmorBreak.class,5f).level(25);
+        }
+        if(dist == 1 && Random.Int(3)==1){
+            Buff.affect(enemy, LightShootAttack.class).level(5);
         }
         return damage;
     }

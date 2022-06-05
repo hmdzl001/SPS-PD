@@ -65,7 +65,7 @@ public class StormBomb extends Bomb {
 				if (ch != null) {
 					// those not at the center of the blast take damage less
 					// consistently.
-					Buff.affect(ch, Shocked.class,10f);
+					Buff.affect(ch, Shocked.class).level(10);
 
 					int minDamage = ch.HT / 12;
 					int maxDamage = ch.HT / 6;

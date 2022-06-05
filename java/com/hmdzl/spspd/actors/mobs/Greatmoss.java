@@ -29,6 +29,8 @@ import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.plants.Sungrass;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GreatMossSprite;
 
@@ -45,11 +47,18 @@ public class Greatmoss extends Mob {
 		EXP = 11;
 		maxLvl = 30;
 
+		baseSpeed = 0.5f;
+
 		loot = Generator.Category.SEED;
 		lootChance = 0.3f;
 
 		state = PASSIVE;
 		properties.add(Property.PLANT);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Sungrass.Seed();
 	}
 
 	@Override
@@ -76,6 +85,16 @@ public class Greatmoss extends Mob {
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange(20, 25);
+	}
+
+	@Override
+	public void damage(int dmg, Object src) {
+
+		if (state == PASSIVE) {
+			state = HUNTING;
+		}
+
+		super.damage(dmg, src);
 	}
 
 

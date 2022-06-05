@@ -17,20 +17,19 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.npcs.Imp;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.food.staplefood.NormalRation;
 import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.MonkSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
@@ -55,6 +54,12 @@ public class Monk extends Mob {
 		lootChanceOther = 0.4f; // by default, see die()
 		
 		properties.add(Property.DWARF);
+	}
+
+
+	@Override
+	public Item SupercreateLoot(){
+		return new FightGloves();
 	}
 
 	@Override

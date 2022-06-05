@@ -30,6 +30,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
+
 public class EnchantmentEarth2 extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing( 0x996600 );
@@ -48,9 +50,9 @@ public class EnchantmentEarth2 extends Weapon.Enchantment {
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
 		
-		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), EARTH_DAMAGE);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), EARTH_DAMAGE);
 		}		
 		if ((Random.Int(4) == 1 )&& defender.isAlive()) {
 			Buff.prolong(defender, Roots.class,3f);

@@ -17,9 +17,10 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
+import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class Fruitsalad extends CompleteFood {
@@ -43,6 +44,7 @@ public class Fruitsalad extends CompleteFood {
 
 		if (action.equals(AC_EAT)){
 			hero.HP+= hero.HT/3;
+			Buff.affect(hero, BerryRegeneration.class).level(hero.HT*2);
 			hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 5);
 		}
 	}

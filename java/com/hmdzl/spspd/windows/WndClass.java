@@ -166,6 +166,9 @@ public class WndClass extends WndTabbed {
 					break;	
 				case FOLLOWER:
 					message = HeroSubClass.PASTOR.desc() + "\n\n" + HeroSubClass.ARTISAN.desc();
+					break;
+			    case ASCETIC:
+					message = HeroSubClass.MONK.desc() + "\n\n" + HeroSubClass.HACKER.desc();
 					break;						
 			}
 

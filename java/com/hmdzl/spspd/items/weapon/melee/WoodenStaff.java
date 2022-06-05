@@ -18,14 +18,15 @@
 package com.hmdzl.spspd.items.weapon.melee;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.weapon.Weapon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class WoodenStaff extends MeleeWeapon {
 
@@ -70,20 +71,29 @@ public class WoodenStaff extends MeleeWeapon {
 			
 		return super.upgrade(enchant);
     }
+	@Override
+	public int damageRoll(Hero hero) {
 
+		int damage = super.damageRoll(hero);
+		 if (charge >= 8) {
+			damage = 5*damage;
+		 }
+		return Math.round(damage);
+	}
 	
    @Override
     public void proc(Char attacker, Char defender, int damage) {
-
-	   int DMG = damage;
  
         if (charge >= 8) {
-		    defender.damage(5*damage ,this);
+        //	damage = 5*damage;
+		//    defender.damage(5*damage ,this);
 			charge = 0;
-		}
+	    }
+		
+		
 	   
 		if (enchantment != null) {
-			enchantment.proc(this, attacker, defender, damage);		
+			enchantment.proc(this, attacker, defender, damage);
 		}
 		
 		charge++;

@@ -21,7 +21,9 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.reward.SewerReward;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.RatKingSprite;
 
 public class RatKingDen extends NPC {
@@ -63,7 +65,10 @@ public class RatKingDen extends NPC {
 		return true;
 	}
 
-   
+   	@Override
+	public Item SupercreateLoot(){
+			return new SewerReward();
+	}
 	
 	@Override
 	public boolean interact() {

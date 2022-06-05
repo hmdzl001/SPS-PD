@@ -28,14 +28,14 @@ import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EnergyParticle;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
+import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.PatrolUAVSprite;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class PatrolUAV extends Mob {
 	
@@ -59,7 +59,10 @@ public class PatrolUAV extends Mob {
 		properties.add(Property.MECH);
 	}
 
-
+	@Override
+	public Item SupercreateLoot(){
+		return new WandOfTCloud();
+	}
 	
 	@Override
 	public int damageRoll() {

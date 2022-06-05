@@ -18,7 +18,9 @@
 package com.hmdzl.spspd.items.weapon.missiles;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -28,7 +30,7 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
-public class NormalBomb extends MissileWeapon {
+public class ShitBall extends MissileWeapon {
 	
 
 	{
@@ -41,11 +43,11 @@ public class NormalBomb extends MissileWeapon {
 		MAX = 1;
 	}
 
-	public NormalBomb() {
-		this(1);
+	public ShitBall() {
+		this(2);
 	}
 
-	public NormalBomb(int number) {
+	public ShitBall(int number) {
 		super();
 		quantity = number;
 	}
@@ -60,21 +62,22 @@ public class NormalBomb extends MissileWeapon {
 
 	@Override
 	protected void onThrow(int cell) {
-
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (Level.fieldOfView[mob.pos]) {
-				Buff.affect(mob,Blindness.class,5f);
-				mob.beckon(cell);
-			}
-		}
+        Char enemy = Actor.findChar(cell);
+       if (enemy == null) {
+		   for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+			   if (Level.fieldOfView[mob.pos] && (Level.distance(cell, mob.pos) <= 5)) {
+				   Buff.affect(mob, Blindness.class, 5f);
+				   mob.beckon(cell);
+			   }
+		   }
+	   } else
+		   super.onThrow(cell);
 	}
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
+		Buff.affect(defender, BeOld.class).set(7f);
 		super.proc(attacker, defender, damage);
-		if(defender.properties().contains(Char.Property.BOSS)){
-			defender.damage(defender.HT/2,this);
-		}		
 	}
 
 	@Override

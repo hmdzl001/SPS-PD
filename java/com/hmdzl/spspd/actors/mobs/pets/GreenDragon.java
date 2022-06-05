@@ -19,6 +19,7 @@ package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -120,7 +121,7 @@ public class GreenDragon extends PET implements Callback{
 				if (Level.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
-				enemy.damage(dmg, this);
+				enemy.damage(dmg, DamageType.SHOCK_DAMAGE);
 
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();

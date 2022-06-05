@@ -17,28 +17,35 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.BanditSprite;
 import com.watabou.utils.Random;
 
 public class Bandit extends Thief {
 
-	public Item item;
+	//public Item item;
 
 	{
 		spriteClass = BanditSprite.class;
 
 		// 1 in 30 chance to be a crazy bandit, equates to overall 1/90 chance.
-		lootChance = 1f;
+		//lootChance = 1f;
+		//lootChanceOther = 1f;
 		
 		properties.add(Property.ELF);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.WEAPON);
 	}
 
 	@Override

@@ -30,6 +30,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ICE_DAMAGE;
+
 public class EnchantmentIce extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing(0x0044FF);
@@ -47,9 +49,9 @@ public class EnchantmentIce extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.75), this);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.75), ICE_DAMAGE);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), ICE_DAMAGE);
 		}
 		Buff.prolong(defender, Wet.class, 3f);
 		Buff.prolong(defender, Cold.class, 3f);

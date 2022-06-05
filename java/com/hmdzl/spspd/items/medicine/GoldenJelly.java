@@ -50,7 +50,7 @@ public class GoldenJelly extends Pill {
 		
 	   if (action.equals(AC_EAT)) {
 				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					Buff.affect(mob, GrowSeed.class).reignite(mob,10f);
+					Buff.affect(mob, GrowSeed.class).set(10f);
 				}
 				Buff.affect(hero, Vertigo.class, 10f);
 		}

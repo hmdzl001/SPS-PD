@@ -23,15 +23,14 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BombBugSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class BombBug extends IceBug {
 
@@ -49,6 +48,11 @@ public class BombBug extends IceBug {
 		lootChance = 0.3f;		
 		
 		properties.add(Property.BEAST);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new WandOfFreeze();
 	}
 
 	@Override

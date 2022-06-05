@@ -5,20 +5,14 @@ import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.guns.GunA;
-import com.hmdzl.spspd.items.weapon.guns.GunB;
-import com.hmdzl.spspd.items.weapon.guns.GunC;
-import com.hmdzl.spspd.items.weapon.guns.GunD;
-import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
-import com.hmdzl.spspd.items.weapon.guns.Sling;
 import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 
 public class BlindAmmo extends SpAmmo {
 
@@ -37,7 +31,7 @@ private static Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 			defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6);
 		} else if (Random.Int(5) == 3) {
 			Buff.prolong(defender, Vertigo.class, 3f);
-		} else defender.damage((int)(0.15*damage), attacker);
+		} else defender.damage((int)(0.15*damage), ENERGY_DAMAGE);
 	}
 
 	@Override
@@ -48,7 +42,7 @@ private static Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 			defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6);
 		} else if (Random.Int(5) == 3) {
 			Buff.prolong(defender, Vertigo.class, 3f);
-		} else defender.damage((int)(0.15*damage), attacker);
+		} else defender.damage((int)(0.15*damage), ENERGY_DAMAGE);
 	}
 	@Override
 	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
@@ -58,6 +52,6 @@ private static Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 			defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6);
 		} else if (Random.Int(5) == 3) {
 			Buff.prolong(defender, Vertigo.class, 3f);
-		} else defender.damage((int)(0.15*damage), attacker);
+		} else defender.damage((int)(0.15*damage), ENERGY_DAMAGE);
 	}
 }

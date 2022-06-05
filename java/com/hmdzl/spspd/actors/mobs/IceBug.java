@@ -20,13 +20,14 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.FrostIce;
-import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce2;
+import com.hmdzl.spspd.plants.Icecap;
 import com.hmdzl.spspd.sprites.IceBugSprite;
 import com.watabou.utils.Random;
 
@@ -49,6 +50,11 @@ public class IceBug extends Mob {
 	}
 
 	@Override
+	public Item SupercreateLoot(){
+		return new Icecap.Seed();
+	}
+
+	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(15, 20+adj(0));
 	}
@@ -56,7 +62,7 @@ public class IceBug extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(5) == 0) {
-			Buff.affect(enemy, StoneIce.class).level(5);
+			Buff.affect(enemy, FrostIce.class).level(5);
 		}
 
 		return damage;

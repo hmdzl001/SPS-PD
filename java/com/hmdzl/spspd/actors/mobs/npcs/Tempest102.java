@@ -21,8 +21,10 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.missiles.TempestBoomerang;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.Tempest102Sprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class Tempest102 extends NPC {
@@ -79,4 +81,11 @@ public class Tempest102 extends NPC {
 		}
 		return true;
 	}
+	
+	@Override
+	public Item SupercreateLoot(){
+			return new TempestBoomerang();
+		}
+
+
 }

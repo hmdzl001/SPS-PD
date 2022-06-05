@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -28,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.potions.PotionOfMending;
+import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
@@ -36,6 +34,8 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SwarmSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Swarm extends Mob {
 
@@ -54,6 +54,11 @@ public class Swarm extends Mob {
 		lootChance = 0.1f; // by default, see die()
 		
 		properties.add(Property.BEAST);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new ScrollOfMagicalInfusion();
 	}
 
 	private static final float SPLIT_DELAY = 1f;
@@ -124,7 +129,7 @@ public class Swarm extends Mob {
 		Swarm clone = new Swarm();
 		clone.generation = generation + 1;
 		if (buff(Burning.class) != null) {
-			Buff.affect(clone, Burning.class).reignite(clone);
+			Buff.affect(clone, Burning.class).set(3f);
 		}
 		if (buff(Poison.class) != null) {
 			Buff.affect(clone, Poison.class).set(2);

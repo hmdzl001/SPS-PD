@@ -26,9 +26,11 @@ import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.scrolls.ScrollOfLullaby;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
+import com.hmdzl.spspd.items.wands.WandOfCharm;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.SuccubusSprite;
@@ -36,7 +38,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Succubus extends Mob {
 
@@ -61,6 +62,11 @@ public class Succubus extends Mob {
 		lootChanceOther = 0.1f; // by default, see die()
 		
 		properties.add(Property.DEMONIC);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new WandOfCharm();
 	}
 
 	@Override

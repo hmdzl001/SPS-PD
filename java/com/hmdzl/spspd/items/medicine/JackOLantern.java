@@ -53,7 +53,7 @@ public class JackOLantern extends Pill {
 	   if (action.equals(AC_EAT)) {
 				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 					GameScene.add(Blob.seed(mob.pos, 3, Fire.class));
-					Buff.affect(mob,DBurning.class).reignite(mob,6f);
+					Buff.affect(mob,DBurning.class).set(6f);
 				}
 		}
 	   

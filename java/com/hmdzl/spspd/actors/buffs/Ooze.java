@@ -23,6 +23,8 @@ import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptio
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
+
 public class Ooze extends Buff {
 
 	{
@@ -52,11 +54,12 @@ public class Ooze extends Buff {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-			if (Dungeon.depth > 4)
-				target.damage(Dungeon.depth / 5, this);
-			else if (Random.Int(2) == 0)
-				target.damage(1, this);
-			if (!target.isAlive() && target == Dungeon.hero) {
+
+
+			if (Random.Int(6) == 0)
+				target.damage(1, EARTH_DAMAGE);
+            else target.damage(Math.min(500,(int)(target.HT/25)), EARTH_DAMAGE);
+            if (!target.isAlive() && target == Dungeon.hero) {
 				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(TXT_HERO_KILLED, toString());
 			}

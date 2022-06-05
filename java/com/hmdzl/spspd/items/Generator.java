@@ -87,7 +87,7 @@ import com.hmdzl.spspd.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
-import com.hmdzl.spspd.items.food.completefood.Foamedbeverage;
+import com.hmdzl.spspd.items.medicine.Foamedbeverage;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
 import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
@@ -252,7 +252,7 @@ import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
 import com.hmdzl.spspd.items.weapon.missiles.IncendiaryDart;
-import com.hmdzl.spspd.items.weapon.missiles.NormalBomb;
+import com.hmdzl.spspd.items.weapon.missiles.ShitBall;
 import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
 import com.hmdzl.spspd.items.weapon.missiles.RiceBall;
 import com.hmdzl.spspd.items.weapon.missiles.ShatteredAmmo;
@@ -377,7 +377,7 @@ public class Generator {
 
 		Category.RANGEWEAPON.classes = new Class<?>[] {
 				EmpBola.class ,EscapeKnive.class,PoisonDart.class,Smoke.class,IncendiaryDart.class,Tamahawk.class,
-				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, NormalBomb.class,
+				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, ShitBall.class,
 				Boomerang.class};
 		Category.RANGEWEAPON.probs = new float[] {
 				1,1,1,1,1,1,
@@ -496,7 +496,7 @@ public class Generator {
 		
 		
 		Category.BERRY.classes = new Class<?>[] {Blackberry.class, Blueberry.class, Cloudberry.class, Moonberry.class};
-		Category.BERRY.probs = new float[] {6,3,2,1};	
+		Category.BERRY.probs = new float[] {6,2,2,2};
 		
 		Category.MUSHROOM.classes = new Class<?>[] {BlueMilk.class, DeathCap.class, Earthstar.class, JackOLantern.class, PixieParasol.class, GoldenJelly.class, GreenSpore.class};
 		Category.MUSHROOM.probs = new float[] {4,3,3,3,3,3,2};
@@ -546,7 +546,7 @@ public class Generator {
 				HugeBomb.class,MiniBomb.class, FireBomb.class,IceBomb.class,EarthBomb.class,StormBomb.class,
 				LightBomb.class,DarkBomb.class,FishingBomb.class,
 				EmpBola.class ,EscapeKnive.class,PoisonDart.class,Smoke.class,IncendiaryDart.class,Tamahawk.class,
-				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, NormalBomb.class
+				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, ShitBall.class
 		};
 		Category.LINKDROP.probs = new float[] { 3,1,
 		1,1,1,1,1,1,

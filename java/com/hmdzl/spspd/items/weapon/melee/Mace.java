@@ -18,14 +18,15 @@
 package com.hmdzl.spspd.items.weapon.melee;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.weapon.Weapon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Mace extends MeleeWeapon {
 
@@ -37,7 +38,7 @@ public class Mace extends MeleeWeapon {
 	}
 
 	public Mace() {
-		super(2, 0.8f, 1f, 1);
+		super(2, 0.8f, 1.2f, 1);
 	}
 	
 	public static int charge = 0;
@@ -62,7 +63,7 @@ public class Mace extends MeleeWeapon {
 			ACU+=0.05f;
 		}
 		
-		if (ACU > 1.2f && DLY > 0.8f){
+		if (ACU > 1.2f && DLY > 1f){
 			DLY-=0.05f;
 		}
 		
@@ -75,6 +76,16 @@ public class Mace extends MeleeWeapon {
 		return super.upgrade(enchant);
     }
 
+	@Override
+	public int damageRoll(Hero hero) {
+
+		int damage = super.damageRoll(hero);
+		 if (charge >= 11) {
+			damage = 5*damage;
+		 }
+		return Math.round(damage);
+	}
+		
 	
    @Override
     public void proc(Char attacker, Char defender, int damage) {
@@ -82,7 +93,7 @@ public class Mace extends MeleeWeapon {
 	   int DMG = damage;
  
         if (charge >= 11) {
-		    defender.damage(5*damage ,this);
+		    //defender.damage(5*damage ,this);
 			charge = 0;
 		}
 	   

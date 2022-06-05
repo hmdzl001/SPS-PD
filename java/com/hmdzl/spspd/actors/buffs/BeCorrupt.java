@@ -1,7 +1,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -20,13 +20,16 @@ public class BeCorrupt extends Buff {
 
 	@Override
 		public boolean act() {
-
 			if (target.isAlive()) {
                     if(left < target.HP){
                     	lvl -= (target.HP - left);
 						target.HP = Math.max(1,left-1);
 						left = target.HP;
-                	}
+                	} else if (left > target.HP){
+                    	lvl-=1;
+                    	target.HP = Math.max(1,target.HP-1);
+                    	left = target.HP;
+					}
 			}
 			spend(STEP);
 			if (lvl <= 0 ) {

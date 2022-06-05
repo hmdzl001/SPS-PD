@@ -2,6 +2,7 @@ package com.hmdzl.spspd.plants;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.potions.PotionOfLevitation;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -21,6 +22,7 @@ public class Stormvine extends Plant {
 
 		if (ch != null) {
 			Buff.affect(ch, Vertigo.class, 10f);
+			Buff.affect(ch, Shocked.class).level( 10);
 		}
 	}
 

@@ -27,6 +27,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
+
 public class EnchantmentLight extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing(0xFFFF44);
@@ -44,9 +46,9 @@ public class EnchantmentLight extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT / 10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int) (Random.Int(level, maxdmg) * 0.75), this);
+		defender.damage((int) (Random.Int(level, maxdmg) * 0.75), LIGHT_DAMAGE);
 		if (fcb != null && Random.Int(2) == 1) {
-			defender.damage((int) (Random.Int(level, maxdmg) * 0.50), this);
+			defender.damage((int) (Random.Int(level, maxdmg) * 0.50), LIGHT_DAMAGE);
 		}
 		if (Random.Int(3) >= 1) {
 			Buff.prolong(defender, Blindness.class, 4f);

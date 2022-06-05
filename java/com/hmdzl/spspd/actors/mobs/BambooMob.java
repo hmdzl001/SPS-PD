@@ -17,25 +17,19 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.PoisonGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Ooze;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.items.wands.WandOfFirebolt;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
-import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.MobBambooSprite;
-import com.hmdzl.spspd.sprites.SeniorSprite;
 import com.watabou.utils.Random;
 
 import java.util.HashSet;
@@ -55,6 +49,11 @@ public class BambooMob extends Mob {
 		spriteClass = MobBambooSprite.class;
 		
 		properties.add(Property.PLANT);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.ARMOR);
 	}
 
 	@Override

@@ -17,17 +17,17 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrollWarriorSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -50,6 +50,11 @@ public class TrollWarrior extends Mob {
 
 		properties.add(Property.TROLL);
 		
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.MUSICWEAPON);
 	}
 
 	@Override

@@ -21,61 +21,87 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Taunt;
-import com.hmdzl.spspd.sprites.RatSprite;
+import com.hmdzl.spspd.items.ExpOre;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.LevelDown;
+import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.sprites.LevelCheckerSprite;
+import com.watabou.utils.Random;
 
 public class LevelChecker extends Mob {
 
 	{
-		spriteClass = RatSprite.class;
+		spriteClass = LevelCheckerSprite.class;
 
-		HP = HT = Dungeon.hero.lvl*1000;
-		evadeSkill = Dungeon.hero.lvl*1000;
-		baseSpeed = 3f;
+		HP = HT = 200+Math.min(800,Dungeon.hero.lvl*20);
+		evadeSkill = Dungeon.hero.lvl/2;
+		baseSpeed = 1f;
 		flying = true;
 
-		state = WANDERING;
-		
-		properties.add(Property.BOSS);
+		//state = WANDERING;
+
+		loot = new StoneOre();
+		lootChance = 0.1f;
+
+		properties.add(Property.MECH);
 	}
 
 	@Override
-	protected boolean getCloser(int target) {
-		return super.getCloser(Dungeon.hero.pos);
+	public Item SupercreateLoot(){
+		return new ExpOre();
 	}
+
+	//@Override
+	//protected boolean getCloser(int target) {
+		//return super.getCloser(Dungeon.hero.pos);
+//	}
 
 	@Override
 	public int damageRoll() {
-		return Dungeon.hero.lvl*1000;
+		return (int)(Dungeon.hero.lvl*1.5);
 	}
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (enemy.buff(Taunt.class)== null && enemy == Dungeon.hero) {
-			Buff.affect(enemy, Taunt.class);
-			Dungeon.hero.exp=0;
-			Dungeon.hero.lvl=1;
-			
+		if (this.buff(Taunt.class)== null && enemy == Dungeon.hero) {
+			Buff.affect(this, Taunt.class);
+			//Dungeon.hero.exp=0;
+			Dungeon.hero.lvl++;
+
 			//Dungeon.hero.TRUE_HT=30;
 			//Dungeon.hero.hitSkill=10;
 			//Dungeon.hero.evadeSkill=5;
-			damage = 0;
-			this.damage(this.HT*2,this);
-			return damage;
-		} else return damage;
+			//damage = 0;
+			//this.damage(this.HT*2,this);
+		}
+		return damage;
+
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return Dungeon.hero.lvl*1000;
+		return Dungeon.hero.lvl;
 	}
 
 	@Override
 	public int drRoll() {
-		return Dungeon.hero.lvl*1000;
-	}	
-	
+		return Dungeon.hero.lvl;
+	}
+
 	@Override
-	public void add( Buff buff ) {
-		//in other words, can't be directly affected by buffs/debuffs.
-	}	
+	public void die(Object cause) {
+
+		if (Random.Int(2) == 0)
+			Dungeon.level.drop(new LevelDown(), pos).sprite.drop();
+
+		super.die(cause);
+
+	}
+	
+	
+	{
+		weakness.add(Wand.class);
+	}
+	
 }

@@ -17,17 +17,17 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Dry;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.items.food.WaterItem;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth2;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Dry;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.Slow;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.WaterItem;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth2;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SandmobSprite;
@@ -50,6 +50,11 @@ public class SandMob extends Mob {
 		lootChance = 0.5f; // by default, see die()
 		
 		properties.add(Property.ELEMENT);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.GOLD);
 	}
 
 	@Override

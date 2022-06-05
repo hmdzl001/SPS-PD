@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ShockWeb;
@@ -27,7 +25,9 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.weapon.melee.Scimitar;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SpiderBotSprite;
 import com.watabou.utils.Random;
@@ -49,6 +49,11 @@ public class SpiderBot extends Mob {
 		FLEEING = new Fleeing();
 		
 		properties.add(Property.MECH);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Scimitar();
 	}
 
 	@Override

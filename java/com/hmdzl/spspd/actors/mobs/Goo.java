@@ -38,10 +38,12 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.UpgradeBlobViolet;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.CopyBall;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
@@ -115,12 +117,16 @@ public class Goo extends Mob {
 
 		if (Level.water[pos] && HP < HT) {
 			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
-			HP++;
+			HP+=3;
 		}
 
 		return super.act();
 	}
 
+	@Override
+	public Item SupercreateLoot(){
+			return new CopyBall();
+	}	
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
@@ -252,7 +258,10 @@ public class Goo extends Mob {
 					break;					
 				case FOLLOWER:
 					badgeToCheck = Badge.MASTERY_FOLLOWER;
-					break;						
+					break;		
+			case ASCETIC:
+					badgeToCheck = Badge.MASTERY_ASCETIC;
+					break;					
 				}
 				
 	
@@ -446,7 +455,7 @@ public class Goo extends Mob {
 			PoisonGoo clone = new PoisonGoo();
 			clone.gooGeneration = gooGeneration + 1;
 			if (buff(Burning.class) != null) {
-				Buff.affect(clone, Burning.class).reignite(clone);
+				Buff.affect(clone, Burning.class).set(3f);
 			}
 			if (buff(Poison.class) != null) {
 				Buff.affect(clone, Poison.class).set(2);

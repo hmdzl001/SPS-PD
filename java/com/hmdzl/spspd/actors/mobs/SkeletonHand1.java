@@ -17,11 +17,9 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Terror;
@@ -81,7 +79,7 @@ public class SkeletonHand1 extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(2) == 0) {
 			if(enemy == Dungeon.hero){
-			Buff.affect(enemy, Burning.class).reignite(enemy);
+			Buff.affect(enemy, Burning.class).set(4f);
 			state = FLEEING;
 			}
 		}

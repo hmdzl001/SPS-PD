@@ -118,7 +118,8 @@ public class Buff extends Actor {
 	public static <T extends FlavourBuff> T append(Char target,
 			Class<T> buffClass, float duration) {
 		T buff = append(target, buffClass);
-		buff.spend(duration * target.resist(buffClass)*target.weak(buffClass));
+		buff.spend(duration * target.resist(buffClass)*target.weak(buffClass)*target.RingFix(buffClass));
+		//buff.spend(duration);
 		return buff;
 	}
 
@@ -134,14 +135,16 @@ public class Buff extends Actor {
 	public static <T extends FlavourBuff> T affect(Char target,
 			Class<T> buffClass, float duration) {
 		T buff = affect(target, buffClass);
-		buff.spend(duration * target.resist(buffClass)*target.weak(buffClass));
+		buff.spend(duration * target.resist(buffClass)*target.weak(buffClass)*target.RingFix(buffClass));
+		//buff.spend(duration );
 		return buff;
 	}
 
 	public static <T extends FlavourBuff> T prolong(Char target,
 			Class<T> buffClass, float duration) {
 		T buff = affect(target, buffClass);
-		buff.postpone(duration * target.resist(buffClass)*target.weak(buffClass));
+		buff.postpone(duration * target.resist(buffClass)*target.weak(buffClass)*target.RingFix(buffClass));
+		//buff.spend(duration);
 		return buff;
 	}
 

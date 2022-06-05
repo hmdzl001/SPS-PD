@@ -20,52 +20,69 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Taunt;
-import com.hmdzl.spspd.sprites.RatSprite;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
+import com.hmdzl.spspd.items.quest.DarkGold;
+import com.hmdzl.spspd.sprites.GoldCollectorSprite;
+import com.watabou.utils.Random;
 
 public class GoldCollector extends Mob {
 
 	{
-		spriteClass = RatSprite.class;
+		spriteClass = GoldCollectorSprite.class;
 
-		HP = HT = Dungeon.gold;
-		evadeSkill = Dungeon.gold;
-		baseSpeed = 3f;
-		flying = true;
+		HP = HT = 75+Math.min(425,(int)(Dungeon.gold/10));
+		evadeSkill = 5;
+		baseSpeed = 2f;
+		//flying = true;
 
-		state = WANDERING;
+		//state = WANDERING;
 		
-		properties.add(Property.BOSS);
+		properties.add(Property.GOBLIN);
 	}
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return new MasterThievesArmband();
+	}
+
 	@Override
 	public int damageRoll() {
-		return Dungeon.gold;
+		return Random.Int(5,20);
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return Dungeon.gold;
+		return (int)(Dungeon.gold/100);
 	}
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (enemy.buff(Taunt.class)== null && enemy == Dungeon.hero) {
-			Buff.affect(enemy, Taunt.class);
-			Dungeon.gold=0;
-			damage = 0;
-			this.damage(this.HT*2,this);
-			return damage;
-		} else return damage;
+		if (this.buff(Taunt.class)== null && enemy == Dungeon.hero) {
+			Buff.affect(this, Taunt.class);
+			Buff.affect(this,ShieldArmor.class).level((int)(Dungeon.gold/20));
+			Dungeon.gold -=(int)(Dungeon.gold/10);
+		}
+		return damage;
 	}
 
 	@Override
 	public int drRoll() {
-		return Dungeon.gold;
-	}	
-	
+		return 0;
+	}
+
 	@Override
-	public void add( Buff buff ) {
-		//in other words, can't be directly affected by buffs/debuffs.
-	}	
+	public void die(Object cause) {
+
+       int n = Random.Int(5);
+
+       for( int i = 0; i < n; i++ ) {
+		   Dungeon.level.drop(new DarkGold(), pos).sprite.drop();
+	   }
+		super.die(cause);
+
+	}
+
 }

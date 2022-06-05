@@ -86,19 +86,23 @@ public class GrowSeed extends Buff implements Hero.Doom {
 		return true;
 	}	
 	
-	public void reignite(Char ch) {
-		left = DURATION;
-	}	
-	
-	public void reignite( Char ch, float duration ) {
-		left = duration;
-	}
-	
 	@Override
 	public int icon() {
 		return BuffIndicator.GROW_SEED;
 	}
 
+	public void set(float duration) {
+		this.left = duration;
+	}
+
+	public float level() { return left; }
+
+	public void level(int value) {
+		if (left < value) {
+			left = value;
+		}
+	}	
+	
 	@Override
 	public void fx(boolean on) {
 		if (on) target.sprite.add(CharSprite.State.REGROW);

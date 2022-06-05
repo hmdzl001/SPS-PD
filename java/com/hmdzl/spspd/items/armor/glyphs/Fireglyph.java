@@ -18,36 +18,22 @@
 package com.hmdzl.spspd.items.armor.glyphs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.Fire;
-import com.hmdzl.spspd.actors.blobs.TarGas;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.Charm;
-import com.hmdzl.spspd.actors.buffs.Hot;
-import com.hmdzl.spspd.actors.buffs.Tar;
-import com.hmdzl.spspd.actors.mobs.FireElemental;
-import com.hmdzl.spspd.actors.mobs.Yog;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.effects.particles.FlameParticle;
-import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.items.armor.Armor.Glyph;
-import com.hmdzl.spspd.items.misc.FourClover;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
-
-import com.watabou.utils.GameMath;
+import com.hmdzl.spspd.effects.particles.FlameParticle;
+import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.items.misc.FourClover;
+import com.hmdzl.spspd.sprites.ItemSprite;
+import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class Fireglyph extends Glyph {
 
@@ -77,7 +63,7 @@ public class Fireglyph extends Glyph {
 		int level = Math.max(0, armor.level);
 
 		if (Random.Int(level + 6) >= 5 || (fcb != null && Random.Int(level + 6) >= 3)) {
-			Buff.affect(attacker, Burning.class).reignite( attacker );
+			Buff.affect(attacker, Burning.class).set(5f);
 			defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		}
 

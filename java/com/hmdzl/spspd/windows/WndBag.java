@@ -32,42 +32,46 @@ import com.hmdzl.spspd.items.AdamantWand;
 import com.hmdzl.spspd.items.AdamantWeapon;
 import com.hmdzl.spspd.items.EquipableItem;
 import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.Stylus;
+import com.hmdzl.spspd.items.Torch;
+import com.hmdzl.spspd.items.Weightstone;
+import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.Artifact;
-import com.hmdzl.spspd.items.food.WaterItem;
+import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
-import com.hmdzl.spspd.items.nornstone.NornStone;
-import com.hmdzl.spspd.items.rings.Ring;
-import com.hmdzl.spspd.items.summon.Honeypot;
+import com.hmdzl.spspd.items.bags.KeyRing;
+import com.hmdzl.spspd.items.bags.PotionBandolier;
+import com.hmdzl.spspd.items.bags.ScrollHolder;
+import com.hmdzl.spspd.items.bags.SeedPouch;
+import com.hmdzl.spspd.items.bags.ShoppingCart;
+import com.hmdzl.spspd.items.bags.WandHolster;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.challengelists.ChallengeList;
+import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.items.journalpages.JournalPage;
+import com.hmdzl.spspd.items.medicine.Greaterpill;
 import com.hmdzl.spspd.items.misc.JumpH;
 import com.hmdzl.spspd.items.misc.JumpM;
 import com.hmdzl.spspd.items.misc.JumpR;
 import com.hmdzl.spspd.items.misc.JumpS;
 import com.hmdzl.spspd.items.misc.JumpW;
 import com.hmdzl.spspd.items.misc.Jumpshoes;
+import com.hmdzl.spspd.items.nornstone.NornStone;
+import com.hmdzl.spspd.items.potions.Potion;
+import com.hmdzl.spspd.items.rings.Ring;
+import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.items.summon.Honeypot;
+import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.items.bags.ShoppingCart;
-import com.hmdzl.spspd.items.bags.Bag;
-import com.hmdzl.spspd.items.bags.KeyRing;
-import com.hmdzl.spspd.items.bags.PotionBandolier;
-import com.hmdzl.spspd.items.bags.ScrollHolder;
-import com.hmdzl.spspd.items.bags.SeedPouch;
-import com.hmdzl.spspd.items.bags.WandHolster;
-import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.items.journalpages.JournalPage;
-import com.hmdzl.spspd.items.potions.Potion;
-import com.hmdzl.spspd.items.scrolls.Scroll;
-import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.plants.Plant.Seed;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -76,11 +80,10 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.ItemSlot;
 import com.hmdzl.spspd.ui.QuickSlotButton;
- 
 import com.watabou.gltextures.TextureCache;
 import com.watabou.noosa.ColorBlock;
-import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
@@ -117,7 +120,8 @@ public class WndBag extends WndTabbed {
 		STONE,
 		TRANMSUTABLE,
 		AMMO,
-		EATABLE
+		EATABLE,
+		HOLY_MACE
     }
 
 	protected static final int COLS_P = 5;
@@ -499,7 +503,7 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.EQUIPMENT
 						&& (item instanceof EquipableItem)
 				 || mode == Mode.COOKING
-						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof StoneOre || item instanceof Honeypot || item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof BuildBomb)
+						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof StoneOre || item instanceof Honeypot || item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof BuildBomb ||item instanceof Weightstone ||item instanceof Stylus)
 				 || mode == Mode.CHALLENGELIST
 						&& (item instanceof ChallengeList)
 				 || mode == Mode.CANBEMIX
@@ -511,8 +515,10 @@ public class WndBag extends WndTabbed {
 				|| mode == Mode.AMMO
 						&& (item instanceof SpAmmo)
 				|| mode == Mode.EATABLE
-							&& (!item.isEquipped(hero) && (item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Armor))
-				 || mode == Mode.ALL);
+						&& (!item.isEquipped(hero) && (item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Armor))
+				|| mode == Mode.HOLY_MACE
+						&& (item instanceof Torch || item instanceof GreatRune || item instanceof Greaterpill)
+				|| mode == Mode.ALL);
 				}
 			} else {
 				bg.color(NORMAL);

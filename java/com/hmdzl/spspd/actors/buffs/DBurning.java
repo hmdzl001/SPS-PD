@@ -21,7 +21,8 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -80,20 +81,24 @@ public class DBurning extends Buff implements Hero.Doom {
 
 		return true;
 	}
-
-	public void reignite(Char ch) {
-		left = DURATION;
-	}
-
-	public void reignite( Char ch, float duration ) {
-		left = duration;
-	}
 	
 	@Override
 	public int icon() {
 		return BuffIndicator.FIRE;
 	}
 
+	public void set(float duration) {
+		this.left = duration;
+	}
+
+	public float level() { return left; }
+
+	public void level(int value) {
+		if (left < value) {
+			left = value;
+		}
+	}	
+	
 	@Override
 	public void fx(boolean on) {
 		if (on) target.sprite.add(CharSprite.State.BURNING);

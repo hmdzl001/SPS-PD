@@ -67,7 +67,7 @@ import com.hmdzl.spspd.items.food.completefood.AflyFood;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.Crystalnucleus;
-import com.hmdzl.spspd.items.food.completefood.Foamedbeverage;
+import com.hmdzl.spspd.items.medicine.Foamedbeverage;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
 import com.hmdzl.spspd.items.food.completefood.Fruitsalad;

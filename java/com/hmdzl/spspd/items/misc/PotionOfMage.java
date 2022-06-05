@@ -51,7 +51,7 @@ import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -251,7 +251,7 @@ public class PotionOfMage extends Item {
 			Buff.affect(defender, Slow.class, 10f);
 			Buff.affect(defender, Hot.class,10f);
 			Buff.affect(defender, Wet.class, 10f);
-			Buff.affect(defender, Shocked.class, 10f);
+			Buff.affect(defender, Shocked.class).level(10);
 			Buff.affect(defender, Roots.class, 10f);
 			
 			super.proc(attacker, defender, damage);

@@ -100,16 +100,16 @@ public class RingOfElements extends Ring {
 		return new RingResistance();
 	}
 
-	public static float Rresist(Char target, Class effect ){
+	public static float fintime(Char target, Class effect ){
 		if (getBonus(target, RingResistance.class) == 0) return 1f;
 
-		for (Class c : RESISTS){
+		for (Class c : REDUCE){
 			if (c.isAssignableFrom(effect)){
 				return (float)Math.max(0.40, ((100-getBonus(target, RingResistance.class)*2)/100));
 			}
 		}
 		
-		for (Class c : WEAKS){
+		for (Class c : IMPROVE){
 			if (c.isAssignableFrom(effect)){
 				return (float)Math.min(3.00,((15+getBonus(target, RingResistance.class))/15));
 			}
@@ -121,66 +121,66 @@ public class RingOfElements extends Ring {
 	//private static final HashSet<Class<?>> EMPTY = new HashSet<Class<?>>();
 	//private static final HashSet<Class<?>> FULLA = new HashSet<Class<?>>();
 	//private static final HashSet<Class<?>> FULLB = new HashSet<Class<?>>();
-    public static final HashSet<Class> RESISTS = new HashSet<>();
-	public static final HashSet<Class> WEAKS = new HashSet<>();
+    public static final HashSet<Class> REDUCE = new HashSet<>();
+	public static final HashSet<Class> IMPROVE = new HashSet<>();
 
 	static {
-		RESISTS.add(Burning.class);
-		RESISTS.add(Slow.class);
-		RESISTS.add(ToxicGas.class);
-		RESISTS.add(VenomGas.class);
-		RESISTS.add(SpearTrap.class);
-		RESISTS.add(ParalyticGas.class);
-		RESISTS.add(CorruptGas.class);
-		RESISTS.add(DarkGas.class);
-		RESISTS.add(ElectriShock.class);
-		RESISTS.add(FrostGas.class);
-		RESISTS.add(ConfusionGas.class);
-		RESISTS.add(ShockWeb.class);
-		RESISTS.add(SlowWeb.class);
-		RESISTS.add(Web.class);
-		RESISTS.add(Blindness.class);
-		RESISTS.add(Disarm.class);
-		RESISTS.add(Locked.class);
-		RESISTS.add(Silent.class);
-		RESISTS.add(WeatherOfRain.class);
-		RESISTS.add(WeatherOfSand.class);
-		RESISTS.add(WeatherOfSnow.class);
-		RESISTS.add(WeatherOfSun.class);
-		RESISTS.add(Poison.class);
-		RESISTS.add(LightningTrap.Electricity.class);
-		RESISTS.add(Warlock.class);
-		RESISTS.add(GnollShaman.class);
-		RESISTS.add(BrokenRobot.class);
-		RESISTS.add(DM300.class);
-		RESISTS.add(Eye.class);
-		RESISTS.add(Otiluke.class);
-		RESISTS.add(LitTower.class);
-		RESISTS.add(Shell.class);
-		RESISTS.add(Yog.BurningFist.class);
-		RESISTS.add(Yog.PinningFist.class);
+		REDUCE.add(Burning.class);
+		REDUCE.add(Slow.class);
+		REDUCE.add(ToxicGas.class);
+		REDUCE.add(VenomGas.class);
+		REDUCE.add(SpearTrap.class);
+		REDUCE.add(ParalyticGas.class);
+		REDUCE.add(CorruptGas.class);
+		REDUCE.add(DarkGas.class);
+		REDUCE.add(ElectriShock.class);
+		REDUCE.add(FrostGas.class);
+		REDUCE.add(ConfusionGas.class);
+		REDUCE.add(ShockWeb.class);
+		REDUCE.add(SlowWeb.class);
+		REDUCE.add(Web.class);
+		REDUCE.add(Blindness.class);
+		REDUCE.add(Disarm.class);
+		REDUCE.add(Locked.class);
+		REDUCE.add(Silent.class);
+		REDUCE.add(WeatherOfRain.class);
+		REDUCE.add(WeatherOfSand.class);
+		REDUCE.add(WeatherOfSnow.class);
+		REDUCE.add(WeatherOfSun.class);
+		REDUCE.add(Poison.class);
+		REDUCE.add(LightningTrap.Electricity.class);
+		REDUCE.add(Warlock.class);
+		REDUCE.add(GnollShaman.class);
+		REDUCE.add(BrokenRobot.class);
+		REDUCE.add(DM300.class);
+		REDUCE.add(Eye.class);
+		REDUCE.add(Otiluke.class);
+		REDUCE.add(LitTower.class);
+		REDUCE.add(Shell.class);
+		REDUCE.add(Yog.BurningFist.class);
+		REDUCE.add(Yog.PinningFist.class);
 
-		WEAKS.add(AflyBless.class);
-		WEAKS.add(Arcane.class);
-		WEAKS.add(Awareness.class);
-		WEAKS.add(BloodImbue.class);
-		WEAKS.add(EarthImbue.class);
-		WEAKS.add(Feed.class);
-		WEAKS.add(ForeverShadow.class);
-		WEAKS.add(FrostImbue.class);
-		WEAKS.add(GasesImmunity.class);
-		WEAKS.add(GoldTouch.class);
-		WEAKS.add(HasteBuff.class);
-	    WEAKS.add(Invisibility.class);
-	    WEAKS.add(Levitation.class);
-		WEAKS.add(MagicImmunity.class);
-		WEAKS.add(Muscle.class);
-		WEAKS.add(Needling.class);
-		WEAKS.add(Notice.class);
-        WEAKS.add(Recharging.class);
-		WEAKS.add(Rhythm.class);
-		WEAKS.add(Rhythm2.class);
-		WEAKS.add(TargetShoot.class);
+		IMPROVE.add(AflyBless.class);
+		IMPROVE.add(Arcane.class);
+		IMPROVE.add(Awareness.class);
+		IMPROVE.add(BloodImbue.class);
+		IMPROVE.add(EarthImbue.class);
+		IMPROVE.add(Feed.class);
+		IMPROVE.add(ForeverShadow.class);
+		IMPROVE.add(FrostImbue.class);
+		IMPROVE.add(GasesImmunity.class);
+		IMPROVE.add(GoldTouch.class);
+		IMPROVE.add(HasteBuff.class);
+	    IMPROVE.add(Invisibility.class);
+	    IMPROVE.add(Levitation.class);
+		IMPROVE.add(MagicImmunity.class);
+		IMPROVE.add(Muscle.class);
+		IMPROVE.add(Needling.class);
+		IMPROVE.add(Notice.class);
+        IMPROVE.add(Recharging.class);
+		IMPROVE.add(Rhythm.class);
+		IMPROVE.add(Rhythm2.class);
+		IMPROVE.add(TargetShoot.class);
 	}
 
 	public class RingResistance extends RingBuff {

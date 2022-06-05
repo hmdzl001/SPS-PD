@@ -63,14 +63,14 @@ public class MissileWeapon extends Weapon {
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
-			if (this instanceof Boomerang )
+			if (this instanceof Boomerang  )
 				super.onThrow(cell);
 			else
 				miss(cell);
 		} else {
 			if (!curUser.shoot(enemy, this)) {
 				miss(cell);
-			} else if (this instanceof  MiniMoai){
+			} else if (this instanceof  MiniMoai || this instanceof TempestBoomerang){
 				Dungeon.level.drop( this, enemy.pos).sprite.drop();
 			} else if (!(this instanceof Boomerang )) {
 				int bonus = 0;

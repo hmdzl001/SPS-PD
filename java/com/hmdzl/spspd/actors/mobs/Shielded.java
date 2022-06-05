@@ -19,6 +19,8 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
 import com.hmdzl.spspd.sprites.ShieldedSprite;
 import com.watabou.utils.Random;
 
@@ -30,6 +32,11 @@ public class Shielded extends Brute {
 		evadeSkill = 20+adj(0);
 		
 		properties.add(Property.ORC);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new CapeOfThorns();
 	}
 
 	@Override

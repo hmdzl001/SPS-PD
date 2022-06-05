@@ -17,18 +17,18 @@
  */
 package com.hmdzl.spspd.items.skills;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
 
 import static com.hmdzl.spspd.Dungeon.hero;
 
@@ -75,7 +75,10 @@ abstract public class ClassSkill extends Item {
 			break;
 		case FOLLOWER:
 			classSkill = new FollowerSkill();
-			break;			
+			break;	
+		case ASCETIC:
+			classSkill = new AsceticSkill();
+			break;				
 		}
         charge = 0;
 		return classSkill;

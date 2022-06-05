@@ -23,8 +23,17 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
+import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
+import com.hmdzl.spspd.items.rings.RingOfFuror;
+import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
+import com.hmdzl.spspd.items.weapon.enchantments.AresLeech;
+import com.hmdzl.spspd.items.weapon.enchantments.BuzzSaw;
+import com.hmdzl.spspd.items.weapon.enchantments.CromLuck;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth;
@@ -39,27 +48,22 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight2;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock2;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.items.rings.RingOfFuror;
-import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
-import com.hmdzl.spspd.items.weapon.enchantments.AresLeech;
-import com.hmdzl.spspd.items.weapon.enchantments.BuzzSaw;
-import com.hmdzl.spspd.items.weapon.enchantments.CromLuck;
 import com.hmdzl.spspd.items.weapon.enchantments.JupitersHorror;
 import com.hmdzl.spspd.items.weapon.enchantments.LokisPoison;
 import com.hmdzl.spspd.items.weapon.enchantments.NeptuneShock;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;
-
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static java.lang.reflect.Array.newInstance;
 
 public class Weapon extends KindOfWeapon {
 
@@ -356,6 +360,14 @@ public class Weapon extends KindOfWeapon {
 				EnchantmentEarth2.class, EnchantmentDark2.class, EnchantmentEnergy2.class,
 				EnchantmentIce2.class, EnchantmentShock2.class, EnchantmentLight2.class,
 				BuzzSaw.class};
+				
+		private static final Class<?>[] randomA = new Class<?>[] { EnchantmentFire.class,
+				EnchantmentEarth.class, EnchantmentDark.class, EnchantmentEnergy.class,
+				EnchantmentIce.class, EnchantmentShock.class, EnchantmentLight.class,
+				EnchantmentFire2.class,
+				EnchantmentEarth2.class, EnchantmentDark2.class, EnchantmentEnergy2.class,
+				EnchantmentIce2.class, EnchantmentShock2.class, EnchantmentLight2.class,
+				BuzzSaw.class};				
 		private static final float[] chances = new float[] { 5, 5, 5, 5, 5,5,
 				5, 5, 5, 5, 5, 5,
 				5, 5, 0};
@@ -388,6 +400,10 @@ public class Weapon extends KindOfWeapon {
 		public abstract boolean proc(RelicMeleeWeapon weapon, Char attacker,
 				Char defender, int damage);
 
+		public String name() {
+				return name( Messages.get(this, "glyph") );		
+		}						
+				
 		public String name( String weaponName ) {
 			return Messages.get(this, "name", weaponName);
 		}
@@ -409,6 +425,24 @@ public class Weapon extends KindOfWeapon {
 			return ItemSprite.Glowing.WHITE;
 		}
 
+		@SuppressWarnings("unchecked")
+		public static Enchantment Chooserandom( Class<? extends Enchantment> ... toIgnore ) {
+
+			return randomA( toIgnore );
+			
+		}
+
+		@SuppressWarnings("unchecked")
+		public static Enchantment randomA( Class<? extends Enchantment> ... toIgnore ){
+			ArrayList<Class<?>> ench = new ArrayList<>(Arrays.asList(randomA));
+			ench.removeAll(Arrays.asList(toIgnore));
+			if (ench.isEmpty()) {
+				return random();
+			} else {
+				return (Enchantment)newInstance(Random.element(ench));
+			}
+		}		
+		
 		@SuppressWarnings("unchecked")
 		public static Enchantment random() {
 			try {

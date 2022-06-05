@@ -22,12 +22,12 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.sprites.ZombieSprite;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class Zombie extends Mob {
 	
@@ -49,6 +49,11 @@ public class Zombie extends Mob {
 		lootChance = 0.1f;
 		
 		properties.add(Property.UNDEAD);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Ankh();
 	}
 
 	@Override

@@ -17,10 +17,11 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.special;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Bleeding;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.MirrorShield;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
@@ -35,6 +36,7 @@ import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -44,10 +46,8 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+
+import java.util.ArrayList;
 
 public class LinkSword extends MeleeWeapon {
 	public Buff passiveBuff;
@@ -73,7 +73,9 @@ public class LinkSword extends MeleeWeapon {
 
 	public final int fullCharge = 30;
 	public int charge = 0;
+	public int uptime = 0;
 	private static final String CHARGE = "charge";
+	private static final String UPTIME = "uptime";
 
 	public static final String AC_POWER = "POWER";
 	public static final String AC_WISDOM = "WISDOM";
@@ -98,15 +100,7 @@ public class LinkSword extends MeleeWeapon {
 	public void execute(Hero hero, String action) {
 		if (action == AC_POWER) {
 			curUser = hero;
-			STR +=2;
-			if (ACU < 1.6f){
-				ACU+=0.1f;
-			}
-			if (DLY > 0.7f){
-				DLY-=0.05;
-			}
-			MIN+=1;
-			MAX+=STR;
+			uptime++;
 			GLog.w(Messages.get(LinkSword.class,"power"));
 			curUser.sprite.operate(curUser.pos);
 			curUser.sprite.centerEmitter().start(PurpleParticle.BURST, 0.05f, 10);
@@ -132,11 +126,13 @@ public class LinkSword extends MeleeWeapon {
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(CHARGE, charge);
+		bundle.put(UPTIME,uptime);
 	}
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
+		uptime = bundle.getInt(UPTIME);
 	}
 	protected LinkBuff passiveBuff() {
 		return new LinkCharge();
@@ -181,6 +177,11 @@ public class LinkSword extends MeleeWeapon {
 			if (Dungeon.hero.HP>=Dungeon.hero.HT){
 				LinkSword.this.RCH = 4;
 			} else LinkSword.this.RCH = 1;
+			if (uptime> 0) {
+				STR = 10 + 2 * uptime;
+				ACU = Math.min(1.6f,1+0.1f * uptime);
+				DLY = Math.max(0.7f,1-0.05f * uptime);
+			}
 			spend(TICK);
 			return true;
 		}
@@ -235,13 +236,13 @@ public class LinkSword extends MeleeWeapon {
 				case 6:
 					if (charge > 25) {
 						charge -=15;
-						defender.damage(5*DMG, this);
+						defender.damage(2*DMG, this);
 					}
 					break;
 				default:
 					break;
 			}
-
+			damage += Random.Int(uptime,2*uptime);
 			if (enchantment != null) {
 				enchantment.proc(this, attacker, defender, damage);
 			}

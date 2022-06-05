@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PoisonParticle;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
@@ -38,11 +39,13 @@ public class Sorrowmoss extends Plant {
 
 		if (ch != null) {
 			Buff.affect(ch, Poison.class).set(4 + Dungeon.depth / 2);
+			Buff.affect(ch, ShadowCurse.class);
 		}
 
 		if (Dungeon.visible[pos]) {
 			CellEmitter.center(pos).burst(PoisonParticle.SPLASH, 3);
 		}
+
 	}
 
 	public static class Seed extends Plant.Seed {

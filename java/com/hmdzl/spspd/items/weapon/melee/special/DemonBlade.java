@@ -18,18 +18,13 @@
 package com.hmdzl.spspd.items.weapon.melee.special;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DBurning;
-import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.utils.GLog;
+import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
-
-import static com.hmdzl.spspd.Dungeon.hero;
 
 
 public class DemonBlade extends MeleeWeapon {
@@ -74,7 +69,7 @@ public class DemonBlade extends MeleeWeapon {
 		damage = (int)(damage* (1 + 0.1 * Dungeon.hero.magicSkill()));
 		
 		if (Random.Int(8) == 0) {
-			Buff.affect(defender,DBurning.class).reignite(defender);
+			Buff.affect(defender,DBurning.class).set(3f);
 		}
 		
 		if (Random.Int(3) == 0) {

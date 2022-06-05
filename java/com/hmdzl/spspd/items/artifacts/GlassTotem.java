@@ -1,7 +1,5 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
@@ -10,11 +8,13 @@ import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 /**
  * Created by dachhack on 10/15/2015.
@@ -39,7 +39,7 @@ public class GlassTotem extends Artifact {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero)&& !cursed){
 		actions.add(AC_ATK);}
-		if (isEquipped(hero) && level > 1 && !cursed)
+		if (isEquipped(hero) && level > 2 && !cursed)
 		actions.add(AC_DEF);
 		return actions;
 	}
@@ -66,7 +66,7 @@ public class GlassTotem extends Artifact {
 			if (!isEquipped(hero))
 				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
 			else {	
-                if (level > 1 )level--;
+                if (level > 2 )level-=2;
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 				Buff.detach(hero, AttackUp.class);

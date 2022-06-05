@@ -48,13 +48,11 @@ import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
 import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BeastYearSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class YearBeast2 extends Mob {
 	protected static final float SPAWN_DELAY = 1f;
@@ -111,7 +109,7 @@ public class YearBeast2 extends Mob {
 	public int attackProc(Char enemy, int damage) {
 
 		if (Random.Int(2) == 0) {
-			Buff.affect(enemy, Burning.class).reignite(enemy);
+			Buff.affect(enemy, Burning.class).set(3f);
 		} else {
 			Buff.affect(enemy, Frost.class);
 		}

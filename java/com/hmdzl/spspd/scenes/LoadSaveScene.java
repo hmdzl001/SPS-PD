@@ -94,7 +94,7 @@
          int posX2 = w - (int) (BUTTON2_WIDTH + BUTTON_PADDING);
          int posX = (int) (BUTTON1_WIDTH + (BUTTON_PADDING * 3));
  
-         String[] classList = { "warrior", "mage", "rogue", "huntress", "performer", "soldier", "follower" };
+         String[] classList = { "warrior", "mage", "rogue", "huntress", "performer", "soldier", "follower", "ascetic"};
          String[] slotList = { "A", "B", "C", "D", "E" };
  
          for (String classInfo : classList) {

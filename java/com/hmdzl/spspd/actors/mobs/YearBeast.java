@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -42,7 +40,6 @@ import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.items.journalpages.Vault;
@@ -54,7 +51,7 @@ import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
 import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BeastYearSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -107,7 +104,7 @@ public class YearBeast extends Mob {
 	public boolean act() {
 		times++;
 		for (Char ch : Dungeon.level.mobs) {
-            Buff.affect(ch,Burning.class).reignite(ch);
+            Buff.affect(ch,Burning.class).set(3f);
 		}
 		for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
 			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2,
@@ -123,7 +120,7 @@ public class YearBeast extends Mob {
 	public int attackProc(Char enemy, int damage) {
 
 		if (Random.Int(2) == 0) {
-			Buff.affect(enemy, Burning.class).reignite(enemy);
+			Buff.affect(enemy, Burning.class).set(6f);
 		} else {
 			Buff.affect(enemy, Frost.class);
 		}

@@ -33,16 +33,15 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TenguSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class TenguDen extends Mob {
 
@@ -79,7 +78,10 @@ public class TenguDen extends Mob {
 		return Random.NormalIntRange(10, 20);
 	}
 
-	
+	@Override
+	public Item SupercreateLoot(){
+			return new ManyKnive().identify();
+	}	
 	
 	
 	@Override
@@ -128,7 +130,7 @@ public class TenguDen extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if(Random.Int(15)==0){
-			Buff.affect(enemy, Burning.class).reignite(enemy);
+			Buff.affect(enemy, Burning.class).set(5f);
 			enemy.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		}
 		if(Random.Int(20)==0){

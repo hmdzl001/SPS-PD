@@ -17,21 +17,19 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.Statistics;
-import com.hmdzl.spspd.actors.buffs.Locked;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.weapon.melee.special.TekkoKagi;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AssassinSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -57,6 +55,10 @@ public class Assassin extends Mob {
 		
 	}
 
+	@Override
+	public Item SupercreateLoot(){
+		return new TekkoKagi();
+	}
 	
 	@Override
 	public int damageRoll() {

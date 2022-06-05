@@ -31,11 +31,13 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.artifacts.GlassTotem;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban4;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.DanceLion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
@@ -171,6 +173,10 @@ public class LichDancer extends Mob {
         return damage;
 	}
 
+	@Override
+	public Item SupercreateLoot(){
+			return new DanceLion().identify();
+	}
 
 
 	private static final String BREAKS	= "breaks";

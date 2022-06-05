@@ -17,16 +17,16 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Locked;
-import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ThiefSprite;
 import com.watabou.utils.Random;
@@ -52,7 +52,12 @@ public class Thief extends Mob {
 
 		FLEEING = new Fleeing();
 		
-		properties.add(Property.ELF);
+		properties.add(Property.GOBLIN);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.RANGEWEAPON);
 	}
 
 	@Override

@@ -21,8 +21,10 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.DevUpPlan;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CoconutSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class Coconut2 extends NPC {
@@ -45,7 +47,10 @@ public class Coconut2 extends NPC {
 		return 1000;
 	}
 
-
+	@Override
+	public Item SupercreateLoot(){
+		return new DevUpPlan();
+	}
 	@Override
 	protected Char chooseEnemy() {
 		return null;

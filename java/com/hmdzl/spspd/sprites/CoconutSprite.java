@@ -20,7 +20,7 @@ package com.hmdzl.spspd.sprites;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.levels.Level;
 import com.watabou.noosa.TextureFilm;
-import com.hmdzl.spspd.items.weapon.missiles.NormalBomb;
+import com.hmdzl.spspd.items.weapon.missiles.ShitBall;
 import com.watabou.utils.Callback;
 
 public class CoconutSprite extends MobSprite {
@@ -53,7 +53,7 @@ public class CoconutSprite extends MobSprite {
 		if (!Level.adjacent(cell, ch.pos)) {
 
 			((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
-					cell, new NormalBomb(), new Callback() {
+					cell, new ShitBall(), new Callback() {
 						@Override
 						public void call() {
 							ch.onAttackComplete();

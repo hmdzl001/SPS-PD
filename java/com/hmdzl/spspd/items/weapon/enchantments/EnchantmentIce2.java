@@ -19,9 +19,7 @@ package com.hmdzl.spspd.items.weapon.enchantments;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Cold;
 import com.hmdzl.spspd.actors.buffs.FrostIce;
-import com.hmdzl.spspd.actors.buffs.Wet;
 import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
@@ -29,6 +27,8 @@ import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ICE_DAMAGE;
 
 public class EnchantmentIce2 extends Weapon.Enchantment {
 
@@ -47,9 +47,9 @@ public class EnchantmentIce2 extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), ICE_DAMAGE);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), ICE_DAMAGE);
 		}
 
 		if (Random.Int(3) >= 1) {

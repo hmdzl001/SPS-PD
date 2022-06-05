@@ -17,16 +17,16 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.missiles.Tamahawk;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BruteSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -56,6 +56,11 @@ public class Brute extends Mob {
 	}
 
 	private boolean enraged = false;
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Tamahawk(5);
+	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {

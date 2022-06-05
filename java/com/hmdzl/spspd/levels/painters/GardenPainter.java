@@ -19,10 +19,9 @@ package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.Foliage;
-import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.summon.Honeypot;
-import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
@@ -75,24 +74,6 @@ public class GardenPainter extends Painter {
 			do {pos = room.random();}
 			while (level.heaps.get(pos) != null);
 			level.drop(new EasterEgg(), pos);
-		}
-		
-		if (Dungeon.depth==32 && Random.Float() < 0.75f){
-			int pos;
-			do {pos = room.random();}
-			while (level.heaps.get(pos) != null);
-			level.drop(new Honeypot(), pos);	
-			
-			do {pos = room.random();}
-			while (level.heaps.get(pos) != null);
-			level.drop(new Honeypot(), pos);
-		}
-		
-		if (Dungeon.depth==32 && Random.Float() < 0.75f){
-			int pos;
-			do {pos = room.random();}
-			while (level.heaps.get(pos) != null);
-			level.drop(new Ankh(), pos);		
 		}
 
 		Foliage light = (Foliage) level.blobs.get(Foliage.class);

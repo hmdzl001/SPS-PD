@@ -17,15 +17,6 @@
  */
 package com.hmdzl.spspd;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
 import com.hmdzl.spspd.actors.mobs.Acidic;
 import com.hmdzl.spspd.actors.mobs.Albino;
 import com.hmdzl.spspd.actors.mobs.Bandit;
@@ -41,12 +32,21 @@ import com.hmdzl.spspd.items.bags.WandHolster;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 public class Badges {
 
@@ -76,12 +76,12 @@ public class Badges {
         DEATH_FROM_GLYPH(57),
         DEATH_FROM_FALLING(59),
         YASD(34, true),
-        BOSS_SLAIN_1_WARRIOR, BOSS_SLAIN_1_MAGE, BOSS_SLAIN_1_ROGUE, BOSS_SLAIN_1_HUNTRESS, BOSS_SLAIN_1_PERFORMER,BOSS_SLAIN_1_SOLDIER,BOSS_SLAIN_1_FOLLOWER, BOSS_SLAIN_1(12),
+        BOSS_SLAIN_1_WARRIOR, BOSS_SLAIN_1_MAGE, BOSS_SLAIN_1_ROGUE, BOSS_SLAIN_1_HUNTRESS, BOSS_SLAIN_1_PERFORMER,BOSS_SLAIN_1_SOLDIER,BOSS_SLAIN_1_FOLLOWER,BOSS_SLAIN_1_ASCETIC, BOSS_SLAIN_1(12),
         BOSS_SLAIN_2(13),
         BOSS_SLAIN_3(14),
         BOSS_SLAIN_4(15),
         BOSS_SLAIN_1_ALL_CLASSES(32, true),
-        BOSS_SLAIN_3_GLADIATOR, BOSS_SLAIN_3_BERSERKER, BOSS_SLAIN_3_WARLOCK, BOSS_SLAIN_3_BATTLEMAGE, BOSS_SLAIN_3_FREERUNNER, BOSS_SLAIN_3_ASSASSIN, BOSS_SLAIN_3_SNIPER, BOSS_SLAIN_3_WARDEN,BOSS_SLAIN_3_SUPERSTAR,BOSS_SLAIN_3_JOKER, BOSS_SLAIN_3_ALL_SUBCLASSES(33, true),
+        BOSS_SLAIN_3_GLADIATOR, BOSS_SLAIN_3_BERSERKER, BOSS_SLAIN_3_WARLOCK, BOSS_SLAIN_3_BATTLEMAGE, BOSS_SLAIN_3_FREERUNNER, BOSS_SLAIN_3_ASSASSIN, BOSS_SLAIN_3_SNIPER, BOSS_SLAIN_3_WARDEN,BOSS_SLAIN_3_SUPERSTAR,BOSS_SLAIN_3_JOKER,BOSS_SLAIN_3_AGENT,BOSS_SLAIN_3_LEADER,BOSS_SLAIN_3_PASTOR,BOSS_SLAIN_3_ARTISAN,BOSS_SLAIN_3_MONK,BOSS_SLAIN_3_HACKER, BOSS_SLAIN_3_ALL_SUBCLASSES(33, true),
         RING_OF_HAGGLER(20),
         RING_OF_THORNS(21),
         STRENGTH_ATTAINED_1(40),
@@ -92,13 +92,13 @@ public class Badges {
         FOOD_EATEN_2(45),
         FOOD_EATEN_3(46),
         FOOD_EATEN_4(47),
-        MASTERY_WARRIOR, MASTERY_MAGE, MASTERY_ROGUE, MASTERY_HUNTRESS, MASTERY_PERFORMER, MASTERY_SOLDIER,MASTERY_FOLLOWER,
+        MASTERY_WARRIOR, MASTERY_MAGE, MASTERY_ROGUE, MASTERY_HUNTRESS, MASTERY_PERFORMER, MASTERY_SOLDIER,MASTERY_FOLLOWER,MASTERY_ASCETIC,
 		ITEM_LEVEL_1(48),
         ITEM_LEVEL_2(49),
         ITEM_LEVEL_3(50),
         ITEM_LEVEL_4(51),
         RARE_ALBINO, RARE_BANDIT, RARE_SHIELDED, RARE_SENIOR, RARE_ACIDIC, RARE(37, true),
-        VICTORY_WARRIOR, VICTORY_MAGE, VICTORY_ROGUE, VICTORY_HUNTRESS, VICTORY_PERFORMER, VICTORY_SOLDIER,VICTORY_FOLLOWER,VICTORY(22),
+        VICTORY_WARRIOR, VICTORY_MAGE, VICTORY_ROGUE, VICTORY_HUNTRESS, VICTORY_PERFORMER, VICTORY_SOLDIER,VICTORY_FOLLOWER,VICTORY_ASCETIC,VICTORY(22),
         VICTORY_ALL_CLASSES(36, true),
         MASTERY_COMBO(56),
         POTIONS_COOKED_1(52),
@@ -639,7 +639,10 @@ public class Badges {
 					break;
 				case FOLLOWER:
 					badge = Badge.BOSS_SLAIN_1_FOLLOWER;
-					break;											
+					break;
+				case ASCETIC:
+					badge = Badge.BOSS_SLAIN_1_ASCETIC;
+					break;						
 				}
 				local.add(badge);
 				if (!global.contains(badge)) {
@@ -650,7 +653,11 @@ public class Badges {
 				if (global.contains(Badge.BOSS_SLAIN_1_WARRIOR)
 						&& global.contains(Badge.BOSS_SLAIN_1_MAGE)
 						&& global.contains(Badge.BOSS_SLAIN_1_ROGUE)
-						&& global.contains(Badge.BOSS_SLAIN_1_HUNTRESS)) {
+						&& global.contains(Badge.BOSS_SLAIN_1_HUNTRESS)
+						&& global.contains(Badge.BOSS_SLAIN_1_PERFORMER)
+						&& global.contains(Badge.BOSS_SLAIN_1_SOLDIER)
+						&& global.contains(Badge.BOSS_SLAIN_1_FOLLOWER)
+						&& global.contains(Badge.BOSS_SLAIN_1_ASCETIC)) {
 
 					badge = Badge.BOSS_SLAIN_1_ALL_CLASSES;
 					if (!global.contains(badge)) {
@@ -690,7 +697,25 @@ public class Badges {
 					break;
 				case JOKER:
 					badge = Badge.BOSS_SLAIN_3_JOKER;
-					break;					
+					break;	
+				case AGENT:
+					badge = Badge.BOSS_SLAIN_3_AGENT;
+					break;			
+				case LEADER:
+					badge = Badge.BOSS_SLAIN_3_LEADER;
+					break;			
+				case ARTISAN:
+					badge = Badge.BOSS_SLAIN_3_ARTISAN;
+					break;			
+				case PASTOR:
+					badge = Badge.BOSS_SLAIN_3_PASTOR;
+					break;			
+				case MONK:
+					badge = Badge.BOSS_SLAIN_3_MONK;
+					break;			
+				case HACKER:
+					badge = Badge.BOSS_SLAIN_3_HACKER;
+					break;								
 				default:
 					return;
 				}
@@ -801,7 +826,10 @@ public class Badges {
 			break;		
 		case FOLLOWER:
 			badge = Badge.MASTERY_FOLLOWER;
-			break;			
+			break;	
+		case ASCETIC:
+			badge = Badge.MASTERY_ASCETIC;
+			break;					
 		}
 
 		if (!global.contains(badge)) {
@@ -892,6 +920,15 @@ public class Badges {
 			break;
 		case PERFORMER:
 			badge = Badge.VICTORY_PERFORMER;
+			break;	
+		case SOLDIER:
+			badge = Badge.VICTORY_SOLDIER;
+			break;
+		case FOLLOWER:
+			badge = Badge.VICTORY_FOLLOWER;
+			break;
+		case ASCETIC:
+			badge = Badge.VICTORY_ASCETIC;
 			break;			
 		}
 		local.add(badge);

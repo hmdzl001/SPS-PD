@@ -34,7 +34,7 @@ import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -131,7 +131,7 @@ public class EleKatana extends MeleeWeapon {
 		if (defender.buff(Shocked2.class) != null) {
 			damage = (int) (damage * 1.5);
 		}
-        Buff.affect(defender,Shocked2.class).level(2);
+        Buff.affect(defender,Shocked2.class).level(5);
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);
 		}
@@ -205,7 +205,7 @@ public class EleKatana extends MeleeWeapon {
 			}
 		}
 		for (Char ch : chars) {
-			Buff.affect(ch,Shocked.class,5f);
+			Buff.affect(ch,Shocked.class).level(5);
 			Buff.affect(ch,Shocked2.class).level(5);
 			ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
 			ch.sprite.flash();

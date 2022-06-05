@@ -23,9 +23,11 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.ChallengeBook;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.misc.CursePhone;
 import com.hmdzl.spspd.items.weapon.melee.special.Goei;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.RENSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class RENnpc extends NPC {
@@ -95,5 +97,10 @@ public class RENnpc extends NPC {
 			break;
 		}
 		return true;
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new CursePhone();
 	}
 }

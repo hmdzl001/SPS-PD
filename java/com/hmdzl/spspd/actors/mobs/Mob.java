@@ -49,8 +49,11 @@ import com.hmdzl.spspd.effects.Wound;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.RedDewdrop;
+import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
+import com.hmdzl.spspd.items.artifacts.AlienBag;
+import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.misc.DemoScroll;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
@@ -626,6 +629,12 @@ public abstract class Mob extends Char {
 			Dungeon.hero.updateHT(true);
 			//Buff.affect(Dungeon.hero,GlassShield.class).turns(3)
 		}
+		
+		AlienBag.bagRecharge bags = Dungeon.hero.buff(AlienBag.bagRecharge.class);
+		if (bags != null) bags.gainExp();
+
+		MasterThievesArmband.Thievery armband = Dungeon.hero.buff(MasterThievesArmband.Thievery.class);
+		if (armband != null) armband.gainCharge();
 	
 		if (Dungeon.hero.lvl <= maxLvl && EXP > 0) {
 			Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "exp", EXP));
@@ -876,6 +885,20 @@ public abstract class Mob extends Char {
 		}
 		target = cell;
 	}
+
+	public Item SupercreateLoot() {
+		Item item;
+		if (loot instanceof Generator.Category) {
+			item = Generator.random( (Generator.Category)loot );
+		} else if (loot instanceof Class<?>) {
+			item = Generator.random( (Class<? extends Item>)loot );
+		} else {
+			item = new StoneOre();
+
+		}
+		return item;
+	}
+
 
 	public String description() {
 		return Messages.get(this, "desc");

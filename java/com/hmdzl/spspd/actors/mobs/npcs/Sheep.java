@@ -20,7 +20,9 @@
  */
 package com.hmdzl.spspd.actors.mobs.npcs;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.SheepFur;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.SheepSprite;
 import com.watabou.utils.Random;
 
@@ -60,5 +62,9 @@ public class Sheep extends NPC {
 	public boolean interact() {
 		yell( Messages.get(this, Random.element(LINE_KEYS)) );
 		return false;
+	}
+	@Override
+	public Item SupercreateLoot(){
+		return new SheepFur();
 	}
 }

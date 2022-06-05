@@ -58,7 +58,7 @@ public class ScrollOfRecharging extends Scroll {
 
 		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 			if (Level.fieldOfView[mob.pos]) {
-				Buff.affect(mob,Shocked.class,6f);
+				Buff.affect(mob,Shocked.class).level(6);
 			}
 		}
 

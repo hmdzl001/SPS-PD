@@ -22,6 +22,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.LightShootAttack;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
@@ -43,6 +44,7 @@ public class Blindweed extends Plant {
 			int len = Random.Int(5, 10);
 			Buff.prolong(ch, Blindness.class, len);
 			Buff.prolong(ch, Cripple.class, len);
+			Buff.affect(ch, LightShootAttack.class).level(len);
 			if (ch instanceof Mob) {
 				if (((Mob)ch).state == ((Mob)ch).HUNTING) ((Mob)ch).state = ((Mob)ch).WANDERING;
 				((Mob)ch).beckon( Dungeon.level.randomDestination() );

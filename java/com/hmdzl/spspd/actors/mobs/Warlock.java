@@ -25,6 +25,7 @@ import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -59,6 +60,11 @@ public class Warlock extends Mob implements Callback {
 		
 		properties.add(Property.DWARF);
 		properties.add(Property.MAGICER);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Egg();
 	}
 
 	@Override

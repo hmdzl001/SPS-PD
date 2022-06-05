@@ -28,6 +28,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
+
 public class EnchantmentDark extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
@@ -45,9 +47,9 @@ public class EnchantmentDark extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.75), this);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.75), DARK_DAMAGE);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), DARK_DAMAGE);
 		}
 		if (Random.Int(4) == 1) {
             Buff.prolong(defender, Terror.class,3f);

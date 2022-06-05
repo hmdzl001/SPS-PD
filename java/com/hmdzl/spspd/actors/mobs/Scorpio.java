@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
@@ -29,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
-
+import com.hmdzl.spspd.items.weapon.melee.Dagger;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ScorpioSprite;
 import com.watabou.utils.Random;
@@ -53,6 +50,11 @@ public class Scorpio extends Mob {
 		lootChanceOther = 0.30f; // by default, see die()
 		
 		properties.add(Property.BEAST);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Dagger();
 	}
 
 	@Override

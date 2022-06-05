@@ -66,7 +66,7 @@ public class WandOfFirebolt extends DamageWand {
 		    ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this);
 
 			
-			Buff.affect(ch, Burning.class).reignite(ch);
+			Buff.affect(ch, Burning.class).set(5f);
 
 			ch.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 

@@ -33,6 +33,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
+
 public class Darkglyph extends Glyph {
 
 	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
@@ -67,7 +69,7 @@ public class Darkglyph extends Glyph {
 			defender.HP += Random.Int(Math.min(healing, (defender.HT - defender.HP)/4)/2);
 			defender.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			//defender.sprite.showStatus(CharSprite.POSITIVE,Integer.toString(healing));
-			attacker.damage(healing, this);
+			attacker.damage(healing, DARK_DAMAGE);
 			}
 		}
 

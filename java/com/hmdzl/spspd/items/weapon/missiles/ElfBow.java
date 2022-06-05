@@ -17,8 +17,10 @@
  */
 package com.hmdzl.spspd.items.weapon.missiles;
 
-import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -26,23 +28,15 @@ import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.items.weapon.melee.special.DemonBlade;
-import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.windows.WndBag;
-import com.hmdzl.spspd.windows.WndOptions;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 import java.util.ArrayList;
 
@@ -62,6 +56,7 @@ public class ElfBow extends Weapon {
 		
 		stackable = false;
 		unique = true;
+		charge = 0;
 		
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;

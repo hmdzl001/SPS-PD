@@ -87,8 +87,11 @@ public class NormalArmor extends Armor {
 
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(NormalArmor.class, "stats_known", tier, MIN, MAX, STR);
-			info += "\n\n" + Messages.get(NormalArmor.class, "stats_known2",new DecimalFormat("#.##").format(DEX), new DecimalFormat("#.##").format(STE), ENG);
-		} else {
+				info += "\n\n" + Messages.get(NormalArmor.class, "stats_known2",new DecimalFormat("#.##").format(DEX), new DecimalFormat("#.##").format(STE), ENG);
+          if (Dungeon.hero.STR() > typicalSTR()){
+				info += " " + Messages.get(NormalArmor.class, "excess_str", Dungeon.hero.STR() - typicalSTR());
+			}
+				} else {
 			info += "\n\n" + Messages.get(NormalArmor.class, "stats_unknown", tier, min(), max(), typicalSTR());
 		}
 

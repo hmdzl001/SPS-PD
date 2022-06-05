@@ -25,6 +25,8 @@ import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
 import com.hmdzl.spspd.sprites.SuffererSprite;
 import com.watabou.utils.Random;
 
@@ -48,7 +50,12 @@ import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
 		properties.add(Property.MAGICER);
 		properties.add(Property.HUMAN);
 	}
-	
+
+	 @Override
+	 public Item SupercreateLoot(){
+		 return new UnstableSpellbook();
+	 }
+
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(7+adj(0), 10+adj(1));

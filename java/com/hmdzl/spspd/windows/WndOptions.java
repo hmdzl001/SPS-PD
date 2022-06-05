@@ -20,8 +20,9 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.RedButton;
-import com.hmdzl.spspd.ui.Window;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
+import com.hmdzl.spspd.ui.Window;
+import com.watabou.noosa.Image;
 
 public class WndOptions extends Window {
 
@@ -30,7 +31,7 @@ public class WndOptions extends Window {
 
 	private static final int WIDTH_P = 120;
 	private static final int WIDTH_L = 144;
-
+	
 	public WndOptions( String title, String message, String... options ) {
 		super();
 
@@ -67,5 +68,25 @@ public class WndOptions extends Window {
 		resize( width, (int)pos );
 	}
 
+	
+	protected boolean enabled( int index ){
+		return true;
+	}
+	
 	protected void onSelect( int index ) {}
+
+	protected boolean hasInfo( int index ) {
+		return false;
+	}
+
+	protected void onInfo( int index ) {}
+
+	protected boolean hasIcon( int index ) {
+		return false;
+	}
+
+	protected Image getIcon( int index ) {
+		return null;
+	}
+	
 }

@@ -42,7 +42,7 @@ public class Chocolate extends CompleteFood {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-             Buff.affect(hero, ShieldArmor.class).level(150);
+             Buff.affect(hero, ShieldArmor.class).level(hero.HT);
 		}
 	}
 

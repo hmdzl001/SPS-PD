@@ -17,13 +17,14 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.CountDown;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.special.Spork;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BanditKingSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
@@ -47,7 +48,12 @@ public class BanditKing extends Mob {
 		properties.add(Property.ELF);
 		properties.add(Property.MINIBOSS);
 	}
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Boomerang();
+	}
+
 	@Override
 	public int drRoll() {
 		return Random.NormalIntRange(10, 20);

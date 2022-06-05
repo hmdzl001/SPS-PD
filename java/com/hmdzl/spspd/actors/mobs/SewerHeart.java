@@ -25,6 +25,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Badges.Badge;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -38,11 +39,13 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.misc.MissileShield;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Rotberry;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -253,6 +256,11 @@ public class SewerHeart extends Mob {
 		beam = null;
 		beamTarget = -1;
 	}
+	
+	@Override
+	public Item SupercreateLoot(){
+			return new MissileShield();
+	}	
 
 	@Override
 	public void die(Object cause) {
@@ -287,6 +295,9 @@ public class SewerHeart extends Mob {
 					break;	
 				case FOLLOWER:
 					badgeToCheck = Badge.MASTERY_FOLLOWER;
+					break;
+								case ASCETIC:
+					badgeToCheck = Badge.MASTERY_ASCETIC;
 					break;
 					}		
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
@@ -442,7 +453,7 @@ public class SewerHeart extends Mob {
 				Buff.affect(enemy, Cripple.class, 2f);
 			} else
 			if (Random.Int(4) < 1) {
-				Buff.affect(enemy, GrowSeed.class).reignite(enemy);
+				Buff.affect(enemy, GrowSeed.class).set(4f);
 			} else
 			if (Random.Int(3) < 1) {
 				Buff.affect(enemy, Bleeding.class).set(damage);}

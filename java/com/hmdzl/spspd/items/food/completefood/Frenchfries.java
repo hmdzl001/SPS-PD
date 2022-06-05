@@ -18,8 +18,9 @@
 package com.hmdzl.spspd.items.food.completefood;
 
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.buffs.SuperArcane;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -43,8 +44,10 @@ public class Frenchfries extends CompleteFood {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-             Buff.affect(hero, ShieldArmor.class).level(75);
-			 Buff.affect(hero, HasteBuff.class,50f);
+             Buff.affect(hero, ShieldArmor.class).level(hero.HT/2);
+			 Buff.affect(hero, Recharging.class,20f);
+			 Buff.affect(hero, SuperArcane.class,40f).level(5);
+			 //magic
 		}
 	}
 

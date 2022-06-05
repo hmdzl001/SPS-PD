@@ -29,6 +29,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
+
 public class EnchantmentEnergy extends Weapon.Enchantment {
 
     private static ItemSprite.Glowing GRAY = new ItemSprite.Glowing( 0x888888 );
@@ -46,10 +48,10 @@ public class EnchantmentEnergy extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.25), this);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), ENERGY_DAMAGE);
 		
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), ENERGY_DAMAGE);
 		}
 
 		if (attacker.buff(DamageUp.class) == null) {

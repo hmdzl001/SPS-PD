@@ -39,6 +39,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.Apostle;
 import com.hmdzl.spspd.actors.mobs.npcs.AshWolf;
 import com.hmdzl.spspd.actors.mobs.npcs.Bilboldev;
 import com.hmdzl.spspd.actors.mobs.npcs.BlackMeow;
+import com.hmdzl.spspd.actors.mobs.npcs.BoneStar;
 import com.hmdzl.spspd.actors.mobs.npcs.CatSheep;
 import com.hmdzl.spspd.actors.mobs.npcs.Coconut;
 import com.hmdzl.spspd.actors.mobs.npcs.ConsideredHamster;
@@ -122,11 +123,11 @@ import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.Tree;
 import com.hmdzl.spspd.items.weapon.missiles.MiniMoai;
 import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
-import com.hmdzl.spspd.items.weapon.missiles.PocketBall;
+import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.plants.Starflower;
@@ -722,6 +723,9 @@ public class TownLevel extends Level {
 		  mob6.pos = 19 + WIDTH * 9;
 		  mobs.add(mob6);
 
+		  Mob bonestar = new BoneStar();
+		  bonestar.pos = 21 + WIDTH * 9;
+		  mobs.add(bonestar);
 
 	 }
 

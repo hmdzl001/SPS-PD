@@ -26,6 +26,9 @@ public class Statistics {
 	private static final String GOLD = "score";
 	private static final String DEEPEST = "maxDepth";
 	private static final String REALDEEPEST = "maxDepthReal";
+	
+	private static final String FINDSEED = "findseed";
+	
 	private static final String SLAIN = "enemiesSlain";
 	private static final String FOOD = "foodEaten";
 	private static final String EGG = "eggBreak";
@@ -35,6 +38,7 @@ public class Statistics {
 	private static final String ARCHERS = "archers";
 	private static final String SKELETONS = "skeletons";
 	private static final String ASSASSINS = "assassins";
+	private static final String ORCS = "orcs";
 	private static final String APIRANHAS = "apiranhas";
 	private static final String THIEVES = "thieves";
 	private static final String NIGHT = "nightHunt";
@@ -57,6 +61,7 @@ public class Statistics {
 	public static int archersKilled;
 	public static int skeletonsKilled;
 	public static int assassinsKilled;
+	public static int orcsKilled;
 	public static int albinoPiranhasKilled;
 	public static int goldThievesKilled;
 	public static int nightHunt;
@@ -65,6 +70,7 @@ public class Statistics {
 	public static int floormoves;
 	public static int prevfloormoves;
 	public static int moves;
+	public static int findseed;
 	public static float time;
 	public static boolean qualifiedForNoKilling = false;
 	public static boolean completedWithNoKilling = false;
@@ -80,10 +86,12 @@ public class Statistics {
 		foodEaten = 0;
 		eggBreak = 0;
 		potionsCooked = 0;
+		findseed = 0;
 
 		piranhasKilled = 0;
 		archersKilled = 0;
 		assassinsKilled = 0;
+		orcsKilled = 0;
 		skeletonsKilled = 0;
 		albinoPiranhasKilled = 0;
 		goldThievesKilled = 0;
@@ -115,6 +123,7 @@ public class Statistics {
 		bundle.put(ARCHERS, archersKilled);
 		bundle.put(SKELETONS, skeletonsKilled);
 		bundle.put(ASSASSINS, assassinsKilled);
+		bundle.put(ORCS, orcsKilled);
 		bundle.put(APIRANHAS, albinoPiranhasKilled);
 		bundle.put(THIEVES, goldThievesKilled);
 		bundle.put(NIGHT, nightHunt);
@@ -124,6 +133,7 @@ public class Statistics {
 		bundle.put(PREVFLOORMOVES, prevfloormoves);
 		bundle.put(MOVES, moves);
 		bundle.put(TIME, time);
+		bundle.put(FINDSEED, findseed);
 		bundle.put(AMULET, amuletObtained);
 		bundle.put(ORB, orbObtained);
 	}
@@ -141,6 +151,7 @@ public class Statistics {
 		archersKilled = bundle.getInt(ARCHERS);
 		skeletonsKilled = bundle.getInt(SKELETONS);
 		assassinsKilled = bundle.getInt(ASSASSINS);
+		orcsKilled = bundle.getInt(ORCS);
 		albinoPiranhasKilled = bundle.getInt(APIRANHAS);
 		goldThievesKilled = bundle.getInt(THIEVES);
 		
@@ -151,6 +162,7 @@ public class Statistics {
 		prevfloormoves = bundle.getInt(PREVFLOORMOVES);
 		moves = bundle.getInt(MOVES);
 		time = bundle.getInt(TIME);
+		findseed = bundle.getInt(FINDSEED);
 		amuletObtained = bundle.getBoolean(AMULET);
 		orbObtained = bundle.getBoolean(ORB);	
 		

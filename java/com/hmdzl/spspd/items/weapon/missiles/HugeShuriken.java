@@ -31,7 +31,7 @@ public class HugeShuriken extends MissileWeapon {
 		//name = "Huge shuriken";
 		image = ItemSpriteSheet.HUGESHURIKEN;
 
-		STR = 13;
+		STR = 10;
 
 		MIN = 2;
 		MAX = 6;

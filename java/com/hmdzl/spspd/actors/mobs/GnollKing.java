@@ -38,6 +38,8 @@ import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.misc.GnollMark;
 import com.hmdzl.spspd.items.quest.GnollClothes;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
@@ -71,7 +73,12 @@ public class GnollKing extends Mob {
 		properties.add(Property.ORC);
 		properties.add(Property.BOSS);
 	}
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return new GnollMark();
+	}
+
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(15,25);

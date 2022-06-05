@@ -29,6 +29,8 @@ import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.FIRE_DAMAGE;
+
 public class EnchantmentFire2 extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing RED = new ItemSprite.Glowing( 0xCC0000 );
@@ -46,9 +48,9 @@ public class EnchantmentFire2 extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.75), this);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.75), FIRE_DAMAGE);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), this);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), FIRE_DAMAGE);
 		}
 		if (defender.isAlive()){
 		Buff.prolong(defender, Hot.class,3f);
