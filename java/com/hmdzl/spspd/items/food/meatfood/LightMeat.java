@@ -15,36 +15,56 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.food.completefood;
+package com.hmdzl.spspd.items.food.meatfood;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
-public class Garbage extends CompleteFood {
+public class LightMeat extends MeatFood {
 
-	{
-		//name = "Garbage";
-		image = ItemSpriteSheet.ERROR_FOOD;
-		energy = 1;
-		hornValue = 0;
-		 
-	}
+	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing(0xFFFF44);
 	@Override
-	public int price() {
-		return 10 * quantity;
+	public ItemSprite.Glowing glowing() {
+		return YELLOW;
 	}
+	
+	{
+		//name = "frozen carpaccio";
+		image = ItemSpriteSheet.MEAT;
+		energy = 100;
+		hornValue = 1;
+	}
+
 	@Override
 	public void execute(Hero hero, String action) {
+
 		super.execute(hero, action);
 
-		if (action.equals(AC_EAT)){
-			int damage = hero.HT/5;
-			hero.damage(damage, this);
-			hero.sprite.emitter().start(Speck.factory(Speck.ROCK), 0.07f, 5);
-			
+		if (action.equals(AC_EAT)) {
+            effect(hero);
 		}
 	}
 
+	@Override
+	public int price() {
+		return 3 * quantity;
+	}
+
+    public static void effect(Hero hero){
+		Dungeon.level.drop(new SmallMeat(), hero.pos).sprite.drop();
+	}
+	
+	public static Food cook(MysteryMeat ingredient) {
+		LightMeat result = new LightMeat();
+		result.quantity = ingredient.quantity();
+		return result;
+	}
+	public static Food cook(Meat ingredient) {
+		LightMeat result = new LightMeat();
+		result.quantity = ingredient.quantity();
+		return result;
+	}
 }

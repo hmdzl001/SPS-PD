@@ -19,9 +19,6 @@ package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.mobs.LevelChecker;
-import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer1;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
@@ -43,12 +40,17 @@ public class ExitPainter extends Painter {
 		//	level.mobs.add(lc);
 		//	Actor.occupyCell(lc);
 		//}
-
 		level.exit = room.random(1);
 		if (Dungeon.isChallenged(Challenges.TEST_TIME)) {
 			set(level, level.exit, Terrain.STATUE);
-		} else
+		} else {
 			set(level, level.exit, Terrain.EXIT);
+		}
+		int tent = room.random();
+		while (level.map[tent] == Terrain.EXIT || level.map[tent] == Terrain.STATUE ) {
+			tent = room.random();
+		}
+		level.map[tent] = Terrain.TENT;
+		//level.tent=tent;
 	}
-
 }

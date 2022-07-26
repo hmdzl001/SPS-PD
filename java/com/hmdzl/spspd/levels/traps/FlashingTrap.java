@@ -48,7 +48,7 @@ public class FlashingTrap extends Trap {
 		//Char ch = Actor.findChar(pos);
 
 		Heap heap = Dungeon.level.heaps.get(pos);
-		if (heap != null) {heap.light();}
+		if (heap != null) {heap.lighthit();}
 
 		if (ch != null) {
 			int len = Random.Int(5, 10)+Dungeon.depth;

@@ -22,11 +22,12 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.meatfood.FunnyFood;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DreamPlayerSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndDream;
-import com.hmdzl.spspd.windows.WndSaidBySun;
 import com.watabou.utils.Random;
 
 public class DreamPlayer extends NPC {
@@ -36,6 +37,11 @@ public class DreamPlayer extends NPC {
 		spriteClass = DreamPlayerSprite.class;
 		state = WANDERING;
 		properties.add(Property.ELEMENT);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new FunnyFood();
 	}
 
 	/*@Override

@@ -17,10 +17,6 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
@@ -33,20 +29,23 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.MissileSprite;
 import com.hmdzl.spspd.ui.QuickSlotButton;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Item implements Bundlable {
 
@@ -93,7 +92,7 @@ public class Item implements Bundlable {
 		}
 	};
 
-	public ArrayList<String> actions(Hero hero) {
+    public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = new ArrayList<String>();
 		actions.add(AC_DROP);
 		actions.add(AC_THROW);
@@ -476,6 +475,18 @@ public class Item implements Bundlable {
 		}
 	}
 
+	public static Item copy(Class<? extends Item> cl) {
+		try {
+
+			Item item = cl.newInstance();
+			return item;
+
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
 	public Item random() {
 		return this;
 	}

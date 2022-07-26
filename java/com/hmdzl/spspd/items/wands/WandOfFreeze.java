@@ -85,7 +85,7 @@ public class WandOfFreeze extends DamageWand {
 		
 		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
 		if (heap != null) {
-			heap.freeze();
+			heap.icehit();
 		}	
 		
 	}

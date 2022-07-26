@@ -110,7 +110,7 @@ public class Sign {
 					GameScene.updateMap(pos);
 					GameScene.discoverTile(pos, Terrain.SIGN);
 
-					GLog.w(Messages.get(Sign.class, "burn"));
+					GLog.w(Messages.get(Sign.class, "firehit"));
 
 					CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
 					Sample.INSTANCE.play(Assets.SND_BURNING);

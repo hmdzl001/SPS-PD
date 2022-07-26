@@ -36,7 +36,7 @@ public class Smashpill extends Pill {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			Buff.affect(hero, AttackUp.class,200f).level(50);
+			Buff.affect(hero, AttackUp.class,800f).level(50);
 			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 		}
 	}

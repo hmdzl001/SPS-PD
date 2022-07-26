@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.scenes;
 
-import java.util.HashMap;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
@@ -29,10 +27,10 @@ import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.BannerSprites;
 import com.hmdzl.spspd.effects.BannerSprites.Type;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.ExitButton;
 import com.hmdzl.spspd.ui.Icons;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.windows.WndChallenges;
 import com.hmdzl.spspd.windows.WndClass;
@@ -42,10 +40,12 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.BitmaskEmitter;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Button;
 import com.watabou.utils.Callback;
+
+import java.util.HashMap;
 
 import static com.hmdzl.spspd.Dungeon.skins;
 
@@ -154,7 +154,7 @@ public class StartScene extends PixelScene {
 			add(shield);
 		}
 		if (ShatteredPixelDungeon.landscape()) {
-			float shieldW = width / 7;
+			float shieldW = width / 8;
 			float shieldH = Math.min(centralHeight, shieldW);
 			top = title.y + title.height + (centralHeight - shieldH) / 2;
 			for (int i = 0; i < classes.length; i++) {

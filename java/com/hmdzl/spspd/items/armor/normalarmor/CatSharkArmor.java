@@ -85,12 +85,12 @@ public class CatSharkArmor extends NormalArmor {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		if (Random.Int(8) == 0) {
-			Buff.affect(defender,Charm.class,6f).object=attacker.id();
+			Buff.affect(attacker,Charm.class,6f).object=defender.id();
 			charge ++;
 		}
 
-		if (charge > 15 && !(defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS))) {
-			Buff.affect(defender, Corruption.class);
+		if (charge > 15 && !(attacker.properties().contains(Char.Property.BOSS) || attacker.properties().contains(Char.Property.MINIBOSS))) {
+			Buff.affect(attacker, Corruption.class);
 			charge = 0;
 		}
 		if (glyph != null) {

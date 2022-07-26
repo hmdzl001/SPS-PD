@@ -100,7 +100,7 @@ public class WandOfShatteredFireblast extends DamageWand {
 		}
 	}
 
-	//burn... BURNNNNN!.....
+	//firehit... BURNNNNN!.....
 	private void spreadFlames(int cell, float strength){
 		if (strength >= 0 && (Level.passable[cell] || Level.flamable[cell])){
 			affectedCells.add(cell);

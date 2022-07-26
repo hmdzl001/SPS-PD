@@ -36,7 +36,7 @@ public class LightDragonEgg extends Egg {
 
 		{
 		image = ItemSpriteSheet.LIGHT_DRAGONEGG;
-		unique = true;
+
 		stackable = false;
 		}
 		

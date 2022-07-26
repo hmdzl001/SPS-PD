@@ -30,7 +30,7 @@ public class PoisonDart extends MissileWeapon {
 	public static final float DURATION = 3f;
 
 	{
-		//name = "poison dart";
+		//name = "earthhit dart";
 		image = ItemSpriteSheet.POSION_DART;
 
 		STR = 10;

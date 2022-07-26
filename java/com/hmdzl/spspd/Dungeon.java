@@ -885,10 +885,10 @@ public static Level newChallengeLevel(int list, Boolean first){
 		level.create();
 
 		Statistics.qualifiedForNoKilling = !bossLevel();
-		if (depth<25 && !Dungeon.bossLevel(depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
-			Buff.affect(Dungeon.hero, Dewcharge.class).level( (int)(Dewcharge.DURATION+(Math.max(Statistics.prevfloormoves,1))) );
+		//if (depth<25 && !Dungeon.bossLevel(depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
+			
 		    //GLog.p("You feel the dungeon charge with dew!");
-		}
+		//}
 		NmImbue nm = Dungeon.hero.buff(NmImbue.class);
         if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.skins == 4 && nm == null ){
 			

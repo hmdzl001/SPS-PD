@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.quest.Mushroom;
+import com.hmdzl.spspd.items.sellitem.SellMushroom;
 import com.hmdzl.spspd.levels.FortressLevel;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
@@ -62,6 +63,11 @@ public class Tinkerer3 extends NPC {
 
 	@Override
 	public void damage(int dmg, Object src) {
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new SellMushroom();
 	}
 
 	@Override

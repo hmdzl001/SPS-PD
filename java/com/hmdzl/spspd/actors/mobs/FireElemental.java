@@ -99,7 +99,7 @@ public class FireElemental extends Mob {
 	public void add(Buff buff) {
 		if (buff instanceof Burning) {
 			if (HP < HT) {
-				HP++;
+				HP+=HT/10;
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 		} else if (buff instanceof Frost || buff instanceof Chill) {
@@ -113,11 +113,11 @@ public class FireElemental extends Mob {
 	}
 
 	{
-		immunities.add(Burning.class);
+		//immunities.add(Burning.class);
 		immunities.add(Fire.class);
-		immunities.add(WandOfFirebolt.class);
-		immunities.add(EnchantmentFire2.class);
-		immunities.add(EnchantmentFire.class);
+		resistances.add(WandOfFirebolt.class);
+		resistances.add(EnchantmentFire2.class);
+		resistances.add(EnchantmentFire.class);
 		immunities.add(DamageType.FireDamage.class);
 	}
 

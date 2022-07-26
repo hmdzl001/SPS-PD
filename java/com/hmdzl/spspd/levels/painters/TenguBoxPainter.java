@@ -17,14 +17,13 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.actors.mobs.npcs.RatKingDen;
-import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
-import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.actors.mobs.npcs.StormAndRain;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-
+import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
@@ -32,7 +31,7 @@ import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Starflower;
 import com.watabou.utils.Random;
 
-public class RatKingPainter2 extends Painter {
+public class TenguBoxPainter extends Painter {
 
 	public static void paint(Level level, Room room) {
 
@@ -55,15 +54,15 @@ public class RatKingPainter2 extends Painter {
 			addChest(level, i * Level.getWidth() + room.right - 1, door);
 		}
 
-		while (true) {
-			Heap chest = level.heaps.get(room.random());
-			if (chest != null) {
-				chest.type = Heap.Type.MIMIC;
-				break;
-			}
-		}
+		//while (true) {
+		//	Heap chest = level.heaps.get(room.random());
+		//	if (chest != null) {
+		//		chest.type = Heap.Type.MIMIC;
+		//		break;
+		//	}
+	//	}
 
-		RatKingDen king = new RatKingDen();
+		StormAndRain king = new StormAndRain();
 		king.pos = room.random(1);
 		level.mobs.add(king);
 	}
@@ -76,7 +75,7 @@ public class RatKingPainter2 extends Painter {
 		}
 
 		Item prize;
-		switch (Random.Int(10)) {
+		switch (Random.Int(8)) {
 		case 0:
 			prize = new Egg();
 			break;

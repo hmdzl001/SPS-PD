@@ -115,6 +115,6 @@ public class LokisPoison extends Buff implements Hero.Doom {
 		Badges.validateDeathFromPoison();
 
 		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-		//GLog.n("You died from poison...");
+		//GLog.n("You died from earthhit...");
 	}
 }

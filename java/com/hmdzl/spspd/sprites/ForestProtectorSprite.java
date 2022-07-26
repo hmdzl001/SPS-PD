@@ -19,12 +19,12 @@ package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.mobs.ForestProtector;
-import com.hmdzl.spspd.effects.Lightning;
+import com.hmdzl.spspd.effects.MagicMissile;
 import com.watabou.noosa.TextureFilm;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Callback;
 
 public class ForestProtectorSprite extends MobSprite {
-	
-	private int[] points = new int[2];
 
 	public ForestProtectorSprite() {
 		super();
@@ -52,13 +52,27 @@ public class ForestProtectorSprite extends MobSprite {
 
 	@Override
 	public void zap(int pos) {
+		turnTo(ch.pos, pos);
+		play(zap);
 
-		parent.add( new Lightning( ch.pos, pos, (ForestProtector) ch));
-
+		MagicMissile.earth(parent, ch.pos, pos, new Callback() {
+			@Override
+			public void call() {
+				((ForestProtector) ch).onZapComplete();
+			}
+		});
+		Sample.INSTANCE.play(Assets.SND_ZAP);
 		turnTo(ch.pos, pos);
 		play(zap);
 	}
-	
+
+	@Override
+	public void onComplete(Animation anim) {
+		if (anim == zap) {
+			idle();
+		}
+		super.onComplete(anim);
+	}
 	@Override
 	public int blood() {
 		return 0xFFcdcdb7;

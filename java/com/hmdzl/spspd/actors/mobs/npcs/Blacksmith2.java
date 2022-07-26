@@ -29,12 +29,13 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.quest.DarkGold;
 import com.hmdzl.spspd.items.rings.Ring;
+import com.hmdzl.spspd.items.sellitem.BrokenHammer;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ElectricwelderSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBlacksmith2;
 import com.hmdzl.spspd.windows.WndQuest;
@@ -63,7 +64,11 @@ public class Blacksmith2 extends NPC {
 		properties.add(Property.TROLL);
         properties.add(Property.IMMOVABLE);
 	}
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return new BrokenHammer();
+	}
 
 	@Override
 	protected boolean act() {

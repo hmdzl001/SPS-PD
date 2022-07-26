@@ -30,7 +30,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.plants.Fadeleaf;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -72,7 +72,7 @@ public class TeleportationTrap extends Trap {
 				ch.pos = pos;
 				ch.sprite.place(ch.pos);
 				ch.sprite.visible = Dungeon.visible[pos];
-
+                Dungeon.level.drop(new Fadeleaf.Seed(), pos);
 			}
 		}
 

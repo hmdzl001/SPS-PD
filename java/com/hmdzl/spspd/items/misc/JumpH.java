@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -36,7 +36,6 @@ import com.hmdzl.spspd.sprites.MissileSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,8 +82,6 @@ unique = true;
 	
 	protected CellSelector.Listener jumper = new CellSelector.Listener() {
 		
-		private HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();
-		
 		@Override
 		public void onSelect(Integer target) {
 			if (target != null && target != curUser.pos) {
@@ -110,36 +107,10 @@ unique = true;
 						Dungeon.level.press(dest, curUser);
 						Dungeon.observe();
 
-						//for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-							//Char mob = Actor.findChar(curUser.pos
-									//+ Level.NEIGHBOURS8[i]);
-						//}
-						if (Random.Int(10) > 3 ){
-							Item proto = new EscapeKnive();
-
-							for (Mob mob : Dungeon.level.mobs) {
-								if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 7) && mob.isAlive()) {
-									Callback callback = new Callback() {
-										@Override
-										public void call() {
-											curUser.attack(targets.get(this));
-											targets.remove(this);
-											if (targets.isEmpty()) {
-												//curUser.spendAndNext(curUser.attackDelay());
-												curUser.spendAndNext(0.1f);
-											}
-										}
-									};
-
-									((MissileSprite) curUser.sprite.parent.recycle(MissileSprite.class)).reset(curUser.pos, mob.pos, proto, callback);
-
-									targets.put(callback, mob);
-								}
-							}
-						}
 						CellEmitter.center(dest).burst(
 						Speck.factory(Speck.DUST), 10);
-						curUser.spendAndNext(JUMP_TIME);
+						curUser.spendAndNext(0.5f);
+						shoesattack();
 						if(curUser.buff(InfJump.class) == null){
 						charge -= 15;
 						}
@@ -194,6 +165,31 @@ unique = true;
 	 @Override
 	 public String status() {
 		 return Messages.format("%d", charge /15);
+	 }
+
+	public void shoesattack() {
+		final HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();
+		 Item proto = new EscapeKnive();
+
+		 for (Mob mob : Dungeon.level.mobs) {
+			 if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 7) && mob.isAlive()) {
+				 Callback callback = new Callback() {
+					 @Override
+					 public void call() {
+						 curUser.attack(targets.get(this));
+						 targets.remove(this);
+						 if (targets.isEmpty()) {
+							 //curUser.spendAndNext(curUser.attackDelay());
+							 curUser.spendAndNext(0.5f);
+						 }
+					 }
+				 };
+
+				 ((MissileSprite) curUser.sprite.parent.recycle(MissileSprite.class)).reset(curUser.pos, mob.pos, proto, callback);
+
+				 targets.put(callback, mob);
+			 }
+		 }
 	 }
 
 }

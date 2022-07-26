@@ -23,6 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.potions.PotionOfParalyticGas;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -47,6 +48,11 @@ public class Earthroot extends Plant {
 		if (Dungeon.visible[pos]) {
 			CellEmitter.bottom(pos).start(EarthParticle.FACTORY, 0.05f, 8);
 			Camera.main.shake(1, 0.4f);
+		}
+		
+		Heap heap = Dungeon.level.heaps.get(pos);
+		if (heap != null) {
+			heap.earthhit();
 		}
 	}
 

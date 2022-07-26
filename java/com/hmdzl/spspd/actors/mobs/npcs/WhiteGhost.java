@@ -21,7 +21,9 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.misc.GhostGirlRose;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.WhiteGhostSprite;
 
 public class WhiteGhost extends NPC {
@@ -62,7 +64,10 @@ public class WhiteGhost extends NPC {
 		return true;
 	}
 
-   
+	@Override
+	public Item SupercreateLoot(){
+		return new GhostGirlRose();
+	}
 	
 	@Override
 	public boolean interact() {

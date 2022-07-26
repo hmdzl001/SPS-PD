@@ -23,7 +23,6 @@ public class FourClover extends MiscEquippable {
 	
 	{
 		image = ItemSpriteSheet.FOURCLOVER;	
-		unique = true;
 		 
 	}
 	

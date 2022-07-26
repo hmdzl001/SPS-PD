@@ -22,21 +22,21 @@ import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.effects.particles.SparkParticle;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ForestProtectorSprite;
-import com.watabou.noosa.Camera;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
+
 public class ForestProtector extends Mob implements Callback {
 
-	private static final float TIME_TO_ZAP = 2f;
+	private static final float TIME_TO_ZAP = 1f;
 
 	private static final String TXT_LIGHTNING_KILLED = "%s's lightning bolt killed you...";
 
@@ -46,7 +46,7 @@ public class ForestProtector extends Mob implements Callback {
 
 		EXP = 1;
 		state = HUNTING;
-		flying = true;
+		//flying = true;
 		
 		HP = HT = 250;
 		evadeSkill = 10;
@@ -54,22 +54,32 @@ public class ForestProtector extends Mob implements Callback {
 		loot = new VioletDewdrop();
 		lootChance = 1f;
 
-		properties.add(Property.ELEMENT);
+		properties.add(Property.PLANT);
 	}
+
+
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(5, 10);
+		return Random.NormalIntRange(5+Math.round(Statistics.archersKilled/10), 10+Math.round(Statistics.archersKilled/5)) ;
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return 16;
+		return 26;
 	}
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 5);
+		return Random.NormalIntRange(5, 10);
+	}
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+
+		enemy.damage(damageRoll()/2, EARTH_DAMAGE);
+		damage = damage*3;
+		return damage;
 	}
 
 	@Override
@@ -82,46 +92,39 @@ public class ForestProtector extends Mob implements Callback {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.distance(pos, enemy.pos) <= 1) {
-
+		if (Level.adjacent(pos, enemy.pos)) {
 			return super.doAttack(enemy);
 
 		} else {
-
 			boolean visible = Level.fieldOfView[pos]
 					|| Level.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
-			}
-
-			spend(TIME_TO_ZAP);
-
-			if (hit(this, enemy, true)) {
-				int dmg = Random.Int(5+Math.round(Statistics.archersKilled/10), 10+Math.round(Statistics.archersKilled/5));
-				if (Level.water[enemy.pos] && !enemy.flying) {
-					dmg *= 1.5f;
-				}
-				enemy.damage(dmg, this);
-
-				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
-				enemy.sprite.flash();
-
-				if (enemy == Dungeon.hero) {
-
-					Camera.main.shake(2, 0.3f);
-
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-						//GLog.n(Messages.get(this, "kill"));
-					}
-				}
 			} else {
-				enemy.sprite
-						.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
+				zap();
 			}
 
 			return !visible;
 		}
+	}
+
+	private void zap() {
+		spend(TIME_TO_ZAP);
+		if (hit(this, enemy, true)) {
+			int dmg = Random.Int(5+Math.round(Statistics.archersKilled/10), 10+Math.round(Statistics.archersKilled/5));
+			enemy.damage(dmg, EARTH_DAMAGE);
+			if (!enemy.isAlive() && enemy == Dungeon.hero) {
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//GLog.n(Messages.get(this, "kill"));
+			}
+		} else {
+			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
+		}
+	}
+
+	public void onZapComplete() {
+		zap();
+		next();
 	}
 
 	@Override
@@ -130,7 +133,7 @@ public class ForestProtector extends Mob implements Callback {
 	}
 
     {
-		resistances.add(LightningTrap.Electricity.class);
+		resistances.add(DamageType.EarthDamage.class);
 	}
 
 

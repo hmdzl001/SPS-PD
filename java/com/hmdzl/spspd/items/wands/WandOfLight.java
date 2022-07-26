@@ -67,7 +67,7 @@ public class WandOfLight extends DamageWand {
 		}
 		
 	    Heap heap = Dungeon.level.heaps.get(beam.collisionPos);
-		if (heap != null) {heap.light();}		
+		if (heap != null) {heap.lighthit();}
 	}
 	
 	private void affectTarget(Char ch){

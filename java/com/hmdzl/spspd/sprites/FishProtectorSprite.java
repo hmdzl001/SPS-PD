@@ -18,13 +18,9 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.mobs.FishProtector;
-import com.hmdzl.spspd.effects.Lightning;
 import com.watabou.noosa.TextureFilm;
 
 public class FishProtectorSprite extends MobSprite {
-	
-	private int[] points = new int[2];
 
 	public FishProtectorSprite() {
 		super();
@@ -42,23 +38,13 @@ public class FishProtectorSprite extends MobSprite {
 		attack = new Animation(12, false);
 		attack.frames(frames, 8, 9, 10);
 
-		zap = attack.clone();
-		
 		die = new Animation(5, false);
 		die.frames(frames, 11, 12, 13, 14, 15, 15);
 
 		play(idle);
 	}
 
-	@Override
-	public void zap(int pos) {
 
-		parent.add( new Lightning( ch.pos, pos, (FishProtector) ch));
-
-		turnTo(ch.pos, pos);
-		play(zap);
-	}
-	
 	@Override
 	public int blood() {
 		return 0xFFcdcdb7;

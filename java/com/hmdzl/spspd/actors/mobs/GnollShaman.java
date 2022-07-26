@@ -86,7 +86,7 @@ public class GnollShaman extends Mob implements Callback {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damage/2, SHOCK_DAMAGE);
+		enemy.damage(damageRoll()/2, SHOCK_DAMAGE);
 		damage = damage/2;
 
 		return damage;

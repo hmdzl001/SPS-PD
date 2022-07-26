@@ -49,6 +49,12 @@ public class HeroAction {
 		}
 	}
 
+	public static class LifeBuy extends HeroAction {
+		public LifeBuy(int dst) {
+			this.dst = dst;
+		}
+	}	
+	
 	public static class Interact extends HeroAction {
 		public NPC npc;
 

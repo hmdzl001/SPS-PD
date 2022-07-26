@@ -52,6 +52,7 @@ public class ItemSpriteSheet {
     private static final int ROW30 = 29 * 16;
 	private static final int ROW31 = 30 * 16;
 	private static final int ROW32 = 31 * 16;
+	private static final int ROW33 = 32 * 16;
 
 	// Row One: Items which can't be obtained
 	// null warning occupies space 0, should only show up if there's a bug.
@@ -78,6 +79,7 @@ public class ItemSpriteSheet {
 	public static final int ARMOR_HOLDER = ROW1 + 12;
 	public static final int RING_HOLDER = ROW1 + 13;
 	public static final int SOMETHING = ROW1 + 14;
+	public static final int E_DUST = ROW1 + 15;
 
 	// Row Two: Miscellaneous single use items
 	public static final int GOLD = ROW2 + 0;
@@ -641,9 +643,26 @@ public class ItemSpriteSheet {
 	public static final int N_S  = ROW32 + 5;
 	public static final int TEST_CLOAK  = ROW32 + 6;
 	public static final int CROSS_PHOTO  = ROW32 + 7;
-	//public static final int N_S  = ROW32 + 8;
-	//public static final int N_S  = ROW32 + 9;
+	public static final int SIMPLE_S  = ROW32 + 8;
+	public static final int XIXI_BOX  = ROW32 + 9;
+	public static final int CRYSTAL_VIAL  = ROW32 + 10;
+	public static final int APK931  = ROW32 + 11;
+	public static final int CURSE_PHONE  = ROW32 + 12;
+	public static final int SHEEPFUR  = ROW32 + 13;
+	public static final int RAIN_SHIELD  = ROW32 + 14;
+	public static final int FISHBONE  = ROW32 + 15;
 
-
+	public static final int HONEY_ARROW  = ROW33 + 0;
+	public static final int A_BOX  = ROW33 + 1;
+	public static final int TISSUE  = ROW33 + 2;
+	public static final int BOTTLE_FIRE  = ROW33 + 3;
+	public static final int UNCLE_DUMBBELL  = ROW33 + 4;
+	public static final int SELL_PERMIT  = ROW33 + 5;
+	public static final int MIRROR_2  = ROW33 + 6;
+	public static final int HUMMING_TOOL  = ROW33 + 7;
+	public static final int BROKEN_HAMMER = ROW33 + 8;
+	public static final int FUNNY_FOOD = ROW33 + 9;
+	public static final int PINK_FISH = ROW33 + 10;
+	public static final int GIRL_ROSE = ROW33 + 11;
 
 }

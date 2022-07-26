@@ -17,20 +17,23 @@
  */
 package com.hmdzl.spspd.items.skills;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.HighVoice;
+import com.hmdzl.spspd.actors.buffs.LearnSkill;
 import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
@@ -39,11 +42,10 @@ import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndBag;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.watabou.noosa.audio.Sample;
 
 public class PerformerSkill extends ClassSkill {
@@ -68,6 +70,7 @@ public class PerformerSkill extends ClassSkill {
 		PerformerSkill.charge += 20;
 		Buff.affect(curUser, DefenceUp.class,10).level(25);
 		Buff.affect(curUser, AttackUp.class,10).level(25);
+		Buff.affect(curUser, HighVoice.class,100);
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -81,12 +84,16 @@ public class PerformerSkill extends ClassSkill {
 
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos]) {
+				int dmg = (int) (Dungeon.hero.lvl * (1 + 0.1 * Dungeon.hero.magicSkill())) ;
 				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
 				Buff.prolong(mob, Blindness.class, 10f);
 				Buff.prolong(mob, Slow.class, 10f);
+				mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.ENERGY_DAMAGE);
 			}
 		}
-		PerformerSkill.charge += 5;
+
+		Buff.affect(curUser, HighVoice.class,100);
+		PerformerSkill.charge += 10;
 
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -103,9 +110,10 @@ public class PerformerSkill extends ClassSkill {
 	@Override
 	public void doSpecial4() {
 
-		PerformerSkill.charge +=10;
+		PerformerSkill.charge +=20;
 
 		Buff.affect(curUser, HighVoice.class,100);
+		Buff.affect(curUser,LearnSkill.class).set(50);
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -135,6 +143,7 @@ public class PerformerSkill extends ClassSkill {
 				}
 				item.detach(Dungeon.hero.belongings.backpack);
 				Dungeon.level.drop(result, Dungeon.hero.pos).sprite.drop();
+				Buff.affect(curUser, HighVoice.class,100);
 				PerformerSkill.charge += 20;
 			}
 		}

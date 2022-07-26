@@ -78,7 +78,7 @@ import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Shocked2;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.SoulMark;
-import com.hmdzl.spspd.actors.buffs.Speed;
+import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.buffs.SpeedImbue;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.actors.buffs.Tar;
@@ -284,7 +284,7 @@ public abstract class Char extends Actor {
 			if (buff(FrostImbue.class) != null)
 				buff(FrostImbue.class).proc(enemy);
 			if (buff(Needling.class) != null)
-				buff(Needling.class).proc(enemy);			
+				buff(Needling.class).proc(enemy);
 
 			enemy.sprite.bloodBurstA(sprite.center(), effectiveDamage);
 			enemy.sprite.flash();
@@ -367,7 +367,7 @@ public abstract class Char extends Actor {
 		if (buff(Cripple.class) != null){
 			return baseSpeed * 0.5f;
 		} else if (buff(HasteBuff.class) != null){
-			return baseSpeed * 2.5f;
+			return baseSpeed * 2f;
 		} else if (buff(Poison.class) != null) {
 			return baseSpeed * 0.9f;
 		} else if (buff(BloodAngry.class) != null) {
@@ -449,12 +449,11 @@ public abstract class Char extends Actor {
 
 			//} else {
 
-			if (sarmor != null && !(src instanceof Buff) &&
-					!(src instanceof DamageType) && !(src instanceof Blob) && !(src instanceof Wand) ) {
+			if (sarmor != null && src instanceof Char) {
 				dmg = sarmor.absorb(dmg);
 				//GLog.w(Messages.get(this, "htdown", src, dmg));
 			}
-		if (magicarmor != null && (src instanceof DamageType || src instanceof Buff ||
+		   if (magicarmor != null && (src instanceof DamageType || src instanceof Buff ||
 				src instanceof Blob || src instanceof Wand )){ dmg = magicarmor.absorb(dmg);
 			//GLog.w(Messages.get(this, "htdown",src,dmg));
 			}
@@ -562,7 +561,7 @@ public abstract class Char extends Actor {
 		} else if (buff( Chill.class ) != null) {
 			timeScale *= buff( Chill.class ).speedFactor();
 		}
-		if (buff(Speed.class) != null) {
+		if (buff(SpeedUp.class) != null) {
 			timeScale *= 1.5f;
 		}
 		/*if (buff(HasteBuff.class) != null) {
@@ -826,8 +825,13 @@ public abstract class Char extends Actor {
 	
 	protected HashSet<Property> properties = new HashSet<>();
 
-	public HashSet<Property> properties() { 
-	    return new HashSet<>(properties); 
+	public HashSet<Property> properties() {
+		HashSet<Property> props = new HashSet<>(properties);
+	    return props;
+	}
+
+	public static boolean hasProp( Char ch, Property p){
+		return (ch != null && ch.properties().contains(p));
 	}
 
 	public enum Property{

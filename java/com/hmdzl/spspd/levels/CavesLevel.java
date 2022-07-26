@@ -222,7 +222,14 @@ public class CavesLevel extends RegularLevel {
 				break;
 			}
 		}
-		
+		while (true) {
+			int pos = roomEntrance.random();
+			if (pos != entrance) {
+				map[pos] = Terrain.DEW_BLESS;
+				break;
+			}
+		}
+			
 		setPar();		
 
 		if (Dungeon.bossLevel(Dungeon.depth + 1)) {

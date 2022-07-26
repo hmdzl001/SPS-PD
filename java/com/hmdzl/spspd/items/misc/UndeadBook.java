@@ -138,7 +138,7 @@ public class UndeadBook extends Item {
 			else hero.TRUE_HT -= 5;
 
 			Dungeon.hero.updateHT(false);
-			Buff.affect(hero, Dewcharge.class).level(100);
+			Buff.affect(hero, Dewcharge.class,100f);
 			GLog.p(Messages.get(this, "bless"));
 
 		}

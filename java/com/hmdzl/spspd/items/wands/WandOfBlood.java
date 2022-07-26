@@ -57,7 +57,7 @@ public class WandOfBlood extends DamageWand {
 		}
 		
 	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
-		if (heap != null) {heap.summon();}		
+		if (heap != null) {heap.darkhit();}
 		
 	}
 

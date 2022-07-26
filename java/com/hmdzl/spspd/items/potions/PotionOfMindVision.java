@@ -17,14 +17,19 @@
  */
 package com.hmdzl.spspd.items.potions;
 
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.DarkGas;
 import com.hmdzl.spspd.actors.buffs.Awareness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.misc.Spectacles.MagicSight;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.watabou.noosa.audio.Sample;
 
 public class PotionOfMindVision extends Potion {
 
@@ -47,6 +52,19 @@ public class PotionOfMindVision extends Potion {
 			GLog.i( Messages.get(this, "see_none"));
 		}
 	}
+	
+	@Override
+	public void shatter(int cell) {
+
+		if (Dungeon.visible[cell]) {
+			setKnown();
+
+			splash(cell);
+			Sample.INSTANCE.play(Assets.SND_SHATTER);
+		}
+
+		GameScene.add(Blob.seed(cell, 300, DarkGas.class));
+	}	
 
 	@Override
 	public int price() {

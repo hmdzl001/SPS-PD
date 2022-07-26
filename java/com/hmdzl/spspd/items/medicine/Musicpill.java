@@ -41,11 +41,11 @@ public class Musicpill extends Pill {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Rhythm.class,200f);
+			Buff.affect(hero, Rhythm.class,800f);
 			if (Dungeon.hero.heroClass == HeroClass.PERFORMER)
 				Buff.affect(hero, WarGroove.class);
 			if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR)
-				Buff.affect(hero, Rhythm2.class,200f);
+				Buff.affect(hero, Rhythm2.class,800f);
 			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 		}
 	}

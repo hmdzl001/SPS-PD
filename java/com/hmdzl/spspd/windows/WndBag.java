@@ -31,6 +31,7 @@ import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.AdamantWand;
 import com.hmdzl.spspd.items.AdamantWeapon;
 import com.hmdzl.spspd.items.EquipableItem;
+import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
@@ -51,6 +52,7 @@ import com.hmdzl.spspd.items.bags.WandHolster;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
 import com.hmdzl.spspd.items.medicine.Greaterpill;
 import com.hmdzl.spspd.items.misc.JumpH;
@@ -121,7 +123,8 @@ public class WndBag extends WndTabbed {
 		TRANMSUTABLE,
 		AMMO,
 		EATABLE,
-		HOLY_MACE
+		HOLY_MACE,
+		IRON_MAKE
     }
 
 	protected static final int COLS_P = 5;
@@ -280,6 +283,8 @@ public class WndBag extends WndTabbed {
 			col = nCols - 1;
 			placeItem(new Gold(Dungeon.gold));
 		}
+
+
 	}
 
 	protected void placeItem(final Item item) {
@@ -518,6 +523,8 @@ public class WndBag extends WndTabbed {
 						&& (!item.isEquipped(hero) && (item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Armor))
 				|| mode == Mode.HOLY_MACE
 						&& (item instanceof Torch || item instanceof GreatRune || item instanceof Greaterpill)
+				|| mode == Mode.IRON_MAKE
+						&& ((item instanceof EquipableItem && item.isUpgradable() && !item.isEquipped(hero)) || item instanceof WaterItem || item instanceof StoneOre || item instanceof Garbage)
 				|| mode == Mode.ALL);
 				}
 			} else {

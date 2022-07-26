@@ -36,6 +36,8 @@ public class Shit extends Mob {
 		evadeSkill = 0;
 
 
+
+
 		EXP = 3;
 		maxLvl = 18;
 
@@ -48,6 +50,11 @@ public class Shit extends Mob {
 	@Override
 	public int damageRoll() {
 		return 1;
+	}
+
+	@Override
+	protected float attackDelay() {
+		return 2.5f;
 	}
 
 	@Override

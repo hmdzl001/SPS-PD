@@ -36,7 +36,7 @@ public class Powerpill extends Pill {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Muscle.class,200f);
+			Buff.affect(hero, Muscle.class,800f);
 			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 		}
 	}

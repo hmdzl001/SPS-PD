@@ -18,16 +18,13 @@
 package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.items.PuddingCup;
-import com.hmdzl.spspd.items.keys.IronKey;
-import com.hmdzl.spspd.items.weapon.melee.block.GoblinShield;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.food.meatfood.FunnyFood;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
-import com.hmdzl.spspd.utils.GLog;
 
 
 public class WndDream extends Window {
@@ -40,7 +37,7 @@ public class WndDream extends Window {
 
 		super();
 
-		PuddingCup key = new PuddingCup();
+		FunnyFood key = new FunnyFood();
 
 
 		IconTitle titlebar = new IconTitle();

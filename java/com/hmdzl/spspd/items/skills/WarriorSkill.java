@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Disarm;
+import com.hmdzl.spspd.actors.buffs.Muscle;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.SpAttack;
@@ -59,9 +60,15 @@ public class WarriorSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		if (Random.Int(2)==0) Dungeon.level.drop(Generator.random(Generator.Category.WEAPON), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-		 else Dungeon.level.drop(Generator.random(Generator.Category.ARMOR), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);;
-		WarriorSkill.charge += 25;
+        Buff.affect(curUser,Muscle.class,200f);
+		if (Random.Int(2)==0){
+			Buff.affect(curUser,DefenceUp.class,100f).level(75);
+			Dungeon.level.drop(Generator.random(Generator.Category.WEAPON).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		} else{
+			Buff.affect(curUser,AttackUp.class,100f).level(75);
+			Dungeon.level.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		}
+		WarriorSkill.charge += 20;
 	}
 
 	@Override

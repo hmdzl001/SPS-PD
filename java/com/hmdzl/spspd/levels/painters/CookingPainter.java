@@ -34,7 +34,7 @@ public class CookingPainter extends Painter {
 	public static void paint(Level level, Room room) {
 
 		fill(level, room, Terrain.WALL);
-		fill(level, room, 1, Terrain.PEDESTAL);
+		fill(level, room, 1, Terrain.EMPTY);
 		fill(level, room, 2, Terrain.EMPTY_SP);
 
 		Room.Door entrance = room.entrance();
@@ -53,7 +53,7 @@ public class CookingPainter extends Painter {
 			int pos;
 			do {
 				pos = room.random();
-			} while (level.map[pos] != Terrain.PEDESTAL
+			} while (level.map[pos] != Terrain.EMPTY
 					|| level.heaps.get(pos) != null);
 			level.drop(prize2(level), pos);
 		}
@@ -62,7 +62,7 @@ public class CookingPainter extends Painter {
 			int pos;
 			do {
 				pos = room.random();
-			} while (level.map[pos] != Terrain.PEDESTAL
+			} while (level.map[pos] != Terrain.EMPTY
 					|| level.heaps.get(pos) != null);
 			level.drop(prize(level), pos);
 		}

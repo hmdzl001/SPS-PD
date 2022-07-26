@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -26,8 +24,10 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindofMisc;
 import com.hmdzl.spspd.items.artifacts.Artifact;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
+
+import java.util.ArrayList;
 
 public class MiscEquippable extends KindofMisc {
 
@@ -101,9 +101,11 @@ public class MiscEquippable extends KindofMisc {
 				hero.belongings.misc3 = null;
 			}
 
-			hero.remove(buff);
+			if (buff != null) {
+			buff.detach();
 			buff = null;
-
+			}
+			
 			return true;
 
 		} else {
@@ -189,22 +191,13 @@ public class MiscEquippable extends KindofMisc {
 
 		public int level;
 
-		public MiscBuff() {
-			level = MiscEquippable.this.level;
+		public int level() {
+			return level;
 		}
-
-		@Override
-		public boolean attachTo(Char target) {
 		
-			return super.attachTo(target);
+		public boolean isCursed() {
+			return cursed;
 		}
 
-		@Override
-		public boolean act() {		
-
-			spend(TICK);
-
-			return true;
-		}
 	}
 }

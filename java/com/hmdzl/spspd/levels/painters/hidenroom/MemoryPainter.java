@@ -15,13 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.levels.painters;
+package com.hmdzl.spspd.levels.painters.hidenroom;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.MemoryFire;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.painters.Painter;
 import com.watabou.utils.Point;
 
 public class MemoryPainter extends Painter {

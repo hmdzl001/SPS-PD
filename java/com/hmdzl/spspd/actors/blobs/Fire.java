@@ -118,7 +118,7 @@ public class Fire extends Blob {
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
 		if (heap != null) {
-			heap.burn();
+			heap.firehit();
 		}
 		
 		if( Dungeon.level.map[pos] == Terrain.SECRET_DOOR) {

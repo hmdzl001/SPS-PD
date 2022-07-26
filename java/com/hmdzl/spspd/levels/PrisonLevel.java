@@ -28,8 +28,23 @@ import com.hmdzl.spspd.effects.Halo;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.levels.Room.Type;
-import com.hmdzl.spspd.levels.traps.*;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.levels.traps.AlarmTrap;
+import com.hmdzl.spspd.levels.traps.ChillingTrap;
+import com.hmdzl.spspd.levels.traps.ConfusionTrap;
+import com.hmdzl.spspd.levels.traps.FireTrap;
+import com.hmdzl.spspd.levels.traps.FlashingTrap;
+import com.hmdzl.spspd.levels.traps.FlockTrap;
+import com.hmdzl.spspd.levels.traps.GrippingTrap;
+import com.hmdzl.spspd.levels.traps.LightningTrap;
+import com.hmdzl.spspd.levels.traps.OozeTrap;
+import com.hmdzl.spspd.levels.traps.ParalyticTrap;
+import com.hmdzl.spspd.levels.traps.PoisonTrap;
+import com.hmdzl.spspd.levels.traps.ShockTrap;
+import com.hmdzl.spspd.levels.traps.SpearTrap;
+import com.hmdzl.spspd.levels.traps.SummoningTrap;
+import com.hmdzl.spspd.levels.traps.TeleportationTrap;
+import com.hmdzl.spspd.levels.traps.ToxicTrap;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.PointF;
@@ -180,6 +195,13 @@ public class PrisonLevel extends RegularLevel {
 			int pos = roomEntrance.random();
 			if (pos != entrance) {
 				map[pos] = Terrain.SIGN;
+				break;
+			}
+		}
+		while (true) {
+			int pos = roomEntrance.random();
+			if (pos != entrance) {
+				map[pos] = Terrain.DEW_BLESS;
 				break;
 			}
 		}

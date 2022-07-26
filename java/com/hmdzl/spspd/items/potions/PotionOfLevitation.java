@@ -19,14 +19,16 @@ package com.hmdzl.spspd.items.potions;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.ConfusionGas;
+import com.hmdzl.spspd.actors.blobs.ElectriShock;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
@@ -36,6 +38,8 @@ public class PotionOfLevitation extends Potion {
 		//name = "Potion of Levitation";
 		initials = 5;
 	}
+
+
 
 	@Override
 	public void shatter(int cell) {
@@ -47,9 +51,16 @@ public class PotionOfLevitation extends Potion {
 			Sample.INSTANCE.play(Assets.SND_SHATTER);
 		}
 
-		GameScene.add(Blob.seed(cell, 1000, ConfusionGas.class));
-	}
+			for (int offset : Level.NEIGHBOURS9) {
+			if (Actor.findChar(cell + offset) != null
+					|| Dungeon.level.heaps.get(cell + offset) != null) {
 
+				GameScene.add(Blob.seed(cell + offset, 5, ElectriShock.class));
+
+			}
+		}
+	}		
+	
 	@Override
 	public void apply(Hero hero) {
 		setKnown();

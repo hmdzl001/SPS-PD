@@ -17,13 +17,13 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DamageUp;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class SavageHelmet extends MiscEquippable {
 	

@@ -31,7 +31,7 @@ public class CDArmor extends NormalArmor {
 	}
 
 	public CDArmor() {
-		super(3,3.2f,8f,3);
+		super(3,3.4f,10f,3);
 	}
 
 	@Override

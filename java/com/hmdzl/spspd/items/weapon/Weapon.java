@@ -73,7 +73,7 @@ public class Weapon extends KindOfWeapon {
 	//private static final int HITS_TO_KNOW    = 5;
 	public int STR = 10;
 	public float ACU = 1f; // Accuracy modifier
-	public float DLY = 1f; // Speed modifier
+	public float DLY = 1f; // SpeedUp modifier
 	public int   RCH = 1;  // Reach modifier
 	//public int   DUR = 10;  // durable modifier
 	

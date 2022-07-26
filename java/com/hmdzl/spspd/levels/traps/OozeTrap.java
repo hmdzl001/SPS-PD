@@ -45,6 +45,6 @@ public class OozeTrap extends Trap {
 			Splash.at(sprite.center(), 0x000000, 5);
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
-		if (heap != null) {heap.poison();}
+		if (heap != null) {heap.earthhit();}
 	}
 }

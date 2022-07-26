@@ -17,32 +17,59 @@
  */
 package com.hmdzl.spspd.items.food.meatfood;
 
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.utils.GLog;
 
-public class ChargrilledMeat extends MeatFood {
+public class IceMeat extends MeatFood {
+
+    private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing(0x0044FF);
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return BLUE;
+	}
 
 	{
-		//name = "chargrilled meat";
-		image = ItemSpriteSheet.STEAK;
-		energy = 100;
+		//name = "frozen carpaccio";
+		image = ItemSpriteSheet.MEAT;
+		energy = 85;
 		hornValue = 1;
-		 
+	}
+
+	@Override
+	public void execute(Hero hero, String action) {
+
+		super.execute(hero, action);
+
+		if (action.equals(AC_EAT)) {
+            effect(hero);
+		}
 	}
 
 	@Override
 	public int price() {
-		return 2 * quantity;
+		return 3 * quantity;
 	}
 
+    public static void effect(Hero hero){
+	
+		GLog.i( Messages.get(Meat.class, "invisbility") );
+		Buff.affect( hero, Invisibility.class, 20f );
+
+	}
+	
 	public static Food cook(MysteryMeat ingredient) {
-		ChargrilledMeat result = new ChargrilledMeat();
+		IceMeat result = new IceMeat();
 		result.quantity = ingredient.quantity();
 		return result;
 	}
-	
 	public static Food cook(Meat ingredient) {
-		ChargrilledMeat result = new ChargrilledMeat();
+		IceMeat result = new IceMeat();
 		result.quantity = ingredient.quantity();
 		return result;
 	}

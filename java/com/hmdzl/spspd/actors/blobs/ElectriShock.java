@@ -72,7 +72,7 @@ public class ElectriShock extends Blob {
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
 		if (heap != null) {
-			heap.lit();
+			heap.shockhit();
 		}
 
 	}

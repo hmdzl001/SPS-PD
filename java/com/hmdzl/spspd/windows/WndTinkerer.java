@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.quest.Mushroom;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
@@ -139,12 +139,12 @@ public class WndTinkerer extends Window {
 		if (type==1){
 		    tinkerer.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
 			Statistics.prevfloormoves=500;
-			Buff.affect(Dungeon.hero, Dewcharge.class).level(350);
+			Buff.affect(Dungeon.hero, Dewcharge.class,350f);
 	        GLog.p(Messages.get(this,"dungeon"));
 		} else if (type==2){
 			tinkerer.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
 			Statistics.prevfloormoves=500;
-			Buff.affect(Dungeon.hero, Dewcharge.class).level(350);
+			Buff.affect(Dungeon.hero, Dewcharge.class,350f);
 	        GLog.p(Messages.get(this,"dungeon"));
 		}
 		Dungeon.level.drop(new SkeletonKey(1), tinkerer.pos).sprite.drop();

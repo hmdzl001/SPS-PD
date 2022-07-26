@@ -46,10 +46,10 @@ public class CrystalVial extends Item {
 
 	{
 		//name = "CrystalVial";
-		image = ItemSpriteSheet.VIAL;
+		image = ItemSpriteSheet.CRYSTAL_VIAL;
 
 		defaultAction = AC_CHOOSE;
-		unique = true;
+
 	}
 
 	public int volume = 0;

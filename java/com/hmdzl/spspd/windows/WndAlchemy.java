@@ -44,11 +44,11 @@ import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
-import com.hmdzl.spspd.items.food.completefood.Crystalnucleus;
+import com.hmdzl.spspd.items.sellitem.Crystalnucleus;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
 import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
-import com.hmdzl.spspd.items.food.completefood.Garbage;
+import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.food.completefood.Gel;
 import com.hmdzl.spspd.items.food.completefood.Hamburger;
 import com.hmdzl.spspd.items.food.completefood.Herbmeat;
@@ -381,6 +381,9 @@ public class WndAlchemy extends Window {
 		ArrayList<NutPlant.Seed> nutseed = filterInput(NutPlant.Seed.class);
 
 		Item result = null;
+		
+		Statistics.potionsCooked++;
+		Badges.validatePotionsCooked();
 
         if (honey.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && seeds.size() == 1 ){
 			result = new PerfectFood();
@@ -444,10 +447,6 @@ public class WndAlchemy extends Window {
         		ShatteredPixelDungeon.reportException(e);
         		result = Generator.random( Generator.Category.POTION );
         	}
-
-				Statistics.potionsCooked++;
-				Badges.validatePotionsCooked();
-
 				//blandfruit cooking
 			} else if (blandfruits.size() == 1 && seeds.size() == 1) {
 				result = fruits.get(0);

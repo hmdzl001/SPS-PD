@@ -40,7 +40,7 @@ public class BlacksmithPainter extends Painter {
 			int pos;
 			do {
 				pos = room.random();
-			} while (level.map[pos] != Terrain.EMPTY_SP);
+			} while (level.map[pos] != Terrain.TRAP);
 			level.drop(Generator.random(Random.oneOf(Generator.Category.ARMOR,
 					Generator.Category.WEAPON)), pos);
 		}

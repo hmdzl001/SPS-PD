@@ -28,6 +28,7 @@ public class Statistics {
 	private static final String REALDEEPEST = "maxDepthReal";
 	
 	private static final String FINDSEED = "findseed";
+	private static final String ASCETIC_SHIELD = "ashield";
 	
 	private static final String SLAIN = "enemiesSlain";
 	private static final String FOOD = "foodEaten";
@@ -71,6 +72,7 @@ public class Statistics {
 	public static int prevfloormoves;
 	public static int moves;
 	public static int findseed;
+	public static int ashield;
 	public static float time;
 	public static boolean qualifiedForNoKilling = false;
 	public static boolean completedWithNoKilling = false;
@@ -87,7 +89,7 @@ public class Statistics {
 		eggBreak = 0;
 		potionsCooked = 0;
 		findseed = 0;
-
+		ashield = 0;
 		piranhasKilled = 0;
 		archersKilled = 0;
 		assassinsKilled = 0;
@@ -134,6 +136,7 @@ public class Statistics {
 		bundle.put(MOVES, moves);
 		bundle.put(TIME, time);
 		bundle.put(FINDSEED, findseed);
+		bundle.put(ASCETIC_SHIELD, ashield);
 		bundle.put(AMULET, amuletObtained);
 		bundle.put(ORB, orbObtained);
 	}
@@ -163,6 +166,7 @@ public class Statistics {
 		moves = bundle.getInt(MOVES);
 		time = bundle.getInt(TIME);
 		findseed = bundle.getInt(FINDSEED);
+		ashield = bundle.getInt(ASCETIC_SHIELD);
 		amuletObtained = bundle.getBoolean(AMULET);
 		orbObtained = bundle.getBoolean(ORB);	
 		

@@ -24,8 +24,8 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 public class RainShield extends MiscEquippable {
 
 	{
-		image = ItemSpriteSheet.NULLWARN;
-		unique = true;
+		image = ItemSpriteSheet.RAIN_SHIELD;
+
 	}
 	
 	@Override
@@ -38,8 +38,8 @@ public class RainShield extends MiscEquippable {
 	    @Override
 	    public boolean act() {
 		
-		if (target.HP > target.HT/2){
-			target.HP = Math.max(target.HT/2, target.HP - 1);
+		if (target.HP > target.HT/10){
+			target.HP = Math.max(target.HT/10, target.HP - 1);
 		}
 		spend(TICK);
 		Buff.affect(target, ShieldArmor.class).level(Math.max(0,target.HT - target.HP));

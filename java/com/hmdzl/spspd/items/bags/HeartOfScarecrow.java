@@ -22,7 +22,6 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.ShadowEaterKey;
 import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;

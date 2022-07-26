@@ -54,7 +54,7 @@ public class RandomEgg extends Egg {
 
 		{
 		image = ItemSpriteSheet.RANDOWNEGG;
-		unique = true;
+
 		stackable = false;
 		}
 

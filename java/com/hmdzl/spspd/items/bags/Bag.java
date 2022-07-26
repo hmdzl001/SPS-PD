@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.items.bags;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
@@ -29,6 +26,9 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Bag extends Item implements Iterable<Item> {
 

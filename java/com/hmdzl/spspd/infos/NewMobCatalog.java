@@ -48,6 +48,7 @@ import com.hmdzl.spspd.actors.mobs.FireRabbit;
 import com.hmdzl.spspd.actors.mobs.Gnoll;
 import com.hmdzl.spspd.actors.mobs.GnollArcher;
 import com.hmdzl.spspd.actors.mobs.GnollShaman;
+import com.hmdzl.spspd.actors.mobs.GoldCollector;
 import com.hmdzl.spspd.actors.mobs.GoldOrc;
 import com.hmdzl.spspd.actors.mobs.GoldThief;
 import com.hmdzl.spspd.actors.mobs.Golem;
@@ -127,6 +128,8 @@ public enum NewMobCatalog {
 		SEWER.seen.put( Shit.class , true);
 		SEWER.seen.put( Vagrant.class , true);
 		SEWER.seen.put( PatrolUAV.class , true);
+		SEWER.seen.put( Shit.class , true);
+		SEWER.seen.put( Vagrant.class , true);
 		SEWER.seen.put( Goo.class , true);
 		SEWER.seen.put( SewerHeart.class , true);
 		SEWER.seen.put( PlagueDoctor.class , true);
@@ -136,6 +139,7 @@ public enum NewMobCatalog {
 		PRISON.seen.put( Gnoll.class , true);
 		PRISON.seen.put( Guard.class , true);
 		PRISON.seen.put( Zombie.class , true);
+		PRISON.seen.put( GoldCollector.class , true);
 		PRISON.seen.put( BambooMob.class , true);
 		PRISON.seen.put( Assassin.class , true);
 		PRISON.seen.put( TrollWarrior.class , true);
@@ -150,6 +154,7 @@ public enum NewMobCatalog {
 		CAVE.seen.put( Brute.class , true);
 		CAVE.seen.put(Shielded.class , true);
 		CAVE.seen.put( SandMob.class , true);
+		CAVE.seen.put( TimeKeeper.class , true);
 		CAVE.seen.put( Spinner.class , true);
 		CAVE.seen.put( IceBug.class , true);
 		CAVE.seen.put( BombBug.class , true);
@@ -165,6 +170,7 @@ public enum NewMobCatalog {
 		CITY.seen.put( Senior.class , true);
 		CITY.seen.put( SpiderBot.class , true);
 		CITY.seen.put( Golem.class , true);
+		CITY.seen.put( DragonRider.class , true);
 		CITY.seen.put( Musketeer.class , true);
 		CITY.seen.put( DwarfLich.class , true);
 		CITY.seen.put( ManySkeleton.class , true);
@@ -197,6 +203,9 @@ public enum NewMobCatalog {
 		ETC.seen.put( Piranha.class , true);
 		ETC.seen.put( Mimic.class , true);
 		ETC.seen.put( TestMob.class , true);
+		ETC.seen.put( Rat.class , true);
+		ETC.seen.put( Rat.class , true);
+		ETC.seen.put( Rat.class , true);
 		ETC.seen.put( Rat.class , true);
 
 	}

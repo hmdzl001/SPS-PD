@@ -15,24 +15,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.food.completefood;
+package com.hmdzl.spspd.items.food.meatfood;
 
-import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
-public class Crystalnucleus extends CompleteFood {
+public class SmallMeat extends MeatFood {
 
 	{
-		//name = "crystalnucleus";
-		image = ItemSpriteSheet.NORNORANGE;
-		energy = 1;
-		hornValue = 1;
-		 
+		//name = "SmallMeat";
+		image = ItemSpriteSheet.STEAK;
+		energy = 50;
+		hornValue = 0;
+	}
+
+	@Override
+	public void execute(Hero hero, String action) {
+
+		super.execute(hero, action);
+
 	}
 
 	@Override
 	public int price() {
-		return 1000 * quantity;
+		return 1 * quantity;
 	}
 
+	
+	//public static Food cook(MysteryMeat ingredient) {
+	//	IceMeat result = new IceMeat();
+	//	result.quantity = ingredient.quantity();
+	//	return result;
+	//}
+	
+	//public static Food cook(Meat ingredient) {
+	//	IceMeat result = new IceMeat();
+	//	result.quantity = ingredient.quantity();
+	//	return result;
+	//}
 }

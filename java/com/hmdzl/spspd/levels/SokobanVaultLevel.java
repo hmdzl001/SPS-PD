@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -30,13 +27,12 @@ import com.hmdzl.spspd.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanBlack;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanCorner;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanSwitch;
+import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
-import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-
 import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
@@ -45,13 +41,16 @@ import com.hmdzl.spspd.levels.traps.ActivatePortalTrap;
 import com.hmdzl.spspd.levels.traps.ChangeSheepTrap;
 import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.SokobanPortalTrap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 public class SokobanVaultLevel extends Level {
 
@@ -418,13 +417,13 @@ public class SokobanVaultLevel extends Level {
 		int goldmin=1; int goldmax=10;
 		boolean ringDrop = false;
 		if (first){
-			goldmin=300; goldmax=500;
+			goldmin=30; goldmax=50;
 		}
 		 for (int i = 0; i < LENGTH; i++) {				
 				if (map[i]==Terrain.EMPTY && heaps.get(i) == null && Random.Int(100)>70){
 					if (first && !ringDrop){drop(new LuckyBadge(), i).type = Heap.Type.CHEST; ringDrop=true;}
-				    else if (first && Random.Int(50)==0){drop(new ScrollOfUpgrade(), i).type = Heap.Type.CHEST;}
-					else {drop(new Gold(Random.Int(goldmin, goldmax)), i).type = Heap.Type.CHEST;}
+				    else if (Random.Int(5)==0){drop(new Gold(Random.Int(goldmin, goldmax)), i).type = Heap.Type.CHEST;}
+					else {drop(new Dewdrop(), i).type = Heap.Type.E_DUST;}
 				}
 			}	 
 		

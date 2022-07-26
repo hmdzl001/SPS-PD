@@ -17,17 +17,21 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Dry;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.HiddenShadow;
 import com.hmdzl.spspd.actors.buffs.Slow;
+import com.hmdzl.spspd.actors.buffs.Taunt;
+import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.WaterItem;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth2;
+import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SandmobSprite;
@@ -75,6 +79,11 @@ public class SandMob extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
+		if (this.buff(Taunt.class)== null && enemy == Dungeon.hero) {
+			Buff.affect(this, Taunt.class);
+			Buff.affect(this,HiddenShadow.class,6f);
+		}
+
 		if (Random.Int(5) == 0) {
 			Buff.prolong(enemy, Dry.class, 10f);
 		}
@@ -86,6 +95,29 @@ public class SandMob extends Mob {
 		return damage;
 	}
 
+	
+	@Override
+	public void add(Buff buff) {
+		if (buff instanceof Dry ) {
+			if (HP < HT) {
+				HP+=HT/10;
+				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
+			}
+		} else if (buff instanceof Vertigo) {
+			if (Level.water[this.pos])
+				damage(Random.NormalIntRange(HT / 2, HT), buff);
+			else
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+		} else {
+			super.add(buff);
+		}
+	}
+
+	{
+		resistances.add(DamageType.ShockDamage.class);
+		resistances.add(WandOfLightning.class);
+	}
+	
 	@Override
 	public void die(Object cause) {
         MiniSand.spawnAround(this.pos);
@@ -158,12 +190,18 @@ public class SandMob extends Mob {
 		} else {
 			return null;
 		}
-	}		
+	}
 
-		{
-			immunities.add(EnchantmentEarth.class);
-			immunities.add(EnchantmentEarth2.class);
-			immunities.add(Paralysis.class);
+		@Override
+		public void add(Buff buff) {
+			 if (buff instanceof Vertigo) {
+				if (Level.water[this.pos])
+					damage(Random.NormalIntRange(HT / 2, HT), buff);
+				else
+					damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+			} else {
+				super.add(buff);
+			}
 		}
 
 	}	

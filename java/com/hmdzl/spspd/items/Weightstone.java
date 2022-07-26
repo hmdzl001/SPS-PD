@@ -133,7 +133,7 @@ public class Weightstone extends Item {
 			float pos = tfMesage.top() + tfMesage.height();
 
 			if (weapon.imbue != Weapon.Imbue.LIGHT) {
-				RedButton btnSpeed = new RedButton(Messages.get(this, "light")) {
+				RedButton btnSpeed = new RedButton(Messages.get(this, "lighthit")) {
 					@Override
 					protected void onClick() {
 						hide();

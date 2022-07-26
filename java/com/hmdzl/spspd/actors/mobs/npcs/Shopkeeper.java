@@ -18,14 +18,15 @@
 package com.hmdzl.spspd.actors.mobs.npcs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.SellPermit;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ShopkeeperSprite;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndTradeItem;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Shopkeeper extends NPC {
 
@@ -34,6 +35,11 @@ public class Shopkeeper extends NPC {
 		spriteClass = ShopkeeperSprite.class;
 		properties.add(Property.HUMAN);
 		properties.add(Property.IMMOVABLE);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new SellPermit();
 	}
 
 	@Override

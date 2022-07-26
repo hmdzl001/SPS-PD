@@ -77,7 +77,7 @@ public class WandOfFlow extends DamageWand {
 		}	
 		Heap heap = Dungeon.level.heaps.get(beam.collisionPos);
 		if (heap != null) {
-			heap.freeze();
+			heap.icehit();
 		}			
 		
 	}

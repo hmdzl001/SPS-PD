@@ -19,16 +19,15 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.HummingTool;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GoblinPlayerSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndGoblin;
-import com.hmdzl.spspd.windows.WndSaidBySun;
 import com.watabou.utils.Random;
 
 public class GoblinPlayer extends NPC {
@@ -51,6 +50,10 @@ public class GoblinPlayer extends NPC {
 		return 1000;
 	}
 
+	@Override
+	public Item SupercreateLoot(){
+		return new HummingTool();
+	}
 
 	@Override
 	protected Char chooseEnemy() {

@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.items.bombs.Bomb;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.IronKey;
@@ -54,6 +53,10 @@ public class MaterialPainter extends Painter {
 		if (statue != null) {
 			set(level, statue, Terrain.STATUE);
 		}
+
+		Point pot = room.center();
+
+		set(level, pot, Terrain.IRON_MAKER);
 
 		int n = Random.IntRange(2, 3);
 		for (int i = 0; i < n; i++) {

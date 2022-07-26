@@ -117,7 +117,7 @@ public class ScrollOfRegrowth extends Scroll {
 	@Override
 	public void empoweredRead() {
         doRead();
-        Buff.affect(curUser, Dewcharge.class).level(50);
+        Buff.affect(curUser, Dewcharge.class,50f);
 	}	
 
 	@Override

@@ -40,7 +40,7 @@ public class CocoCatEgg extends Egg {
 
 		{
 		image = ItemSpriteSheet.RANDOWNEGG;
-		unique = true;
+
 		stackable = false;
 		}
 

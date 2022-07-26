@@ -39,7 +39,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Speed;
+import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
@@ -141,7 +141,7 @@ public class PlagueDoctor extends Mob {
 						Buff.affect(enemy, DefenceUp.class, 5f).level(20);
 						break;
 					case 3:
-						Buff.affect(enemy, Speed.class, 5f);
+						Buff.affect(enemy, SpeedUp.class, 5f);
 						break;
 					default:
 						break;
@@ -367,7 +367,7 @@ public class PlagueDoctor extends Mob {
 			loot = new StoneOre();
 			lootChance = 0.2f;
 
-			properties.add(Property.ELEMENT);
+			properties.add(Property.UNKNOW);
 			properties.add(Property.MINIBOSS);
 		}
 

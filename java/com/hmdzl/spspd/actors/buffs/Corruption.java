@@ -32,20 +32,9 @@ public class Corruption extends Buff {
 		type = buffType.NEGATIVE;
 	}
 
-	private float buildToDamage = 0f;
-
 	@Override
 	public boolean act() {
-		buildToDamage += target.HT/200f;
-
-		int damage = (int)buildToDamage;
-		buildToDamage -= damage;
-
-		if (damage > 0 && damage < target.HP)
-			target.damage(damage, this);
-
 		spend(TICK);
-
 		return true;
 	}
 

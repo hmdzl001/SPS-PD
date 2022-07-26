@@ -35,6 +35,7 @@ import com.hmdzl.spspd.items.TriforceOfWisdom;
 import com.hmdzl.spspd.items.quest.DarkGold;
 import com.hmdzl.spspd.items.quest.Pickaxe;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.items.sellitem.BrokenHammer;
 import com.hmdzl.spspd.items.weapon.melee.special.ShadowEater;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Room.Type;
@@ -75,7 +76,11 @@ public class Blacksmith extends NPC {
 		properties.add(Property.TROLL);
 		properties.add(Property.IMMOVABLE);
 	}
-	
+
+	@Override
+	public Item SupercreateLoot(){
+		return new BrokenHammer();
+	}
 
 	@Override
 	protected boolean act() {

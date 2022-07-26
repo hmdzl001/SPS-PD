@@ -112,7 +112,7 @@ public class UIcecorps extends Mob {
 			Buff.affect(enemy, StoneIce.class).level(3);
 		}
 		
-		enemy.damage(damage/2, ICE_DAMAGE);
+		enemy.damage(damageRoll()/2, ICE_DAMAGE);
 		damage = damage/2;
 
 		return damage;

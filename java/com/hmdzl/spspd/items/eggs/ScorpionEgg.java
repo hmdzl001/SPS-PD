@@ -36,7 +36,7 @@ public class ScorpionEgg extends Egg {
 	public static final float TIME_TO_USE = 1;
 		{
 		image = ItemSpriteSheet.SCORPIONEGG;
-		unique = true;
+
 		stackable = false;
 		}
 		

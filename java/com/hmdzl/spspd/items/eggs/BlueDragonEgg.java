@@ -41,7 +41,7 @@ public class BlueDragonEgg extends Egg {
 		{
 		//name = "shadow dragon egg";
 		image = ItemSpriteSheet.BLUE_DRAGONEGG;
-		unique = true;
+
 		stackable = false;
 		}
 		

@@ -163,7 +163,7 @@ public class DriedRose extends Artifact {
 			curUser = hero;
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-            Buff.affect(curUser, Dewcharge.class).level(level*100);
+            Buff.affect(curUser, Dewcharge.class,100*level);
 			curUser.spendAndNext(1f);
 			detach(curUser.belongings.backpack);
 		}

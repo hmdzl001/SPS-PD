@@ -41,7 +41,7 @@ public class EasterEgg extends Egg {
 		{
 		//name = "egg";
 		image = ItemSpriteSheet.RABBITEGG;
-		unique = true;
+	
 		stackable = false;
 		}
 

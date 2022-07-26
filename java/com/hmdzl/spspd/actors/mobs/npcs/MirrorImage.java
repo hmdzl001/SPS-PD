@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs.npcs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
@@ -28,11 +26,15 @@ import com.hmdzl.spspd.actors.buffs.MagicalSleep;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.Mirror2;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.MirrorSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public class MirrorImage extends NPC {
 
@@ -148,6 +150,11 @@ public class MirrorImage extends NPC {
 		Dungeon.hero.spend(1 / Dungeon.hero.speed());
 		Dungeon.hero.busy();
 		return true;
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Mirror2();
 	}
 
 	{

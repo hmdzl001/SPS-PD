@@ -91,7 +91,7 @@ public class MagicEye extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damage*3/4, LIGHT_DAMAGE);
+		enemy.damage(damageRoll()*3/4, LIGHT_DAMAGE);
 		damage = damage/4;
 
 		return damage;

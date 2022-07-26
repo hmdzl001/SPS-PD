@@ -22,19 +22,20 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.GoldTouch;
-import com.hmdzl.spspd.actors.buffs.HighAttack;
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Strength;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.actors.buffs.HighAttack;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.Silent;
+import com.hmdzl.spspd.actors.buffs.Strength;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.watabou.utils.Random;
 
 public class RogueSkill extends ClassSkill {
@@ -47,7 +48,7 @@ public class RogueSkill extends ClassSkill {
 	@Override
 	public void doSpecial() {
 		//GameScene.selectCell(teleporter);
-		RogueSkill.charge += 10;
+		RogueSkill.charge += 15;
 		
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -70,6 +71,15 @@ public class RogueSkill extends ClassSkill {
 			case 3:
 			break;
 		}
+		for (Mob mob : Dungeon.level.mobs) {
+			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
+				Buff.affect(mob, Silent.class,9999f);
+				Buff.affect(mob, Disarm.class,5f);
+				Buff.affect(mob, ArmorBreak.class, 10f).level(50);
+				Buff.prolong(mob, Blindness.class, 3f);
+			}
+		}
+
 	}
 
 	@Override
@@ -88,14 +98,7 @@ public class RogueSkill extends ClassSkill {
 	@Override
 	public void doSpecial3() {
 
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
-				Buff.affect(mob, Silent.class,9999f);
-				Buff.affect(mob, Disarm.class,5f);
-				Buff.affect(mob, ArmorBreak.class, 10f).level(50);
-				Buff.prolong(mob, Blindness.class, 3f);
-			}
-		}
+		Dungeon.level.drop(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(4), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 
 		RogueSkill.charge += 20;
 

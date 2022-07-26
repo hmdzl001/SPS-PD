@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.mobs.Statue;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.StatueSprite;
 import com.hmdzl.spspd.sprites.TrapSprite;
@@ -64,7 +64,7 @@ public class GuardianTrap extends Trap {
 			guardian.beckon(Dungeon.hero.pos );
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
-		if (heap != null) {heap.summon();}
+		if (heap != null) {heap.darkhit();}
 
 	}
 

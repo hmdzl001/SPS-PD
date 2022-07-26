@@ -15,68 +15,57 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items;
+package com.hmdzl.spspd.items.sellitem;
 
-import java.util.ArrayList;
-
-import com.hmdzl.spspd.actors.hero.Hero;
-
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
-public class WaterItem2 extends Item {
-	
-	public static final String AC_POUR = "POUR";
+public class HunterLens extends SellItem {
+
+	//private static final String AC_END = "END THE GAME";
 
 	{
-		//name = "water";
+		//name = "toadstool mushroom";
 		image = ItemSpriteSheet.DEWDROP;
+	;
 
-		stackable = true;
+	
+	}
+
+	/*
+	@Override
+	public ArrayList<String> actions(Hero hero) {
+		ArrayList<String> actions = super.actions(hero);
+		actions.add(AC_END);
+		return actions;
 	}
 
 	@Override
-	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
+	public void execute(Hero hero, String action) {
+		if (action == AC_END) {
 
-        actions.add( AC_POUR );
+			showAmuletScene(false);
 
-		return actions;
-	}	
+		} else {
 
-	@Override
-	public void execute( final Hero hero, String action ) {
-         if( action.equals( AC_POUR ) ){
+			super.execute(hero, action);
 
-             curUser = hero;
-             curItem = this;
-
-			 Level.set(curUser.pos, Terrain.WATER);
-			 GameScene.updateMap(curUser.pos);
-
-			 detach(curUser.belongings.backpack);
-                
-        } else {
-			super.execute(hero, action);			
 		}
 	}
-	
-	
-	@Override
-	public boolean isUpgradable() {
-		return false;
-	}
+  
 
+*/
+
+	@Override
+	public int price() {
+		return 1500 * quantity;
+	}
 	@Override
 	public boolean isIdentified() {
 		return true;
 	}
 
 	@Override
-	public int price() {
-		return 10 * quantity;
+	public boolean isUpgradable() {
+		return false;
 	}
-
 }

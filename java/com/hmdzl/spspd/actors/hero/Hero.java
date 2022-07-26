@@ -44,6 +44,7 @@ import com.hmdzl.spspd.actors.buffs.Combo;
 import com.hmdzl.spspd.actors.buffs.DBurning;
 import com.hmdzl.spspd.actors.buffs.DamageUp;
 import com.hmdzl.spspd.actors.buffs.DeadRaise;
+import com.hmdzl.spspd.actors.buffs.DelayProtect;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.Drowsy;
@@ -79,7 +80,6 @@ import com.hmdzl.spspd.actors.buffs.Strength;
 import com.hmdzl.spspd.actors.buffs.SuperArcane;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.WaitHelp;
 import com.hmdzl.spspd.actors.buffs.WarGroove;
 import com.hmdzl.spspd.actors.buffs.faithbuff.BalanceFaith;
 import com.hmdzl.spspd.actors.buffs.faithbuff.DemonFaith;
@@ -103,6 +103,7 @@ import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Amulet;
 import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
@@ -134,7 +135,9 @@ import com.hmdzl.spspd.items.misc.BigBattery;
 import com.hmdzl.spspd.items.misc.CopyBall;
 import com.hmdzl.spspd.items.misc.DanceLion;
 import com.hmdzl.spspd.items.misc.DiceTower;
+import com.hmdzl.spspd.items.misc.FishBone;
 import com.hmdzl.spspd.items.misc.FourClover;
+import com.hmdzl.spspd.items.misc.GhostGirlRose;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.misc.HealBag;
 import com.hmdzl.spspd.items.misc.HorseTotem;
@@ -177,7 +180,9 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.AlchemyPot;
 import com.hmdzl.spspd.levels.features.Chasm;
+import com.hmdzl.spspd.levels.features.IronMaker;
 import com.hmdzl.spspd.levels.features.Sign;
+import com.hmdzl.spspd.levels.features.TentRoom;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Earthroot;
@@ -194,6 +199,7 @@ import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndAscend;
 import com.hmdzl.spspd.windows.WndDescend;
+import com.hmdzl.spspd.windows.WndLifeTradeItem;
 import com.hmdzl.spspd.windows.WndMessage;
 import com.hmdzl.spspd.windows.WndResurrect;
 import com.hmdzl.spspd.windows.WndTradeItem;
@@ -229,7 +235,6 @@ public class Hero extends Char {
 	public int evadeSkill = 5;
 	public int magicSkill = 0;
 	public int spp = 0;
-	public int spp2 = 0;
 
 	public boolean ready = false;
 	
@@ -348,11 +353,10 @@ public class Hero extends Char {
 		return magicSkill;
 	}	
 
-	private static final String ATTACK = "hitSkill";
-	private static final String DEFENSE = "evadeSkill";
+	private static final String HIT_SKILL = "hitSkill";
+	private static final String EVADE_SKILL = "evadeSkill";
 	private static final String MAGIC = "magicSkill";
 	private static final String SPP = "spp";
-	private static final String SPP2 = "spp2";
 	private static final String STRENGTH = "STR";
 	private static final String LEVEL = "lvl";
 	private static final String EXPERIENCE = "exp";
@@ -372,11 +376,10 @@ public class Hero extends Char {
 		heroClass.storeInBundle(bundle);
 		subClass.storeInBundle(bundle);
 
-		bundle.put(ATTACK, hitSkill);
-		bundle.put(DEFENSE, evadeSkill);
+		bundle.put(HIT_SKILL, hitSkill);
+		bundle.put(EVADE_SKILL, evadeSkill);
 		bundle.put(MAGIC, magicSkill);
 		bundle.put(SPP, spp);
-		bundle.put(SPP2, spp2);
 
 		bundle.put(STRENGTH, STR);
 
@@ -400,11 +403,10 @@ public class Hero extends Char {
 		heroClass = HeroClass.restoreInBundle(bundle);
 		subClass = HeroSubClass.restoreInBundle(bundle);
 
-		hitSkill = bundle.getInt(ATTACK);
-		evadeSkill = bundle.getInt(DEFENSE);
+		hitSkill = bundle.getInt(HIT_SKILL);
+		evadeSkill = bundle.getInt(EVADE_SKILL);
 		magicSkill = bundle.getInt(MAGIC);
 		spp = bundle.getInt(SPP);
-		spp2 = bundle.getInt(SPP2);
 
 		STR = bundle.getInt(STRENGTH);
 		updateAwareness();
@@ -645,6 +647,10 @@ public class Hero extends Char {
             else speed *=4;
 	    }
 
+	    if (buff(FishBone.FishFriend.class) !=null && Level.water[pos]){
+            speed*=2;
+		}
+
 		if (hero.heroClass == HeroClass.HUNTRESS && Dungeon.skins == 2) {
 				speed += 0.5f;
 
@@ -765,6 +771,7 @@ public class Hero extends Char {
 		Statistics.moves++;
 
 		Light light = buff(Light.class);
+		DewVial.DewLight dlight = buff(DewVial.DewLight.class);
 		if (buff(HighLight.class) != null){
 			viewDistance = 8;
 			Dungeon.observe();
@@ -774,10 +781,10 @@ public class Hero extends Char {
 		} else if (Statistics.time < 841 && Statistics.time > 600) {
 			viewDistance = 8;
 			Dungeon.observe();
-		} else if (Statistics.time > 1080  && light == null) {
+		} else if (Statistics.time > 1080  && light == null && dlight == null) {
 			viewDistance = 4;
 			Dungeon.observe();
-		} else if (Statistics.time < 361 && light == null) {
+		} else if (Statistics.time < 361 && light == null && dlight == null) {
 			viewDistance = 2;
 			Dungeon.observe();
 		} else {viewDistance = 5;
@@ -928,7 +935,11 @@ public class Hero extends Char {
 
 				return actBuy((HeroAction.Buy) curAction);
 
-			} else if (curAction instanceof HeroAction.PickUp) {
+			} else if (curAction instanceof HeroAction.LifeBuy) {
+
+				return actLifeBuy((HeroAction.LifeBuy) curAction); 
+				
+			}else if (curAction instanceof HeroAction.PickUp) {
 
 				return actPickUp((HeroAction.PickUp) curAction);
 
@@ -1008,6 +1019,10 @@ public class Hero extends Char {
 				Sign.readPit(pos);
 			} else if (Dungeon.level.map[pos] == Terrain.ALCHEMY){
 				AlchemyPot.cook(pos);
+			} else if (Dungeon.level.map[pos] == Terrain.TENT){
+				TentRoom.rest(pos);
+			} else if (Dungeon.level.map[pos] == Terrain.IRON_MAKER){
+		      	IronMaker.make(pos);
 			}
 			ready();
 
@@ -1089,6 +1104,29 @@ public class Hero extends Char {
 			return false;
 		}
 	}
+	
+	private boolean actLifeBuy(HeroAction.LifeBuy action) {
+		int dst = action.dst;
+		if (pos == dst || Level.adjacent(pos, dst)) {
+
+			ready();
+
+			Heap heap = Dungeon.level.heaps.get(dst);
+			if (heap != null && heap.type == Type.FOR_LIFE && heap.size() == 1) {
+				GameScene.show(new WndLifeTradeItem(heap, true));
+			}
+
+			return false;
+
+		} else if (getCloser(dst)) {
+
+			return true;
+
+		} else {
+			ready();
+			return false;
+		}
+	}	
 
 	/*private boolean actAlchemy( HeroAction.Alchemy action ) {
 		int dst = action.dst;
@@ -1165,7 +1203,7 @@ public class Hero extends Char {
 
 			Heap heap = Dungeon.level.heaps.get(dst);
 			if (heap != null
-					&& (heap.type != Type.HEAP && heap.type != Type.FOR_SALE)) {
+					&& (heap.type != Type.HEAP && heap.type != Type.FOR_SALE  && heap.type != Type.FOR_LIFE)) {
 
 				theKey = null;
 				theSkeletonKey = null;
@@ -1192,6 +1230,7 @@ public class Hero extends Char {
 					break;
 				case SKELETON:
 				case REMAINS:
+				case E_DUST:
 					break;
 				default:
 					Sample.INSTANCE.play(Assets.SND_UNLOCK);
@@ -1562,7 +1601,7 @@ public class Hero extends Char {
 				}
 			}
 			case ASCETIC:
-				enemy.damage(hero.magicSkill,ENERGY_DAMAGE);
+				enemy.damage(hero.magicSkill(),ENERGY_DAMAGE);
 				break;
 		}
 		switch (subClass) {
@@ -1583,7 +1622,7 @@ public class Hero extends Char {
 				Buff.prolong(this,Rhythm.class,3f);
 				break;
 		case JOKER:
-			if ((wep instanceof MeleeWeapon || wep == null) && Random.Int(3)==1) {
+			if (wep instanceof MeleeWeapon || wep == null) {
 				switch (Random.Int (3)){
 					case 0:
 				int oppositeDefender = enemy.pos + (enemy.pos - pos);
@@ -1595,7 +1634,7 @@ public class Hero extends Char {
 						Buff.prolong(enemy,Locked.class,5f);
 						break;
 					case 2:
-						Buff.prolong(enemy,Disarm.class,5f);
+						Buff.affect(enemy,BeTired.class).set(40);
 					    Buff.affect(enemy,BeOld.class).set(10f);
 						break;
 					default:
@@ -1619,8 +1658,8 @@ public class Hero extends Char {
 				Buff.affect(enemy,BeTired.class).set(20);
 				break;	
 			case HACKER:
-				enemy.damage((int)(hero.magicSkill*damage/10),ENERGY_DAMAGE);
-				Buff.affect(this,MagicArmor.class).level(hero.magicSkill);
+				enemy.damage((int)(hero.magicSkill()*damage/10),ENERGY_DAMAGE);
+				Buff.affect(this,MagicArmor.class).level(hero.magicSkill());
 				break;						
 		default:
 		}
@@ -1695,6 +1734,10 @@ public class Hero extends Char {
            }
         }
 
+		if (enemy instanceof Mob && !(enemy instanceof NPC)) {
+			((Mob) enemy).aggro(this);
+		}
+
 		return damage;		
 
 	}
@@ -1761,8 +1804,8 @@ public class Hero extends Char {
 				damage = (int)(damage*0.7);}
 			case PERFORMER:
 				if (Dungeon.skins == 2){
-					if 	 (Dungeon.level.map[this.pos] == Terrain.WATER) {
-						Buff.prolong(this, Invisibility.class,2f);
+					if 	 (Level.water[this.pos]) {
+						Buff.prolong(this, Invisibility.class,3f);
 					}
 				}
 		}
@@ -1865,6 +1908,15 @@ public class Hero extends Char {
 			}
 		}
 
+		int friend = 0;
+		for (Buff buff : buffs(FishBone.FishFriend.class)) {
+			friend += 1;
+		}
+		if (friend != 0 ) {
+			if (hasProp(enemy, Property.FISHER))
+				dmg = 0;
+		}
+
 		int tenacity = 0;
 		for (Buff buff : buffs(RingOfTenacity.Tenacity.class)) {
 			tenacity += ((RingOfTenacity.Tenacity) buff).level;
@@ -1958,10 +2010,10 @@ public class Hero extends Char {
 		}
 
 		if(heroClass == HeroClass.ASCETIC){
-		    if (hero.HP > hero.HT/2) spp2++;
-		    if (spp2 > 5 && hero.HP < hero.HT/2){
-		        spp2 = 0;
-		        Buff.affect(hero,WaitHelp.class);
+		    if (hero.HP > hero.HT/2)  Statistics.ashield++;
+		    if (Statistics.ashield > 5 && hero.HP < hero.HT/2){
+				Statistics.ashield = 0;
+		        Buff.affect(hero,DelayProtect.class);
             }
         }
 
@@ -2101,7 +2153,10 @@ public class Hero extends Char {
 			} else {
 				curAction = new HeroAction.Attack(ch);
 			}
+		} else if (Dungeon.level.map[cell] == Terrain.LOCKED_DOOR
+				|| Dungeon.level.map[cell] == Terrain.LOCKED_EXIT) {
 
+			curAction = new HeroAction.Unlock(cell);
 		} else if ((heap = Dungeon.level.heaps.get(cell)) != null) {
 
 			switch (heap.type) {
@@ -2112,14 +2167,16 @@ public class Hero extends Char {
 				curAction = heap.size() == 1 && heap.peek().price() > 0 ? new HeroAction.Buy(
 						cell) : new HeroAction.PickUp(cell);
 				break;
+		    case FOR_LIFE:
+				curAction = heap.size() == 1 && heap.peek().price() > 0 ? new HeroAction.LifeBuy(
+						cell) : new HeroAction.PickUp(cell);
+				break;				
+				
 			default:
 				curAction = new HeroAction.OpenChest(cell);
 			}
 
-		} else if (Dungeon.level.map[cell] == Terrain.LOCKED_DOOR
-				|| Dungeon.level.map[cell] == Terrain.LOCKED_EXIT) {
 
-			curAction = new HeroAction.Unlock(cell);
 
 		} else if (cell == Dungeon.level.exit && (Dungeon.depth < 26)) {
 
@@ -2142,7 +2199,11 @@ public class Hero extends Char {
 	public void earnExp(int exp) {
 
 		this.exp += exp;
-
+        GhostGirlRose.GhostGirlBless ggb = buff(GhostGirlRose.GhostGirlBless.class);
+		if (ggb != null){
+			this.exp += 2;
+		}
+		
 		float percent = exp/(float)maxExp();
 
 		EtherealChains.chainsRecharge chains = buff(EtherealChains.chainsRecharge.class);
@@ -2476,7 +2537,6 @@ public class Hero extends Char {
 		super.move(step);
 
 		if (!flying) {
-
 			if (Level.water[pos]) {
 				Sample.INSTANCE.play(Assets.SND_WATER, 1, 1,
 						Random.Float(0.8f, 1.25f));

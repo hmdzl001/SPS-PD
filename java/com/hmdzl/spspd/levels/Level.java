@@ -31,8 +31,10 @@ import com.hmdzl.spspd.actors.buffs.Awareness;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ExitFind;
+import com.hmdzl.spspd.actors.buffs.HiddenShadow;
 import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.buffs.Shadows;
+import com.hmdzl.spspd.actors.buffs.TentSleep;
 import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
@@ -90,8 +92,10 @@ import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.levels.features.Chasm;
+import com.hmdzl.spspd.levels.features.DewBlessRoom;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
+import com.hmdzl.spspd.levels.features.OldHighGrass;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.traps.AirTrap;
 import com.hmdzl.spspd.levels.traps.ChangeSheepTrap;
@@ -204,7 +208,6 @@ public abstract class  Level implements Bundlable {
 	public static boolean[] losBlockHigh = new boolean[getLength()];
 	public static boolean[] losBlockLow	 = new boolean[getLength()];	
 	public static boolean[] flamable = new boolean[getLength()];
-	//public static boolean[] crashable = new boolean[getLength()];
 	public static boolean[] shockable = new boolean[getLength()];
 	public static boolean[] secret = new boolean[getLength()];
 	public static boolean[] solid = new boolean[getLength()];
@@ -220,6 +223,7 @@ public abstract class  Level implements Bundlable {
 	public int entrance;
 	public int exit;
 	public int pitSign;
+	public int tent;
 
 	// when a boss level has become locked.
 	public boolean locked = false;
@@ -258,6 +262,7 @@ public abstract class  Level implements Bundlable {
 	private static final String BLOBS = "blobs";
 	private static final String FEELING = "feeling";
 	private static final String PITSIGN = "pitSign";
+	private static final String TENT = "tent";
 	private static final String MOVES = "currentmoves";
 	private static final String CLEARED = "cleared";
 	private static final String RESET = "reset";
@@ -473,6 +478,7 @@ public abstract class  Level implements Bundlable {
 		entrance = bundle.getInt(ENTRANCE);
 		exit = bundle.getInt(EXIT);
 		pitSign = bundle.getInt(PITSIGN);
+		tent = bundle.getInt(TENT);
 		currentmoves = bundle.getInt(MOVES);
 
 		locked = bundle.getBoolean(LOCKED);
@@ -565,6 +571,7 @@ public abstract class  Level implements Bundlable {
 		bundle.put(BLOBS, blobs.values());
 		bundle.put(FEELING, feeling);
 		bundle.put(PITSIGN, pitSign);
+		bundle.put(TENT, tent);
 		bundle.put(MOVES, currentmoves);
 		bundle.put(CLEARED, cleared);
 		bundle.put(RESET, reset);
@@ -1043,6 +1050,15 @@ public abstract class  Level implements Bundlable {
 				|| !passable[cell]);
 		return cell;
 	}
+	
+	public int randomCell() {
+		int cell;
+		do {
+			cell = Random.Int(getLength());
+		} while (!passable[cell]);
+		return cell;
+	}
+
 
 	public int wellRespawnCellMob() {
 		int cell;
@@ -1377,6 +1393,7 @@ public abstract class  Level implements Bundlable {
 		}
 
 		if (map[pos] == Terrain.HIGH_GRASS || 
+		    map[pos] == Terrain.OLD_HIGH_GRASS || 
 		    map[pos] == Terrain.EMPTY  || 
 		    map[pos] == Terrain.EMBERS || 
 			map[pos] == Terrain.EMPTY_DECO) {
@@ -1544,7 +1561,13 @@ public abstract class  Level implements Bundlable {
 		case Terrain.HIGH_GRASS:
 			HighGrass.trample(this, cell, ch);
 			break;
-
+	     case Terrain.OLD_HIGH_GRASS:
+			OldHighGrass.trample(this, cell, ch);
+			break;
+		 case Terrain.DEW_BLESS:
+			DewBlessRoom.trample(this, cell, ch);
+			break;	
+			
 		case Terrain.WELL:
 			WellWater.affectCell(cell);
 			break;
@@ -1769,6 +1792,7 @@ public abstract class  Level implements Bundlable {
 		boolean sighted = c.buff(Blindness.class) == null
 				&& c.buff(Shadows.class) == null
 				&& c.buff(TimekeepersHourglass.timeStasis.class) == null
+				&& c.buff(TentSleep.class) == null
 				&& c.isAlive();
 		if (sighted) {
 			ShadowCaster.castShadow(cx, cy, fieldOfView, c.viewDistance, c.flying);
@@ -1872,6 +1896,10 @@ public abstract class  Level implements Bundlable {
 					fieldOfView[p + getWidth()] = true;
 					fieldOfView[p - getWidth()] = true;
 				}
+				if (mob.isAlive() && mob.buff(HiddenShadow.class) != null) {
+					int p = mob.pos;
+					fieldOfView[p] = false;
+				}
 			}
 		}
 		
@@ -1958,6 +1986,8 @@ public abstract class  Level implements Bundlable {
 			return Messages.get(Level.class, "barricade_name");
 		case Terrain.HIGH_GRASS:
 			return Messages.get(Level.class, "high_grass_name");
+		case Terrain.OLD_HIGH_GRASS:
+			return Messages.get(Level.class, "old_high_grass_name");
 		case Terrain.LOCKED_EXIT:
 			return Messages.get(Level.class, "locked_exit_name");
 		case Terrain.UNLOCKED_EXIT:
@@ -1977,8 +2007,10 @@ public abstract class  Level implements Bundlable {
 			return Messages.get(Level.class, "tent_name");
 		case Terrain.BED:
 			return Messages.get(Level.class, "bed_name");
-			//case Terrain.PARALYTIC_TRAP:
-			//return "Paralytic gas trap";
+		case Terrain.DEW_BLESS:
+			return Messages.get(Level.class, "dew_bless_name");
+		case Terrain.IRON_MAKER:
+			return Messages.get(Level.class, "iron_maker_name");
 		case Terrain.WOOL_RUG:
 			return Messages.get(Level.class, "wool_rug_name");
 		case Terrain.FLEECING_TRAP:
@@ -2034,6 +2066,8 @@ public abstract class  Level implements Bundlable {
 				return Messages.get(Level.class, "embers_desc");
 			case Terrain.HIGH_GRASS:
 				return Messages.get(Level.class, "high_grass_desc");
+			case Terrain.OLD_HIGH_GRASS:
+				return Messages.get(Level.class, "old_high_grass_desc");
 		case Terrain.SHRUB:
 			return Messages.get(Level.class, "shrub_desc");
 			case Terrain.LOCKED_DOOR:
@@ -2048,6 +2082,10 @@ public abstract class  Level implements Bundlable {
 			return Messages.get(Level.class, "tent_desc");
 		case Terrain.BED:
 			return Messages.get(Level.class, "bed_desc");
+		case Terrain.DEW_BLESS:
+			return Messages.get(Level.class, "dew_bless_desc");
+		case Terrain.IRON_MAKER:
+			return Messages.get(Level.class, "iron_maker_desc");
 		//case Terrain.PARALYTIC_TRAP:
 		//case Terrain.POISON_TRAP:
 		//case Terrain.ALARM_TRAP:

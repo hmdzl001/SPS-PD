@@ -55,7 +55,7 @@ public class WandOfFirebolt extends DamageWand {
 		
 		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
 		if (heap != null) {
-			heap.burn();
+			heap.firehit();
 		}		
 		
 		Char ch = Actor.findChar(bolt.collisionPos);

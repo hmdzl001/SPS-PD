@@ -79,7 +79,7 @@ public class WandOfLightning extends DamageWand {
 
 
 		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
-		if (heap != null) {heap.lit();}
+		if (heap != null) {heap.shockhit();}
 	}
 
 	private void arc( Char ch ) {

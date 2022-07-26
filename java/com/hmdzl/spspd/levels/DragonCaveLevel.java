@@ -392,7 +392,7 @@ public class DragonCaveLevel extends Level {
 		case Terrain.EMPTY_DECO:
 			return "There are old blood stains on the floor.";
 		case Terrain.BOOKSHELF:
-			return "This is probably a vestige of a prison library. Might it burn?";
+			return "This is probably a vestige of a prison library. Might it firehit?";
 		default:
 			return super.tileDesc(tile);
 		}

@@ -50,12 +50,19 @@ public class Terrain {
 	
 	public static final int TRAP_AIR = 30;
 	public static final int GLASS_WALL = 31;
+
+	public static final int OLD_HIGH_GRASS = 32;
+
+	public static final int IRON_MAKER = 33;
 	
 	public static final int WELL = 34;
 	public static final int STATUE = 35;
 	public static final int STATUE_SP = 36;
 	public static final int STATUE_SSP = 37;
 	public static final int TENT = 38;
+
+	public static final int DEW_BLESS= 39;
+
 	public static final int BED = 40;
 	public static final int BOOKSHELF = 41;
 	public static final int ALCHEMY = 42;
@@ -120,7 +127,7 @@ public class Terrain {
 		flags[WATER] = PASSABLE | LIQUID | UNSTITCHABLE  /*SHOCKABLE*/;
 		flags[WALL] = LOS_BLOCKING | SOLID | UNSTITCHABLE;
 		flags[UNBREAK_WALL] = flags[WALL];
-		flags[GLASS_WALL] = flags[STATUE] ;
+		flags[GLASS_WALL] = flags[STATUE] | UNSTITCHABLE;
 		flags[DOOR] = PASSABLE | LOS_BLOCKING | FLAMABLE | SOLID | UNSTITCHABLE;
 		flags[OPEN_DOOR] = PASSABLE | FLAMABLE | UNSTITCHABLE;
 		flags[ENTRANCE] = PASSABLE/* | SOLID */;
@@ -135,13 +142,19 @@ public class Terrain {
 		flags[EMPTY_SP] = flags[EMPTY] | UNSTITCHABLE;
 		flags[HIGH_GRASS] = PASSABLE | LOS_BLOCKING | FLAMABLE;
 		
+		flags[OLD_HIGH_GRASS] = PASSABLE | LOS_BLOCKING | FLAMABLE;
+		
 		flags[SECRET_DOOR]  = flags[WALL]  | SECRET	            			| UNSTITCHABLE;
 		flags[SECRET_TRAP]  = flags[EMPTY] | SECRET;
 		flags[TRAP]         = AVOID;
 		flags[INACTIVE_TRAP]= flags[EMPTY];	
 
-        flags[TRAP_AIR]     = AVOID;		
-		
+        flags[TRAP_AIR]     = AVOID;
+
+		flags[DEW_BLESS] = AVOID;
+
+        flags[IRON_MAKER] = AVOID;
+
 		flags[EMPTY_DECO] = flags[EMPTY];
 		flags[LOCKED_EXIT] = SOLID;
 		flags[UNLOCKED_EXIT] = PASSABLE;
@@ -151,8 +164,7 @@ public class Terrain {
 		flags[STATUE_SP] = flags[STATUE] | UNSTITCHABLE;
 		flags[STATUE_SSP] = flags[STATUE] | UNSTITCHABLE;
 		flags[BOOKSHELF] = flags[BARRICADE] | UNSTITCHABLE;
-		flags[ALCHEMY] = PASSABLE;
-		//flags[ALCHEMY] = SOLID;
+		flags[ALCHEMY] = AVOID;
 		flags[SHRUB] =  FLAMABLE | SOLID | LOS_BLOCKING;
 
         flags[CHASM_WALL] = flags[CHASM];

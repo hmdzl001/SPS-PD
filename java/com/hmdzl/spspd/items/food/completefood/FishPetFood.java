@@ -15,10 +15,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.actors.buffs;
+package com.hmdzl.spspd.items.food.completefood;
 
-public class Speed extends FlavourBuff {
+import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
-	public static final float DURATION = 10f;
+public class FishPetFood extends PetFood {
+
+	{
+		//name = "PetFood";
+		image = ItemSpriteSheet.PINK_FISH;
+		energy = 100;
+		hornValue = 1;
+		 
+	}
+
+	@Override
+	public int price() {
+		return 1 * quantity;
+	}
 
 }

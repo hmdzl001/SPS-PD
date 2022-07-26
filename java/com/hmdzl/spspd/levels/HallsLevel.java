@@ -42,7 +42,7 @@ import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.VenomTrap;
 import com.hmdzl.spspd.levels.traps.WeakeningTrap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Scene;
@@ -152,15 +152,18 @@ public class HallsLevel extends RegularLevel {
 				break;
 			}
 		}
+		while (true) {
+			int pos = roomEntrance.random();
+			if (pos != entrance) {
+				map[pos] = Terrain.DEW_BLESS;
+				break;
+			}
+		}
 		
          for (int i = 0; i < getLength(); i++) {
 			
 			if (map[i]==Terrain.EXIT){map[i] = Terrain.LOCKED_EXIT; 
-			     //sealedlevel=true;
-			   // if(Dungeon.depth==24){
-			    //	Sentinel sentinel = new Sentinel();
-				 //   sentinel.pos = i;
-				 //   mobs.add(sentinel);}
+
 			}			
 			
 		}

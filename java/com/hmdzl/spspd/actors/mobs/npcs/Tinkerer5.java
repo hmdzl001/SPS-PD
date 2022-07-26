@@ -20,12 +20,12 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.items.food.meatfood.ChargrilledMeat;
+import com.hmdzl.spspd.items.food.meatfood.FireMeat;
 import com.hmdzl.spspd.scenes.GameScene;
 
 import com.hmdzl.spspd.sprites.Xavier251998Sprite;
 import com.hmdzl.spspd.windows.WndQuest;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -97,7 +97,7 @@ public class Tinkerer5 extends NPC {
 	      if(first) {
 		       first=false;
 		       tell(Messages.get(this, "tell3"));		
-		       Dungeon.level.drop(new ChargrilledMeat(), Dungeon.hero.pos).sprite.drop();	
+		       Dungeon.level.drop(new FireMeat(), Dungeon.hero.pos).sprite.drop();
 	        } else if (Random.Int(2)==0) {
 				tell(Messages.get(this, "tell1"));
 			} else {

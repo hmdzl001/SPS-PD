@@ -37,7 +37,7 @@ public class VelociroosterEgg extends Egg {
 
 		{
 		image = ItemSpriteSheet.VELOCIROOSTEREGG;
-		unique = true;
+
 		stackable = false;
 		}
 		

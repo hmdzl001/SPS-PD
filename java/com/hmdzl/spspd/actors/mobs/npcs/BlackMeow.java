@@ -21,9 +21,10 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.wands.WandOfBlackMeow;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BlackMeowSprite;
-import com.hmdzl.spspd.sprites.CoconutSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class BlackMeow extends NPC {
@@ -64,7 +65,10 @@ public class BlackMeow extends NPC {
 		return true;
 	}
 
-   
+	@Override
+	public Item SupercreateLoot(){
+		return new WandOfBlackMeow();
+	}
 	
 	@Override
 	public boolean interact() {

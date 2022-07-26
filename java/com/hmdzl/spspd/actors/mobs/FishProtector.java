@@ -17,24 +17,25 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.effects.particles.SparkParticle;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
+import com.hmdzl.spspd.actors.buffs.Tar;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.VioletDewdrop;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
+import com.hmdzl.spspd.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce;
+import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce2;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.CharSprite;
+import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.FishProtectorSprite;
-import com.watabou.noosa.Camera;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class FishProtector extends Mob implements Callback {
+public class FishProtector extends Mob {
 
 	private static final float TIME_TO_ZAP = 2f;
 
@@ -45,7 +46,7 @@ public class FishProtector extends Mob implements Callback {
 
 		EXP = 1;
 		state = HUNTING;
-		flying = true;
+		//flying = true;
 		
 		HP = HT = 300;
 		evadeSkill = 25;
@@ -58,7 +59,7 @@ public class FishProtector extends Mob implements Callback {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(12, 20);
+		return Random.NormalIntRange(8+Math.round(Statistics.albinoPiranhasKilled/10), 10+Math.round(Statistics.albinoPiranhasKilled/5));
 	}
 
 	@Override
@@ -68,71 +69,47 @@ public class FishProtector extends Mob implements Callback {
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 15);
-	}
-
-		
-	@Override
-	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
-		} else
-		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
+		return Random.NormalIntRange(5, 15);
 	}
 
 	@Override
-	protected boolean doAttack(Char enemy) {
+	public int attackProc(Char enemy, int damage) {
+		enemy.damage(damageRoll(), DamageType.ICE_DAMAGE);
+		damage = 0;
+		return damage;
+	}
 
-		if (Level.distance(pos, enemy.pos) <= 1) {
+	@Override
+	public void die(Object cause) {
+		super.die(cause);
+		Level.set(pos, Terrain.WATER);
+		GameScene.updateMap(pos);
+	}
 
-			return super.doAttack(enemy);
 
+	@Override
+	public void add(Buff buff) {
+		if (buff instanceof FrostIce) {
+			if (HP < HT) {
+				HP+=HT/10;
+				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
+			}
+		} else if (buff instanceof Tar) {
+			if (Level.water[this.pos])
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+			else
+				damage(Random.NormalIntRange(HT / 2, HT), buff);
 		} else {
-
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
-			if (visible) {
-				sprite.zap(enemy.pos);
-			}
-
-			spend(TIME_TO_ZAP);
-
-			if (hit(this, enemy, true)) {
-				int dmg = Random.Int(25, 60);
-				if (Level.water[enemy.pos] && !enemy.flying) {
-					dmg *= 1.5f;
-				}
-				enemy.damage(dmg, this);
-
-				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
-				enemy.sprite.flash();
-
-				if (enemy == Dungeon.hero) {
-
-					Camera.main.shake(2, 0.3f);
-
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE) );
-						//GLog.n(Messages.get(this, "zap_kill"));
-					}
-				}
-			} else {
-				enemy.sprite
-						.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
-			}
-
-			return !visible;
+			super.add(buff);
 		}
 	}
 
-	@Override
-	public void call() {
-		next();
-	}
-
-
 	{
-		resistances.add(LightningTrap.Electricity.class);
-		resistances.add(Invisibility.class);
+		immunities.add(DamageType.IceDamage.class);
+		resistances.add(WandOfFreeze.class);
+		resistances.add(WandOfFlow.class);
+		resistances.add(EnchantmentIce2.class);
+		resistances.add(EnchantmentIce.class);
 	}
 
 }

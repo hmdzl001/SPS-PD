@@ -78,7 +78,7 @@ import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
 			Buff.affect(enemy, BeCorrupt.class).level(20);
 		}
 		
-		enemy.damage(damage, DARK_DAMAGE);
+		enemy.damage(damageRoll(), DARK_DAMAGE);
 		damage = 0;
 
 		return damage;

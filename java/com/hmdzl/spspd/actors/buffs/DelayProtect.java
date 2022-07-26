@@ -18,9 +18,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.ui.BuffIndicator;
-import com.watabou.utils.Random;
+import com.hmdzl.spspd.messages.Messages;
 
 public class DelayProtect extends Buff {
 
@@ -30,16 +28,10 @@ public class DelayProtect extends Buff {
 
 
 	@Override
-	public int icon() {
-		return BuffIndicator.DROWSY;
-	}
-
-	@Override
 	public boolean attachTo(Char target) {
-		if (!target.immunities().contains(GlassShield.class)
-				&& super.attachTo(target)) {
+		if ( super.attachTo(target)) {
 			if (cooldown() == 0)
-				spend(Random.Int(1, 2));
+				spend(1);
 			return true;
 		}
 		return false;
@@ -47,7 +39,7 @@ public class DelayProtect extends Buff {
 
 	@Override
 	public boolean act() {
-		Buff.affect(target, GlassShield.class);
+		Buff.affect(target, GlassShield.class).turns(1);
 
 		detach();
 		return true;
@@ -58,8 +50,4 @@ public class DelayProtect extends Buff {
 		return Messages.get(this, "name");
 	}
 
-	@Override
-	public String desc() {
-		return Messages.get(this, "desc", dispTurns(cooldown()+1));
-	}
 }

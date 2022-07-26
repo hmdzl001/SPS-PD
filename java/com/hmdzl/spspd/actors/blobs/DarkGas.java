@@ -17,13 +17,16 @@
  */
 package com.hmdzl.spspd.actors.blobs;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 
 public class DarkGas extends Blob {
 
@@ -31,13 +34,32 @@ public class DarkGas extends Blob {
 	protected void evolve() {
 		super.evolve();
 
-		Char ch;
-		for (int i = 0; i < LENGTH; i++) {
-			if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
-				if (!ch.isImmune(this.getClass()))
-					Buff.prolong(ch, Blindness.class, 2);
+		int from = WIDTH + 1;
+		int to = Level.getLength() - WIDTH - 1;
+		for (int pos = from; pos < to; pos++) {
+			int dark;
+			if (cur[pos] > 0) {
+				dark(pos);
+				dark = cur[pos] - 1;
+				if (dark <= 0){ }
+			} else {
+				dark = 0;
 			}
+
+			volume += (off[pos] = dark);
+
 		}
+
+	}
+
+	private void dark(int pos) {
+		Char ch = Actor.findChar( pos );
+		if (ch != null && !ch.isImmune(this.getClass())) {
+			Buff.prolong(ch, Blindness.class, 3);
+		}
+
+		Heap heap = Dungeon.level.heaps.get( pos );
+		if (heap != null) heap.darkhit();
 	}
 
 	@Override

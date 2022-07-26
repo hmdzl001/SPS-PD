@@ -76,7 +76,7 @@ public class ShitBall extends MissileWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		Buff.affect(defender, BeOld.class).set(7f);
+		Buff.affect(defender, BeOld.class).set(20f);
 		super.proc(attacker, defender, damage);
 	}
 
@@ -88,6 +88,6 @@ public class ShitBall extends MissileWeapon {
 
 	@Override
 	public int price() {
-		return 20 * quantity;
+		return 5 * quantity;
 	}
 }

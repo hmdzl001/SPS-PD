@@ -51,6 +51,6 @@ public class WeakeningTrap extends Trap{
 			Buff.prolong( ch, Slow.class,10f);
 		}
 		Heap heap = Dungeon.level.heaps.get(pos);
-		if (heap != null) {heap.poison();}
+		if (heap != null) {heap.earthhit();}
 	}
 }

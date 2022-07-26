@@ -32,7 +32,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BaBaSprite;
 import com.hmdzl.spspd.sprites.SheepSprite;
@@ -45,6 +45,9 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.HashSet;
+
+import static com.hmdzl.spspd.Dungeon.hero;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
 
 public class WandOfFlock extends Wand {
 
@@ -86,7 +89,7 @@ public class WandOfFlock extends Wand {
 				for (int j = 0; j < Level.getLength(); j++) {
 					if (PathFinder.distance[j] == dist) {
 
-						if (Dungeon.hero.subClass == HeroSubClass.LEADER && (Dungeon.depth < 51 || Dungeon.depth > 54)){
+						if (hero.subClass == HeroSubClass.LEADER && (Dungeon.depth < 51 || Dungeon.depth > 54)){
 							MagicBombSheep bsheep = new MagicBombSheep();
 							bsheep.pos = j;
 							GameScene.add(bsheep);
@@ -120,7 +123,7 @@ public class WandOfFlock extends Wand {
 		}
 		
 	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
-		if (heap != null) {heap.summon();}
+		if (heap != null) {heap.darkhit();}
 	}
 
 	@Override
@@ -168,6 +171,17 @@ public class WandOfFlock extends Wand {
 		}
 
 		@Override
+		public int defenseProc(Char enemy, int damage) {
+
+			int dmg = Random.IntRange(0, hero.lvl*5);
+			if (dmg > 0) {
+				enemy.damage(dmg, DARK_DAMAGE);
+			}
+
+			return super.defenseProc(enemy, damage);
+		}
+
+		@Override
 		public boolean interact() {
 			return false;
 		}
@@ -199,7 +213,18 @@ public class WandOfFlock extends Wand {
 	public int damageRoll() {
 	    return Random.NormalIntRange(Dungeon.depth+10, Dungeon.depth+20);
 	}
-	
+
+		@Override
+		public int defenseProc(Char enemy, int damage) {
+
+			int dmg = Random.IntRange(0, hero.lvl*8);
+			if (dmg > 0) {
+				enemy.damage(dmg, DARK_DAMAGE);
+			}
+
+			return super.defenseProc(enemy, damage);
+		}
+
 	@Override
 	protected Char chooseEnemy() {
 
@@ -226,14 +251,14 @@ public class WandOfFlock extends Wand {
 		
 		int curPos = pos;
 
-		moveSprite(pos, Dungeon.hero.pos);
-		move(Dungeon.hero.pos);
+		moveSprite(pos, hero.pos);
+		move(hero.pos);
 
-		Dungeon.hero.sprite.move(Dungeon.hero.pos, curPos);
-		Dungeon.hero.move(curPos);
+		hero.sprite.move(hero.pos, curPos);
+		hero.move(curPos);
 
-		Dungeon.hero.spend(1 / Dungeon.hero.speed());
-		Dungeon.hero.busy();
+		hero.spend(1 / hero.speed());
+		hero.busy();
 		return true;
 		}
 	}

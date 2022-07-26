@@ -21,8 +21,8 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 
 public class GreenSpore extends Pill {
@@ -42,7 +42,7 @@ public class GreenSpore extends Pill {
 				GLog.w(Messages.get(this,"not_time"));
 				return;
 			}
-			else Buff.affect(hero, Dewcharge.class).level(100);
+			else Buff.affect(hero, Dewcharge.class,100f);
 		}
 	}
 

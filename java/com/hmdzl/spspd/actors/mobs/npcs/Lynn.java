@@ -21,8 +21,11 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.missiles.LynnDoll;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.LynnSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class Lynn extends NPC {
@@ -63,11 +66,14 @@ public class Lynn extends NPC {
 		return true;
 	}
 
-   
+	@Override
+	public Item SupercreateLoot(){
+		return new LynnDoll();
+	}
 	
 	@Override
 	public boolean interact() {
-		
+		LynnDoll doll = Dungeon.hero.belongings.getItem(LynnDoll.class);
 		sprite.turnTo(pos, Dungeon.hero.pos);
 		switch (Random.Int (2)) {
             case 0:
@@ -76,6 +82,12 @@ public class Lynn extends NPC {
 			case 1:
 			yell(Messages.get(this, "yell2"));
 			break;
+		}
+		if (doll!=null){
+			yell(Messages.get(this, "yell3"));
+			Buff.prolong(Dungeon.hero,Shieldblock.class,20f);
+			Dungeon.hero.HP = (int)(Dungeon.hero.HP/3);
+			doll.detachAll(Dungeon.hero.belongings.backpack);
 		}
 		return true;
 	}

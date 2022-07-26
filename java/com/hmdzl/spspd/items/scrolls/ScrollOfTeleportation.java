@@ -23,21 +23,21 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.mobs.npcs.Sheep;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanCorner;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanSwitch;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.actors.mobs.npcs.Sheep;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.effects.Speck;
 import com.watabou.noosa.tweeners.AlphaTweener;
 
 public class ScrollOfTeleportation extends Scroll {
@@ -87,7 +87,7 @@ public class ScrollOfTeleportation extends Scroll {
 
 	public static void teleportHero(Hero hero) {
 
-		int count = 10;
+		int count = 20;
 		int pos;
 		do {
 			pos = Dungeon.level.randomRespawnCell();

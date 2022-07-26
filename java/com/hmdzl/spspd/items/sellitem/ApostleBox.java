@@ -22,7 +22,7 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 public class ApostleBox extends SellItem {
 
 	{
-		image = ItemSpriteSheet.NULLWARN;
+		image = ItemSpriteSheet.A_BOX;
 		stackable = true;
 	}
 

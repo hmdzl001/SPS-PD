@@ -77,7 +77,7 @@ public class LightningTrap extends Trap {
 				Wand wand = (Wand)item;
 				((Wand)item).curCharges += (int)Math.ceil((wand.maxCharges - wand.curCharges)/2f);
 			}
-			heap.lit();
+			heap.shockhit();
 		}
 
 		CellEmitter.center( pos ).burst( SparkParticle.FACTORY, Random.IntRange( 3, 4 ) );

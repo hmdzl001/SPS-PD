@@ -19,19 +19,18 @@ package com.hmdzl.spspd.items.armor.glyphs;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.GlassShield;
-import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.items.armor.Armor.Glyph;
-import com.hmdzl.spspd.items.misc.FourClover;
-import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
+import com.hmdzl.spspd.actors.buffs.DelayProtect;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
-
+import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.items.misc.FourClover;
+import com.hmdzl.spspd.sprites.ItemSprite;
+import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
 public class Crystalglyph extends Glyph {
@@ -59,7 +58,7 @@ public class Crystalglyph extends Glyph {
 		
 		int level = Math.max(0, armor.level);
 		if (Random.Int(level / 2 + 6) >= 5 && (damage > 30  || (fcb != null && damage > 15))) {
-		    Buff.affect(defender, GlassShield.class).turns(1);
+		    Buff.affect(defender, DelayProtect.class);
 		}
 		return damage;
 	}

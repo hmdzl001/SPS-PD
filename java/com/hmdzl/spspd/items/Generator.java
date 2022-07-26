@@ -67,7 +67,6 @@ import com.hmdzl.spspd.items.bombs.FishingBomb;
 import com.hmdzl.spspd.items.bombs.HugeBomb;
 import com.hmdzl.spspd.items.bombs.IceBomb;
 import com.hmdzl.spspd.items.bombs.LightBomb;
-import com.hmdzl.spspd.items.bombs.MiniBomb;
 import com.hmdzl.spspd.items.bombs.StormBomb;
 import com.hmdzl.spspd.items.eggs.BlueDragonEgg;
 import com.hmdzl.spspd.items.eggs.CocoCatEgg;
@@ -87,7 +86,6 @@ import com.hmdzl.spspd.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
-import com.hmdzl.spspd.items.medicine.Foamedbeverage;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
 import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
@@ -117,6 +115,7 @@ import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.medicine.BlueMilk;
 import com.hmdzl.spspd.items.medicine.DeathCap;
 import com.hmdzl.spspd.items.medicine.Earthstar;
+import com.hmdzl.spspd.items.medicine.Foamedbeverage;
 import com.hmdzl.spspd.items.medicine.GoldenJelly;
 import com.hmdzl.spspd.items.medicine.GreenSpore;
 import com.hmdzl.spspd.items.medicine.Hardpill;
@@ -128,6 +127,7 @@ import com.hmdzl.spspd.items.medicine.PixieParasol;
 import com.hmdzl.spspd.items.medicine.Powerpill;
 import com.hmdzl.spspd.items.medicine.Shootpill;
 import com.hmdzl.spspd.items.medicine.Smashpill;
+import com.hmdzl.spspd.items.misc.JumpA;
 import com.hmdzl.spspd.items.misc.JumpF;
 import com.hmdzl.spspd.items.misc.JumpH;
 import com.hmdzl.spspd.items.misc.JumpM;
@@ -187,6 +187,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfTerror;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.summon.FairyCard;
+import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.summon.Mobile;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.wands.WandOfAcid;
@@ -252,10 +253,10 @@ import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
 import com.hmdzl.spspd.items.weapon.missiles.IncendiaryDart;
-import com.hmdzl.spspd.items.weapon.missiles.ShitBall;
 import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
 import com.hmdzl.spspd.items.weapon.missiles.RiceBall;
 import com.hmdzl.spspd.items.weapon.missiles.ShatteredAmmo;
+import com.hmdzl.spspd.items.weapon.missiles.ShitBall;
 import com.hmdzl.spspd.items.weapon.missiles.Skull;
 import com.hmdzl.spspd.items.weapon.missiles.Smoke;
 import com.hmdzl.spspd.items.weapon.missiles.Tamahawk;
@@ -288,9 +289,9 @@ public class Generator {
 		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),
 		POTION(500, Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
 		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),SEED4(0,	Plant.Seed.class),
-		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(50, Food.class), BOMBS(20, Bomb.class),
-		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(1, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class)
-		,SHOES(0,Item.class);
+		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(5, Pill.class), BOMBS(20, Bomb.class),
+		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(5, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class)
+		,SHOES(0,Item.class),DEW(0,Item.class);
 
 		public Class<?>[] classes;
 		public float[] probs;
@@ -467,15 +468,17 @@ public class Generator {
 		Category.ARTIFACT.probs =  new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 		Category.SEED.classes = new Class<?>[] { 
-				Firebloom.Seed.class, Icecap.Seed.class, Sorrowmoss.Seed.class, Blindweed.Seed.class, Sungrass.Seed.class,
-				Earthroot.Seed.class, Fadeleaf.Seed.class, Rotberry.Seed.class, BlandfruitBush.Seed.class, Dreamfoil.Seed.class,
-				Stormvine.Seed.class, NutPlant.Seed.class, /*Vegetable.class,Blackberry.class, Blueberry.class, Cloudberry.class,
-				Moonberry.class,*/ Starflower.Seed.class, Phaseshift.Seed.class, Flytrap.Seed.class, Dewcatcher.Seed.class, Seedpod.Seed.class};
+				Firebloom.Seed.class, Icecap.Seed.class, Sorrowmoss.Seed.class, Blindweed.Seed.class,
+				Sungrass.Seed.class, Earthroot.Seed.class, Fadeleaf.Seed.class, Rotberry.Seed.class,
+				BlandfruitBush.Seed.class, Dreamfoil.Seed.class, Stormvine.Seed.class, NutPlant.Seed.class,
+				Starflower.Seed.class, Phaseshift.Seed.class, Flytrap.Seed.class, Dewcatcher.Seed.class,
+				Seedpod.Seed.class};
 		
-		Category.SEED.probs = new float[] { 12, 12, 12, 12, 12,
-				                            12, 12, 0, 4, 12,
-				                            12, 12, /*36, 20, 4, 16,
-				                            4,*/ 3, 3, 4, 8, 2};
+		Category.SEED.probs = new float[] { 12, 12, 12, 12,
+				                             12, 12, 12, 0,
+				                              4, 12, 12, 12,
+				                               3, 3, 4, 8,
+				                              2};
 		
 		
 		Category.SEED2.classes = new Class<?>[] { Firebloom.Seed.class,
@@ -523,18 +526,18 @@ public class Generator {
 		1,1,1,1,1,
 		1,1,1};
 		Category.BOMBS.classes = new Class<?>[] { BuildBomb.class,DungeonBomb.class,
-				HugeBomb.class,MiniBomb.class,
+				HugeBomb.class,
 				FireBomb.class,IceBomb.class,EarthBomb.class,StormBomb.class,
 				LightBomb.class,DarkBomb.class,FishingBomb.class
 		};
 		Category.BOMBS.probs = new float[] { 0,3,
-				0,1,
+				0,
 				1,1,1,1,
 				1,1,1};
-		Category.SUMMONED.classes = new Class<?>[] {ActiveMrDestructo.class,Mobile.class,FairyCard.class
+		Category.SUMMONED.classes = new Class<?>[] {ActiveMrDestructo.class,Mobile.class,FairyCard.class,Honeypot.class
 
 		};
-		Category.SUMMONED.probs = new float[] { 1,1,1};
+		Category.SUMMONED.probs = new float[] { 1,1,1,1};
 
 		Category.PILL.classes = new Class<?>[] {Hardpill.class, Magicpill.class,Musicpill.class,
 				Powerpill.class, Shootpill.class, Smashpill.class
@@ -543,13 +546,13 @@ public class Generator {
 
 		Category.LINKDROP.classes = new Class<?>[] {
 				BuildBomb.class,DungeonBomb.class,
-				HugeBomb.class,MiniBomb.class, FireBomb.class,IceBomb.class,EarthBomb.class,StormBomb.class,
+				HugeBomb.class, FireBomb.class,IceBomb.class,EarthBomb.class,StormBomb.class,
 				LightBomb.class,DarkBomb.class,FishingBomb.class,
 				EmpBola.class ,EscapeKnive.class,PoisonDart.class,Smoke.class,IncendiaryDart.class,Tamahawk.class,
 				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, ShitBall.class
 		};
 		Category.LINKDROP.probs = new float[] { 3,1,
-		1,1,1,1,1,1,
+		1,1,1,1,1,
 		1,1,1,
 		2,2,2,2,2,2,
 		2,2,2,2,2,2};
@@ -557,9 +560,14 @@ public class Generator {
 		Category.SHOES.classes = new Class<?>[] {
 				JumpW.class,JumpM.class,
 				JumpR.class,JumpH.class, JumpP.class,
-				JumpS.class,JumpF.class
+				JumpS.class,JumpF.class, JumpA.class
 		};
-		Category.SHOES.probs = new float[] { 1,1,1,1,1,1,1};	
+		Category.SHOES.probs = new float[] { 1,1,1,1,1,1,1,1};
+
+		Category.DEW.classes = new Class<?>[] {
+				Dewdrop.class,YellowDewdrop.class,RedDewdrop.class,VioletDewdrop.class,Dewcatcher.Seed.class
+		};
+		Category.DEW.probs = new float[] { 4,8,5,3,1};
 		
 	}
 
@@ -570,6 +578,10 @@ public class Generator {
 	}
 
 	public static Item random() {
+		return random(Random.chances(categoryProbs));
+	}
+
+	public static Item chestrandom() {
 		return random(Random.chances(categoryProbs));
 	}
 
@@ -707,6 +719,7 @@ public class Generator {
 			return null;
 		}
 	}	
+
 
 	/*public static boolean removeArtifact(Artifact artifact) {
 		if (spawnedArtifacts.contains(artifact.getClass().getSimpleName()))

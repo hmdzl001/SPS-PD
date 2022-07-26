@@ -15,39 +15,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.levels.painters.secrets;
+package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.artifacts.GlassTotem;
+import com.hmdzl.spspd.actors.mobs.Sentinel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.levels.painters.Painter;
+import com.hmdzl.spspd.plants.BlandfruitBush;
+import com.hmdzl.spspd.plants.Flytrap;
+import com.hmdzl.spspd.plants.Phaseshift;
+import com.watabou.utils.Point;
+import com.watabou.utils.Random;
 
-public class GlassRoomPainter extends Painter {
+public class MagicKeeperPainter extends Painter {
 
+		
 	public static void paint(Level level, Room room) {
 
 		fill(level, room, Terrain.WALL);
-		fill(level, room, 1, Terrain.EMPTY_SP);
-		fill( level, room, 2, Terrain.GLASS_WALL);
+		fill(level, room, 1, Terrain.EMPTY);
 
-		int cx = (room.left + room.right) / 2;
-		int cy = (room.top + room.bottom) / 2;
-		int c = cx + cy * Level.getWidth();
+		Point c = room.center();
+		set(level, c.x, c.y, Terrain.PEDESTAL);
 
-		
-		level.drop(prize(level), c);
-		set(level, c, Terrain.PEDESTAL);
-		
-        
-		
-		for (Room.Door door : room.connected.values()) {
-			door.set(Room.Door.Type.REGULAR);
+		int bushes = Random.Int(3);
+		if (bushes == 0) {
+			level.plant(new Flytrap.Seed(), room.random());
+		} else if (bushes == 1) {
+			level.plant(new BlandfruitBush.Seed(), room.random());
+		} else if (bushes == 2) {
+			level.plant(new Phaseshift.Seed(), room.random());
 		}
-	
-	}	
-	private static Item prize(Level level) {
-		return new GlassTotem();
+
+		Sentinel statue = new Sentinel();
+		statue.pos = room.random();
+		level.mobs.add(statue);
+
+		room.entrance().set(Room.Door.Type.REGULAR);
 	}
 }

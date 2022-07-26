@@ -20,6 +20,7 @@ package com.hmdzl.spspd.items.skills;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.SkillRecharge;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
@@ -134,7 +135,7 @@ abstract public class ClassSkill extends Item {
 		ArrayList<String> actions = super.actions(hero);
 		actions.remove(AC_DROP);
 		actions.remove(AC_THROW);
-		if (colddown < 1){
+		if (charge < 1 ||  hero.buff(SkillRecharge.class) != null){
 		actions.add(AC_SPECIAL);
 		actions.add(AC_SPECIAL_TWO);
 		actions.add(AC_SPECIAL_THREE);
@@ -232,6 +233,10 @@ abstract public class ClassSkill extends Item {
 		
 		private void gainCharge(){
 			colddown+= hero.energybase();
+			SkillRecharge bonus = target.buff(SkillRecharge.class);
+			if (bonus != null ){
+				colddown += 20;
+			}
 		}		
 		
 	}	

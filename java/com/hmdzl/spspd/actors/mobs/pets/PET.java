@@ -17,29 +17,32 @@
  */
 package com.hmdzl.spspd.actors.mobs.pets;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Statistics;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.blobs.NmGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.blobs.VenomGas;
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.HashSet;
 
 public abstract class PET extends NPC {
 
@@ -222,23 +225,6 @@ public abstract class PET extends NPC {
 		return super.getCloser(target);
 	}
 
-	public int wanderLocation(){
-		  int newPos = -1;
-			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
-
-			for (int n : Level.NEIGHBOURS8) {
-				int c = pos + n;
-				if (passable[c] && Actor.findChar(c) == null) {
-					candidates.add(c);
-				}
-			}
-
-			newPos = candidates.size() > 0 ? Random.element(candidates) : -1;
-			
-		return newPos;
-	}
-	
 	@Override
 	public void aggro(Char ch) {		
 	}
@@ -260,6 +246,17 @@ public abstract class PET extends NPC {
 
 	@Override
 	public void add( Buff buff ) {
+		if (buff instanceof AttackUp ||
+				buff instanceof DefenceUp ||
+				buff instanceof ShieldArmor ||
+				buff instanceof MagicArmor ||
+				buff instanceof HasteBuff ||
+				buff instanceof SpeedUp ||
+				buff instanceof HasteBuff) {
+			super.add(buff);
+		} else {
+
+		}
 		//in other words, can't be directly affected by buffs/debuffs.
 	}	
 	

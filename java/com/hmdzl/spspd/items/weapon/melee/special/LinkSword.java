@@ -195,6 +195,17 @@ public class LinkSword extends MeleeWeapon {
 			super.detach();
 		}
 	}
+	
+	
+	@Override
+	public int damageRoll(Hero hero) {
+
+		int damage = super.damageRoll(hero);
+		
+		damage += Random.Int(uptime,2*uptime);
+		
+		return Math.round(damage);
+	}
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
@@ -242,7 +253,7 @@ public class LinkSword extends MeleeWeapon {
 				default:
 					break;
 			}
-			damage += Random.Int(uptime,2*uptime);
+			
 			if (enchantment != null) {
 				enchantment.proc(this, attacker, defender, damage);
 			}

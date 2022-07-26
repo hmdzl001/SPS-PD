@@ -12,6 +12,7 @@ import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -28,6 +29,10 @@ public class GlassTotem extends Artifact {
 		level = 0;
 		levelCap = 10;
 
+		charge = 0;
+		partialCharge = 0;
+		chargeCap = 100;
+
 		defaultAction = AC_ATK;
 	}
 
@@ -37,7 +42,7 @@ public class GlassTotem extends Artifact {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero)&& !cursed){
+		if (isEquipped(hero)&& !cursed && charge == 100){
 		actions.add(AC_ATK);}
 		if (isEquipped(hero) && level > 2 && !cursed)
 		actions.add(AC_DEF);
@@ -52,13 +57,15 @@ public class GlassTotem extends Artifact {
 				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
 			else if (cursed)        
 				GLog.i( Messages.get(Artifact.class, "cursed") );
+			else if (charge != chargeCap)   GLog.i( Messages.get(Artifact.class, "no_charge") );
 			else {
                 if (level<10)level++;
-				Buff.affect(hero, AttackUp.class,200).level(75);
-				Buff.affect(hero, ArmorBreak.class,200).level(75);
+				Buff.affect(hero, AttackUp.class,200).level(8*level);
+				Buff.affect(hero, ArmorBreak.class,200).level(8*level);
 				hero.spend(1f);
 				hero.busy();
-				hero.sprite.operate(hero.pos);				
+				hero.sprite.operate(hero.pos);
+				charge = 0;
 				updateQuickslot();	
 			}
 			
@@ -98,18 +105,30 @@ public class GlassTotem extends Artifact {
 	public class glassRecharge extends ArtifactBuff {
 		@Override
 		public boolean act() {
-			if (cursed && Random.Int(100) == 0){
+			if (charge < chargeCap && !cursed ) {
+
+				partialCharge += 1;
+				if (partialCharge >= 5) {
+					charge++;
+					partialCharge = 0;
+					if (charge == chargeCap) {
+						partialCharge = 0;
+					}
+				}
+			} else if (cursed && Random.Int(100) == 0){
 				Buff.affect( target, ArmorBreak.class, 10f).level(100);
 			} else if (Random.Int(1000/(level+1)) == 0){
 				Buff.affect( target, AttackUp.class, 5f).level(20);
 				Buff.affect( target, DefenceUp.class, 5f).level(20);
-			}
+			} else
+				partialCharge = 0;
+			//updateQuickslot();
 			spend( TICK );
 			return true;
 		}
 	}
 	
-	/*private static final String PARTIALCHARGE = "partialCharge";
+	private static final String PARTIALCHARGE = "partialCharge";
 	private static final String CHARGE = "charge";
 
 	@Override
@@ -124,5 +143,5 @@ public class GlassTotem extends Artifact {
 		super.restoreFromBundle(bundle);
 		partialCharge = bundle.getInt(PARTIALCHARGE);
 		charge = bundle.getInt(CHARGE);
-	}*/
+	}
 }

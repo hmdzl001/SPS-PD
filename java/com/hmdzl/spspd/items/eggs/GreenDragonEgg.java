@@ -42,7 +42,7 @@ public class GreenDragonEgg extends Egg {
 		{
 		//name = "shadow dragon egg";
 		image = ItemSpriteSheet.GREEN_DRAGONEGG;
-		unique = true;
+
 		stackable = false;
 		}
 		
@@ -61,8 +61,8 @@ public class GreenDragonEgg extends Egg {
 		private static final String FREEZES = "freezes";
 		private static final String POISONS = "poisons";
 		private static final String LITS = "lits";
-		private static final String SUMMONS = "summons";
-		private static final String LIGHT = "light";
+		private static final String SUMMONS = "darks";
+		private static final String LIGHT = "lighthit";
 		
 		
 		@Override
@@ -108,7 +108,7 @@ public class GreenDragonEgg extends Egg {
 		public int checkLits () {
 			return lits;
 		}
-		public int checkSummons () {
+		public int checkDarks() {
 			return summons;
 		}
 		

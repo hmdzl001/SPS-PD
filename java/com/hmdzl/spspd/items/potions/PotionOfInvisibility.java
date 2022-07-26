@@ -20,13 +20,16 @@ package com.hmdzl.spspd.items.potions;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.ConfusionGas;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.misc.AutoPotion.AutoHealPotion;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 
@@ -47,6 +50,19 @@ public class PotionOfInvisibility extends Potion {
 		GLog.i(Messages.get(this, "invisible"));
 		Sample.INSTANCE.play(Assets.SND_MELD);
 	}
+	
+	@Override
+	public void shatter(int cell) {
+
+		if (Dungeon.visible[cell]) {
+			setKnown();
+
+			splash(cell);
+			Sample.INSTANCE.play(Assets.SND_SHATTER);
+		}
+
+		GameScene.add(Blob.seed(cell, 500, ConfusionGas.class));
+	}	
 	
 	@Override
 	public void execute(final Hero hero, String action) {

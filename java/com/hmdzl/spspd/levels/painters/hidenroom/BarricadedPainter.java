@@ -18,16 +18,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.levels.painters;
+package com.hmdzl.spspd.levels.painters.hidenroom;
 
-import com.watabou.utils.Random;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.painters.Painter;
+import com.watabou.utils.Random;
 
 public class BarricadedPainter extends Painter {
 
@@ -57,8 +57,8 @@ public class BarricadedPainter extends Painter {
 			level.drop( prize( level ), pos ).type = Heap.Type.SKELETON;
 		}
 		
-		room.entrance().set( Room.Door.Type.BARRICADE );
-		level.addItemToSpawn( new PotionOfLiquidFlame() );
+		room.entrance().set( Room.Door.Type.HIDDEN );
+		//level.addItemToSpawn( new PotionOfLiquidFlame() );
 	}
 	
 	private static Item prize( Level level ) {

@@ -17,35 +17,26 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.effects.particles.SparkParticle;
+import com.hmdzl.spspd.actors.buffs.ArmorBreak;
+import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Locked;
+import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GraveProtectorSprite;
-import com.watabou.noosa.Camera;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class GraveProtector extends Mob implements Callback {
-
-	private static final float TIME_TO_ZAP = 2f;
-
-	private static final String TXT_LIGHTNING_KILLED = "%s's lightning bolt killed you...";
-
+public class GraveProtector extends Mob{
 	{
 		spriteClass = GraveProtectorSprite.class;
 
 		EXP = 1;
 		state = HUNTING;
-		flying = true;
+		//flying = true;
 		
 		HP = HT = 350;
 		evadeSkill = 15;
@@ -53,7 +44,7 @@ public class GraveProtector extends Mob implements Callback {
 		loot = new VioletDewdrop();
 		lootChance = 1f;
 		
-		properties.add(Property.ELEMENT);
+		properties.add(Property.TROLL);
 	}
 
 	@Override
@@ -72,64 +63,26 @@ public class GraveProtector extends Mob implements Callback {
 	}
 
 	@Override
-	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+	protected boolean canAttack(Char enemy) {		if (buff(Locked.class) != null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 
 	@Override
-	protected boolean doAttack(Char enemy) {
-
-		if (Level.distance(pos, enemy.pos) <= 1) {
-
-			return super.doAttack(enemy);
-
+	public int attackProc(Char enemy, int damage) {
+		if (Level.adjacent(pos, enemy.pos)) {
+			damage = damage / 2;
 		} else {
-
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
-			if (visible) {
-				sprite.zap(enemy.pos);
-			}
-
-			spend(TIME_TO_ZAP);
-
-			if (hit(this, enemy, true)) {
-				int dmg = Random.Int(10+Math.round(Statistics.skeletonsKilled/10), 25+Math.round(Statistics.skeletonsKilled/5));
-				if (Level.water[enemy.pos] && !enemy.flying) {
-					dmg *= 1.5f;
-				}
-				enemy.damage(dmg, this);
-
-				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
-				enemy.sprite.flash();
-
-				if (enemy == Dungeon.hero) {
-
-					Camera.main.shake(2, 0.3f);
-
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE) );
-						//GLog.n(Messages.get(this, "kill"));
-					}
-				}
-			} else {
-				enemy.sprite
-						.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
-			}
-
-			return !visible;
+			Buff.prolong(enemy,Slow.class,5f);
+			Buff.affect(enemy,ArmorBreak.class,5f).level(20);
 		}
+
+		return damage;
 	}
 
-	@Override
-	public void call() {
-		next();
-	}
-	
 	{
-		resistances.add(LightningTrap.Electricity.class);
+		weakness.add(Blindness.class);
 	}
 
 

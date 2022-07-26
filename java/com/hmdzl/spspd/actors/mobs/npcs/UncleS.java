@@ -21,7 +21,9 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.UncleDumbbell;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.UncleSSprite;
 
 public class UncleS extends NPC {
@@ -30,6 +32,11 @@ public class UncleS extends NPC {
 		spriteClass = UncleSSprite.class;
 		properties.add(Property.HUMAN);
 		
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new UncleDumbbell();
 	}
 
 	@Override

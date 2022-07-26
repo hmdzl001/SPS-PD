@@ -26,7 +26,6 @@ import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class WandHolster extends Bag {
 

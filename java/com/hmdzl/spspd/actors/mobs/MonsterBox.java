@@ -17,11 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -30,87 +25,42 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
+import com.hmdzl.spspd.items.KindOfArmor;
+import com.hmdzl.spspd.items.KindOfWeapon;
+import com.hmdzl.spspd.items.KindofMisc;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.MonsterBoxSprite;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class MonsterBox extends Mob {
 
-	private int level;
-
 	{
-		name = "monster box";
+		//name = "monster box";
 		spriteClass = MonsterBoxSprite.class;
-		
+		//HT = hero.HT;
+		HT = hero.HT;
+		EXP = 1;
+		evadeSkill = hero.evadeSkill;
+		//enemySeen = true;
 		properties.add(Property.UNKNOW);
-	}
-
-	public ArrayList<Item> items;
-
-	private static final String LEVEL = "level";
-	private static final String ITEMS = "items";
-
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(ITEMS, items);
-		bundle.put(LEVEL, level);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		items = new ArrayList<Item>(
-				(Collection<Item>) ((Collection<?>) bundle.getCollection(ITEMS)));
-		adjustStats(bundle.getInt(LEVEL));
 	}
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(HT / 10, HT / 4);
+		return Dungeon.hero.damageRoll();
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return 9 + level;
-	}
-	
-		
-	public void adjustStats(int level) {
-		this.level = level;
-
-		HT = (3 + level) * 4;
-		EXP = 2 + 2 * (level - 1) / 5;
-		evadeSkill = hitSkill(null) / 2;
-
-		enemySeen = true;
+		return Dungeon.hero.hitSkill;
 	}
 
-	//@Override
-	//protected boolean act() {
-	//	Char ch = Actor.findChar(pos);
-	//	if (Random.Int(5)==0){
-	//	SummoningTrap.trigger(pos, ch);
-	//	}
-	//	return rooted;
-	//}
-	
-	@Override
-	public void die(Object cause) {
-
-		super.die(cause);
-
-		if (items != null) {
-			for (Item item : items) {
-				Dungeon.level.drop(item, pos).sprite.drop();
-			}
-		}
-	}
 
 	@Override
 	public boolean reset() {
@@ -119,12 +69,45 @@ public class MonsterBox extends Mob {
 	}
 
 	@Override
-	public String description() {
-		return "Mimics are magical creatures which can take any shape they wish. In dungeons they almost always "
-				+ "choose a shape of a treasure chest, because they know how to beckon an adventurer.";
+	public void die(Object cause) {
+
+		super.die(cause);
+
+		switch (Random.Int(5)){
+			case 0:
+				if (hero.belongings.weapon != null) {
+					Class<? extends KindOfWeapon> weapon = hero.belongings.weapon.getClass();
+					Dungeon.level.drop(Item.copy(weapon), pos);
+				}else break;
+			break;
+			case 1:
+				if (hero.belongings.armor != null) {
+					Class<? extends KindOfArmor> armor = hero.belongings.armor.getClass();
+					Dungeon.level.drop(Item.copy(armor), pos);
+				} else break;
+			break;
+			case 2:
+				if (hero.belongings.misc1 != null) {
+					Class<? extends KindofMisc> misc1 = hero.belongings.misc1.getClass();
+					Dungeon.level.drop(Item.copy(misc1), pos);
+				}else break;
+			break;
+			case 3:
+				if (hero.belongings.misc2 != null) {
+					Class<? extends KindofMisc> misc2 = hero.belongings.misc2.getClass();
+					Dungeon.level.drop(Item.copy(misc2), pos);
+				}else break;
+			break;
+			case 4:
+				if (hero.belongings.misc3 != null) {
+					Class<? extends KindofMisc> misc3 = hero.belongings.misc3.getClass();
+					Dungeon.level.drop(Item.copy(misc3), pos);
+				}else break;
+			break;
+		}
 	}
 
-	public static MonsterBox spawnAt(int pos, List<Item> items) {
+	public static MonsterBox spawnAt(int pos) {
 		Char ch = Actor.findChar(pos);
 		if (ch != null) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
@@ -152,14 +135,12 @@ public class MonsterBox extends Mob {
 		}
 
 		MonsterBox m = new MonsterBox();
-		m.items = new ArrayList<Item>(items);
-		m.adjustStats(Dungeon.depth);
 		m.HP = m.HT;
 		m.pos = pos;
 		m.state = m.HUNTING;
 		GameScene.add(m, 1);
 
-		m.sprite.turnTo(pos, Dungeon.hero.pos);
+		m.sprite.turnTo(pos, hero.pos);
 		//Buff.affect(m, Roots.class, 1000);
 
 		if (Dungeon.visible[m.pos]) {
@@ -168,10 +149,6 @@ public class MonsterBox extends Mob {
 		}
 
 		return m;
-	}
-
-	{
-		immunities.add(ScrollOfPsionicBlast.class);
 	}
 
 }

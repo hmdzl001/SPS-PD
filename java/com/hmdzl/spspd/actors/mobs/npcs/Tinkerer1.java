@@ -23,12 +23,12 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.quest.Mushroom;
+import com.hmdzl.spspd.items.sellitem.SellMushroom;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TinkererSprite;
- 
 import com.hmdzl.spspd.windows.WndQuest;
 import com.hmdzl.spspd.windows.WndTinkerer;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Tinkerer1 extends NPC {
 
@@ -60,6 +60,11 @@ public class Tinkerer1 extends NPC {
 
 	@Override
 	public void damage(int dmg, Object src) {
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new SellMushroom();
 	}
 
 	@Override

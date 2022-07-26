@@ -32,6 +32,7 @@ import com.hmdzl.spspd.actors.buffs.Corruption;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.Feed;
+import com.hmdzl.spspd.actors.buffs.LearnSkill;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.actors.buffs.Sleep;
@@ -249,7 +250,9 @@ public abstract class Mob extends Char {
 			//We are amoked and current enemy is the hero
 		else if (buff( Amok.class ) != null && enemy == Dungeon.hero)
 			newEnemy = true;
-	
+		if (enemy == Dungeon.hero )
+			newEnemy = true;
+
 		if ( newEnemy ) {
 
 			HashSet<Char> enemies = new HashSet<>();
@@ -259,12 +262,12 @@ public abstract class Mob extends Char {
 
 				//look for enemy mobs to attack, which are also not corrupted
 				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && mob.hostile && mob.buff(Corruption.class) == null)
+					if (mob != this && Level.fieldOfView[mob.pos] && mob.hostile)
 						enemies.add(mob);
 				if (enemies.size() > 0) return Random.element(enemies);
 
 				//otherwise go for nothing
-				return this;
+				else return null;
 
 				//if the mob is amoked...
 			} else if ( buff(Amok.class) != null) {
@@ -288,94 +291,34 @@ public abstract class Mob extends Char {
 
 				//try to find ally mobs to attack.
 				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && mob.ally)
+					if (mob != this && Level.fieldOfView[mob.pos] && (mob.ally || mob.buff(Corruption.class) != null || mob.buff(Amok.class) != null))
 						enemies.add(mob);
 
 				//and add the hero to the list of targets.
 				enemies.add(Dungeon.hero);
 
 				//go after the closest enemy, preferring the hero if two are equidistant
-			//	Char closest = null;
-				//for (Char curr : enemies){
-					//if (closest == null
-						//	|| Dungeon.level.distance(pos, curr.pos) < Dungeon.level.distance(pos, closest.pos)
-						//	|| Dungeon.level.distance(pos, curr.pos) == Dungeon.level.distance(pos, closest.pos) && curr == Dungeon.hero){
-						//closest = curr;
-					//}
-				//}
-				//return closest;
-				return Random.element(enemies);
+				if (enemies.isEmpty()){
+					return null;
+				} else {
+					//go after the closest potential enemy, preferring the hero if two are equidistant
+					Char closest = null;
+					for (Char curr : enemies){
+						if (closest == null
+								|| Dungeon.level.distance(pos, curr.pos) < Dungeon.level.distance(pos, closest.pos)
+								|| Dungeon.level.distance(pos, curr.pos) == Dungeon.level.distance(pos, closest.pos) && curr == Dungeon.hero){
+							closest = curr;
+						}
+					}
+					return closest;
+				}
+
+				//return Random.element(enemies);
 
 			}
 
 		} else
 			return enemy;
-		
-		// resets target if: the target is dead, the target has been lost
-		// (wandering)
-		// or if the mob is amoked and targeting the hero (will try to target
-		// something else)
-		/*if (enemy != null && !enemy.isAlive() || state == WANDERING
-				|| (buff(Amok.class) != null && enemy == Dungeon.hero) 
-				|| (buff(Corruption.class) != null && enemy == Dungeon.hero))
-			enemy = null;
-		// if there is no current target, find a new one.
-		if (enemy == null) {
-			HashSet<Char> enemies = new HashSet<Char>();
-			// if the mob is amoked...
-			if (buff(Amok.class) != null) {
-				// try to find an enemy mob to attack first.
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos]
-							&& mob.hostile)
-						enemies.add(mob);
-				if (enemies.size() > 0)
-					return Random.element(enemies);
-				// try to find ally mobs to attack second.
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && mob.ally)
-						enemies.add(mob);
-				if (enemies.size() > 0)
-					return Random.element(enemies);
-
-				// if there is nothing, go for the hero.
-				return Dungeon.hero;
-
-				// if the mob is Corruption...
-			} else if (buff(Corruption.class) != null) {
-				// try to find an enemy mob to attack first.
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos]
-							&& mob.hostile)
-						enemies.add(mob);
-				if (enemies.size() > 0)
-					return Random.element(enemies);
-
-				// try to find ally mobs to attack second.
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && !mob.ally)
-						enemies.add(mob);
-				if (enemies.size() > 0)
-					return Random.element(enemies);
-
-				// if there is nothing, go for the itself.
-				return null;
-				// if the mob is not amoked...
-			} else {
-				// try to find ally mobs to attack.
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && mob.ally)
-						enemies.add(mob);
-				// and add the hero to the list of targets.
-				enemies.add(Dungeon.hero);
-				// target one at random.
-				return Random.element(enemies);
-
-			}
-
-		} else
-			return enemy;		
-		*/
 		
 	}
 
@@ -630,6 +573,11 @@ public abstract class Mob extends Char {
 			//Buff.affect(Dungeon.hero,GlassShield.class).turns(3)
 		}
 		
+	    if(Dungeon.hero.buff(LearnSkill.class)!=null){
+			LearnSkill.left--;
+			//Buff.affect(Dungeon.hero,GlassShield.class).turns(3)
+		}		
+		
 		AlienBag.bagRecharge bags = Dungeon.hero.buff(AlienBag.bagRecharge.class);
 		if (bags != null) bags.gainExp();
 
@@ -814,7 +762,7 @@ public abstract class Mob extends Char {
 		  if (Dungeon.isChallenged(Challenges.DEW_REJECTION)) {
 			  for (int n : Level.NEIGHBOURS4) {
 				  int c = cell + n;
-				  if (c >= 0 && c < Level.getLength() && Level.passable[c]) {
+				  if (c >= 0 && c < Level.getLength() && Level.passable[c] && Dungeon.level.map[c] != Terrain.LOCKED_EXIT) {
 
 					  if (Random.Int(20) == 1) {
 						  Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();
@@ -826,7 +774,7 @@ public abstract class Mob extends Char {
 		  } else {
 			  for (int n : Level.NEIGHBOURS9) {
 				  int c = cell + n;
-				  if (c >= 0 && c < Level.getLength() && Level.passable[c]) {
+				  if (c >= 0 && c < Level.getLength() && Level.passable[c] && Dungeon.level.map[c] != Terrain.LOCKED_EXIT) {
 
 					  if (Random.Int(20) == 1) {
 						  Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();
@@ -847,7 +795,7 @@ public abstract class Mob extends Char {
 		  if (Dungeon.isChallenged(Challenges.DEW_REJECTION)) {
 			  for (int n : Level.NEIGHBOURS4) {
 				  int c = cell + n;
-				  if (c >= 0 && c < Level.getLength() && Level.passable[c]) {
+				  if (c >= 0 && c < Level.getLength() && Level.passable[c] && Dungeon.level.map[c] != Terrain.LOCKED_EXIT) {
 
 					  if (Random.Int(80) == 1) {
 						  Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();

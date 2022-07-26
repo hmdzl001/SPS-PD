@@ -31,7 +31,7 @@ public class RubberArmor extends NormalArmor {
 	}
 
 	public RubberArmor() {
-		super(2,3.6f,10f,2);
+		super(2,3.7f,11f,2);
 	}
 
 	@Override

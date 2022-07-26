@@ -17,40 +17,41 @@
  */
 package com.hmdzl.spspd.items.skills;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.buffs.Awareness;
 import com.hmdzl.spspd.actors.buffs.Bless;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.actors.buffs.STRdown;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Awareness;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.actors.mobs.npcs.MirrorImage;
+import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.BMirrorSprite;
+import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.sprites.SeekingBombSprite;
-import com.hmdzl.spspd.sprites.SeekingClusterBombSprite;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.watabou.utils.Random;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class SoldierSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
@@ -71,17 +72,27 @@ public class SoldierSkill extends ClassSkill {
 			}
 		}
 
-		int nImages = 4;
+		int nImages = 3;
 		while (nImages > 0 && respawnPoints.size() > 0) {
 			int index = Random.index(respawnPoints);
 
-			MirrorImage mob = new MirrorImage();
-			mob.duplicate(curUser);
-			GameScene.add(mob);
-			ScrollOfTeleportation.appear(mob, respawnPoints.get(index));
 
-			respawnPoints.remove(index);
-			nImages--;
+
+			if (Dungeon.hero.subClass == HeroSubClass.LEADER) {
+				SeekingHugeBomb mob = new SeekingHugeBomb();
+				mob.duplicates(curUser);
+				GameScene.add(mob);
+				ScrollOfTeleportation.appear(mob, respawnPoints.get(index));
+				respawnPoints.remove(index);
+				nImages--;
+			}else {
+				SeekingBomb mob = new SeekingBomb();
+				mob.duplicates(curUser);
+				GameScene.add(mob);
+				ScrollOfTeleportation.appear(mob, respawnPoints.get(index));
+				respawnPoints.remove(index);
+				nImages--;
+			}
 		}
 		SoldierSkill.charge += 12;
 	    Buff.detach(curUser, Poison.class);
@@ -113,35 +124,8 @@ public class SoldierSkill extends ClassSkill {
 		}
 	@Override
 	public void doSpecial3() {
-
-		ArrayList<Integer> respawnPoints = new ArrayList<Integer>();
-
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			int p = curUser.pos + Level.NEIGHBOURS8[i];
-			if (Actor.findChar(p) == null
-					&& (Level.passable[p] || Level.avoid[p])) {
-				respawnPoints.add(p);
-			}
-		}
-
-		int nImages = 2;
-		while (nImages > 0 && respawnPoints.size() > 0) {
-			int index = Random.index(respawnPoints);
-			SeekingBomb mob = new SeekingBomb();
-			SeekingHugeBomb mob2 = new SeekingHugeBomb();
-			if (Dungeon.hero.subClass == HeroSubClass.LEADER) {
-				GameScene.add(mob2);
-				ScrollOfTeleportation.appear(mob2, respawnPoints.get(index));
-				respawnPoints.remove(index);
-				nImages--;
-			}else {
-				GameScene.add(mob);
-				ScrollOfTeleportation.appear(mob, respawnPoints.get(index));
-				respawnPoints.remove(index);
-				nImages--;
-			}
-		}
-		SoldierSkill.charge += 5;
+		Dungeon.level.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		SoldierSkill.charge += 20;
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -178,24 +162,62 @@ public class SoldierSkill extends ClassSkill {
 
 	public static class SeekingBomb extends Mob {
 		{
-			spriteClass = SeekingBombSprite.class;
+			spriteClass = BMirrorSprite.class;
 			hostile = false;
 			state = HUNTING;
-			HP = HT = 1;
+			HP = HT = 100;
 			evadeSkill = 20;
 			ally=true;
 
 			properties.add(Property.MECH);
 		}
 		@Override
+		public int damageRoll() {
+			return Dungeon.hero.damageRoll();
+		}
+
+		@Override
+		public int hitSkill(Char target) {
+			return 1000;
+		}
+
+		@Override
+		public int drRoll() {
+			return Dungeon.hero.drRoll();
+		}
+		@Override
 		public int attackProc(Char enemy, int damage) {
+
 			int dmg = super.attackProc(enemy, damage);
 			DungeonBomb bomb = new DungeonBomb();
 			bomb.explode(pos);
-			yell("KA-BOOM!!!");
-			destroy();
-			sprite.die();
+			//destroy();
+			//sprite.die();
 			return dmg;
+		}
+		public int skin;
+		private static final String SKIN = "skin";
+		@Override
+		public void storeInBundle(Bundle bundle) {
+			super.storeInBundle(bundle);
+			bundle.put(SKIN, skin);
+		}
+
+		@Override
+		public void restoreFromBundle(Bundle bundle) {
+			super.restoreFromBundle(bundle);
+			skin = bundle.getInt(SKIN);
+		}
+
+		public void duplicates(Hero hero) {
+			skin = hero.useskin();
+		}
+
+		@Override
+		public CharSprite sprite() {
+			CharSprite s = super.sprite();
+			((BMirrorSprite) s).updateArmor(skin);
+			return s;
 		}
 
 		@Override
@@ -241,13 +263,13 @@ public class SoldierSkill extends ClassSkill {
 		}
 
 	}
-	public static class SeekingHugeBomb extends Mob {
+	public static class SeekingHugeBomb extends SeekingBomb {
 		{
-			spriteClass = SeekingClusterBombSprite.class;
-			hostile = false;
-			state = HUNTING;
-			HP = HT = 1;
-			evadeSkill = 20;
+			//spriteClass = MirrorSprite.class;
+			//hostile = false;
+			//state = HUNTING;
+			//HP = HT = 1;
+			//evadeSkill = 20;
 			ally=true;
 
 			properties.add(Property.MECH);
@@ -258,7 +280,6 @@ public class SoldierSkill extends ClassSkill {
 			DungeonBomb bomb = new DungeonBomb();
 			bomb.explode(pos);
 			bomb.explode(pos);
-			yell("KA-BOOM!!!");
 			destroy();
 			sprite.die();
 			return dmg;

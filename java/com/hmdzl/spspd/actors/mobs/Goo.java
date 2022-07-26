@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.blobs.Web;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.actors.buffs.Hot;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
@@ -79,7 +80,7 @@ public class Goo extends Mob {
 		lootOther = new ActiveMrDestructo();
 		lootChanceOther = 1f;
 
-		properties.add(Property.ELEMENT);
+		properties.add(Property.UNKNOW);
 		properties.add(Property.BOSS);
 	}
 
@@ -506,6 +507,23 @@ public class Goo extends Mob {
 			yell("GLURP-GLURP!");
 		}
 
+	@Override
+	public void add(Buff buff) {
+		if (buff instanceof Roots) {
+			if (HP < HT) {
+				HP+=HT/10;
+				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
+			}
+		} else if (buff instanceof Hot) {
+			if (Level.water[this.pos])
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+			else
+				damage(Random.NormalIntRange(HT / 2, HT), buff);
+		} else {
+			super.add(buff);
+		}
+	}		
+		
 		{
 			resistances.add(ToxicGas.class);
 			resistances.add(EnchantmentDark.class);

@@ -80,7 +80,7 @@ public class Egg extends Item {
 		{
 		//name = "egg";
 		image = ItemSpriteSheet.EGG;
-		unique = true;
+
 		stackable = false;
 		}
 		
@@ -90,8 +90,8 @@ public class Egg extends Item {
 		public int freezes = 0;
 		public int poisons = 0;
 		public int lits = 0;
-		public int summons = 0;
-		public int light = 0;
+		public int darks = 0;
+		public int lights = 0;
 		
 		private static final String STARTMOVES = "startMoves";
 		private static final String MOVES = "moves";
@@ -99,8 +99,8 @@ public class Egg extends Item {
 		private static final String FREEZES = "freezes";
 		private static final String POISONS = "poisons";
 		private static final String LITS = "lits";
-		private static final String SUMMONS = "summons";
-		private static final String LIGHT = "light";
+		private static final String DARKS = "darks";
+		private static final String LIGHTS = "lights";
 		
 		
 		@Override
@@ -112,8 +112,8 @@ public class Egg extends Item {
 			bundle.put(FREEZES, freezes);
 			bundle.put(POISONS, poisons);
 			bundle.put(LITS, lits);
-			bundle.put(SUMMONS, summons);
-			bundle.put(LIGHT, light);
+			bundle.put(DARKS, darks);
+			bundle.put(LIGHTS, lights);
 			
 		}
 
@@ -126,8 +126,8 @@ public class Egg extends Item {
 			freezes = bundle.getInt(FREEZES);
 			poisons = bundle.getInt(POISONS);
 			lits = bundle.getInt(LITS);
-			summons = bundle.getInt(SUMMONS);
-			light = bundle.getInt(LIGHT);
+			darks = bundle.getInt(DARKS);
+			lights = bundle.getInt(LIGHTS);
 			
 		}
 						
@@ -146,12 +146,12 @@ public class Egg extends Item {
 		public int checkLits () {
 			return lits;
 		}
-		public int checkSummons () {
-			return summons;
+		public int checkDarks() {
+			return darks;
 		}
 		
 		public int checkLight () {
-			return light;
+			return lights;
 		}		
 		
 		@Override
@@ -183,7 +183,7 @@ public class Egg extends Item {
 			
 			boolean hatch = false;
 			if (checkFreezes()>=BLUE_DRAGON && checkPoisons()>=VIOLET_DRAGON && checkBurns()>=RED_DRAGON && checkLits()>=GREEN_DRAGON 
-			          && checkLight()>=SHADOW_DRAGON && checkSummons()>=LIGHT_DRAGON && checkMoves()>=SCORPION){
+			          && checkLight()>=SHADOW_DRAGON && checkDarks()>=LIGHT_DRAGON && checkMoves()>=SCORPION){
 				if (Dungeon.getMonth()==9 || Random.Int(50) == 0){
 				   BugDragon pet = new BugDragon();
 				   eggHatch(pet);
@@ -209,7 +209,7 @@ public class Egg extends Item {
 				  eggHatch(pet);
 				  hatch=true;
 				  //spawn ice dragon	
-			  } else if (checkSummons()>=LIGHT_DRAGON) {
+			  } else if (checkDarks()>=LIGHT_DRAGON) {
 				  LightDragon pet = new LightDragon();
 				  eggHatch(pet);
 				  hatch=true;				  
@@ -222,7 +222,7 @@ public class Egg extends Item {
 				  GreenDragon pet = new GreenDragon();
 				  eggHatch(pet);
 				  hatch=true;
-				  //spawn lit dragon
+				  //spawn shockhit dragon
 			  } else if (checkBurns()>=RED_DRAGON) {
 				  RedDragon pet = new RedDragon();
 				  eggHatch(pet);
@@ -266,14 +266,14 @@ public class Egg extends Item {
 
 			  
 			  if (checkFreezes()>=BLUE_DRAGON && checkPoisons()>=VIOLET_DRAGON && checkBurns()>=RED_DRAGON && checkLits()>=GREEN_DRAGON 
-			          && checkLight()>=SHADOW_DRAGON && checkSummons()>=LIGHT_DRAGON && checkMoves()>=SCORPION) {
+			          && checkLight()>=SHADOW_DRAGON && checkDarks()>=LIGHT_DRAGON && checkMoves()>=SCORPION) {
 				   GLog.w(Messages.get(Egg.class,"zap"));
 				   Dungeon.hero.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				   Dungeon.hero.sprite.flash();
 				   Dungeon.hero.damage(1, this);	
 				   alive = true;
 
-			  } else if (checkSummons()>=SHADOW_DRAGON || checkLight()>=LIGHT_DRAGON || checkFreezes()>=BLUE_DRAGON
+			  } else if (checkDarks()>=SHADOW_DRAGON || checkLight()>=LIGHT_DRAGON || checkFreezes()>=BLUE_DRAGON
 			  || checkPoisons()>=VIOLET_DRAGON || checkLits()>=GREEN_DRAGON || checkBurns()>=RED_DRAGON) {
 				 GLog.w(Messages.get(Egg.class,"kick"));
 				 alive = true;
@@ -392,8 +392,8 @@ public class Egg extends Item {
 		info += "\n" + Messages.get(this, "freezes",freezes);
 		info += "\n" + Messages.get(this, "poisons",poisons);
 		info += "\n" + Messages.get(this, "lits",lits);
-		info += "\n" + Messages.get(this, "summons",summons);
-		info += "\n" + Messages.get(this, "light",light);
+		info += "\n" + Messages.get(this, "darks", darks);
+		info += "\n" + Messages.get(this, "lights",lights);
 		
 		return info;	
 	}

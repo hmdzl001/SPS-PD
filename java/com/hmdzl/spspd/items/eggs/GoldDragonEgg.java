@@ -37,7 +37,7 @@ public class GoldDragonEgg extends Egg {
 		{
 		//name = "GoldDragon egg";
 		image = ItemSpriteSheet.GOLD_DRAGONEGG;
-		unique = true;
+
 		stackable = false;
 		}
 

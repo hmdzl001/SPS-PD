@@ -125,7 +125,7 @@ public class WandOfTCloud extends Wand {
 		}
 		}
 	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
-		if (heap != null) {heap.lit();}
+		if (heap != null) {heap.shockhit();}
 	}
 
 	@Override

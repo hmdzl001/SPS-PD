@@ -17,20 +17,14 @@
  */
 package com.hmdzl.spspd.items.food.fruit;
 
-import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Awareness;
-import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Notice;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class Blueberry extends Fruit {
@@ -42,9 +36,6 @@ public class Blueberry extends Fruit {
 		hornValue = 1;
 		 
 	}
-
-	
-	private static final String TXT_PREVENTING = Messages.get(Blueberry.class,"stop");
 	
 	@Override
 	public void execute(Hero hero, String action) {
@@ -53,24 +44,18 @@ public class Blueberry extends Fruit {
 
 		if (action.equals(AC_EAT)) {
 
-			if (Random.Float()<0.75f) {
+			if (Random.Float()<0.05f) {
 			
 				int length = Level.getLength();
 				//int[] map = Dungeon.level.map;
 				boolean[] mapped = Dungeon.level.mapped;
 				boolean[] discoverable = Level.discoverable;
-
 				//boolean noticed = false;
-
 				for (int i = 0; i < length; i++) {
-
 					//int terr = map[i];
-
 					if (discoverable[i]) {
-
 						mapped[i] = true;
 						//if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
-
 							//Level.set(i, Terrain.discover(terr));
 							//GameScene.updateMap(i);
 							//Dungeon.level.discover( i );
@@ -78,59 +63,17 @@ public class Blueberry extends Fruit {
 							//if (Dungeon.visible[i]) {
 								//GameScene.discoverTile(i, terr);
 								//discover(i);
-
 								//noticed = true;
 							//}
 						//}
 					}
 				}
 				Dungeon.observe();
-				
-				//if (noticed) {
-					//Sample.INSTANCE.play(Assets.SND_SECRET);
-				//}
-				
-				Buff.affect(hero, Awareness.class, 10f);
+				Buff.affect(hero, Notice.class, 50f);
 				
 			} else {
-			
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT+hero.HT);
-				
-				int length = Level.getLength();
-				int[] map = Dungeon.level.map;
-				boolean[] mapped = Dungeon.level.mapped;
-				boolean[] discoverable = Level.discoverable;
 
-				boolean noticed = false;
-
-				for (int i = 0; i < length; i++) {
-
-					int terr = map[i];
-
-					if (discoverable[i]) {
-
-						mapped[i] = true;
-						if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
-
-							Dungeon.level.discover( i );
-
-							if (Dungeon.visible[i]) {
-								GameScene.discoverTile(i, terr);
-								discover(i);
-
-								noticed = true;
-							}
-						}
-					}
-				}
-				Dungeon.observe();
-				
-				if (noticed) {
-					Sample.INSTANCE.play(Assets.SND_SECRET);
-				}
-				
-				Buff.affect(hero, Awareness.class, 10f);
-				Dungeon.observe();
+				Buff.affect(hero, Notice.class, 50f);
 
 			}
 		}

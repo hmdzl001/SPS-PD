@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.mobs.GoldCollector;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
@@ -38,6 +35,13 @@ public class EntrancePainter extends Painter {
 		level.entrance = room.random(1);
 		set(level, level.entrance, Terrain.ENTRANCE);
 
+        int dewbless = room.random();
+        while (level.map[dewbless] == Terrain.ENTRANCE ) {
+            dewbless = room.random();
+        }
+        //if (depth<25 && depth >1 ) {
+           // level.map[dewbless] = Terrain.DEW_BLESS;
+      //  }
 		//if (Dungeon.gold > (2000000/(Math.max(1,20-Dungeon.depth))) && Dungeon.depth < 25){
 		//	GoldCollector gc = new GoldCollector();
 		//	gc.pos = room.random();

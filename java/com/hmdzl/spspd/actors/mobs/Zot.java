@@ -17,12 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.items.SoulCollect;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -31,25 +25,28 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.SoulCollect;
 import com.hmdzl.spspd.items.misc.AutoPotion.AutoHealPotion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ZotSprite;
-
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Zot extends Mob {
 

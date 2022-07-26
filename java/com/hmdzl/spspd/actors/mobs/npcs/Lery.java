@@ -21,8 +21,10 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.missiles.BottleFire;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.LerySprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class Lery extends NPC {
@@ -31,6 +33,11 @@ public class Lery extends NPC {
 		//name = "Lery";
 		spriteClass = LerySprite.class;
 		properties.add(Property.ELEMENT);
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new BottleFire();
 	}
 
 	@Override

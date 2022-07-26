@@ -61,7 +61,7 @@ public class HolyMace extends MeleeWeapon {
 
 	public HolyMace() {
 		super(3, 1.2f, 1f, 2);
-		MIN = 6;
+		MIN = 8;
 		MAX = 20;
 		unique = true;
 		reinforced = true;
@@ -83,9 +83,9 @@ public class HolyMace extends MeleeWeapon {
 
 	//public final int fullCharge = 10;
 	public int charge = 0;
-	public int uptime1 = 0;
-	public static int uptime2 = 0;
-	public int uptime3 = 0;
+	public int uptime1 = 1;
+	public static int uptime2 = 1;
+	public int uptime3 = 1;
 	
 	private static final String CHARGE = "charge";
 	private static final String UPTIME1 = "uptime1";
@@ -125,13 +125,13 @@ public class HolyMace extends MeleeWeapon {
 		} else if (action == AC_LIGHT) {
 			curUser = hero;
 			Buff.affect(hero,Light.class,10f+uptime1);
+			charge-=5;
 			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 				if (Level.fieldOfView[mob.pos]) {
 					Buff.affect(mob, Terror.class, 10f+uptime1).object = curUser
 							.id();
 				}
 				curUser.spendAndNext(1f);
-				charge-=5;
 			}
 		} else if (action == AC_TRIAL) {
 			curUser = hero;

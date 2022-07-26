@@ -27,7 +27,7 @@ public class TownLayouts {
 	private static final int L = Terrain.LOCKED_DOOR;
 
 	private static final int E = Terrain.EMPTY;
-	private static final int X = Terrain.EXIT;
+	private static final int X = Terrain.IRON_MAKER;
 
 	private static final int M = Terrain.WALL_DECO;
 	private static final int P = Terrain.PEDESTAL;
@@ -77,7 +77,7 @@ public class TownLayouts {
 		M, 	M, 	M, 	W, 	O, 	O, 	G, 	G, 	G, 	G, 	G, 	W, 	E, 	E, 	E, 	E, 	O, 	R, 	R, 	R, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	J, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	O, 	O, 	O, 	O, 	O, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	J, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	U, 	O, 	U, 	W, 	W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
-		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	O, 	O, 	O, 	W, 	B, 	B, 	B, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	W, 	M, 	M, 	M, 
+		M, 	M, 	M, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	O, 	O, 	O, 	W, 	B, 	B, 	B, 	W, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	X, 	W, 	M, 	M, 	M,
 		M, 	M, 	M, 	W, 	W, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	U, 	O, 	U, 	W, 	O, 	O, 	O, 	W, 	E, 	E, 	E, 	E, 	W, 	W, 	D, 	W, 	W, 	W, 	M, 	M, 	M, 
 		M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	M, 	M, 	M, 
 		M, 	M, 	M, 	M, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	M, 	M, 	M, 

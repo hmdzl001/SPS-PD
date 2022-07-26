@@ -23,7 +23,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 
-import com.hmdzl.spspd.items.food.completefood.Crystalnucleus;
+import com.hmdzl.spspd.items.sellitem.Crystalnucleus;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 

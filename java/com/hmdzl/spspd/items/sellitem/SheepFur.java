@@ -22,7 +22,7 @@ package com.hmdzl.spspd.items.sellitem;
 public class SheepFur extends SellItem {
 
 	{
-		image = ItemSpriteSheet.NULLWARN;
+		image = ItemSpriteSheet.SHEEPFUR;
 		stackable = true;
 	}
 

@@ -35,7 +35,7 @@ public class HaroEgg extends Egg {
 		{
 		//name = "Haro egg";
 		image = ItemSpriteSheet.HARO_THE_PET;
-		unique = true;
+
 		stackable = false;
 		}
 

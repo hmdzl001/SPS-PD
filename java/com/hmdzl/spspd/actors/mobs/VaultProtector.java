@@ -18,22 +18,19 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.effects.particles.SparkParticle;
+import com.hmdzl.spspd.actors.buffs.Taunt;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.VaultProtectorSprite;
-import com.watabou.noosa.Camera;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class VaultProtector extends Mob implements Callback {
+public class VaultProtector extends Mob {
 
 	private static final float TIME_TO_ZAP = 2f;
 
@@ -44,7 +41,7 @@ public class VaultProtector extends Mob implements Callback {
 
 		EXP = 1;
 		state = HUNTING;
-		flying = true;
+		//flying = true;
 		
 		HP = HT = 400;
 		evadeSkill = 10;
@@ -52,83 +49,42 @@ public class VaultProtector extends Mob implements Callback {
 		loot = new VioletDewdrop();
 		lootChance = 1f;
 		
-		properties.add(Property.ELEMENT);
+		properties.add(Property.HUMAN);
 	}
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(20, 40);
+		return Random.NormalIntRange(8+Math.round(Statistics.goldThievesKilled/10), 10+Math.round(Statistics.goldThievesKilled/5));
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return 35;
+		return 40;
 	}
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(10, 20);
+		return Random.NormalIntRange(5, 20);
 	}
 
 	@Override
-	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
+	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null || buff(Taunt.class) == null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 
 	@Override
-	protected boolean doAttack(Char enemy) {
-
-		if (Level.distance(pos, enemy.pos) <= 1) {
-
-			return super.doAttack(enemy);
-
+	public int attackProc(Char enemy, int damage) {
+		if (buff(Taunt.class) == null){
+			Buff.affect(this,Taunt.class);
 		} else {
-
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
-			if (visible) {
-				sprite.zap(enemy.pos);
-			}
-
-			spend(TIME_TO_ZAP);
-
-			if (hit(this, enemy, true)) {
-				int dmg = Random.Int(30, 70);
-				if (Level.water[enemy.pos] && !enemy.flying) {
-					dmg *= 1.5f;
-				}
-				enemy.damage(dmg, this);
-
-				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
-				enemy.sprite.flash();
-
-				if (enemy == Dungeon.hero) {
-
-					Camera.main.shake(2, 0.3f);
-
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-						//GLog.n(Messages.get(this, "kill"));
-					}
-				}
-			} else {
-				enemy.sprite
-						.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
-			}
-
-			return !visible;
+		enemy.damage(damageRoll(), DamageType.ENERGY_DAMAGE);
+		Dungeon.gold-=Math.max(1,(int)Dungeon.gold/100);
+		damage = 0;
 		}
+		return damage;
 	}
 
-	@Override
-	public void call() {
-		next();
-	}
-
-	{
-		resistances.add(LightningTrap.Electricity.class);
-	}
 
 }

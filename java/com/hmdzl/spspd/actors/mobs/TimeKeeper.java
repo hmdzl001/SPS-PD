@@ -79,7 +79,7 @@ public class TimeKeeper extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damage, ENERGY_DAMAGE);
+		enemy.damage(damageRoll(), ENERGY_DAMAGE);
 		damage = 0;
 
 		if (enemy.isAlive() && Random.Int(5)==1) {

@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.scenes;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
@@ -39,7 +36,6 @@ import com.hmdzl.spspd.effects.FloatingText;
 import com.hmdzl.spspd.effects.Ripple;
 import com.hmdzl.spspd.effects.SpellSprite;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.PotionBandolier;
 import com.hmdzl.spspd.items.bags.ScrollHolder;
@@ -47,11 +43,12 @@ import com.hmdzl.spspd.items.bags.SeedPouch;
 import com.hmdzl.spspd.items.bags.WandHolster;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
+import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.RegularLevel;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.traps.Trap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.DiscardedItemSprite;
@@ -84,6 +81,7 @@ import com.hmdzl.spspd.windows.WndInfoItem;
 import com.hmdzl.spspd.windows.WndInfoMob;
 import com.hmdzl.spspd.windows.WndInfoPlant;
 import com.hmdzl.spspd.windows.WndInfoTrap;
+import com.hmdzl.spspd.windows.WndLifeTradeItem;
 import com.hmdzl.spspd.windows.WndMessage;
 import com.hmdzl.spspd.windows.WndStory;
 import com.hmdzl.spspd.windows.WndTradeItem;
@@ -96,6 +94,9 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Random;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameScene extends PixelScene {
 
@@ -823,6 +824,8 @@ public class GameScene extends PixelScene {
 		if (heap != null && heap.seen) {
 			if (heap.type == Heap.Type.FOR_SALE && heap.size() == 1 && heap.peek().price() > 0) {
 				GameScene.show(new WndTradeItem(heap, false));
+			} else if (heap.type == Heap.Type.FOR_LIFE && heap.size() == 1 && heap.peek().price() > 0) {
+				GameScene.show(new WndLifeTradeItem(heap, false));
 			} else {
 				GameScene.show(new WndInfoItem(heap));
 			}

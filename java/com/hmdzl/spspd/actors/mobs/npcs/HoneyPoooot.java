@@ -22,12 +22,11 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.items.Amulet;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PotKey;
-import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.items.weapon.missiles.HoneyArrow;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.HoneyPooootSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.windows.WndDream;
 import com.watabou.utils.Random;
 
 public class HoneyPoooot extends NPC {
@@ -69,7 +68,10 @@ public class HoneyPoooot extends NPC {
 		return true;
 	}
 
-   
+	@Override
+	public Item SupercreateLoot(){
+		return new HoneyArrow(3);
+	}
 	
 	@Override
 	public boolean interact() {

@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.levels;
 
 import com.hmdzl.spspd.ShatteredPixelDungeon;
-import com.hmdzl.spspd.levels.painters.BarricadedPainter;
 import com.hmdzl.spspd.levels.painters.BlacksmithPainter;
 import com.hmdzl.spspd.levels.painters.BossExitPainter;
 import com.hmdzl.spspd.levels.painters.CookingPainter;
@@ -26,26 +25,30 @@ import com.hmdzl.spspd.levels.painters.CryptPainter;
 import com.hmdzl.spspd.levels.painters.EntrancePainter;
 import com.hmdzl.spspd.levels.painters.ExitPainter;
 import com.hmdzl.spspd.levels.painters.GardenPainter;
-import com.hmdzl.spspd.levels.painters.secrets.GlassRoomPainter;
 import com.hmdzl.spspd.levels.painters.JunglePainter;
 import com.hmdzl.spspd.levels.painters.LibraryPainter;
-import com.hmdzl.spspd.levels.painters.MagicWellPainter;
+import com.hmdzl.spspd.levels.painters.MagicKeeperPainter;
 import com.hmdzl.spspd.levels.painters.MaterialPainter;
-import com.hmdzl.spspd.levels.painters.MemoryPainter;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.painters.PassagePainter;
 import com.hmdzl.spspd.levels.painters.PitPainter;
 import com.hmdzl.spspd.levels.painters.PoolPainter;
 import com.hmdzl.spspd.levels.painters.RatKingPainter;
-import com.hmdzl.spspd.levels.painters.RatKingPainter2;
 import com.hmdzl.spspd.levels.painters.ShopPainter;
 import com.hmdzl.spspd.levels.painters.StandardPainter;
 import com.hmdzl.spspd.levels.painters.StatuePainter;
 import com.hmdzl.spspd.levels.painters.StoragePainter;
+import com.hmdzl.spspd.levels.painters.TenguBoxPainter;
 import com.hmdzl.spspd.levels.painters.TrapsPainter;
 import com.hmdzl.spspd.levels.painters.TunnelPainter;
 import com.hmdzl.spspd.levels.painters.VaultPainter;
 import com.hmdzl.spspd.levels.painters.WeakFloorPainter;
+import com.hmdzl.spspd.levels.painters.hidenroom.BarricadedPainter;
+import com.hmdzl.spspd.levels.painters.hidenroom.GlassRoomPainter;
+import com.hmdzl.spspd.levels.painters.hidenroom.HidenShopPainter;
+import com.hmdzl.spspd.levels.painters.hidenroom.MagicWellPainter;
+import com.hmdzl.spspd.levels.painters.hidenroom.MemoryPainter;
+import com.hmdzl.spspd.levels.painters.hidenroom.WishPoolPainter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
@@ -87,6 +90,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		STORAGE(StoragePainter.class),
 		BARRICADED	(BarricadedPainter.class ),
 		MAGIC_WELL(MagicWellPainter.class), 
+		MAGIC_KEEPER(MagicKeeperPainter.class),
 		GARDEN(GardenPainter.class), 
 		CRYPT(CryptPainter.class), 
 		STATUE(StatuePainter.class), 
@@ -94,9 +98,12 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		RAT_KING(RatKingPainter.class), 
 		WEAK_FLOOR(WeakFloorPainter.class), 
 		PIT(PitPainter.class), 
-		RAT_KING2(RatKingPainter2.class), 
+		RAT_KING2(TenguBoxPainter.class),
 		MEMORY(MemoryPainter.class),
-		GLASSROOM(GlassRoomPainter .class);
+		HIDE_SHOP(HidenShopPainter.class),
+		WISH_POOL(WishPoolPainter.class),
+		GLASSROOM(GlassRoomPainter.class);
+
 
 		private Method paint;
 
@@ -118,10 +125,16 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	}
 
     public static final ArrayList<Type> SPECIALS = new ArrayList<Type>(
-			Arrays.asList(Type.WEAK_FLOOR, Type.MAGIC_WELL, Type.CRYPT,
-					Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,
-					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE,
-					Type.COOKING, Type.VAULT, Type.MEMORY, Type.BARRICADED));
+			Arrays.asList(Type.WEAK_FLOOR, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,
+					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.COOKING, Type.VAULT));
+
+	public static final ArrayList<Type> HIDE = new ArrayList<Type>(
+			Arrays.asList( Type.MAGIC_WELL, Type.MEMORY, Type.BARRICADED,Type.HIDE_SHOP,
+					Type.MAGIC_WELL, Type.HIDE_SHOP, Type.WISH_POOL,Type.GLASSROOM,
+					Type.MEMORY, Type.BARRICADED, Type.WISH_POOL,Type.GLASSROOM));
+
+	//public static final ArrayList<Type> HIDE = new ArrayList<Type>(
+	//		Arrays.asList( Type.WISH_POOL));
 	
 	public static final ArrayList<Type> SPECIALSFORT = new ArrayList<Type>(
 			Arrays.asList(Type.GARDEN, Type.GARDEN, Type.GARDEN, Type.GARDEN,
@@ -129,9 +142,9 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 					      Type.GARDEN, Type.GARDEN));
 	
 	public static final ArrayList<Type> SPECIALSTRANSCEND = new ArrayList<Type>(
-			Arrays.asList(Type.MAGIC_WELL, Type.MAGIC_WELL, Type.MAGIC_WELL, Type.MAGIC_WELL,
-					      Type.MAGIC_WELL, Type.MAGIC_WELL, Type.MAGIC_WELL, Type.MAGIC_WELL,
-					       Type.MAGIC_WELL,  Type.MAGIC_WELL));
+			Arrays.asList(Type.MAGIC_KEEPER, Type.MAGIC_KEEPER, Type.MAGIC_KEEPER, Type.MAGIC_KEEPER,
+					      Type.MAGIC_KEEPER, Type.MAGIC_KEEPER, Type.MAGIC_KEEPER, Type.MAGIC_KEEPER,
+					       Type.MAGIC_KEEPER,  Type.MAGIC_KEEPER));
 	
 	public Type type = Type.NULL;
 

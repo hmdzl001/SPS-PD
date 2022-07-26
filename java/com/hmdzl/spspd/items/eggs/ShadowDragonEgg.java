@@ -35,7 +35,7 @@ public class ShadowDragonEgg extends Egg {
 		{
 		//name = "shadow dragon egg";
 		image = ItemSpriteSheet.SHADOWEGG;
-		unique = true;
+
 		stackable = false;
 		}
 		

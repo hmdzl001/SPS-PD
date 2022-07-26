@@ -74,6 +74,7 @@ public class TestMob2 extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		Buff.affect(enemy,BeCorrupt.class).level(100);
+		//Buff.affect(this,HiddenShadow.class,5f);
 		return damage;
 	}
 

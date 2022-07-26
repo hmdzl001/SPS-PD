@@ -99,6 +99,13 @@ public class ItemSlot extends Button {
 			return ItemSpriteSheet.REMAINS;
 		}
     };
+	
+	public static final Item E_DUST = new Item() {
+		@Override
+		public int image() {
+			return ItemSpriteSheet.E_DUST;
+		}
+    };	
 
 	public ItemSlot() {
 		super();

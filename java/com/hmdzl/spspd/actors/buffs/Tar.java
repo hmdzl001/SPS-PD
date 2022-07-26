@@ -56,7 +56,7 @@ public class Tar extends Buff {
 	    }
 		   spend(TICK);
 		}
-		if (Level.water[target.pos] && !target.flying) {
+		if ((Level.water[target.pos] )&& !target.flying) {
 			detach();
 		}
 		

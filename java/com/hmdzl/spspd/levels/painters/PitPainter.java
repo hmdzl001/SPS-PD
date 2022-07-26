@@ -80,6 +80,7 @@ public class PitPainter extends Painter {
 		}
 		level.drop(new Ankh(), remains);
 		level.drop(new Fadeleaf.Seed(), remains);
+		level.drop(new Fadeleaf.Seed(), remains);
 		int n = Random.IntRange(1, 2);
 		for (int i = 0; i < n; i++) {
 			level.drop(prize(level), remains);

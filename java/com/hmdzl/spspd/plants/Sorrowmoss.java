@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PoisonParticle;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -40,6 +41,11 @@ public class Sorrowmoss extends Plant {
 		if (ch != null) {
 			Buff.affect(ch, Poison.class).set(4 + Dungeon.depth / 2);
 			Buff.affect(ch, ShadowCurse.class);
+		}
+		
+		Heap heap = Dungeon.level.heaps.get(pos);
+		if (heap != null) {
+			heap.darkhit();
 		}
 
 		if (Dungeon.visible[pos]) {

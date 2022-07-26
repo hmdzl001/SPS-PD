@@ -61,7 +61,7 @@ public class WandOfSwamp extends DamageWand {
 		
 		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
 		if (heap != null) {
-			heap.poison();
+			heap.earthhit();
 		}
 		
         GameScene.add( Blob.seed(bolt.collisionPos, 100, PoisonGas.class ) );

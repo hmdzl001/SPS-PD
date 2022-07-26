@@ -41,7 +41,7 @@ import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
 import com.hmdzl.spspd.levels.traps.WornTrap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Scene;
@@ -146,10 +146,18 @@ public class SewerLevel extends RegularLevel {
 			int pos = roomEntrance.random();
 			if (pos != entrance) {
 				map[pos] = Terrain.SIGN;
-				break;
+				break;	
+			}			
+		}
+		if (Dungeon.depth > 1) {
+			while (true) {
+				int pos = roomEntrance.random();
+				if (pos != entrance) {
+					map[pos] = Terrain.DEW_BLESS;
+					break;
+				}
 			}
 		}
-
 		for (int i = 0; i < getLength(); i++) {
 
 			if (map[i] == Terrain.EXIT && Dungeon.depth == 1) {

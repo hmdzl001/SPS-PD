@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -31,7 +32,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.items.food.Nut;
-import com.hmdzl.spspd.items.food.completefood.Garbage;
+import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
@@ -44,7 +45,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
@@ -600,8 +601,9 @@ public class WndHero extends WndTabbed {
 		    heropet.sprite.showStatus(CharSprite.POSITIVE,Messages.get(WndHero.class,"heals", effect));
 		  }
 	      heropet.cooldown=1;
-			heropet.experience+= 120;
+		  heropet.experience+= 120;
 		  item.detach(Dungeon.hero.belongings.backpack);
+		  Buff.affect(heropet,HasteBuff.class,10f);
 		  Dungeon.hero.spend(1f);
 		  Dungeon.hero.busy();
 		  Dungeon.hero.sprite.operate(Dungeon.hero.pos);
@@ -640,7 +642,7 @@ public class WndHero extends WndTabbed {
 			}
 		}
 		
-		if (petType==5){//green dragon - lit
+		if (petType==5){//green dragon - shockhit
 			if (item instanceof Meat
 				|| item instanceof ScrollOfRecharging
 				|| item instanceof Fruit
@@ -649,7 +651,7 @@ public class WndHero extends WndTabbed {
 			}
 		}
 		
-		if (petType==6){//violet dragon - poison
+		if (petType==6){//violet dragon - earthhit
 			if (item instanceof Meat
 				|| item instanceof PotionOfToxicGas
 				|| item instanceof Fruit
@@ -682,7 +684,7 @@ public class WndHero extends WndTabbed {
 				nomnom=true;
 			}
 		}
-		if (petType==10){//light dragon
+		if (petType==10){//lighthit dragon
 			if (item instanceof Meat
 			    ||item instanceof Vegetable
 				|| item instanceof Fruit

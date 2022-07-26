@@ -17,7 +17,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
 import com.hmdzl.spspd.items.wands.WandOfError;
 import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
 import com.hmdzl.spspd.items.weapon.missiles.ErrorAmmo;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -105,7 +105,7 @@ public class RobotDMT extends Artifact {
 						GLog.w(Messages.get(this,"justice"));
 						break;
 					case 6:
-						Buff.affect(hero,Dewcharge.class).level(100);
+						Buff.affect(hero,Dewcharge.class,100f);
 						GLog.w(Messages.get(this,"soul"));
 						break;
 					case 7:

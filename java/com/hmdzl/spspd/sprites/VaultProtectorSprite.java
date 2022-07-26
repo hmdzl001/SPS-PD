@@ -18,13 +18,14 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.mobs.VaultProtector;
-import com.hmdzl.spspd.effects.Lightning;
+import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
+import com.hmdzl.spspd.levels.Level;
 import com.watabou.noosa.TextureFilm;
+import com.watabou.utils.Callback;
 
 public class VaultProtectorSprite extends MobSprite {
-	
-	private int[] points = new int[2];
+
+	private Animation cast;
 
 	public VaultProtectorSprite() {
 		super();
@@ -42,7 +43,7 @@ public class VaultProtectorSprite extends MobSprite {
 		attack = new Animation(12, false);
 		attack.frames(frames, 8, 9, 10);
 
-		zap = attack.clone();
+		cast = attack.clone();
 		
 		die = new Animation(5, false);
 		die.frames(frames, 11, 12, 13, 14, 15, 15);
@@ -51,12 +52,25 @@ public class VaultProtectorSprite extends MobSprite {
 	}
 
 	@Override
-	public void zap(int pos) {
+	public void attack(int cell) {
+		if (!Level.adjacent(cell, ch.pos)) {
 
-		parent.add( new Lightning( ch.pos, pos,(VaultProtector) ch));
+			((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
+					cell, new EmpBola(), new Callback() {
+						@Override
+						public void call() {
+							ch.onAttackComplete();
+						}
+					});
 
-		turnTo(ch.pos, pos);
-		play(zap);
+			play(cast);
+			turnTo(ch.pos, cell);
+
+		} else {
+
+			super.attack(cell);
+
+		}
 	}
 	
 	@Override

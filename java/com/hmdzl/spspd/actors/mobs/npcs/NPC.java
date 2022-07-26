@@ -36,7 +36,7 @@ public abstract class NPC extends Mob {
 
 	protected void throwItem() {
 		Heap heap = Dungeon.level.heaps.get(pos);
-		if (heap != null  && heap.type != Heap.Type.FOR_SALE) {
+		if (heap != null  && heap.type != Heap.Type.FOR_SALE  && heap.type != Heap.Type.FOR_LIFE) {
 			int n;
 			do {
 				n = pos + Level.NEIGHBOURS8[Random.Int(8)];

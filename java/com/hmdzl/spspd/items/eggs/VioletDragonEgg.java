@@ -41,7 +41,7 @@ public class VioletDragonEgg extends Egg {
 		{
 		//name = "shadow dragon egg";
 		image = ItemSpriteSheet.VIOLET_DRAGONEGG;
-		unique = true;
+
 		stackable = false;
 		}
 		

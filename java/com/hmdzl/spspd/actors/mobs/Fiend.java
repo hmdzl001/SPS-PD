@@ -21,10 +21,16 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.STRdown;
+import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.actors.buffs.Silent;
+import com.hmdzl.spspd.actors.buffs.Terror;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.wands.WandOfBlood;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -163,4 +169,21 @@ public class Fiend extends Mob implements Callback {
      
      }
 	
+	@Override
+	public void add(Buff buff) {
+		if (buff instanceof ShadowCurse) {
+			if (HP < HT) {
+				HP+=HT/10;
+				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
+			}
+		} else if (buff instanceof Amok || buff instanceof Terror) {
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+		} else {
+			super.add(buff);
+		}
+	}
+	{
+		immunities.add(DamageType.DarkDamage.class);
+		resistances.add(WandOfBlood.class);
+	}
 }

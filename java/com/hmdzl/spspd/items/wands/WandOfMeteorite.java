@@ -61,7 +61,7 @@ public class WandOfMeteorite extends DamageWand {
 
 		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
 		if (heap != null) {
-			heap.burn();
+			heap.firehit();
 		}
 
 		Sample.INSTANCE.play(Assets.SND_ROCKS);

@@ -114,7 +114,7 @@ public class Otiluke extends Mob implements Callback {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damage/2, ENERGY_DAMAGE);
+		enemy.damage(damageRoll()/2, ENERGY_DAMAGE);
 		damage = damage/2;
 
 		return damage;

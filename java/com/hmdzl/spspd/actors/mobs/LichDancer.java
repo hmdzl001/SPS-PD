@@ -167,7 +167,7 @@ public class LichDancer extends Mob {
 			Buff.prolong(enemy, Vertigo.class,3f);
 		}
 		
-		enemy.damage(damage/2, ENERGY_DAMAGE);
+		enemy.damage(damageRoll()/2, ENERGY_DAMAGE);
 		damage = damage/2;
 
         return damage;

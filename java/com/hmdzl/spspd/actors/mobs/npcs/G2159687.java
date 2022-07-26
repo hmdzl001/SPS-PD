@@ -21,9 +21,11 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.Simple360;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.G2159687Sprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndHotel;
 import com.watabou.utils.Random;
 
@@ -39,8 +41,13 @@ public class G2159687 extends NPC {
 	protected boolean act() {
 		throwItem();
 		return super.act();
-	}	
-	
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new Simple360();
+	}
+
 	@Override
 	public int evadeSkill(Char enemy) {
 		return 1000;

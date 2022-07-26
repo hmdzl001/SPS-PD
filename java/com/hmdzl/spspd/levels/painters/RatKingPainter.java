@@ -57,9 +57,29 @@ public class RatKingPainter extends Painter {
 		}
 
 		while (true) {
-			Heap chest = level.heaps.get(room.random());
-			if (chest != null) {
-				chest.type = Heap.Type.MIMIC;
+			Heap chest1 = level.heaps.get(room.random());
+			Heap chest2 = level.heaps.get(room.random());
+			Heap chest3 = level.heaps.get(room.random());
+			Heap chest4 = level.heaps.get(room.random());
+			Heap chest5 = level.heaps.get(room.random());
+			if (chest1 != null) {
+				chest1.type = Heap.Type.MIMIC;
+				break;
+			}
+			if (chest2 != null) {
+				chest2.type = Heap.Type.MIMIC;
+				break;
+			}
+			if (chest3 != null) {
+				chest3.type = Heap.Type.MIMIC;
+				break;
+			}
+			if (chest4 != null) {
+				chest4.type = Heap.Type.MIMIC;
+				break;
+			}
+			if (chest5 != null) {
+				chest5.type = Heap.Type.MIMIC;
 				break;
 			}
 		}

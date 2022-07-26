@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.mobs.Thief;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.food.meatfood.ChargrilledMeat;
+import com.hmdzl.spspd.items.food.meatfood.FireMeat;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
@@ -97,7 +97,7 @@ public class Burning extends Buff implements Hero.Doom {
 				} else if (item instanceof MysteryMeat) {
 
 					item = item.detach(hero.belongings.backpack);
-					ChargrilledMeat steak = new ChargrilledMeat();
+					FireMeat steak = new FireMeat();
 					if (!steak.collect(hero.belongings.backpack)) {
 						Dungeon.level.drop(steak, hero.pos).sprite.drop();
 					}

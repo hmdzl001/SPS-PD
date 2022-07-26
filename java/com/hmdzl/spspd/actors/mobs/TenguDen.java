@@ -34,7 +34,7 @@ import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
+import com.hmdzl.spspd.items.misc.BigBattery;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -80,7 +80,7 @@ public class TenguDen extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-			return new ManyKnive().identify();
+			return new BigBattery().identify();
 	}	
 	
 	

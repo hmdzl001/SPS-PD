@@ -1,6 +1,6 @@
 /*
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,39 +15,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.actors.buffs;
+package com.hmdzl.spspd.items.sellitem;
 
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;
+		import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
-public class WaitHelp extends Buff {
+public class HummingTool extends SellItem {
 
 	{
-		type = buffType.NEUTRAL;
-	}
-
-
-	@Override
-	public boolean attachTo(Char target) {
-		if ( super.attachTo(target)) {
-			if (cooldown() == 0)
-				spend(1);
-			return true;
-		}
-		return false;
+		image = ItemSpriteSheet.HUMMING_TOOL;
+		stackable = true;
 	}
 
 	@Override
-	public boolean act() {
-		Buff.affect(target, GlassShield.class).turns(1);
-
-		detach();
-		return true;
+	public int price() {
+		return 1200 * quantity;
 	}
-
 	@Override
-	public String toString() {
-		return Messages.get(this, "name");
+	public String info() {
+		return super.desc();
 	}
-
 }

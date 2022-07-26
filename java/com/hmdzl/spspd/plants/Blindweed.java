@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.buffs.LightShootAttack;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -49,6 +50,11 @@ public class Blindweed extends Plant {
 				if (((Mob)ch).state == ((Mob)ch).HUNTING) ((Mob)ch).state = ((Mob)ch).WANDERING;
 				((Mob)ch).beckon( Dungeon.level.randomDestination() );
 			}
+		}
+		
+		Heap heap = Dungeon.level.heaps.get(pos);
+		if (heap != null) {
+			heap.lighthit();
 		}
 
 		if (Dungeon.visible[pos]) {

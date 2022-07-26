@@ -146,11 +146,7 @@ public class GnollMark extends Item {
             curUser = hero;
 
             curUser.HP -= curUser.HT/5;
-			curUser.TRUE_HT -= curUser.TRUE_HT/5;
-
-
-
-
+			//curUser.TRUE_HT -= curUser.TRUE_HT/5;
             hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
             Sample.INSTANCE.play(Assets.SND_BURNING);
             hero.spendAndNext(1f);

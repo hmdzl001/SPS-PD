@@ -22,7 +22,7 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 public class Apk931 extends SellItem {
 
 	{
-		image = ItemSpriteSheet.NULLWARN;
+		image = ItemSpriteSheet.APK931;
 		stackable = true;
 	}
 

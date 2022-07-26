@@ -62,7 +62,7 @@ public class PocketBallFull extends Item {
     {
         //name = "pocket ball";
         image = ItemSpriteSheet.PALANTIR;
-		unique = true;
+
         stackable = false;
     }
 

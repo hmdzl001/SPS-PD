@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.levels.painters;
+package com.hmdzl.spspd.levels.painters.hidenroom;
 
 import com.hmdzl.spspd.actors.blobs.WaterOfAwareness;
 import com.hmdzl.spspd.actors.blobs.WaterOfHealth;
@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.blobs.WellWater;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.plants.BlandfruitBush;
 import com.hmdzl.spspd.plants.Flytrap;
 import com.hmdzl.spspd.plants.Phaseshift;
@@ -68,6 +69,6 @@ public class MagicWellPainter extends Painter {
 		water.seed(c.x + Level.getWidth() * c.y, 1);
 		level.blobs.put(waterClass, water);
 
-		room.entrance().set(Room.Door.Type.REGULAR);
+		room.entrance().set(Room.Door.Type.HIDDEN);
 	}
 }

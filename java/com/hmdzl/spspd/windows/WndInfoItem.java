@@ -58,7 +58,7 @@ public class WndInfoItem extends Window {
 
 		super();
 
-		if (heap.type == Heap.Type.HEAP || heap.type == Heap.Type.FOR_SALE) {
+		if (heap.type == Heap.Type.HEAP || heap.type == Heap.Type.FOR_SALE || heap.type == Heap.Type.FOR_LIFE) {
 
 			Item item = heap.peek();
 
@@ -88,6 +88,9 @@ public class WndInfoItem extends Window {
 			} else if (heap.type == Type.REMAINS) {
 				title = Messages.get(this, "remains");
 				info = Messages.get(this, "remains_desc");
+			} else if (heap.type == Type.E_DUST) {
+				title = Messages.get(this, "e_dust");
+				info = Messages.get(this, "e_dust_desc");
 			} else if (heap.type == Type.CRYSTAL_CHEST) {
 				title = Messages.get(this, "crystal_chest");
 				if (heap.peek() instanceof Artifact)

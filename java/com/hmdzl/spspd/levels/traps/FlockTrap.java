@@ -67,7 +67,7 @@ public class FlockTrap extends Trap {
 		});
 
 		Heap heap = Dungeon.level.heaps.get(pos);
-		if (heap != null) {heap.summon();}
+		if (heap != null) {heap.darkhit();}
 	}
 
 }

@@ -22,10 +22,11 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.wands.WandOf13;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.Ice13Sprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.windows.WndSaidBySun;
 import com.hmdzl.spspd.windows.Wndice13;
 import com.watabou.utils.Random;
 
@@ -57,6 +58,11 @@ public class Ice13 extends NPC {
 
 	@Override
 	public void damage(int dmg, Object src) {
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new WandOf13();
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class SpiderEgg extends Egg {
 	public static final float TIME_TO_USE = 1;
 		{
 		image = ItemSpriteSheet.SPIDEREGG;
-		unique = true;
+
 		stackable = false;
 		}
 		

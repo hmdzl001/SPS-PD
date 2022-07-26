@@ -17,32 +17,38 @@
  */
 package com.hmdzl.spspd.items.skills;
 
-import java.util.ArrayList;
-
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.buffs.Awareness;
+import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.actors.buffs.FireImbue;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Needling;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.EarthImbue;
-import com.hmdzl.spspd.actors.buffs.Awareness;
-import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.Mtree;
+import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KindOfArmor;
+import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.summon.FairyCard;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
-import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class HuntressSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
@@ -53,39 +59,8 @@ public class HuntressSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial() {
-
-		/*Item proto = new Shuriken();
-
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos]) {
-
-				Callback callback = new Callback() {
-					@Override
-					public void call() {
-						curUser.attack(targets.get(this));
-						targets.remove(this);
-						if (targets.isEmpty()) {
-							curUser.spendAndNext(curUser.attackDelay());
-						}
-					}
-				};
-
-				((MissileSprite) curUser.sprite.parent
-						.recycle(MissileSprite.class)).reset(curUser.pos,
-						mob.pos, proto, callback);
-
-				targets.put(callback, mob);
-			}
-		}
-
-		if (targets.size() == 0) {
-			GLog.w(TXT_NO_ENEMIES);
-			return;
-		}*/
-
-		//curUser.HP -= (curUser.HP / 2);
 		
-		HuntressSkill.charge +=10;
+		HuntressSkill.charge +=15;
 
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -93,7 +68,8 @@ public class HuntressSkill extends ClassSkill {
 
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		
+		Buff.affect(curUser, TargetShoot.class,20f);
+		Buff.affect(curUser, Needling.class,20f);
 		switch(Random.Int(4)){
 			case 0:
 		    Buff.affect(curUser, FireImbue.class).set(30f);
@@ -112,8 +88,25 @@ public class HuntressSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial2() {
+		KindOfWeapon weapon = hero.belongings.weapon;
+		KindOfArmor armor = hero.belongings.armor;
+		Item item1 = hero.belongings.misc1;
+		Item item2 = hero.belongings.misc2;
+		Item item3 = hero.belongings.misc3;
+		if (weapon != null && !weapon.reinforced){
+			weapon.reinforced = true;
+		}else if (armor != null && !armor.reinforced) {
+			armor.reinforced = true;
+		} else if (item1 != null && !item1.reinforced) {
+			item1.reinforced = true;
+		} else if (item2 != null && !item2.reinforced) {
+			item2.reinforced = true;
+		} else if (item3 != null && !item3.reinforced) {
+			item3.reinforced = true;
+		}
 
-		HuntressSkill.charge +=10;
+		Dungeon.level.drop(Generator.random(Generator.Category.ARTIFACT), hero.pos).sprite.drop(hero.pos);
+		HuntressSkill.charge +=20;
 
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -122,9 +115,7 @@ public class HuntressSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 
-		Buff.affect(curUser, TargetShoot.class,20f);
 
-		Buff.affect(curUser, Needling.class,20f);
 		
 	}
 
@@ -137,7 +128,7 @@ public class HuntressSkill extends ClassSkill {
 
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-
+		Dungeon.level.drop(Generator.random(Generator.Category.BERRY), hero.pos).sprite.drop(hero.pos);
 		ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 			int p = curUser.pos + PathFinder.NEIGHBOURS8[i];
@@ -161,19 +152,17 @@ public class HuntressSkill extends ClassSkill {
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
 				Buff.prolong(mob, Roots.class, 8);
-				Buff.affect(mob, GrowSeed.class);
+				Buff.affect(mob, GrowSeed.class).set(10f);
 			}
 		}
-		for (int i = 0; i < (Dungeon.hero.lvl)/15; i++){
+
 			Mtree tree = new Mtree();
 			tree.state = tree.WANDERING;
-			tree.pos = Dungeon.level.randomRespawnCellFish();
+			tree.pos = hero.pos;
 			GameScene.add(tree);
-			tree.beckon(Dungeon.hero.pos);
-		}
+			tree.beckon(hero.pos);
 
-
-		HuntressSkill.charge += 15;
+		HuntressSkill.charge += 20;
 
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);

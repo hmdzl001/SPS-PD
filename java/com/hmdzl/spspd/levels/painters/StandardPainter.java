@@ -118,7 +118,7 @@ public class StandardPainter extends Painter {
 				case 6:
 					if (!Dungeon.bossLevel()
 							&& !Dungeon.bossLevel(Dungeon.depth + 1)
-							&& (Dungeon.depth < 22 || Dungeon.depth > 100)
+							&& (Dungeon.depth < 22 &&  Dungeon.depth > 1)
 							&& Math.min(room.width(), room.height()) >= 5) {
 						paintFissure(level, room);
 						return;

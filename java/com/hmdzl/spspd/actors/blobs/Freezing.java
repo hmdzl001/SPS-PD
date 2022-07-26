@@ -50,7 +50,7 @@ public class Freezing {
 
 		Heap heap = Dungeon.level.heaps.get(cell);
 		if (heap != null) {
-			heap.freeze();
+			heap.icehit();
 		}
 
 		if (Dungeon.visible[cell]) {

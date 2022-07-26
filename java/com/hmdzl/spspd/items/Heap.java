@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mimic;
+import com.hmdzl.spspd.actors.mobs.MonsterBox;
 import com.hmdzl.spspd.actors.mobs.RedWraith;
 import com.hmdzl.spspd.actors.mobs.Wraith;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -34,10 +35,15 @@ import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.bombs.Bomb;
 import com.hmdzl.spspd.items.eggs.Egg;
-import com.hmdzl.spspd.items.food.meatfood.ChargrilledMeat;
-import com.hmdzl.spspd.items.food.meatfood.FrozenCarpaccio;
+import com.hmdzl.spspd.items.food.meatfood.DarkMeat;
+import com.hmdzl.spspd.items.food.meatfood.EarthMeat;
+import com.hmdzl.spspd.items.food.meatfood.FireMeat;
+import com.hmdzl.spspd.items.food.meatfood.IceMeat;
+import com.hmdzl.spspd.items.food.meatfood.LightMeat;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
+import com.hmdzl.spspd.items.food.meatfood.ShockMeat;
+import com.hmdzl.spspd.items.medicine.Pill;
 import com.hmdzl.spspd.items.nornstone.NornStone;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
@@ -52,6 +58,8 @@ import com.hmdzl.spspd.items.weapon.melee.relic.JupitersWraith;
 import com.hmdzl.spspd.items.weapon.melee.relic.LokisFlail;
 import com.hmdzl.spspd.items.weapon.melee.relic.NeptunusTrident;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.Rotberry;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -69,7 +77,7 @@ public class Heap implements Bundlable {
 	private static final int SEEDS_TO_POTION = 3;
 
 	public enum Type {
-		HEAP, FOR_SALE, CHEST, LOCKED_CHEST, CRYSTAL_CHEST, TOMB, SKELETON, REMAINS, MIMIC //,MONSTERBOX
+		HEAP, FOR_SALE,FOR_LIFE, CHEST, LOCKED_CHEST, CRYSTAL_CHEST, TOMB, SKELETON, REMAINS, MIMIC, E_DUST ,G_MIMIC
 	}
 
 	public Type type = Type.HEAP;
@@ -86,10 +94,13 @@ public class Heap implements Bundlable {
 		case HEAP:
 		case FOR_SALE:
 			return size() > 0 ? items.peek().image() : 0;
+		case FOR_LIFE:
+			return size() > 0 ? items.peek().image() : 0;
 		case CHEST:
 		case MIMIC:
 			return ItemSpriteSheet.CHEST;
 		case LOCKED_CHEST:
+		case G_MIMIC:
 			return ItemSpriteSheet.LOCKED_CHEST;
 		case CRYSTAL_CHEST:
 			return ItemSpriteSheet.CRYSTAL_CHEST;
@@ -99,8 +110,8 @@ public class Heap implements Bundlable {
 			return ItemSpriteSheet.BONES;
 		case REMAINS:
 			return ItemSpriteSheet.REMAINS;
-		//case MONSTERBOX:
-		//	return ItemSpriteSheet.LOCKED_CHEST;
+		case E_DUST:
+			return ItemSpriteSheet.E_DUST;
 		default:
 			return 0;
 		}
@@ -111,14 +122,19 @@ public class Heap implements Bundlable {
 		switch (type) {
 		case HEAP:
 		case FOR_SALE:
+		case FOR_LIFE:
 		case TOMB:
 		case SKELETON:
 		case REMAINS:
-				return false;
-		case CRYSTAL_CHEST:
-		case LOCKED_CHEST:
-		case MIMIC:
+		case E_DUST:
+			case CRYSTAL_CHEST:
+			case LOCKED_CHEST:
+			case MIMIC:
+				case G_MIMIC:
+	            return false;
+
 		case CHEST:
+
 		       return true;		
 		default:
 			return false;
@@ -127,19 +143,16 @@ public class Heap implements Bundlable {
 
 
 	public ItemSprite.Glowing glowing() {
-		return (type == Type.HEAP || type == Type.FOR_SALE) && items.size() > 0 ? items
+		return (type == Type.HEAP || type == Type.FOR_SALE || type == Type.FOR_LIFE) && items.size() > 0 ? items
 				.peek().glowing() : null;
 	}
 
 	public void open(Hero hero) {
 		switch (type) {
-		//case MONSTERBOX:
-		//	if (MonsterBox.spawnAt(pos, items) != null) {
-		//		GLog.n(TXT_MONSTERBOX);
-		//		destroy();
-		//	} else {
-		//		type = Type.CHEST;
-		//	}
+			case G_MIMIC:
+			MonsterBox.spawnAt(pos);
+			GLog.n(Messages.get(this,"mimic"));
+		    break;		
 		case MIMIC:
 			if (Mimic.spawnAt(pos, items) != null) {
 				GLog.n(Messages.get(this,"mimic"));
@@ -198,7 +211,7 @@ public class Heap implements Bundlable {
 
 	public void drop(Item item) {
 
-		if (item.stackable && type != Type.FOR_SALE) {
+		if (item.stackable && type != Type.FOR_SALE && type != Type.FOR_LIFE) {
 
 			for (Item i : items) {
 				if (i.isSimilar(item)) {
@@ -211,7 +224,7 @@ public class Heap implements Bundlable {
 
 		}
 
-		if ((item instanceof Dewdrop || item instanceof YellowDewdrop || item instanceof RedDewdrop || item instanceof VioletDewdrop) && type != Type.FOR_SALE ) {
+		if ((item instanceof Dewdrop || item instanceof YellowDewdrop || item instanceof RedDewdrop || item instanceof VioletDewdrop) && type != Type.FOR_SALE && type != Type.FOR_LIFE ) {
 			items.add(item);
 		} else {
 			items.addFirst(item);
@@ -241,7 +254,7 @@ public class Heap implements Bundlable {
 		}
 	}
 	
-	public void burn() {
+	public void firehit() {
 
 		if (type == Type.MIMIC) {
 			Mimic m = Mimic.spawnAt(pos, items);
@@ -257,7 +270,6 @@ public class Heap implements Bundlable {
 		}
 		
 		boolean burnt = false;
-		boolean evaporated = false;
 
 		for (Item item : items.toArray(new Item[0])) {
 			if (item instanceof Scroll
@@ -268,10 +280,10 @@ public class Heap implements Bundlable {
 				((Egg) item).burns++;
 				burnt = true;
 			} else if (item instanceof MysteryMeat) {
-				replace(item, ChargrilledMeat.cook((MysteryMeat) item));
+				replace(item, FireMeat.cook((MysteryMeat) item));
 				burnt = true;
 			} else if (item instanceof Meat) {
-				replace(item, ChargrilledMeat.cook((Meat) item));
+				replace(item, FireMeat.cook((Meat) item));
 				burnt = true;
 			//} else if (item instanceof Nut) {
 				//replace(item, ToastedNut.cook((Nut) item));
@@ -285,8 +297,7 @@ public class Heap implements Bundlable {
 			}
 		}
 
-		if (burnt || evaporated) {
-
+		if (burnt) {
 			if (Dungeon.visible[pos]) {
 				if (burnt) {
 					burnFX(pos);
@@ -294,7 +305,6 @@ public class Heap implements Bundlable {
 					evaporateFX(pos);
 				}
 			}
-
 			if (isEmpty()) {
 				destroy();
 			} else if (sprite != null) {
@@ -385,53 +395,122 @@ public class Heap implements Bundlable {
 	}
 	
 	
-	public void lit() {
+	public void shockhit() {
+		boolean shocker = false;
 		if (type != Type.HEAP) {
 			return;
 		}		
 		for (Item item : items.toArray(new Item[0])) {
-			if (item instanceof Egg) {	
+			if (item instanceof MysteryMeat) {
+				replace(item, ShockMeat.cook((MysteryMeat) item));
+				shocker = true;
+			} else if (item instanceof Pill) {
+				items.remove(item);
+				shocker = true;
+			} else if (item instanceof Meat) {
+				replace(item, ShockMeat.cook((Meat) item));
+				shocker = true;
+			} else if (item instanceof Egg) {	
 				((Egg) item).lits++;
 			}			
-		}		
+		}
+		if (shocker) {
+			if (isEmpty()) {
+				destroy();
+			} else if (sprite != null) {
+				sprite.view(image(), glowing());
+			}
+		}
 	}
 	
 
-	public void summon() {
+	public void darkhit() {
+		boolean darker = false;
 		if (type != Type.HEAP) {
 			return;
 		}		
 		for (Item item : items.toArray(new Item[0])) {
-			if (item instanceof Egg) {	
-				((Egg) item).summons++;
+			if (item instanceof MysteryMeat) {
+				replace(item, DarkMeat.cook((MysteryMeat) item));
+				darker = true;
+			} else if (item instanceof Bomb) {
+				items.remove(item);
+				darker = true;
+			} else if (item instanceof Meat) {
+				replace(item, DarkMeat.cook((Meat) item));
+				darker = true;
+			} else if (item instanceof Egg) {	
+				((Egg) item).darks++;
 			}			
-		}		
+		}
+		if (darker) {
+			if (isEmpty()) {
+				destroy();
+			} else if (sprite != null) {
+				sprite.view(image(), glowing());
+			}
+		}
 	}
 	
-	public void poison() {
+	public void earthhit() {
+		boolean earther = false;
 		if (type != Type.HEAP) {
 			return;
 		}		
 		for (Item item : items.toArray(new Item[0])) {
-			if (item instanceof Egg) {	
+			if (item instanceof MysteryMeat) {
+				replace(item, EarthMeat.cook((MysteryMeat) item));
+				earther = true;
+			} else if (item instanceof StoneOre) {
+				items.remove(item);
+				earther = true;
+			} else if (item instanceof Meat) {
+				replace(item, EarthMeat.cook((Meat) item));
+				earther = true;
+			} else if (item instanceof Egg) {	
 				((Egg) item).poisons++;
 			}			
-		}		
+		}
+		if (earther) {
+			if (isEmpty()) {
+				destroy();
+			} else if (sprite != null) {
+				sprite.view(image(), glowing());
+			}
+		}
 	}
 
-	public void light() {
+	public void lighthit() {
+		boolean lighter = false;
 		if (type != Type.HEAP) {
 			return;
 		}		
 		for (Item item : items.toArray(new Item[0])) {
-			if (item instanceof Egg) {	
-				((Egg) item).light++;
+			if (item instanceof MysteryMeat) {
+				replace(item, LightMeat.cook((MysteryMeat) item));
+				lighter = true;
+			} else if (item instanceof Plant.Seed
+			    && !(item instanceof Rotberry.Seed)) {
+				items.remove(item);
+				lighter = true;
+			} else if (item instanceof Meat) {
+				replace(item, LightMeat.cook((Meat) item));
+				lighter = true;
+			} else if (item instanceof Egg) {	
+				((Egg) item).lights++;
 			}			
-		}		
+		}
+		if (lighter) {
+			if (isEmpty()) {
+				destroy();
+			} else if (sprite != null) {
+				sprite.view(image(), glowing());
+			}
+		}
+
 	}	
 	
-	public void freeze() {
-
+	public void icehit() {
 		if (type == Type.MIMIC) {
 			Mimic m = Mimic.spawnAt(pos, items);
 			if (m != null) {
@@ -440,8 +519,6 @@ public class Heap implements Bundlable {
 				destroy();
 			}
 		}
-
-
 		if (type != Type.HEAP) {
 			return;
 		}
@@ -449,7 +526,7 @@ public class Heap implements Bundlable {
 		boolean frozen = false;
 		for (Item item : items.toArray(new Item[0])) {
 			if (item instanceof MysteryMeat) {
-				replace(item, FrozenCarpaccio.cook((MysteryMeat) item));
+				replace(item, IceMeat.cook((MysteryMeat) item));
 				frozen = true;
 			} else if (item instanceof Potion
 			    && !(item instanceof PotionOfStrength || item instanceof PotionOfMight)) {
@@ -463,11 +540,10 @@ public class Heap implements Bundlable {
 				((Bomb) item).fuse = null;
 				frozen = true;
 			} else if (item instanceof Meat) {
-				replace(item, FrozenCarpaccio.cook((Meat) item));
+				replace(item, IceMeat.cook((Meat) item));
 				frozen = true;
 			}
 		}
-
 		if (frozen) {
 			if (isEmpty()) {
 				destroy();

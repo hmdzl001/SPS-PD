@@ -97,6 +97,7 @@ import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.food.Nut;
@@ -123,7 +124,6 @@ import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.Tree;
 import com.hmdzl.spspd.items.weapon.missiles.MiniMoai;
 import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
-import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
@@ -797,17 +797,18 @@ public class TownLevel extends Level {
 	  mob3.pos = 5 + WIDTH * 43;
 	  mobs.add(mob3);
 
-	  /*BambooMob test = new BambooMob();
-	  test.pos = 14 + WIDTH * 32;
-	  mobs.add(test);*/
+	 //MonsterBox test = new MonsterBox();
+	 // test.pos = 14 + WIDTH * 32;
+	  //mobs.add(test);
 
-	  /*Guard test2 = new Guard();
-	  test2.pos = 14 + WIDTH * 31;
-	  mobs.add(test2);*/
+	  //FishProtector test2 = new FishProtector();
+	  //test2.pos = 14 + WIDTH * 31;
+	  //mobs.add(test2);
 
-	  /*TrollWarrior test3 = new TrollWarrior();
-	  test3.pos = 14 + WIDTH * 30;
-	  mobs.add(test3);*/
+	  //GraveProtector test3 = new GraveProtector();
+	 // test3.pos = 14 + WIDTH * 30;
+	//  mobs.add(test3);
+
 	  if (Badges.checkRainRescued() || Dungeon.isChallenged(Challenges.TEST_TIME)) {
 	  TestMob test4 = new TestMob();
 	  test4.pos = 18 + WIDTH * 44;

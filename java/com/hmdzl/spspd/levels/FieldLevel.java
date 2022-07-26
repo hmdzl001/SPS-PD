@@ -179,7 +179,7 @@ public class FieldLevel extends Level {
 		case Terrain.EMPTY_DECO:
 			return "The grass is worn away to reveal bedrock.";
 		case Terrain.BOOKSHELF:
-			return "The bookshelf is packed with cheap useless books. Might it burn?";
+			return "The bookshelf is packed with cheap useless books. Might it firehit?";
 		default:
 			return super.tileDesc(tile);
 		}

@@ -20,6 +20,7 @@ package com.hmdzl.spspd.items.misc;
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.SkillRecharge;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -29,10 +30,10 @@ public class CursePhone extends MiscEquippable {
 
 	{
 		//name = "CursePhone";
-		image = ItemSpriteSheet.NULLWARN;
+		image = ItemSpriteSheet.CURSE_PHONE;
 		
 		cursed = true;
-		unique = true;
+
 		
 	}
 	
@@ -49,6 +50,8 @@ public class CursePhone extends MiscEquippable {
 				Buff.prolong( target, Vertigo.class, 10f);
 				Buff.affect(target,ArmorBreak.class,10f).level(30);
 				Buff.prolong(target,Arcane.class,10f);
+				Buff.prolong(target,Arcane.class,10f);
+				Buff.prolong(target,SkillRecharge.class,10f);
 			}	
 		    spend( TICK );
 			return true;

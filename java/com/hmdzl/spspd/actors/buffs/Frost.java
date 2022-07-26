@@ -25,13 +25,13 @@ import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSnow;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Thief;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.food.meatfood.FrozenCarpaccio;
+import com.hmdzl.spspd.items.food.meatfood.IceMeat;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
@@ -66,7 +66,7 @@ public class Frost extends FlavourBuff {
 				} else if (item instanceof MysteryMeat) {
 
 					item = item.detach(hero.belongings.backpack);
-					FrozenCarpaccio carpaccio = new FrozenCarpaccio();
+					IceMeat carpaccio = new IceMeat();
 					if (!carpaccio.collect(hero.belongings.backpack)) {
 						Dungeon.level.drop(carpaccio, target.pos).sprite.drop();
 					}

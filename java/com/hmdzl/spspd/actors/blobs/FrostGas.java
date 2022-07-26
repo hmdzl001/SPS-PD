@@ -27,7 +27,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 
 public class FrostGas extends Blob {
 
@@ -73,7 +73,7 @@ public class FrostGas extends Blob {
 					}
 					
 					Heap heap = Dungeon.level.heaps.get( pos );
-					if (heap != null) heap.freeze();
+					if (heap != null) heap.icehit();
 	}
 
 	@Override
