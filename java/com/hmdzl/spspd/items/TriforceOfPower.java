@@ -21,6 +21,8 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
+import java.util.ArrayList;
+
 public class TriforceOfPower extends Item {
 
 	{
@@ -40,7 +42,13 @@ public class TriforceOfPower extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
-
+	@Override
+	public ArrayList<String> actions(Hero hero) {
+		ArrayList<String> actions = super.actions(hero);
+		actions.remove(AC_DROP);
+		actions.remove(AC_THROW);
+		return actions;
+	}
 
 	@Override
 	public boolean doPickUp(Hero hero) {

@@ -17,27 +17,25 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
-import com.watabou.utils.Bundle;
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.mobs.Mob;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 
- 
- 
- 
- public class Ankhshield extends Item {
+import java.util.ArrayList;
+
+
+public class Ankhshield extends Item {
 	{
 		//name = "Ankh Shield";
 		image = ItemSpriteSheet.SHIELD;
@@ -62,20 +60,20 @@ import com.watabou.noosa.audio.Sample;
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
-	}	
-	
+	}
+
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (charge >= 120){
-		actions.add(AC_DEFENCE);
+			actions.add(AC_DEFENCE);
 		}
 		actions.remove(AC_DROP);
-        actions.remove(AC_THROW);
+		actions.remove(AC_THROW);
 		return actions;
 	}
-	
-	
+
+
 	@Override
 	public void execute(final Hero hero, String action) {
 		if (action.equals(AC_DEFENCE)) {

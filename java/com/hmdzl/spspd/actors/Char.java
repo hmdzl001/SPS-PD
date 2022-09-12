@@ -45,7 +45,6 @@ import com.hmdzl.spspd.actors.buffs.Cold;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.DamageUp;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.Dry;
 import com.hmdzl.spspd.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.actors.buffs.EnergyArmor;
@@ -78,8 +77,8 @@ import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Shocked2;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.SoulMark;
-import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.buffs.SpeedImbue;
+import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
@@ -122,8 +121,6 @@ import com.watabou.utils.Random;
 
 import java.util.Arrays;
 import java.util.HashSet;
-
-import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public abstract class Char extends Actor {
 
@@ -350,11 +347,11 @@ public abstract class Char extends Actor {
 	}
 
 	public int attackProc(Char enemy, int damage) {
-		if (buff(Shocked.class)!=null && Shocked.first == false){
-			Buff.detach(this,Shocked.class);
-			Buff.affect(this, Disarm.class,5f);
-            damage(this.HP/10,SHOCK_DAMAGE);
-		}
+		//if (buff(Shocked.class)!=null && Shocked.first == false){
+		//	Buff.detach(this,Shocked.class);
+		//	Buff.affect(this, Disarm.class,5f);
+       //     damage(this.HP/10,SHOCK_DAMAGE);
+	//	}
 
 		return damage;
 	}
@@ -378,8 +375,7 @@ public abstract class Char extends Actor {
 			return baseSpeed * 0.8f;
 		} else	if (buff(FrostIce.class) != null) {
 			return baseSpeed * 0.8f;
-		} else	if (buff(SpeedImbue.class) != null) {
-			return baseSpeed * 2f;
+
 		} else{
 			return baseSpeed;
 		}
@@ -495,9 +491,9 @@ public abstract class Char extends Actor {
 		}
 
 		Class<?> srcClass = src.getClass();
-		if (isImmune( srcClass )) dmg = 0;
-		if (isResist( srcClass )) dmg = Random.IntRange(dmg/4, dmg*3/4);
-		if (isWeak(srcClass)) dmg = Random.IntRange(dmg + dmg / 2, 2 * dmg + dmg / 2);
+		if (isImmune( srcClass )) {dmg = 0; sprite.showStatus(CharSprite.NULL_DAMAGE, "...");}
+		if (isResist( srcClass )) {dmg = Random.IntRange(dmg/4, dmg*3/4);sprite.showStatus(CharSprite.NULL_DAMAGE, "???");}
+		if (isWeak(srcClass)) {dmg = Random.IntRange(dmg + dmg / 2, 2 * dmg + dmg / 2);sprite.showStatus(CharSprite.NULL_DAMAGE, "!!!");}
 
 
 
@@ -527,11 +523,21 @@ public abstract class Char extends Actor {
 		HP -= dmg;
 		
 		
-		if (dmg > 0 || src instanceof Char) {
-			sprite.showStatus(HP > HT / 2 ? CharSprite.WARNING
-					: CharSprite.NEGATIVE, Integer.toString(dmg));
-		}
+		if (dmg > 0) {
+			if (src instanceof Hunger){
+				sprite.showStatus(CharSprite.NULL_DAMAGE, Integer.toString(dmg));
+			} else if (src instanceof Char){
+				sprite.showStatus(CharSprite.MELEE_DAMAGE, Integer.toString(dmg));
+			} else if (src instanceof DamageType || src instanceof Buff ||
+					src instanceof Blob || src instanceof Wand){
+				sprite.showStatus(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg));
+			} else {
+				sprite.showStatus(CharSprite.NULL_DAMAGE, Integer.toString(dmg));
+			}
 
+		}
+		//sprite.showStatus(HP > HT / 2 ? CharSprite.WARNING
+		//		: CharSprite.NEGATIVE, Integer.toString(dmg)
 		if (HP <= 0 || HT <= 0) {
 			die(src);
 		}
@@ -564,9 +570,9 @@ public abstract class Char extends Actor {
 		if (buff(SpeedUp.class) != null) {
 			timeScale *= 1.5f;
 		}
-		/*if (buff(HasteBuff.class) != null) {
-			timeScale *= 1.5f;
-		}*/
+		if (buff(SpeedImbue.class) != null) {
+			timeScale *= 2f;
+		}
 		if (buff(Cold.class) != null) {
 			timeScale *= 0.9f;
 		}

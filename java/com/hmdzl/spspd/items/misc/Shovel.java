@@ -175,5 +175,8 @@ public class Shovel extends Item {
 		return true;
 	}
 	
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 }

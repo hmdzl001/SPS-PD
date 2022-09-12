@@ -95,7 +95,10 @@ public class SeriousPunch extends Item {
 		return true;
 	}
 
-	
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 
 }
 

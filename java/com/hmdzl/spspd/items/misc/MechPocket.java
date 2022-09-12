@@ -77,5 +77,8 @@ public class MechPocket extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 }

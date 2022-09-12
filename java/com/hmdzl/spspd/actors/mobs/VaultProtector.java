@@ -22,7 +22,7 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.actors.buffs.Taunt;
+import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.levels.Level;
@@ -68,7 +68,7 @@ public class VaultProtector extends Mob {
 	}
 
 	@Override
-	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null || buff(Taunt.class) == null){
+	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null || buff(SkillUse.class) == null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
@@ -76,8 +76,8 @@ public class VaultProtector extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (buff(Taunt.class) == null){
-			Buff.affect(this,Taunt.class);
+		if (buff(SkillUse.class) == null){
+			Buff.affect(this,SkillUse.class);
 		} else {
 		enemy.damage(damageRoll(), DamageType.ENERGY_DAMAGE);
 		Dungeon.gold-=Math.max(1,(int)Dungeon.gold/100);

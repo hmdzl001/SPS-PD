@@ -182,7 +182,7 @@ public class Otiluke extends Mob implements Callback {
 
 	@Override
 	public Item SupercreateLoot(){
-			return new CannonOfMage().identify();
+			return new CannonOfMage().identify().dounique();
 	}	
 	
 

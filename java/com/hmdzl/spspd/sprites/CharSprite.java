@@ -37,10 +37,10 @@ import com.hmdzl.spspd.effects.particles.LeafParticle;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
-import com.hmdzl.spspd.ui.CharHealthIndicator;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.ui.CharHealthIndicator;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.Visual;
@@ -61,7 +61,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public static final int NEGATIVE	= 0xFF0000;
 	public static final int WARNING		= 0xFF8800;
 	public static final int NEUTRAL		= 0xFFFF00;
-	
+
+	public static final int MELEE_DAMAGE		= 0xFF8800;
+	public static final int MAGIC_DAMAGE		= 0x00CCFF;
+	public static final int NULL_DAMAGE		= 0xFFFFFF;
+
 	private static final float MOVE_INTERVAL	= 0.1f;
 	private static final float FLASH_INTERVAL	= 0.05f;
 	

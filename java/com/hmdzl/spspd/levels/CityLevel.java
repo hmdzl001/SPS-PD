@@ -21,13 +21,37 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.GoldThief;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.Imp;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.levels.Room.Type;
-import com.hmdzl.spspd.levels.traps.*;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.levels.traps.BlazingTrap;
+import com.hmdzl.spspd.levels.traps.CursingTrap;
+import com.hmdzl.spspd.levels.traps.DisarmingTrap;
+import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
+import com.hmdzl.spspd.levels.traps.FlockTrap;
+import com.hmdzl.spspd.levels.traps.FrostTrap;
+import com.hmdzl.spspd.levels.traps.GrippingTrap;
+import com.hmdzl.spspd.levels.traps.GuardianTrap;
+import com.hmdzl.spspd.levels.traps.LightningTrap;
+import com.hmdzl.spspd.levels.traps.OozeTrap;
+import com.hmdzl.spspd.levels.traps.PitfallTrap;
+import com.hmdzl.spspd.levels.traps.RockfallTrap;
+import com.hmdzl.spspd.levels.traps.ShockTrap;
+import com.hmdzl.spspd.levels.traps.SpearTrap;
+import com.hmdzl.spspd.levels.traps.StormTrap;
+import com.hmdzl.spspd.levels.traps.SummoningTrap;
+import com.hmdzl.spspd.levels.traps.TeleportationTrap;
+import com.hmdzl.spspd.levels.traps.VenomTrap;
+import com.hmdzl.spspd.levels.traps.WarpingTrap;
+import com.hmdzl.spspd.levels.traps.WeakeningTrap;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
@@ -63,7 +87,7 @@ public class CityLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 300+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.depth] = 50+(Dungeon.depth*50)+(secretDoors*20);
 	}
 
 	@Override
@@ -140,7 +164,23 @@ public class CityLevel extends RegularLevel {
 		Imp.Quest.spawn(this);
 		spawnGoldThief(this);
 	}
-	
+
+    @Override
+    protected void createMobs() {
+        int nMobs = nMobs();
+        for (int i = 0; i < nMobs; i++) {
+            Mob mob = Bestiary.mob(Dungeon.depth);
+            do {
+                mob.pos = randomRespawnCell();
+                mob.originalgen=true;
+                Buff.affect(mob,ShieldArmor.class).level(Dungeon.depth*10);
+                Buff.affect(mob,MagicArmor.class).level(Dungeon.depth*10);
+            } while (mob.pos == -1);
+            mobs.add(mob);
+            Actor.occupyCell(mob);
+        }
+    }
+
 	public static void spawnGoldThief(CityLevel level) {
 		if (Dungeon.depth == 19 && !Dungeon.goldthiefspawned){
 

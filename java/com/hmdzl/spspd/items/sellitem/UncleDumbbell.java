@@ -28,7 +28,7 @@ public class UncleDumbbell extends SellItem {
 
 	@Override
 	public int price() {
-		return 1000 * quantity;
+		return 100 * quantity;
 	}
 	@Override
 	public String info() {

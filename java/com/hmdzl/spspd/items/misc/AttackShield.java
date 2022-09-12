@@ -80,7 +80,10 @@ public class AttackShield extends Item {
 		actions.remove( AC_DROP );
 		return actions;
 	}
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 	@Override
 	public void execute(final Hero hero, String action) {
 		super.execute(hero, action);

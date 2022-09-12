@@ -57,7 +57,7 @@ public class Mirror2 extends SellItem {
 
 	@Override
 	public int price() {
-		return 500 * quantity;
+		return 112 * quantity;
 	}
 	@Override
 	public boolean isIdentified() {

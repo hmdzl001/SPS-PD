@@ -126,7 +126,7 @@ public class Goo extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-			return new CopyBall();
+			return new CopyBall().dounique();
 	}	
 	
 	@Override

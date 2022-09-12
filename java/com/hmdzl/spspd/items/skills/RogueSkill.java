@@ -98,7 +98,7 @@ public class RogueSkill extends ClassSkill {
 	@Override
 	public void doSpecial3() {
 
-		Dungeon.level.drop(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(4), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		Dungeon.level.drop(Generator.random(Generator.Category.RING).identify().uncurse().reinforce().upgrade(3), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 
 		RogueSkill.charge += 20;
 

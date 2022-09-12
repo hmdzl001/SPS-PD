@@ -80,7 +80,7 @@ public class TenguDen extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-			return new BigBattery().identify();
+			return new BigBattery().identify().dounique();
 	}	
 	
 	

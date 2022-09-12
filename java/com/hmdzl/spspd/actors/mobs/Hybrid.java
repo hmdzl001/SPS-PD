@@ -188,7 +188,7 @@ public class Hybrid extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-			return new MKbox();
+			return new MKbox().dounique();
 	}	
 	
 	@Override

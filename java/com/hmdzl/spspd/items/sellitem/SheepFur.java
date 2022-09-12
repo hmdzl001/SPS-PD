@@ -28,7 +28,7 @@ public class SheepFur extends SellItem {
 
 	@Override
 	public int price() {
-		return 500 * quantity;
+		return 50 * quantity;
 	}
 	@Override
 	public String info() {

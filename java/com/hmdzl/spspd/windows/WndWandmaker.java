@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.Wandmaker;
 import com.hmdzl.spspd.items.AdamantWand;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.RedButton;
@@ -31,15 +31,6 @@ import com.hmdzl.spspd.ui.Window;
 
 
 public class WndWandmaker extends Window {
-
-	private static final String TXT_MESSAGE = "Oh, I see you have succeeded! I do hope it hasn't troubled you too much. "
-			+ "As I promised, you can choose one of my high quality wands.";
-	private static final String TXT_BATTLE = "Battle wand";
-	private static final String TXT_NON_BATTLE = "Non-battle wand";
-
-	private static final String TXT_ADAMANT = "You might find this raw material useful later on. I'm not powerful enough to work with it.";
-	private static final String TXT_WOW = "How did you make it all this way!? I have another reward for you. ";
-	private static final String TXT_FARAWELL = "Good luck in your quest, %s!";
 
 	private static final int WIDTH = 120;
 	private static final int BTN_HEIGHT = 20;

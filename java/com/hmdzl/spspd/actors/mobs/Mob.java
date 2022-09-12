@@ -35,10 +35,12 @@ import com.hmdzl.spspd.actors.buffs.Feed;
 import com.hmdzl.spspd.actors.buffs.LearnSkill;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.buffs.Rhythm2;
+import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.SoulMark;
 import com.hmdzl.spspd.actors.buffs.SpAttack;
 import com.hmdzl.spspd.actors.buffs.Terror;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
@@ -61,8 +63,8 @@ import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.misc.PPC;
 import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
+import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.Level.Feeling;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.messages.Messages;
@@ -75,6 +77,8 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public abstract class Mob extends Char {
 
@@ -426,6 +430,20 @@ public abstract class Mob extends Char {
 		return !visible;
 	}
 
+	public int attackProc(Char enemy, int damage) {
+		if (Dungeon.isChallenged(Challenges.ELE_STOME)){
+			enemy.damage( Statistics.deepestFloor/5 , DamageType.ENERGY_DAMAGE);
+		}
+		if (buff(Shocked.class)!=null && Shocked.first == false){
+			Buff.detach(this,Shocked.class);
+			Buff.affect(this, Disarm.class,5f);
+			damage(this.HP/10,SHOCK_DAMAGE);
+		}
+
+		return damage;
+	}
+
+
 	@Override
 	public void onAttackComplete() {
 		attack(enemy);
@@ -523,6 +541,10 @@ public abstract class Mob extends Char {
 			alerted = true;
 		}
 
+		if (Dungeon.isChallenged(Challenges.ELE_STOME)) {
+			if (src instanceof Wand)
+				dmg = (int) Math.ceil(dmg * 0.8);
+		}
 		BeCorrupt beco = buff(BeCorrupt.class);
        if( beco != null)	{
 		   dmg = (int) Math.ceil(dmg * 1.2);
@@ -546,13 +568,6 @@ public abstract class Mob extends Char {
 				Badges.validateMonstersSlain();
 				Statistics.qualifiedForNoKilling = false;
 
-				if (Dungeon.level.feeling == Feeling.DARK) {
-					Statistics.nightHunt++;
-				} else {
-					Statistics.nightHunt = 0;
-				}
-				Badges.validateNightHunter();
-				
 			}
 			
 			if(Dungeon.hero.heroClass == HeroClass.PERFORMER){

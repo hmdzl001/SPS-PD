@@ -136,7 +136,7 @@ public class WandOfBlackMeow extends Wand {
 			/*for (int n : Level.NEIGHBOURS8DIST2) {
 				Char ch = Actor.findChar(n);
 				if (ch != null && ch != this && ch.isAlive()) {
-					Buff.affect(ch, Taunt.class,2f).object = id();
+					Buff.affect(ch, SkillUse.class,2f).object = id();
 				}
 			}*/
 				spend( lifespan + Random.Float(2) );

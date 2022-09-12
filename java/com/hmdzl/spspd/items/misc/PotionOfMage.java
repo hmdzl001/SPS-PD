@@ -184,7 +184,10 @@ public class PotionOfMage extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
-	
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}	
 	private CellSelector.Listener Shattered = new CellSelector.Listener(){
 		@Override
 		public void onSelect(Integer target) {

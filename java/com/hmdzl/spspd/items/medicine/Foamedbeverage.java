@@ -70,16 +70,16 @@ public class Foamedbeverage extends Pill {
             Buff.affect(hero, BerryRegeneration.class).level(hero.HT/4);
             switch (Random.Int(4)) {
 				case 0:
-					Buff.affect(hero,FireImbue.class).set(30f);
+					Buff.affect(hero,FireImbue.class).set(60f);
 					break;
 				case 1:
-					Buff.affect(hero,FrostImbue.class,30f);
+					Buff.affect(hero,FrostImbue.class,60f);
 					break;
 				case 2:
-					Buff.affect(hero,ToxicImbue.class).set(30f);
+					Buff.affect(hero,ToxicImbue.class).set(60f);
 					break;
 				case 3:
-					Buff.affect(hero,EarthImbue.class,30f);
+					Buff.affect(hero,EarthImbue.class,60f);
 					break;
 				//case 4:
 					//Buff.affect(hero,FireImbue.class).set(30f);

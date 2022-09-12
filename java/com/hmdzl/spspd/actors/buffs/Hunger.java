@@ -33,8 +33,9 @@ public class Hunger extends Buff implements Hero.Doom {
 	private static final float STEP = 10f;
 
 	public static final float OVERFED = 150f;
-	public static final float HUNGRY =  600f;
-	public static final float STARVING = 800f; 
+	public static final float HUNGRY =  650f;
+	public static final float STARVING = 800f;
+	public static final float MAX_HUNGER = 1000f;
 
 	private float level;
 	private float partialDamage;
@@ -62,17 +63,8 @@ public class Hunger extends Buff implements Hero.Doom {
 
 			Hero hero = (Hero) target;
 
-			if (isStarving()) {
-
-			    partialDamage += target.HT/100f;
+			if (!isOverStarving()) {
 				
-				if (partialDamage > 1){
-					target.damage( (int)partialDamage, this);
-					partialDamage -= (int)partialDamage;
-				}
-				
-			} else {
-
 				float newLevel = level + STEP;
 				boolean statusUpdated = false;
 				if (newLevel <= OVERFED && level > OVERFED) {
@@ -84,7 +76,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 					statusUpdated = true;
 
-				} else if (newLevel >= STARVING) {
+				} else if (newLevel >= STARVING && level < STARVING) {
 
 					GLog.n(Messages.get(this, "onstarving"));
 					//hero.resting = false;
@@ -106,6 +98,18 @@ public class Hunger extends Buff implements Hero.Doom {
 				}
 
 			}
+			
+             if (isStarving()) {
+
+			    partialDamage += target.HT/100f;
+				
+				if (partialDamage > 1){
+					target.damage( (int)partialDamage, this);
+					partialDamage -= (int)partialDamage;
+				}
+				
+			}		
+			
 			spend(target.buff(Shadows.class) == null ? STEP : STEP * 1.5f);
 
 		} else {
@@ -120,12 +124,20 @@ public class Hunger extends Buff implements Hero.Doom {
 	public void satisfy(float energy) {
 		Artifact.ArtifactBuff buff = target
 				.buff(HornOfPlenty.hornRecharge.class);
-		if (buff != null && buff.isCursed()) {
+		if (buff != null && buff.isCursed() && energy > 0) {
 			energy = Math.round(energy * 0.75f);
 			GLog.n(Messages.get(this, "cursedhorn"));
 		}
+		if (level<150f) {
+			energy = Math.round(energy * 0.5f);
+		}
+
+		if (level>150f && level <650f) {
+			energy = Math.round(energy * 0.8f);
+		}
+
 		if (level>=800f) {
-			energy = Math.round(energy * 1.5f);
+			energy = Math.round(energy * 1.2f);
 		}
 		if(Dungeon.isChallenged(Challenges.ENERGY_LOST)){
 			energy = Math.round(energy * 0.4f);
@@ -140,13 +152,17 @@ public class Hunger extends Buff implements Hero.Doom {
 		level -= energy;
 		if (level < 0) {
 			level = 0;
-		} else if (level > STARVING) {
-			level = STARVING;
+		} else if (level > MAX_HUNGER) {
+			level = MAX_HUNGER;
 		}
 
 		BuffIndicator.refreshHero();
 	}	
 
+	public boolean isOverStarving() {
+		return level >= MAX_HUNGER;
+	}	
+	
 	public boolean isStarving() {
 		return level >= STARVING;
 	}

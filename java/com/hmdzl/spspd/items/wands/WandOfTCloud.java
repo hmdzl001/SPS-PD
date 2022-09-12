@@ -256,7 +256,7 @@ public class WandOfTCloud extends Wand {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, this);
-				//Buff.affect(enemy, Taunt.class,2f).object = id();
+				//Buff.affect(enemy, SkillUse.class,2f).object = id();
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
 				damage(Random.NormalIntRange(10 + lvl, 15 + 3*lvl), this);
@@ -442,7 +442,7 @@ public class WandOfTCloud extends Wand {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, this);
-				//Buff.affect(enemy, Taunt.class,2f).object = id();
+				//Buff.affect(enemy, SkillUse.class,2f).object = id();
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
 				damage(Random.NormalIntRange(20 + lvl, 30 + 5*lvl), this);

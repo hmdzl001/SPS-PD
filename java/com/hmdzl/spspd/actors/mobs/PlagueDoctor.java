@@ -272,7 +272,7 @@ public class PlagueDoctor extends Mob {
 	
 	@Override
 	public Item SupercreateLoot(){
-			return new PotionOfMage().identify();
+			return new PotionOfMage().identify().dounique();
 	}	
 
 	{

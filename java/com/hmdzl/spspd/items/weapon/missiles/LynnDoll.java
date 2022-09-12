@@ -30,8 +30,8 @@ import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.sprites.LynnSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
@@ -45,7 +45,7 @@ public class LynnDoll extends MissileWeapon {
 
 	{
 		//name = "HoneyArrow";
-		image = ItemSpriteSheet.HONEY_ARROW;
+		image = ItemSpriteSheet.LYNN_DOLL;
 
 		STR = 10;
 
@@ -108,7 +108,7 @@ public class LynnDoll extends MissileWeapon {
 	public static class CurseDoll extends Mob {
 
 		{
-			spriteClass = ErrorSprite.class;
+			spriteClass = LynnSprite.class;
 
 			HT = 10000;
 			evadeSkill = 0;

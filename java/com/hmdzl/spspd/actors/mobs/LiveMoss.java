@@ -17,18 +17,16 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
+import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.LiveMossSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class LiveMoss extends Mob {
-
-	private boolean liveseed = false;
 	
 	{
 		spriteClass = LiveMossSprite.class;
@@ -67,26 +65,12 @@ public class LiveMoss extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (Random.Int(3) == 0 && !liveseed) {
+		if (Random.Int(3) == 0 && this.buff(SkillUse.class)==null)  {
 			Buff.affect(enemy, GrowSeed.class).set(5f);
-			liveseed=true;
+			Buff.affect(this,SkillUse.class);
 		}
 
 		return damage;
 	}
-	
-	private final String LIVESEED = "liveseed";
-
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(LIVESEED, liveseed);
-	}
-
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		liveseed = bundle.getBoolean(LIVESEED);
-	}	
 
 }

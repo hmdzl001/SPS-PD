@@ -259,7 +259,7 @@ public class SewerHeart extends Mob {
 	
 	@Override
 	public Item SupercreateLoot(){
-			return new MissileShield();
+			return new MissileShield().dounique();
 	}	
 
 	@Override

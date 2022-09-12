@@ -236,7 +236,7 @@ public class PrisonWander extends Mob {
 	
 	@Override
 	public Item SupercreateLoot(){
-			return new SavageHelmet();
+			return new SavageHelmet().dounique();
 	}	
 	
 	@Override

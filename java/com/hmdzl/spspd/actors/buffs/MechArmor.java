@@ -38,10 +38,12 @@ public class MechArmor extends Buff {
 
 		public int absorb(int damage) {
 			if (level <= damage) {
+				target.sprite.showStatus(CharSprite.NULL_DAMAGE,"-"+ Integer.toString(level));
 				detach();
 				return damage - level;
 			} else {
 				level -= damage;
+				target.sprite.showStatus(CharSprite.NULL_DAMAGE,"-"+ Integer.toString(damage));
 				return 0;
 			}
 		}

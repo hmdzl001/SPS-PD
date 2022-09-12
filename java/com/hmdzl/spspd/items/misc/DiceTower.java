@@ -130,5 +130,8 @@ public class DiceTower extends Item {
 	 public String status() {
 			 return Messages.format("%d", charge /60);
 	 }		
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 }

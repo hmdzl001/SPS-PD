@@ -36,7 +36,7 @@ public class RobotDMT extends Artifact {
 
 	{
 		//name = "Robot Determination";
-		image = ItemSpriteSheet.RING_DISINTEGRATION;
+		image = ItemSpriteSheet.ROBOT_HEART;
 
 		level = 0;
 		exp = 0;

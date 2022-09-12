@@ -17,30 +17,28 @@
  */
 package com.hmdzl.spspd.items.skills;
 
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.buffs.Blindness;
+import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.buffs.Blasphemy;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.ParyAttack;
-import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.InventoryScroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.windows.WndBag;
-import com.watabou.utils.Callback;
 import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.watabou.utils.Callback;
 
 import java.util.HashMap;
 
@@ -89,20 +87,23 @@ public class FollowerSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial3() {
-
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
-				Buff.affect(mob, Terror.class, 10f).object = curUser.id();
-				Buff.prolong(mob, Blindness.class, 10f);
-			}
-		}	
-	    Buff.affect(curUser, HasteBuff.class,20f);
+		Dungeon.hero.TRUE_HT-=40;
+		if (Dungeon.hero.TRUE_HT<0){
+			Dungeon.hero.die(Messages.format(ResultDescriptions.LOSE));
+			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		}
+		Dungeon.hero.updateHT(true);
+        Dungeon.hero.STR++;
+        Dungeon.hero.hitSkill++;
+		Dungeon.hero.evadeSkill++;
+		Dungeon.hero.magicSkill++;
+	    Buff.affect(curUser, Blasphemy.class).level(1);
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		FollowerSkill.charge += 10;
+		FollowerSkill.charge += 15;
 	}
 
 	@Override

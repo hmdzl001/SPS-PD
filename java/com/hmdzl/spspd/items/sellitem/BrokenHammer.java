@@ -28,7 +28,7 @@ public class BrokenHammer extends SellItem {
 
 	@Override
 	public int price() {
-		return 300 * quantity;
+		return 30 * quantity;
 	}
 	@Override
 	public String info() {

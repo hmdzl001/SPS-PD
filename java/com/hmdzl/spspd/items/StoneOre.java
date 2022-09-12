@@ -42,7 +42,7 @@ public class StoneOre extends Item {
 
 	@Override
 	public int price() {
-		return 100 * quantity;
+		return 50 * quantity;
 	}
 
 	public StoneOre() { this(1); }

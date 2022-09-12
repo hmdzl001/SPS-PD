@@ -19,7 +19,7 @@ import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.nornstone.NornStone;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -36,7 +36,7 @@ public class EyeOfSkadi extends Artifact {
 
 	{
 		//name = "Eye of Skadi";
-		image = ItemSpriteSheet.RING_FROST;
+		image = ItemSpriteSheet.ICE_EYE;
 
 		level = 0;
 		exp = 0;

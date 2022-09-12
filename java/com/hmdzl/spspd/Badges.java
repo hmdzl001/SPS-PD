@@ -400,17 +400,6 @@ public class Badges {
 		displayBadge(badge);
 	}
 
-	public static void validatePiranhasKilled() {
-		Badge badge = null;
-
-		if (!local.contains(Badge.PIRANHAS) && Statistics.piranhasKilled >= 6) {
-			badge = Badge.PIRANHAS;
-			local.add(badge);
-		}
-
-		displayBadge(badge);
-	}
-
 	public static void validateItemLevelAquired(Item item) {
 
 		// This method should be called:
@@ -970,14 +959,6 @@ public class Badges {
 	public static void validateOtilukeRescued()  {
 		if (!local.contains(Badge.OTILUKE)) {
 			Badge badge = Badge.OTILUKE;
-			local.add(badge);
-			displayBadge(badge);
-		}
-	}
-
-	public static void validateNightHunter() {
-		if (!local.contains(Badge.NIGHT_HUNTER) && Statistics.nightHunt >= 15) {
-			Badge badge = Badge.NIGHT_HUNTER;
 			local.add(badge);
 			displayBadge(badge);
 		}

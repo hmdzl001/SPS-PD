@@ -238,7 +238,7 @@ public class WndHero extends WndTabbed {
 			statSlot(Messages.get(this, "health"), hero.HP + "/" + hero.HT );
 			statSlot(Messages.get(this, "exp"), hero.exp + "/" + hero.maxExp());
 
-			statSlot(Messages.get(this, "time"),  ((int)(Statistics.time/60) + ":" + (int)(Statistics.time%60)));
+			statSlot(Messages.get(this, "time"),  (Statistics.moves +"d " + (int)(Statistics.time/60) + ":" + (int)(Statistics.time%60)));
 
 			pos += GAP;
 

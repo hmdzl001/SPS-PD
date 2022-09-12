@@ -17,14 +17,13 @@
  */
 package com.hmdzl.spspd.windows;
 
-import java.util.Locale;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.hero.Belongings;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.ui.BadgesList;
@@ -33,8 +32,6 @@ import com.hmdzl.spspd.ui.ItemSlot;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.ScrollPane;
 import com.hmdzl.spspd.ui.Window;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -42,6 +39,8 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
+
+import java.util.Locale;
 
 public class WndRanking extends WndTabbed {
 
@@ -144,26 +143,6 @@ public class WndRanking extends WndTabbed {
 	private class StatsTab extends Group {
 
 		private static final int GAP = 4;
-
-		private static final String TXT_TITLE = "Level %d %s";
-
-		private static final String TXT_CHALLENGES = "Challenges";
-
-		private static final String TXT_HEALTH = "Health";
-		private static final String TXT_STR = "Strength";
-		//private static final String TXT_TEST = "Playtest Activated";
-
-		private static final String TXT_DURATION = "Game Duration";
-
-		private static final String TXT_DEPTH = "Maximum Depth";
-		private static final String TXT_ENEMIES = "Mobs Killed";
-		private static final String TXT_GOLD = "Gold Collected";
-
-		private static final String TXT_FOOD = "Food Eaten";
-		private static final String TXT_ALCHEMY = "Potions Cooked";
-		private static final String TXT_ANKHS = "Ankhs Used";
-		private static final String TXT_WATERS = "Dew Waters";
-		private static final String TXT_SHADOW = "Shadow Yogs Killed";
 
 		public StatsTab() {
 			super();

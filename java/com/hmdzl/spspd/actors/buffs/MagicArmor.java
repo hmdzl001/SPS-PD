@@ -1,6 +1,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -19,9 +20,11 @@ public class MagicArmor extends Buff {
 
 		public int absorb(int damage) {
 			if (level <= damage) {
+				target.sprite.showStatus(CharSprite.MAGIC_DAMAGE,"-"+ Integer.toString(level));
 				detach();
 				return damage - level;
 			} else {
+				target.sprite.showStatus(CharSprite.MAGIC_DAMAGE,"-"+ Integer.toString(damage));
 				level -= damage;
 				return 0;
 			}

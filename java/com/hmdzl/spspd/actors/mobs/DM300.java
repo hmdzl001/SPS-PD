@@ -165,7 +165,7 @@ public class DM300 extends Mob implements Callback {
 
 	@Override
 	public Item SupercreateLoot(){
-			return new HorseTotem().identify();
+			return new HorseTotem().identify().dounique();
 	}	
 	
 	@Override

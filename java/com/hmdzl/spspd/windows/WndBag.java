@@ -524,7 +524,7 @@ public class WndBag extends WndTabbed {
 				|| mode == Mode.HOLY_MACE
 						&& (item instanceof Torch || item instanceof GreatRune || item instanceof Greaterpill)
 				|| mode == Mode.IRON_MAKE
-						&& ((item instanceof EquipableItem && item.isUpgradable() && !item.isEquipped(hero)) || item instanceof WaterItem || item instanceof StoneOre || item instanceof Garbage)
+						&& ((item.isUpgradable() && !item.isEquipped(hero)) || item instanceof WaterItem || item instanceof StoneOre || item instanceof Garbage)
 				|| mode == Mode.ALL);
 				}
 			} else {

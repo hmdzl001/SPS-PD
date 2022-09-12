@@ -66,7 +66,7 @@ public class MemoryFire extends Blob {
 				}
 				Dungeon.canSave=true;
 				Game.switchScene(LoadSaveScene.class);
-				//GameScene.show(new WndMemory());
+		
 			}			
 		}
 		if (Dungeon.visible[pos]) {
@@ -92,48 +92,5 @@ public class MemoryFire extends Blob {
 	public String tileDesc() {
 		return Messages.get(this, "desc");
 	}
-
-
-	/*public class WndMemory extends Window {
-		
-		private static final int WIDTH = 120;
-		private static final int MARGIN = 2;
-		private static final int BUTTON_WIDTH = WIDTH - MARGIN * 2;
-		private static final int BUTTON_HEIGHT = 20;
-	
-	    public WndMemory() {
-			super();
-			
-			IconTitle titlebar = new IconTitle();
-			titlebar.setRect(0, 0, WIDTH, 0);
-			add(titlebar);
-			
-			RenderedTextMultiline tfMesage = PixelScene.renderMultiline( Messages.get(this, "SorN"), 8 );
-			tfMesage.maxWidth(WIDTH - MARGIN * 2);
-			tfMesage.setPos(MARGIN, titlebar.bottom() + MARGIN);
-			add( tfMesage );
-			
-		RedButton btnSave = new RedButton(Messages.get(MemoryFire.class,"save")) {
-			@Override
-			protected void onClick() {
-				Game.switchScene(LoadSaveScene.class);
-			}
-		};
-		btnSave.setRect(MARGIN, pos + MARGIN, BUTTON_WIDTH,
-						BUTTON_HEIGHT);
-		add( btnSave );
-
-		RedButton btnNosave = new RedButton(Messages.get(MemoryFire.class,"no_save")) {
-			@Override
-			protected void onClick() {
-				hide();
-			}
-		};
-		btnNosave.setRect(MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT);
-		add(btnNosave);		
-
-        resize(WIDTH, (int) btnNosave.bottom());	
-		}
-	}*/
 	
 }	

@@ -121,7 +121,7 @@ public class Tank extends Mob {
 	
 	@Override
 	public Item SupercreateLoot(){
-			return new Shovel();
+			return new Shovel().dounique();
 	}	
 	
 	@Override

@@ -149,7 +149,7 @@ public class LichDancer extends Mob {
 		int newPos;
 		do {
 			newPos = Random.Int(Level.getLength());
-		} while (Dungeon.level.map[newPos] != Terrain.WELL && Dungeon.level.map[newPos] != Terrain.TENT);
+		} while (Dungeon.level.map[newPos] != Terrain.WELL && Dungeon.level.map[newPos] != Terrain.STATUE_SP);
 		sprite.move(pos, newPos);
 		move(newPos);
 
@@ -175,7 +175,7 @@ public class LichDancer extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-			return new DanceLion().identify();
+			return new DanceLion().identify().dounique();
 	}
 
 

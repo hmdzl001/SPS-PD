@@ -126,7 +126,7 @@ public class HighGrass {
 			//Buff.affect(ch, Barkskin.class).level(ch.HT / 3);
 			Buff.affect(ch, Invisibility.class,2f);
 			//leaves = 8;
-			if (Random.Int(10) == 0 && Statistics.findseed > 25) {
+			if (Random.Int(15) == 0 && Statistics.findseed > 20) {
 				level.drop(Generator.random(Generator.Category.BERRY), pos).sprite.drop();
 				Statistics.findseed = 0;
 			}

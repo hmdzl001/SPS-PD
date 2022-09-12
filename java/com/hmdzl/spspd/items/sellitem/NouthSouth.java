@@ -28,7 +28,7 @@ public class NouthSouth extends SellItem {
 
 	@Override
 	public int price() {
-		return 2000 * quantity;
+		return 500 * quantity;
 	}
 	@Override
 	public String info() {

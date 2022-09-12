@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.levels.painters.Painter;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Scene;
@@ -89,8 +89,8 @@ public class CityBossLevel extends Level {
   
         map[(TOP + 1) * getWidth() + CENTER] = Terrain.WELL;
 
-		map[(TOP + 1) * getWidth() + CENTER - 1] = Terrain.TENT;
-		map[(TOP + 1) * getWidth() + CENTER + 1] = Terrain.TENT;
+		map[(TOP + 1) * getWidth() + CENTER - 1] = Terrain.EMPTY_SP;
+		map[(TOP + 1) * getWidth() + CENTER + 1] = Terrain.EMPTY_SP;
   
 		int y = TOP + 1;
 		while (y < TOP + HALL_HEIGHT) {

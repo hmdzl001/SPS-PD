@@ -55,6 +55,12 @@ public class ScrollOfPsionicBlast extends Scroll {
 		}
 		Buff.prolong(curUser, SuperArcane.class, 30f).level(people);
 
+		//for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+		//	if (Level.fieldOfView[mob.pos]) {
+		//		mob.damage(mob.HT, this );
+		//	}
+		//}
+
 		Dungeon.observe();
 
 		setKnown();

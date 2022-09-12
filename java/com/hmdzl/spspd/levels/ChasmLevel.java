@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
@@ -27,8 +24,7 @@ import com.hmdzl.spspd.actors.mobs.Sentinel;
 import com.hmdzl.spspd.items.TriforceOfWisdom;
 import com.hmdzl.spspd.items.potions.PotionOfLevitation;
 import com.hmdzl.spspd.levels.Room.Type;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.plants.Phaseshift;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Scene;
@@ -37,6 +33,10 @@ import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class ChasmLevel extends RegularLevel {
 
@@ -85,7 +85,7 @@ public class ChasmLevel extends RegularLevel {
 	@Override
 	protected boolean assignRoomType() {
 		
-		specialsc = new ArrayList<Room.Type>(Room.SPECIALSTRANSCEND);
+		specialsc = new ArrayList<Room.Type>(Arrays.asList(Type.MAGIC_KEEPER));
 		 
 		  //if (Dungeon.isChallenged(Challenges.NO_HERBALISM)) {
 			// sorry warden, no lucky sungrass or blandfruit seeds for you!
@@ -114,7 +114,7 @@ public class ChasmLevel extends RegularLevel {
 						HashSet<Room> neigbours = new HashSet<Room>();
 						for (Room n : r.neigbours) {
 							if (!r.connected.containsKey(n)
-									&& !Room.SPECIALSTRANSCEND.contains(n.type)
+									&& !Room.SPECIALS.contains(n.type)
 									&& n.type != Type.PIT) {
 
 								neigbours.add(n);

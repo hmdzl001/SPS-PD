@@ -98,7 +98,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		RAT_KING(RatKingPainter.class), 
 		WEAK_FLOOR(WeakFloorPainter.class), 
 		PIT(PitPainter.class), 
-		RAT_KING2(TenguBoxPainter.class),
+		TENGU_BOX(TenguBoxPainter.class),
 		MEMORY(MemoryPainter.class),
 		HIDE_SHOP(HidenShopPainter.class),
 		WISH_POOL(WishPoolPainter.class),
@@ -135,17 +135,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 
 	//public static final ArrayList<Type> HIDE = new ArrayList<Type>(
 	//		Arrays.asList( Type.WISH_POOL));
-	
-	public static final ArrayList<Type> SPECIALSFORT = new ArrayList<Type>(
-			Arrays.asList(Type.GARDEN, Type.GARDEN, Type.GARDEN, Type.GARDEN,
-					      Type.GARDEN, Type.GARDEN, Type.GARDEN, Type.GARDEN,
-					      Type.GARDEN, Type.GARDEN));
-	
-	public static final ArrayList<Type> SPECIALSTRANSCEND = new ArrayList<Type>(
-			Arrays.asList(Type.MAGIC_KEEPER, Type.MAGIC_KEEPER, Type.MAGIC_KEEPER, Type.MAGIC_KEEPER,
-					      Type.MAGIC_KEEPER, Type.MAGIC_KEEPER, Type.MAGIC_KEEPER, Type.MAGIC_KEEPER,
-					       Type.MAGIC_KEEPER,  Type.MAGIC_KEEPER));
-	
+
 	public Type type = Type.NULL;
 
 	public int random() {

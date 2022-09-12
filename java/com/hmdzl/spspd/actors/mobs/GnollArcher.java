@@ -29,15 +29,12 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.items.weapon.missiles.ForestDart;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.GnollArcherSprite;
 import com.hmdzl.spspd.utils.GLog;
-
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class GnollArcher extends Mob {
-
-	private static final String TXT_KILLCOUNT = "Gnoll Archer Kill Count: %s";
 	{
 		//name = "gnollarcher";
 		spriteClass = GnollArcherSprite.class;

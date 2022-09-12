@@ -27,8 +27,8 @@ public class BeCorrupt extends Buff {
 						left = target.HP;
                 	} else if (left > target.HP){
                     	lvl-=1;
-                    	target.HP = Math.max(1,target.HP-1);
-                    	left = target.HP;
+                    	target.HP = Math.max(2,target.HP-1);
+                    	left = Math.max(2,target.HP-1);
 					}
 			}
 			spend(STEP);

@@ -127,7 +127,7 @@ public class Musketeer extends Mob {
         if (dist > 1 && Random.Int(4)< 1 ){
             Buff.affect(enemy, ArmorBreak.class,5f).level(25);
         }
-        if(dist == 1 && Random.Int(3)==1){
+        if(dist == 1 && Random.Int(2)==1){
             Buff.affect(enemy, LightShootAttack.class).level(5);
         }
         return damage;

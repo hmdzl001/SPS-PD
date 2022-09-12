@@ -23,18 +23,16 @@ import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrollWarriorSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class TrollWarrior extends Mob {
-
-	private boolean endless = false;
 	
 	{
 		spriteClass = TrollWarriorSprite.class;
@@ -59,10 +57,10 @@ public class TrollWarrior extends Mob {
 
 	@Override
     public boolean act() {
-        if( HP < HT && endless == false ) {
+        if( HP < HT && this.buff(SkillUse.class)==null ) {
 			Buff.affect(this,AttackUp.class,8f).level(20);
 			Buff.affect(this,DefenceUp.class,8f).level(80);
-            endless = true;
+            Buff.affect(this,SkillUse.class);
 			yell(Messages.get(this,"angry"));}
         return super.act();
     }
@@ -91,19 +89,5 @@ public class TrollWarrior extends Mob {
 		resistances.add(Poison.class);
 		resistances.add(EnchantmentDark.class);
 	}
-	
-	private final String ENDLESS = "endless";
 
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(ENDLESS, endless);
-	}
-
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		endless = bundle.getBoolean(ENDLESS);
-	}	
-	
 }

@@ -148,7 +148,10 @@ public class MissileShield extends Item {
 	public MissileShieldAmmo Ammo(){
 		return new MissileShieldAmmo();
 	}
-	
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}	
 	public class MissileShieldAmmo extends MissileWeapon {
 		
 		{

@@ -86,6 +86,8 @@ public class Hmdzl001 extends NPC {
 			yell(Messages.get(this, "yell3"));
 			break;			
 		}
+		this.destroy();
+		this.sprite.die();
 		return true;
 	}
 }

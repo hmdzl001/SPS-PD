@@ -19,8 +19,6 @@ package com.hmdzl.spspd;
 
 import com.watabou.utils.Bundle;
 
-//move target 300 + d3*lvl
-
 public class Statistics {
 
 	private static final String GOLD = "score";
@@ -34,15 +32,13 @@ public class Statistics {
 	private static final String FOOD = "foodEaten";
 	private static final String EGG = "eggBreak";
 	private static final String ALCHEMY = "potionsCooked";
-	private static final String PIRANHAS = "priranhas";
-	private static final String WATERS = "waters";
+
 	private static final String ARCHERS = "archers";
 	private static final String SKELETONS = "skeletons";
 	private static final String ASSASSINS = "assassins";
 	private static final String ORCS = "orcs";
 	private static final String APIRANHAS = "apiranhas";
 	private static final String THIEVES = "thieves";
-	private static final String NIGHT = "nightHunt";
 	private static final String ANKHS = "ankhsUsed";
 	private static final String DURATION = "duration";
 	private static final String FLOORMOVES = "floormoves";
@@ -51,6 +47,7 @@ public class Statistics {
 	private static final String TIME = "time";
 	private static final String AMULET = "amuletObtained";
 	private static final String ORB = "orbObtained";
+
 	public static int goldCollected;
 	public static int deepestFloor;
 	public static int realdeepestFloor;
@@ -58,14 +55,13 @@ public class Statistics {
 	public static int foodEaten;
 	public static int eggBreak;
 	public static int potionsCooked;
-	public static int piranhasKilled;
+
 	public static int archersKilled;
 	public static int skeletonsKilled;
 	public static int assassinsKilled;
 	public static int orcsKilled;
 	public static int albinoPiranhasKilled;
 	public static int goldThievesKilled;
-	public static int nightHunt;
 	public static int ankhsUsed;
 	public static float duration;
 	public static int floormoves;
@@ -90,14 +86,14 @@ public class Statistics {
 		potionsCooked = 0;
 		findseed = 0;
 		ashield = 0;
-		piranhasKilled = 0;
+
 		archersKilled = 0;
 		assassinsKilled = 0;
 		orcsKilled = 0;
 		skeletonsKilled = 0;
 		albinoPiranhasKilled = 0;
 		goldThievesKilled = 0;
-		nightHunt = 0;
+
 		ankhsUsed = 0;
 
 		duration = 0;
@@ -121,14 +117,14 @@ public class Statistics {
 		bundle.put(FOOD, foodEaten);
 		bundle.put(EGG, eggBreak);
 		bundle.put(ALCHEMY, potionsCooked);
-		bundle.put(PIRANHAS, piranhasKilled);
+
 		bundle.put(ARCHERS, archersKilled);
 		bundle.put(SKELETONS, skeletonsKilled);
 		bundle.put(ASSASSINS, assassinsKilled);
 		bundle.put(ORCS, orcsKilled);
 		bundle.put(APIRANHAS, albinoPiranhasKilled);
 		bundle.put(THIEVES, goldThievesKilled);
-		bundle.put(NIGHT, nightHunt);
+
 		bundle.put(ANKHS, ankhsUsed);
 		bundle.put(DURATION, duration);
 		bundle.put(FLOORMOVES, floormoves);
@@ -149,7 +145,6 @@ public class Statistics {
 		foodEaten = bundle.getInt(FOOD);
 		eggBreak = bundle.getInt(EGG);
 		potionsCooked = bundle.getInt(ALCHEMY);
-		piranhasKilled = bundle.getInt(PIRANHAS);
 
 		archersKilled = bundle.getInt(ARCHERS);
 		skeletonsKilled = bundle.getInt(SKELETONS);
@@ -157,8 +152,7 @@ public class Statistics {
 		orcsKilled = bundle.getInt(ORCS);
 		albinoPiranhasKilled = bundle.getInt(APIRANHAS);
 		goldThievesKilled = bundle.getInt(THIEVES);
-		
-		nightHunt = bundle.getInt(NIGHT);
+
 		ankhsUsed = bundle.getInt(ANKHS);
 		duration = bundle.getFloat(DURATION);
 		floormoves = bundle.getInt(FLOORMOVES);

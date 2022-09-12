@@ -20,6 +20,7 @@ package com.hmdzl.spspd.items.scrolls;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.CountDown;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
@@ -55,23 +56,11 @@ public class ScrollOfTerror extends Scroll {
 						.id();
 				Buff.affect(mob, HasteBuff.class, Terror.DURATION*.5f);
                 Buff.affect(mob,ShadowCurse.class);
-				count++;
-				affected = mob;
+
 			}
 		}
-
-		switch (count) {
-		case 0:
-			GLog.i(Messages.get(this, "none"));
-			break;
-		case 1:
-			GLog.i(Messages.get(this, "one", affected.name));
-			break;
-		default:
-			GLog.i(Messages.get(this, "many") );
-		}
+		GLog.i(Messages.get(this, "many") );
 		setKnown();
-
 		readAnimation();
 	}
 
@@ -82,9 +71,11 @@ public class ScrollOfTerror extends Scroll {
 			if (Level.fieldOfView[mob.pos]) {
 				Terror t = mob.buff(Terror.class);
 				if (t != null){
-					Buff.prolong(mob, Terror.class, Terror.DURATION*1.5f);
+					Buff.prolong(mob, Terror.class, Terror.DURATION*1.5f).object = curUser
+							.id();
 					Buff.affect(mob, Paralysis.class, Terror.DURATION*.5f);
 					Buff.affect(mob, HasteBuff.class, Terror.DURATION*.5f);
+					Buff.affect(mob,CountDown.class);
 				}
 			}
 		}

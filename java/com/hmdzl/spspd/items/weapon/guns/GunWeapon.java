@@ -19,7 +19,7 @@ import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -141,7 +141,7 @@ public class GunWeapon extends Weapon {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		//actions.remove(AC_EQUIP);	
-	if (isEquipped(hero)  || Dungeon.hero.subClass != HeroSubClass.AGENT){
+	if (isEquipped(hero)  || Dungeon.hero.subClass == HeroSubClass.AGENT){
 		actions.add(AC_SHOOT);
 	}
 	actions.add(AC_RELOAD);

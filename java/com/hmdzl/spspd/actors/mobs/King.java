@@ -83,7 +83,7 @@ public class King extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new UndeadBook();
+		return new UndeadBook().dounique();
 	}
 
 	private boolean nextPedestal = true;

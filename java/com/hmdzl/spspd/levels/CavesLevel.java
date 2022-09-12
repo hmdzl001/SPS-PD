@@ -21,15 +21,40 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.mobs.Bestiary;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.Blacksmith;
 import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer2;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.painters.Painter;
-import com.hmdzl.spspd.levels.traps.*;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.levels.traps.ConfusionTrap;
+import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
+import com.hmdzl.spspd.levels.traps.FireTrap;
+import com.hmdzl.spspd.levels.traps.FlashingTrap;
+import com.hmdzl.spspd.levels.traps.FlockTrap;
+import com.hmdzl.spspd.levels.traps.FrostTrap;
+import com.hmdzl.spspd.levels.traps.GrippingTrap;
+import com.hmdzl.spspd.levels.traps.GuardianTrap;
+import com.hmdzl.spspd.levels.traps.LightningTrap;
+import com.hmdzl.spspd.levels.traps.OozeTrap;
+import com.hmdzl.spspd.levels.traps.ParalyticTrap;
+import com.hmdzl.spspd.levels.traps.PitfallTrap;
+import com.hmdzl.spspd.levels.traps.PoisonTrap;
+import com.hmdzl.spspd.levels.traps.RockfallTrap;
+import com.hmdzl.spspd.levels.traps.ShockTrap;
+import com.hmdzl.spspd.levels.traps.SpearTrap;
+import com.hmdzl.spspd.levels.traps.StormTrap;
+import com.hmdzl.spspd.levels.traps.SummoningTrap;
+import com.hmdzl.spspd.levels.traps.TeleportationTrap;
+import com.hmdzl.spspd.levels.traps.VenomTrap;
+import com.hmdzl.spspd.levels.traps.WarpingTrap;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Scene;
@@ -95,7 +120,7 @@ public class CavesLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 400+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.depth] = 100+(Dungeon.depth*50)+(secretDoors*20);
 	}
 
 	@Override
@@ -117,8 +142,24 @@ public class CavesLevel extends RegularLevel {
 		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(3) == 0){addItemToSpawn(new DungeonBomb());}
 		super.createItems();
 	}
-	
-	
+
+	@Override
+	protected void createMobs() {
+		int nMobs = nMobs();
+		for (int i = 0; i < nMobs; i++) {
+			Mob mob = Bestiary.mob(Dungeon.depth);
+			do {
+				mob.pos = randomRespawnCell();
+				mob.originalgen=true;
+				Buff.affect(mob,ShieldArmor.class).level(Dungeon.depth*5);
+				Buff.affect(mob,MagicArmor.class).level(Dungeon.depth*5);
+			} while (mob.pos == -1);
+			mobs.add(mob);
+			Actor.occupyCell(mob);
+		}
+	}
+
+
 	@Override
 	protected boolean assignRoomType() {
 		super.assignRoomType();

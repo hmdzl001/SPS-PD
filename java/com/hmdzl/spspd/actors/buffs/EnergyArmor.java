@@ -1,6 +1,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -20,10 +21,12 @@ public class EnergyArmor extends Buff {
 		public int absorb(int damage) {
 
         if (level <= damage) {
+			target.sprite.showStatus(CharSprite.NULL_DAMAGE, "-"+ Integer.toString(level));
             detach();
             return damage - level;
         } else {
             level -= damage;
+			target.sprite.showStatus(CharSprite.NULL_DAMAGE,"-"+ Integer.toString(damage));
             return 0;
         }
 		}

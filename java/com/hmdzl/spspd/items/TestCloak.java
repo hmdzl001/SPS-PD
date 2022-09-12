@@ -75,6 +75,6 @@ public class TestCloak extends Item {
 
 	@Override
 	public int price() {
-		return 500 * quantity;
+		return 50 * quantity;
 	}
 }

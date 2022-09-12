@@ -19,16 +19,46 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
+import com.watabou.utils.Bundle;
 
-public class Taunt extends Buff {
+public class Blasphemy extends Buff {
 
-	{
-		type = buffType.NEGATIVE;
+	private int level = 0;
+	private static final String LEVEL = "level";
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(LEVEL, level);
 	}
 
 	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		level = bundle.getInt(LEVEL);
+	}
+
+    {
+		type = buffType.POSITIVE;
+	}
+
+	public boolean act() {
+		spend(TICK);
+		return true;
+	}
+	@Override
 	public int icon() {
-		return BuffIndicator.TAR;
+		return BuffIndicator.DEMON_FAITH;
+	}
+
+	public int level() {
+		return level;
+	}
+
+	public void level(int value) {
+		
+		level += value;
+		
 	}
 
 	@Override
@@ -38,15 +68,7 @@ public class Taunt extends Buff {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc");
-	}
-
-	@Override
-	public boolean act() {
-		if (target.isAlive()) {
-			spend(TICK);
-		}
-		return true;
+		return Messages.get(this, "desc",level());
 	}
 
 }

@@ -36,51 +36,6 @@ public class HighVoice extends FlavourBuff {
 		return BuffIndicator.VOICE_UP;
 	}
 
-	protected float left;
-	private static final String LEFT = "left";
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(LEFT, left);
-	}
-
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		left = bundle.getFloat(LEFT);
-	}
-
-	public void set(float duration) {
-		this.left = duration;
-	}
-
-    @Override
-	public boolean act() {
-		if (target.isAlive()) {
-			if (target.buff(HighVoice.class) != null && Random.Int(8) == 0) {
-				if (target.HP > target.HT*0.75 ){
-					Buff.affect(target,HasteBuff.class,5f);
-					GLog.p(Messages.get(this,"speed",Dungeon.hero.givenName()));
-				} else {
-					target.HP += target.HT/4;
-				GLog.p(Messages.get(this,"heal",Dungeon.hero.givenName()));
-				}
-			}
-			left -= TICK;
-			if (left <= 2)
-				detach();
-		    spend(TICK);
-
-
-		} else {
-
-			detach();
-
-		}
-
-		return true;
-	}
-
 	@Override
 	public String toString() {
 		return Messages.get(this, "name");

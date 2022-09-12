@@ -213,7 +213,7 @@ public class WndIronMaker extends Window {
 			output.item(new WndBag.Placeholder(ItemSpriteSheet.ERROR_FOOD));
 			output.visible = true;
 			btnCombine.enable(true);
-		} else if(filterInput(Item.class).size() == 1){
+		} else if(filterInput(Item.class).size() > 0){
 				output.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
 				output.visible = true;
 				btnCombine.enable(true);
@@ -250,9 +250,9 @@ public class WndIronMaker extends Window {
 			Sample.INSTANCE.play( Assets.SND_PUFF );
 
 			output.item(result);
-			if (!result.collect()){
-				Dungeon.level.drop(result, hero.pos);
-			}
+			//if (!result.collect()){
+            Dungeon.level.drop(result, hero.pos);
+			//}
 			for (int i = 0; i < (inputs.length ); i++){
 				inputs[i].slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
 				inputs[i].item = null;

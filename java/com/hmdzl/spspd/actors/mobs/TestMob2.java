@@ -20,8 +20,8 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ElectriShock;
-import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.HiddenShadow;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
@@ -73,8 +73,15 @@ public class TestMob2 extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		Buff.affect(enemy,BeCorrupt.class).level(100);
-		//Buff.affect(this,HiddenShadow.class,5f);
+		//if(enemy instanceof Hero){
+		//	BugMeat bugfood = new BugMeat();
+		//	if (!bugfood.collect()) {
+		//		Dungeon.level.drop( bugfood, Dungeon.hero.pos ).sprite.drop();
+		//	} else if (enemy.buff(BugMeat.BugSlow.class) == null)
+		//		Buff.affect(enemy,BugMeat.BugSlow.class);
+		//}
+
+		Buff.prolong(this,HiddenShadow.class,2f);
 		return damage;
 	}
 

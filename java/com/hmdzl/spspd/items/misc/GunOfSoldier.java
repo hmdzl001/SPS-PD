@@ -92,7 +92,10 @@ public class GunOfSoldier extends Item {
 	public String status() {
 		return Messages.format("%d", charge /75);
 	}
-	
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}	
 	@Override
 	public String info() {
 		String info = desc();

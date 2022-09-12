@@ -71,7 +71,10 @@ public class RangeBag extends MiscEquippable {
 	protected MiscBuff buff() {
 		return new RangeBagBless();
 	}
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 	public class RangeBagBless extends MiscBuff {
 
 	}

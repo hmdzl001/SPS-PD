@@ -36,10 +36,9 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.Weapon.Enchantment;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.SentinelSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -164,6 +163,17 @@ public class MineSentinel extends Mob {
 		if (checkOtiluke()) {
 			return false;
 		}else return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+	}
+
+	@Override
+	public int defenseProc(Char enemy, int damage) {
+
+		int dmg = Random.IntRange(0, damage/3);
+		if (dmg > 0 && checkOtiluke()) {
+			enemy.damage(dmg, this);
+		}
+
+		return super.defenseProc(enemy, damage);
 	}
 
 	protected boolean heroNear (){

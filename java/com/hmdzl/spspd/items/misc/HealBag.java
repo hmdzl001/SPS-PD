@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -32,13 +30,14 @@ import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class HealBag extends Item {
 
@@ -49,7 +48,7 @@ public class HealBag extends Item {
 		defaultAction = AC_HEAL;
 	}
 
-	public final int fullCharge = 100;
+	public final int fullCharge = 40;
 	public int charge = 0;	
 
     public static final String AC_HEAL = "HEAL";
@@ -68,16 +67,19 @@ public class HealBag extends Item {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
 	}
-	
+		@Override
+	public int price() {
+		return 30 * quantity;
+	}
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		actions.remove(AC_DROP);
 		actions.remove(AC_THROW);
-		if (charge > 50) {
+		if (charge > 15) {
 		actions.add(AC_HEAL);
 		}
-		if (charge > 75) {
+		if (charge > 40) {
 			actions.add(AC_COOK);
 		}
 		return actions;
@@ -89,7 +91,7 @@ public class HealBag extends Item {
 		curUser = Dungeon.hero;
 
         if (action.equals(AC_HEAL)) {
-			if (charge < 50) {
+			if (charge < 15) {
 				GLog.p(Messages.get(this, "need_charge"));
 			} else {
 				for (int n : Level.NEIGHBOURS9) {
@@ -99,7 +101,7 @@ public class HealBag extends Item {
 						mob.HP += mob.HT / 2;
 					}
 				}
-				charge -= 50;
+				charge -= 15;
 
 				Buff.detach(hero, Poison.class);
 				Buff.detach(hero, Cripple.class);
@@ -112,7 +114,7 @@ public class HealBag extends Item {
 			}
 		} else if (action.equals(AC_COOK)) {
 
-			if (Random.Int(2) == 0) {
+			if (Random.Int(3) > 1) {
 		    Dungeon.level.drop(Generator.random(Generator.Category.POTION), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			} else if (Random.Int(5) == 0) {
 				Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
@@ -121,7 +123,7 @@ public class HealBag extends Item {
 			} else {
 				Dungeon.level.drop(Generator.random(Generator.Category.PILL), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			}
-			charge -= 75;
+			charge -= 40;
 			hero.spendAndNext(1f);
 		} else {
 			super.execute(hero, action);

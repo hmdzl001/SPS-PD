@@ -67,7 +67,10 @@ public class DemoScroll extends Item {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
 	}		
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 	@Override
 	public void execute(Hero hero, String action) {
 

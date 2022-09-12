@@ -22,7 +22,7 @@ import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class Dewcharge extends FlavourBuff {
 
-	public static final float DURATION = 300f;
+	public static final float DURATION = 240f;
 	
 	//private static final String DEWLEFT = "dewleft";
 

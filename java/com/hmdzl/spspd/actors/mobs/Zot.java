@@ -60,10 +60,7 @@ public class Zot extends Mob {
 		//HP = HT = 25;
 		EXP = 20;
 		evadeSkill = 40;
-		//evadeSkill = 0;
-
-		loot = new SoulCollect();
-		lootChance = 1f;			
+		//evadeSkill = 0;		
 		
 		properties.add(Property.UNKNOW);
 		properties.add(Property.BOSS);
@@ -145,7 +142,7 @@ public class Zot extends Mob {
 		GameScene.bossSlain();
 		//Dungeon.level.locked=false;
 		Dungeon.zotkilled=true;
-
+        Dungeon.level.drop(new SoulCollect(), pos).sprite.drop();
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[Dungeon.level.mobs.size()])) {
 			if (mob instanceof ZotPhase || mob instanceof MagicEye) {
 				mob.die(null);

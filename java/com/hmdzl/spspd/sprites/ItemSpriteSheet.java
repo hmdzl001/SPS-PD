@@ -183,6 +183,9 @@ public class ItemSpriteSheet {
 	public static final int RING_AGATE = ROW7 + 10;
 	public static final int RING_DIAMOND = ROW7 + 11;
 	public static final int RING_ADAMANT = ROW7 + 12;
+	public static final int ROBOT_HEART = ROW7 + 13;
+
+	public static final int ICE_EYE = ROW7 + 15;
 
 	// Row Eight: Artifacts with Static Images
 	public static final int ARTIFACT_CLOAK = ROW8 + 0;
@@ -192,15 +195,14 @@ public class ItemSpriteSheet {
 	public static final int ARTIFACT_HOURGLASS = ROW8 + 4;
 	public static final int ARTIFACT_TOOLKIT = ROW8 + 5;
 	public static final int ARTIFACT_SPELLBOOK = ROW8 + 6;
-
+	public static final int BOSSRUSH = ROW8 + 7;
 	public static final int COURAGETRIAL = ROW8 + 9;
 	public static final int POWERTRIAL = ROW8 + 10;
 	public static final int WISDOMTRIAL = ROW8 + 11;
 	public static final int DWARFHAMMER = ROW8 + 12;
 	public static final int ANCIENTKEY = ROW8 + 13;
 	public static final int OTILUKES_JOURNAL = ROW16 + 3;
-	public static final int RING_DISINTEGRATION = ROW7 + 13;
-	public static final int RING_FROST = ROW7 + 15;
+
 
 	// Row Nine: Artifacts with Dynamic Images
 	public static final int ARTIFACT_HORN1 = ROW9 + 0;
@@ -317,7 +319,7 @@ public class ItemSpriteSheet {
 	public static final int HOLSTER = ROW15 + 4;
 	public static final int SHOPCART = ROW15 + 5;
 	public static final int ACTIVEMRD = ROW15 + 6;
-	public static final int ACTIVEMRD2 = ROW15 + 7;
+	public static final int RUSTY_CAT = ROW15 + 7;
 	public static final int ORBOFZOT = ROW15 + 10;
 	public static final int KEYRING = ROW4 + 10;
 
@@ -355,7 +357,7 @@ public class ItemSpriteSheet {
 	public static final int PUDDING_CUP = ROW17 + 2;
 	public static final int POCKET_BALL = ROW17 + 3;
 	
-	public static final int BOSSRUSH = ROW8 + 7;
+
     public static final int JUMP = ROW17 + 5;
 	public static final int SHIELD = ROW17 + 6;
 	public static final int DKNIVE = ROW17 + 7;
@@ -386,7 +388,7 @@ public class ItemSpriteSheet {
 	public static final int VIOLET_DRAGONEGG = ROW19 + 6;
 	public static final int GREEN_DRAGONEGG = ROW19 + 7;
 	public static final int SHADOWEGG = ROW19 + 8;
-	public static final int BEEEGG = ROW19 + 9;
+
 	public static final int RABBITEGG = ROW19 + 10;
 	public static final int VELOCIROOSTEREGG = ROW19 + 11;
 	public static final int LIGHT_DRAGONEGG = ROW19 + 13;
@@ -427,7 +429,6 @@ public class ItemSpriteSheet {
 	public static final int ERROR_FOOD = ROW18 + 11;
 	public static final int ERROR_AMMO = ROW20 + 5;
 
-	public static final int ERROR_BOOK = ROW18 + 13;
 
 	public static final int H_O_SCARECROW = ROW18 + 14;
 
@@ -569,6 +570,7 @@ public class ItemSpriteSheet {
 
 	public static final int DIAMOND_PICKAXE = ROW27 + 3;
 
+	public static final int LYNN_DOLL = ROW27 + 9;
 	public static final int MONEY_PACK = ROW27 + 10;
 
 	public static final int DOOR_BLOCK = ROW27 + 11;

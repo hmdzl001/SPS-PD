@@ -19,6 +19,7 @@ package com.hmdzl.spspd.levels;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer3;
 import com.hmdzl.spspd.items.TriforceOfPower;
 import com.hmdzl.spspd.items.quest.Mushroom;
@@ -26,6 +27,7 @@ import com.hmdzl.spspd.levels.Room.Type;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class FortressLevel extends RegularLevel {
@@ -62,7 +64,7 @@ public class FortressLevel extends RegularLevel {
 	@Override
 	protected boolean assignRoomType() {
 		
-		specialsf = new ArrayList<Room.Type>(Room.SPECIALSFORT);
+		specialsf = new ArrayList<Room.Type>(Arrays.asList(Type.GARDEN));
 		 
 		  //if (Dungeon.isChallenged(Challenges.NO_HERBALISM)) {
 			// sorry warden, no lucky sungrass or blandfruit seeds for you!
@@ -91,7 +93,7 @@ public class FortressLevel extends RegularLevel {
 						HashSet<Room> neigbours = new HashSet<Room>();
 						for (Room n : r.neigbours) {
 							if (!r.connected.containsKey(n)
-									&& !Room.SPECIALSFORT.contains(n.type)
+									&& !Room.SPECIALS.contains(n.type)
 									&& n.type != Type.PIT) {
 
 								neigbours.add(n);
@@ -162,7 +164,8 @@ public class FortressLevel extends RegularLevel {
 			
 					
 			if (map[i]==Terrain.ENTRANCE){map[i] = Terrain.PEDESTAL;}
-			if (map[i]==Terrain.EXIT){map[i] = Terrain.PEDESTAL;  if (!Dungeon.triforceofpower){drop(new TriforceOfPower(), i);}}
+			if (map[i]==Terrain.EXIT){map[i] = Terrain.PEDESTAL;
+			if (!Dungeon.triforceofpower){drop(new TriforceOfPower(), i);}}
 			if (map[i]==Terrain.CHASM){map[i] = Terrain.EMPTY;}
 			
 
@@ -171,26 +174,27 @@ public class FortressLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
-		
-		addItemToSpawn(new Mushroom());
-		
-		super.createItems();
 
 		Tinkerer3.Quest.spawn(this, roomEntrance);
+		addItemToSpawn(new Mushroom());
+		spawnnpc(this);
+		super.createItems();
+
+
 			
 	}
 
-		//public static void spawnnpc(FortressLevel level,Room room) {
+		public static void spawnnpc(FortressLevel level) {
 	
-		//Tinkerer3 npc = new Tinkerer3();
-		///do {
-		//		npc.pos = room.random();
-		//	} while (level.map[npc.pos] == Terrain.ENTRANCE
-		//			|| level.map[npc.pos] == Terrain.SIGN);
-		//	level.mobs.add(npc);
-		//    Actor.occupyCell(npc);
+		Tinkerer3 npc = new Tinkerer3();
+		do {
+				npc.pos = level.randomRespawnCell();
+			} while (level.map[npc.pos] == Terrain.ENTRANCE
+					|| level.map[npc.pos] == Terrain.SIGN);
+			level.mobs.add(npc);
+		    Actor.occupyCell(npc);
 
-	//}
+	}
 		
 		
 		public static void spawn(FortressLevel level, Room room) {

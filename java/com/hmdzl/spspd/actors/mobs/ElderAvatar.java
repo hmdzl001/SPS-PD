@@ -53,7 +53,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
-import com.hmdzl.spspd.items.bombs.DangerousBomb;
+import com.hmdzl.spspd.items.bombs.MiniBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban4;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
@@ -154,7 +154,7 @@ public class ElderAvatar extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(5) == 0) {
-			new DangerousBomb().explode(enemy.pos);
+			new MiniBomb().explode(enemy.pos);
 		}
 		if (Random.Int(8) == 0) {
 			Buff.affect(enemy, Charm.class,  Random.IntRange(3, 5)).object = id();
@@ -191,8 +191,10 @@ public class ElderAvatar extends Mob {
 	@Override
 	public void damage(int dmg, Object src) {
 		if (dmg > this.HP && checkObelisk()) {
-			dmg = Random.Int(this.HP);
+			//dmg = Random.Int(this.HP);
 			//Buff.affect(this,EnergyArmor.class).level(100);
+			dmg=0;
+			this.HP = 30;
 		}
 		super.damage(dmg, src);
         }
@@ -264,7 +266,7 @@ public class ElderAvatar extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-			return new GunOfSoldier().identify();
+			return new GunOfSoldier().identify().dounique();
 	}	
 	
 	@Override

@@ -76,7 +76,7 @@ public class GnollKing extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new GnollMark();
+		return new GnollMark().dounique();
 	}
 
 	@Override

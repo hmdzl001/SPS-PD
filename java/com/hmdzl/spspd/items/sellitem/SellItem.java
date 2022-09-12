@@ -40,7 +40,7 @@ public class SellItem extends Item {
 
 	@Override
 	public int price() {
-		return 200 * quantity;
+		return 100 * quantity;
 	}
 
 	@Override

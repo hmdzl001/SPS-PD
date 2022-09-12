@@ -110,7 +110,7 @@ public class LinkSword extends MeleeWeapon {
 			Buff.affect(hero, MirrorShield.class,2f);
 			curUser.sprite.operate(curUser.pos);
 			curUser.spendAndNext(1f);
-			charge=0;
+			charge-=20;
 		} else if (action == AC_COURAGE) {
 			curUser = hero;
 			curItem = this;
@@ -171,9 +171,6 @@ public class LinkSword extends MeleeWeapon {
 	public class LinkCharge extends LinkBuff {
 		@Override
 		public boolean act() {
-			if (charge < fullCharge) {
-				charge+=1;
-			}
 			if (Dungeon.hero.HP>=Dungeon.hero.HT){
 				LinkSword.this.RCH = 4;
 			} else LinkSword.this.RCH = 1;
@@ -245,13 +242,16 @@ public class LinkSword extends MeleeWeapon {
 					}
 					break;
 				case 6:
-					if (charge > 25) {
-						charge -=15;
+					if (charge > 25 && Random.Int(10)==0) {
 						defender.damage(2*DMG, this);
 					}
 					break;
 				default:
 					break;
+			}
+
+			if (charge < fullCharge) {
+				charge+=1;
 			}
 			
 			if (enchantment != null) {
@@ -307,7 +307,10 @@ public class LinkSword extends MeleeWeapon {
 								if (ch.isAlive() && Random.Int(2) == 0) {
 									Buff.affect(ch, Vertigo.class, 5f);
 								}
-								ch.damage(ch.HT / 20, this);
+								if(ls.charge > 10) {
+									ls.charge-=10;
+									ch.damage(ch.HT / 20, this);
+								}
 							}
 						}
 					};

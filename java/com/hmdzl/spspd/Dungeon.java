@@ -853,8 +853,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 			level = new CityBossLevel();
 			break;
 		case 21:
-			//level = new LastShopLevel();
-			//break;
 		case 22:
 		case 23:
 		case 24:

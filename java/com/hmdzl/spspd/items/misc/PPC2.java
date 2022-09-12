@@ -398,5 +398,8 @@ public class PPC2 extends Item {
 		return true;
 	}
 	
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 }

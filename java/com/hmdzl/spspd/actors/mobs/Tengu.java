@@ -95,7 +95,7 @@ public class Tengu extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new ManyKnive().identify();
+		return new ManyKnive().identify().dounique();
 	}
 
 	@Override

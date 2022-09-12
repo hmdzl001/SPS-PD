@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
@@ -113,9 +112,7 @@ public class Piranha extends Mob {
 			Dungeon.limitedDrops.caveskey.drop();
 			Dungeon.level.drop(new CaveChallenge(), pos).sprite.drop();			
 		}
-		
-		Statistics.piranhasKilled++;
-		Badges.validatePiranhasKilled();
+
 	}
 
 	@Override

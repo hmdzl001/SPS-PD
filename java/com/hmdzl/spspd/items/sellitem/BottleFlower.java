@@ -28,7 +28,7 @@ public class BottleFlower extends SellItem {
 
 	@Override
 	public int price() {
-		return 2300 * quantity;
+		return 1000 * quantity;
 	}
 	@Override
 	public String info() {

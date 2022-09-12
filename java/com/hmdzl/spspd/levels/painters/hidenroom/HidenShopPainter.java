@@ -18,7 +18,9 @@
 package com.hmdzl.spspd.levels.painters.hidenroom;
 
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.npcs.HoneyPoooot;
 import com.hmdzl.spspd.actors.mobs.npcs.Ice13;
+import com.hmdzl.spspd.actors.mobs.npcs.SaidbySun;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
@@ -28,6 +30,7 @@ import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.watabou.utils.Point;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -80,7 +83,7 @@ public class HidenShopPainter extends Painter {
 			pos++;
 		}
 
-		placeIce13(level, room);
+		placeShopkeeper(level, room);
 
 		for (Room.Door door : room.connected.values()) {
 			door.set(Room.Door.Type.HIDDEN);
@@ -126,24 +129,52 @@ public class HidenShopPainter extends Painter {
 		return itemsToSpawn.size() + 1;
 	}
 
-	private static void placeIce13(Level level, Room room) {
+	private static void placeShopkeeper(Level level, Room room) {
 
 		int pos;
 		do {
 			pos = room.random();
 		} while (level.heaps.get(pos) != null);
 
-		Mob Ice13 = new Ice13();
-		Ice13.pos = pos;
-		level.mobs.add(Ice13);
+
+		switch (Random.Int(3)) {
+			case 0:
+				Mob shoper0 = new Ice13();
+				shoper0.pos = pos;
+				level.mobs.add(shoper0);
+				for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
+					int p = shoper0.pos + Level.NEIGHBOURS9[i];
+					if (level.map[p] == Terrain.EMPTY_SP) {
+						level.map[p] = Terrain.PEDESTAL;
+					}
+				}
+				break;
+			case 1:
+				Mob shoper1 = new HoneyPoooot();
+				shoper1.pos = pos;
+				level.mobs.add(shoper1);
+				for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
+					int p = shoper1.pos + Level.NEIGHBOURS9[i];
+					if (level.map[p] == Terrain.EMPTY_SP) {
+						level.map[p] = Terrain.PEDESTAL;
+					}
+				}
+				break;
+			case 2:
+				Mob shoper2 = new SaidbySun();
+				shoper2.pos = pos;
+				level.mobs.add(shoper2);
+				for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
+					int p = shoper2.pos + Level.NEIGHBOURS9[i];
+					if (level.map[p] == Terrain.EMPTY_SP) {
+						level.map[p] = Terrain.PEDESTAL;
+					}
+				}
+				break;
+		}
 
 		
-		for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-			int p = Ice13.pos + Level.NEIGHBOURS9[i];
-				if (level.map[p] == Terrain.EMPTY_SP) {
-					level.map[p] = Terrain.PEDESTAL;
-				}
-			}
+
 		
 	}
 

@@ -37,7 +37,10 @@ public class HorseTotem extends MiscEquippable {
 		actions.remove(AC_THROW);
 		return actions;
 	}	
-	
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}	
 	@Override
 	protected MiscBuff buff() {
 		return new HorseTotemBless();

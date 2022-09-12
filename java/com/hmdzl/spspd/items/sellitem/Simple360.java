@@ -28,7 +28,7 @@ public class Simple360 extends SellItem {
 
 	@Override
 	public int price() {
-		return 1800 * quantity;
+		return 80 * quantity;
 	}
 	@Override
 	public String info() {

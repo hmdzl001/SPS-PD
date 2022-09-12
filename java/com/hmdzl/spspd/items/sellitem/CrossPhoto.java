@@ -28,7 +28,7 @@ public class CrossPhoto extends SellItem {
 
 	@Override
 	public int price() {
-		return 1500 * quantity;
+		return 150 * quantity;
 	}
 	@Override
 	public String info() {

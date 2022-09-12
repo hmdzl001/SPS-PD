@@ -82,7 +82,6 @@ public class BrownBat extends Mob {
 			      }
 			GLog.w(Messages.get(this,"die"));
 	    }
-
 		
 	}
 	

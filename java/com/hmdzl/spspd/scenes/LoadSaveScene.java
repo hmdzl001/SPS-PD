@@ -2,29 +2,28 @@
 // NOTE - the idea behind Load/Save functionality was originated in Soft Pixel Dungeon
  package com.hmdzl.spspd.scenes;
  
- import java.io.File;
- import java.io.FileInputStream;
- import java.io.FileNotFoundException;
- import java.io.FileOutputStream;
- import java.io.IOException;
- import java.io.OutputStream;
- import java.util.ArrayList;
-
- import com.hmdzl.spspd.Dungeon;
- import com.hmdzl.spspd.GamesInProgress;
- import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
- import com.hmdzl.spspd.ui.Archs;
- import com.hmdzl.spspd.ui.RedButton;
- import com.hmdzl.spspd.ui.Window;
- //import com.hmdzl.spspd.utils.Utils;
- import com.hmdzl.spspd.windows.WndOptions;
- import com.hmdzl.spspd.windows.WndStory;
- import com.watabou.noosa.Camera;
- import com.watabou.noosa.Game;
- import com.watabou.noosa.RenderedText;
- import com.watabou.utils.Bundle;
- 
  import android.annotation.SuppressLint;
+
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.GamesInProgress;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.ui.Archs;
+import com.hmdzl.spspd.ui.RedButton;
+import com.hmdzl.spspd.ui.Window;
+import com.hmdzl.spspd.windows.WndOptions;
+import com.hmdzl.spspd.windows.WndStory;
+import com.watabou.noosa.Camera;
+import com.watabou.noosa.Game;
+import com.watabou.noosa.RenderedText;
+import com.watabou.utils.Bundle;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
  
 @SuppressLint("DefaultLocale")
  public class LoadSaveScene extends PixelScene {
@@ -35,8 +34,6 @@
      private static final float BUTTON_PADDING = 3;
  
      private static final String TXT_TITLE	= "Save/Load ";
- 
-     //private static final String SD_ROOT = Environment.getExternalStorageDirectory().toString();
  
      private static final String TXT_LOAD	= "Load";
      private static final String TXT_SAVE	= "Save";
@@ -109,7 +106,7 @@
                      add( buttonCapton1 );
  
                      // add the save button..
-                     if (Dungeon.hero.isAlive() && (Dungeon.canSave==true /*|| Dungeon.isChallenged(Challenges.BOSSRUSH)*/)) {
+                     if (Dungeon.hero.isAlive() && (Dungeon.canSave==true)) {
                          GameButton btnSave = new GameButton( this, true, TXT_SAVE, "", classInfo, saveSlot );
                          add( btnSave );
                          btnSave.visible = true;
@@ -237,7 +234,7 @@
                  OutputStream out = Game.instance.openFileOutput(fileName, Game.MODE_PRIVATE );
  
                  // Transfer bytes from in to out
-                 byte[] buf = new byte[23768];
+                 byte[] buf = new byte[237680];
                  int len;
                  while ((len = in.read(buf)) > 0) {
                      out.write(buf, 0, len);
@@ -267,7 +264,7 @@
          private static final int SECONDARY_COLOR	= 0xCACFC2;
  
          private RenderedText secondary;
-         private Boolean isSave = true;
+         private Boolean isSave;
          private String classInfo = "";
          private String saveSlot = "";
          private LoadSaveScene loadSaveScene;

@@ -68,7 +68,10 @@ public class BigBattery extends Item {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
 	}
-	
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}	
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);

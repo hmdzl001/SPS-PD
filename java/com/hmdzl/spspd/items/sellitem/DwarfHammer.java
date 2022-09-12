@@ -52,6 +52,6 @@ public class DwarfHammer extends SellItem {
 	
 	@Override
 	public int price() {
-		return 1500 * quantity;
+		return 150 * quantity;
 	}
 }

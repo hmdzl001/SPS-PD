@@ -610,8 +610,8 @@ public class Heap implements Bundlable {
                          break;
 	            default: weapon = new AresSword(); weapon.enchantAres();
                          break;
-                          }
-                         
+				}
+              weapon.identify().uncurse().upgrade(6);
 			return weapon;
 
 		} else {

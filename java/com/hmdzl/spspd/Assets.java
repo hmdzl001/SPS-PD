@@ -395,5 +395,6 @@ public class Assets {
 
 	public static final String BONESTAR = "bonestar.png";
 	public static final String HARO = "haro.png";
+	public static final String BUTTER_CAT = "buttercat.png";
 }
 

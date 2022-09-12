@@ -57,7 +57,7 @@ public class SellMushroom extends SellItem {
 
 	@Override
 	public int price() {
-		return 1000 * quantity;
+		return 100 * quantity;
 	}
 	@Override
 	public boolean isIdentified() {

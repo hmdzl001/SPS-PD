@@ -622,9 +622,9 @@ public abstract class RegularLevel extends Level {
 		if (Dungeon.depth < 5 && !Statistics.amuletObtained){
 		 return 10 + Dungeon.depth + Random.Int(3);
 		} else if(!Statistics.amuletObtained) {
-		 return 10 + Dungeon.depth % 3 + Random.Int(3);
+		 return 15 + Dungeon.depth % 3 + Random.Int(3);
 		} else {
-		 return 10 + (5 - Dungeon.depth % 5) + Random.Int(3);			
+		 return 10 + (5 - Dungeon.depth % 5) + Random.Int(3);
 		}
 	}
 

@@ -72,6 +72,7 @@ public class MoneyBook extends MissileWeapon {
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
 		 if (action.equals(AC_CAST)) {
+			curUser = hero;
 			Buff.affect(hero,Invisibility.class,10f);
 			for (int m : Level.NEIGHBOURS8DIST2) {
 			int c = hero.pos + m;
@@ -83,6 +84,7 @@ public class MoneyBook extends MissileWeapon {
 				}
 			}
 		}
+		detach(curUser.belongings.backpack);
 		}
 	}
 

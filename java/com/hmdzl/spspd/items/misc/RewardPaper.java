@@ -110,7 +110,10 @@ public class RewardPaper extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
-
+@Override
+	public int price() {
+		return 30 * quantity;
+	}
 	protected static WndBag.Listener itemSelector = new WndBag.Listener() {
 		@Override
 		public void onSelect(Item item) {
@@ -131,5 +134,5 @@ public class RewardPaper extends Item {
 			}
 		}
 	};
-
+	
 }

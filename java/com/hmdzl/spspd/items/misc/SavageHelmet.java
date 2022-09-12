@@ -67,5 +67,8 @@ public class SavageHelmet extends MiscEquippable {
 	public boolean isIdentified() {
 		return true;
 	}
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 }

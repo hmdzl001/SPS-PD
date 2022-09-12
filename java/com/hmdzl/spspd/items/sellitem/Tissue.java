@@ -28,7 +28,7 @@ public class Tissue extends SellItem {
 
 	@Override
 	public int price() {
-		return 1200 * quantity;
+		return 120 * quantity;
 	}
 	@Override
 	public String info() {

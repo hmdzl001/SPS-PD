@@ -57,7 +57,7 @@ public class HunterLens extends SellItem {
 
 	@Override
 	public int price() {
-		return 1500 * quantity;
+		return 500 * quantity;
 	}
 	@Override
 	public boolean isIdentified() {

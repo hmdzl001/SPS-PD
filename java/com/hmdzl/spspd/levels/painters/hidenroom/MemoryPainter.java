@@ -30,7 +30,7 @@ public class MemoryPainter extends Painter {
 	public static void paint( Level level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
-		fill( level, room, 1, Dungeon.bossLevel( Dungeon.depth + 1 ) ? Terrain.HIGH_GRASS : Terrain.CHASM );
+		fill( level, room, 1,  Terrain.HIGH_GRASS );
 		
 		Point c = room.center();
 		Room.Door door = room.entrance();

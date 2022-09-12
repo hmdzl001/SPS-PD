@@ -67,10 +67,8 @@ public class Bestiary {
 				
 		switch (depth) {
 			case 1:
-				chances = new float[]{1, 1,1,
-						0.02f};
-				classes = new Class<?>[]{Rat.class, BrownBat.class,Shit.class,
-						RatBoss.class};
+				chances = new float[]{1, 1, 0.02f};
+				classes = new Class<?>[]{Rat.class, BrownBat.class, RatBoss.class};
 				break;
 			case 2:
 				chances = new float[]{1, 1,1,

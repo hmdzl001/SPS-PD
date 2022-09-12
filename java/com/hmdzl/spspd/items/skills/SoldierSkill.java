@@ -28,8 +28,10 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.MagicalSleep;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.Ooze;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
@@ -37,6 +39,7 @@ import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
@@ -72,7 +75,7 @@ public class SoldierSkill extends ClassSkill {
 			}
 		}
 
-		int nImages = 3;
+		int nImages = 2;
 		while (nImages > 0 && respawnPoints.size() > 0) {
 			int index = Random.index(respawnPoints);
 
@@ -160,7 +163,7 @@ public class SoldierSkill extends ClassSkill {
 		Sample.INSTANCE.play(Assets.SND_READ);
 	}
 
-	public static class SeekingBomb extends Mob {
+	public static class SeekingBomb extends NPC {
 		{
 			spriteClass = BMirrorSprite.class;
 			hostile = false;
@@ -185,16 +188,7 @@ public class SoldierSkill extends ClassSkill {
 		public int drRoll() {
 			return Dungeon.hero.drRoll();
 		}
-		@Override
-		public int attackProc(Char enemy, int damage) {
 
-			int dmg = super.attackProc(enemy, damage);
-			DungeonBomb bomb = new DungeonBomb();
-			bomb.explode(pos);
-			//destroy();
-			//sprite.die();
-			return dmg;
-		}
 		public int skin;
 		private static final String SKIN = "skin";
 		@Override
@@ -211,6 +205,35 @@ public class SoldierSkill extends ClassSkill {
 
 		public void duplicates(Hero hero) {
 			skin = hero.useskin();
+		}
+
+
+		public boolean interact() {
+			if (!Level.passable[pos]){
+				return true;
+			}
+			if (this.buff(MagicalSleep.class) != null) {
+				Buff.detach(this, MagicalSleep.class);
+			}
+
+			if (state == SLEEPING) {
+				state = HUNTING;
+			}
+			if (buff(Paralysis.class) != null) {
+				Buff.detach(this, Paralysis.class);
+			}
+
+			int curPos = pos;
+
+			moveSprite(pos, Dungeon.hero.pos);
+			move(Dungeon.hero.pos);
+
+			Dungeon.hero.sprite.move(Dungeon.hero.pos, curPos);
+			Dungeon.hero.move(curPos);
+
+			Dungeon.hero.spend(1 / Dungeon.hero.speed());
+			Dungeon.hero.busy();
+			return true;
 		}
 
 		@Override
@@ -274,16 +297,7 @@ public class SoldierSkill extends ClassSkill {
 
 			properties.add(Property.MECH);
 		}
-		@Override
-		public int attackProc(Char enemy, int damage) {
-			int dmg = super.attackProc(enemy, damage);
-			DungeonBomb bomb = new DungeonBomb();
-			bomb.explode(pos);
-			bomb.explode(pos);
-			destroy();
-			sprite.die();
-			return dmg;
-		}
+
 
 		@Override
 		protected Char chooseEnemy() {

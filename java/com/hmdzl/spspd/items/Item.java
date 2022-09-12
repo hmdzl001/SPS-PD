@@ -49,8 +49,6 @@ import java.util.Comparator;
 
 public class Item implements Bundlable {
 
-	private static final String TXT_PACK_FULL = "Your pack is too full for the %s";
-
 	private static final String TXT_TO_STRING = "%s";
 	private static final String TXT_TO_STRING_X = "%s x%d";
 	private static final String TXT_TO_STRING_LVL = "%s%+d";
@@ -333,6 +331,11 @@ public class Item implements Bundlable {
 	
 	public Item reinforce(){
 		reinforced=true;
+		return this;
+	}
+
+	public Item dounique(){
+		unique=false;
 		return this;
 	}
 

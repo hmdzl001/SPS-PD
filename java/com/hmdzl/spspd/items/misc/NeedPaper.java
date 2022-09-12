@@ -123,5 +123,8 @@ public class NeedPaper extends Item {
 		String info = super.desc();
 		return info;
 	}	
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 }

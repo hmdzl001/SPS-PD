@@ -34,7 +34,7 @@ public class TentSleep extends FlavourBuff {
 	}
 	@Override
 	public int icon() {
-		return BuffIndicator.BLESS;
+		return BuffIndicator.MAGIC_SLEEP;
 	}
 
 	@Override

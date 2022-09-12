@@ -22,6 +22,13 @@ import android.opengl.GLES20;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
+import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.GlassShield;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.mobs.Bestiary;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.levels.traps.BlazingTrap;
@@ -81,7 +88,7 @@ public class HallsLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 200+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.depth] = 50+(Dungeon.depth*50)+(secretDoors*20);
 	}
 
 	@Override
@@ -162,17 +169,34 @@ public class HallsLevel extends RegularLevel {
 		
          for (int i = 0; i < getLength(); i++) {
 			
-			if (map[i]==Terrain.EXIT){map[i] = Terrain.LOCKED_EXIT; 
-
+			if (map[i]==Terrain.EXIT){map[i] = Terrain.LOCKED_EXIT;
+			if (map[i]==Terrain.CHASM){map[i] = Terrain.OLD_HIGH_GRASS;}
 			}			
 			
 		}
          
          setPar();
-		
+
 		
 	}
-	
+
+	@Override
+	protected void createMobs() {
+		int nMobs = nMobs();
+		for (int i = 0; i < nMobs; i++) {
+			Mob mob = Bestiary.mob(Dungeon.depth);
+			do {
+				mob.pos = randomRespawnCell();
+				mob.originalgen=true;
+				Buff.affect(mob,ShieldArmor.class).level(Dungeon.depth*15);
+				Buff.affect(mob,MagicArmor.class).level(Dungeon.depth*15);
+				Buff.affect(mob,GlassShield.class).turns(1);
+			} while (mob.pos == -1);
+			mobs.add(mob);
+			Actor.occupyCell(mob);
+		}
+	}
+
 	@Override
 	protected void createItems() {
 		if (Dungeon.depth!=25){addItemToSpawn(new SkeletonKey(Dungeon.depth));}

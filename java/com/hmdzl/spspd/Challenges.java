@@ -26,7 +26,8 @@ public class Challenges {
 	public static final int DEW_REJECTION = 16;
 	public static final int DARKNESS = 32;
 	public static final int ABRASION = 64;
-	public static final int TEST_TIME = 128;
+	public static final int ELE_STOME = 128;
+	public static final int TEST_TIME = 256;
 
 	public static final String[] NAME_IDS = {
 			"item_phobia",
@@ -36,11 +37,12 @@ public class Challenges {
 			"dew_rejection",
 			"darkness",
 			"abrasion",
+			"ele_stome",
 		    "test_time"
 		};
 
 	public static final int[] MASKS = { 
 	        ITEM_PHOBIA, LISTLESS, NIGHTMARE_VIRUS,
-			ENERGY_LOST, DEW_REJECTION, DARKNESS, ABRASION, TEST_TIME};
+			ENERGY_LOST, DEW_REJECTION, DARKNESS, ABRASION, ELE_STOME, TEST_TIME};
 
 }

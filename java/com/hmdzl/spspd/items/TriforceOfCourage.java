@@ -21,6 +21,8 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
+import java.util.ArrayList;
+
 public class TriforceOfCourage extends Item {
 
 	{
@@ -30,7 +32,14 @@ public class TriforceOfCourage extends Item {
 		stackable = false;
 		unique = true;
 	}
-	
+	@Override
+	public ArrayList<String> actions(Hero hero) {
+		ArrayList<String> actions = super.actions(hero);
+		actions.remove(AC_DROP);
+		actions.remove(AC_THROW);
+		return actions;
+	}
+
 	@Override
 	public boolean isUpgradable() {
 		return false;

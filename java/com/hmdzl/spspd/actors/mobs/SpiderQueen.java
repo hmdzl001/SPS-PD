@@ -163,7 +163,7 @@ public class SpiderQueen extends Mob {
 	
 	@Override
 	public Item SupercreateLoot(){
-			return new TaurcenBow().identify();
+			return new TaurcenBow().identify().dounique();
 	}	
 
 	@Override

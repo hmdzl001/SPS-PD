@@ -61,7 +61,10 @@ public class FaithSign extends Item {
 		actions.add(AC_BALANCE);
 		return actions;
 	}
-
+	@Override
+	public int price() {
+		return 30 * quantity;
+	}
 	@Override
 	public void execute(Hero hero, String action) {
 

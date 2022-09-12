@@ -106,7 +106,7 @@ public class PrisonLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 500+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.depth] = 200+(Dungeon.depth*50)+(secretDoors*20);
 	}
 
 	@Override
