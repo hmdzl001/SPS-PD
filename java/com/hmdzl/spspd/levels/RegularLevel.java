@@ -53,7 +53,7 @@ import java.util.List;
 
 import static com.hmdzl.spspd.items.Heap.Type.HEAP;
 
-public abstract class RegularLevel extends Level {
+public abstract class  RegularLevel extends Level {
 
 	protected HashSet<Room> rooms;
 

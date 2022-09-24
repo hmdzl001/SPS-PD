@@ -128,6 +128,10 @@ import com.hmdzl.spspd.items.misc.SeriousPunch;
 import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.misc.UndeadBook;
 import com.hmdzl.spspd.items.nornstone.BlueNornStone;
+import com.hmdzl.spspd.items.nornstone.GreenNornStone;
+import com.hmdzl.spspd.items.nornstone.OrangeNornStone;
+import com.hmdzl.spspd.items.nornstone.PurpleNornStone;
+import com.hmdzl.spspd.items.nornstone.YellowNornStone;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
@@ -424,11 +428,11 @@ public enum HeroClass {
 			new PotionOfStrength().identify().collect();
 			//new ExpOre().collect();
 			//new PotionOfShield().identify().collect();
-		//	new YellowNornStone().collect();
+			new YellowNornStone().collect();
 			new BlueNornStone().collect();
-		//	new OrangeNornStone().collect();
-			//new PurpleNornStone().collect();
-			//new GreenNornStone().collect();
+			new OrangeNornStone().collect();
+			new PurpleNornStone().collect();
+			new GreenNornStone().collect();
 	   }
 			for(int i=0; i<10; i++){
 				new Seedpod.Seed().collect();

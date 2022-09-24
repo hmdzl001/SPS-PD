@@ -12,7 +12,7 @@ import java.util.Locale;
 public enum Languages {
 	ENGLISH("english",      "", Status.REVIEWED, null, null),
 
-	//RUSSIAN("русский",      "ru", Status.INCOMPLETE, new String[]{"ConsideredHamster", "Inevielle", "yarikonline"}, new String[]{"AttHawk46", "HerrGotlieb", "MrXantar", "Shamahan", "roman.yagodin", "un_logic"}),
+	RUSSIAN("русский",      "ru", Status.INCOMPLETE, new String[]{"NONE"}, new String[]{"Dominowood371"}),
 	//KOREAN("한국어",         "ko", Status.INCOMPLETE, new String[]{"Flameblast12"}, new String[]{"WondarRabb1t", "ddojin0115", "eeeei", "linterpreteur", "lsiebnie" }),
 	CHINESE("中文",          "zh", Status.REVIEWED, new String[]{"Jinkeloid(zdx00793)"}, new String[]{"931451545", "HoofBumpBlurryface", "Lery", "Lyn-0401", "ShatteredFlameBlast", "hmdzl001", "tempest102"}),
 	TCHINESE("繁体中文",          "tzh", Status.INCOMPLETE, new String[]{"Chinese"}, new String[]{"nana19981016", "那些回忆"});

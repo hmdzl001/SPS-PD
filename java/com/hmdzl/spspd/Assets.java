@@ -396,5 +396,11 @@ public class Assets {
 	public static final String BONESTAR = "bonestar.png";
 	public static final String HARO = "haro.png";
 	public static final String BUTTER_CAT = "buttercat.png";
+
+	public static final String ICE_BIG = "icebig.png";
+	public static final String SINGLE_EYE = "singleeye.png";
+	public static final String BOUND_HUNTER = "boundhunter.png";
+	public static final String PLANT_DOCTOR = "plantdoctor.png";
+
 }
 

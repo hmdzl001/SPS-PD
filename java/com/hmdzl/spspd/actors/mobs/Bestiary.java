@@ -281,19 +281,19 @@ public class Bestiary {
 			break;
 		
 		case 27:
-			chances = new float[] { 1, 0.05f,0.1f };
+			chances = new float[] { 1, 0.1f,0.1f };
 			classes = new Class<?>[] { GnollArcher.class, ForestProtector.class,Brute.class };
 			break;
 		case 28:
-			chances = new float[] { 1, 0.05f,0.1f };
+			chances = new float[] { 1, 0.1f,0.1f };
 			classes = new Class<?>[] { MossySkeleton.class, GraveProtector.class,ManySkeleton.class};
 			break;	
 		case 29:
-			chances = new float[] { 1, 0.05f,0.1f };
+			chances = new float[] { 1, 0.1f,0.1f };
 			classes = new Class<?>[] { AlbinoPiranha.class, FishProtector.class,Crab.class };
 			break;	
 		case 30:
-		    chances = new float[] { 1, 0.05f,0.1f };
+		    chances = new float[] { 1, 0.1f,0.1f };
 			classes = new Class<?>[] { GoldThief.class, VaultProtector.class,Succubus.class};
 			break;	
 				

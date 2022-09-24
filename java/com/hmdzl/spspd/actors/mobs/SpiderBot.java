@@ -79,13 +79,8 @@ public class SpiderBot extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if(enemy instanceof Hero && this.buff(SkillUse.class)==null){
-			BugMeat bugfood = new BugMeat();
-			if (!bugfood.collect()) {
-				Dungeon.level.drop( bugfood, Dungeon.hero.pos ).sprite.drop();
-			} else if (enemy.buff(BugMeat.BugSlow.class) == null)
-				Buff.affect(enemy,BugMeat.BugSlow.class);
+			spanbug();
 			Buff.affect(this,SkillUse.class);
-            GLog.n( Messages.get(this, "yell") );
 		}
 		return damage;
 	}
@@ -94,13 +89,8 @@ public class SpiderBot extends Mob {
 	public int defenseProc(Char enemy, int damage) {
 
 		if(enemy instanceof Hero && this.buff(SkillUse2.class)==null){
-			BugMeat bugfood = new BugMeat();
-			if (!bugfood.collect()) {
-				Dungeon.level.drop( bugfood, Dungeon.hero.pos ).sprite.drop();
-			} else if (enemy.buff(BugMeat.BugSlow.class) == null)
-				Buff.affect(enemy,BugMeat.BugSlow.class);
+            spanbug();
 			Buff.affect(this,SkillUse2.class);
-            GLog.n( Messages.get(this, "yell") );
 		}
 
 		return super.defenseProc(enemy, damage);
@@ -118,12 +108,7 @@ public class SpiderBot extends Mob {
 		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
 			Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
 			if (ch != null && ch.isAlive() && ch == Dungeon.hero) {
-					BugMeat bugfood = new BugMeat();
-					if (!bugfood.collect()) {
-						Dungeon.level.drop( bugfood, Dungeon.hero.pos ).sprite.drop();
-					} else if (enemy.buff(BugMeat.BugSlow.class) == null)
-						Buff.affect(enemy,BugMeat.BugSlow.class);
-                GLog.n( Messages.get(this, "yell") );
+				spanbug();
 			}
 		}
 
@@ -132,6 +117,15 @@ public class SpiderBot extends Mob {
 	{
 		resistances.add(Bleeding.class);
 		immunities.add(Roots.class);
+	}
+
+	private void spanbug() {
+		Char ch = Dungeon.hero;
+		BugMeat bugfood = new BugMeat();
+		if (!bugfood.collect(Dungeon.hero.belongings.backpack)) {
+			Dungeon.level.drop( bugfood, ch.pos ).sprite.drop();
+		} else Buff.affect(ch,BugMeat.BugSlow.class);
+		GLog.n( Messages.get(this, "yell") );
 	}
 
 

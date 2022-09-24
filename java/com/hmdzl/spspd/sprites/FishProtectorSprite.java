@@ -25,7 +25,7 @@ public class FishProtectorSprite extends MobSprite {
 	public FishProtectorSprite() {
 		super();
 
-		texture(Assets.DEWPROTECTOR);
+		texture(Assets.ICE_BIG);
 
 		TextureFilm frames = new TextureFilm(texture, 12, 15);
 

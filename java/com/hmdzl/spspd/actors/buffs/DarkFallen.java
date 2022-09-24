@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.ErrorSprite;
+import com.hmdzl.spspd.sprites.ShadowRatSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -58,7 +58,7 @@ public class DarkFallen extends Buff {
 	public static class DarkLiver extends Mob {
 
 		{
-			spriteClass = ErrorSprite.class;
+			spriteClass = ShadowRatSprite.class;
 
 			HP = HT = 10 + Statistics.moves;
 			evadeSkill = Statistics.moves;

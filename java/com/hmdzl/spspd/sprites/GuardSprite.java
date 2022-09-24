@@ -38,11 +38,13 @@ public class GuardSprite extends MobSprite {
 		attack = new Animation( 12, false );
 		attack.frames( frames, 8, 9, 10 );
 
+
 		die = new Animation( 8, false );
 		die.frames( frames, 11, 12, 13, 14 );
 
 		play( idle );
 	}
+
 
 	@Override
 	public void die() {
