@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -26,7 +27,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.actors.buffs.SkillUse2;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.BugMeat;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
@@ -35,6 +35,7 @@ import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SpiderBotSprite;
 import com.hmdzl.spspd.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class SpiderBot extends Mob {
@@ -78,8 +79,8 @@ public class SpiderBot extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if(enemy instanceof Hero && this.buff(SkillUse.class)==null){
-			spanbug();
+		if(this.buff(SkillUse.class)==null ){
+			spanbug(this.pos);
 			Buff.affect(this,SkillUse.class);
 		}
 		return damage;
@@ -88,8 +89,8 @@ public class SpiderBot extends Mob {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 
-		if(enemy instanceof Hero && this.buff(SkillUse2.class)==null){
-            spanbug();
+		if(this.buff(SkillUse2.class)==null && damage < this.HP){
+            spanbug(this.pos);
 			Buff.affect(this,SkillUse2.class);
 		}
 
@@ -104,28 +105,40 @@ public class SpiderBot extends Mob {
 
 	@Override
 	public void die(Object cause) {
-		super.die(cause);
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
-			if (ch != null && ch.isAlive() && ch == Dungeon.hero) {
-				spanbug();
-			}
-		}
 
+		super.die(cause);
+		BugMeat bugfood = new BugMeat();
+		int dist = Level.distance(pos, Dungeon.hero.pos);
+		if (dist < 2) {
+			if (!bugfood.collect(Dungeon.hero.belongings.backpack)) {
+				Dungeon.level.drop( bugfood, Dungeon.hero.pos ).sprite.drop();
+			}
+			GLog.n( Messages.get(this, "yell") );
+		} else Dungeon.level.drop( bugfood, pos ).sprite.drop();
+
+
+
+		if (Dungeon.visible[pos]) {
+			Sample.INSTANCE.play(Assets.SND_BONES);
+		}
 	}
+
 
 	{
 		resistances.add(Bleeding.class);
 		immunities.add(Roots.class);
 	}
 
-	private void spanbug() {
+	private void spanbug(int pos) {
 		Char ch = Dungeon.hero;
 		BugMeat bugfood = new BugMeat();
-		if (!bugfood.collect(Dungeon.hero.belongings.backpack)) {
-			Dungeon.level.drop( bugfood, ch.pos ).sprite.drop();
-		} else Buff.affect(ch,BugMeat.BugSlow.class);
-		GLog.n( Messages.get(this, "yell") );
+		int dist = Level.distance(pos, Dungeon.hero.pos);
+		if (dist < 2) {
+			if (!bugfood.collect(Dungeon.hero.belongings.backpack)) {
+				Dungeon.level.drop( bugfood, ch.pos ).sprite.drop();
+			}
+			GLog.n( Messages.get(this, "yell") );
+		} else Dungeon.level.drop( bugfood, pos ).sprite.drop();
 	}
 
 

@@ -291,13 +291,16 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 		int EX_HT = 0;
-		if (hero.buff(RingOfMight.Might.class) != null || hero.buff(HTimprove.class) != null ) {
+		if (hero.buff(RingOfMight.Might.class) != null || hero.buff(HTimprove.class) != null || Dungeon.hero.subClass == HeroSubClass.PASTOR ) {
             for (Buff buff : buffs(RingOfMight.Might.class)) {
                 EX_HT += (int) (Math.min((TRUE_HT * RingOfMight.strengthBonus(this) / 15), TRUE_HT * 2));
             }
             for (Buff buff : buffs(HTimprove.class)) {
                 EX_HT += (int) (TRUE_HT * 0.2);
             }
+            if (Dungeon.hero.subClass == HeroSubClass.PASTOR){
+				EX_HT += (int) (TRUE_HT * 0.5);
+			}
 		} else EX_HT = 0;
 
 		HT = TRUE_HT + EX_HT;
@@ -1620,7 +1623,9 @@ public class Hero extends Char {
 			}
 			break;
 			case ASCETIC:
-				enemy.damage(hero.magicSkill(),ENERGY_DAMAGE);
+				if ( hero.magicSkill() > 0) {
+					enemy.damage(hero.magicSkill(), ENERGY_DAMAGE);
+				}
 				break;
 		}
 		switch (subClass) {
@@ -1677,8 +1682,10 @@ public class Hero extends Char {
 				Buff.affect(enemy,BeTired.class).set(20);
 				break;	
 			case HACKER:
-				enemy.damage((int)(hero.magicSkill()*damage/10),ENERGY_DAMAGE);
-				Buff.affect(this,MagicArmor.class).level(hero.magicSkill());
+				if (hero.magicSkill() >0) {
+					enemy.damage((int) (hero.magicSkill() * damage / 10), ENERGY_DAMAGE);
+					Buff.affect(this, MagicArmor.class).level(hero.magicSkill());
+				}
 				break;						
 		default:
 		}

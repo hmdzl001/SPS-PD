@@ -28,19 +28,19 @@ public class GoldCollectorSprite extends MobSprite {
 
 		texture( Assets.GOLDCOLLECTOR );
 
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+		TextureFilm frames = new TextureFilm( texture, 12, 16 );
 
         idle = new Animation( 10, true );
-        idle.frames(frames, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3);
+        idle.frames(frames, 0, 0, 0, 1, 1, 1);
 
         run = new Animation( 20, true );
-        run.frames( frames, 0 );
+        run.frames( frames, 0,4,5,6,7,0 );
 
-        attack = new Animation( 12, false );
+        attack = new Animation( 15, false );
         attack.frames( frames, 0, 2, 3 );
 
         die = new Animation( 20, false );
-        die.frames( frames, 0 );
+        die.frames( frames, 0,7,8 );
 
         play( idle );
     }

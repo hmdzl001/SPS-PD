@@ -32,7 +32,6 @@ import com.hmdzl.spspd.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.items.rings.RingOfFuror;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.weapon.enchantments.AresLeech;
-import com.hmdzl.spspd.items.weapon.enchantments.BuzzSaw;
 import com.hmdzl.spspd.items.weapon.enchantments.CromLuck;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
@@ -312,12 +311,6 @@ public class Weapon extends KindOfWeapon {
 		return enchant(ench);
 	}
 	
-	public Weapon enchantBuzz() {
-
-		Enchantment ench = Enchantment.Buzz();
-		return enchant(ench);
-	}
-	
 	public Weapon enchantNeptune() {
 
 		Enchantment ench = Enchantment.Neptune();
@@ -359,7 +352,7 @@ public class Weapon extends KindOfWeapon {
 				EnchantmentFire2.class,
 				EnchantmentEarth2.class, EnchantmentDark2.class, EnchantmentEnergy2.class,
 				EnchantmentIce2.class, EnchantmentShock2.class, EnchantmentLight2.class,
-				BuzzSaw.class};
+				};
 				
 		private static final Class<?>[] randomA = new Class<?>[] { EnchantmentFire.class,
 				EnchantmentEarth.class, EnchantmentDark.class, EnchantmentEnergy.class,
@@ -367,22 +360,18 @@ public class Weapon extends KindOfWeapon {
 				EnchantmentFire2.class,
 				EnchantmentEarth2.class, EnchantmentDark2.class, EnchantmentEnergy2.class,
 				EnchantmentIce2.class, EnchantmentShock2.class, EnchantmentLight2.class,
-				BuzzSaw.class};				
+				};
 		private static final float[] chances = new float[] { 5, 5, 5, 5, 5,5,
 				5, 5, 5, 5, 5, 5,
-				5, 5, 0};
+				5, 5};
 		
 		private static final float[] chancesLow = new float[] { 3, 3, 3, 3, 3, 3,
 				3, 3, 3, 3, 3, 3,
-			3, 3, 0 };
+			3, 3};
 		
 		private static final float[] chancesAdv = new float[] { 2, 2, 2, 2, 2,2,
 				2, 2, 2, 2, 2, 2,
-			2, 2, 0 };
-
-		private static final float[] chancesBuzz = new float[] {  0, 0,0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0 , 10 };
+			2, 2 };
 
 		private static final Class<?>[] relicenchants = new Class<?>[] {  NeptuneShock.class,
 			CromLuck.class, AresLeech.class, JupitersHorror.class, LokisPoison.class};
@@ -465,15 +454,6 @@ public class Weapon extends KindOfWeapon {
 		public static Enchantment randomLow() {
 			try {
 				return ((Class<Enchantment>) enchants[Random.chances(chancesLow)])
-						.newInstance();
-			} catch (Exception e) {
-				return null;
-			}
-		}
-		@SuppressWarnings("unchecked")
-		public static Enchantment Buzz() {
-			try {
-				return ((Class<Enchantment>) enchants[Random.chances(chancesBuzz)])
 						.newInstance();
 			} catch (Exception e) {
 				return null;

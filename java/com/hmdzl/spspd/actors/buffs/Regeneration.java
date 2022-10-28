@@ -31,7 +31,7 @@ public class Regeneration extends Buff {
 	public boolean act() {
 		if (target.isAlive()) {
   			if (!((Hero) target).isStarving() && !((Hero) target).isBeOld()){
-				if (Dungeon.hero.subClass == HeroSubClass.PASTOR && target.HP < target.HT*1.5){
+				if (Dungeon.hero.subClass == HeroSubClass.PASTOR && target.HP < target.HT){
 				    target.HP += 2*Math.max(1, Dungeon.hero.lvl/5);
 				} else if (target.HP < target.HT) {
 					target.HP += Math.min((target.HT - target.HP),Math.max(1, Dungeon.hero.lvl/5));

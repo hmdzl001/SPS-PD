@@ -23,6 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.LeafParticle;
@@ -94,7 +95,7 @@ public class HighGrass {
 			
 			if (naturalismLevel >= 1) {
 				// Seed
-				if (Statistics.findseed >55 - naturalismLevel*5) {
+				if (Statistics.findseed >50 - naturalismLevel*4) {
 					Item seed = Generator.random(Generator.Category.SEED);
 					level.drop(seed, pos).sprite.drop();
 					Statistics.findseed = 0;
@@ -130,6 +131,11 @@ public class HighGrass {
 				level.drop(Generator.random(Generator.Category.BERRY), pos).sprite.drop();
 				Statistics.findseed = 0;
 			}
+		}
+
+		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.ASCETIC && Dungeon.skins == 2) {
+			Dungeon.hero.HP++;
+			Dungeon.gold++;
 		}
 
 		CellEmitter.get(pos).burst(LeafParticle.LEVEL_SPECIFIC, leaves);

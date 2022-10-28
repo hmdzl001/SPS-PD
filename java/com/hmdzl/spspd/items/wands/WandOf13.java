@@ -30,6 +30,7 @@ import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -37,6 +38,14 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 
 public class WandOf13 extends DamageWand {
+
+    private static ItemSprite.Glowing RED = new ItemSprite.Glowing(0xCC0000);
+
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return RED;
+	}
+
 
 	{
 

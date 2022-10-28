@@ -36,7 +36,7 @@ public class BaBaSprite extends MobSprite {
 		run = idle.clone();
 
 		attack = new Animation(12, false);
-		attack.frames(frames, 2, 3, 0, 1);
+		attack.frames(frames, 6, 7, 4, 5);
 
 		die = new Animation(20, false);
 		die.frames(frames, 4);

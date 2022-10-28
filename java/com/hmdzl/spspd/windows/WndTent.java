@@ -199,7 +199,7 @@ public class WndTent extends Window {
 	}
 
 	private void updateState(){
-		if(filterInput(Item.class) != null){
+		if(filterInput(Item.class).size() > 0){
 			output.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
 			output.visible = true;
 			btnCombine.enable(true);

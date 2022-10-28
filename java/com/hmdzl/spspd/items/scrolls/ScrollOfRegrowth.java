@@ -64,6 +64,7 @@ public class ScrollOfRegrowth extends Scroll {
 							Dungeon.level.map[i] == Terrain.EMBERS ||
 							Dungeon.level.map[i] == Terrain.EMPTY_DECO ||
 							Dungeon.level.map[i] == Terrain.GRASS ||
+						    Dungeon.level.map[i] == Terrain.OLD_HIGH_GRASS ||
 							Dungeon.level.map[i] == Terrain.HIGH_GRASS){
 					
 					plantCandidates.add(i);

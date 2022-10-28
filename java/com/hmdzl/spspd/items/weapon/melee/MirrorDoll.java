@@ -15,38 +15,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.food.meatfood;
+package com.hmdzl.spspd.items.weapon.melee;
 
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.FunnyBuff;
-import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.buffs.Silent;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
-public class FunnyFood extends MeatFood {
+public class MirrorDoll extends MeleeWeapon {
+
 
 	{
-		//name = "monster meat";
-		image = ItemSpriteSheet.FUNNY_FOOD;
-		energy = 500;
-		hornValue = 1;
-		 
+		//name = "MirrorDoll";
+		image = ItemSpriteSheet.MIRROR_DOLL;
+	}
+
+	public MirrorDoll() {
+		super(2, 1f, 1f, 2);
+	}
+
+	public Item upgrade(boolean enchant) {
+		
+		MIN+=1;
+        MAX+=1;
+		super.upgrade(enchant);
+		return this;
 	}
 
 	@Override
-	public void execute(Hero hero, String action) {
+	public void proc(Char attacker, Char defender, int damage) {
 
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-		
-			Buff.prolong(hero, FunnyBuff.class,1600f);
-		
+		if (defender.buff(Silent.class) != null) {
+			damage = (int) (damage * 1.5);
+		} else Buff.affect(defender,Silent.class,5f);
+		if (enchantment != null) {
+			enchantment.proc(this, attacker, defender, damage);
 		}
-	}	
-
-	@Override
-	public int price() {
-		return 1 * quantity;
 	}
-		
+
 }

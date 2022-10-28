@@ -27,6 +27,7 @@ import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
@@ -56,8 +57,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunB;
 import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
-import com.hmdzl.spspd.items.weapon.melee.special.Brick;
-import com.hmdzl.spspd.items.PocketBall;
+import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.levels.HallsLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
@@ -122,7 +122,7 @@ public class ShopPainter extends Painter {
 		case 1:
 			itemsToSpawn.add(new GunA().identify());
 			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new Brick());
+			itemsToSpawn.add(new Pumpkin());
 		    itemsToSpawn.add(new DolyaSlate().identify());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());

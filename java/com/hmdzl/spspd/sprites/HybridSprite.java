@@ -25,26 +25,27 @@ import com.watabou.noosa.TextureFilm;
 
 public class HybridSprite extends MobSprite {
     private int attackPos;
+	
 	public HybridSprite() {
 		super();
 
 		texture( Assets.HYBRID );
 
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+        TextureFilm frames = new TextureFilm(texture, 22, 18);
 
-        idle = new Animation( 3, true );
-        idle.frames(frames, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3);
+        idle = new Animation(10, true);
+        idle.frames(frames, 0, 1);
 
-        run = new Animation( 20, true );
-        run.frames( frames, 0 );
+        run = new Animation(10, true);
+        run.frames(frames, 2, 3);
 
-        attack = new Animation( 12, false );
-        attack.frames( frames, 0, 2, 3 );
+        attack = new Animation(10, false);
+        attack.frames(frames, 4, 5, 6,7);
 
-        die = new Animation( 20, false );
-        die.frames( frames, 0 );
+        die = new Animation(4, false);
+        die.frames(frames, 0, 8, 9, 10);
 
-        play( idle );
+        play(idle);
     }
 
     @Override

@@ -35,8 +35,7 @@ public class RedDragonSprite extends MobSprite {
 		super();
 
 		final Calendar calendar = Calendar.getInstance();
-		festive = (calendar.get(Calendar.MONTH) == 10 && calendar
-				.get(Calendar.WEEK_OF_MONTH) > 2);		
+		festive = (calendar.get(Calendar.MONTH) == Calendar.OCTOBER );
 		
 		final int c = festive ? 0 : 16;
 		

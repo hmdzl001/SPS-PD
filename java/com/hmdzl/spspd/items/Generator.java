@@ -214,6 +214,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.melee.AssassinsBlade;
 import com.hmdzl.spspd.items.weapon.melee.BattleAxe;
 import com.hmdzl.spspd.items.weapon.melee.Club;
+import com.hmdzl.spspd.items.weapon.melee.CurseBox;
 import com.hmdzl.spspd.items.weapon.melee.Dagger;
 import com.hmdzl.spspd.items.weapon.melee.Dualknive;
 import com.hmdzl.spspd.items.weapon.melee.FightGloves;
@@ -221,6 +222,7 @@ import com.hmdzl.spspd.items.weapon.melee.Flute;
 import com.hmdzl.spspd.items.weapon.melee.Glaive;
 import com.hmdzl.spspd.items.weapon.melee.Gsword;
 import com.hmdzl.spspd.items.weapon.melee.Halberd;
+import com.hmdzl.spspd.items.weapon.melee.HandLight;
 import com.hmdzl.spspd.items.weapon.melee.Handaxe;
 import com.hmdzl.spspd.items.weapon.melee.Harp;
 import com.hmdzl.spspd.items.weapon.melee.HolyWater;
@@ -228,6 +230,7 @@ import com.hmdzl.spspd.items.weapon.melee.Knuckles;
 import com.hmdzl.spspd.items.weapon.melee.Lance;
 import com.hmdzl.spspd.items.weapon.melee.Mace;
 import com.hmdzl.spspd.items.weapon.melee.MageBook;
+import com.hmdzl.spspd.items.weapon.melee.MirrorDoll;
 import com.hmdzl.spspd.items.weapon.melee.Nunchakus;
 import com.hmdzl.spspd.items.weapon.melee.PrayerWheel;
 import com.hmdzl.spspd.items.weapon.melee.Rapier;
@@ -236,10 +239,12 @@ import com.hmdzl.spspd.items.weapon.melee.ShortSword;
 import com.hmdzl.spspd.items.weapon.melee.Spear;
 import com.hmdzl.spspd.items.weapon.melee.StoneCross;
 import com.hmdzl.spspd.items.weapon.melee.Triangolo;
+import com.hmdzl.spspd.items.weapon.melee.TrickSand;
 import com.hmdzl.spspd.items.weapon.melee.Trumpet;
 import com.hmdzl.spspd.items.weapon.melee.WarHammer;
 import com.hmdzl.spspd.items.weapon.melee.Wardrum;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
+import com.hmdzl.spspd.items.weapon.melee.WindBottle;
 import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
 import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
 import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
@@ -393,13 +398,15 @@ public class Generator {
 				AssassinsBlade.class,BattleAxe.class,Glaive.class,Club.class,
 				Gsword.class, Halberd.class, WarHammer.class, Lance.class,
 				Triangolo.class, Flute.class, Wardrum.class, Trumpet.class, Harp.class,
-				WoodenStaff.class, Mace.class, HolyWater.class, PrayerWheel.class, StoneCross.class};
+				WoodenStaff.class, Mace.class, HolyWater.class, PrayerWheel.class, StoneCross.class,
+				TrickSand.class, MirrorDoll.class, WindBottle.class, HandLight.class, CurseBox.class};
 		Category.MELEEWEAPON.probs = new float[] {
 				1,1,1,1,
 				1,1,1,1,
 				1,1,1,1,
 				1,1,1,1,
 				1,1,1,1,
+				1,1,1,1,1,
 				1,1,1,1,1,
 				1,1,1,1,1,
 		};

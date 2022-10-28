@@ -23,6 +23,7 @@ import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.ArmorKit;
+import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Elevator;
 import com.hmdzl.spspd.items.Generator;
@@ -42,6 +43,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.ClothArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.LifeArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.StyrofoamArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.VestArmor;
@@ -99,8 +101,8 @@ import com.hmdzl.spspd.items.misc.DemoScroll;
 import com.hmdzl.spspd.items.misc.DiceTower;
 import com.hmdzl.spspd.items.misc.FaithSign;
 import com.hmdzl.spspd.items.misc.FourClover;
-import com.hmdzl.spspd.items.misc.GhostGirlRose;
 import com.hmdzl.spspd.items.misc.GnollMark;
+import com.hmdzl.spspd.items.misc.GrassBook;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.misc.HealBag;
 import com.hmdzl.spspd.items.misc.HorseTotem;
@@ -172,6 +174,7 @@ import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
+import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunA;
 import com.hmdzl.spspd.items.weapon.guns.GunB;
@@ -193,6 +196,7 @@ import com.hmdzl.spspd.items.weapon.melee.special.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.special.EleKatana;
 import com.hmdzl.spspd.items.weapon.melee.special.HolyMace;
 import com.hmdzl.spspd.items.weapon.melee.special.LinkSword;
+import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.items.weapon.melee.zero.EmptyPotion;
 import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
@@ -287,6 +291,7 @@ public enum HeroClass {
 		new KeyRing().collect();
 		new Pasty().identify().collect();
 		new Chocolate().identify().collect();
+		new DewVial().identify().collect();
 		if (Dungeon.skins != 3 && Dungeon.skins != 6) {
 			new Ankhshield().collect();
 		}
@@ -404,7 +409,7 @@ public enum HeroClass {
 			new TomeOfMastery().collect();
 			//new ShadowEater().collect();
 			new TestWeapon().identify().collect();
-			//new UnstableSpellbook().upgrade(4).collect();
+			new WandOfTCloud().upgrade(10).collect();
 
 		//	new GoldDragonEgg().collect();
 		//	new VioletDragonEgg().collect();
@@ -436,6 +441,7 @@ public enum HeroClass {
 	   }
 			for(int i=0; i<10; i++){
 				new Seedpod.Seed().collect();
+				new Dewcatcher.Seed().collect();
 				new ScrollOfRegrowth().collect();
 				//new PotionOfLiquidFlame().collect();
 				new ScrollOfPsionicBlast().collect();
@@ -459,7 +465,7 @@ public enum HeroClass {
 		//new LynnDoll(10).collect();
 		//new WandOfFlock().upgrade(10).identify().collect();
 		//new WandOfBlackMeow().identify().collect();
-		new GhostGirlRose().collect();
+		new Pumpkin().collect();
 			new FourClover().collect();
 
 			new MasterThievesArmband().upgrade(5).collect();
@@ -1032,18 +1038,15 @@ public enum HeroClass {
 			//new CannonOfMage().identify().collect();
 			new JumpA().collect();
 		} else if (Dungeon.skins == 2) {
-			//hero.TRUE_HT-=10;
-			//Dungeon.hero.updateHT(false);
-			//hero.hitSkill-=5;
-			//hero.evadeSkill+=2;
-			//hero.magicSkill+=3;
-			//(hero.belongings.weapon = new Dagger()).identify();
-			//(hero.belongings.armor = new VestArmor()).identify();
-			//new WandOfFirebolt().upgrade(1).identify().collect();
-			//new WandOfFreeze().upgrade(1).identify().collect();
-			//new WandOfLightning().upgrade(1).identify().collect();
-			//new GnollMark().collect();
-			//new JumpM().collect();
+			hero.TRUE_HT+=10;
+			Dungeon.hero.updateHT(false);
+			hero.hitSkill+=4;
+			hero.evadeSkill+=2;
+			hero.magicSkill-=3;
+			(hero.belongings.weapon = new WoodenStaff()).identify();
+			(hero.belongings.armor = new LifeArmor()).identify();
+			new GrassBook().collect();
+			new JumpA().collect();
 		}  else if (Dungeon.skins == 3) {
 
 			//(hero.belongings.weapon = new WoodenStaff()).identify();

@@ -29,8 +29,8 @@ public class Hmdzl001Sprite extends MobSprite {
 
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
-        idle = new Animation( 15, true );
-        idle.frames(frames, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 3);
+        idle = new Animation( 10, true );
+        idle.frames(frames, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,2,2,2,3,3,3,4,4,4,5,5,5,1,1,1,6,6,7,7,7,1,1,0,0,0);
 
         run = new Animation( 20, true );
         run.frames( frames, 0 );

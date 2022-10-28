@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -81,7 +81,8 @@ public class GunOfSoldier extends Item {
 		  curUser = hero;
 	     if (charge < 75) {
 			  GLog.i(Messages.get(GunOfSoldier.class, "break"));
-		  } else GameScene.selectCell( shooter );
+		  } else
+		  	GameScene.selectCell( shooter );
 		} else {
 			super.execute(hero, action);
 			
@@ -150,7 +151,8 @@ public class GunOfSoldier extends Item {
 				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/6),this);
 			} else {
 				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/3),this);
-		    }  
+			//defender.damage(defender.HT,this);
+		   }
 			super.proc(attacker, defender, damage);
 		}
 		

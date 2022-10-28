@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -32,7 +33,7 @@ public class BugMeat extends MeatFood {
 	{
 		//name = "monster meat";
 		image = ItemSpriteSheet.FUNNY_FOOD;
-		energy = 10;
+		energy = 50;
 		hornValue = 1;
 		stackable = false;
 	}
@@ -45,17 +46,29 @@ public class BugMeat extends MeatFood {
 		return actions;
 	}
 
+	//@Override
+	//public boolean doPickUp(Hero hero) {
+	//	if (super.doPickUp(hero)) {
+	//		if (hero.buff(BugSlow.class) == null){
+	//			Buff.affect(hero,BugSlow.class);
+	//	 	}
+	//		return true;
+	//	} else {
+	//		return false;
+	//	}
+//	}
 	@Override
-	public boolean doPickUp(Hero hero) {
-		if (super.doPickUp(hero)) {
-			if (hero.buff(BugSlow.class) == null){
-				Buff.affect(hero,BugSlow.class);
-		 	}
+	public boolean collect(Bag container) {
+		if (super.collect(container)) {
+			if (Dungeon.hero.buff(BugSlow.class) == null){
+				Buff.affect(Dungeon.hero,BugSlow.class);
+			}
 			return true;
 		} else {
 			return false;
 		}
 	}
+
 	@Override
 	protected void onDetach() {
 		BugSlow spawner = Dungeon.hero.buff(BugSlow.class);
@@ -76,7 +89,7 @@ public class BugMeat extends MeatFood {
 				return true;
 			}
 			spawnPower++;
-			if (spawnPower > Random.Int(10)){
+			if (spawnPower > Random.Int(10) && spawnPower > 2){
 				Buff.affect(target, Slow.class,2f);
 				spawnPower = 0;
 			}

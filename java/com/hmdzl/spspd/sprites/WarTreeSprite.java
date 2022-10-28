@@ -18,44 +18,31 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.effects.Lightning;
-import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.watabou.noosa.TextureFilm;
 
-public class TCloudSprite extends MobSprite {
+public class WarTreeSprite extends MobSprite {
 
-	private int[] points = new int[2];
-
-	public TCloudSprite() {
+	public WarTreeSprite() {
 		super();
 
-		texture(Assets.T_CLOUD);
+		texture( Assets.WAR_TREE );
 
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
-        idle = new Animation( 10, true );
-        idle.frames(frames, 0, 0, 3, 3, 4, 4, 3, 3, 0, 0);
+        idle = new Animation( 12, true );
+        idle.frames(frames, 1,1,1,5,5,5);
 
-        run = new Animation( 20, true );
-        run.frames( frames, 0, 0, 3, 3, 4, 4, 3, 3, 0, 0 );
+        run = new Animation( 10, true );
+        run.frames( frames, 0, 1, 2, 2, 1, 0);
 
-        attack = new Animation( 12, false );
-        attack.frames( frames, 0, 1, 2, 3 );
+        attack = new Animation( 10, false );
+        attack.frames( frames, 1, 3, 4, 5 );
 
-        die = new Animation( 20, false );
-        die.frames( frames, 0,4,5 );
-		
-        zap = attack.clone();
-		
-		play(idle);
-	}
+        die = new Animation( 10, false );
+        die.frames( frames, 1,6,7,8 );
 
-	@Override
-	public void zap(int pos) {
+        play( idle );
+    }
 
-		parent.add( new Lightning( ch.pos, pos, (WandOfTCloud.TCloud) ch));
 
-		turnTo(ch.pos, pos);
-		play(zap);
-	}
 }

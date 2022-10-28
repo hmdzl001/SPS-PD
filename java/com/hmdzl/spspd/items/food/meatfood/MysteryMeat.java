@@ -34,7 +34,7 @@ public class MysteryMeat extends MeatFood {
 	{
 		//name = "mystery meat";
 		image = ItemSpriteSheet.MYSTERYMEAT;
-		energy = 75;
+		energy = 80;
 		hornValue = 1;
 	}
 

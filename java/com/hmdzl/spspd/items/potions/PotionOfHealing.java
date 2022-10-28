@@ -46,7 +46,7 @@ public class PotionOfHealing extends Potion {
 	public static void heal(Hero hero) {
 
 		if (Dungeon.hero.subClass == HeroSubClass.PASTOR){
-			hero.HP = hero.HP+Math.min(hero.HT, (int)(hero.HT*1.5-hero.HP));
+			hero.HP = hero.HP+Math.min(hero.HT, (int)(hero.HT-hero.HP));
 		}
 		hero.HP = hero.HP+Math.min(hero.HT, hero.HT-hero.HP);
 		Buff.detach(hero, Poison.class);

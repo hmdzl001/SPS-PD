@@ -31,17 +31,17 @@ public class KeKeSprite extends MobSprite {
 
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
-        idle = new Animation( 5, true );
-        idle.frames(frames, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7);
+        idle = new Animation( 10, true );
+        idle.frames(frames, 7,7,7,10,10,10);
 
-        run = new Animation( 54, true );
-        run.frames( frames, 4 );
+        run = new Animation( 20, true );
+        run.frames( frames, 6,6,8,8 );
 
         attack = new Animation( 15, false );
-        attack.frames( frames, 4, 5, 5 );
+        attack.frames( frames, 7,10,7,10,7,10 );
 
         die = new Animation( 24, false );
-        die.frames( frames, 4 );
+        die.frames( frames, 7,10,10,10 );
 		
         zap = attack.clone();
 		

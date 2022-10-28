@@ -164,6 +164,7 @@ public class Assets {
 	public static final String TILES_TOWN = "tiles_town.png";
 	public static final String TILES_SP = "tiles_sp.png";
 	public static final String TILES_HONEY = "tiles_honey.png";
+	public static final String TILES_SNOWTOWN = "tiles_snow.png";
 	
 	public static final String WATER_SEWERS = "water0.png";
 	public static final String WATER_PRISON = "water1.png";
@@ -171,6 +172,7 @@ public class Assets {
 	public static final String WATER_CITY = "water3.png";
 	public static final String WATER_HALLS = "water4.png";
 	public static final String WATER_HONEY = "water5.png";
+	public static final String WATER_SNOW = "water6.png";
 	
 	
 	public static final String WEAK_FLOOR   = "custom_tiles/weak_floor.png";
@@ -401,6 +403,8 @@ public class Assets {
 	public static final String SINGLE_EYE = "singleeye.png";
 	public static final String BOUND_HUNTER = "boundhunter.png";
 	public static final String PLANT_DOCTOR = "plantdoctor.png";
+
+    public static final String WAR_TREE = "wartree.png";
 
 }
 

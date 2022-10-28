@@ -7,11 +7,11 @@ import com.hmdzl.spspd.actors.blobs.Alter;
 import com.hmdzl.spspd.actors.blobs.WellWater;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.TestMob;
-import com.hmdzl.spspd.actors.mobs.UIcecorps;
 import com.hmdzl.spspd.actors.mobs.YearBeast2;
 import com.hmdzl.spspd.actors.mobs.npcs.AFly;
 import com.hmdzl.spspd.actors.mobs.npcs.ARealMan;
 import com.hmdzl.spspd.actors.mobs.npcs.Apostle;
+import com.hmdzl.spspd.actors.mobs.npcs.AshWolf;
 import com.hmdzl.spspd.actors.mobs.npcs.Coconut2;
 import com.hmdzl.spspd.actors.mobs.npcs.DreamPlayer;
 import com.hmdzl.spspd.actors.mobs.npcs.Evan;
@@ -53,7 +53,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
@@ -218,7 +218,11 @@ public class SokobanSPLevel extends Level {
 	   Mob hmdzl = new Hmdzl001();
 	   hmdzl.pos = 20 + WIDTH * 42;
 	   mobs.add(hmdzl);
-	   
+
+	   Mob ashwolf = new AshWolf();
+	   ashwolf.pos = 22 + WIDTH * 39;
+	   mobs.add(ashwolf);
+
 	  Mob xixizero = new XixiZero();
 	  xixizero.pos = 25 + WIDTH * 11;
 	  mobs.add(xixizero);	   

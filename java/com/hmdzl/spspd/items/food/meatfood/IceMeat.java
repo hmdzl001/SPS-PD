@@ -37,7 +37,7 @@ public class IceMeat extends MeatFood {
 	{
 		//name = "frozen carpaccio";
 		image = ItemSpriteSheet.MEAT;
-		energy = 85;
+		energy = 100;
 		hornValue = 1;
 	}
 

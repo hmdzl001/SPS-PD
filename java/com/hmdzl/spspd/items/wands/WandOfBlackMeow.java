@@ -30,6 +30,7 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CatSheepSprite;
+import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.audio.Sample;
@@ -41,6 +42,15 @@ import static com.hmdzl.spspd.Dungeon.hero;
 import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
 
 public class WandOfBlackMeow extends Wand {
+	
+    private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing(	0xFFFFFF);
+	
+	
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return WHITE;
+	}
+
 
 	{
 	    image = ItemSpriteSheet.WAND_FLOCK;

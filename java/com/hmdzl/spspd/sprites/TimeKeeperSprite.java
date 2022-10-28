@@ -29,17 +29,17 @@ public class TimeKeeperSprite extends MobSprite {
 
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
-        idle = new Animation( 10, true );
-        idle.frames(frames, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3);
+        idle = new Animation( 12, true );
+        idle.frames(frames, 1,1,1,5,5,5);
 
-        run = new Animation( 20, true );
-        run.frames( frames, 0 );
+        run = new Animation( 10, true );
+        run.frames( frames, 0, 1, 2, 2, 1, 0);
 
-        attack = new Animation( 12, false );
-        attack.frames( frames, 0, 2, 3 );
+        attack = new Animation( 10, false );
+        attack.frames( frames, 1, 3, 4, 5 );
 
-        die = new Animation( 20, false );
-        die.frames( frames, 0 );
+        die = new Animation( 10, false );
+        die.frames( frames, 1,6,7,8 );
 
         play( idle );
     }

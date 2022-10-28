@@ -20,7 +20,8 @@ package com.hmdzl.spspd.items.skills;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.buffs.ArmorBreak;
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Blasphemy;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ParyAttack;
@@ -87,17 +88,20 @@ public class FollowerSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial3() {
-		Dungeon.hero.TRUE_HT-=40;
-		if (Dungeon.hero.TRUE_HT<0){
-			Dungeon.hero.die(Messages.format(ResultDescriptions.LOSE));
-			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+
+		if (Dungeon.hero.TRUE_HT > 40) {
+			Dungeon.hero.TRUE_HT -= 40;
+
+			Dungeon.hero.updateHT(true);
+			Dungeon.hero.STR++;
+			Dungeon.hero.hitSkill++;
+			Dungeon.hero.evadeSkill++;
+			Dungeon.hero.magicSkill++;
+			Buff.affect(curUser, Blasphemy.class).level(1);
+		} else {
+			Buff.affect(Dungeon.hero, AttackUp.class,50).level(50);
+			Buff.affect(Dungeon.hero, ArmorBreak.class,50).level(50);
 		}
-		Dungeon.hero.updateHT(true);
-        Dungeon.hero.STR++;
-        Dungeon.hero.hitSkill++;
-		Dungeon.hero.evadeSkill++;
-		Dungeon.hero.magicSkill++;
-	    Buff.affect(curUser, Blasphemy.class).level(1);
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();

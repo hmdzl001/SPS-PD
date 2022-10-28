@@ -38,7 +38,7 @@ public class Water extends Blob {
 				if (off[i] > 0) {
 					int c = Dungeon.level.map[i];
 					if (c == Terrain.EMPTY || c == Terrain.EMBERS
-							|| c == Terrain.EMPTY_DECO) {
+							|| c == Terrain.EMPTY_DECO || c == Terrain.OLD_HIGH_GRASS) {
 
 						Level.set(i, cur[i] > 9 ? Terrain.HIGH_GRASS
 								: Terrain.GRASS);

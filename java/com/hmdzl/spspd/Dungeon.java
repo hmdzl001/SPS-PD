@@ -117,7 +117,7 @@ public class Dungeon {
 		conchshell, ancientcoin, tengukey, bone, journal, safespotpage, dragoncave, treasuremap, goei,
 
 		// containers
-		dewVial, seedBag, scrollBag, potionBag, wandBag, shopcart, heartScarecrow, challengebook;
+		seedBag, scrollBag, potionBag, wandBag, shopcart, heartScarecrow, challengebook;
 
 		public int count = 0;
 
@@ -1066,7 +1066,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String DROPPED = "dropped%d";
 	private static final String LEVEL = "level";
 	private static final String LIMDROPS = "limiteddrops";
-	private static final String DV = "dewVial";
+
 	private static final String CHAPTERS = "chapters";
 	private static final String QUESTS = "quests";
 	private static final String BADGES = "badges";
@@ -1313,10 +1313,6 @@ public static Level newChallengeLevel(int list, Boolean first){
 				for (limitedDrops value : limitedDrops.values())
 					value.count = value.ordinal() < dropValues.length ? dropValues[value
 							.ordinal()] : 0;
-
-			// for pre-0.2.4 saves
-			if (bundle.getBoolean(DV))
-				limitedDrops.dewVial.drop();
 
 			chapters = new HashSet<Integer>();
 			int ids[] = bundle.getIntArray(CHAPTERS);

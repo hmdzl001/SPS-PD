@@ -23,10 +23,13 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.eggs.HaroEgg;
+import com.hmdzl.spspd.items.food.Honey;
+import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.sprites.AshWolfSprite;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class AshWolf extends NPC {
 
@@ -80,7 +83,7 @@ public class AshWolf extends NPC {
 
 	@Override
 	public boolean interact() {
-
+		Pumpkin pumpkin = Dungeon.hero.belongings.getItem(Pumpkin.class);
 		sprite.turnTo(pos, Dungeon.hero.pos);
 			if (first){
 				yell(Messages.get(this, "yell1"));
@@ -89,7 +92,16 @@ public class AshWolf extends NPC {
 				first=false;
 			} else {
 				yell(Messages.get(this, "yell2"));
-			}	
+			}
+		if (pumpkin!=null){
+			yell(Messages.get(this, "yell3"));
+			Dungeon.level.drop(new Honey() , Dungeon.hero.pos);
+			if (pumpkin.isEquipped(Dungeon.hero) && Random.Int(3) == 1) {
+				Dungeon.hero.belongings.weapon = null;
+			}
+			pumpkin.detachAll(Dungeon.hero.belongings.backpack);
+		}
+
 		return false;
 	}
 	@Override

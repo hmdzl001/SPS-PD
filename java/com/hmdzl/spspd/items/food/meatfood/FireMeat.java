@@ -32,7 +32,7 @@ public class FireMeat extends MeatFood {
 	{
 		//name = "chargrilled meat";
 		image = ItemSpriteSheet.MEAT;
-		energy = 120;
+		energy = 150;
 		hornValue = 1;
 		 
 	}

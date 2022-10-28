@@ -37,7 +37,7 @@ public class DewBlessRoom {
 
 		if (ch instanceof Hero) {
 
-            Buff.affect(Dungeon.hero, Dewcharge.class,(Dewcharge.DURATION+(Math.max(Statistics.prevfloormoves,1))));
+            Buff.affect(Dungeon.hero, Dewcharge.class,(240f+(Math.max(Statistics.prevfloormoves,1))));
 			GLog.h(Messages.get(DewBlessRoom.class, "order"), Dungeon.pars[Dungeon.depth]);
 			CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
 			Dungeon.observe();

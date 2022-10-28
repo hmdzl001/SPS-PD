@@ -28,7 +28,7 @@ import com.hmdzl.spspd.infos.NewCatalog;
 import com.hmdzl.spspd.infos.NewDocument;
 import com.hmdzl.spspd.infos.NewMobCatalog;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
@@ -357,7 +357,7 @@ public class WndDocument extends WndTabbed {
 		private static final int WEAPON_IDX = 0;
 		private static final int ARMOR_IDX  = 1;
 		private static final int WAND_IDX   = 2;
-		private static final int RING_IDX   = 3;
+		private static final int SPECIALS_IDX   = 3;
 		private static final int ARTIF_IDX  = 4;
 		private static final int FOOD_IDX = 5;
 		private static final int PILL_IDX = 6;
@@ -446,8 +446,8 @@ public class WndDocument extends WndTabbed {
 			} else if (currentItemIdx == WAND_IDX){
 				itemClasses = new ArrayList<>(NewCatalog.WANDS.items());
 				for (Class<? extends Item> cls : itemClasses) known.put(cls, true);
-			} else if (currentItemIdx == RING_IDX){
-				itemClasses = new ArrayList<>(NewCatalog.RINGS.items());
+			} else if (currentItemIdx == SPECIALS_IDX){
+				itemClasses = new ArrayList<>(NewCatalog.SPECIALS.items());
 				for (Class<? extends Item> cls : itemClasses) known.put(cls, true);
 			} else if (currentItemIdx == ARTIF_IDX){
 				itemClasses = new ArrayList<>(NewCatalog.ARTIFACTS.items());
@@ -678,7 +678,8 @@ private static class MobCatalogTab extends Component{
 			public MobCatalogItem(Mob mob ) {
 				super( new MobSprite(), Messages.titleCase(mob.name));
 				this.mob = mob;
-				icon.copy( new ItemSprite(new Item(){ {image = ItemSpriteSheet.SOMETHING; }}));
+				//icon.copy( new ItemSprite(new Item(){ {image = ItemSpriteSheet.SOMETHING; }}));
+				icon.copy(mob.sprite());
 				label.hardlight( 0xCCCCCC );
 				
 			}

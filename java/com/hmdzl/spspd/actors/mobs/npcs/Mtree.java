@@ -2,22 +2,22 @@
 
 
 	import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Roots;
-import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.sprites.GreatMossSprite;
-import com.watabou.utils.Random;
+	import com.hmdzl.spspd.actors.Char;
+	import com.hmdzl.spspd.actors.buffs.Buff;
+	import com.hmdzl.spspd.actors.buffs.Poison;
+	import com.hmdzl.spspd.actors.buffs.Roots;
+	import com.hmdzl.spspd.actors.mobs.Mob;
+	import com.hmdzl.spspd.levels.Level;
+	import com.hmdzl.spspd.sprites.WarTreeSprite;
+	import com.watabou.utils.Random;
 
-import java.util.HashSet;
+	import java.util.HashSet;
 
 	public class Mtree extends NPC {
 
 		{
 			//name = "Mtree";
-			spriteClass = GreatMossSprite.class;
+			spriteClass = WarTreeSprite.class;
 
 			HP = 1000;
 			HT = 1000;

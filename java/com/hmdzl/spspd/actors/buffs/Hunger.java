@@ -128,18 +128,18 @@ public class Hunger extends Buff implements Hero.Doom {
 			energy = Math.round(energy * 0.75f);
 			GLog.n(Messages.get(this, "cursedhorn"));
 		}
-		if (level<150f) {
+		if (level<150f && energy > 0) {
 			energy = Math.round(energy * 0.5f);
 		}
 
-		if (level>150f && level <650f) {
+		if (level>150f && level <650f && energy > 0) {
 			energy = Math.round(energy * 0.8f);
 		}
 
-		if (level>=800f) {
+		if (level>=800f && energy > 0) {
 			energy = Math.round(energy * 1.2f);
 		}
-		if(Dungeon.isChallenged(Challenges.ENERGY_LOST)){
+		if(Dungeon.isChallenged(Challenges.ENERGY_LOST) && energy > 0){
 			energy = Math.round(energy * 0.4f);
 		}
 		

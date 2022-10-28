@@ -1058,13 +1058,14 @@ public class TownLevel extends Level {
 
 	@Override
 	public String tilesTex() {
-		return Assets.TILES_TOWN;
+		return (Dungeon.getMonth() < 3 || Dungeon.getMonth() > 11) ? Assets.TILES_TOWN : Assets.TILES_SNOWTOWN;
+		//return Dungeon.skins == 3 ? Assets.TILES_TOWN : Assets.TILES_SNOWTOWN;
 	}
 
 	@Override
 	public String waterTex() {
-		return Assets.WATER_PRISON;
-		//return Assets.WATER_HONEY;
+		return (Dungeon.getMonth() < 3 || Dungeon.getMonth() > 11) ? Assets.WATER_PRISON : Assets.WATER_SNOW;
+		//return Dungeon.skins == 3 ? Assets.WATER_HONEY  : Assets.WATER_SNOW ;
 	}
 
 	@Override
