@@ -4,7 +4,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.armor.normalarmor.LifeArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
 import com.hmdzl.spspd.items.food.completefood.AflyFood;
 import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.food.fruit.Fruit;

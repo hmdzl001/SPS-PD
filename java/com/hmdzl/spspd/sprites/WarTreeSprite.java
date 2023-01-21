@@ -35,7 +35,7 @@ public class WarTreeSprite extends MobSprite {
         run = new Animation( 10, true );
         run.frames( frames, 0, 1, 2, 2, 1, 0);
 
-        attack = new Animation( 10, false );
+        attack = new Animation( 15, false );
         attack.frames( frames, 1, 3, 4, 5 );
 
         die = new Animation( 10, false );

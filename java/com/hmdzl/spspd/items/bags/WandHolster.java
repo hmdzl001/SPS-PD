@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.bags;
 
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.TriforceOfCourage;
 import com.hmdzl.spspd.items.TriforceOfPower;
@@ -33,7 +32,7 @@ public class WandHolster extends Bag {
 		//name = "wand holster";
 		image = ItemSpriteSheet.HOLSTER;
 
-		size = 25;
+		size = 30;
 	}
 
 	@Override
@@ -78,11 +77,11 @@ public class WandHolster extends Bag {
 		return 50 * quantity;
 	}	
 	
-    @Override
-    public boolean doPickUp( Hero hero ) {
+   // @Override
+   // public boolean doPickUp( Hero hero ) {
 
-        return hero.belongings.getItem( WandHolster.class ) == null && super.doPickUp( hero ) ;
+    //    return hero.belongings.getItem( WandHolster.class ) == null && super.doPickUp( hero ) ;
 
-    }
+   // }
 	
 }

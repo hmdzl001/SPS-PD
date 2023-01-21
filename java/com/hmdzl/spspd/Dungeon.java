@@ -21,7 +21,6 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.actbuff.NmImbue;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -33,7 +32,6 @@ import com.hmdzl.spspd.actors.mobs.npcs.Wandmaker;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
@@ -58,6 +56,7 @@ import com.hmdzl.spspd.levels.InfestBossLevel;
 import com.hmdzl.spspd.levels.LastLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.MinesBossLevel;
+import com.hmdzl.spspd.levels.NewRoomLevel;
 import com.hmdzl.spspd.levels.PotLevel;
 import com.hmdzl.spspd.levels.PrisonBossLevel;
 import com.hmdzl.spspd.levels.PrisonLevel;
@@ -78,7 +77,7 @@ import com.hmdzl.spspd.levels.ThiefCatchLevel;
 import com.hmdzl.spspd.levels.TownLevel;
 import com.hmdzl.spspd.levels.VaultLevel;
 import com.hmdzl.spspd.levels.ZotBossLevel;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.StartScene;
 import com.hmdzl.spspd.ui.QuickSlotButton;
@@ -113,13 +112,12 @@ public class Dungeon {
 		nornstones,
 
 		// doesn't use Generator, so we have to enforce one armband drop here
-		spork, sewerkey, prisonkey, caveskey, citykey, potkey, ringofwealth, vaultpage, town,
-		conchshell, ancientcoin, tengukey, bone, journal, safespotpage, dragoncave, treasuremap, goei,
+		spork, dragoncave, goei,caveskey,
 
 		// containers
 		seedBag, scrollBag, potionBag, wandBag, shopcart, heartScarecrow, challengebook;
 
-		public int count = 0;
+		public int count =  0;
 
 		// for items which can only be dropped once, should directly access
 		// count otherwise.
@@ -163,6 +161,7 @@ public class Dungeon {
 	
 	public static int ratChests = 0;
 	public static int sacrifice = 0;
+	public static int saferoom = 0;
 	public static boolean sporkAvail = false;
 	public static boolean challengebookdrop = false;
 	public static boolean goeidrop = false;
@@ -250,6 +249,7 @@ public class Dungeon {
 		zotkilled = false;
         ratChests = 0;
 		sacrifice = 0 ;
+		saferoom = 0;
 		sporkAvail = false;
 		challengebookdrop = false;
 		goeidrop = false;
@@ -663,6 +663,10 @@ public static Level newJournalLevel(int page, Boolean first){
 		depth = 67;
 	}
 	
+	if (page==8){
+		depth = 68;
+	}
+	
 	if (depth > Statistics.realdeepestFloor && depth < 68) {
 		Statistics.realdeepestFloor = depth;}
 	
@@ -693,6 +697,9 @@ public static Level newJournalLevel(int page, Boolean first){
 		break;
 	case 7:
 		level = new MinesBossLevel();
+		break;
+	case 8:
+		level = new NewRoomLevel();
 		break;
 	default:
 		level = Dungeon.newLevel();
@@ -889,9 +896,9 @@ public static Level newChallengeLevel(int list, Boolean first){
 		//}
 		NmImbue nm = Dungeon.hero.buff(NmImbue.class);
         if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.skins == 4 && nm == null ){
-			
 			Buff.affect(Dungeon.hero,NmImbue.class);
 		}
+		
 		/*if(Dungeon.hero.heroClass == HeroClass.PERFORMER){
 			//Buff.prolong(Dungeon.hero,Rhythm.class,50);
 			Buff.affect(Dungeon.hero,GlassShield.class).turns(3);
@@ -987,7 +994,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 				Light.DISTANCE, level.viewDistance);
 		
 		Actor respawnerPet = level.respawnerPet();
-		if (respawnerPet != null) {
+		if (respawnerPet != null && Dungeon.depth != 50 ) {
 			Actor.add(level.respawnerPet());
 		}
 
@@ -1062,6 +1069,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String CHALLENGES = "challenges";
 	private static final String HERO = "hero";
 	private static final String GOLD = "gold";
+	private static final String SAFEROOM = "saferoom";
 	private static final String DEPTH = "depth";
 	private static final String DROPPED = "dropped%d";
 	private static final String LEVEL = "level";
@@ -1155,6 +1163,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 			version = Game.versionCode;
 			bundle.put(VERSION, Game.versionCode);
 			bundle.put( SKINS, skins );
+			bundle.put(SAFEROOM ,saferoom  );
 			bundle.put(CHALLENGES, challenges);
 			bundle.put(HERO, hero);
 			bundle.put(GOLD, gold);
@@ -1294,6 +1303,8 @@ public static Level newChallengeLevel(int list, Boolean first){
 
 		Dungeon.challenges = bundle.getInt(CHALLENGES);
 		Dungeon.skins = bundle.getInt(SKINS);
+
+		Dungeon.saferoom = bundle.getInt(SAFEROOM);
 
 		Dungeon.level = null;
 		Dungeon.depth = -1;

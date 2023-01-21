@@ -28,17 +28,23 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.actors.buffs.HiddenShadow;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.SpeedUp;
+import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
+import com.hmdzl.spspd.windows.WndPetInfo;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -46,7 +52,7 @@ import java.util.HashSet;
 
 public abstract class PET extends NPC {
 
-	{
+    {
 		HP = HT = 1;
 		EXP = 0;
 
@@ -59,40 +65,41 @@ public abstract class PET extends NPC {
 		state = HUNTING;
 		enemy = null;
 		ally=true;
+		oldcooldown = 10;
 
 		properties.add(Property.MINIBOSS);
 		properties.add(Property.IMMOVABLE);
 	}
 
+    public PET() {
+        super();
+        updateStats();
+    }
+
+    public void updateStats(){
+
+    }
+    public void spawn() {
+        updateStats();
+    }
+
 	@Override
 	public int drRoll(){
-		return level;
+		return 0;
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return level + 10;
+		return Dungeon.hero.petLevel + 10;
 	}
 	
-	public int level;
 	public int type;
-	public int experience;
 	public int cooldown;
+	public int oldcooldown;
 	public boolean callback = false;
 	public boolean stay = false;
-	/*
-	 type
-	 1 = 
-	 2 = bee
-	 3 = 
-	 4 = 
-	 5 = 
-
-	 */
 	
-	private static final String LEVEL = "level";
 	private static final String TYPE = "type";
-	private static final String EXPERIENCE = "experience";
 	private static final String COOLDOWN = "cooldown";
 	private static final String CALLBACK = "callback";
 	private static final String STAY = "stay";
@@ -101,9 +108,7 @@ public abstract class PET extends NPC {
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(LEVEL, level);
 		bundle.put(TYPE, type);
-		bundle.put(EXPERIENCE, experience);
 		bundle.put(COOLDOWN, cooldown);
 		bundle.put(CALLBACK, callback);
 		bundle.put(STAY, stay);
@@ -112,13 +117,11 @@ public abstract class PET extends NPC {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		level = bundle.getInt(LEVEL);
+
 		type = bundle.getInt(TYPE);
-		experience = bundle.getInt(EXPERIENCE);
 		cooldown = bundle.getInt(COOLDOWN);
 		callback = bundle.getBoolean(CALLBACK);
 		stay = bundle.getBoolean(STAY);
-		adjustStats(level);
 	}
 	
 	protected void throwItem() {
@@ -132,33 +135,21 @@ public abstract class PET extends NPC {
 		}
 	}
 	
-	public void adjustStats(int level) {
-	}
-	
-	public void spawn(int level) {
-		this.level = level;
-        adjustStats(level);
-	}
-	
 	@Override
 	protected boolean act() {
 		
-		assignPet(this);
+		if (Dungeon.depth != 50)
+		{ assignPet(this); }
 		
-		if (experience >= level*(level+1) && level < 30){
-			experience-=level*(level+1);
-			level++;
-			GLog.p(Messages.get(this,"levelup"));
-			adjustStats(level);
-
-		}
-		
-		if ( HP<HT){HP+=level;}
+		if ( HP<HT){HP+=Dungeon.hero.petLevel;}
 		
 		return super.act();
 	}
-	
-	
+
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood;
+	}
+
 	@Override
 	public void damage(int dmg, Object src) {
 		
@@ -174,18 +165,15 @@ public abstract class PET extends NPC {
 	
 	@Override
 	public void die(Object cause) {
-		super.die(cause);	 
+		super.die(cause);
 		Dungeon.hero.haspet=false;
+		Dungeon.hero.petType = 1;
 		//Statistics.petDies++;
 	    GLog.n(Messages.get(this,"pet_died"));
 	}
 
 	@Override
 	protected Char chooseEnemy() {
-		if(enemy != null && !enemy.isAlive() && enemy instanceof Mob){
-			experience+=((Mob)enemy).getExp();
-		}
-		
 			if (enemy == null
 					|| !enemy.isAlive()
 					|| !Dungeon.level.mobs.contains(enemy)
@@ -237,10 +225,9 @@ public abstract class PET extends NPC {
 	private void assignPet(PET pet){
 		
 		  Dungeon.hero.petType=pet.type;
-		  Dungeon.hero.petLevel=pet.level;
-		   
+
 		  Dungeon.hero.petHP=pet.HP;
-		  Dungeon.hero.petExperience=pet.experience;
+
 		  Dungeon.hero.petCooldown=pet.cooldown;		
 	}
 
@@ -252,7 +239,9 @@ public abstract class PET extends NPC {
 				buff instanceof MagicArmor ||
 				buff instanceof HasteBuff ||
 				buff instanceof SpeedUp ||
-				buff instanceof HasteBuff) {
+				buff instanceof HasteBuff||
+				buff instanceof HiddenShadow ||
+				buff instanceof WatchOut) {
 			super.add(buff);
 		} else {
 
@@ -269,30 +258,39 @@ public abstract class PET extends NPC {
 			//Dungeon.hero.sprite.move( Dungeon.hero.pos, curPos );
 			//Dungeon.hero.move( curPos );
 			//Dungeon.hero.spend( 1 / Dungeon.hero.speed() );
-			//Dungeon.hero.busy();
-
-
-
+		 //Dungeon.hero.busy();
 		if (!Level.passable[pos]){
 			return true;
 		}
-
 		if (state == SLEEPING) {
 			state = HUNTING;
 		}
-			int curPos = pos;
+		GameScene.show(new WndPetInfo( this));
+		return true;
+	}
 
-			moveSprite( pos, Dungeon.hero.pos );
-			move( Dungeon.hero.pos );
+	public boolean changeplace(){
+		int curPos = pos;
 
-			Dungeon.hero.sprite.move( Dungeon.hero.pos, curPos );
-			Dungeon.hero.move( curPos );
+		moveSprite( pos, Dungeon.hero.pos );
+		move( Dungeon.hero.pos );
 
-			Dungeon.hero.spend( 1 / Dungeon.hero.speed() );
-			Dungeon.hero.busy();
-			return true;
+		Dungeon.hero.sprite.move( Dungeon.hero.pos, curPos );
+		Dungeon.hero.move( curPos );
 
-	}	
+		Dungeon.hero.spend( 1 / Dungeon.hero.speed() );
+		Dungeon.hero.busy();
+		return true;
+
+	}
+
+	public void dropreward(){
+		if (cooldown < 4) {
+			Item loot = this.SupercreateLoot();
+			Dungeon.level.drop(loot,pos).sprite.drop();
+			cooldown = this.oldcooldown;
+		} else GLog.n(Messages.get(this,"pet_not_ready"));;
+	}
 	
 	{
 		immunities.add( ToxicGas.class );

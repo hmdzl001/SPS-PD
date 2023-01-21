@@ -20,17 +20,15 @@ package com.hmdzl.spspd.levels.painters;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.mobs.Greatmoss;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.summon.Honeypot;
+import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.plants.BlandfruitBush;
 import com.hmdzl.spspd.plants.NutPlant;
 import com.hmdzl.spspd.plants.Seedpod;
-import com.watabou.utils.Random;
 
 public class JunglePainter extends Painter {
 
@@ -47,6 +45,8 @@ public class JunglePainter extends Painter {
         level.plant(new NutPlant.Seed(), room.random());
 		
 	    level.drop(new Honeypot(), room.random());
+
+		level.drop(new PlantPotBlock(), room.random());
 		
 		int lashers = ((room.right-room.left-1)*(room.bottom-room.top-1))/10;
 

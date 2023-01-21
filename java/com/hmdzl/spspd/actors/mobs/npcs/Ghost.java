@@ -33,7 +33,6 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.eggs.Egg;
-import com.hmdzl.spspd.items.eggs.RandomEgg;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.levels.SewerLevel;
 import com.hmdzl.spspd.messages.Messages;
@@ -305,7 +304,7 @@ public class Ghost extends NPC {
 					ring = Generator.randomRing();
 				} while (ring.cursed);
 
-				pet = new RandomEgg();
+				pet = (Egg) Generator.random(Generator.Category.BASEPET);
 				artifact.identify();
 				ring.identify();
 			}

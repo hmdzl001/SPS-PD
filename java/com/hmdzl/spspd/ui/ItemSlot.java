@@ -106,6 +106,13 @@ public class ItemSlot extends Button {
 			return ItemSpriteSheet.E_DUST;
 		}
     };	
+	
+	public static final Item M_WEB = new Item() {
+		@Override
+		public int image() {
+			return ItemSpriteSheet.M_WEB;
+		}
+    };	
 
 	public ItemSlot() {
 		super();

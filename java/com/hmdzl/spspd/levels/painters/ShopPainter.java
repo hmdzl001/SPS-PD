@@ -39,7 +39,7 @@ import com.hmdzl.spspd.items.challengelists.CourageChallenge;
 import com.hmdzl.spspd.items.challengelists.PowerChallenge;
 import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
 import com.hmdzl.spspd.items.eggs.Egg;
-import com.hmdzl.spspd.items.eggs.RandomEgg;
+import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.journalpages.SafeSpotPage;
 import com.hmdzl.spspd.items.journalpages.Town;
@@ -126,19 +126,16 @@ public class ShopPainter extends Painter {
 		    itemsToSpawn.add(new DolyaSlate().identify());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());
-			Dungeon.limitedDrops.journal.drop();
             break;	
 			
 		case 6:
 			itemsToSpawn.add(new SafeSpotPage().identify());
-			Dungeon.limitedDrops.safespotpage.drop();
 			itemsToSpawn.add(new GunB().identify());
 			//itemsToSpawn.add(new DiscArmor().identify());
 			break;
 
 		case 11:
 			itemsToSpawn.add(new Town().identify());
-			Dungeon.limitedDrops.town.drop();
 			itemsToSpawn.add(new GunC().identify());
 			//itemsToSpawn.add(new MailArmor().identify());
 			break;
@@ -180,7 +177,7 @@ public class ShopPainter extends Painter {
 		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR));
 
 		if  (Random.Int(3) == 0)
-		itemsToSpawn.add(Random.Int(2) == 0 ? new RandomEgg() : new Egg());
+		itemsToSpawn.add(Random.Int(2) == 0 ? new RandomMonthEgg() : new Egg());
 		//itemsToSpawn.add(new DungeonBomb().random());
 		switch (Random.Int(6)) {
 		case 1:

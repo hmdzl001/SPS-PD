@@ -22,10 +22,12 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Frost;
+import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mimic;
 import com.hmdzl.spspd.actors.mobs.MonsterBox;
 import com.hmdzl.spspd.actors.mobs.RedWraith;
+import com.hmdzl.spspd.actors.mobs.Spinner;
 import com.hmdzl.spspd.actors.mobs.Wraith;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
@@ -77,7 +79,7 @@ public class Heap implements Bundlable {
 	private static final int SEEDS_TO_POTION = 3;
 
 	public enum Type {
-		HEAP, FOR_SALE,FOR_LIFE, CHEST, LOCKED_CHEST, CRYSTAL_CHEST, TOMB, SKELETON, REMAINS, MIMIC, E_DUST ,G_MIMIC
+		HEAP, FOR_SALE,FOR_LIFE, CHEST, LOCKED_CHEST, CRYSTAL_CHEST, TOMB, SKELETON, REMAINS, MIMIC, E_DUST ,G_MIMIC, M_WEB
 	}
 
 	public Type type = Type.HEAP;
@@ -112,6 +114,8 @@ public class Heap implements Bundlable {
 			return ItemSpriteSheet.REMAINS;
 		case E_DUST:
 			return ItemSpriteSheet.E_DUST;
+		case M_WEB:
+			return ItemSpriteSheet.M_WEB;
 		default:
 			return 0;
 		}
@@ -127,6 +131,7 @@ public class Heap implements Bundlable {
 		case SKELETON:
 		case REMAINS:
 		case E_DUST:
+			case M_WEB:
 			case CRYSTAL_CHEST:
 			case LOCKED_CHEST:
 			case MIMIC:
@@ -178,6 +183,17 @@ public class Heap implements Bundlable {
 				}
 			
 			break;
+		case M_WEB:
+			CellEmitter.center(pos).start(Speck.factory(Speck.COBWEB), 0.1f, 3);
+
+				if (Random.Int(10) == 0){
+					if (Spinner.spawnAt(pos) == null) {
+						Spinner.spawnAround(hero.pos);
+					}
+				}
+            Buff.affect(hero,Roots.class,5f);
+			Sample.INSTANCE.play(Assets.SND_SHATTER);
+			break;			
 		default:
 		}
 
@@ -264,6 +280,10 @@ public class Heap implements Bundlable {
 				destroy();
 			}
 		}
+		
+		if (type == Type.M_WEB) {
+			type = Type.HEAP;
+		}		
 				
 		if (type != Type.HEAP) {
 			return;

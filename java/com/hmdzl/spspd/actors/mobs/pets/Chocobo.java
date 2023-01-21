@@ -17,13 +17,17 @@
  */
 package com.hmdzl.spspd.actors.mobs.pets;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.eggs.RandomEasterEgg;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.sprites.ChocoboSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class Chocobo extends PET {
 	
@@ -32,69 +36,62 @@ public class Chocobo extends PET {
 		spriteClass = ChocoboSprite.class;
         //flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 26;
-
+		type = 202;
+        cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.BEAST);
 	}
-	
+
+
 	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		adjustStats(level);
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof Vegetable;
 	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		evadeSkill = 5 + level;
-		HT = 90 + level*5;
+	public void updateStats()  {
+		evadeSkill = (int)(hero.petLevel*1.5);
+		HT = 150 + 2*hero.petLevel;
 	}
 	
-
-
-
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(10, (10+level*2));
+		return Random.NormalIntRange((int)(5+hero.petLevel*0.5), (int)(5+hero.petLevel*1.5));
 	}
 
 	@Override
-	protected boolean act() {		
-		
+	public Item SupercreateLoot(){
+		return new RandomEasterEgg();
+	}
 
-		return super.act();
+	@Override
+	public int drRoll(){
+		return Random.IntRange(hero.petLevel,(int)(hero.petLevel*1.5));
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 5;
 	}
 	
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (Random.Int(4) == 0) {
-			Buff.affect(Dungeon.hero, HasteBuff.class,level);
+		if (Random.Int(5) == 0) {
+			Buff.affect(this, HasteBuff.class,5f);
 		}
-
+        cooldown--;
 		return damage;
 	}	
 	
-/*
 	@Override
-	protected Char chooseEnemy() {
-		
-		if(enemy != null && !enemy.isAlive()){
-			kills++;
+	public int defenseProc(Char enemy, int damage) {
+		if (cooldown == 0) {
+			Buff.affect(hero, HasteBuff.class,hero.petLevel);
+			cooldown = Math.max(10,30-hero.petLevel);
 		}
-		
-		if (enemy == null || !enemy.isAlive()) {
-			HashSet<Mob> enemies = new HashSet<Mob>();
-			for (Mob mob : Dungeon.level.mobs) {
-				if (!(mob instanceof PET) && mob.hostile && Level.fieldOfView[mob.pos]) {
-					enemies.add(mob);
-				}
-			}
+		return damage;
+	}	
 
-			enemy = enemies.size() > 0 ? Random.element(enemies) : null;
-		}
 
-		return enemy;
-}
-*/
 }

@@ -30,14 +30,11 @@ import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.reward.PrisonReward;
 import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.MossySkeletonSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class MossySkeleton extends Mob {
 
@@ -89,8 +86,7 @@ public class MossySkeleton extends Mob {
 		Statistics.skeletonsKilled++;
 		GLog.w(Messages.get(Mob.class,"killcount", Statistics.skeletonsKilled));
 		
-		if (!Dungeon.limitedDrops.prisonkey.dropped() && Dungeon.depth<27) {
-			Dungeon.limitedDrops.prisonkey.drop();
+		if ( Dungeon.depth<27) {
 			Dungeon.level.drop(new PrisonChallenge(), pos).sprite.drop();
 			explodeDew(pos);				
 		} else {
@@ -98,7 +94,6 @@ public class MossySkeleton extends Mob {
 		}
 		
 		if(Statistics.skeletonsKilled == 25) {
-			Dungeon.limitedDrops.bone.drop();
 			Dungeon.level.drop(new Bone(), pos).sprite.drop();
 		}
 		

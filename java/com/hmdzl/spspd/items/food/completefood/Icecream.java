@@ -55,7 +55,7 @@ public class Icecream extends CompleteFood {
 
 	@Override
 	public int price() {
-		return 1 * quantity;
+		return 300 * quantity;
 	}
 
 }

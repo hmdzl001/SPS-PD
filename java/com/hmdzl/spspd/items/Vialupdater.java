@@ -17,68 +17,50 @@
  */
 package com.hmdzl.spspd.items;
 
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+
 import java.util.ArrayList;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
-import com.hmdzl.spspd.scenes.InterlevelScene;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.noosa.Game;
-
-public class ReturnBeacon extends Item {
-
-	
-	private static final String TXT_INFO = "Return beacon is an intricate magic device, that allows you to return to a place you have already been.";
-
-	public static final float TIME_TO_USE = 1;
-
-	//public static final String AC_SET = "SET";
-	public static final String AC_RETURN = "RETURN";
-
-	//private int returnDepth = -1;
-	//private int returnPos;
+public class Vialupdater extends Item {
 
 	{
-		name = "return beacon";
-		image = ItemSpriteSheet.BEACON;
+		//name = "Vialupdater";
+		image = ItemSpriteSheet.FLAG;
 
+		stackable = false;
 		unique = true;
 	}
 
+	public static final String AC_USE = "USE";
+	
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		actions.add(AC_RETURN);	
+        actions.add(AC_USE);
 		return actions;
 	}
 
 	@Override
 	public void execute(Hero hero, String action) {
-
-	     if (action == AC_RETURN) {
-
+		
+		if (action.equals(AC_USE)) {
+		   curUser = hero;
+		   Dungeon.wings=true;
+		   curUser.sprite.centerEmitter().start(Speck.factory(Speck.KIT), 0.05f,10);
+		   curUser.spendAndNext(1f);
+		   curUser.busy();
 			
-				Buff buff = Dungeon.hero
-						.buff(TimekeepersHourglass.timeFreeze.class);
-				if (buff != null)
-					buff.detach();
-
-				InterlevelScene.mode = InterlevelScene.Mode.RETURNSAVE;
-				InterlevelScene.returnDepth = 1;
-				InterlevelScene.returnPos = 1;
-				Game.switchScene(InterlevelScene.class);
-			
-
 		} else {
-
 			super.execute(hero, action);
 
-		}
-	}
+		}		
+		
 
-	
+
+	}
 
 	@Override
 	public boolean isUpgradable() {
@@ -88,11 +70,5 @@ public class ReturnBeacon extends Item {
 	@Override
 	public boolean isIdentified() {
 		return true;
-	}
-
-
-	@Override
-	public String info() {
-		return TXT_INFO;
 	}
 }

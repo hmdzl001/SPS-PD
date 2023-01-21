@@ -17,9 +17,18 @@
  */
 package com.hmdzl.spspd.actors.mobs.pets;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.vegetable.Vegetable;
+import com.hmdzl.spspd.items.weapon.melee.special.SJRBMusic;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.VelociroosterSprite;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
 public class Velocirooster extends PET {
@@ -29,21 +38,43 @@ public class Velocirooster extends PET {
 		spriteClass = VelociroosterSprite.class;       
 		//flying=false;
 		state = HUNTING;
-		level = 1;
-		type = 3;
-		cooldown=500;
-
+		type = 404;
+		baseSpeed = 1.5f;
+		cooldown=50;
+        oldcooldown = 10;
 		properties.add(Property.BEAST);
+		properties.add(Property.HUMAN);
 
-	}	
-
-	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		HT = 70 + level*10;
-		evadeSkill = 5 + level;
 	}
 
+	@Override
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof Plant.Seed ||
+				item instanceof Vegetable;
+	}
+
+
+	@Override
+	public void updateStats()  {
+		HT = 50 + Dungeon.hero.petLevel*10;
+		evadeSkill = 10 + Dungeon.hero.petLevel;
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new SJRBMusic();
+	}
+
+	@Override
+	public int drRoll(){
+		return Random.Int(0,Dungeon.hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return Dungeon.hero.petLevel + 10;
+	}
 
 
 	@Override
@@ -51,25 +82,37 @@ public class Velocirooster extends PET {
 		
 		int dmg=0;
 		if (cooldown==0){
-			dmg=Random.NormalIntRange((5+level)*5/2, (5+level*3)*2); 
+			dmg=Random.NormalIntRange((5+Dungeon.hero.petLevel)*5/2, (5+Dungeon.hero.petLevel*3)*2);
 			cooldown=500;
 		} else {
-			dmg=Random.NormalIntRange((5+level), (5+level*3)) ;
+			dmg=Random.NormalIntRange((5+Dungeon.hero.petLevel), (5+Dungeon.hero.petLevel*3)) ;
 		}
 		return dmg;
 			
 	}
 
 	@Override
-	protected boolean act() {
-		
-		if (cooldown>0){
-			cooldown=Math.max(cooldown-(1+9*((level-1)/19)),0);
-			if (cooldown==0) {GLog.w(Messages.get(this,"ready"));}
+	public int attackProc(Char enemy, int damage) {
+		if (Random.Int(4) == 0){
+			damage *= 1.2;
 		}
-		
-		
+		if (cooldown > 0) cooldown --;
+		if (cooldown==0) {
+			this.sprite.showStatus(CharSprite.NEUTRAL, Messages.get(this, "yell1"));
+			Buff.affect(enemy,Charm.class,5f).object = this.id();
+			cooldown=Math.max(5,30-Dungeon.hero.petLevel);
+		}
+		return damage;
+	}
 
-		return super.act();
-	}			
+	@Override
+	public int defenseProc(Char enemy, int damage) {
+		if (cooldown > 0) cooldown --;
+		if (cooldown == 0) {
+			this.sprite.showStatus(CharSprite.NEUTRAL, Messages.get(this, "yell2"));
+			Buff.affect(enemy,Charm.class,5f).object = this.id();
+			cooldown = 5;
+		}
+		return damage;
+	}
 }

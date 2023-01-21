@@ -19,7 +19,11 @@ package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.HiddenShadow;
+import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Bunny;
@@ -28,7 +32,10 @@ import com.hmdzl.spspd.actors.mobs.pets.Chocobo;
 import com.hmdzl.spspd.actors.mobs.pets.CocoCat;
 import com.hmdzl.spspd.actors.mobs.pets.Datura;
 import com.hmdzl.spspd.actors.mobs.pets.DogPet;
+import com.hmdzl.spspd.actors.mobs.pets.DwarfBoy;
 import com.hmdzl.spspd.actors.mobs.pets.Fly;
+import com.hmdzl.spspd.actors.mobs.pets.FoxHelper;
+import com.hmdzl.spspd.actors.mobs.pets.FrogPet;
 import com.hmdzl.spspd.actors.mobs.pets.GentleCrab;
 import com.hmdzl.spspd.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.actors.mobs.pets.GreenDragon;
@@ -36,7 +43,9 @@ import com.hmdzl.spspd.actors.mobs.pets.Haro;
 import com.hmdzl.spspd.actors.mobs.pets.Kodora;
 import com.hmdzl.spspd.actors.mobs.pets.LeryFire;
 import com.hmdzl.spspd.actors.mobs.pets.LightDragon;
+import com.hmdzl.spspd.actors.mobs.pets.LitDemon;
 import com.hmdzl.spspd.actors.mobs.pets.Monkey;
+import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.actors.mobs.pets.PigPet;
 import com.hmdzl.spspd.actors.mobs.pets.RedDragon;
 import com.hmdzl.spspd.actors.mobs.pets.RibbonRat;
@@ -44,13 +53,16 @@ import com.hmdzl.spspd.actors.mobs.pets.Scorpion;
 import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Snake;
 import com.hmdzl.spspd.actors.mobs.pets.Spider;
+import com.hmdzl.spspd.actors.mobs.pets.StarKid;
 import com.hmdzl.spspd.actors.mobs.pets.Stone;
 import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.actors.mobs.pets.YearPet;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -69,47 +81,38 @@ public class PocketBallFull extends Item {
     public static final String AC_USE = "USE";
 
     public int pet_type = 0;
-	public int pet_ht = 0;
-    public int pet_level = 0;
-    public int pet_exp = 0;
+	public int pet_hp = 0;
+
 	
 	private static final String PET_TYPE = "pet_type";
-    private static final String PET_HT = "pet_ht";
-    private static final String PET_LEVEL = "pet_level";
-    private static final String PET_EXP = "pet_exp";
+    private static final String PET_HP = "pet_hp";
 
     public PocketBallFull() {
-        this( 1, 5, 1, 0 );
+        this( 1, 5 );
     }
 
-    public PocketBallFull(int type,int ht ,int level, int exp) {
+    public PocketBallFull(int type,int hp ) {
         super();
         this.pet_type = type;
-        this.pet_ht = ht;
-        this.pet_level = level;
-        this.pet_exp = exp;
+        this.pet_hp = hp;
     }
 
     @Override
     public void storeInBundle( Bundle bundle ) {
         super.storeInBundle( bundle );
         bundle.put( PET_TYPE,pet_type );
-        bundle.put( PET_HT ,pet_ht );
-        bundle.put( PET_LEVEL, pet_level );
-        bundle.put( PET_EXP,pet_exp );
+        bundle.put( PET_HP ,pet_hp );
     }
 
     @Override
     public void restoreFromBundle( Bundle bundle ) {
         //super.restoreFromBundle( bundle );
 		//pet_type = bundle.getInt(PET_TYPE);
-        pet_ht = bundle.getInt(PET_HT);
-        pet_level = bundle.getInt(PET_LEVEL);
-        pet_exp = bundle.getInt(PET_EXP);
+        pet_hp = bundle.getInt(PET_HP);
         try {
             pet_type = bundle.getInt(PET_TYPE);
         }
-        catch (Exception ex)
+               catch (Exception ex)
         {
             pet_type = 1;
         }
@@ -118,7 +121,7 @@ public class PocketBallFull extends Item {
     @Override
     public ArrayList<String> actions(Hero hero) {
         ArrayList<String> actions = super.actions(hero);
-        if (Dungeon.hero.haspet == false & Dungeon.depth < 26){
+        if ((Dungeon.hero.haspet == false & Dungeon.depth < 26 )|| Dungeon.depth == 50){
         actions.add(AC_USE);}
         return actions;
     }
@@ -128,227 +131,16 @@ public class PocketBallFull extends Item {
     public void execute(Hero hero, String action) {
 
         if (action.equals(AC_USE)) {
-            ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
-            for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-                int p = hero.pos + PathFinder.NEIGHBOURS8[i];
-                if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
-                    spawnPoints.add(p);
-                }
-            }
-            if (spawnPoints.size() > 0) {
-                Dungeon.hero.petType = pet_type;
-                if (Dungeon.hero.petType==1){
-                    Spider pet = new Spider();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==2){
-                    CocoCat pet = new CocoCat();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==4){
-                    RedDragon pet = new RedDragon();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==3){
-                    Velocirooster pet = new Velocirooster();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==5){
-                    GreenDragon pet = new GreenDragon();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==6){
-                    VioletDragon pet = new VioletDragon();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==7){
-                    BlueDragon pet = new BlueDragon();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==8){
-                    Scorpion pet = new Scorpion();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==9){
-                    Bunny pet = new Bunny();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==10){
-                    LightDragon pet = new LightDragon();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==11){
-                    BugDragon pet = new BugDragon();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==12){
-                    ShadowDragon pet = new ShadowDragon();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==13){
-                    CocoCat pet = new CocoCat();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==14){
-                    LeryFire pet = new LeryFire();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==15){
-                    GoldDragon pet = new GoldDragon();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==16){
-                    Snake pet = new Snake();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==17){
-                    Fly pet = new Fly();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==18){
-                    Stone pet = new Stone();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==19){
-                    Monkey pet = new Monkey();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==20){
-                    GentleCrab pet = new GentleCrab();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==21){
-                    RibbonRat pet = new RibbonRat();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-                if (Dungeon.hero.petType==22){
-                    YearPet pet = new YearPet();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }		
-                if (Dungeon.hero.petType==23){
-                    DogPet pet = new DogPet();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }	
-                if (Dungeon.hero.petType==24){
-                    ButterflyPet pet = new ButterflyPet();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }	                
-				if (Dungeon.hero.petType==25){
-                    Kodora pet = new Kodora();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }	
-                if (Dungeon.hero.petType==26){
-                    Chocobo pet = new Chocobo();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }		
-                if (Dungeon.hero.petType==27){
-                    PigPet pet = new PigPet();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }	
-                if (Dungeon.hero.petType==28){
-                    Datura pet = new Datura();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }	
-                if (Dungeon.hero.petType==29){
-                    Haro pet = new Haro();
-                    pet.pos = Random.element(spawnPoints);GameScene.add(pet);
-                    pet.HP = pet.HT = pet_ht;
-                    pet.level = pet_level;
-                    pet.experience = pet_exp;
-                }
-				
-                //pet.pos = Random.element(spawnPoints);
-               // GameScene.add(pet);
 
+            Dungeon.hero.petType = pet_type;
+               summonPet(hero);
                 hero.spend(1f);
                 hero.busy();
                 hero.sprite.operate(hero.pos);
                 hero.next();
-
-                Dungeon.hero.haspet=true;
+                if (Dungeon.depth!=50) {
+                    Dungeon.hero.haspet = true;
+                }
                 detach(hero.belongings.backpack);
 
             } else {
@@ -356,9 +148,307 @@ public class PocketBallFull extends Item {
                 super.execute(hero, action);
 
             }
+
+    }
+
+    public static void summonPet(Hero hero) {
+        PET pet = null;
+        switch  (Dungeon.hero.petType) {
+            case 1:
+                pet = null;
+                break;
+            case 101:
+                pet = new Kodora();
+                break;
+            case 102:
+                pet = new GentleCrab();
+                break;
+            case 103:
+                pet = new RibbonRat();
+                break;
+            case 104:
+                pet = new Snake();
+                break;
+            case 105:
+			   pet = new LitDemon();
+                break;
+			case 106:
+			    pet = new StarKid();
+                break;
+            case 201:
+                pet = new DogPet();
+                break;
+            case 202:
+                pet = new Chocobo();
+                break;
+            case 203:
+                pet = new Fly();
+                break;
+            case 204:
+                pet = new Spider();
+                break;
+            case 205:
+                pet = new Stone();
+                break;
+		    case 206:
+                  pet = new DwarfBoy();
+                  break;
+            case 301:
+                pet = new Datura();
+                break;
+            case 302:
+                pet = new Monkey();
+                break;
+            case 303:
+                pet = new PigPet();
+                break;
+            case 304:
+                pet = new ButterflyPet();
+                break;
+            case 305:
+			     pet = new FoxHelper();
+                  break;
+			  case 306:
+                  pet = new FrogPet();
+                  break;
+            case 401:
+                pet = new Bunny();
+                break;
+            case 402:
+                pet = new CocoCat();
+                break;
+            case 403:
+                pet = new Haro();
+                break;
+            case 404:
+                pet = new Velocirooster();
+                break;
+            case 405:
+                break;
+            case 501:
+                pet = new BlueDragon();
+                break;
+            case 502:
+                pet = new GreenDragon();
+                break;
+            case 503:
+                pet = new LightDragon();
+                break;
+            case 504:
+                pet = new RedDragon();
+                break;
+            case 505:
+                pet = new ShadowDragon();
+                break;
+            case 506:
+                pet = new VioletDragon();
+                break;
+            case 507:
+                pet = new Scorpion();
+                break;
+            case 508:
+                pet = new LeryFire();
+                break;
+            case 509:
+                pet = new GoldDragon();
+                break;
+            case 510:
+                pet = new BugDragon();
+                break;
+            case 666:
+                pet = new YearPet();
+                break;
+            default:
+                pet = null;
+                break;
+        }
+        ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
+        for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
+            int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+            if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+                spawnPoints.add(p);
+            }
+        }
+        if (spawnPoints.size() > 0 && pet != null) {
+            pet.pos = Random.element(spawnPoints);GameScene.add(pet);
+            pet.updateStats();
+            pet.HP = Dungeon.hero.petHP;
+            pet.cooldown = Dungeon.hero.petCooldown;
+        } else GLog.n(Messages.get(PocketBallFull.class, "no_pet"));
+    }
+
+	public static void teleportPet(Hero hero) {
+        if (Dungeon.depth == 50) {
+            GLog.n(Messages.get(PocketBallFull.class, "no_place"));
+            return;
+        }
+        PET petCheck = checkpet();
+        if(petCheck!=null){
+            petCheck.destroy();
+            petCheck.sprite.killAndErase();
+        }
+		if(Dungeon.hero.haspet == false) return;
+        PET pet = null;
+          switch  (Dungeon.hero.petType) {
+              case 1:
+                  return;
+              case 101:
+                  pet = new Kodora();
+                  break;
+              case 102:
+                  pet = new GentleCrab();
+                  break;
+              case 103:
+                  pet = new RibbonRat();
+                  break;
+              case 104:
+                  pet = new Snake();
+                  break;
+              case 105:
+			       pet = new LitDemon();
+                  break;
+	          case 106:
+			       pet = new StarKid();
+                  break;			  
+              case 201:
+                  pet = new DogPet();
+                  break;
+              case 202:
+                  pet = new Chocobo();
+                  break;
+              case 203:
+                  pet = new Fly();
+                  break;
+              case 204:
+                  pet = new Spider();
+                  break;
+              case 205:
+                  pet = new Stone();
+                  break;
+			  case 206:
+                  pet = new DwarfBoy();
+                  break;
+              case 301:
+                  pet = new Datura();
+                  break;
+              case 302:
+                  pet = new Monkey();
+                  break;
+              case 303:
+                  pet = new PigPet();
+                  break;
+              case 304:
+                  pet = new ButterflyPet();
+                  break;
+              case 305:
+			     pet = new FoxHelper();
+                  break;
+			  case 306:
+                  pet = new FrogPet();
+                  break;
+              case 401:
+                  pet = new Bunny();
+                  break;
+              case 402:
+                  pet = new CocoCat();
+                  break;
+              case 403:
+                  pet = new Haro();
+                  break;
+              case 404:
+                  pet = new Velocirooster();
+                  break;
+              case 405:
+                  break;
+              case 501:
+                  pet = new BlueDragon();
+                  break;
+              case 502:
+                  pet = new GreenDragon();
+                  break;
+              case 503:
+                  pet = new LightDragon();
+                  break;
+              case 504:
+                  pet = new RedDragon();
+                  break;
+              case 505:
+                  pet = new ShadowDragon();
+                  break;
+              case 506:
+                  pet = new VioletDragon();
+                  break;
+              case 507:
+                  pet = new Scorpion();
+                  break;
+              case 508:
+                  pet = new LeryFire();
+                  break;
+              case 509:
+                  pet = new GoldDragon();
+                  break;
+              case 510:
+                  pet = new BugDragon();
+                  break;
+              case 666:
+                  pet = new YearPet();
+                  break;
+              default:
+                  pet = null;
+                  break;
+          }
+        ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
+        for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
+            int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+            if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+                spawnPoints.add(p);
+            }
+        }
+        if (spawnPoints.size() > 0 && pet != null ) {
+            pet.pos = Random.element(spawnPoints);
+            GameScene.add(pet);
+            pet.updateStats();
+            pet.HP = Dungeon.hero.petHP;
+        } else GLog.n(Messages.get(PocketBallFull.class, "no_pet"));
+	}
+
+    public static void removePet(Hero hero) {
+        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+            if(mob instanceof PET) {
+                mob.destroy();
+                mob.sprite.killAndErase();
+            }
         }
     }
-	
+
+
+    public static void target(Hero hero) {
+        PET petCheck = checkpet();
+        if(petCheck!=null){
+            Buff.detach(petCheck,HiddenShadow.class);
+            Buff.affect(petCheck, WatchOut.class);
+        }
+    }
+
+    public static void distarget(Hero hero) {
+        PET petCheck = checkpet();
+        if(petCheck!=null){
+            Buff.detach(petCheck, WatchOut.class);
+            Buff.affect(petCheck,HiddenShadow.class,999f);
+
+        }
+    }
+
+
+    private static PET checkpet(){
+        for (Mob mob : Dungeon.level.mobs) {
+            if(mob instanceof PET) {
+                return (PET) mob;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean isUpgradable() {
         return false;

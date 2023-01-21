@@ -47,12 +47,13 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 public class PerformerSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
 	{
 		//name = "performer cloak";
-		image = ItemSpriteSheet.ARMOR_PERFORMER;
+		image = ItemSpriteSheet.SKILL_PERFORMER;
 	}
 
 	@Override
@@ -82,24 +83,35 @@ public class PerformerSkill extends ClassSkill {
 	@Override
 	public void doSpecial2() {
 
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos]) {
-				int dmg = (int) (Dungeon.hero.lvl * (1 + 0.1 * Dungeon.hero.magicSkill())) ;
-				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
-				Buff.prolong(mob, Blindness.class, 10f);
-				Buff.prolong(mob, Slow.class, 10f);
-				mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.ENERGY_DAMAGE);
-			}
-		}
-
 		Buff.affect(curUser, HighVoice.class,100);
 		PerformerSkill.charge += 10;
-
-        curUser.spend(SKILL_TIME);
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
+
+
+		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+			if (Level.fieldOfView[mob.pos]) {
+				int base = Dungeon.hero.lvl;
+				double improve = (1 + 0.1* Dungeon.hero.magicSkill());
+				int dmg = (int)(base * improve) ;
+				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
+
+				mob.damage(Random.Int(1,dmg) , DamageType.ENERGY_DAMAGE);
+
+				if (mob.isAlive()) {
+					Buff.prolong(mob, Blindness.class, 10f);
+					Buff.prolong(mob, Slow.class, 10f);
+				}
+			}
+		}
+
+
+
+
+
 	}
 
 	@Override

@@ -20,9 +20,15 @@ package com.hmdzl.spspd.actors.mobs.pets;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.sprites.StoneSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class Stone extends PET {
 	
@@ -31,41 +37,42 @@ public class Stone extends PET {
 		spriteClass = StoneSprite.class;
         //flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 18;
-
+		type = 205;
+        cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.ELEMENT);
 	}
-	
-	
-
-	
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		adjustStats(level);
-	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		evadeSkill = 5 + level;
-		HT = 90 + level*5;
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof MissileWeapon;
 	}
 	
-
-
-
+	@Override
+	public void updateStats()  {
+		evadeSkill = (int)(hero.petLevel*1.5);
+		HT = 150 + 2*hero.petLevel;
+	}
+	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(10, (10+level*2));
+		return Random.NormalIntRange((int)(5+hero.petLevel*0.5), (int)(5+hero.petLevel*1.5));
 	}
 
 	@Override
-	protected boolean act() {		
-		
+	public Item SupercreateLoot(){
+		return Generator.random(Generator.Category.NORNSTONE);
+	}
 
-		return super.act();
+	@Override
+	public int drRoll(){
+		return Random.IntRange(hero.petLevel,(int)(hero.petLevel*1.5));
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 5;
 	}
 	
 	@Override
@@ -73,7 +80,16 @@ public class Stone extends PET {
 		if (Random.Int(20) == 0) {
 			Buff.affect(enemy, Paralysis.class, 3f);
 		}
-
+        cooldown--;
 		return damage;
 	}	
+	
+	@Override
+	public int defenseProc(Char enemy, int damage) {
+		if (cooldown == 0) {
+			Buff.affect(enemy, Shieldblock.class,5f);
+			cooldown = Math.max(10,30-hero.petLevel);
+		}
+		return damage;
+	}
 }

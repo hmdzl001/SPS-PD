@@ -59,7 +59,7 @@ import java.util.HashSet;
 public class SoldierSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
 	{
-		image = ItemSpriteSheet.ARMOR_SOLDIER;
+		image = ItemSpriteSheet.SKILL_SOLDIER;
 	}
 
 	@Override

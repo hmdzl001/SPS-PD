@@ -40,7 +40,7 @@ public class MagicEyeSprite extends MobSprite {
 		run = new Animation(12, true);
 		run.frames(frames, 5, 6);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 4, 3);
 
 		die = new Animation(8, false);

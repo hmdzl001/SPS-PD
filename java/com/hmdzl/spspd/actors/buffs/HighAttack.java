@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -63,7 +63,7 @@ public class HighAttack extends Buff {
 				final int pos = target.pos + Level.NEIGHBOURS8[i];
 				if (Dungeon.level.map[pos] == Terrain.WALL ||
 						Dungeon.level.map[pos] == Terrain.WALL_DECO ||
-						Dungeon.level.map[pos] == Terrain.UNBREAK_WALL ||
+						Dungeon.level.map[pos] == Terrain.WALL_SP ||
 						Dungeon.level.map[pos] == Terrain.CHASM_WALL ||
 						Dungeon.level.map[pos] == Terrain.DOOR ||
 						Dungeon.level.map[pos] == Terrain.OPEN_DOOR||

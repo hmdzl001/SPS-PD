@@ -109,7 +109,7 @@ public abstract class Mob extends Char {
 	protected int EXP = 1;
 	//public int maxLvl = 100;
 	protected int maxLvl = 100;
-	protected int dewLvl = 1;
+	public int dewLvl = 1;
 
 	protected Char enemy;
 	protected boolean enemySeen;
@@ -120,11 +120,13 @@ public abstract class Mob extends Char {
 	public boolean hostile = true;
 	public boolean ally = false;
 	public boolean originalgen = false;
+	public boolean firstitem = true;
 
 	private static final String STATE = "state";
 	private static final String SEEN = "seen";
 	private static final String TARGET = "target";
 	private static final String ORIGINAL = "originalgen";
+	private static final String FIRSTITEM = "firstitem";
 	
 	public int getExp(){
 		return EXP;
@@ -149,6 +151,7 @@ public abstract class Mob extends Char {
 		bundle.put(SEEN, enemySeen);
 		bundle.put(TARGET, target);
 		bundle.put(ORIGINAL, originalgen);
+		bundle.put(FIRSTITEM, firstitem);
 	}
 
 	@Override
@@ -174,6 +177,7 @@ public abstract class Mob extends Char {
 		target = bundle.getInt(TARGET);
 		
 		originalgen = bundle.getBoolean(ORIGINAL);
+		firstitem = bundle.getBoolean(FIRSTITEM);
 	}
 
 	public CharSprite sprite() {
@@ -561,7 +565,7 @@ public abstract class Mob extends Char {
 
 		Dungeon.level.mobs.remove(this);
 
-		if (Dungeon.hero.isAlive()) {
+		if (Dungeon.hero.isAlive() && !(this instanceof NPC)) {
 
 			if (hostile) {
 				Statistics.enemiesSlain++;

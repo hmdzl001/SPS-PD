@@ -35,7 +35,7 @@ public class SentinelSprite extends MobSprite {
 		run = new Animation(15, true);
 		run.frames(frames, 2, 3, 4, 5, 6, 7);
 
-		attack = new Animation(12, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 8, 9, 10);
 
 		die = new Animation(5, false);

@@ -19,68 +19,62 @@ package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
+import com.hmdzl.spspd.items.bombs.DungeonBomb;
+import com.hmdzl.spspd.items.food.Nut;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.CoconutSprite;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
-
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class CocoCat extends PET {
 	
 	{
-		//name = "scorpion";
 		spriteClass = CoconutSprite.class;       
 		//flying=false;
 		state = HUNTING;
-		level = 1;
-		type = 13;
-		cooldown=500;
+
+		type = 402;
+		cooldown=50;
+		oldcooldown = 10;
 
 		properties.add(Property.BEAST);
 
-	}	
-			
-		
-	
+	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		HT = 10000;
-		evadeSkill = 5 + level;
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof Nut;
 	}
-	
 
 
+	@Override
+	public void updateStats()  {
+		HT =  200+ 2*Dungeon.hero.petLevel;
+		evadeSkill = 3 + Dungeon.hero.petLevel;
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new DungeonBomb();
+	}
+
+	@Override
+	public int drRoll(){
+		return Random.IntRange(2+Dungeon.hero.petLevel,5+Dungeon.hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return Dungeon.hero.petLevel + 5;
+	}
 
 	@Override
 	public int damageRoll() {		
-		return Random.NormalIntRange((5+level), (5+level*3)) ;		
+		return Random.NormalIntRange((2+Dungeon.hero.petLevel), (5+Dungeon.hero.petLevel*2)) ;
 	}
-
-	@Override
-	protected boolean act() {
-		
-		if (cooldown>0){
-			cooldown=Math.max(cooldown-(1+9*((level-1)/19)),0);
-			if (cooldown==0) {GLog.w(Messages.get(this,"ready"));}
-		}
-		
-		
-
-		if (level > 5){
-		yell(Messages.get(this,"thanks"));
-		destroy();
-		//sprite.killAndErase();
-		//CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
-		Dungeon.hero.haspet=false;
-		}
-		
-		return super.act();
-
-	}			
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
@@ -88,49 +82,16 @@ public class CocoCat extends PET {
 		return Level.distance( pos, enemy.pos ) <= 4 ;
 	
 	}
-	
+
 	@Override
 	public int attackProc(Char enemy, int damage) {
+		if (cooldown > 0) cooldown --;
 		if (cooldown==0) {
 		BuildBomb bomb = new BuildBomb();
 		bomb.explode(enemy.pos);
-		cooldown=500;
+		cooldown=Math.max(5,50-Dungeon.hero.petLevel);
 		}
-
 		return damage;
 	}
-
-	/*private static final HashSet<Class<?>> RESISTANCES = new HashSet<Class<?>>();
-	private static final HashSet<Class<?>> IMMUNITIES = new HashSet<Class<?>>();
-	static {
-		RESISTANCES.add(ToxicGas.class);
-		RESISTANCES.add(Poison.class);
-		RESISTANCES.add(EnchantmentDark.class);
-		IMMUNITIES.add(EnchantmentDark.class);
-		IMMUNITIES.add(Ooze.class);
-		IMMUNITIES.add(Terror.class);
-		IMMUNITIES.add(Amok.class);
-		IMMUNITIES.add(Charm.class);
-		IMMUNITIES.add(Sleep.class);
-		IMMUNITIES.add(Burning.class);
-		IMMUNITIES.add(ToxicGas.class);
-		IMMUNITIES.add(ScrollOfPsionicBlast.class);
-		IMMUNITIES.add(Vertigo.class);
-		IMMUNITIES.add(Paralysis.class);
-	    IMMUNITIES.add(Bleeding.class);
-		IMMUNITIES.add(CorruptGas.class);
-		
-	}
-	
-	@Override
-	public HashSet<Class<?>> immunities() {
-		return IMMUNITIES;
-	}
-	
-	@Override
-	public HashSet<Class<?>> resistances() {
-		return RESISTANCES;
-	}*/
-
 
 }

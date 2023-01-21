@@ -17,13 +17,16 @@
  */
 package com.hmdzl.spspd.actors.mobs.npcs;
 
+import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.eggs.HaroEgg;
 import com.hmdzl.spspd.items.food.Honey;
+import com.hmdzl.spspd.items.journalpages.NewHome;
 import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
@@ -100,6 +103,11 @@ public class AshWolf extends NPC {
 				Dungeon.hero.belongings.weapon = null;
 			}
 			pumpkin.detachAll(Dungeon.hero.belongings.backpack);
+		}
+		if (Statistics.deepestFloor> 24 || Dungeon.isChallenged(Challenges.TEST_TIME)){
+			yell(Messages.get(this, "yell4"));
+			Dungeon.level.drop(new NewHome(), Dungeon.hero.pos);
+
 		}
 
 		return false;

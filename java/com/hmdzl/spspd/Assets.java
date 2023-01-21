@@ -406,5 +406,11 @@ public class Assets {
 
     public static final String WAR_TREE = "wartree.png";
 
+	public static final String FOX_HELPER = "foxhelper.png";
+	public static final String DWARF_BOY = "dwarfboy.png";
+	public static final String LIT_DEMON = "litdemon.png";
+	public static final String STAR_KID = "starkid.png";
+	public static final String FROG_PET = "frogpet.png";
+
 }
 

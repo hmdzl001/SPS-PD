@@ -77,6 +77,7 @@ import com.hmdzl.spspd.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.SnipersMark;
+import com.hmdzl.spspd.actors.buffs.SpeedImbue;
 import com.hmdzl.spspd.actors.buffs.Strength;
 import com.hmdzl.spspd.actors.buffs.SuperArcane;
 import com.hmdzl.spspd.actors.buffs.Terror;
@@ -115,6 +116,7 @@ import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.KindofMisc;
 import com.hmdzl.spspd.items.OrbOfZot;
+import com.hmdzl.spspd.items.PocketBallFull;
 import com.hmdzl.spspd.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
 import com.hmdzl.spspd.items.artifacts.DriedRose;
@@ -190,6 +192,7 @@ import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Sungrass;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
+import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.scenes.SurfaceScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.HeroSprite;
@@ -236,15 +239,17 @@ public class Hero extends Char {
 	public int evadeSkill = 5;
 	public int magicSkill = 0;
 	public int spp = 0;
+	
+	public int petLevel = 0;
+	public int petExperience = 0;
 
 	public boolean ready = false;
 	
 	public boolean haspet = false;
-	public boolean petfollow = false;
+	
 	public int petType = 0;
-	public int petLevel = 0;
 	public int petHP = 0;
-	public int petExperience = 0;
+
 	public int petCooldown = 0;
 
 	private boolean damageInterrupt = true;
@@ -373,12 +378,17 @@ public class Hero extends Char {
 	private static final String STRENGTH = "STR";
 	private static final String LEVEL = "lvl";
 	private static final String EXPERIENCE = "exp";
+	
+	private static final String PETLEVEL = "petLevel";
+	private static final String PETEXP = "petExperience";
+	
+	
 	private static final String HASPET = "haspet";
 	private static final String PETFOLLOW = "petfollow";
 	private static final String PETTYPE = "petType";
-	private static final String PETLEVEL = "petLevel";
+	
 	private static final String PETHP = "petHP";
-	private static final String PETEXP = "petExperience";
+	
 	private static final String PETCOOLDOWN = "petCooldown";
 
 	@Override
@@ -395,15 +405,18 @@ public class Hero extends Char {
 		bundle.put(SPP, spp);
 
 		bundle.put(STRENGTH, STR);
+		
+		bundle.put(PETLEVEL, petLevel);
+		bundle.put(PETEXP, petExperience);
 
 		bundle.put(LEVEL, lvl);
 		bundle.put(EXPERIENCE, exp);
 		bundle.put(HASPET, haspet);
-		bundle.put(PETFOLLOW, petfollow);
+
 		bundle.put(PETTYPE, petType);
-		bundle.put(PETLEVEL, petLevel);
+		
 		bundle.put(PETHP, petHP);
-		bundle.put(PETEXP, petExperience);
+		
 		bundle.put(PETCOOLDOWN, petCooldown);
 
 		belongings.storeInBundle(bundle);
@@ -427,7 +440,7 @@ public class Hero extends Char {
 		lvl = bundle.getInt(LEVEL);
 		exp = bundle.getInt(EXPERIENCE);
 		haspet = bundle.getBoolean(HASPET);
-		petfollow = bundle.getBoolean(PETFOLLOW);
+
 		petType = bundle.getInt(PETTYPE);
 		petLevel = bundle.getInt(PETLEVEL);
 		petHP = bundle.getInt(PETHP);
@@ -837,7 +850,6 @@ public class Hero extends Char {
 		
 		DolyaSlate journal = belongings.getItem(DolyaSlate.class);
 		if (journal!=null && (Dungeon.depth < 26) 
-				&& (journal.level>1 || journal.rooms[0]) 
 				&& journal.charge<journal.fullCharge){
 			journal.charge++;
 		}
@@ -1248,6 +1260,7 @@ public class Hero extends Char {
 				case SKELETON:
 				case REMAINS:
 				case E_DUST:
+				case M_WEB:
 					break;
 				default:
 					Sample.INSTANCE.play(Assets.SND_UNLOCK);
@@ -1321,20 +1334,10 @@ public class Hero extends Char {
 		}	
 		return null;
 	}
-	
-	private boolean checkpetNear(){
-		for (int n : Level.NEIGHBOURS8) {
-			int c = pos + n;
-			if (Actor.findChar(c) instanceof PET) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	private boolean actDescend(HeroAction.Descend action) {
 		int stairs = action.dst;
-		
+
 		if (!Dungeon.level.forcedone && ( Dungeon.dewDraw || Dungeon.dewWater )
 		        && (Dungeon.level.checkdew()>0 
 				|| hero.buff(Dewcharge.class) != null))
@@ -1357,7 +1360,9 @@ public class Hero extends Char {
 		
 		//if (pos == stairs && pos == Dungeon.level.exit && !Dungeon.level.sealedlevel){
 		if (pos == stairs && pos == Dungeon.level.exit){
-			
+
+			LoadSaveScene.exportGames(heroClass.title2(), "E");
+
 			curAction = null;
 			
 			if(Dungeon.dewDraw || Dungeon.dewWater) {
@@ -1370,17 +1375,8 @@ public class Hero extends Char {
 					}
 				}
 			}
-			
-			PET pet = checkpet();
-			if(pet!=null && checkpetNear()){
-			  hero.petType=pet.type;
-			  hero.petLevel=pet.level;
-			  hero.petHP=pet.HP;
-			  hero.petExperience=pet.experience;
-			  hero.petCooldown=pet.cooldown;
-			  pet.destroy();
-			  petfollow=true;
-			} else petfollow = hero.haspet && hero.petfollow;
+
+			PocketBallFull.removePet(hero);
 	
 			Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 			if (buff != null) buff.detach();
@@ -1403,7 +1399,7 @@ public class Hero extends Char {
 	private boolean actAscend(HeroAction.Ascend action) {
 		int stairs = action.dst;
 		if (pos == stairs && pos == Dungeon.level.entrance) {
-			
+			LoadSaveScene.exportGames(heroClass.title2(), "E");
 			if (Dungeon.depth == 1) {
 
 				if (belongings.getItem(Amulet.class) == null) {
@@ -1427,17 +1423,6 @@ public class Hero extends Char {
 					hunger.satisfy(-Hunger.STARVING / 10);
 				}
 				
-				PET pet = checkpet();
-				if(pet!=null && checkpetNear()){
-				  hero.petType=pet.type;
-				  hero.petLevel=pet.level;
-				  hero.petHP=pet.HP;
-				  hero.petExperience=pet.experience;
-				  hero.petCooldown=pet.cooldown;
-				  pet.destroy();
-				  petfollow=true;
-				} else petfollow = hero.haspet && hero.petfollow;
-				
 				Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 				if (buff != null)
 					buff.detach();
@@ -1451,23 +1436,14 @@ public class Hero extends Char {
 				
 			
 		    } else if (Dungeon.depth == 41) {
-			curAction = null;
+			   curAction = null;
 
 			Hunger hunger = buff(Hunger.class);
 			if (hunger != null && !hunger.isStarving()) {
 				hunger.satisfy(-Hunger.STARVING / 10);
 			}
 
-			PET pet = checkpet();
-			if(pet!=null && checkpetNear()){
-			  hero.petType=pet.type;
-			  hero.petLevel=pet.level;
-			  hero.petHP=pet.HP;
-			  hero.petExperience=pet.experience;
-			  hero.petCooldown=pet.cooldown;
-			  pet.destroy();
-			  petfollow=true;
-			} else petfollow = hero.haspet && hero.petfollow;
+			PocketBallFull.removePet(hero);
 			
 			Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 			if (buff != null)
@@ -1495,16 +1471,7 @@ public class Hero extends Char {
 					hunger.satisfy(-Hunger.STARVING / 10);
 				}
 
-				PET pet = checkpet();
-				if(pet!=null && checkpetNear()){
-				  hero.petType=pet.type;
-				  hero.petLevel=pet.level;
-				  hero.petHP=pet.HP;
-				  hero.petExperience=pet.experience;
-				  hero.petCooldown=pet.cooldown;
-				  pet.destroy();
-				  petfollow=true;
-				} else petfollow = hero.haspet && hero.petfollow;
+				PocketBallFull.removePet(hero);
 				
 				Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
 				if (buff != null)
@@ -1868,7 +1835,7 @@ public class Hero extends Char {
 			restoreHealth = false;
 			}
 
-		if (!(src instanceof Hunger || src instanceof Iceglyph.DeferedDamage || src instanceof NmGas)
+		if (!(src instanceof Hunger || src instanceof Iceglyph.DeferedDamage || src instanceof NmGas || src instanceof SpeedImbue)
 				&& damageInterrupt){
 			interrupt();
 
@@ -2224,7 +2191,12 @@ public class Hero extends Char {
 		if (ggb != null){
 			this.exp += 2;
 		}
-		
+
+		if (haspet) {
+			petExperience += exp;
+		}
+
+
 		float percent = exp/(float)maxExp();
 
 		EtherealChains.chainsRecharge chains = buff(EtherealChains.chainsRecharge.class);
@@ -2234,6 +2206,7 @@ public class Hero extends Char {
 		if (pylon != null) pylon.gainExp(percent);		
 
 		boolean levelUp = false;
+
 		while (this.exp >= maxExp()) {
 			this.exp -= maxExp();
 			lvl++;
@@ -2307,6 +2280,13 @@ public class Hero extends Char {
 			}
 
 			levelUp = true;
+		}
+
+		while (petExperience >= 10 * petLevel + 1 ) {
+			petExperience = 0;
+			petLevel++;
+			if (haspet) checkpet().updateStats();
+			GLog.p(Messages.get(PET.class,"levelup"));
 		}
 
 		if (levelUp) {

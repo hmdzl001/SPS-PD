@@ -19,10 +19,8 @@ package com.hmdzl.spspd.levels;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer3;
 import com.hmdzl.spspd.items.TriforceOfPower;
-import com.hmdzl.spspd.items.quest.Mushroom;
+import com.hmdzl.spspd.items.Vialupdater;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.watabou.utils.Random;
 
@@ -175,27 +173,10 @@ public class FortressLevel extends RegularLevel {
 	@Override
 	protected void createItems() {
 
-		Tinkerer3.Quest.spawn(this, roomEntrance);
-		addItemToSpawn(new Mushroom());
-		spawnnpc(this);
+		addItemToSpawn(new Vialupdater());
 		super.createItems();
 
-
-			
 	}
-
-		public static void spawnnpc(FortressLevel level) {
-	
-		Tinkerer3 npc = new Tinkerer3();
-		do {
-				npc.pos = level.randomRespawnCell();
-			} while (level.map[npc.pos] == Terrain.ENTRANCE
-					|| level.map[npc.pos] == Terrain.SIGN);
-			level.mobs.add(npc);
-		    Actor.occupyCell(npc);
-
-	}
-		
 		
 		public static void spawn(FortressLevel level, Room room) {
 		int pos;

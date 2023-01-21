@@ -17,11 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.items.challengelists.CityChallenge;
-import com.hmdzl.spspd.items.food.completefood.GoldenNut;
-import com.hmdzl.spspd.items.reward.CityReward;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
@@ -30,6 +25,11 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.AncientCoin;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.challengelists.CityChallenge;
+import com.hmdzl.spspd.items.food.completefood.GoldenNut;
+import com.hmdzl.spspd.items.reward.CityReward;
+import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GoldThiefSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -94,8 +94,7 @@ public class GoldThief extends Mob {
 			Dungeon.level.drop(item, pos).sprite.drop();
 		}		
 		
-		if (!Dungeon.limitedDrops.citykey.dropped() && Dungeon.depth<27) {
-			Dungeon.limitedDrops.citykey.drop();
+		if ( Dungeon.depth<27) {
 			Dungeon.level.drop(new CityChallenge(), pos).sprite.drop();
 			explodeDew(pos);				
 		} else {
@@ -103,7 +102,6 @@ public class GoldThief extends Mob {
 		}
 		
 	if(Statistics.goldThievesKilled == 25) {
-		Dungeon.limitedDrops.ancientcoin.drop();
 		Dungeon.level.drop(new AncientCoin(), pos).sprite.drop();
 	}
 

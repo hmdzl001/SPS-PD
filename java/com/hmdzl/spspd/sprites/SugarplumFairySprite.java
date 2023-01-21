@@ -40,7 +40,7 @@ public class SugarplumFairySprite extends MobSprite {
 		run = new Animation(8, true);
 		run.frames(frames, 16, 17, 18, 16);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 16, 19, 20, 17);
 		
 		die = new Animation(8, false);

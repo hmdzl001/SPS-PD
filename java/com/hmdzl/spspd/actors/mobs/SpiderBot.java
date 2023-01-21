@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Web;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.BugSlow;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.actors.buffs.SkillUse2;
@@ -112,8 +113,10 @@ public class SpiderBot extends Mob {
 		if (dist < 2) {
 			if (!bugfood.collect(Dungeon.hero.belongings.backpack)) {
 				Dungeon.level.drop( bugfood, Dungeon.hero.pos ).sprite.drop();
+			} else {
+				GLog.n(Messages.get(this, "yell"));
+				Buff.affect(Dungeon.hero,BugSlow.class);
 			}
-			GLog.n( Messages.get(this, "yell") );
 		} else Dungeon.level.drop( bugfood, pos ).sprite.drop();
 
 
@@ -136,8 +139,10 @@ public class SpiderBot extends Mob {
 		if (dist < 2) {
 			if (!bugfood.collect(Dungeon.hero.belongings.backpack)) {
 				Dungeon.level.drop( bugfood, ch.pos ).sprite.drop();
+			} else {
+				GLog.n(Messages.get(this, "yell"));
+				Buff.affect(Dungeon.hero,BugSlow.class);
 			}
-			GLog.n( Messages.get(this, "yell") );
 		} else Dungeon.level.drop( bugfood, pos ).sprite.drop();
 	}
 

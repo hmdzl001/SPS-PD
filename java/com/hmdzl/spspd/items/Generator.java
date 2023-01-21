@@ -76,12 +76,26 @@ import com.hmdzl.spspd.items.eggs.GoldDragonEgg;
 import com.hmdzl.spspd.items.eggs.GreenDragonEgg;
 import com.hmdzl.spspd.items.eggs.LeryFireEgg;
 import com.hmdzl.spspd.items.eggs.LightDragonEgg;
+import com.hmdzl.spspd.items.eggs.RandomAtkEgg;
+import com.hmdzl.spspd.items.eggs.RandomColEgg;
+import com.hmdzl.spspd.items.eggs.RandomDefEgg;
+import com.hmdzl.spspd.items.eggs.RandomEasterEgg;
 import com.hmdzl.spspd.items.eggs.RandomEgg;
+import com.hmdzl.spspd.items.eggs.RandomEgg1;
+import com.hmdzl.spspd.items.eggs.RandomEgg10;
+import com.hmdzl.spspd.items.eggs.RandomEgg11;
+import com.hmdzl.spspd.items.eggs.RandomEgg12;
+import com.hmdzl.spspd.items.eggs.RandomEgg2;
+import com.hmdzl.spspd.items.eggs.RandomEgg3;
+import com.hmdzl.spspd.items.eggs.RandomEgg4;
+import com.hmdzl.spspd.items.eggs.RandomEgg5;
+import com.hmdzl.spspd.items.eggs.RandomEgg6;
+import com.hmdzl.spspd.items.eggs.RandomEgg7;
+import com.hmdzl.spspd.items.eggs.RandomEgg8;
+import com.hmdzl.spspd.items.eggs.RandomEgg9;
 import com.hmdzl.spspd.items.eggs.RedDragonEgg;
 import com.hmdzl.spspd.items.eggs.ScorpionEgg;
 import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
-import com.hmdzl.spspd.items.eggs.SpiderEgg;
-import com.hmdzl.spspd.items.eggs.VelociroosterEgg;
 import com.hmdzl.spspd.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
@@ -296,7 +310,7 @@ public class Generator {
 		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),SEED4(0,	Plant.Seed.class),
 		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(5, Pill.class), BOMBS(20, Bomb.class),
 		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(5, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class)
-		,SHOES(0,Item.class),DEW(0,Item.class);
+		,SHOES(0,Item.class),DEW(0,Item.class),BASEPET(0,Egg.class);
 
 		public Class<?>[] classes;
 		public float[] probs;
@@ -499,10 +513,10 @@ public class Generator {
 
 		Category.SEED3.probs = new float[] { 8, 4, 2, 4, 3, 1 , 1 };
 
-		Category.SEED4.classes = new Class<?>[] {Sungrass.Seed.class, Earthroot.Seed.class, Flytrap.Seed.class, Dreamfoil.Seed.class,
-				Starflower.Seed.class, Phaseshift.Seed.class, NutPlant.Seed.class};
+		Category.SEED4.classes = new Class<?>[] {Sungrass.Seed.class, Flytrap.Seed.class, Dreamfoil.Seed.class,
+				Starflower.Seed.class, Phaseshift.Seed.class, NutPlant.Seed.class,BlandfruitBush.Seed.class , Seedpod.Seed.class};
 
-		Category.SEED4.probs = new float[] { 8, 4, 1, 4, 2, 1 , 8 };		
+		Category.SEED4.probs = new float[] { 4,  1, 4, 2, 1 , 3,1,1 };
 		
 		
 		Category.BERRY.classes = new Class<?>[] {Blackberry.class, Blueberry.class, Cloudberry.class, Moonberry.class};
@@ -516,9 +530,9 @@ public class Generator {
 
 		Category.EGGS.classes = new Class<?>[] { BlueDragonEgg.class, CocoCatEgg.class, EasterEgg.class,Egg.class,
                 LightDragonEgg.class, GreenDragonEgg.class, LeryFireEgg.class, RedDragonEgg.class, ScorpionEgg.class,
-                ShadowDragonEgg.class, SpiderEgg.class, VelociroosterEgg.class, VioletDragonEgg.class,
+                ShadowDragonEgg.class, VioletDragonEgg.class,
 				GoldDragonEgg.class, RandomEgg.class };
-		Category.EGGS.probs = new float[] {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1};
+		Category.EGGS.probs = new float[] {1,0,1,1,1,1,1,1,1,1,1,1,1};
 
 		Category.HIGHFOOD.classes = new Class<?>[] { Chickennugget.class,Foamedbeverage.class,Fruitsalad.class,
 				Hamburger.class,Herbmeat.class,Honeymeat.class,Honeyrice.class,
@@ -575,6 +589,13 @@ public class Generator {
 				Dewdrop.class,YellowDewdrop.class,RedDewdrop.class,VioletDewdrop.class,Dewcatcher.Seed.class
 		};
 		Category.DEW.probs = new float[] { 4,8,5,3,1};
+
+		Category.BASEPET.classes = new Class<?>[] { RandomAtkEgg.class, RandomDefEgg.class, RandomColEgg.class,RandomEasterEgg.class,
+				RandomEgg1.class, RandomEgg2.class, RandomEgg3.class, RandomEgg4.class, RandomEgg5.class,RandomEgg6.class,
+				RandomEgg7.class, RandomEgg8.class, RandomEgg9.class, RandomEgg10.class,RandomEgg11.class,RandomEgg12.class};
+		Category.BASEPET.probs = new float[] {1,1,1,1,
+				1,1,1,1,1,1,
+				1,1,1,1,1,1};
 		
 	}
 

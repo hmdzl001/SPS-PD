@@ -30,6 +30,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.YellowDewdrop;
+import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
 import com.hmdzl.spspd.items.keys.GoldenKey;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.scrolls.Scroll;
@@ -554,7 +555,7 @@ public abstract class  RegularLevel extends Level {
 				map[door] = Terrain.LOCKED_DOOR;
 				break;
 			case ONEWAY:
-				map[door] = Terrain.STATUE_SSP;
+				map[door] = Terrain.STATUE_BROKEN;
 				break;
 			}
 		}
@@ -738,6 +739,17 @@ public abstract class  RegularLevel extends Level {
 			   drop(Generator.random(), randomDropCell()).type = type;
 			else drop(new YellowDewdrop(), randomDropCell()).type = type;
 		}
+
+		for (int r = 0; r < 3; r++) {
+			Heap.Type type = Heap.Type.M_WEB;
+			if (Random.Int(3)==0)
+			   drop(Generator.random(Random.oneOf(Generator.Category.ARMOR,
+					   Generator.Category.WEAPON,
+					   Generator.Category.ARTIFACT,
+					   Generator.Category.RING)), randomDropCell()).type = type;
+			else drop(new SmallMeat(), randomDropCell()).type = type;
+		}		
+		
 //for (int x = 0; x < 20; x++) {
 		if (Random.Int(5)>0){
 			Heap.Type type = Heap.Type.LOCKED_CHEST;

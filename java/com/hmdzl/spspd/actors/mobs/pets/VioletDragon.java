@@ -19,129 +19,89 @@ package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
+import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
+import com.hmdzl.spspd.items.wands.WandOfAcid;
+import com.hmdzl.spspd.items.wands.WandOfSwamp;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.VioletDragonSprite;
-import com.hmdzl.spspd.utils.GLog;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class VioletDragon extends PET implements Callback{
+import static com.hmdzl.spspd.Dungeon.hero;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
+
+public class VioletDragon extends PET{
 	
 	{
 		//name = "violet dragon";
 		spriteClass = VioletDragonSprite.class;       
 		//flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 6;
-		cooldown=500;
-		
+
+		type = 506;
+		cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.DRAGON);
 
 	}
-	private static final float TIME_TO_ZAP = 1f;
-
-	//Frames 1-4 are idle, 5-8 are moving, 9-12 are attack and the last are for death 
-
-	//flame on!
-	//spits fire
-	//feed meat
-	
-	@Override
-	protected float attackDelay() {
-		return 0.8f;
-	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		HT = 70 + level*10;
-		evadeSkill = 5 + level;
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof PotionOfToxicGas ||
+				item instanceof ScrollOfRegrowth;
+	}
+
+
+	@Override
+	public void updateStats()  {
+		HT = 150 + hero.petLevel*5;
+		evadeSkill = hero.petLevel;
 	}
 	
-
-
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange((5+level), (5+level*3));
+		return Random.NormalIntRange((6+hero.petLevel), (6+hero.petLevel*4));
 	}
 
 	@Override
-	protected boolean act() {
-		
-		if (cooldown>0){
-			cooldown=Math.max(cooldown-(1+9*((level-1)/19)),0);
-			if (cooldown==0) {GLog.w(Messages.get(this,"ready"));}
-		}
-		
-		
-
-		return super.act();
+	public Item SupercreateLoot(){
+		return Random.oneOf( new WandOfSwamp(), new WandOfAcid());
 	}
-	
-	
+
+	@Override
+	public int drRoll(){
+		return Random.IntRange(5+hero.petLevel,10+hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 10;
+	}
+
 	@Override
 	protected boolean canAttack(Char enemy) {
-		if (cooldown>0){
-		  return Level.adjacent(pos, enemy.pos);
-		} else {
-		  return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
-		}
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override
-	protected boolean doAttack(Char enemy) {
-
-		if (Level.adjacent(pos, enemy.pos)) {
-
-			return super.doAttack(enemy);
-
-		} else {
-
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
-			if (visible) {
-				sprite.zap(enemy.pos);
-			} else {
-				zap();
-			}
-
-			return !visible;
+	public int attackProc(Char enemy, int damage) {
+		enemy.damage(damageRoll()/2, EARTH_DAMAGE);
+		damage = damage/2;
+		if (cooldown > 0) cooldown --;
+		if (cooldown==0 && enemy.isAlive()) {
+			Buff.affect(enemy,Ooze.class);
+			cooldown = Math.max(9,30 - hero.petLevel);
 		}
+		return damage;
 	}
 
-	
-	private void zap() {
-		spend(TIME_TO_ZAP);
-
-		cooldown=500;
-		
-		if (hit(this, enemy, true)) {			
-
-			int dmg = damageRoll()*2;
-			enemy.damage(dmg, DamageType.EARTH_DAMAGE);
-			
-			Buff.affect(enemy,Poison.class).set(level + 1);
-			
-		} else {
-			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
-		}
-		
-	}
-
-	public void onZapComplete() {
-		zap();
-		next();
-	}
-
-	@Override
-	public void call() {
-		next();
+	{
+		immunities.add(DamageType.EarthDamage.class);
 	}
 }

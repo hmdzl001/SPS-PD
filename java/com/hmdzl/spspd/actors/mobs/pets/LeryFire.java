@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Fire;
@@ -27,16 +28,22 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.potions.Potion;
+import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.items.weapon.missiles.BottleFire;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.LerySprite;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class LeryFire extends PET implements Callback{
 	
@@ -45,44 +52,53 @@ public class LeryFire extends PET implements Callback{
 		spriteClass = LerySprite.class;
 		//flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 14;
-		cooldown=500;
+		type = 508;
+		oldcooldown=30;
+		cooldown=50;
 
 		properties.add(Property.ELEMENT);
 
 	}
 	private static final float TIME_TO_ZAP = 1f;
 
-
+	@Override
+	public void updateStats()  {
+		HT = 150 + hero.petLevel*5;
+		evadeSkill = hero.petLevel;
+	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		HT = 70 + level*10;
-		evadeSkill = 5 + level;
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof Scroll ||
+				item instanceof Potion;
 	}
-	
-
-
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange((5+level), (5+level*3));
+		return Random.NormalIntRange((6+hero.petLevel), (6+hero.petLevel*4));
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new BottleFire();
+	}
+
+	@Override
+	public int drRoll(){
+		return Random.IntRange(5+hero.petLevel,10+hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 10;
 	}
 
 	@Override
 	protected boolean act() {
-		
 		if (cooldown>0){
-			cooldown=Math.max(cooldown-(1+9*((level-1)/19)),0);
-			if (cooldown==0) {
-				GLog.w(Messages.get(this,"ready"));
-			}
+			cooldown--;
 		}
-		
-		
-
 		return super.act();
 	}
 	
@@ -121,7 +137,7 @@ public class LeryFire extends PET implements Callback{
 	private void zap() {
 		spend(TIME_TO_ZAP);
 
-		cooldown=500;
+		cooldown=Math.max(25,45 - hero.petLevel);
 		switch (Random.Int (5)) {
 			case 0: 		
 			if (hit(this, enemy, true)) {			
@@ -139,7 +155,7 @@ public class LeryFire extends PET implements Callback{
 			int dmg = damageRoll()*2;
 			enemy.damage(dmg, this);
 			
-			Buff.affect(enemy,Poison.class).set(level + 1);
+			Buff.affect(enemy,Poison.class).set(Dungeon.hero.petLevel + 1);
 
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
@@ -151,7 +167,7 @@ public class LeryFire extends PET implements Callback{
 			int dmg = damageRoll()*2;
 			enemy.damage(dmg, this);
 			
-			if (Random.Int(dmg)<level){
+			if (Random.Int(dmg)<Dungeon.hero.petLevel){
 				GameScene.add(Blob.seed(enemy.pos, 1, Fire.class));}
 			
 		} else {

@@ -17,17 +17,9 @@
  */
 package com.hmdzl.spspd.items.eggs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
-import com.hmdzl.spspd.effects.Pushing;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
-import com.watabou.noosa.tweeners.AlphaTweener;
 
 public class ShadowDragonEgg extends Egg {
 	
@@ -38,8 +30,7 @@ public class ShadowDragonEgg extends Egg {
 
 		stackable = false;
 		}
-		
-		public int startMoves = 0;
+
 		public int moves = 0;
 		public int burns = 0;
 		public int freezes = 0;
@@ -54,53 +45,10 @@ public class ShadowDragonEgg extends Egg {
 		if (action.equals(AC_BREAK)) {
 			ShadowDragon pet = new ShadowDragon();
 			eggHatch(pet);
-		  hero.next();
-		}
-		else if (action.equals(AC_SHAKE)) {
-			GLog.w(Messages.get(Egg.class,"kick"));
+		    hero.next();
 		} else {
 			super.execute(hero, action);
 		}
-	}	
-
-	public void eggHatch (PET pet) {		
-		
-		  int spawnPos = getSpawnPos();
-		  if (spawnPos != -1 && !Dungeon.hero.haspet) {
-				
-				pet.spawn(1);
-				pet.HP = pet.HT;
-				pet.pos = spawnPos;
-				pet.state = pet.HUNTING;
-
-				GameScene.add(pet);
-				Actor.addDelayed(new Pushing(pet, Dungeon.hero.pos, spawnPos), -1f);
-
-				pet.sprite.alpha(0);
-				pet.sprite.parent.add(new AlphaTweener(pet.sprite, 1, 0.15f));
-				
-				detach(Dungeon.hero.belongings.backpack);		 			 
-				GLog.w(Messages.get(Egg.class,"hatch"));
-				Dungeon.hero.haspet=true;
-				
-				assignPet(pet);
-				
-		  } else {
-			  
-			  Dungeon.hero.spend(ShadowDragonEgg.TIME_TO_USE);
-			  GLog.w(Messages.get(Egg.class,"notready"));
-
-		  }
-	}
-	
-	private void assignPet(PET pet){
-		
-		  Dungeon.hero.petType=pet.type;
-		  Dungeon.hero.petLevel=pet.level;
-		   
-		  Dungeon.hero.petHP=pet.HP;
-		  Dungeon.hero.petExperience=pet.experience;
-		  Dungeon.hero.petCooldown=pet.cooldown;		
 	}
 		
 	@Override

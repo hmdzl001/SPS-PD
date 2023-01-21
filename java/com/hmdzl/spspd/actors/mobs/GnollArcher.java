@@ -97,8 +97,7 @@ public class GnollArcher extends Mob {
 		GLog.w(Messages.get(Mob.class, "killcount", Statistics.archersKilled));
 
 
-		if (!Dungeon.limitedDrops.sewerkey.dropped() && Dungeon.depth < 27) {
-			Dungeon.limitedDrops.sewerkey.drop();
+		if ( Dungeon.depth < 27) {
 			Dungeon.level.drop(new SewerChallenge(), pos).sprite.drop();
 			explodeDew(pos);
 		} else {
@@ -106,7 +105,6 @@ public class GnollArcher extends Mob {
 		}
 
 		if (Statistics.archersKilled == 25) {
-			Dungeon.limitedDrops.treasuremap.drop();
 			Dungeon.level.drop(new TreasureMap(), pos).sprite.drop();
 		}
 

@@ -379,6 +379,8 @@ public class ItemSpriteSheet {
 	public static final int CITYKEY = ROW18 + 3;
 	public static final int POTKEY = ROW18 + 4;
 	public static final int TENGUKEY = ROW18 + 5;
+
+	public static final int M_WEB = ROW18 + 13;
 	
 	public static final int RANDOWNEGG = ROW19 + 0;
 	public static final int SCORPIONEGG = ROW19 + 1;
@@ -389,6 +391,8 @@ public class ItemSpriteSheet {
 	public static final int VIOLET_DRAGONEGG = ROW19 + 6;
 	public static final int GREEN_DRAGONEGG = ROW19 + 7;
 	public static final int SHADOWEGG = ROW19 + 8;
+	
+	public static final int PET_FOOD = ROW19 + 9;
 
 	public static final int RABBITEGG = ROW19 + 10;
 	public static final int VELOCIROOSTEREGG = ROW19 + 11;
@@ -410,7 +414,7 @@ public class ItemSpriteSheet {
 	public static final int FIRECRACKER = ROW20 + 15;
 
 
-	public static final int PETFOOD = ROW18 + 15;
+	public static final int ITEM_BAG = ROW18 + 15;
 	public static final int PUMPKIN = ROW19 + 15;
 
 	public static final int EASTER_EGG = ROW16 + 10;
@@ -673,4 +677,14 @@ public class ItemSpriteSheet {
 	public static final int HAND_LIGHT  = ROW34 + 2;
 	public static final int CURSE_BOX  = ROW34 + 3;	
 	
+	public static final int SKILL_WARRIOR  = ROW34 + 4;	
+	public static final int SKILL_MAGE  = ROW34 + 5;	
+	public static final int SKILL_ROGUE   = ROW34 + 6;	
+	public static final int SKILL_HUNTER  = ROW34 + 7;	
+	public static final int SKILL_PERFORMER  = ROW34 + 8;	
+	public static final int SKILL_SOLDIER  = ROW34 + 9;	
+	public static final int SKILL_FOLLOWER  = ROW34 + 10;	
+	public static final int SKILL_ASCETIC  = ROW34 + 11;
+
+	public static final int PLANT_POT  = ROW34 + 12;
 }

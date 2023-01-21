@@ -17,10 +17,9 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Fury;
@@ -28,13 +27,14 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.SpellSprite;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
- 
 import com.hmdzl.spspd.windows.WndChooseWay;
 import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
 
 public class TomeOfMastery extends Item {
 
@@ -144,6 +144,7 @@ public class TomeOfMastery extends Item {
 		SpellSprite.show(curUser, SpellSprite.MASTERY);
 		curUser.sprite.emitter().burst(Speck.factory(Speck.MASTERY), 12);
 		GLog.w(Messages.get(this, "way", way.title()) );
+		Dungeon.hero.updateHT(true);
 
 		if (way == HeroSubClass.BERSERKER
 				&& curUser.HP <= curUser.HT * Fury.LEVEL) {

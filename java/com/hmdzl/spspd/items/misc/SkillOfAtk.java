@@ -17,14 +17,13 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
-
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
+
+import java.util.ArrayList;
 
 public class SkillOfAtk extends Item {
 
@@ -32,7 +31,7 @@ public class SkillOfAtk extends Item {
 		//name = "Skill of atk";
 		image = ItemSpriteSheet.SKILL_ATK;
 
-		stackable = false;
+		stackable = true;
 
 		defaultAction = AC_READ;
 	}

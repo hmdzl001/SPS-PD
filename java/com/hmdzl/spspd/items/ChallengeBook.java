@@ -17,23 +17,24 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.challengelists.ChallengeList;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
+import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndChallengeBook;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
 
 public class   ChallengeBook extends Item {
 	
@@ -94,11 +95,11 @@ public class   ChallengeBook extends Item {
 		
 		actions.add(AC_ADD);
 		
-		if (returnDepth > 0 && ( Dungeon.depth<35 && Dungeon.depth > 26) && !hero.petfollow){
+		if (returnDepth > 0 && ( Dungeon.depth<35 && Dungeon.depth > 26)){
 		actions.add(AC_RETURN);
 		}
 		//charge >= reqCharges() &&		
-		if (Dungeon.depth<26 && !hero.petfollow /*&& (rooms[0])*/){
+		if (Dungeon.depth<26){
 		actions.add(AC_PORT);
 		}
 				
@@ -109,6 +110,7 @@ public class   ChallengeBook extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action == AC_PORT) {
+			PocketBallFull.removePet(hero);
 			if (Dungeon.bossLevel()) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
@@ -117,6 +119,7 @@ public class   ChallengeBook extends Item {
 		}
 
 		if (action == AC_PORT) {
+			PocketBallFull.removePet(hero);
 			GameScene.show(new WndChallengeBook(rooms, this));
 		}
               

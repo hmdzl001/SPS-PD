@@ -54,7 +54,7 @@ public class HuntressSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
 	{
 		//name = "huntress cloak";
-		image = ItemSpriteSheet.ARMOR_HUNTRESS;
+		image = ItemSpriteSheet.SKILL_HUNTER;
 	}
 
 	@Override

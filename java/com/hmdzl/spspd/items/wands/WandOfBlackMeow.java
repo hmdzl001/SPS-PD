@@ -38,7 +38,6 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-import static com.hmdzl.spspd.Dungeon.hero;
 import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
 
 public class WandOfBlackMeow extends Wand {
@@ -92,6 +91,7 @@ public class WandOfBlackMeow extends Wand {
 
 						
 						MagicMeow sheep = new MagicMeow();
+						sheep.dewLvl = this.level;
 						sheep.lifespan = lifespan;
 						sheep.pos = j;
 						GameScene.add(sheep);
@@ -161,7 +161,7 @@ public class WandOfBlackMeow extends Wand {
 		@Override
 		public int defenseProc(Char enemy, int damage) {
 
-			int dmg = Random.IntRange(0, hero.lvl*6);
+			int dmg = Random.IntRange(1, dewLvl*3);
 			if (dmg > 0) {
 				enemy.damage(dmg, LIGHT_DAMAGE);
 			}

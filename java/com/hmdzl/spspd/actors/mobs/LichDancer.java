@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.DolyaSlate;
+import com.hmdzl.spspd.items.ArmorKit2;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
@@ -198,14 +198,10 @@ public class LichDancer extends Mob {
 
 		 Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
 		 
-		 if (!Dungeon.limitedDrops.journal.dropped()){ 
-			  Dungeon.level.drop(new DolyaSlate(), pos).sprite.drop();
-			  Dungeon.limitedDrops.journal.drop();
-			}
-		 
 		 GameScene.bossSlain();
 		Dungeon.level.unseal();
-	
+
+		Dungeon.level.drop(new ArmorKit2(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();
 

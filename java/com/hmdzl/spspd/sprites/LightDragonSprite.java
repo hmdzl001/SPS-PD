@@ -49,7 +49,7 @@ public class LightDragonSprite extends MobSprite {
 		run = new Animation(8, true);
 		run.frames(frames, c + 4, c + 5, c + 6,c +  7);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, c + 8, c + 9, c + 10, c + 11);
 
 		zap = attack.clone();

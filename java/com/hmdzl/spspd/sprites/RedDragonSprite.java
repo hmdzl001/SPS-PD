@@ -18,11 +18,8 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.mobs.pets.RedDragon;
-import com.hmdzl.spspd.effects.MagicMissile;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Callback;
 
 import java.util.Calendar;
 
@@ -50,7 +47,7 @@ public class RedDragonSprite extends MobSprite {
 		run = new Animation(8, true);
 		run.frames(frames, c + 4, c + 5, c + 6,c +  7);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, c + 8, c + 9, c + 10, c + 11);
 
 		zap = attack.clone();
@@ -66,13 +63,6 @@ public class RedDragonSprite extends MobSprite {
 
 		turnTo(ch.pos, cell);
 		play(zap);
-
-		MagicMissile.fire(parent, ch.pos, cell, new Callback() {
-			@Override
-			public void call() {
-				((RedDragon) ch).onZapComplete();
-			}
-		});
 		Sample.INSTANCE.play(Assets.SND_ZAP);
 	}
 	

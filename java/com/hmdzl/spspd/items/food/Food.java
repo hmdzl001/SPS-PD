@@ -133,7 +133,15 @@ public class Food extends Item {
 		}
 	}
 
+	@Override
+	public String info() {
 
+		String info = desc();
+
+		info += "\n\n" + Messages.get( Food.class, "energy", energy);
+
+		return info;
+	}
 
 
 	@Override

@@ -17,19 +17,12 @@
  */
 package com.hmdzl.spspd.items.bags;
 
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
-import com.hmdzl.spspd.items.bombs.Bomb;
-
-
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.OrbOfZot;
-
-
-
 import com.hmdzl.spspd.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
 import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.summon.CallCoconut;
 import com.hmdzl.spspd.items.summon.FairyCard;
 import com.hmdzl.spspd.items.summon.Mobile;
@@ -41,7 +34,7 @@ public class ScrollHolder extends Bag {
 		//name = "scroll holder";
 		image = ItemSpriteSheet.HOLDER;
 
-		size = 25;
+		size = 30;
 	}
 
 	@Override
@@ -61,10 +54,10 @@ public class ScrollHolder extends Bag {
 		return 50 * quantity;
 	}
 
-	@Override
-	public boolean doPickUp( Hero hero ) {
+	//@Override
+	//public boolean doPickUp( Hero hero ) {
 
-		return hero.belongings.getItem( ScrollHolder.class ) == null && super.doPickUp( hero ) ;
+	//	return hero.belongings.getItem( ScrollHolder.class ) == null && super.doPickUp( hero ) ;
 
-	}
+	//}
 }

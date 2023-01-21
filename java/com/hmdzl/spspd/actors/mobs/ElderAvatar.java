@@ -43,7 +43,7 @@ import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.DolyaSlate;
+import com.hmdzl.spspd.items.ArmorKit2;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
@@ -276,12 +276,8 @@ public class ElderAvatar extends Mob {
 
 		GameScene.bossSlain();
 		Dungeon.level.unseal();
-		if (!Dungeon.limitedDrops.journal.dropped()) {
-			Dungeon.level.drop(new DolyaSlate(), pos).sprite.drop();
-			Dungeon.limitedDrops.journal.drop();
-		}
 		Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
-		
+		Dungeon.level.drop(new ArmorKit2(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(Random.Int(4900, 10000)), pos).sprite.drop();
 

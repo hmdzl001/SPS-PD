@@ -18,7 +18,10 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.items.food.fruit.Blackberry;
+import com.hmdzl.spspd.levels.Level;
 import com.watabou.noosa.TextureFilm;
+import com.watabou.utils.Callback;
 
 public class MonkeySprite extends MobSprite {
 	
@@ -37,7 +40,7 @@ public class MonkeySprite extends MobSprite {
 		run = new Animation(8, true);
 		run.frames(frames, 21, 22, 23, 24);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 25, 26, 27, 28);
 
 		zap = attack.clone();
@@ -48,6 +51,27 @@ public class MonkeySprite extends MobSprite {
 		play(idle);
 	}
 
+	@Override
+	public void attack(int cell) {
+		if (!Level.adjacent(cell, ch.pos)) {
+
+			((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
+					cell, new Blackberry(), new Callback() {
+						@Override
+						public void call() {
+							ch.onAttackComplete();
+						}
+					});
+
+			play(zap);
+			turnTo(ch.pos, cell);
+
+		} else {
+
+			super.attack(cell);
+
+		}
+	}
 	
 	@Override
 	public int blood() {

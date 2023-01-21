@@ -49,7 +49,7 @@ public class FollowerSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
 	{
 		//name = "follower cape";
-		image = ItemSpriteSheet.ARMOR_FOLLOWER;
+		image = ItemSpriteSheet.SKILL_FOLLOWER;
 	}
 
 	private HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();

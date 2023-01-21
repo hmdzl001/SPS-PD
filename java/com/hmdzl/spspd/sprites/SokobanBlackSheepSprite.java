@@ -30,7 +30,7 @@ public class SokobanBlackSheepSprite extends MobSprite {
 
 		TextureFilm frames = new TextureFilm(texture, 16, 15);
 
-		idle = new Animation(8, true);
+		idle = new Animation(15, true);
 		idle.frames(frames, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 14, 15, 12);
 
 		run = idle.clone();

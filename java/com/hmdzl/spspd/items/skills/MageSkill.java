@@ -48,7 +48,7 @@ public class MageSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
 	{
 		//name = "mage robe";
-		image = ItemSpriteSheet.ARMOR_MAGE;
+		image = ItemSpriteSheet.SKILL_MAGE;
 	}
 
 	@Override
@@ -61,31 +61,45 @@ public class MageSkill extends ClassSkill {
 				switch (Random.Int(7)) {
 					case 0:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.ENERGY_DAMAGE);
+						if (mob.isAlive()) {
 						Buff.affect(mob, MagicWeak.class,10f);
+						}
 						break;
 					case 1:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.FIRE_DAMAGE);
+						if (mob.isAlive()) {
 						Buff.affect(mob, Burning.class).set(10f);
+						}
 						break;
 					case 2:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.ICE_DAMAGE);
+						if (mob.isAlive()) {
 						Buff.affect(mob, FrostIce.class).level(10);
+						}
 						break;
 					case 3:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.EARTH_DAMAGE);
+						if (mob.isAlive()) {
 						Buff.affect(mob, Ooze.class);
+						}
 						break;
 					case 4:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.SHOCK_DAMAGE);
+						if (mob.isAlive()) {
 						Buff.affect(mob, Shocked.class).set(10f);
+						}
 						break;
 					case 5:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.LIGHT_DAMAGE);
+						if (mob.isAlive()) {
 						Buff.affect(mob, LightShootAttack.class).set(10f);
+						}
 						break;
 					case 6:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.DARK_DAMAGE);
+						if (mob.isAlive()) {
 						Buff.affect(mob, ShadowCurse.class);
+						}
 						break;
 					default:
 						GLog.i("nothing happened");

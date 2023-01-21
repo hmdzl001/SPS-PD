@@ -37,7 +37,7 @@ public class ShadowYogSprite extends MobSprite {
 		run = new Animation(12, true);
 		run.frames(frames, 0);
 
-		attack = new Animation(12, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 0);
 
 		zap = attack.clone();

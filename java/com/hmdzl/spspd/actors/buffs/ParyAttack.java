@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -57,14 +57,14 @@ public class ParyAttack extends Buff {
 	
 	public boolean act() {
 
-		if (target.isAlive()) {
+		if (target.isAlive() ) {
 			
-			if (target.pos != pos || Dungeon.gold < level) {
+			if (target.pos != pos || Dungeon.gold < level*10) {
 				detach();
 			} 
 			
 			level++;
-			if (level > 100)
+			if (level > 100 )
 				Dungeon.gold -=level*10;
 
 			spend(TICK);

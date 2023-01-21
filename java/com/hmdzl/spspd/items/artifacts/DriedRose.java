@@ -7,13 +7,13 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.RedWraith;
 import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
+import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
@@ -27,7 +27,7 @@ import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Languages;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.GhostSprite;
@@ -163,11 +163,22 @@ public class DriedRose extends Artifact {
 			curUser = hero;
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-            Buff.affect(curUser, Dewcharge.class,100*level);
+			hero.petLevel+=(int)(level/2);
+			if (hero.haspet) checkpet().updateStats();
+			GLog.p(Messages.get(PET.class,"levelup"));
 			curUser.spendAndNext(1f);
 			detach(curUser.belongings.backpack);
 		}
 			
+	}
+
+	private PET checkpet(){
+		for (Mob mob : Dungeon.level.mobs) {
+			if(mob instanceof PET) {
+				return (PET) mob;
+			}
+		}
+		return null;
 	}
 
 	public int ghostStrength(){

@@ -59,7 +59,7 @@ public class Honeyrice extends CompleteFood {
 
 	@Override
 	public int price() {
-		return 4 * quantity;
+		return 400 * quantity;
 	}
 
 }

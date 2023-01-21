@@ -35,7 +35,7 @@ public class SkeletonHand2Sprite extends MobSprite {
 		run = new Animation(4, true);
 		run.frames(frames, 0, 1);
 
-		attack = new Animation(5, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 2, 3, 4, 5);
 
 		die = new Animation(5, false);

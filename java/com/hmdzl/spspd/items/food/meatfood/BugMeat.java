@@ -17,14 +17,10 @@
  */
 package com.hmdzl.spspd.items.food.meatfood;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Slow;
+import com.hmdzl.spspd.actors.buffs.BugSlow;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -47,74 +43,17 @@ public class BugMeat extends MeatFood {
 	}
 
 	//@Override
-	//public boolean doPickUp(Hero hero) {
-	//	if (super.doPickUp(hero)) {
-	//		if (hero.buff(BugSlow.class) == null){
-	//			Buff.affect(hero,BugSlow.class);
-	//	 	}
-	//		return true;
-	//	} else {
-	//		return false;
-	//	}
-//	}
-	@Override
-	public boolean collect(Bag container) {
-		if (super.collect(container)) {
-			if (Dungeon.hero.buff(BugSlow.class) == null){
-				Buff.affect(Dungeon.hero,BugSlow.class);
-			}
+	public boolean doPickUp(Hero hero) {
+		if (super.doPickUp(hero)) {
+			if (hero.buff(BugSlow.class) == null){
+				Buff.affect(hero,BugSlow.class);
+		 	}
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	@Override
-	protected void onDetach() {
-		BugSlow spawner = Dungeon.hero.buff(BugSlow.class);
-		if (spawner != null && Dungeon.hero.belongings.getItem(BugMeat.class) == null){
-			spawner.dispel();
-		}
-	}
-
-	public static class BugSlow extends Buff {
-
-		int spawnPower = 0;
-
-		@Override
-		public boolean act() {
-			if (target instanceof Hero && ((Hero) target).belongings.getItem(BugMeat.class) == null){
-				spawnPower = 0;
-				spend(TICK);
-				return true;
-			}
-			spawnPower++;
-			if (spawnPower > Random.Int(10) && spawnPower > 2){
-				Buff.affect(target, Slow.class,2f);
-				spawnPower = 0;
-			}
-			spend(TICK);
-			return true;
-		}
-
-		public void dispel(){
-			detach();
-		}
-
-		private static String SPAWNPOWER = "spawnpower";
-
-		@Override
-		public void storeInBundle(Bundle bundle) {
-			super.storeInBundle(bundle);
-			bundle.put( SPAWNPOWER, spawnPower );
-		}
-
-		@Override
-		public void restoreFromBundle(Bundle bundle) {
-			super.restoreFromBundle(bundle);
-			spawnPower = bundle.getInt( SPAWNPOWER );
-		}
-	}
 
 
 	@Override

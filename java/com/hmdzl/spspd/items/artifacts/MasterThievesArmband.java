@@ -10,6 +10,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -55,7 +56,7 @@ public class MasterThievesArmband extends Artifact {
 
 	@Override
 	public Item upgrade() {
-		chargeCap = chargeCap + 1;
+		chargeCap = Math.min( 6, chargeCap + 1);
 		return super.upgrade();
 	}
 
@@ -135,8 +136,11 @@ public class MasterThievesArmband extends Artifact {
 								@Override
 								public void call() {
 									Sample.INSTANCE.play(Assets.SND_HIT);
-									Item loot = ((Mob) ch).SupercreateLoot();
-									Dungeon.level.drop(loot, curUser.pos).sprite.drop();
+									if (((Mob) ch).firstitem == true) {
+										Item loot = ((Mob) ch).SupercreateLoot();
+										Dungeon.level.drop(loot, curUser.pos).sprite.drop();
+										((Mob) ch).firstitem = false;
+									} else Dungeon.level.drop(new StoneOre(), curUser.pos).sprite.drop();
 									charge--;
 									exp++;
 									while (exp >= level && level < levelCap) {

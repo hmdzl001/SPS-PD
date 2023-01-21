@@ -17,9 +17,13 @@
  */
 package com.hmdzl.spspd.actors.mobs.pets;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.BeastYearSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class YearPet extends PET {
@@ -29,45 +33,61 @@ public class YearPet extends PET {
 		spriteClass = BeastYearSprite.class;
         //flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 22;
+
+		baseSpeed = 0.5f;
+		type = 666;
 		
 		properties.add(Property.BEAST);
-
-	}
-	
-	
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		adjustStats(level);
+		properties.add(Property.UNKNOW);
 	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		evadeSkill = 50;
-		HT = 1000;
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof MoneyPack;
 	}
-	
 
 
+	@Override
+	public void updateStats()  {
+
+		evadeSkill = 0;
+		HT = 500 + Dungeon.hero.petLevel*10;
+	}
+	@Override
+	public Item SupercreateLoot(){
+		return new MoneyPack(5);
+	}
+
+	@Override
+	public int drRoll(){
+		return Random.IntRange(Dungeon.hero.petLevel,2*Dungeon.hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return Dungeon.hero.petLevel + 20;
+	}
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(10, (10+level*2));
+		return Random.NormalIntRange((10+Dungeon.hero.petLevel*2), (10+Dungeon.hero.petLevel*3));
 	}
 
 	@Override
-	protected boolean act() {		
-		
+	protected boolean canAttack(Char enemy) {
 
-		return super.act();
+		return Level.distance( pos, enemy.pos ) <= 2 ;
+
 	}
-	
+
 	@Override
 	public int attackProc(Char enemy, int damage) {
+		if (cooldown > 0) cooldown --;
 		return damage;
-	}	
+	}
+
+
+
 	
 }

@@ -159,7 +159,6 @@ public abstract class Char extends Actor {
 	private static final String TAG_HT = "HT";
 	private static final String BUFFS = "buffs";
 	private static final String TRUEHT = "ture_HT";
-	private static final String EXHT = "EX_HT";
 
 
 	@Override
@@ -172,7 +171,6 @@ public abstract class Char extends Actor {
 		bundle.put(TAG_HT, HT);
 		bundle.put(BUFFS, buffs);
 		bundle.put(TRUEHT, TRUE_HT);
-		//bundle.put(EXHT, EX_HT);
 	}
 
 	@Override
@@ -184,7 +182,6 @@ public abstract class Char extends Actor {
 		HP = bundle.getInt(TAG_HP);
 		HT = bundle.getInt(TAG_HT);
 		TRUE_HT = bundle.getInt(TRUEHT);
-		//EX_HT = bundle.getInt(EXHT);
 
 		for (Bundlable b : bundle.getCollection(BUFFS)) {
 			if (b != null) {

@@ -36,7 +36,7 @@ public class GolemSprite extends MobSprite {
 		run = new Animation(12, true);
 		run.frames(frames, 2, 3, 4, 5);
 
-		attack = new Animation(10, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 6, 7, 8);
 
 		die = new Animation(15, false);

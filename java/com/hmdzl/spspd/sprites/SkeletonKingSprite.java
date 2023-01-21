@@ -35,7 +35,7 @@ public class SkeletonKingSprite extends MobSprite {
 		run = new Animation(6, true);
 		run.frames(frames, 3, 4);
 
-		attack = new Animation(5, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 5, 6, 7);
 
 		die = new Animation(5, false);

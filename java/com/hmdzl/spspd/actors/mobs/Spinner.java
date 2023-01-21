@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Web;
@@ -24,11 +25,14 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Terror;
+import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SpinnerSprite;
+import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Random;
 
 public class Spinner extends Mob {
@@ -105,6 +109,34 @@ public class Spinner extends Mob {
 		immunities.add(Roots.class);
 	}
 
+	public static void spawnAround(int pos) {
+		for (int n : Level.NEIGHBOURS4) {
+			int cell = pos + n;
+			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				spawnAt(cell);
+			}
+		}
+	}
+
+	public static Spinner spawnAt(int pos) {
+		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+
+			Spinner w = new Spinner();
+			w.pos = pos;
+			w.state = w.HUNTING;
+			GameScene.add(w, 1f);
+
+			w.sprite.alpha(0);
+			w.sprite.parent.add(new AlphaTweener(w.sprite, 1, 0.5f));
+
+			w.sprite.emitter().burst(ShadowParticle.CURSE, 5);
+
+			return w;
+
+		} else {
+			return null;
+		}
+	}
 
 	private class Fleeing extends Mob.Fleeing {
 		@Override

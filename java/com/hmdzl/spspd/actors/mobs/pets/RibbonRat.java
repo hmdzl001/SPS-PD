@@ -17,10 +17,29 @@
  */
 package com.hmdzl.spspd.actors.mobs.pets;
 
+import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.npcs.NPC;
+import com.hmdzl.spspd.effects.Pushing;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.Nut;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.scrolls.ScrollOfMirrorImage;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GreyRatSprite;
-import com.watabou.utils.Bundle;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class RibbonRat extends PET {
 	
@@ -29,67 +48,184 @@ public class RibbonRat extends PET {
 		spriteClass = GreyRatSprite.class;
         //flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 21;
-
+		type = 103;
+        cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.BEAST);
 	}
 
 	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		adjustStats(level);
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof Nut;
 	}
+
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		evadeSkill = 5 + level;
-		HT = 90 + level*5;
+	public void updateStats()  {
+		evadeSkill = hero.petLevel;
+		HT = 150 + 2*hero.petLevel;
 	}
-
-
-
+	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(10, (10+level*2));
+		return Random.NormalIntRange((5+hero.petLevel), (5+hero.petLevel*2));
 	}
 
 	@Override
-	protected boolean act() {		
-		
+	public Item SupercreateLoot(){
+		return new ScrollOfMirrorImage();
+	}
 
-		return super.act();
+	@Override
+	public int drRoll(){
+		return Random.IntRange(0,hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 10;
 	}
 	
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (Random.Int(10) == 0) {
-			HP= Math.min(HT, HP+damage/10);
+       
+		for (int n : Level.NEIGHBOURS4) {
+			int cell = enemy.pos + n;
+			if (Level.passable[cell] && Actor.findChar(cell) == null && cooldown == 0) {
+				shatter(null, cell);
+				cooldown = Math.max(15,40 - hero.petLevel);
+			}
 		}
+		 if (cooldown > 0) {
+		   cooldown--;
+		} 
+
 		return damage;
 	}	
 	
-/*
-	@Override
-	protected Char chooseEnemy() {
-		
-		if(enemy != null && !enemy.isAlive()){
-			kills++;
-		}
-		
-		if (enemy == null || !enemy.isAlive()) {
-			HashSet<Mob> enemies = new HashSet<Mob>();
-			for (Mob mob : Dungeon.level.mobs) {
-				if (!(mob instanceof PET) && mob.hostile && Level.fieldOfView[mob.pos]) {
-					enemies.add(mob);
+	
+	public void shatter(Char owner, int pos) {
+		int newPos = pos;
+		if (Actor.findChar(pos) != null) {
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			boolean[] passable = Level.passable;
+
+			for (int n : Level.NEIGHBOURS4) {
+				int c = pos + n;
+				if (passable[c] && Actor.findChar(c) == null) {
+					candidates.add(c);
 				}
 			}
-
-			enemy = enemies.size() > 0 ? Random.element(enemies) : null;
+			newPos = candidates.size() > 0 ? Random.element(candidates) : -1;
 		}
 
-		return enemy;
-}
-*/
+		if (newPos != -1) {
+			if (hero.subClass == HeroSubClass.LEADER) {
+				RibbonRatTwo mob = new RibbonRatTwo();
+				mob.spawn();
+				mob.HP = mob.HT = hero.petLevel*5;
+				mob.pos = newPos;
+
+				GameScene.add(mob);
+				Actor.addDelayed(new Pushing(mob, pos, newPos), -1f);
+
+				mob.sprite.alpha(0);
+				mob.sprite.parent.add(new AlphaTweener(mob.sprite, 1, 0.15f));
+
+				Sample.INSTANCE.play(Assets.SND_BEE);
+
+			} else {
+				RibbonRatTwo mob = new RibbonRatTwo();
+				mob.spawn();
+				mob.HP = mob.HT = 1;
+				mob.pos = newPos;
+
+				GameScene.add(mob);
+				Actor.addDelayed(new Pushing(mob, pos, newPos), -1f);
+
+				mob.sprite.alpha(0);
+				mob.sprite.parent.add(new AlphaTweener(mob.sprite, 1, 0.15f));
+
+				Sample.INSTANCE.play(Assets.SND_BEE);
+
+			}
+
+		}
+
+	}
+	
+	
+	public static class RibbonRatTwo extends NPC {
+
+		{
+			spriteClass = GreyRatSprite.class;
+			viewDistance = 6;
+			ally=true;
+			flying = true;
+			state = WANDERING;
+		}
+
+		public void spawn() {
+			HT = 1;
+			evadeSkill = 15 + hero.petLevel;
+		}
+		@Override
+		public int hitSkill(Char target) {
+			return evadeSkill*2;
+		}
+
+		@Override
+		public int damageRoll() {
+			return Random.NormalIntRange((5+hero.petLevel), (5+hero.petLevel*2));
+		}
+
+		@Override
+		protected boolean canAttack(Char enemy) {
+			return super.canAttack(enemy);
+		}
+
+		@Override
+		protected boolean getCloser(int target) {
+			if (state == WANDERING
+					|| Level.distance(target, hero.pos) > 6)
+				this.target = target = hero.pos;
+			return super.getCloser(target);
+		}
+		@Override
+		protected Char chooseEnemy() {
+			if (enemy == null || !enemy.isAlive() || state == WANDERING) {
+
+				HashSet<Mob> enemies = new HashSet<Mob>();
+				for (Mob mob : Dungeon.level.mobs) {
+					if (mob.hostile && Level.fieldOfView[mob.pos]
+							&& mob.state != mob.PASSIVE) {
+						enemies.add(mob);
+					}
+				}
+				enemy = enemies.size() > 0 ? Random.element(enemies) : null;
+			}
+			return enemy;
+		}
+
+		@Override
+		public boolean interact() {
+			if (Level.passable[pos] || hero.flying) {
+			int curPos = pos;
+
+			moveSprite(pos, hero.pos);
+			move(hero.pos);
+
+			hero.sprite.move(hero.pos, curPos);
+			hero.move(curPos);
+
+			hero.spend(1 / hero.speed());
+			hero.busy();
+			return true;
+			} else {
+				return false;
+			}
+		}
+	}		
+
 }

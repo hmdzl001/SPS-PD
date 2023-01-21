@@ -83,8 +83,7 @@ public class FireElemental extends Mob {
 		if (Random.Int(2) == 0) {
 			Buff.affect(enemy, Burning.class).set(3);
 		}
-		
-		enemy.damage(damage, DamageType.FIRE_DAMAGE);
+		enemy.damage(damageRoll(), DamageType.FIRE_DAMAGE);
 		damage = 0;
 
 		return damage;
@@ -98,7 +97,7 @@ public class FireElemental extends Mob {
 	@Override
 	public void add(Buff buff) {
 		if (buff instanceof Burning) {
-			if (HP < HT) {
+			if (HP < HT && this.isAlive()) {
 				HP+=HT/10;
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}

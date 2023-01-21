@@ -111,8 +111,7 @@ public class ShatteredPixelDungeon extends Game {
 	 */
 
 	public static void landscape(boolean value) {
-		Game.instance
-				.setRequestedOrientation(value ? 
+		Game.instance.setRequestedOrientation(value ? 
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 				: ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		Preferences.INSTANCE.put(Preferences.KEY_LANDSCAPE, value);

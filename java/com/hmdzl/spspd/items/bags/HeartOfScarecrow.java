@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items.bags;
 
 
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.ShadowEaterKey;
 import com.hmdzl.spspd.items.armor.Armor;
@@ -33,7 +32,7 @@ public class HeartOfScarecrow extends Bag {
 		//name = "HeartOfScarecrow";
 		image = ItemSpriteSheet.H_O_SCARECROW;
 
-		size = 25;
+		size = 30;
 	}
 
 	
@@ -51,12 +50,12 @@ public class HeartOfScarecrow extends Bag {
 		return 50 * quantity;
 	}
 
-	@Override
-	public boolean doPickUp( Hero hero ) {
+	//@Override
+	//public boolean doPickUp( Hero hero ) {
 
-		return hero.belongings.getItem( HeartOfScarecrow.class ) == null && super.doPickUp( hero ) ;
+	//	return hero.belongings.getItem( HeartOfScarecrow.class ) == null && super.doPickUp( hero ) ;
 
-	}
+	//}
 
 }
 

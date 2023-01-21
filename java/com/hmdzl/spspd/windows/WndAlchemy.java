@@ -547,7 +547,7 @@ public class WndAlchemy extends Window {
 		} else if ( ws.size() == 1 && sty.size() == 1  ){
 			result = new GreatRune();
 		} else if ( miscroll.size() == 1  ){
-			result = new Weightstone();
+			result = new GreatRune();
 		} else if ( gels.size() == 1  ){
 			result = new Torch();
 		} else if ( nut.size() == 1  ){

@@ -17,20 +17,19 @@
  */
 package com.hmdzl.spspd.items.bags;
 
-import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.items.AncientCoin;
+import com.hmdzl.spspd.items.Bone;
 import com.hmdzl.spspd.items.ChallengeBook;
+import com.hmdzl.spspd.items.ConchShell;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PotKey;
 import com.hmdzl.spspd.items.TenguKey;
-import com.hmdzl.spspd.items.keys.Key;
-import com.hmdzl.spspd.items.AncientCoin;
-import com.hmdzl.spspd.items.ConchShell;
-import com.hmdzl.spspd.items.Bone;
-import com.hmdzl.spspd.items.TriForce;
 import com.hmdzl.spspd.items.TreasureMap;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.items.TriForce;
+import com.hmdzl.spspd.items.keys.Key;
 import com.hmdzl.spspd.items.rings.Ring;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class KeyRing extends Bag {
 
@@ -38,7 +37,7 @@ public class KeyRing extends Bag {
 		//name = "key ring";
 		image = ItemSpriteSheet.KEYRING;
 
-		size = 25;
+		size = 30;
 	}
 
 	@Override
@@ -61,12 +60,12 @@ public class KeyRing extends Bag {
 		return 50 * quantity;
 	}
 
-	@Override
-	public boolean doPickUp( Hero hero ) {
+	//@Override
+	//public boolean doPickUp( Hero hero ) {
 
-		return hero.belongings.getItem( KeyRing.class ) == null && super.doPickUp( hero ) ;
+	//	return hero.belongings.getItem( KeyRing.class ) == null && super.doPickUp( hero ) ;
 
-	}
+	//}
 
 }
 

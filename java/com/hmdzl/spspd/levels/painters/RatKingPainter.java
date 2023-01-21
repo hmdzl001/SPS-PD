@@ -18,13 +18,11 @@
 package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.mobs.npcs.RatKing;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.journalpages.Town;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
@@ -116,13 +114,9 @@ public class RatKingPainter extends Painter {
 			break;
 		}
 
-		if (!page && Statistics.enemiesSlain<21 && Dungeon.limitedDrops.journal.dropped()){
-			level.drop(new Town(), pos);
-			page=true;
-		} else {
 		level.drop(prize, pos).type = Heap.Type.CHEST;
 		Dungeon.ratChests++;
-		}
+
 		
 	}
 }

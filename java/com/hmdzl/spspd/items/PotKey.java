@@ -17,19 +17,19 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
 
 public class PotKey extends Item {
 	
@@ -80,8 +80,8 @@ public class PotKey extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action == AC_PORT) {
-
-			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 || hero.petfollow) && Dungeon.depth!=specialLevel) {
+            PocketBallFull.removePet(hero);
+			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25) && Dungeon.depth!=specialLevel) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
 				return;
@@ -90,7 +90,7 @@ public class PotKey extends Item {
 		}
 
 		if (action == AC_PORT) {
-			
+			PocketBallFull.removePet(hero);
 			 hero.spend(TIME_TO_USE);
 
 				Buff buff = Dungeon.hero

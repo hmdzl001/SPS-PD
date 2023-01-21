@@ -43,7 +43,7 @@ public class CaveReward extends Item {
 	}
 	{
 		//name = "reward";
-		image = ItemSpriteSheet.PETFOOD;
+		image = ItemSpriteSheet.ITEM_BAG;
 
 		stackable = false;
 	}

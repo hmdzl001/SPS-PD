@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.Alchemy;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.levels.Level;
@@ -46,6 +47,14 @@ public class CookingPainter extends Painter {
 		Alchemy alchemy = new Alchemy();
 		alchemy.seed(pot.x + Level.getWidth() * pot.y, 1);
 		level.blobs.put(Alchemy.class, alchemy);
+
+		if (!Dungeon.limitedDrops.shopcart.dropped()){
+			int pos;
+			do {pos = room.random();}
+			while (level.heaps.get(pos) != null);
+			level.drop(new ShoppingCart(), pos);
+			Dungeon.limitedDrops.shopcart.drop();
+		}
 
 		int n = Random.IntRange(1, 2);
 		int n2 = Random.IntRange(2, 3);

@@ -35,7 +35,7 @@ public class DragonkingSprite extends MobSprite {
 		run = new Animation(1, true);
 		run.frames(frames, 0, 0, 0, 1, 1, 1);
 
-		attack = new Animation(10, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 0, 3, 4, 5);
 
 		die = new Animation(10, false);

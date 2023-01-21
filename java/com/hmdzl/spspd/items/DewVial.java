@@ -47,6 +47,7 @@ import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -257,14 +258,14 @@ public class DewVial extends Item {
 
 					if (Dungeon.visible[p]) {
 						int c = Dungeon.level.map[p];
-						
-						if (c == Terrain.GRASS) {
-							GameScene.add(Blob.seed(p, (2) * 20, Water.class));
+						GameScene.add(Blob.seed(p, (2) * 20, Water.class));
+						if (c == Terrain.GROUND_B) {
+							Dungeon.level.plant((Plant.Seed)(Generator.random(Generator.Category.SEED4)),p);
 						}
 					}
 				}
 			}
-			dewpoint = dewpoint - 15 - rejection;
+			dewpoint = dewpoint - 25 - rejection;
             if (cv!=null && cv.volume<50) {cv.volume+=5;}
 			GLog.i(Messages.get(this, "watered"));
 			hero.sprite.operate(hero.pos);

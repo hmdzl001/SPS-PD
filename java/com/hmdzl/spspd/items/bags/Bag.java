@@ -47,9 +47,16 @@ public class Bag extends Item implements Iterable<Item> {
 	public int size = 1;
 
 	@Override
+	public ArrayList<String> actions(Hero hero ) {
+		ArrayList<String> actions = super.actions( hero );
+		actions.remove( AC_THROW );
+		actions.remove( AC_DROP );
+		return actions;
+	}
+
+	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
-		
 		if (action.equals(AC_OPEN)) {
 
 			GameScene.show(new WndBag(this, null, WndBag.Mode.ALL, null));

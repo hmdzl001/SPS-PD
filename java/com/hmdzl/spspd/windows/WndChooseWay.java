@@ -57,6 +57,7 @@ public class WndChooseWay extends Window {
 			protected void onClick() {
 				hide();
 				tome.choose(way1);
+
 			}
 		};
 		btnWay1.setRect( 0, hl.bottom() + GAP, (WIDTH - GAP) / 2, BTN_HEIGHT );

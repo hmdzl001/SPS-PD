@@ -59,7 +59,7 @@ public class Towel extends Item {
 		
 		actions.add(AC_TOWEL);
 		
-		if(checkpet()!=null && checkpetNear()){
+		if(checkpet()!=null){
 			actions.add(AC_TOWEL_PET);
 		}
 		
@@ -73,17 +73,6 @@ public class Towel extends Item {
 			}
 		}	
 		return null;
-	}
-	
-	private boolean checkpetNear(){
-		Hero hero = Dungeon.hero;
-		for (int n : Level.NEIGHBOURS8) {
-			int c = hero.pos + n;
-			if (Actor.findChar(c) instanceof PET) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	

@@ -78,7 +78,7 @@ public class DustElement extends Mob {
 			Dungeon.observe();
 		}
 
-		enemy.damage(damage, EARTH_DAMAGE);
+		enemy.damage(damageRoll(), EARTH_DAMAGE);
 		damage = 0;
 		return damage;
 	}
@@ -91,7 +91,7 @@ public class DustElement extends Mob {
 	@Override
 	public void add(Buff buff) {
 		if (buff instanceof Roots) {
-			if (HP < HT) {
+			if (HP < HT && this.isAlive()) {
 				HP+=HT/10;
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}

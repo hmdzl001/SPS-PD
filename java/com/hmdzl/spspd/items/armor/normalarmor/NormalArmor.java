@@ -17,12 +17,21 @@
  */
 package com.hmdzl.spspd.items.armor.normalarmor;
 
-import java.text.DecimalFormat;
-
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.armor.specialarmor.AsceticArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.FollowerArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.HuntressArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.MageArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.PerformerArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.RogueArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.SoldierArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.WarriorArmor;
+import com.hmdzl.spspd.messages.Messages;
+
+import java.text.DecimalFormat;
 
 
 public class NormalArmor extends Armor {
@@ -140,6 +149,39 @@ public class NormalArmor extends Armor {
 		}
 		return price;
 
-	    }		
+	    }	
+
+	public static NormalArmor upgrade(Hero owner) {
+
+		NormalArmor normalArmor = null;
+
+		switch (owner.heroClass) {
+		case WARRIOR:
+			normalArmor = new WarriorArmor();
+			break;
+		case ROGUE:
+			normalArmor = new RogueArmor();
+			break;
+		case MAGE:
+			normalArmor = new MageArmor();
+			break;
+		case HUNTRESS:
+			normalArmor = new HuntressArmor();
+			break;
+		case PERFORMER:
+			normalArmor = new PerformerArmor();
+			break;
+		case SOLDIER:
+			normalArmor = new SoldierArmor();
+			break;
+		case FOLLOWER:
+			normalArmor = new FollowerArmor();
+			break;	
+		case ASCETIC:
+			normalArmor = new AsceticArmor();
+			break;				
+		}
+		return normalArmor;
+	}		
 	
 	}

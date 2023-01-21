@@ -41,7 +41,7 @@ public class PrisonReward extends Item {
 
 	{
 		//name = "reward";
-		image = ItemSpriteSheet.PETFOOD;
+		image = ItemSpriteSheet.ITEM_BAG;
 
 		stackable = false;
 	}

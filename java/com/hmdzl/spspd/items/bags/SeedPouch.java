@@ -17,9 +17,7 @@
  */
 package com.hmdzl.spspd.items.bags;
 
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
-
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.nornstone.NornStone;
 import com.hmdzl.spspd.plants.Plant;
@@ -31,7 +29,7 @@ public class SeedPouch extends Bag {
 		//name = "seed pouch";
 		image = ItemSpriteSheet.POUCH;
 
-		size = 25;
+		size = 30;
 	}
 
 	@Override
@@ -47,10 +45,10 @@ public class SeedPouch extends Bag {
 	    return 50 * quantity;
 	}
 
-	@Override
-	public boolean doPickUp( Hero hero ) {
+	//@Override
+	//public boolean doPickUp( Hero hero ) {
 
-		return hero.belongings.getItem( SeedPouch.class ) == null && super.doPickUp( hero ) ;
+	//	return hero.belongings.getItem( SeedPouch.class ) == null && super.doPickUp( hero ) ;
 
-	}
+	//}
 }

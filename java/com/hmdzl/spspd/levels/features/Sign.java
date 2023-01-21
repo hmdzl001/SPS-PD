@@ -19,11 +19,13 @@ package com.hmdzl.spspd.levels.features;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.levels.ChaosLevel;
 import com.hmdzl.spspd.levels.DeadEndLevel;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.NewRoomLevel;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -55,6 +57,10 @@ public class Sign {
 		} else if (Dungeon.level instanceof ChaosLevel) {
 
 			GameScene.show(new WndMessage(Messages.get(Sign.class, "chaos")));
+
+		} else if (Dungeon.level instanceof NewRoomLevel) {
+
+			GameScene.show(new WndMessage(Messages.get(Sign.class, "new_room_"+ Statistics.roomType)));
 
 		} else {
 

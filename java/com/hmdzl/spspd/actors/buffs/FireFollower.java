@@ -55,7 +55,7 @@ public class FireFollower extends Buff {
 
     @Override
 	public boolean act() {
-		
+
 		GameScene.add(Blob.seed( target.pos, 4, SteamWarn.class));
 		
 		spend(TICK);

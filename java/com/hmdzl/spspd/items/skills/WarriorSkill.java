@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -48,7 +49,7 @@ public class WarriorSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
 	{
 		//name = "warrior suit of armor";
-		image = ItemSpriteSheet.ARMOR_WARRIOR;
+		image = ItemSpriteSheet.SKILL_WARRIOR;
 	}
 
 	private HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();
@@ -77,7 +78,7 @@ public class WarriorSkill extends ClassSkill {
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos]) {
 				if (Level.distance(curUser.pos, mob.pos) <= 3){
-					Buff.affect(mob, AttackUp.class).level(10);
+					Buff.affect(mob, AttackDown.class).level(10);
 				} else {
 				Buff.affect(mob, Disarm.class, curUser.STR);
 				Buff.affect(mob, Silent.class, curUser.STR);

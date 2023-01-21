@@ -92,9 +92,11 @@ public class WandOfFlock extends Wand {
 						if (hero.subClass == HeroSubClass.LEADER && (Dungeon.depth < 51 || Dungeon.depth > 54)){
 							MagicBombSheep bsheep = new MagicBombSheep();
 							bsheep.pos = j;
+							bsheep.dewLvl = this.level ;
 							GameScene.add(bsheep);
 						} else {
 							MagicSheep sheep = new MagicSheep();
+							sheep.dewLvl = this.level ;
 							sheep.lifespan = lifespan;
 							sheep.pos = j;
 							GameScene.add(sheep);
@@ -173,7 +175,7 @@ public class WandOfFlock extends Wand {
 		@Override
 		public int defenseProc(Char enemy, int damage) {
 
-			int dmg = Random.IntRange(0, hero.lvl*5);
+			int dmg = Random.IntRange(1, dewLvl*2);
 			if (dmg > 0) {
 				enemy.damage(dmg, DARK_DAMAGE);
 			}
@@ -217,7 +219,7 @@ public class WandOfFlock extends Wand {
 		@Override
 		public int defenseProc(Char enemy, int damage) {
 
-			int dmg = Random.IntRange(0, hero.lvl*8);
+			int dmg = Random.IntRange(1, dewLvl*4);
 			if (dmg > 0) {
 				enemy.damage(dmg, DARK_DAMAGE);
 			}

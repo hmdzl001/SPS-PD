@@ -21,7 +21,7 @@ import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.scrolls.Scroll;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;

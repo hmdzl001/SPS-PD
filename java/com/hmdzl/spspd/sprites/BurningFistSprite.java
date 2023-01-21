@@ -38,7 +38,7 @@ public class BurningFistSprite extends MobSprite {
 		run = new Animation(3, true);
 		run.frames(frames, 0, 1);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 0, 5, 6);
 
 		die = new Animation(10, false);

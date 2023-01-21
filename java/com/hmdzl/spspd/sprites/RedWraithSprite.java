@@ -40,7 +40,7 @@ public class RedWraithSprite extends MobSprite {
 		run = new Animation(10, true);
 		run.frames(frames, 0, 1);
 
-		attack = new Animation(10, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 0, 2, 3);
 		
 		cast = attack.clone();

@@ -94,6 +94,7 @@ import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.AdamantWand;
 import com.hmdzl.spspd.items.AdamantWeapon;
 import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.ArmorKit2;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
@@ -159,6 +160,7 @@ public class TownLevel extends Level {
 	public int[] gnollpots;
 	public int[] skillpots;
 	public int[] pillpots;
+	public int[] armorpots;
 	
 	private static final String SCROLLSPOTS = "scrollspots";
 	private static final String STORESPOTS = "storespots";
@@ -169,6 +171,7 @@ public class TownLevel extends Level {
 	private static final String GNOLLPOTS = "gnollpots";
 	private static final String SKILLPOTS = "skillpots";
 	private static final String PILLPOTS = "pillpots";
+	private static final String ARMORPOTS = "armorpots";
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
@@ -181,6 +184,7 @@ public class TownLevel extends Level {
 		bundle.put(GNOLLPOTS, gnollpots);
 		bundle.put(SKILLPOTS, skillpots);
 		bundle.put(PILLPOTS, pillpots);
+		bundle.put(ARMORPOTS, armorpots);
 	}
 		
 	@Override
@@ -195,6 +199,7 @@ public class TownLevel extends Level {
 		gnollpots = bundle.getIntArray(GNOLLPOTS);
 		skillpots = bundle.getIntArray(SKILLPOTS);
 		pillpots = bundle.getIntArray(PILLPOTS);
+		armorpots = bundle.getIntArray(ARMORPOTS);
 	}
 	
 	private boolean checkOtiluke(){
@@ -315,6 +320,16 @@ public class TownLevel extends Level {
 					}
 				}
 			}
+
+		if (Badges.checkFishRescued()|| Dungeon.isChallenged(Challenges.TEST_TIME)) {
+			for (int i : armorpots) {
+				Heap heap = heaps.get(i);
+				if (heap == null) {
+					Item storeitem10 = storeItem10();
+					drop(storeitem10, i).type = Heap.Type.FOR_SALE;
+				}
+			}
+		}
 			
 	}
 	
@@ -552,6 +567,12 @@ public class TownLevel extends Level {
 	public Item storeItem9 (){
 		Item prize;
 		prize = Generator.random(Generator.Category.PILL);
+		return prize;
+	}
+
+	public Item storeItem10 (){
+		Item prize;
+		prize = new ArmorKit2();
 		return prize;
 	}
 
@@ -915,6 +936,9 @@ public class TownLevel extends Level {
 	  pillpots = new int[1];
 	  pillpots[0] =  43 + WIDTH * 23;
 
+	  armorpots = new int[1];
+	  armorpots[0] = 43 + WIDTH * 20;
+
       storeStock();
 	  if (Dungeon.dewNorn == true) {
 		  Alter alter = new Alter();
@@ -1058,13 +1082,13 @@ public class TownLevel extends Level {
 
 	@Override
 	public String tilesTex() {
-		return (Dungeon.getMonth() < 3 || Dungeon.getMonth() > 11) ? Assets.TILES_TOWN : Assets.TILES_SNOWTOWN;
+		return (Dungeon.getMonth() > 3 && Dungeon.getMonth() < 11) ? Assets.TILES_TOWN : Assets.TILES_SNOWTOWN;
 		//return Dungeon.skins == 3 ? Assets.TILES_TOWN : Assets.TILES_SNOWTOWN;
 	}
 
 	@Override
 	public String waterTex() {
-		return (Dungeon.getMonth() < 3 || Dungeon.getMonth() > 11) ? Assets.WATER_PRISON : Assets.WATER_SNOW;
+		return (Dungeon.getMonth() > 3 && Dungeon.getMonth() < 11) ? Assets.WATER_PRISON : Assets.WATER_SNOW;
 		//return Dungeon.skins == 3 ? Assets.WATER_HONEY  : Assets.WATER_SNOW ;
 	}
 

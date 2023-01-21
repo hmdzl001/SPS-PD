@@ -44,41 +44,14 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanCorner;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanSwitch;
-import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
-import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
-import com.hmdzl.spspd.actors.mobs.pets.Bunny;
-import com.hmdzl.spspd.actors.mobs.pets.ButterflyPet;
-import com.hmdzl.spspd.actors.mobs.pets.Chocobo;
-import com.hmdzl.spspd.actors.mobs.pets.CocoCat;
-import com.hmdzl.spspd.actors.mobs.pets.Datura;
-import com.hmdzl.spspd.actors.mobs.pets.DogPet;
-import com.hmdzl.spspd.actors.mobs.pets.Fly;
-import com.hmdzl.spspd.actors.mobs.pets.GentleCrab;
-import com.hmdzl.spspd.actors.mobs.pets.GoldDragon;
-import com.hmdzl.spspd.actors.mobs.pets.GreenDragon;
-import com.hmdzl.spspd.actors.mobs.pets.Haro;
-import com.hmdzl.spspd.actors.mobs.pets.Kodora;
-import com.hmdzl.spspd.actors.mobs.pets.LeryFire;
-import com.hmdzl.spspd.actors.mobs.pets.LightDragon;
-import com.hmdzl.spspd.actors.mobs.pets.Monkey;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
-import com.hmdzl.spspd.actors.mobs.pets.PigPet;
-import com.hmdzl.spspd.actors.mobs.pets.RedDragon;
-import com.hmdzl.spspd.actors.mobs.pets.RibbonRat;
-import com.hmdzl.spspd.actors.mobs.pets.Scorpion;
-import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
-import com.hmdzl.spspd.actors.mobs.pets.Snake;
-import com.hmdzl.spspd.actors.mobs.pets.Spider;
-import com.hmdzl.spspd.actors.mobs.pets.Stone;
-import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
-import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
-import com.hmdzl.spspd.actors.mobs.pets.YearPet;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.particles.FlowParticle;
 import com.hmdzl.spspd.effects.particles.WindParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.PocketBallFull;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
@@ -709,152 +682,29 @@ public abstract class  Level implements Bundlable {
 		return new Actor() {
 			@Override
 			protected boolean act() {
-				//GLog.i("Check Pet");
 				int petpos = -1;
 				int heropos = Dungeon.hero.pos;
-				if (Actor.findChar(heropos) != null && Dungeon.hero.petfollow) {
-					//GLog.i("Check Pet 2");
+				if (Actor.findChar(heropos) != null) {
 					ArrayList<Integer> candidates = new ArrayList<Integer>();
 					boolean[] passable = Level.passable;
-
 					for (int n : Level.NEIGHBOURS8) {
 						int c = heropos + n;
 						if (passable[c] && Actor.findChar(c) == null) {
 							candidates.add(c);
 						}
 					}
-
 					petpos = candidates.size() > 0 ? Random.element(candidates) : -1;
 				}
-
-				if (petpos != -1 && Dungeon.hero.haspet && Dungeon.hero.petfollow) {
-					
-					  PET petCheck = checkpet();
-					  if(petCheck!=null){petCheck.destroy();petCheck.sprite.killAndErase();}
-					  
-					 if (Dungeon.hero.petType==1){
-						 Spider pet = new Spider();
-						  spawnPet(pet,petpos,heropos);					 
-						}
-				   if (Dungeon.hero.petType==2){
-					   CocoCat pet = new CocoCat();
-					  spawnPet(pet,petpos,heropos);					 
-					}
-				   if (Dungeon.hero.petType==3){
-					      Velocirooster pet = new Velocirooster();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==4){
-						  RedDragon pet = new RedDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==5){
-					   GreenDragon pet = new GreenDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==6){
-						  VioletDragon pet = new VioletDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==7){
-					   BlueDragon pet = new BlueDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==8){
-					   Scorpion pet = new Scorpion();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==9){
-					   Bunny pet = new Bunny();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==10){
-					   LightDragon pet = new LightDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==11){
-					   BugDragon pet = new BugDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==12){
-					   ShadowDragon pet = new ShadowDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-					if (Dungeon.hero.petType==13){
-					   CocoCat pet = new CocoCat();
-						  spawnPet(pet,petpos,heropos);					 
-				   }				
-				   if (Dungeon.hero.petType==14){
-					   LeryFire pet = new LeryFire();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==15){
-					   GoldDragon pet = new GoldDragon();
-						  spawnPet(pet,petpos,heropos);					 
-				   }		
-				   if (Dungeon.hero.petType==16){
-					   Snake pet = new Snake();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==17){
-					   Fly pet = new Fly();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==18){
-					   Stone pet = new Stone();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==19){
-					   Monkey pet = new Monkey();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==20){
-					   GentleCrab pet = new GentleCrab();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==21){
-					   RibbonRat pet = new RibbonRat();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==22){
-					   YearPet pet = new YearPet();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==23){
-					   DogPet pet = new DogPet();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==24){
-					   ButterflyPet pet = new ButterflyPet();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==25){
-					   Kodora pet = new Kodora();
-						  spawnPet(pet,petpos,heropos);					 
-				   }
-				   if (Dungeon.hero.petType==26){
-					   Chocobo pet = new Chocobo();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==27){
-					   PigPet pet = new PigPet();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-				   if (Dungeon.hero.petType==28){
-					   Datura pet = new Datura();
-						  spawnPet(pet,petpos,heropos);					 
-				   }	
-			   if (Dungeon.hero.petType==29){
-					   Haro pet = new Haro();
-						  spawnPet(pet,petpos,heropos);					 
-				   }					   
+				if (petpos != -1 && Dungeon.hero.haspet && checkpet() == null) {
+					PocketBallFull.teleportPet(Dungeon.hero);
 				}
-				
+
 				spend(PET_TICK);
 				return true;
 			}
 		};
 	}
+
 
 	private PET checkpet(){
 		for (Mob mob : Dungeon.level.mobs) {
@@ -866,16 +716,14 @@ public abstract class  Level implements Bundlable {
 	}
 	
 	public void spawnPet(PET pet, Integer petpos, Integer heropos){
-		pet.spawn(Dungeon.hero.petLevel);
+		pet.spawn();
 		pet.HP = Dungeon.hero.petHP;
 		pet.pos = petpos;
 		pet.state = pet.HUNTING;
-		pet.experience = Dungeon.hero.petExperience;
 		pet.cooldown = Dungeon.hero.petCooldown;
 
 		GameScene.add(pet);
 		Actor.addDelayed(new Pushing(pet, heropos, petpos), -1f);
-		Dungeon.hero.petfollow = false;
 	}
 	
 	public boolean checkOriginalGenMobs (){
@@ -1142,10 +990,8 @@ public abstract class  Level implements Bundlable {
 			passable[i] = (flags & Terrain.PASSABLE) != 0;
 			//losBlocking[i] = (flags & Terrain.LOS_BLOCKING) != 0;
             losBlockLow[i]	= (flags & Terrain.LOS_BLOCKING) != 0;
-            losBlockHigh[i]	= losBlockLow[i] && (flags & Terrain.SOLID) != 0 ;			
+            losBlockHigh[i]	= losBlockLow[i] && (flags & Terrain.WALLS) != 0 ;			
 			flamable[i] = (flags & Terrain.FLAMABLE) != 0;
-			//shockable[i] = (flags & Terrain.SHOCKABLE) != 0;
-			//crashable[i] = (flags & Terrain.CRASHABLE) != 0;
 			secret[i] = (flags & Terrain.SECRET) != 0;
 			solid[i] = (flags & Terrain.SOLID) != 0;
 			avoid[i] = (flags & Terrain.AVOID) != 0;
@@ -1260,10 +1106,8 @@ public abstract class  Level implements Bundlable {
 		passable[cell] = (flags & Terrain.PASSABLE) != 0;
 		//losBlocking[cell] = (flags & Terrain.LOS_BLOCKING) != 0;
 		losBlockLow[cell]	= (flags & Terrain.LOS_BLOCKING) != 0;
-		losBlockHigh[cell]	= losBlockLow[cell] && (flags & Terrain.SOLID) != 0;		
+		losBlockHigh[cell]	= losBlockLow[cell] && (flags & Terrain.WALLS) != 0;		
 		flamable[cell] = (flags & Terrain.FLAMABLE) != 0;
-		//shockable[cell] = (flags & Terrain.SHOCKABLE) != 0;
-		//crashable[cell] = (flags & Terrain.CRASHABLE) != 0;
 		secret[cell] = (flags & Terrain.SECRET) != 0;
 		solid[cell] = (flags & Terrain.SOLID) != 0;
 		avoid[cell] = (flags & Terrain.AVOID) != 0;
@@ -1967,6 +1811,8 @@ public abstract class  Level implements Bundlable {
 		case Terrain.WALL:
 		case Terrain.WALL_DECO:
 		case Terrain.SECRET_DOOR:
+			case Terrain.WALL_GROUND:
+			case Terrain.WALL_LIVER:
 			return Messages.get(Level.class, "wall_name");
 		case Terrain.DOOR:
 			return Messages.get(Level.class, "closed_door_name");
@@ -2001,7 +1847,7 @@ public abstract class  Level implements Bundlable {
 		case Terrain.STATUE:
 		case Terrain.STATUE_SP:
 			return Messages.get(Level.class, "statue_name");
-		case Terrain.STATUE_SSP:
+		case Terrain.STATUE_BROKEN:
 			return Messages.get(Level.class, "statue_ssp_name");			
 		case Terrain.TENT:
 			return Messages.get(Level.class, "tent_name");
@@ -2045,6 +1891,8 @@ public abstract class  Level implements Bundlable {
 			return Messages.get(Level.class, "shrub_name");
 		case Terrain.GLASS_WALL:
 			return Messages.get(Level.class, "glass_name");
+		case Terrain.GROUND_B:
+				return Messages.get(Level.class, "groundb_name");
 		default:
 			return Messages.get(Level.class, "default_name");
 		}
@@ -2108,7 +1956,7 @@ public abstract class  Level implements Bundlable {
 		case Terrain.STATUE:
 		case Terrain.STATUE_SP:
 			return Messages.get(Level.class, "statue_desc");
-		case Terrain.STATUE_SSP:
+		case Terrain.STATUE_BROKEN:
 			return Messages.get(Level.class, "statue_ssp_desc");			
 		case Terrain.ALCHEMY:
 			return Messages.get(Level.class, "alchemy_desc");
@@ -2116,6 +1964,8 @@ public abstract class  Level implements Bundlable {
 			return Messages.get(Level.class, "empty_well_desc");
 		case Terrain.GLASS_WALL:
 			return Messages.get(Level.class, "glass_desc");
+			case Terrain.GROUND_B:
+				return Messages.get(Level.class, "groundb_desc");
 	 case Terrain.WOOL_RUG:
 			return Messages.get(Level.class, "wool_rug_desc");
 		default:	

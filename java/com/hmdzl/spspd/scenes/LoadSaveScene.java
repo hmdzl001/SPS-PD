@@ -153,7 +153,7 @@ import java.util.ArrayList;
          Game.switchScene( InterlevelScene.class );
      }
 
-     protected static void exportGames(String classInfo, String saveSlot) {
+     public static void exportGames(String classInfo, String saveSlot) {
          ArrayList<String> files = new ArrayList<String>();
          String saveSlotFolder = Game.instance.getFilesDir().toString() + "/" + classInfo + saveSlot;
          makeFolder(saveSlotFolder);
@@ -179,7 +179,7 @@ import java.util.ArrayList;
                  OutputStream out = new FileOutputStream(saveSlotFolder + "/" + fileName);
  
                  // Transfer bytes from in to out
-                 byte[] buf = new byte[23768];
+                 byte[] buf = new byte[47536];
                  int len;
                  while ((len = in.read(buf)) > 0) {
                      out.write(buf, 0, len);
@@ -194,8 +194,7 @@ import java.util.ArrayList;
              }
          }
          Dungeon.canSave = false;
-         InterlevelScene.mode = InterlevelScene.Mode.SAVE;
-         Game.switchScene( InterlevelScene.class );
+
      }
  
      private static boolean isGameLevelFile(String classInfo, String fileName) {
@@ -281,6 +280,8 @@ import java.util.ArrayList;
          protected void onClick() {
              if (isSave) {
                  exportGames(classInfo, saveSlot);
+                 InterlevelScene.mode = InterlevelScene.Mode.SAVE;
+                 Game.switchScene( InterlevelScene.class );
              } else {
                  loadSaveScene.add( new WndOptions( TXT_REALLY + " " +saveSlot + " " + secondary.text() + "?", TXT_WARNING, TXT_YES + " " + saveSlot, TXT_NO ) {
                      @Override
@@ -324,7 +325,6 @@ import java.util.ArrayList;
      public static String capitalizeWord(String oneWord)
      {
          return Character.toUpperCase(oneWord.charAt(0)) + oneWord.substring(1);
-    }
-
+     }
 
  } 

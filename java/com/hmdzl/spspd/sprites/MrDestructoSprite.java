@@ -40,7 +40,7 @@ public class MrDestructoSprite extends MobSprite {
 		run = new Animation(12, true);
 		run.frames(frames, 2, 3, 4);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 1, 5);
 
 		die = new Animation(8, false);

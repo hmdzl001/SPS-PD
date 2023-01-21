@@ -22,11 +22,15 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Web;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.NewSpinnerSprite;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class Spider extends PET {
 	
@@ -35,56 +39,65 @@ public class Spider extends PET {
 		spriteClass = NewSpinnerSprite.class;
 		//flying=false;
 		state = HUNTING;
-		level = 1;
-		type = 1;
-		cooldown=500;
 
+		type = 204;
+		cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.BEAST);
 
-	}	
+	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		HT = 70 + level*10;
-		evadeSkill = 5 + level;
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof MeatFood;
+	}
+
+	@Override
+	public void updateStats()  {
+		evadeSkill = (int)(hero.petLevel*1.5);
+		HT = 150 + 2* hero.petLevel;
 	}
 	
-
-
-
 	@Override
-	public int damageRoll() {		
-		return Random.NormalIntRange((5+level), (5+level*3)) ;		
+	public int damageRoll() {
+		return Random.NormalIntRange((int)(5+hero.petLevel*0.5), (int)(5+hero.petLevel*1.5));
 	}
 
 	@Override
-	protected boolean act() {
-		
-		if (cooldown>0){
-			cooldown=Math.max(cooldown-(1+9*((level-1)/19)),0);
-			if (cooldown==0) {GLog.w(Messages.get(this,"ready"));}
-		}
-		
-		
+	public Item SupercreateLoot(){
+		return new WoodenArmor();
+	}
 
-		return super.act();
-	}			
+	@Override
+	public int drRoll(){
+		return Random.IntRange(hero.petLevel,(int)(hero.petLevel*1.5));
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 5;
+	}
+	
 	
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (cooldown>0 && Random.Int(10) == 0) {
-			Buff.affect(enemy, Poison.class).set(Random.Int(7, 9) );
-			GameScene.add(Blob.seed(enemy.pos, Random.Int(5, 7), Web.class));
+		if (Random.Int(10) == 0) {
+			Buff.affect(enemy, Poison.class).set(Random.Int(hero.petLevel, hero.petLevel+2) );
+			GameScene.add(Blob.seed(enemy.pos, Random.Int(4, 6), Web.class));
 		}
-		if (cooldown==0) {
-			Buff.affect(enemy, Poison.class).set(Random.Int(10, 25));
-			GameScene.add(Blob.seed(enemy.pos, Random.Int(8, 9), Web.class));
-			damage+=damage;
-			cooldown=500;
-		}
-
+        cooldown--;
 		return damage;
 	}
+	
+	@Override
+	public int defenseProc(Char enemy, int damage) {
+		if (cooldown == 0) {
+			Buff.affect(enemy, Poison.class).set(Random.Int((int)(hero.petLevel*1.5), hero.petLevel*2));
+			GameScene.add(Blob.seed(enemy.pos, Random.Int(5, 7), Web.class));
+			cooldown = Math.max(10,30-hero.petLevel);
+		}
+		return damage;
+	}	
 
 }

@@ -19,16 +19,18 @@ package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Blindness;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.items.food.meatfood.Meat;
-import com.hmdzl.spspd.sprites.ButterflyPetSprite;
-import com.hmdzl.spspd.sprites.NewSnakeSprite;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.Honeymeat;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.fruit.Fruit;
+import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
+import com.hmdzl.spspd.items.food.vegetable.Vegetable;
+import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.sprites.PigPetSprite;
-import com.hmdzl.spspd.sprites.SnakeSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class PigPet extends PET {
 	
@@ -37,50 +39,61 @@ public class PigPet extends PET {
 		spriteClass = PigPetSprite.class;
         //flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 27;
-
+		type = 303;
+        cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.BEAST);
 	}
-	
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		adjustStats(level);
-	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		evadeSkill = 5 + level;
-		HT = 90 + level*5;
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof Plant.Seed ||
+				item instanceof Vegetable ||
+				item instanceof Fruit;
+	}
+
+
+	@Override
+	public void updateStats()  {
+		evadeSkill =   hero.petLevel;
+		HT = 150 + 2*  hero.petLevel;
 	}
 	
-
-
-
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(10, (10+level*2));
+		return Random.NormalIntRange((int)(5+hero.petLevel*0.5), (int)(5+hero.petLevel*1.5));
 	}
 
 	@Override
-	protected boolean act() {		
-		
+	public Item SupercreateLoot(){
+		return new Honeymeat();
+	}
 
-		return super.act();
+	@Override
+	public int drRoll(){
+		return Random.IntRange(hero.petLevel,hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 5;
 	}
 	
 	@Override
 	public int attackProc(Char enemy, int damage) {
-
+        cooldown--;
+        if(cooldown == 0){
+			Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), enemy.pos).sprite.drop();
+			cooldown =  Math.max(25,45 - hero.petLevel);
+		}
 		return damage;
 	}	
 	
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 		if (Random.Int(15) == 0) {
-			Dungeon.level.drop(new Meat(), pos).sprite.drop();
+			Dungeon.level.drop(new SmallMeat(), pos).sprite.drop();
 		}
 
 		return damage;

@@ -37,7 +37,7 @@ public class StoneSprite extends MobSprite {
 		run = new Animation(4, true);
 		run.frames(frames, 4, 5, 6, 7);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 8, 9, 10, 11);
 
 		zap = attack.clone();

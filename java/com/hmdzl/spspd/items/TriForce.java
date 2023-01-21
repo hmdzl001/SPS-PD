@@ -79,7 +79,7 @@ public class TriForce extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action == AC_PORT) {
-
+            PocketBallFull.removePet(hero);
 			if (Dungeon.bossLevel()) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));

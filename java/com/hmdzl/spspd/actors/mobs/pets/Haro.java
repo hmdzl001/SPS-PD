@@ -21,8 +21,11 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.CompleteFood;
+import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.sprites.HaroSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Haro extends PET {
@@ -32,40 +35,55 @@ public class Haro extends PET {
 		spriteClass = HaroSprite.class;
         //flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 29;
 
+		type = 403;
+
+		oldcooldown = 10;
 		properties.add(Property.MECH);
 	}
-	
+
 	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		adjustStats(level);
+	public boolean lovefood(Item item) {
+		return item instanceof CompleteFood;
+	}
+
+
+	@Override
+	public void updateStats()  {
+
+		evadeSkill = Dungeon.hero.petLevel;
+		HT = 70 + Dungeon.hero.petLevel*5;
+	}
+
+
+	@Override
+	public Item SupercreateLoot(){
+		return new ScrollOfRecharging();
 	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		evadeSkill = 5 + level;
-		HT = 100 + level*5;
+	public int drRoll(){
+		return Random.IntRange(8+Dungeon.hero.petLevel,10+Dungeon.hero.petLevel);
 	}
-	
 
+	@Override
+	public int hitSkill(Char target) {
+		return Dungeon.hero.petLevel + 20;
+	}
 
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(5, (10+level*2));
+		return Random.NormalIntRange(5, (10+Dungeon.hero.petLevel*2));
 	}
 
 	@Override
-	protected boolean act() {		
-		
-
-		return super.act();
+	public void move(int step) {
+		super.move(step);
+			if (cooldown > 0) {
+				cooldown--;
+			}
 	}
-	
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		Dungeon.hero.belongings.relord();
@@ -75,7 +93,10 @@ public class Haro extends PET {
 	
 	@Override
 	public int defenseProc(Char enemy, int damage) {
-
+		if (cooldown == 0) {
+			Buff.affect(enemy,Shieldblock.class,5f);
+			cooldown = Math.max(10,50-Dungeon.hero.petLevel);
+		}
 		return damage;
 	}	
 }	

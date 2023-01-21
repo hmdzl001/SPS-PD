@@ -18,9 +18,9 @@
 package com.hmdzl.spspd.items.bags;
 
 
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.items.food.meatfood.BugMeat;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class ShoppingCart extends Bag {
@@ -29,13 +29,13 @@ public class ShoppingCart extends Bag {
 		//name = "shopping cart";
 		image = ItemSpriteSheet.SHOPCART;
 
-		size = 25;
+		size = 30;
 	}
 
 	
 	@Override
 	public boolean grab(Item item) {
-		return item instanceof Food ;	
+		return item instanceof Food && !(item instanceof BugMeat);
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class ShoppingCart extends Bag {
 		return 50 * quantity;
 	}
 
-	@Override
-	public boolean doPickUp( Hero hero ) {
+	//@Override
+	//public boolean doPickUp( Hero hero ) {
 
-		return hero.belongings.getItem( ShoppingCart.class ) == null && super.doPickUp( hero ) ;
+	//	return hero.belongings.getItem( ShoppingCart.class ) == null && super.doPickUp( hero ) ;
 
-	}
+	//}
 
 }
 

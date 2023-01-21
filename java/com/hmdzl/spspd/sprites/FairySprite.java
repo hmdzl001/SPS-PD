@@ -40,7 +40,7 @@ public class FairySprite extends MobSprite {
 		run = new Animation(8, true);
 		run.frames(frames, 0, 1, 2, 0);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 0, 3, 4, 1);
 
 		die = new Animation(8, false);

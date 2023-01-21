@@ -42,7 +42,7 @@ public class RogueSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
 	{
 		//name = "rogue garb";
-		image = ItemSpriteSheet.ARMOR_ROGUE;
+		image = ItemSpriteSheet.SKILL_ROGUE;
 	}
 
 	@Override

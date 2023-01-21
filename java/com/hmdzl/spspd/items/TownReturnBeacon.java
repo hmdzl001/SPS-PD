@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -31,6 +29,8 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
 
 public class TownReturnBeacon extends Item {
 
@@ -92,7 +92,7 @@ public class TownReturnBeacon extends Item {
 		
 		if (action == AC_RETURNTOWN) {
 		
-		   if (Dungeon.bossLevel() || Dungeon.level.locked || hero.petfollow) {
+		   if (Dungeon.bossLevel() || Dungeon.level.locked) {
 		     	hero.spend(TIME_TO_USE);
 			    GLog.w(FAIL);
 			    return;

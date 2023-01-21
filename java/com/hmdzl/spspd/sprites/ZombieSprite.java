@@ -35,7 +35,7 @@ public class ZombieSprite  extends MobSprite {
         run = new Animation( 10, true );
         run.frames( frames, 2, 3, 4, 5, 6 );
 
-        attack = new Animation( 10, false );
+        attack = new Animation( 15, false );
         attack.frames( frames, 7, 8, 9, 8 );
 
         die = new Animation( 8, false );

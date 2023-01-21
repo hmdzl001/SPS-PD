@@ -40,7 +40,7 @@ public class BrokenRobotSprite extends MobSprite {
 		run = new Animation(12, true);
 		run.frames(frames, 2, 3, 4, 5, 6, 7);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 8, 9);
 
 		die = new Animation(8, false);

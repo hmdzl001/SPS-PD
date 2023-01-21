@@ -17,14 +17,13 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class PetFood extends CompleteFood {
 
 	{
 		//name = "PetFood";
-		image = ItemSpriteSheet.PETFOOD;
+		image = ItemSpriteSheet.PET_FOOD;
 		energy = 10;
 		hornValue = 1;
 		 

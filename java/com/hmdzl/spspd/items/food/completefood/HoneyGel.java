@@ -60,6 +60,6 @@ public class HoneyGel extends CompleteFood {
 
 	@Override
 	public int price() {
-		return 500 * quantity;
+		return 400 * quantity;
 	}
 }

@@ -15,41 +15,41 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.food;
+package com.hmdzl.spspd.items.armor.specialarmor;
 
-import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.STRdown;
-import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
-public class Vegetable extends Food {
+public class MageArmor extends NormalArmor {
 
 	{
-		stackable = true;
-		//name = "ration of food";
-		image = ItemSpriteSheet.EAT_GRASS;
-		energy = 20;
-		hornValue = 1;
-		 
+		//name = "phantom armor";
+		image = ItemSpriteSheet.ARMOR_MAGE;
+
+	}
+
+	public MageArmor() {
+		super(1,3f,7f,4);
 	}
 
 	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
+	public Item upgrade(boolean hasglyph) {
+		MAX++;
+		return super.upgrade(hasglyph);
+	}
+	@Override
+	public void proc(Char attacker, Char defender, int damage) {
 
-		if (action.equals(AC_EAT)){
-			Buff.detach(hero, Poison.class);
-			Buff.detach(hero, Cripple.class);
-			Buff.detach(hero, STRdown.class);
-			Buff.detach(hero, Bleeding.class);
+		if (Random.Int(8) == 0) {
+			damage=0;
+		}
+
+		if (glyph != null) {
+			glyph.proc(this, attacker, defender, damage);
 		}
 	}
 
-	@Override
-	public int price() {
-		return 1 * quantity;
-	}
 }

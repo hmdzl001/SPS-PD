@@ -53,9 +53,11 @@ public class Elevator extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action.equals(AC_UP)) {
+			PocketBallFull.removePet(hero);
 			InterlevelScene.mode = InterlevelScene.Mode.ASCEND;
 			Game.switchScene(InterlevelScene.class);
 		} else if (action.equals(AC_DOWN)) {
+			PocketBallFull.removePet(hero);
 			InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
 			Game.switchScene(InterlevelScene.class);
 		} else {

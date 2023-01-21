@@ -42,7 +42,7 @@ public class AdultDragonVioletSprite extends MobSprite {
 		run = new Animation(10, false);
 		run.frames(frames, 0, 2, 1);
 
-		attack = new Animation(10, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 0, 2, 3, 4, 5);
 		
 		cast = attack.clone();

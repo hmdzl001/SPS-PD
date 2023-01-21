@@ -18,15 +18,21 @@
 package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.LightShootAttack;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.potions.PotionOfMindVision;
+import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
+import com.hmdzl.spspd.items.wands.WandOfCharm;
+import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.LightDragonSprite;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
 
 public class LightDragon extends PET{
 	
@@ -35,66 +41,66 @@ public class LightDragon extends PET{
 		spriteClass = LightDragonSprite.class;
 		//flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 10;
-		cooldown=500;
-		
+
+		type = 503;
+		cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.DRAGON);
 	}
-	private static final float TIME_TO_ZAP = 2f;
 
 	@Override
-	protected float attackDelay() {
-		return 1f;
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof ScrollOfRemoveCurse ||
+				item instanceof PotionOfMindVision;
 	}
 
-	//Frames 0,2 are idle, 0,1,2 are moving, 0,3,4,1 are attack and 5,6,7 are for death 
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		HT = 70 + level*10;
-		evadeSkill =  5 + level;
+	public void updateStats()  {
+		HT = 150 + hero.petLevel*5;
+		evadeSkill = hero.petLevel;
 	}
-	
-
 
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange((5+level), (5+level*3));
+		return Random.NormalIntRange((6+hero.petLevel), (6+hero.petLevel*4));
 	}
 
 	@Override
-	protected boolean act() {
-		
-		if (cooldown>0){
-			cooldown=Math.max(cooldown-(1+9*((level-1)/19)),0);
-			if (cooldown==0) {GLog.w(Messages.get(this,"ready"));}
-		}
-
-		return super.act();
+	public Item SupercreateLoot(){
+		return Random.oneOf( new WandOfLight(), new WandOfCharm());
 	}
-	
-	
+
+	@Override
+	public int drRoll(){
+		return Random.IntRange(5+hero.petLevel,10+hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 10;
+	}
+
 	@Override
 	protected boolean canAttack(Char enemy) {
-		if (cooldown>0){
-		  return Level.adjacent(pos, enemy.pos);
-		} else {
-		  return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
-		}
-	
+		return Level.distance( pos, enemy.pos ) <= 2 ;
 	}
-	
+
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (cooldown == 0) {
-			cooldown=500;
-			enemy.damage(enemy.HP/4,DamageType.LIGHT_DAMAGE);
-			Buff.affect(enemy, Blindness.class, 10f);
+		enemy.damage(damageRoll()/2, LIGHT_DAMAGE);
+		damage = damage/2;
+		if (cooldown > 0) cooldown --;
+		if (cooldown==0 && enemy.isAlive()) {
+			Buff.affect(enemy,LightShootAttack.class).set(10);
+			cooldown = Math.max(9,30 - hero.petLevel);
 		}
 		return damage;
 	}
 
+	{
+		immunities.add(DamageType.LightDamage.class);
+	}
 }

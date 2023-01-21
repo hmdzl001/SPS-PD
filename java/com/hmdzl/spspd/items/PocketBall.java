@@ -53,19 +53,18 @@ public class PocketBall extends Item {
         if(Actor.findChar(cell) != null && Actor.findChar(cell) instanceof PET) {
             Actor.findChar(cell).sprite.emitter().burst(ShadowParticle.CURSE, 6);
             Sample.INSTANCE.play( Assets.SND_CURSED );
+            PET pet = (PET) Actor.findChar(cell);
             PocketBallFull pbf = new PocketBallFull(
-            	Dungeon.hero.petType,
-				Dungeon.hero.petHP,
-				Dungeon.hero.petLevel,
-				Dungeon.hero.petExperience
-
+					pet.type,
+				pet.HP
 			);
             Dungeon.level.drop( pbf, cell ).sprite.drop();
 			((PET) Actor.findChar(cell)).sprite.killAndErase();
 			Actor.findChar(cell).die(null);
 			//Actor.findChar(cell).destroy();
-
-			Dungeon.hero.haspet = false;
+            if (Dungeon.depth != 50) {
+				Dungeon.hero.haspet = false;
+			}
 			GLog.n(Messages.get(this, "get_pet"));
         } else super.onThrow(cell);
     }

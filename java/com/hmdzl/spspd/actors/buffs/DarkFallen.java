@@ -141,13 +141,15 @@ public class DarkFallen extends Buff {
 
 			for (int i : Level.NEIGHBOURS9DIST2) {
 				int c = pos + i;
-				if (Dungeon.level.discoverable[c]) {
-					Dungeon.level.mapped[c] = true;
-				}
+				if ( Level.insideMap(c)) {
+					if (Dungeon.level.discoverable[c]) {
+						Dungeon.level.mapped[c] = true;
+					}
 
-				Dungeon.level.discover(c);
-				//GameScene.discoverTile( cell, terr );
-				Dungeon.observe();
+					Dungeon.level.discover(c);
+					//GameScene.discoverTile( cell, terr );
+					Dungeon.observe();
+				}
 			}
 
 			super.die(cause);

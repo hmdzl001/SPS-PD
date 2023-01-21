@@ -135,7 +135,6 @@ public class AlbinoPiranha extends Mob {
 		}
 		
 	if(Statistics.albinoPiranhasKilled == 25) {
-			Dungeon.limitedDrops.conchshell.drop();
 			Dungeon.level.drop(new ConchShell(), pos).sprite.drop();
 	}
 		

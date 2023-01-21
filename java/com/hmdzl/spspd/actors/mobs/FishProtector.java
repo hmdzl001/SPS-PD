@@ -90,7 +90,7 @@ public class FishProtector extends Mob {
 	@Override
 	public void add(Buff buff) {
 		if (buff instanceof FrostIce) {
-			if (HP < HT) {
+			if (HP < HT && this.isAlive()) {
 				HP+=HT/10;
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}

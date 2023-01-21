@@ -17,10 +17,16 @@
  */
 package com.hmdzl.spspd.actors.mobs.pets;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.eggs.EasterEgg;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.fruit.Fruit;
+import com.hmdzl.spspd.items.food.vegetable.Vegetable;
+import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.sprites.BunnySprite;
-import com.hmdzl.spspd.utils.GLog;
-
 import com.watabou.utils.Random;
 
 public class Bunny extends PET{
@@ -29,45 +35,69 @@ public class Bunny extends PET{
 		//name = "bunny";
 		spriteClass = BunnySprite.class;       
 		state = HUNTING;
-		level = 1;
-		type = 9;
-		cooldown=500;
-
+		type = 401;
+		cooldown=40;
+        oldcooldown = 10;
 		properties.add(Property.BEAST);
 	}
 
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		HT = 70 + level*10;
-		evadeSkill = 5 + level;
+	public void updateStats()  {
+
+		HT = 150 + Dungeon.hero.petLevel*3;
+		evadeSkill = 8 + Dungeon.hero.petLevel;
+	}
+
+	@Override
+	public void move(int step) {
+		super.move(step);
+
+		if (Dungeon.level.map[step] == Terrain.HIGH_GRASS ||
+				Dungeon.level.map[step] == Terrain.OLD_HIGH_GRASS ||
+				Dungeon.level.map[step] == Terrain.GRASS ) {
+			if (cooldown > 0) {
+				cooldown--;
+			}
+		}
+
+	}
+
+	@Override
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof Vegetable ||
+				item instanceof Fruit;
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new EasterEgg();
+	}
+
+	@Override
+	public int drRoll(){
+		return Random.IntRange(1,Dungeon.hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return Dungeon.hero.petLevel + 8;
 	}
 
 	@Override
 	public int damageRoll() {
-		
-		int dmg=0;
-		if (cooldown==0){
-			dmg=Random.NormalIntRange((5+level)*5, (5+level*3)*4); 
-			cooldown=500;
-		} else {
-			dmg=Random.NormalIntRange((5+level), (5+level*3)) ;
-		}
-		return dmg;
-			
+		return Random.NormalIntRange((5+Dungeon.hero.petLevel)*5, (5+Dungeon.hero.petLevel*3)*4) ;
 	}
 
 	@Override
-	protected boolean act() {
-		
-		if (cooldown>0){
-			cooldown=Math.max(cooldown-(1+9*((level-1)/19)),0);
-			if (cooldown==0) {GLog.w(Messages.get(this,"ready"));}
+	public int attackProc(Char enemy, int damage) {
+		if (cooldown==0) {
+			Dungeon.level.drop(Generator.random(Random.oneOf(Generator.Category.SEED,
+					Generator.Category.BERRY,Generator.Category.MUSHROOM)),pos).sprite.drop();
+			cooldown=Math.max(4,40-Dungeon.hero.petLevel);
 		}
-		
-		
+		return damage;
+	}
 
-		return super.act();
-	}			
 }

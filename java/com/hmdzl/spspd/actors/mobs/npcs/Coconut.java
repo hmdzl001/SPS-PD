@@ -22,7 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.sellitem.DevUpPlan;
+import com.hmdzl.spspd.items.eggs.CocoCatEgg;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CoconutSprite;
 import com.watabou.utils.Random;
@@ -68,7 +68,7 @@ public class Coconut extends NPC {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new DevUpPlan();
+		return new CocoCatEgg();
 	}
 	
 	@Override

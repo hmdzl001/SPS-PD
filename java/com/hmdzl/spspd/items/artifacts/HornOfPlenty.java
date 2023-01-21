@@ -1,29 +1,26 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Feed;
-import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.SpellSprite;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.food.fruit.Blandfruit;
 import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.food.fruit.Blandfruit;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
 
 /**
  * Created by debenhame on 26/08/2014.
@@ -46,7 +43,7 @@ public class HornOfPlenty extends Artifact {
 
 	private static final float TIME_TO_EAT = 3f;
 
-	private float energy = 36f;
+	private float energy = 40f;
 
 	public static final String AC_EAT = "EAT";
 	public static final String AC_STORE = "STORE";

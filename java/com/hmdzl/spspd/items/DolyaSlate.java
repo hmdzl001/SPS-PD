@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
@@ -26,17 +24,18 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
 import com.hmdzl.spspd.items.keys.IronKey;
-import com.hmdzl.spspd.items.misc.Spectacles.MagicSight;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndOtiluke;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
 
 public class DolyaSlate extends Item {
 	
@@ -55,15 +54,6 @@ public class DolyaSlate extends Item {
 	public int returnPos;
 	
 	public int charge = 0;
-	public int level = 1;
-	
-	public int checkReading(){
-		int lvl=1;			
-		if (Dungeon.hero.buff(MagicSight.class) != null){
-			lvl+=1;
-		}
-		return lvl;
-	}
 	
 	public int reqCharges(){
 			
@@ -91,7 +81,6 @@ public class DolyaSlate extends Item {
 	private static final String ROOMS = "rooms";
 	private static final String FIRSTS = "firsts";
 	private static final String CHARGE = "charge";
-	private static final String LEVEL = "level";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -100,7 +89,6 @@ public class DolyaSlate extends Item {
 		bundle.put(ROOMS, rooms);
 		bundle.put(CHARGE, charge);
 		bundle.put(FIRSTS, firsts);
-		bundle.put(LEVEL, level);
 		if (returnDepth != -1) {
 			bundle.put(POS, returnPos);
 		}
@@ -112,7 +100,6 @@ public class DolyaSlate extends Item {
 		returnDepth = bundle.getInt(DEPTH);
 		returnPos = bundle.getInt(POS);
 		charge = bundle.getInt(CHARGE);
-		level = bundle.getInt(LEVEL);
 		rooms = bundle.getBooleanArray(ROOMS);
 		firsts = bundle.getBooleanArray(FIRSTS);
 	}
@@ -123,11 +110,11 @@ public class DolyaSlate extends Item {
 		
 		actions.add(AC_ADD);
 		
-		if (returnDepth > 0 && (Dungeon.depth<56 || Dungeon.depth==66 || Dungeon.depth==67) && Dungeon.depth>49 && !hero.petfollow){
+		if (returnDepth > 0 && (Dungeon.depth<56 || Dungeon.depth==66 || Dungeon.depth==67 || Dungeon.depth==68) && Dungeon.depth>49 ){
 		actions.add(AC_RETURN);
 		}
-		//charge >= reqCharges() &&		
-		if ((charge >= 500 || Badges.checkOtilukeRescued() )&& Dungeon.depth<26 && !hero.petfollow && (level>1 || rooms[0])){
+
+		if ((charge >= 500 || Badges.checkOtilukeRescued() )&& Dungeon.depth<26){
 		actions.add(AC_PORT);
 		}
 				
@@ -150,6 +137,9 @@ public class DolyaSlate extends Item {
 		}
               
        if (action == AC_RETURN) {
+		   if (Dungeon.depth != 50){
+		   PocketBallFull.removePet(hero);
+		   }
     	   hero.spend(TIME_TO_USE);
     	       IronKey key = hero.belongings.getKey(IronKey.class, Dungeon.depth);
 			   if (key!=null){key.detachAll(Dungeon.hero.belongings.backpack);}

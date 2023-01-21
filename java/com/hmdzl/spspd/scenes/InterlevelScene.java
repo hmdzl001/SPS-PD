@@ -43,8 +43,8 @@ public class InterlevelScene extends PixelScene {
 	private static final float TIME_TO_FADE = 0.3f;
 
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, /*PORT1, PORT2, PORT3,*/ PORT4,
-		/*PORTSEWERS, PORTPRISON, PORTCAVES, */ PORTSHADOWEATER,PORTPOT, PORTCRAB, PORTTENGU, PORTCOIN, PORTBONE, RETURNSAVE,
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, PORT4,
+		PORTSHADOWEATER,PORTPOT, PORTCRAB, PORTTENGU, PORTCOIN, PORTBONE, RETURNSAVE,
 		JOURNAL, SOKOBANFAIL, PALANTIR, BOSSRUSH, PORTMAP, SAVE, SLEEP, CHALLENGEBOOK, RESET,CHAOS
 	}
 
@@ -379,9 +379,7 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.switchLevel(Dungeon.loadLevel(StartScene.curClass), -1);
 		} else {
 			Level level = Dungeon.loadLevel(StartScene.curClass);
-			Dungeon.switchLevel(level,
-					Level.resizingNeeded ? level.adjustPos(Dungeon.hero.pos)
-							: Dungeon.hero.pos);
+			Dungeon.switchLevel(level, Level.resizingNeeded ? level.adjustPos(Dungeon.hero.pos) : Dungeon.hero.pos);
 		}
 	}
 	

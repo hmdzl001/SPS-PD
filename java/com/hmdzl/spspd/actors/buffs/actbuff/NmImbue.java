@@ -50,6 +50,7 @@ public class NmImbue extends Buff implements Hero.Doom  {
 
 	@Override
 	public boolean act() {
+
 		GameScene.add(Blob.seed(target.pos, 30, NmGas.class));
 
 		if (target.isAlive()) {

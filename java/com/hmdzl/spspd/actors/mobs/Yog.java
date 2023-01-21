@@ -40,7 +40,6 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Elevator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PuddingCup;
@@ -251,11 +250,6 @@ public class Yog extends Mob {
 				mob.die(cause);
 			}
 		}
-		
-		if (!Dungeon.limitedDrops.journal.dropped()){ 
-			  Dungeon.level.drop(new DolyaSlate(), pos).sprite.drop();
-			  Dungeon.limitedDrops.journal.drop();
-			}
 		Dungeon.level.drop(new Elevator(), pos).sprite.drop();
 		//Dungeon.level.drop(new Vault(), pos).sprite.drop();
 		GameScene.bossSlain();

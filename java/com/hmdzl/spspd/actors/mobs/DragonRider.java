@@ -21,7 +21,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.eggs.RandomEgg;
+import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DragonRiderSprite;
 import com.watabou.utils.Random;
@@ -42,7 +42,7 @@ public class DragonRider extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new RandomEgg();
+		return new RandomMonthEgg();
 	}
 
 	@Override

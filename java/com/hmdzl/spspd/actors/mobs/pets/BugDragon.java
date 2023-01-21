@@ -17,123 +17,69 @@
  */
 package com.hmdzl.spspd.actors.mobs.pets;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
+import com.hmdzl.spspd.items.wands.WandOfError;
+import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
+import com.hmdzl.spspd.items.weapon.missiles.ErrorAmmo;
 import com.hmdzl.spspd.sprites.BugDragonSprite;
-import com.hmdzl.spspd.sprites.CharSprite;
-import com.hmdzl.spspd.utils.GLog;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class BugDragon extends PET implements Callback{
+public class BugDragon extends PET{
 	
 	{
 		//name = "bug dragon";
 		spriteClass = BugDragonSprite.class;
 		//flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 11;
-		cooldown=500;
-
+		type = 510;
+		cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.DRAGON);
 	}
-	private static final float TIME_TO_ZAP = 1f;
+	
+	@Override
+	public void updateStats()  {
+		HT = 150 + Dungeon.hero.petLevel*10;
+		evadeSkill = 20 + Dungeon.hero.petLevel;
+	}
 
-	//Frames 1-4 are idle, 5-8 are moving, 9-12 are attack and the last are for death 
-
-	//flame on!
-	//spits fire
-	//feed meat
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		HT = 200 + level*20;
-		evadeSkill = 20 + level;
+	public boolean lovefood(Item item) {
+		return false;
 	}
-	
-
-
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange((20+level), (20+level*5));
+		return Random.NormalIntRange((15+Dungeon.hero.petLevel), (15+Dungeon.hero.petLevel*5));
 	}
 
 	@Override
-	protected boolean act() {
-		
-		if (cooldown>0){
-			cooldown=Math.max(cooldown-(1+9*((level-1)/19)),0);
-			if (cooldown==0) {
-				GLog.w(Messages.get(this,"ready"));
-			}
-		}
-		
-		
-
-		return super.act();
+	public Item SupercreateLoot(){
+		return Random.oneOf( new ErrorAmmo(3), new ErrorArmor(),new ErrorW(),new WandOfError());
 	}
+
+	@Override
+	public int drRoll(){
+		return Random.IntRange(5+Dungeon.hero.petLevel,10+Dungeon.hero.petLevel);
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return Random.Int(Dungeon.hero.petLevel)+Dungeon.hero.petLevel;
+	}
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
 	
-	
-	@Override
-	protected boolean canAttack(Char enemy) {
-		if (cooldown>0){
-		  return Level.adjacent(pos, enemy.pos);
-		} else {
-		  return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
+		if (cooldown<3 && enemy.isAlive()) {
+			enemy.damage(enemy.HT,Item.class);
 		}
-	}
-
-	@Override
-	protected boolean doAttack(Char enemy) {
-
-		if (Level.adjacent(pos, enemy.pos)) {
-
-			return super.doAttack(enemy);
-
-		} else {
-
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
-			if (visible) {
-				sprite.zap(enemy.pos);
-			} else {
-				zap();
-			}
-
-			return !visible;
-		}
-	}
-
-	
-	private void zap() {
-		spend(TIME_TO_ZAP);
-
-		cooldown=500;
-		
-		if (hit(this, enemy, true)) {			
-
-			int dmg = damageRoll()*5;
-			enemy.damage(dmg, this);			
-			
-		} else {
-			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
-		}
-		
-	}
-
-	public void onZapComplete() {
-		zap();
-		next();
-	}
-
-	@Override
-	public void call() {
-		next();
+		cooldown = Random.Int(100);
+		return damage;
 	}
 
 }

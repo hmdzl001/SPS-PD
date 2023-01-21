@@ -40,7 +40,7 @@ public class CityReward extends Item {
 	}
 	{
 		//name = "reward";
-		image = ItemSpriteSheet.PETFOOD;
+		image = ItemSpriteSheet.ITEM_BAG;
 
 		stackable = false;
 	}

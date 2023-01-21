@@ -1,7 +1,5 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -10,7 +8,9 @@ import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Frost;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -28,6 +28,8 @@ import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 /**
  * Created by dachhack on 10/15/2015.
@@ -107,7 +109,7 @@ public class EyeOfSkadi extends Artifact {
 				if (Actor.findChar( target ) != null){
 					Char mob = Actor.findChar(target);
 				Buff.affect(mob,Poison.class).set(level*2f);
-				Buff.affect(mob,Frost.class,level*4f);
+				Buff.affect(mob,FrostIce.class).level(level*4);
 				Buff.affect(mob,ArmorBreak.class,level*4f).level(80);
 				Buff.affect(mob,Chill.class,level*4f);
 				charge = 0;
@@ -135,10 +137,14 @@ public class EyeOfSkadi extends Artifact {
 	
 	public void blast(int cell) {
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-
-			mob.damage(Random.Int(mob.HP/4,mob.HP/2 ), this);
+			
+            CellEmitter.get(mob.pos).start(SnowParticle.FACTORY, 0.2f, 6);
+			mob.damage(Random.Int(mob.HP/4,mob.HP/2 ), DamageType.ICE_DAMAGE);
+			
+			if (mob.isAlive()) {
 			Buff.prolong(mob, Frost.class, Frost.duration(mob)* Random.Float(1f*level(), 1.5f*level()));
-			CellEmitter.get(mob.pos).start(SnowParticle.FACTORY, 0.2f, 6);
+			}
+			
 
 		}	
 		eyeUsed();
@@ -238,7 +244,7 @@ public class EyeOfSkadi extends Artifact {
 				item.detach(hero.belongings.backpack);
 				GLog.h(Messages.get(EyeOfSkadi.class, "exp",consumedpts));
 				
-				int levelChk = curItem.level*2 + 1 ;
+				int levelChk = curItem.level + 1 ;
 								
 				if (consumedpts > levelChk && curItem.level<10) {
 					curItem.upgrade();
@@ -257,7 +263,7 @@ public class EyeOfSkadi extends Artifact {
 				item.detach(hero.belongings.backpack);
 				GLog.h(Messages.get(EyeOfSkadi.class, "exp", consumedpts));
 
-				int levelChk = curItem.level * 2 + 1;
+				int levelChk = curItem.level + 1;
 
 				if (consumedpts > levelChk && curItem.level < 10) {
 					curItem.upgrade();

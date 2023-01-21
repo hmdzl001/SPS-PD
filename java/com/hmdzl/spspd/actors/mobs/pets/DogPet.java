@@ -18,11 +18,15 @@
 package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.food.completefood.MoonCake;
+import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.DogPetSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.Dungeon.hero;
@@ -34,63 +38,63 @@ public class DogPet extends PET {
 		spriteClass = DogPetSprite.class;
         //flying=true;
 		state = HUNTING;
-		level = 1;
-		type = 23;
-
+		type = 201;
+        cooldown=50;
+		oldcooldown=30;
 		properties.add(Property.BEAST);
 	}
-	
+
 	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		adjustStats(level);
+	public boolean lovefood(Item item) {
+		return item instanceof PetFood ||
+				item instanceof MeatFood;
 	}
 
 	@Override
-	public void adjustStats(int level) {
-		this.level = level;
-		evadeSkill = 5 + level;
-		HT = 90 + level*5;
+	public void updateStats()  {
+		evadeSkill = (int)(hero.petLevel*1.5);
+		HT = 150 + 2*hero.petLevel;
 	}
 	
-
-
-
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(10, (10+level*2));
+		return Random.NormalIntRange((int)(5+hero.petLevel*0.5), (int)(5+hero.petLevel*1.5));
 	}
 
 	@Override
+	public Item SupercreateLoot(){
+		return new MoonCake();
+	}
+
+	@Override
+	public int drRoll(){
+		return Random.IntRange(hero.petLevel,(int)(hero.petLevel*1.5));
+	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return hero.petLevel + 5;
+	}
+	
+	@Override
 	protected boolean act() {
-		if (Level.adjacent(pos, Dungeon.hero.pos)) {
-			if ((hero.buff(ShieldArmor.class) == null)) {
-				Buff.affect(hero, ShieldArmor.class).level(level * 2);
-			}
-		}
+		if (Level.adjacent(pos, Dungeon.hero.pos) && cooldown <= 0) {
+			Buff.affect(hero, ShieldArmor.class).level(Dungeon.hero.petLevel * 2);
+			Buff.affect(this, ShieldArmor.class).level(Dungeon.hero.petLevel * 2);
+			cooldown = Math.max(20,40-Dungeon.hero.petLevel);
+		} 
 		return super.act();
 	}
 	
-/*
 	@Override
-	protected Char chooseEnemy() {
-		
-		if(enemy != null && !enemy.isAlive()){
-			kills++;
-		}
-		
-		if (enemy == null || !enemy.isAlive()) {
-			HashSet<Mob> enemies = new HashSet<Mob>();
-			for (Mob mob : Dungeon.level.mobs) {
-				if (!(mob instanceof PET) && mob.hostile && Level.fieldOfView[mob.pos]) {
-					enemies.add(mob);
-				}
-			}
-
-			enemy = enemies.size() > 0 ? Random.element(enemies) : null;
-		}
-
-		return enemy;
-}
-*/
+	public int attackProc(Char enemy, int damage) {
+        cooldown--;
+		return damage;
+	}
+	
+	@Override
+	public int defenseProc(Char enemy, int damage) {
+        cooldown--;
+		return damage;
+	}		
 }

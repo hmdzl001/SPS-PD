@@ -56,7 +56,7 @@ public class WndLifeTradeItem extends Window {
 				}
 			};
 			btnBuy.setRect(0, pos + GAP, WIDTH, BTN_HEIGHT);
-			btnBuy.enable(price <= Dungeon.hero.TRUE_HT);
+			btnBuy.enable(price < Dungeon.hero.TRUE_HT);
 			add(btnBuy);
 
 			RedButton btnCancel = new RedButton(Messages.get(this, "cancel")) {

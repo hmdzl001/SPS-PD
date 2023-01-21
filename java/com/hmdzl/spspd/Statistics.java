@@ -47,6 +47,7 @@ public class Statistics {
 	private static final String TIME = "time";
 	private static final String AMULET = "amuletObtained";
 	private static final String ORB = "orbObtained";
+	private static final String ROOMTYPE = "roomType";
 
 	public static int goldCollected;
 	public static int deepestFloor;
@@ -74,6 +75,7 @@ public class Statistics {
 	public static boolean completedWithNoKilling = false;
 	public static boolean amuletObtained = false;
 	public static boolean orbObtained = false;
+	public static int roomType;
 
 	public static void reset() {
 
@@ -107,6 +109,8 @@ public class Statistics {
 		amuletObtained = false;
 		orbObtained = false;
 
+		roomType = 0;
+
 	}
 
 	public static void storeInBundle(Bundle bundle) {
@@ -135,6 +139,8 @@ public class Statistics {
 		bundle.put(ASCETIC_SHIELD, ashield);
 		bundle.put(AMULET, amuletObtained);
 		bundle.put(ORB, orbObtained);
+
+		bundle.put(ROOMTYPE, roomType);
 	}
 
 	public static void restoreFromBundle(Bundle bundle) {
@@ -162,8 +168,9 @@ public class Statistics {
 		findseed = bundle.getInt(FINDSEED);
 		ashield = bundle.getInt(ASCETIC_SHIELD);
 		amuletObtained = bundle.getBoolean(AMULET);
-		orbObtained = bundle.getBoolean(ORB);	
-		
+		orbObtained = bundle.getBoolean(ORB);
+
+		roomType= bundle.getInt(ROOMTYPE);
 	}
 
 }

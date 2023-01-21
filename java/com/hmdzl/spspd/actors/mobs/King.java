@@ -29,7 +29,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.items.DolyaSlate;
+import com.hmdzl.spspd.items.ArmorKit2;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
@@ -196,14 +196,8 @@ public class King extends Mob {
 		 for (Mob mob : Dungeon.level.mobs) {
 			if (mob instanceof DwarfKingTomb){findTomb=mob.pos;}
 		 }
-		 
+		Dungeon.level.drop(new ArmorKit2(), pos).sprite.drop();
 		 Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
-		 
-		 if (!Dungeon.limitedDrops.journal.dropped()){ 
-			  Dungeon.level.drop(new DolyaSlate(), pos).sprite.drop();
-			  Dungeon.limitedDrops.journal.drop();
-			}
-		 
 		summonLiches(findTomb);
 		GLog.n(Messages.get(this, "liches"));
 

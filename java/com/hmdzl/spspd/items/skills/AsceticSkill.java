@@ -19,7 +19,6 @@ package com.hmdzl.spspd.items.skills;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -48,7 +47,7 @@ public class AsceticSkill extends ClassSkill {
 
 	{
 		//name = "Ascetic suit of armor";
-		image = ItemSpriteSheet.ASCETIC_SHELL;
+		image = ItemSpriteSheet.SKILL_ASCETIC;
 	}
 
 	private HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();
@@ -77,15 +76,13 @@ public class AsceticSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Dungeon.hero.TRUE_HT-=10;
+
 		Dungeon.hero.hitSkill--;
+		Dungeon.hero.magicSkill++;
+
 		Dungeon.hero.evadeSkill--;
 		Dungeon.hero.magicSkill++;
-		if (Dungeon.hero.TRUE_HT<0){
-			Dungeon.hero.die(Messages.format(ResultDescriptions.LOSE));
-		    Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-		}
-		Dungeon.hero.updateHT(true);
+
 		AsceticSkill.charge += 30;
 	}
 
@@ -110,7 +107,7 @@ public class AsceticSkill extends ClassSkill {
 				if (Dungeon.level.map[d] != Terrain.ENTRANCE && Dungeon.level.map[d] != Terrain.EXIT
 						&& Dungeon.level.map[d] != Terrain.LOCKED_EXIT
 						&& Dungeon.level.map[d] != Terrain.UNLOCKED_EXIT && Level.insideMap(d)) {
-					Level.set(d, Terrain.WALL_DECO);
+					Level.set(d, Terrain.DOOR);
 					GameScene.updateMap(d);
 					Dungeon.observe();
 				}

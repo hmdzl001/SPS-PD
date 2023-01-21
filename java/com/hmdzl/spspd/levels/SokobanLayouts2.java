@@ -68,7 +68,7 @@ public class SokobanLayouts2 {
 		W, 	W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	X, 	X, 	X, 	X, 	X, 	X, 	X, 	J, 	K, 	K, 	A, 	W, 	W, 	W, 	W,
 		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	K, 	K, 	J, 	K, 	J, 	K, 	J, 	K, 	K, 	K, 	J, 	K, 	K, 	K, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	X, 	X, 	X, 	X, 	X, 	X, 	X, 	A, 	K, 	K, 	A, 	W, 	W, 	W, 	W,
 		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	J, 	J, 	K, 	J, 	K, 	J, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	A, 	A, 	A, 	D, 	A, 	J, 	J, 	A, 	A, 	D, 	A, 	A, 	W, 	W, 	W, 	W,
-		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	K, 	K, 	K, 	J, 	K, 	J, 	K, 	J, 	K, 	K, 	K, 	J, 	K, 	K, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W,
+		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	K, 	K, 	K, 	J, 	K, 	J, 	K, 	J, 	K, 	K, 	K, 	K, 	K, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W,
 		W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	J, 	J, 	J, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 
 		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	K, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 
 		W, 	W, 	W, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	E, 	W, 	W, 	W, 	W, 	W, 	W, 

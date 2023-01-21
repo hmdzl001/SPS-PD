@@ -39,7 +39,7 @@ public class BunnySprite extends MobSprite {
 		run = new Animation(4, true);
 		run.frames(frames, 0, 0, 0, 2);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 0, 2, 3, 4);
 
 		zap = attack.clone();

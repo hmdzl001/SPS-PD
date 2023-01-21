@@ -20,7 +20,7 @@ package com.hmdzl.spspd.levels;
 public class TownLayouts {
 	
 	//32X32
-	private static final int W = Terrain.WALL;
+	private static final int W = Terrain.WALL_GROUND;
 	private static final int T = Terrain.SHRUB;
 	private static final int Z = Terrain.HIGH_GRASS;
 	private static final int D = Terrain.DOOR;

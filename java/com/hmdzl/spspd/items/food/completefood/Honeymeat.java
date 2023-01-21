@@ -53,7 +53,7 @@ public class Honeymeat extends CompleteFood {
 
 	@Override
 	public int price() {
-		return 2 * quantity;
+		return 400 * quantity;
 	}
 
 }

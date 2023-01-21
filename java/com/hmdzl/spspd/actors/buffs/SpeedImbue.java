@@ -54,7 +54,7 @@ public class SpeedImbue extends Buff implements Hero.Doom {
 	public boolean act() {
 
 		if (target.isAlive()) {
-
+            if (target.HP > target.HT/2)
 			target.damage(1, this);
 
 		} else {

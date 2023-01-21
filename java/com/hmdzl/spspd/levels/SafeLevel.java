@@ -32,6 +32,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.levels.features.Chasm;
@@ -389,6 +390,7 @@ public class SafeLevel extends Level {
 				if (map[i]==Terrain.EMPTY && heaps.get(i) == null && Random.Int(100)>70){
 					if (first && !ringDrop){drop(new LuckyBadge().identify(), i).type = Heap.Type.CHEST; ringDrop=true;}
 				    else if (Random.Int(5)==0){drop(new Gold(Random.Int(goldmin, goldmax)), i).type = Heap.Type.CHEST;}
+					else if (Random.Int(4)==0){drop(new SmallMeat(), i).type = Heap.Type.M_WEB;}
 					else {drop(new YellowDewdrop(), i).type = Heap.Type.E_DUST;}
 				}
 			}	 

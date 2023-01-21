@@ -43,7 +43,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.ClothArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.LifeArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.StyrofoamArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.VestArmor;
@@ -72,7 +72,16 @@ import com.hmdzl.spspd.items.challengelists.PowerChallenge;
 import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
 import com.hmdzl.spspd.items.challengelists.SewerChallenge;
 import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
+import com.hmdzl.spspd.items.eggs.BlueDragonEgg;
+import com.hmdzl.spspd.items.eggs.EasterEgg;
+import com.hmdzl.spspd.items.eggs.GoldDragonEgg;
+import com.hmdzl.spspd.items.eggs.GreenDragonEgg;
+import com.hmdzl.spspd.items.eggs.LightDragonEgg;
 import com.hmdzl.spspd.items.eggs.RandomEgg;
+import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
+import com.hmdzl.spspd.items.eggs.RedDragonEgg;
+import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
+import com.hmdzl.spspd.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.items.food.Honey;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.Hamburger;
@@ -80,6 +89,7 @@ import com.hmdzl.spspd.items.food.completefood.MoonCake;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.journalpages.EnergyCore;
+import com.hmdzl.spspd.items.journalpages.NewHome;
 import com.hmdzl.spspd.items.journalpages.SafeSpotPage;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.journalpages.Sokoban2;
@@ -174,7 +184,6 @@ import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
-import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunA;
 import com.hmdzl.spspd.items.weapon.guns.GunB;
@@ -209,6 +218,7 @@ import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
 import com.hmdzl.spspd.items.weapon.missiles.Skull;
 import com.hmdzl.spspd.items.weapon.missiles.Smoke;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
+import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
 import com.hmdzl.spspd.items.weapon.spammo.BattleAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.GoldAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.HeavyAmmo;
@@ -292,6 +302,7 @@ public enum HeroClass {
 		new Pasty().identify().collect();
 		new Chocolate().identify().collect();
 		new DewVial().identify().collect();
+		new PlantPotBlock(3).identify().collect();
 		if (Dungeon.skins != 3 && Dungeon.skins != 6) {
 			new Ankhshield().collect();
 		}
@@ -395,6 +406,7 @@ public enum HeroClass {
 			new DolyaSlate().collect();
 			new EnergyCore().collect();
 			new Vault().collect();
+			new NewHome().collect();
 			new CourageChallenge().collect();
 			new PowerChallenge().collect();
 			new WisdomChallenge().collect();
@@ -409,16 +421,19 @@ public enum HeroClass {
 			new TomeOfMastery().collect();
 			//new ShadowEater().collect();
 			new TestWeapon().identify().collect();
-			new WandOfTCloud().upgrade(10).collect();
 
-		//	new GoldDragonEgg().collect();
-		//	new VioletDragonEgg().collect();
-			//new ShadowDragonEgg().collect();
-		//	new LightDragonEgg().collect();
-			//new GreenDragonEgg().collect();
-			//new RedDragonEgg().collect();
-			//new BlueDragonEgg().collect();
-			//new PocketBall(10).collect();
+			new EasterEgg().collect();
+			//new WandOfFlock().upgrade(5).identify().collect();
+			//new WandOfFlock().upgrade(10).identify().collect();
+
+			new GoldDragonEgg().collect();
+			new VioletDragonEgg().collect();
+			new ShadowDragonEgg().collect();
+			new LightDragonEgg().collect();
+			new GreenDragonEgg().collect();
+			new RedDragonEgg().collect();
+			new BlueDragonEgg().collect();
+			new PocketBall(10).collect();
 
 			//new Whistle().collect();
 
@@ -432,6 +447,7 @@ public enum HeroClass {
 			new PotionOfMindVision().identify().collect();
 			new PotionOfStrength().identify().collect();
 			//new ExpOre().collect();
+			//new SkillOfMig().collect();
 			//new PotionOfShield().identify().collect();
 			new YellowNornStone().collect();
 			new BlueNornStone().collect();
@@ -440,12 +456,15 @@ public enum HeroClass {
 			new GreenNornStone().collect();
 	   }
 			for(int i=0; i<10; i++){
+		   // new ExpOre().collect();
+		    //new LevelDown().collect();
 				new Seedpod.Seed().collect();
 				new Dewcatcher.Seed().collect();
 				new ScrollOfRegrowth().collect();
 				//new PotionOfLiquidFlame().collect();
 				new ScrollOfPsionicBlast().collect();
 				new Hamburger().collect();
+				new RandomMonthEgg().collect();
 			}
 
 			new RingOfElements().upgrade(10).identify().collect();
@@ -462,13 +481,13 @@ public enum HeroClass {
 
 			//new SewerReward().collect();
 		new SaveYourLife().collect();
-		//new LynnDoll(10).collect();
+		//new BugMeat().collect();
 		//new WandOfFlock().upgrade(10).identify().collect();
 		//new WandOfBlackMeow().identify().collect();
 		new Pumpkin().collect();
-			new FourClover().collect();
+		new FourClover().collect();
 
-			new MasterThievesArmband().upgrade(5).collect();
+		new MasterThievesArmband().upgrade(5).collect();
 			//new AlienBag().collect();
 		Dungeon.gold = 10000;
 		//Dungeon.gold = 10000000;

@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -43,13 +40,16 @@ import com.hmdzl.spspd.levels.features.HighGrass;
 import com.hmdzl.spspd.levels.traps.ChangeSheepTrap;
 import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.SokobanPortalTrap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 public class RoomOfZotLevel extends Level {
 
@@ -276,7 +276,7 @@ public class RoomOfZotLevel extends Level {
 	@Override
 	protected boolean build() {
 		
-		map = SaveRoomLayouts.ROOM_OF_ZOT.clone();
+		map = SaveRoomLayouts.ROOM_OF_GRASS.clone();
 	
 		decorate();
 

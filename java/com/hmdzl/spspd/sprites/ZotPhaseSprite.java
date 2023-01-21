@@ -37,7 +37,7 @@ public class ZotPhaseSprite extends MobSprite {
 		run = new Animation(8, false);
 		run.frames(frames, 0, 1, 2);
 
-		attack = new Animation(8, false);
+		attack = new Animation(15, false);
 		attack.frames(frames, 0, 2, 2);
 		
 		zap = new Animation(8, false);
