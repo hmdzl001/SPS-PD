@@ -47,10 +47,10 @@ public class PerfectFood extends CompleteFood {
 			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(3, 7));
 			Buff.affect(hero, Bless.class,50f);
 			Buff.affect(hero, Light.class,50f);
-			hero.HP = Math.min(hero.HP + hero.TRUE_HT/10, hero.TRUE_HT);
+			//hero.HP = Math.min(hero.HP + hero.TRUE_HT/10, hero.TRUE_HT);
 			Buff.affect(hero, HasteBuff.class,25f);
 			Buff.affect(hero, Levitation.class,25f);
-			hero.updateHT(true);
+			//hero.updateHT(true);
 			
 			
 		}

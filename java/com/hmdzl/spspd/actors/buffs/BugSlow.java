@@ -18,9 +18,6 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.food.meatfood.BugMeat;
 import com.hmdzl.spspd.messages.Messages;
@@ -28,22 +25,21 @@ import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-	public class BugSlow extends Buff implements Hero.Doom  {
+	public class BugSlow extends Buff {
 
-        int spawnPower = 0;
+        int slowDelay = 0;
         @Override
         public boolean act() {
 
 			if (target.isAlive()) {
 				Hero hero = (Hero) target;
-				spawnPower++;
-				if (spawnPower > Random.Int(10) && spawnPower > 3) {
+				slowDelay++;
+				if (slowDelay > Random.Int(10) && slowDelay > 3) {
 					Buff.affect(target, Slow.class, 2f);
-					spawnPower = 0;
+					slowDelay = 0;
 				}
 				if (target == hero) {
 					if (hero.belongings.getItem(BugMeat.class) == null) {
-						spawnPower = 0;
 						detach();
 					}
 				}
@@ -57,26 +53,18 @@ import com.watabou.utils.Random;
 			detach();
 		}
 
-		private static String SPAWNPOWER = "spawnpower";
+		private static String SLOWDELAY = "slowdelay";
 
 		@Override
 		public void storeInBundle(Bundle bundle) {
 			super.storeInBundle(bundle);
-			bundle.put( SPAWNPOWER, spawnPower );
+			bundle.put(SLOWDELAY, slowDelay);
 		}
 
 		@Override
 		public void restoreFromBundle(Bundle bundle) {
 			super.restoreFromBundle(bundle);
-			spawnPower = bundle.getInt( SPAWNPOWER );
-		}
-		@Override
-		public void onDeath() {
-
-			Badges.validateDeathFromFire();
-
-			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-			//GLog.n(TXT_BURNED_TO_DEATH);
+			slowDelay = bundle.getInt(SLOWDELAY);
 		}
 
 		@Override

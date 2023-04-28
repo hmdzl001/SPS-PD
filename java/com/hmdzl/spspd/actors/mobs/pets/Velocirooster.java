@@ -83,7 +83,6 @@ public class Velocirooster extends PET {
 		int dmg=0;
 		if (cooldown==0){
 			dmg=Random.NormalIntRange((5+Dungeon.hero.petLevel)*5/2, (5+Dungeon.hero.petLevel*3)*2);
-			cooldown=500;
 		} else {
 			dmg=Random.NormalIntRange((5+Dungeon.hero.petLevel), (5+Dungeon.hero.petLevel*3)) ;
 		}

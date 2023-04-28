@@ -30,6 +30,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
+import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -276,6 +277,21 @@ public class Belongings implements Iterable<Item> {
 			}
 
 			}
+		return count;
+	}
+
+	public int recode() {
+		int count = 0;
+		for (Item item : this) {
+			if (item instanceof RockCode) {
+				RockCode rockcode = (RockCode) item;
+				if (Random.Int(4) == 0 ){
+				   rockcode.curEnergy = Math.min(rockcode.curEnergy + 1,rockcode.maxEnergy);
+				}
+				count++;
+				rockcode.updateQuickslot();
+			}
+		}
 		return count;
 	}
 

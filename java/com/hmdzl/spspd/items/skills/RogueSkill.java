@@ -28,8 +28,9 @@ import com.hmdzl.spspd.actors.buffs.GoldTouch;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.HighAttack;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.ItemSteal;
+import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.actors.buffs.Silent;
-import com.hmdzl.spspd.actors.buffs.Strength;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
@@ -60,7 +61,7 @@ public class RogueSkill extends ClassSkill {
 		
 		switch (Random.Int(3)){
 			case 0:
-		    Buff.affect(curUser, Strength.class);
+		    Buff.affect(curUser, MoonFury.class);
 			break;
 			case 1:
 			Buff.affect(curUser, HasteBuff.class,15);
@@ -93,6 +94,7 @@ public class RogueSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Buff.affect(curUser, GoldTouch.class,15f);
+		Buff.affect(curUser, ItemSteal.class,15f);
 	}
 
 	@Override

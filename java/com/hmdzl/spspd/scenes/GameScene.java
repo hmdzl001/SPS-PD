@@ -331,6 +331,12 @@ public class GameScene extends PixelScene {
 		case PALANTIR:
 			WndStory.showChapter(WndStory.ID_ZOT);
 			break;
+		case LEARN :
+			switch (Dungeon.depth) {
+				case 1 :
+				WndStory.showChapter(WndStory.ID_LEARN);
+				break;
+			}
 		case DESCEND:
 			switch (Dungeon.depth) {
 			case 1:
@@ -373,7 +379,7 @@ public class GameScene extends PixelScene {
 				WndStory.showChapter(WndStory.ID_TOWN);
 				break;
 			}
-			
+
 			if (Dungeon.hero.isAlive()) {
 				Badges.validateNoKilling();
 			}

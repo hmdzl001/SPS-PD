@@ -1,6 +1,6 @@
 package com.hmdzl.spspd.items.rings;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 
 import java.text.DecimalFormat;
 
@@ -11,6 +11,7 @@ public class RingOfTenacity extends Ring {
 
 	{
 		//name = "Ring of Tenacity";
+		sname = "TEN";
 		initials = 9;
 	}
 

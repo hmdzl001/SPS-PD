@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Roots;
-import com.hmdzl.spspd.items.potions.PotionOfStrength;
+import com.hmdzl.spspd.items.StrBottle;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -51,7 +51,7 @@ public class Rotberry extends Plant {
 			image = ItemSpriteSheet.SEED_ROTBERRY;
 
 			plantClass = Rotberry.class;
-			alchemyClass = PotionOfStrength.class;
+			alchemyClass = StrBottle.class;
 		}
 	}
 }

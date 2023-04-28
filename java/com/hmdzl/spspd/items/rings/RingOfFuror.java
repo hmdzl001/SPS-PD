@@ -12,6 +12,7 @@ public class RingOfFuror extends Ring {
 	{
 		//name = "Ring of Furor";
 		initials = 4;
+		sname = "FUR";
 	}
 
 	public String statsInfo() {

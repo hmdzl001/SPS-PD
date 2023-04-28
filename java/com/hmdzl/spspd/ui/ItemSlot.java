@@ -23,15 +23,17 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.keys.Key;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
+import com.hmdzl.spspd.items.medicine.Pill;
 import com.hmdzl.spspd.items.potions.Potion;
+import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
- 
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Button;
@@ -58,6 +60,8 @@ public class ItemSlot extends Button {
 	private static final String TXT_STRENGTH = ":%d";
 	private static final String TXT_TYPICAL_STR = "%d?";
 	private static final String TXT_KEY_DEPTH = "\u007F%d";
+	
+	private static final String TXT_ITEM_NAME = "%s";
 
 	private static final String TXT_LEVEL = "%+d";
 	private static final String TXT_CURSED = "";// "-";
@@ -236,6 +240,15 @@ public class ItemSlot extends Button {
 
 			} else if (item instanceof Key && !(item instanceof SkeletonKey)) {
 				topRight.text(Messages.format(TXT_KEY_DEPTH, ((Key) item).depth));
+				topRight.measure();
+			} else if (item instanceof Pill) {
+				topRight.text(Messages.format(TXT_ITEM_NAME, ((Pill) item).sname));
+				topRight.measure();
+			} else if (item instanceof RockCode) {
+				bottomLeft.text(Messages.format(TXT_ITEM_NAME, ((RockCode) item).sname));
+				bottomLeft.measure();
+			} else if ( item instanceof Ring && item.levelKnown) {
+				topRight.text(Messages.format(TXT_ITEM_NAME, ((Ring) item).sname));
 				topRight.measure();
 			} else {
 

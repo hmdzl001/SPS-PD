@@ -35,7 +35,9 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.artifacts.RobotDMT;
+import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
+import com.hmdzl.spspd.items.weapon.melee.ShortSword;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -79,7 +81,7 @@ public class BrokenRobot extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new RobotDMT();
+		return Random.oneOf( new PotionOfLiquidFlame(), new ShortSword(),new RobotDMT());
 	}
 
 	@Override

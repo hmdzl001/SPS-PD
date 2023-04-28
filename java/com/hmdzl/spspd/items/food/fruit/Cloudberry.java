@@ -59,7 +59,7 @@ public class Cloudberry extends Fruit {
 				 if(Dungeon.depth<51){Buff.affect(hero, Levitation.class, duration*2);
 				}
 				
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
+				Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/10,15));
 				break;
 			}
 		}

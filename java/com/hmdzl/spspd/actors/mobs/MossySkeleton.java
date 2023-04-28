@@ -25,11 +25,11 @@ import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Bone;
 import com.hmdzl.spspd.items.RedDewdrop;
+import com.hmdzl.spspd.items.SacrificeBook;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.reward.PrisonReward;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.MossySkeletonSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -98,7 +98,7 @@ public class MossySkeleton extends Mob {
 		}
 		
 	if(Statistics.skeletonsKilled == 50) {
-		Dungeon.level.drop(new ScrollOfSacrifice(), pos).sprite.drop();
+		Dungeon.level.drop(new SacrificeBook(), pos).sprite.drop();
 	}	
 	
 	if(Statistics.skeletonsKilled == 100) {

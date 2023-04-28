@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.items.scrolls;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
@@ -32,12 +29,15 @@ import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.ItemStatusHandler;
 import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public abstract class Scroll extends Item {
 
@@ -52,7 +52,7 @@ public abstract class Scroll extends Item {
 			ScrollOfRemoveCurse.class, ScrollOfTeleportation.class,
 			ScrollOfUpgrade.class, ScrollOfRage.class, ScrollOfTerror.class,
 			ScrollOfLullaby.class, ScrollOfMagicalInfusion.class,
-			ScrollOfPsionicBlast.class, ScrollOfMirrorImage.class, ScrollOfRegrowth.class, ScrollOfSacrifice.class };
+			ScrollOfPsionicBlast.class, ScrollOfMirrorImage.class, ScrollOfRegrowth.class, ScrollOfDummy.class };
 	private static final String[] runes = { "KAUNAN", "SOWILO", "LAGUZ",
 			"YNGVI", "GYFU", "RAIDO", "ISAZ", "MANNAZ", "NAUDIZ", "BERKANAN",
 			"NCOSRANE", "TIWAZ", "NENDIL", "LIBRA" };

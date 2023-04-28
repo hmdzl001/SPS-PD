@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Frost;
+import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.MagicMissile;
@@ -48,7 +49,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.buffs.Strength;
 import com.watabou.noosa.tweeners.AlphaTweener;
 
 public class WandOfError extends Wand {
@@ -92,8 +92,8 @@ public class WandOfError extends Wand {
 			case 1:
 			if (ch != null) {
 			int damage = (ch.HT/4) ;
-			if (Dungeon.hero.buff(Strength.class) != null)
-			{damage *= (int) 4f; Buff.detach(Dungeon.hero, Strength.class);}
+			if (Dungeon.hero.buff(MoonFury.class) != null)
+			{damage *= (int) 4f; Buff.detach(Dungeon.hero, MoonFury.class);}
 				ch.damage(damage, this);
 			}
 			break;

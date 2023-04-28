@@ -25,6 +25,8 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.ChaliceOfBlood;
+import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
+import com.hmdzl.spspd.items.scrolls.ScrollOfRage;
 import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -63,7 +65,7 @@ public class ThiefImp extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new ChaliceOfBlood();
+		return Random.oneOf( new PotionOfInvisibility(),new ScrollOfRage(),new ChaliceOfBlood());
 	}
 
 	private static final String ITEM = "item";

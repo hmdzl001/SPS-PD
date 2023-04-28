@@ -68,7 +68,7 @@ public class GentleCrab extends PET {
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(0,hero.petLevel);
+		return Random.IntRange(0,hero.petLevel*2);
 	}
 
 	@Override

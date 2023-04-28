@@ -77,7 +77,7 @@ public class Bunny extends PET{
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(1,Dungeon.hero.petLevel);
+		return Random.IntRange(1,Dungeon.hero.petLevel*2);
 	}
 
 	@Override

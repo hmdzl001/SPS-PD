@@ -19,9 +19,11 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.challengelists.IceChallenge;
 import com.hmdzl.spspd.items.sellitem.BottleFlower;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.JinkeloidSprite;
@@ -80,6 +82,10 @@ public class Jinkeloid extends NPC {
 			//yell("Developer is in there... 576115291 ");
 			yell(Messages.get(this, "yell2"));
 			break;
+		}
+		if (Statistics.archersKilled > 99 && Statistics.skeletonsKilled > 99 && Statistics.albinoPiranhasKilled > 99 && Statistics.goldThievesKilled > 99){
+			yell(Messages.get(this, "yell3"));
+			Dungeon.level.drop(new IceChallenge(), Dungeon.hero.pos).sprite.drop();
 		}
 		return true;
 	}

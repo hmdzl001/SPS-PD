@@ -59,7 +59,8 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 
 		if (image == ItemSpriteSheet.KNIVE
 				|| image == ItemSpriteSheet.INCENDIARY_DART
-				|| image == ItemSpriteSheet.POSION_DART) {
+				|| image == ItemSpriteSheet.POSION_DART
+				|| image == ItemSpriteSheet.ATTACKSHIELD) {
 
 			angularSpeed = 0;
 			angle = 135 - (float) (Math.atan2(d.x, d.y) / 3.1415926 * 180);

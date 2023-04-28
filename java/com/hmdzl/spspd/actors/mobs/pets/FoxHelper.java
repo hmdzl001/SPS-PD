@@ -42,7 +42,7 @@ public class FoxHelper extends PET {
 		state = HUNTING;
 		type = 305;
         cooldown=50;
-		oldcooldown=30;
+		oldcooldown=120;
 		properties.add(Property.ORC);
 	}
 
@@ -86,7 +86,7 @@ public class FoxHelper extends PET {
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(hero.petLevel,hero.petLevel);
+		return Random.IntRange(hero.petLevel,hero.petLevel*3);
 	}
 
 	@Override

@@ -17,7 +17,11 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.special;
 
+import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Pushing;
@@ -25,15 +29,11 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.watabou.utils.Random;
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Dungeon;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 public class SJRBMusic extends MeleeWeapon {
 
@@ -52,7 +52,7 @@ public class SJRBMusic extends MeleeWeapon {
 	
     @Override
     public void proc(Char attacker, Char defender, int damage) {
-
+		int exdmg = Dungeon.hero.damageRoll();
 	      if (Random.Int(100) < 40) {
 			Buff.affect(defender, Charm.class,5f).object = attacker.id();
 		}		
@@ -78,18 +78,14 @@ public class SJRBMusic extends MeleeWeapon {
 				} else {
 					Dungeon.level.press(cell, attacker);
 				}
-				defender.damage(damage,this);
+				defender.damage(exdmg,this);
 			}
 	
 		int p = defender.pos;
 		for (int n : Level.NEIGHBOURS8) {
 			Char ch = Actor.findChar(n+p);
 			if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
-
-				int dr = Random.IntRange( 0, 1 );
-				int dmg = Random.Int( MIN, MAX );
-				int effectiveDamage = Math.max( dmg - dr, 0 );
-
+				int effectiveDamage = Math.max( exdmg, 0 );
 				ch.damage( effectiveDamage, attacker );
 			}
 		}

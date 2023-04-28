@@ -11,6 +11,7 @@ import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
@@ -33,6 +34,8 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
+import static com.hmdzl.spspd.Dungeon.hero;
+
 public class GunWeapon extends Weapon {
 	
 	public static final String AC_SHOOT		= "SHOOT";
@@ -49,8 +52,6 @@ public class GunWeapon extends Weapon {
 	public int maxcharge = fullcharge;
 	public int maxammo = 100;
 	
-	
-
 	public GunWeapon(int tier /*int ammo*/ ,int fullcharge) {
 		super();
 
@@ -58,6 +59,7 @@ public class GunWeapon extends Weapon {
 
 		//AMMO = ammo
 		spammo = null;
+
 		this.fullcharge = fullcharge;
 
 		STR = typicalSTR();
@@ -196,15 +198,20 @@ public class GunWeapon extends Weapon {
 	public int damageRoll2(Hero owner) {
 		int damage = Random.Int(MIN, MAX);
 
+		if (hero.buff(TargetShoot.class)!= null)
+	        damage = (int)(damage*1.5f);
+		if (hero.buff(MechArmor.class)!= null)
+			damage = (int)(damage*1.5f);
+		
 		float bonus = 0;
 		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-				bonus += ((RingOfSharpshooting.Aim) buff).level;
+			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+		}	
+		
+		if (Random.Int(10) < 3) {
+			damage = (int)(damage * ( 1.5 + 0.25 * bonus));
+			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
 		}
-		if (Dungeon.hero.buff(TargetShoot.class)!= null)
-			bonus += 10;
-		if (Dungeon.hero.buff(MechArmor.class)!= null)
-			bonus += 10;
-		damage = (int)(damage*(1 + 0.05*bonus));
 		return Math.round(damage);
 	}	
 	
@@ -313,10 +320,10 @@ public class GunWeapon extends Weapon {
 		
 		{
 			image = ItemSpriteSheet.AMMO;
-			STR = Math.max(typicalSTR(),Dungeon.hero.STR);
+			STR = Math.max(typicalSTR(),hero.STR);
 			ACU = 1.3f;
 
-			DLY = (Dungeon.hero.subClass == HeroSubClass.AGENT && Dungeon.hero.justMoved) ?
+			DLY = (hero.subClass == HeroSubClass.AGENT && hero.justMoved) ?
 					0.1f : 1f;
 
 		}

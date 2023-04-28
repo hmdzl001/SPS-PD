@@ -17,10 +17,13 @@
  */
 package com.hmdzl.spspd.items.sellitem;
 
-import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.items.medicine.Pill;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.utils.GLog;
 
-public class SellMushroom extends SellItem {
+public class SellMushroom extends Pill {
 
 	//private static final String AC_END = "END THE GAME";
 
@@ -31,29 +34,15 @@ public class SellMushroom extends SellItem {
 	
 	}
 
-	/*
-	@Override
-	public ArrayList<String> actions(Hero hero) {
-		ArrayList<String> actions = super.actions(hero);
-		actions.add(AC_END);
-		return actions;
-	}
-
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_END) {
 
-			showAmuletScene(false);
-
-		} else {
-
-			super.execute(hero, action);
-
+		if (action.equals(AC_EAT)) {
+			GLog.w(Messages.get(this, "no"));
 		}
-	}
-  
 
-*/
+		super.execute(hero, action);
+	}
 
 	@Override
 	public int price() {

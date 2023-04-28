@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -32,17 +29,16 @@ import com.hmdzl.spspd.actors.mobs.npcs.SheepSokoban;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanBlack;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanCorner;
 import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanSwitch;
-import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.Whistle;
+import com.hmdzl.spspd.items.KnowledgeBook;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-
 import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
@@ -52,7 +48,7 @@ import com.hmdzl.spspd.levels.traps.ChangeSheepTrap;
 import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.HeapGenTrap;
 import com.hmdzl.spspd.levels.traps.SokobanPortalTrap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Flytrap;
 import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
@@ -63,6 +59,9 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 public class SokobanPuzzlesLevel extends Level {
 
@@ -652,10 +651,9 @@ public class SokobanPuzzlesLevel extends Level {
 		 addItemToGen(new IronKey(Dungeon.depth) , 3, 20 + WIDTH * 38);
 		 addItemToGen(new IronKey(Dungeon.depth) , 4, 27 + WIDTH * 35);
 		 addItemToGen(new IronKey(Dungeon.depth) , 5, 33 + WIDTH * 31);
-
+		 addItemToGen(new KnowledgeBook() , 6, 11 + WIDTH * 10);
 
 		 if (first){
-			 addItemToGen(new ScrollOfMagicalInfusion() , 6, 11 + WIDTH * 10);
 			 addItemToGen(new ScrollOfMagicalInfusion() , 7, 41 + WIDTH * 2);
 			 addItemToGen(new Egg() , 8, 41 + WIDTH * 2);
 			 addItemToGen(new Phaseshift.Seed() , 9, 41 + WIDTH * 2);
@@ -663,9 +661,10 @@ public class SokobanPuzzlesLevel extends Level {
 			 addItemToGen(new Flytrap.Seed() , 11, 41 + WIDTH * 2);
 			 addItemToGen(new Phaseshift.Seed() , 12, 41 + WIDTH * 2);
 			 addItemToGen(new Flytrap.Seed() , 13, 41 + WIDTH * 2);
-			 addItemToGen(new Whistle() , 14, 41 + WIDTH * 2);
+			 addItemToGen(new ScrollOfMagicalInfusion() , 14, 41 + WIDTH * 2);
+
 		 }
-		 
+
 		 drop(new PotionOfLiquidFlame(), 9 + WIDTH * 24).type = Heap.Type.CHEST;
 	}
 

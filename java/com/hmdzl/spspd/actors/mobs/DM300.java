@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Terror;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.BlastParticle;
@@ -44,6 +45,7 @@ import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
 import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.HorseTotem;
+import com.hmdzl.spspd.items.weapon.rockcode.Bmech;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
@@ -220,6 +222,9 @@ public class DM300 extends Mob implements Callback {
 				
 				Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
 		       Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Bmech(), Dungeon.hero.pos).sprite.drop();
 
 		yell(Messages.get(this,"die"));
 	}

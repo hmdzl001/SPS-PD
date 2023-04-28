@@ -27,7 +27,7 @@ import com.watabou.utils.Random;
 
 	{
 		//name = "phantom armor";
-		image = ItemSpriteSheet.PHANTOM_ARMOR;
+		image = ItemSpriteSheet.ARMOR_FOLLOWER;
 		STR -= 1;
 		MAX = 20;
 		MIN = 0;

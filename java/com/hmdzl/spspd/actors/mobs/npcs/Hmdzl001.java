@@ -18,10 +18,12 @@
 package com.hmdzl.spspd.actors.mobs.npcs;
 
 
+import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.SaveYourLife;
 import com.hmdzl.spspd.items.sellitem.DevUpPlan;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.Hmdzl001Sprite;
@@ -49,7 +51,7 @@ public class Hmdzl001 extends NPC {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new DevUpPlan();
+		return Badges.checkOtilukeRescued() ? new SaveYourLife() : new DevUpPlan();
 	}
 	@Override
 	protected Char chooseEnemy() {

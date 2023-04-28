@@ -24,6 +24,7 @@ public class RingOfEvasion extends Ring {
 	{
 		//name = "Ring of Evasion";
 		initials = 2;
+		sname = "EVA";
 	}
 
 	public String statsInfo() {

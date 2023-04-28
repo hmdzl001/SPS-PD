@@ -46,7 +46,7 @@ public class PotionOfInvisibility extends Potion {
 	public void apply(Hero hero) {
 		setKnown();
 		Buff.affect(hero, Invisibility.class,  Dungeon.hero.buff(AutoHealPotion.class) != null ? Invisibility.DURATION*2 : Invisibility.DURATION);
-		Buff.affect(hero,AttackUp.class, 10f).level(20);
+		Buff.affect(hero,AttackUp.class, 100f).level(20);
 		GLog.i(Messages.get(this, "invisible"));
 		Sample.INSTANCE.play(Assets.SND_MELD);
 	}

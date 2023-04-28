@@ -57,8 +57,9 @@ public class PlantPotBlock extends MissileWeapon {
 						Dungeon.level.map[cell] == Terrain.EMPTY_WELL ||
 						Dungeon.level.map[cell] == Terrain.ENTRANCE ||
 						Dungeon.level.map[cell] == Terrain.EXIT || 
-						Dungeon.level.map[cell] == Terrain.ALCHEMY  )){
-			Level.set(cell, Terrain.GROUND_B);
+						Dungeon.level.map[cell] == Terrain.ALCHEMY ||
+						Dungeon.level.map[cell] == Terrain.IRON_MAKER )){
+			Level.set(cell, Terrain.FLOWER_POT);
 			GameScene.updateMap(cell);
 		}
 		else

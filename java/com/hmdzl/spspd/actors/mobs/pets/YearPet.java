@@ -61,7 +61,7 @@ public class YearPet extends PET {
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(Dungeon.hero.petLevel,2*Dungeon.hero.petLevel);
+		return Random.IntRange(Dungeon.hero.petLevel*2,5*Dungeon.hero.petLevel);
 	}
 
 	@Override

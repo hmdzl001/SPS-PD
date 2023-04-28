@@ -54,7 +54,10 @@ public class WaterBlock extends MissileWeapon {
 		Char enemy = Actor.findChar(cell);
 		if ((enemy == null) && !(Dungeon.level.map[cell] == Terrain.WELL ||
 				Dungeon.level.map[cell] == Terrain.EMPTY_WELL ||
-				Dungeon.level.map[cell] == Terrain.ENTRANCE || Dungeon.level.map[cell] == Terrain.EXIT || Dungeon.level.map[cell] == Terrain.ALCHEMY )){
+				Dungeon.level.map[cell] == Terrain.ENTRANCE ||
+				Dungeon.level.map[cell] == Terrain.EXIT ||
+				Dungeon.level.map[cell] == Terrain.ALCHEMY ||
+				Dungeon.level.map[cell] == Terrain.IRON_MAKER)){
 			Level.set(cell, Terrain.WATER);
 			GameScene.updateMap(cell);
 		}

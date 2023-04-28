@@ -82,7 +82,7 @@ public class BambooMob extends Mob {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 
-		int dmg = Random.IntRange(0, damage);
+		int dmg = Random.IntRange(0, damage) - enemy.drRoll();
 		if (dmg > 0) {
 			enemy.damage(dmg, this);
 		}

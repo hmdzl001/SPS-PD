@@ -17,8 +17,10 @@
  */
 package com.hmdzl.spspd.items;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -110,6 +112,8 @@ public class GreatRune extends Item {
 						}else if(index == 2){
 							((Weapon) item).enchant(enchants3);
 						}
+						ScrollOfRemoveCurse.uncurse(Dungeon.hero, item);
+						item.identify();
 						GLog.p(Messages.get(GreatRune.class, "item"));
 					}
 
@@ -144,7 +148,9 @@ public class GreatRune extends Item {
 						}else if(index == 2) {
 							((Armor) item).inscribe(glyphs3);
 						}
-							GLog.p(Messages.get(GreatRune.class, "item"));
+						ScrollOfRemoveCurse.uncurse(Dungeon.hero, item);
+						item.identify();
+						GLog.p(Messages.get(GreatRune.class, "item"));
 						}
 
 					@Override

@@ -31,7 +31,6 @@ import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.Barkskin;
-import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.BeTired;
 import com.hmdzl.spspd.actors.buffs.Blasphemy;
@@ -60,11 +59,13 @@ import com.hmdzl.spspd.actors.buffs.HighLight;
 import com.hmdzl.spspd.actors.buffs.HighVoice;
 import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
+import com.hmdzl.spspd.actors.buffs.ItemSteal;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.MirrorShield;
+import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.actors.buffs.Muscle;
 import com.hmdzl.spspd.actors.buffs.NewCombo;
 import com.hmdzl.spspd.actors.buffs.Notice;
@@ -78,7 +79,6 @@ import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.SnipersMark;
 import com.hmdzl.spspd.actors.buffs.SpeedImbue;
-import com.hmdzl.spspd.actors.buffs.Strength;
 import com.hmdzl.spspd.actors.buffs.SuperArcane;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
@@ -177,6 +177,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
+import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.levels.Level;
@@ -205,7 +206,6 @@ import com.hmdzl.spspd.windows.WndAscend;
 import com.hmdzl.spspd.windows.WndDescend;
 import com.hmdzl.spspd.windows.WndLifeTradeItem;
 import com.hmdzl.spspd.windows.WndMessage;
-import com.hmdzl.spspd.windows.WndResurrect;
 import com.hmdzl.spspd.windows.WndTradeItem;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -251,6 +251,8 @@ public class Hero extends Char {
 	public int petHP = 0;
 
 	public int petCooldown = 0;
+
+	public int petAction = 0;
 
 	private boolean damageInterrupt = true;
 	public HeroAction curAction = null;
@@ -391,6 +393,8 @@ public class Hero extends Char {
 	
 	private static final String PETCOOLDOWN = "petCooldown";
 
+	private static final String PETACTION = "petAction";
+
 	@Override
 	public void storeInBundle(Bundle bundle) {
 
@@ -419,6 +423,8 @@ public class Hero extends Char {
 		
 		bundle.put(PETCOOLDOWN, petCooldown);
 
+		bundle.put(PETACTION, petAction);
+
 		belongings.storeInBundle(bundle);
 	}
 
@@ -446,6 +452,8 @@ public class Hero extends Char {
 		petHP = bundle.getInt(PETHP);
 		petExperience = bundle.getInt(PETEXP);
 		petCooldown = bundle.getInt(PETCOOLDOWN);
+
+		petAction = bundle.getInt(PETACTION);
 		
 		belongings.restoreFromBundle(bundle);
 	}
@@ -469,12 +477,7 @@ public class Hero extends Char {
 		
 		if (Dungeon.isChallenged(Challenges.DARKNESS))
 			Buff.affect(this, DarkFallen.class);
-		
-	   // if (Dungeon.skins == 4 ) {
-			//if (heroClass == HeroClass.SOLDIER) {
-			//	Buff.affect(this, NmImbue.class);
-			//}
-		//}
+
 	}
 	
 	public int useskin() {
@@ -563,7 +566,7 @@ public class Hero extends Char {
 		int dmg;
 		int bonus = 0;
 		for (Buff buff : buffs(RingOfForce.Force.class)) {
-			bonus += ((RingOfForce.Force) buff).level;
+			bonus += Math.min(((RingOfForce.Force) buff).level,30);
 		}
 
 
@@ -588,7 +591,10 @@ public class Hero extends Char {
              dmg+= Dungeon.hero.lvl* (Dungeon.hero.STR-10)* Dungeon.hero.HP/Dungeon.hero.HT;
 		}
 
-		if (bonus > 0){ dmg *= Math.min(3f,(1f + (bonus*1.00/10)*1f));}
+		if (bonus > 0 && Random.Int(100)< bonus * 2 + 5 ){
+			dmg *= 2.50f;
+			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
+		}
 
 		if (dmg < 0)
 			dmg = 0;
@@ -613,7 +619,7 @@ public class Hero extends Char {
 			}
 		}
 		
-		if (buff(Strength.class) != null){ dmg *= 3f; Buff.detach(this, Strength.class);}
+		if (buff(MoonFury.class) != null){ dmg *= 3f; Buff.detach(this, MoonFury.class);}
 		
 		if (buff(HighVoice.class)!=null && Random.Int(8) == 0){
 			dmg *= 1.2f;
@@ -1177,9 +1183,10 @@ public class Hero extends Char {
 
 	private boolean actPickUp(HeroAction.PickUp action) {
 		int dst = action.dst;
-		if (pos == dst) {
+		if (pos == dst || ( ( Dungeon.level.map[ dst ] == Terrain.PEDESTAL
+            || Level.solid[ dst ] ) && Level.adjacent( pos, dst ))) {
 
-			Heap heap = Dungeon.level.heaps.get(pos);
+			Heap heap = Dungeon.level.heaps.get(dst);
 			if (heap != null) {
 				Item item = heap.pickUp();
 				if (item.doPickUp(this)) {
@@ -1569,6 +1576,38 @@ public class Hero extends Char {
 					Buff.affect(enemy, DBurning.class).set(4);
 				}
 				break;
+			case ROGUE:
+				if (Dungeon.skins==7) {
+					Dungeon.hero.spp += Random.Int(1,11);
+					if (Dungeon.hero.spp > 100) {
+						Dungeon.hero.spp = 0;
+						Hero hero = Dungeon.hero;
+						Weapon weapon = (Weapon) hero.belongings.weapon;
+						GLog.b(Messages.get(Hero.class, "change"));
+						if(weapon != null){
+							MeleeWeapon n;
+							do {
+								n = (MeleeWeapon) Generator.random(Generator.Category.MELEEWEAPON);
+							} while (n.getClass() == weapon.getClass());
+							n.level = 0;
+							int level = weapon.level;
+							if (level > 0) {
+								n.upgrade(level);
+							} else if (level < 0) {
+								n.degrade(-level);
+							}
+							n.enchantment = weapon.enchantment;
+							n.reinforced = weapon.reinforced;
+							n.levelKnown = weapon.levelKnown;
+							n.cursedKnown = weapon.cursedKnown;
+							n.cursed = weapon.cursed;
+							hero.belongings.weapon = n;
+
+						}
+					}
+				}
+				break;
+
 			case PERFORMER:
 				if (Dungeon.skins == 4) {
 				int people = Dungeon.hero.spp - Dungeon.hero.lvl;
@@ -1669,6 +1708,13 @@ public class Hero extends Char {
 				hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, earngold);
 			}
 		}
+		if (buff(ItemSteal.class)!=null){
+			Item loot = ((Mob) enemy).SupercreateLoot();
+			Dungeon.level.drop(loot, this.pos).sprite.drop();
+			((Mob) enemy).firstitem = false;
+			Buff.detach(this,ItemSteal.class);
+		}
+
 
 		if (buff(MechFaith.class)!= null && ((enemy.properties().contains(Property.BEAST))
 				|| (enemy.properties().contains(Property.PLANT))
@@ -1700,6 +1746,10 @@ public class Hero extends Char {
 
 		if (buff(BalanceFaith.class)!= null && ((enemy.properties().contains(Property.BOSS))
 				|| (enemy.properties().contains(Property.MINIBOSS))) ){
+			damage=(int)(damage*1.5);
+		}
+		
+		if (buff(SpeedImbue.class) != null) {
 			damage=(int)(damage*1.5);
 		}
 
@@ -2263,6 +2313,7 @@ public class Hero extends Char {
 					hero.belongings.misc3 = null;
 				} else {
 					Dungeon.gold = 0;
+					Dungeon.hero.spp +=1;
 				}
 
 			}
@@ -2282,7 +2333,7 @@ public class Hero extends Char {
 			levelUp = true;
 		}
 
-		while (petExperience >= 10 * petLevel + 1 ) {
+		while (petExperience >= 10 * petLevel + 5 ) {
 			petExperience = 0;
 			petLevel++;
 			if (haspet) checkpet().updateStats();
@@ -2297,9 +2348,9 @@ public class Hero extends Char {
 
 			Badges.validateLevelReached();
 
-			int value = HT - HP;
-			if (value > 0) {
-				HP += value;
+
+			if (HP<HT) {
+				HP = HT;
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 
@@ -2316,7 +2367,7 @@ public class Hero extends Char {
 	}
 
 	public int maxExp() {
-		return 7 + lvl * 8;
+		return 5 + lvl * 10;
 	}
 
 	void updateAwareness() {
@@ -2341,11 +2392,7 @@ public class Hero extends Char {
 	
 	public boolean isBeOld() {
 		return buff(BeOld.class) != null;
-	}	
-	
-	public boolean isBeCorrupt() {
-		return buff(BeCorrupt.class) != null;
-	}		
+	}
 
 	@Override
 	public void add(Buff buff) {
@@ -2435,13 +2482,13 @@ public class Hero extends Char {
 		// blessed.
 		for (Item item : belongings) {
 			if (item instanceof Ankh) {
-				if (ankh == null || ((Ankh) item).isBlessed()) {
+				if (ankh == null) {
 					ankh = (Ankh) item;
 				}
 			}
 		}
 
-		if (ankh != null && ankh.isBlessed() && this.HT > 0) {
+		if (ankh != null && this.HT > 0) {
 
 			this.HP = HT;
 			
@@ -2466,10 +2513,10 @@ public class Hero extends Char {
 		if (ankh == null) {
 			reallyDie(cause);
 		} else {
-			
+			reallyDie(cause);
 			//ankh.detach(belongings.backpack);
-			Dungeon.deleteGame(hero.heroClass, false);
-			GameScene.show(new WndResurrect(ankh, cause));
+			//Dungeon.deleteGame(hero.heroClass, false);
+			//GameScene.show(new WndResurrect(ankh, cause));
 
 		}
 	}

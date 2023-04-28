@@ -11,6 +11,7 @@ public class RingOfMight extends Ring {
 	{
 		//name = "Ring of Might";
 		initials = 7;
+		sname = "STR";
 	}
 	
 	public String statsInfo() {

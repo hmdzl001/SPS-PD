@@ -17,15 +17,17 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.scenes.Pudding_CupScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.Game;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import static com.hmdzl.spspd.Badges.validateLearn;
 
 public class PuddingCup extends Item {
 
@@ -50,6 +52,7 @@ public class PuddingCup extends Item {
 		if (action == AC_SAVE) {
 			//showPudding_cupScene();
 			curUser = hero;
+			validateLearn();
 			detach(curUser.belongings.backpack);
 			try {
 				Dungeon.saveAll();
@@ -70,15 +73,8 @@ public class PuddingCup extends Item {
 	@Override
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
-
-			//if (!Statistics.amuletObtained) {
-			   // Statistics.amuletObtained = true;
-                //Badges.validateVictory();
-
+			validateLearn();
 			showPudding_cupScene();
-
-			//}
-
 			return true;
 		} else {
 			return false;

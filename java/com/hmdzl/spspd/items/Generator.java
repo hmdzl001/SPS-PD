@@ -25,7 +25,6 @@ import com.hmdzl.spspd.items.armor.normalarmor.CDArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.CeramicsArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.ClothArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
-import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.MachineArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.MailArmor;
@@ -102,6 +101,7 @@ import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
+import com.hmdzl.spspd.items.food.completefood.FruitCandy;
 import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
 import com.hmdzl.spspd.items.food.completefood.Gel;
 import com.hmdzl.spspd.items.food.completefood.Hamburger;
@@ -113,8 +113,11 @@ import com.hmdzl.spspd.items.food.completefood.Honeyrice;
 import com.hmdzl.spspd.items.food.completefood.Icecream;
 import com.hmdzl.spspd.items.food.completefood.Kebab;
 import com.hmdzl.spspd.items.food.completefood.Meatroll;
+import com.hmdzl.spspd.items.food.completefood.MixPizza;
+import com.hmdzl.spspd.items.food.completefood.NutCookie;
 import com.hmdzl.spspd.items.food.completefood.PerfectFood;
 import com.hmdzl.spspd.items.food.completefood.Porksoup;
+import com.hmdzl.spspd.items.food.completefood.RiceGruel;
 import com.hmdzl.spspd.items.food.completefood.Ricefood;
 import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.items.food.completefood.Vegetableroll;
@@ -185,6 +188,7 @@ import com.hmdzl.spspd.items.rings.RingOfMight;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.rings.RingOfTenacity;
 import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.items.scrolls.ScrollOfDummy;
 import com.hmdzl.spspd.items.scrolls.ScrollOfIdentify;
 import com.hmdzl.spspd.items.scrolls.ScrollOfLullaby;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
@@ -195,10 +199,10 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfRage;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTerror;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
+import com.hmdzl.spspd.items.sellitem.SellMushroom;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.summon.FairyCard;
 import com.hmdzl.spspd.items.summon.Honeypot;
@@ -225,6 +229,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunB;
 import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
+import com.hmdzl.spspd.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.items.weapon.melee.AssassinsBlade;
 import com.hmdzl.spspd.items.weapon.melee.BattleAxe;
 import com.hmdzl.spspd.items.weapon.melee.Club;
@@ -260,18 +265,22 @@ import com.hmdzl.spspd.items.weapon.melee.Wardrum;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
 import com.hmdzl.spspd.items.weapon.melee.WindBottle;
 import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
-import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
-import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
+import com.hmdzl.spspd.items.weapon.melee.special.Brick;
+import com.hmdzl.spspd.items.weapon.melee.special.DragonBoat;
+import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
+import com.hmdzl.spspd.items.weapon.melee.special.HookHam;
+import com.hmdzl.spspd.items.weapon.melee.special.KeyWeapon;
+import com.hmdzl.spspd.items.weapon.melee.special.Lollipop;
+import com.hmdzl.spspd.items.weapon.melee.special.PaperFan;
 import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
-import com.hmdzl.spspd.items.weapon.melee.special.RunicBlade;
-import com.hmdzl.spspd.items.weapon.melee.special.Spork;
-import com.hmdzl.spspd.items.weapon.melee.special.TekkoKagi;
-import com.hmdzl.spspd.items.weapon.melee.special.WraithBreath;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
+import com.hmdzl.spspd.items.weapon.melee.special.SJRBMusic;
+import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
+import com.hmdzl.spspd.items.weapon.melee.special.Tree;
 import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
 import com.hmdzl.spspd.items.weapon.missiles.IncendiaryDart;
+import com.hmdzl.spspd.items.weapon.missiles.MiniMoai;
 import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
 import com.hmdzl.spspd.items.weapon.missiles.RiceBall;
 import com.hmdzl.spspd.items.weapon.missiles.ShatteredAmmo;
@@ -280,6 +289,19 @@ import com.hmdzl.spspd.items.weapon.missiles.Skull;
 import com.hmdzl.spspd.items.weapon.missiles.Smoke;
 import com.hmdzl.spspd.items.weapon.missiles.Tamahawk;
 import com.hmdzl.spspd.items.weapon.missiles.Wave;
+import com.hmdzl.spspd.items.weapon.rockcode.Alink;
+import com.hmdzl.spspd.items.weapon.rockcode.Bmech;
+import com.hmdzl.spspd.items.weapon.rockcode.Dpotion;
+import com.hmdzl.spspd.items.weapon.rockcode.Gleaf;
+import com.hmdzl.spspd.items.weapon.rockcode.Ichain;
+import com.hmdzl.spspd.items.weapon.rockcode.Lbox;
+import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
+import com.hmdzl.spspd.items.weapon.rockcode.Mlaser;
+import com.hmdzl.spspd.items.weapon.rockcode.Nshuriken;
+import com.hmdzl.spspd.items.weapon.rockcode.Obubble;
+import com.hmdzl.spspd.items.weapon.rockcode.Sweb;
+import com.hmdzl.spspd.items.weapon.rockcode.Trush;
+import com.hmdzl.spspd.items.weapon.rockcode.Zshield;
 import com.hmdzl.spspd.plants.BlandfruitBush;
 import com.hmdzl.spspd.plants.Blindweed;
 import com.hmdzl.spspd.plants.Dewcatcher;
@@ -288,6 +310,7 @@ import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Fadeleaf;
 import com.hmdzl.spspd.plants.Firebloom;
 import com.hmdzl.spspd.plants.Flytrap;
+import com.hmdzl.spspd.plants.Freshberry;
 import com.hmdzl.spspd.plants.Icecap;
 import com.hmdzl.spspd.plants.NutPlant;
 import com.hmdzl.spspd.plants.Phaseshift;
@@ -305,12 +328,12 @@ import java.util.HashMap;
 public class Generator {
 
 	public enum Category {
-		WEAPON(150, Weapon.class), MELEEWEAPON( 20,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),
-		POTION(500, Potion.class), SCROLL(400, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
+		MELEEWEAPON( 150,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),
+		POTION(500, Potion.class), SCROLL(500, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
 		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),SEED4(0,	Plant.Seed.class),
-		FOOD(10, Food.class), GOLD(500, Gold.class), BERRY(50, Food.class), MUSHROOM(5, Pill.class), BOMBS(20, Bomb.class),
+		FOOD(10, Food.class), GOLD(400, Gold.class), BERRY(50, Food.class), MUSHROOM(5, Pill.class), BOMBS(20, Bomb.class),
 		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(5, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class)
-		,SHOES(0,Item.class),DEW(0,Item.class),BASEPET(0,Egg.class);
+		,SHOES(0,Item.class),DEW(0,Item.class),BASEPET(0,Egg.class),EASTERWEAPON(0,Item.class),ROCKCODE(0,RockCode.class);
 
 		public Class<?>[] classes;
 		public float[] probs;
@@ -350,9 +373,9 @@ public class Generator {
 				ScrollOfMagicMapping.class, ScrollOfRage.class,
 				ScrollOfTerror.class, ScrollOfLullaby.class,
 				ScrollOfMagicalInfusion.class, ScrollOfPsionicBlast.class,
-				ScrollOfMirrorImage.class, ScrollOfRegrowth.class, ScrollOfSacrifice.class};
-		Category.SCROLL.probs = new float[] { 30, 10, 15, 0, 10, 20, 10, 8, 8,
-				0, 3, 6, 6, 0 };
+				ScrollOfMirrorImage.class, ScrollOfRegrowth.class, ScrollOfDummy.class};
+		Category.SCROLL.probs = new float[] { 30, 10, 15, 3, 10, 20, 10, 8, 8,
+				3, 3, 6, 6, 6 };
 
 		Category.POTION.classes = new Class<?>[] { PotionOfHealing.class,
 				PotionOfExperience.class, PotionOfToxicGas.class,
@@ -362,8 +385,8 @@ public class Generator {
 				PotionOfInvisibility.class, PotionOfMight.class,
 				PotionOfFrost.class, PotionOfMending.class,
 				PotionOfOverHealing.class, PotionOfShield.class,PotionOfMixing.class};
-		Category.POTION.probs = new float[] { 10, 5, 15, 10, 15, 10, 0, 20, 12,
-				10, 0, 10, 15, 4, 5, 0};
+		Category.POTION.probs = new float[] { 10, 5, 15, 10, 15, 10, 4, 20, 12,
+				10, 4, 10, 15, 4, 5, 0};
 
 		Category.WAND.classes = new Class<?>[] { WandOfAcid.class,
 				WandOfFreeze.class, WandOfFirebolt.class,
@@ -375,34 +398,12 @@ public class Generator {
 		Category.WAND.probs = new float[] { 5, 5, 5, 5, 5, 5, 5, 5, 5,
 				5, 5, 5, 5, 0, 5  };
 
-		Category.WEAPON.classes = new Class<?>[] { ErrorW.class,Pumpkin.class,TekkoKagi.class,
-				Dagger.class, Knuckles.class,  ShortSword.class, MageBook.class,
-				Handaxe.class, Spear.class, Dualknive.class,WraithBreath.class, FightGloves.class,
-				Nunchakus.class, Scimitar.class,Whip.class,Spork.class, Rapier.class,
-				AssassinsBlade.class,BattleAxe.class,Glaive.class,Handcannon.class,Club.class,
-                Gsword.class, Halberd.class, WarHammer.class, RunicBlade.class, Lance.class,
-				Triangolo.class, Flute.class, Wardrum.class, Trumpet.class, Harp.class,
-				WoodenStaff.class, Mace.class, HolyWater.class, PrayerWheel.class, StoneCross.class
-		};
-		Category.WEAPON.probs = new float[] {
-				0,0,0,
-				1,1,1,1,
-				1,1,1,0,1,
-				1,1,1,0,1,
-				1,1,1,0,1,
-				1,1,1,0,1,
-				1,1,1,1,1,
-				1,1,1,1,1,
-		};
-
 		Category.RANGEWEAPON.classes = new Class<?>[] {
 				EmpBola.class ,EscapeKnive.class,PoisonDart.class,Smoke.class,IncendiaryDart.class,Tamahawk.class,
-				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, ShitBall.class,
-				Boomerang.class};
+				Skull.class, RiceBall.class, Wave.class, ShatteredAmmo.class, HugeShuriken.class, ShitBall.class};
 		Category.RANGEWEAPON.probs = new float[] {
 				1,1,1,1,1,1,
-                1,1,1,1,1,1,
-				0
+                1,1,1,1,1,1
 		};
 
 		Category.MELEEWEAPON.classes = new Class<?>[] {
@@ -457,8 +458,7 @@ public class Generator {
 				DiscArmor.class, StoneArmor.class, CDArmor.class,
 				MailArmor.class, MultiplelayerArmor.class, StyrofoamArmor.class,
 				ScaleArmor.class, BulletArmor.class, ProtectiveclothingArmor.class,
-				PlateArmor.class, MachineArmor.class, PhantomArmor.class,
-				ErrorArmor.class };
+				PlateArmor.class, MachineArmor.class, PhantomArmor.class};
 		Category.ARMOR.probs = new float[] {
 				1, 1, 1,
 				1, 1, 1,
@@ -466,7 +466,7 @@ public class Generator {
 				1, 1, 1,
 				1, 1, 1,
 				1, 1, 1,
-				0 };
+		};
 
 		Category.FOOD.classes = new Class<?>[] { NormalRation.class, Pasty.class, OverpricedRation.class};
 		Category.FOOD.probs = new float[] { 8, 2, 5 };
@@ -493,13 +493,13 @@ public class Generator {
 				Sungrass.Seed.class, Earthroot.Seed.class, Fadeleaf.Seed.class, Rotberry.Seed.class,
 				BlandfruitBush.Seed.class, Dreamfoil.Seed.class, Stormvine.Seed.class, NutPlant.Seed.class,
 				Starflower.Seed.class, Phaseshift.Seed.class, Flytrap.Seed.class, Dewcatcher.Seed.class,
-				Seedpod.Seed.class};
+				Seedpod.Seed.class,Freshberry.Seed.class};
 		
 		Category.SEED.probs = new float[] { 12, 12, 12, 12,
 				                             12, 12, 12, 0,
 				                              4, 12, 12, 12,
 				                               3, 3, 4, 8,
-				                              2};
+				                              2,4};
 		
 		
 		Category.SEED2.classes = new Class<?>[] { Firebloom.Seed.class,
@@ -511,22 +511,22 @@ public class Generator {
 		Category.SEED3.classes = new Class<?>[] {Sungrass.Seed.class, Earthroot.Seed.class, BlandfruitBush.Seed.class, Dreamfoil.Seed.class,
 				Starflower.Seed.class, Dewcatcher.Seed.class, Seedpod.Seed.class};
 
-		Category.SEED3.probs = new float[] { 8, 4, 2, 4, 3, 1 , 1 };
+		Category.SEED3.probs = new float[] { 8, 4, 2, 4, 3, 1 ,1 };
 
 		Category.SEED4.classes = new Class<?>[] {Sungrass.Seed.class, Flytrap.Seed.class, Dreamfoil.Seed.class,
-				Starflower.Seed.class, Phaseshift.Seed.class, NutPlant.Seed.class,BlandfruitBush.Seed.class , Seedpod.Seed.class};
+				Starflower.Seed.class, Phaseshift.Seed.class, NutPlant.Seed.class,BlandfruitBush.Seed.class , Seedpod.Seed.class,Freshberry.Seed.class};
 
-		Category.SEED4.probs = new float[] { 4,  1, 4, 2, 1 , 3,1,1 };
+		Category.SEED4.probs = new float[] { 4,  1, 4, 2, 1 , 3,1,1,2 };
 		
 		
 		Category.BERRY.classes = new Class<?>[] {Blackberry.class, Blueberry.class, Cloudberry.class, Moonberry.class};
 		Category.BERRY.probs = new float[] {6,2,2,2};
 		
-		Category.MUSHROOM.classes = new Class<?>[] {BlueMilk.class, DeathCap.class, Earthstar.class, JackOLantern.class, PixieParasol.class, GoldenJelly.class, GreenSpore.class};
-		Category.MUSHROOM.probs = new float[] {4,3,3,3,3,3,2};
+		Category.MUSHROOM.classes = new Class<?>[] {BlueMilk.class, DeathCap.class, Earthstar.class, JackOLantern.class, PixieParasol.class, GoldenJelly.class, GreenSpore.class,SellMushroom.class};
+		Category.MUSHROOM.probs = new float[] {4,3,3,3,3,3,2,1};
 		
 		Category.NORNSTONE.classes = new Class<?>[] {BlueNornStone.class, GreenNornStone.class, OrangeNornStone.class, PurpleNornStone.class, YellowNornStone.class};
-		Category.NORNSTONE.probs = new float[] {2,2,2,2,2};
+		Category.NORNSTONE.probs = new float[] {3,3,3,3,3};
 
 		Category.EGGS.classes = new Class<?>[] { BlueDragonEgg.class, CocoCatEgg.class, EasterEgg.class,Egg.class,
                 LightDragonEgg.class, GreenDragonEgg.class, LeryFireEgg.class, RedDragonEgg.class, ScorpionEgg.class,
@@ -539,13 +539,15 @@ public class Generator {
 				Icecream.class,Kebab.class,PerfectFood.class,Porksoup.class,
 				Ricefood.class,Vegetablekebab.class,Vegetablesoup.class,
 				Meatroll.class,Vegetableroll.class,HoneyGel.class,Gel.class,HoneyWater.class,
-				Chocolate.class, FoodFans.class,Frenchfries.class};
+				Chocolate.class, FoodFans.class,Frenchfries.class,
+				FruitCandy.class, NutCookie.class,RiceGruel.class,MixPizza.class};
 		Category.HIGHFOOD.probs = new float[] { 1,1,1,1,
 		1,1,1,1,
 		1,1,1,1,
 		1,1,1,
 		1,1,1,1,1,
-		1,1,1};
+		1,1,1,
+		1,1,1,1};
 		Category.BOMBS.classes = new Class<?>[] { BuildBomb.class,DungeonBomb.class,
 				HugeBomb.class,
 				FireBomb.class,IceBomb.class,EarthBomb.class,StormBomb.class,
@@ -596,6 +598,20 @@ public class Generator {
 		Category.BASEPET.probs = new float[] {1,1,1,1,
 				1,1,1,1,1,1,
 				1,1,1,1,1,1};
+
+		Category.EASTERWEAPON.classes = new Class<?>[] {Pumpkin.class,Tree.class,MiniMoai.class,TestWeapon.class,ToyGun.class,
+				HookHam.class,Brick.class,Lollipop.class,FireCracker.class,SJRBMusic.class,
+				KeyWeapon.class,DragonBoat.class,PaperFan.class};
+		Category.EASTERWEAPON.probs = new float[] {1,1,1,1,1,
+				1,1,1,1,1,
+				1,1,1};
+
+		Category.ROCKCODE.classes = new Class<?>[] {Alink.class,Bmech.class,Dpotion.class,Gleaf.class,Ichain.class,
+				Lbox.class,Mlaser.class,Nshuriken.class,Obubble.class,Sweb.class,
+				Trush.class,Zshield.class};
+		Category.ROCKCODE.probs = new float[] {1,1,1,1,1,
+				1,1,1,1,1,
+				1,1};
 		
 	}
 
@@ -621,7 +637,7 @@ public class Generator {
 			switch (cat) {
 			case ARMOR:
 				return randomArmor();
-			case WEAPON:
+			case MELEEWEAPON:
 				return randomWeapon();
 			case ARTIFACT:
 				return randomArtifact();
@@ -688,7 +704,7 @@ public class Generator {
 	public static Weapon randomWeapon(int targetStr) {
 
 		try {
-			Category cat = Category.WEAPON;
+			Category cat = Category.MELEEWEAPON;
 
 			Weapon w1 = (Weapon) cat.classes[Random.chances(cat.probs)]
 					.newInstance();

@@ -18,14 +18,25 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Badges;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
+import com.hmdzl.spspd.items.weapon.melee.Handaxe;
+import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ShieldedSprite;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Shielded extends Brute {
 
+	private int breaks=0;
 	{
 		spriteClass = ShieldedSprite.class;
 
@@ -34,9 +45,50 @@ public class Shielded extends Brute {
 		properties.add(Property.ORC);
 	}
 
+	private static final String BREAKS	= "breaks";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( BREAKS, breaks );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		breaks = bundle.getInt( BREAKS );
+	}
+
+	@Override
+	public boolean act() {
+
+		if( 2 - breaks > 3 * HP / HT ) {
+			breaks++;
+			Buff.affect(this,ShieldArmor.class).level(Dungeon.depth*3);
+			Buff.affect(this,MagicArmor.class).level(Dungeon.depth*3);
+			return true;
+		}
+
+		return super.act();
+	}
+
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+
+		if (Random.Int(3)== 0) {
+			int oppositeDefender = enemy.pos + (enemy.pos - pos);
+			Ballistica trajectory = new Ballistica(enemy.pos, oppositeDefender, Ballistica.MAGIC_BOLT);
+			WandOfFlow.throwChar(enemy, trajectory, 2);
+			Buff.prolong(enemy, Vertigo.class,3f);
+		}
+
+		return damage;
+	}
+
 	@Override
 	public Item SupercreateLoot(){
-		return new CapeOfThorns();
+		return Random.oneOf( new WoodenArmor(),new Handaxe(),new CapeOfThorns());
 	}
 
 	@Override
@@ -47,13 +99,19 @@ public class Shielded extends Brute {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 
-		int dmg = Random.IntRange(0, damage/4);
-		if (dmg > 0) {
-			enemy.damage(dmg, this);
+		if (this.HP > damage && Random.Int(2) == 0){
+			doAttack(enemy);
 		}
-
 		return super.defenseProc(enemy, damage);
-	}	
+	}
+
+	public void damage(int dmg, Object src) {
+		if (dmg> HT/6) {
+			dmg =(int)Math.max(HT/6,1);
+		}
+		super.damage(dmg,src);
+
+	}
 
 
 	@Override

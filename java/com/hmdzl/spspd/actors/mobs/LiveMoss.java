@@ -45,7 +45,7 @@ public class LiveMoss extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return Generator.random(Generator.Category.SUMMONED);
+		return Random.oneOf( Generator.random(Generator.Category.POTION),Generator.random(Generator.Category.SUMMONED));
 	}
 
 	@Override

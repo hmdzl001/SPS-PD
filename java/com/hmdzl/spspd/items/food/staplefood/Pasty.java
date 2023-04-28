@@ -160,7 +160,7 @@ public class Pasty extends StapleFood {
 				case NONE:
 					break; //do nothing extra
 				case SPRING:
-					Buff.affect(hero, BerryRegeneration.class).level(5);
+					Buff.affect(hero, BerryRegeneration.class).level(10);
 					hero.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 					break;
 				case EASTER:

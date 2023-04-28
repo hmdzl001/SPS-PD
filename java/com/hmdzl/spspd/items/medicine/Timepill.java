@@ -30,7 +30,8 @@ public class Timepill extends Pill {
 	{
 		//name = "timepill";
 		image = ItemSpriteSheet.SANDBAG;
-		 
+		sname = "TIME";
+		
 	}
 
 	@Override

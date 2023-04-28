@@ -25,7 +25,6 @@ import com.hmdzl.spspd.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
-import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
@@ -92,10 +91,11 @@ public class   ChallengeBook extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		
+		actions.remove(AC_DROP);
+		actions.remove(AC_THROW);
 		actions.add(AC_ADD);
 		
-		if (returnDepth > 0 && ( Dungeon.depth<35 && Dungeon.depth > 26)){
+		if (returnDepth > 0 && (( Dungeon.depth<35 && Dungeon.depth > 26) || Dungeon.depth == 90)){
 		actions.add(AC_RETURN);
 		}
 		//charge >= reqCharges() &&		
@@ -124,6 +124,7 @@ public class   ChallengeBook extends Item {
 		}
               
        if (action == AC_RETURN) {
+		   PocketBallFull.removePet(hero);
     	   hero.spend(TIME_TO_USE);
 			   updateQuickslot();		   	   
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;	

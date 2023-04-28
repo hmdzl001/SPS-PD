@@ -174,7 +174,7 @@ public class TalismanOfForesight extends Artifact {
 			}
 			BuffIndicator.refreshHero();
 
-			// fully charges in 2500 turns at lvl=0, scaling to 1000 turns at
+			// fully energy in 2500 turns at lvl=0, scaling to 1000 turns at
 			// lvl = 10.
 			if (charge < 100 && !cursed) {
 				partialCharge += 0.04 + (level * 0.006);

@@ -32,6 +32,7 @@ import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.misc.SkillOfAtk;
@@ -42,11 +43,9 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfIdentify;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -73,11 +72,6 @@ public class UnstableSpellbook extends Artifact {
 	public static final String AC_READ = "READ";
 	public static final String AC_ADD = "ADD";
 	public static final String AC_SONG = "SONG";
-	public static int consumedpts = 0;
-
-	private final ArrayList<Class> scrolls = new ArrayList<>();
-
-	protected WndBag.Mode mode = WndBag.Mode.SCROLL;
 
 	/*public UnstableSpellbook() {
 		super();
@@ -130,7 +124,7 @@ public class UnstableSpellbook extends Artifact {
 				scroll.ownedByBook = true;
 				curItem = scroll;
 				curUser = hero;
-				if (Random.Int(20)> level) {
+				if (Random.Int(15) < level) {
 					scroll.doRead();
 				} else {
 					scroll.empoweredRead();
@@ -139,7 +133,20 @@ public class UnstableSpellbook extends Artifact {
 			}
 
 		} else if (action.equals( AC_ADD )) {
-			GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
+			DewVial vial = Dungeon.hero.belongings.getItem(DewVial.class);
+			if (vial.checkVolEx() > (level + 1) * 100 ){
+				vial.upbook( (level + 1) * 100 );
+				hero.sprite.operate(hero.pos);
+				hero.busy();
+				hero.spend(2f);
+				Sample.INSTANCE.play(Assets.SND_BURNING);
+				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+				upgrade();
+				GLog.w( Messages.get(this, "update") );
+			} else {
+				GLog.w(Messages.get(UnstableSpellbook.class, "dew_empty"));
+			}
+
 		} else if (action.equals( AC_SONG )) {
 			curUser = hero;
 			switch (level){
@@ -188,6 +195,7 @@ public class UnstableSpellbook extends Artifact {
 			updateQuickslot();
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
+
 		} else
 			super.execute( hero, action );
 	}
@@ -212,24 +220,20 @@ public class UnstableSpellbook extends Artifact {
 		}
 
 		if (level < levelCap) {
-				desc += "\n\n" + Messages.get(this, "desc_index",consumedpts);
-			}
-
+			desc += "\n\n" + Messages.get(this, "desc_index",(level+1)*100);
+		}
 		return desc;
 	}
 
-	private static final String SCROLLS =   "scrolls";
+
 	private static final String PARTIALCHARGE = "partialCharge";
 	private static final String CHARGE = "charge";
-	private static final String CONSUMED = "consumedpts";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
-		bundle.put( SCROLLS, scrolls.toArray(new Class[scrolls.size()]) );
 		bundle.put(PARTIALCHARGE, partialCharge);
 		bundle.put(CHARGE, charge);
-		bundle.put(CONSUMED, consumedpts);
 	}
 
 	@Override
@@ -237,8 +241,6 @@ public class UnstableSpellbook extends Artifact {
 		super.restoreFromBundle(bundle);
 		partialCharge = bundle.getInt(PARTIALCHARGE);
 		charge = bundle.getInt(CHARGE);
-		consumedpts = bundle.getInt(CONSUMED);
-
 	}
 
 	public class bookRecharge extends ArtifactBuff{
@@ -264,37 +266,4 @@ public class UnstableSpellbook extends Artifact {
 			return true;
 		}
 	}
-
-	protected WndBag.Listener itemSelector = new WndBag.Listener() {
-		@Override
-		public void onSelect(Item item) {
-			if (item != null && item instanceof Scroll && item.isIdentified()) {
-				Hero hero = Dungeon.hero;
-				int scrollWorth = item.consumedValue;
-				consumedpts += scrollWorth;
-			
-				hero.sprite.operate(hero.pos);
-				hero.busy();
-				hero.spend(2f);
-				Sample.INSTANCE.play(Assets.SND_BURNING);
-				hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-
-				item.detach(hero.belongings.backpack);
-				GLog.h(Messages.get(UnstableSpellbook.class, "exp",consumedpts));
-				
-				int levelChk = (level+20);
-								
-				if (consumedpts > levelChk && level<10) {
-					upgrade();
-					GLog.p(Messages.get(UnstableSpellbook.class, "infuse_scroll"));
-					}
-				
-			
-			} else if (item instanceof Scroll && !item.isIdentified()){
-				GLog.w(Messages.get(UnstableSpellbook.class, "unknown_scroll"));
-		   } else if (item != null){
-			GLog.w(Messages.get(UnstableSpellbook.class, "unable_scroll"));
-		}
-	 }
-	};
  }

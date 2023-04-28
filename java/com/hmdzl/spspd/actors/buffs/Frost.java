@@ -23,13 +23,11 @@ import com.hmdzl.spspd.actors.blobs.Freezing;
 import com.hmdzl.spspd.actors.blobs.FrostGas;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSnow;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.Thief;
+import com.hmdzl.spspd.actors.mobs.ThiefImp;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.IceMeat;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.Potion;
-import com.hmdzl.spspd.items.potions.PotionOfMight;
-import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -56,9 +54,7 @@ public class Frost extends FlavourBuff {
 
 				Hero hero = (Hero) target;
 				Item item = hero.belongings.randomUnequipped();
-				if (item instanceof Potion
-				&& !(item instanceof PotionOfStrength || item instanceof PotionOfMight)){
-
+				if (item instanceof Potion){
 					item = item.detach(hero.belongings.backpack);
 					GLog.w( Messages.get(this, "freezes", item.toString()));
 					((Potion) item).shatter(hero.pos);
@@ -73,12 +69,12 @@ public class Frost extends FlavourBuff {
 					GLog.w( Messages.get(this, "freezes", item.toString()));
 
 				}
-			} else if (target instanceof Thief){
-					Item item = ((Thief) target).item;
+			} else if (target instanceof ThiefImp){
+					Item item = ((ThiefImp) target).item;
 
-				if (item instanceof Potion && !(item instanceof PotionOfStrength || item instanceof PotionOfMight)) {
-					((Potion) ((Thief) target).item).shatter(target.pos);
-					((Thief) target).item = null;
+				if (item instanceof Potion) {
+					((Potion) ((ThiefImp) target).item).shatter(target.pos);
+					((ThiefImp) target).item = null;
 				}
 			}
 

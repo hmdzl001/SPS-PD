@@ -21,8 +21,10 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.DachhackSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class Dachhack extends NPC {
@@ -44,7 +46,10 @@ public class Dachhack extends NPC {
 		return 1000;
 	}
 
-
+	@Override
+	public Item SupercreateLoot(){
+		return new PlantPotBlock();
+	}
 	@Override
 	protected Char chooseEnemy() {
 		return null;

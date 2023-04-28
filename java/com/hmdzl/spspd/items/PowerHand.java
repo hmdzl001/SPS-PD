@@ -19,12 +19,9 @@ package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.nornstone.NornStone;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PowerHandScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -32,16 +29,17 @@ import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PowerHand extends Item {
 
 	public static final String AC_ADD = "ADD";
 
     public static final String AC_USE = "USE";
-    protected HandCharger handcharger;
 
 	{
 		//name = "PowerHand";
@@ -60,35 +58,6 @@ public class PowerHand extends Item {
 		actions.add(AC_USE);
 		return actions;
 	}
-
-    @Override
-    public boolean collect( Bag container ) {
-        if (super.collect( container )) {
-            if (container.owner != null) {
-                charge( container.owner );
-            }
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void charge( Char owner ) {
-        if (handcharger == null) handcharger = new HandCharger();
-        handcharger.attachTo( owner );
-    }
-
-    @Override
-    public void onDetach( ) {
-        stopCharging();
-    }
-
-    public void stopCharging() {
-        if (handcharger != null) {
-            handcharger.detach();
-            handcharger = null;
-        }
-    }
 
     @Override
 	public void execute(Hero hero, String action) {
@@ -110,7 +79,6 @@ public class PowerHand extends Item {
 	public String desc() {
 		String desc = super.desc();
 
-
 		if (stones.size() > 0) {
 
 			desc += "\n\n" + Messages.get(this, "desc_stones", stones.size());
@@ -129,19 +97,18 @@ public class PowerHand extends Item {
 	}
 
 	private static final String STONES =   "stones";
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( STONES, stones.toArray(new String[stones.size()]) );
+	}
 
-	//@Override
-	//public void storeInBundle( Bundle bundle ) {
-	//	super.storeInBundle(bundle);
-	//	bundle.put( STONES, stones.toArray(new Class[stones.size()]) );
-	//}
-
-	//@Override
-	//public void restoreFromBundle( Bundle bundle ) {
-	//	super.restoreFromBundle(bundle);
-	//	if (bundle.contains(STONES))
-	//		Collections.addAll(stones, bundle.getStringArray(STONES));
-	//}
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		if (bundle.contains(STONES))
+			Collections.addAll(stones, bundle.getStringArray(STONES));
+	}
 	
 	@Override
 	public boolean isUpgradable() {
@@ -174,20 +141,4 @@ public class PowerHand extends Item {
 				}
 			}
 		};
-
-    protected class HandCharger extends Buff {
-
-        @Override
-        public boolean attachTo( Char target ) {
-            super.attachTo( target );
-
-            return true;
-        }
-
-        @Override
-        public boolean act() {
-            spend( TICK );
-            return true;
-        }
-    }
 }

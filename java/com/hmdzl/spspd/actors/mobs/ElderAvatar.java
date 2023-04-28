@@ -42,8 +42,9 @@ import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.ArmorKit2;
+import com.hmdzl.spspd.items.ArmorKit;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
@@ -58,6 +59,7 @@ import com.hmdzl.spspd.items.journalpages.Sokoban4;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
+import com.hmdzl.spspd.items.weapon.rockcode.Alink;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -277,9 +279,12 @@ public class ElderAvatar extends Mob {
 		GameScene.bossSlain();
 		Dungeon.level.unseal();
 		Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
-		Dungeon.level.drop(new ArmorKit2(), pos).sprite.drop();
+		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(Random.Int(4900, 10000)), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Alink(), Dungeon.hero.pos).sprite.drop();
 
 		Badges.validateBossSlain();
 

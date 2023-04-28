@@ -61,7 +61,7 @@ public class Spider extends PET {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange((int)(5+hero.petLevel*0.5), (int)(5+hero.petLevel*1.5));
+		return Random.NormalIntRange((int)(5+hero.petLevel*0.5), (int)(5+hero.petLevel*2.5));
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class Spider extends PET {
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(hero.petLevel,(int)(hero.petLevel*1.5));
+		return Random.IntRange(hero.petLevel*2,hero.petLevel*5);
 	}
 
 	@Override

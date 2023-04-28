@@ -36,14 +36,19 @@ import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
+import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
+import com.hmdzl.spspd.windows.WndBag;
+import com.hmdzl.spspd.windows.WndHero;
 import com.hmdzl.spspd.windows.WndPetInfo;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -153,10 +158,12 @@ public abstract class PET extends NPC {
 	@Override
 	public void damage(int dmg, Object src) {
 		
-		if (src instanceof Hero){
+		if (src instanceof Hero || src instanceof Wand){
 			//goaways++;
 			//GLog.n(Messages.get(this,"warning",name));
 			dmg = 0;
+		} else if (dmg> HT/6) {
+			dmg =(int)Math.max(HT/6,1);
 		}
 		
 		super.damage(dmg,src);
@@ -265,7 +272,17 @@ public abstract class PET extends NPC {
 		if (state == SLEEPING) {
 			state = HUNTING;
 		}
-		GameScene.show(new WndPetInfo( this));
+
+		if (Dungeon.hero.petAction == 0) {
+			GameScene.show(new WndPetInfo(this));
+		} else if (Dungeon.hero.petAction == 1) {
+			changeplace();
+		} else if (Dungeon.hero.petAction == 2) {
+			GameScene.selectItem(itemSelector, WndBag.Mode.ALL, Messages.get(WndHero.class, "choose_food"));
+		} else if (Dungeon.hero.petAction == 3) {
+			dropreward();
+		}
+
 		return true;
 	}
 
@@ -299,6 +316,39 @@ public abstract class PET extends NPC {
 		immunities.add( ScrollOfPsionicBlast.class );
 		immunities.add( CorruptGas.class );
 		immunities.add( NmGas.class );
+	}
+
+	private final WndBag.Listener itemSelector = new WndBag.Listener() {
+		@Override
+		public void onSelect(Item item) {
+			if (item != null) {
+				feed(item);
+			}
+		}
+	};
+
+	private void feed(Item item) {
+
+		boolean lovefood = this.lovefood(item) ;
+
+		if (lovefood) {
+			int effect = this.HT -  this.HP;
+			if (effect > 0) {
+				this.HP += (int) (effect * 0.8);
+				this.sprite.emitter().burst(Speck.factory(Speck.HEALING), 2);
+				this.sprite.showStatus(CharSprite.POSITIVE, Messages.get(WndHero.class, "heals", effect));
+			}
+			this.cooldown = (int)( this.cooldown/2);
+			item.detach(Dungeon.hero.belongings.backpack);
+			Buff.affect( this, HasteBuff.class, 10f);
+			Dungeon.hero.spend(1f);
+			Dungeon.hero.busy();
+			Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+			GLog.n(Messages.get(WndHero.class, "pet_eat", item.name()));
+		}  else {
+			GLog.n(Messages.get(WndHero.class, "pet_not_eat"));
+		}
+
 	}
 
 		/*private class Wandering extends Mob.Wandering {

@@ -98,7 +98,7 @@ public class RatKingPainter extends Painter {
 		Item prize;
 		switch (Random.Int(10)) {
 		case 0:
-			prize = Generator.random(Generator.Category.WEAPON);
+			prize = Generator.random(Generator.Category.MELEEWEAPON);
 			if (prize instanceof MissileWeapon) {
 				prize.quantity(1);
 			} else {

@@ -23,6 +23,7 @@ import com.hmdzl.spspd.items.TriforceOfPower;
 import com.hmdzl.spspd.items.TriforceOfWisdom;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -42,7 +43,8 @@ public class WandHolster extends Bag {
                 || item instanceof TriforceOfPower
                 || item instanceof TriforceOfWisdom
                 || item instanceof SpAmmo
-                || item instanceof GunWeapon;
+                || item instanceof GunWeapon
+				|| item instanceof RockCode;
 
 	}
 

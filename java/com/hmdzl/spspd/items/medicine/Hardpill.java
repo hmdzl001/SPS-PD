@@ -27,8 +27,8 @@ public class Hardpill extends Pill {
 
 	{
 		//name = "hardpill";
-		image = ItemSpriteSheet.PILL_DEF;
-		 
+		image = ItemSpriteSheet.GREAT_PILL;
+		sname = "DEF";
 	}
 
 	@Override

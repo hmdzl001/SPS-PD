@@ -67,7 +67,7 @@ public class ScrollOfMultiUpgrade extends InventoryScroll {
 	@Override
 	public String desc() {
 		return "This scroll will upgrade a single item five times, improving its quality. A wand will "
-				+ "increase in power and in number of charges; a weapon will inflict more damage "
+				+ "increase in power and in number of energy; a weapon will inflict more damage "
 				+ "or find its mark more frequently; a suit of armor will deflect additional blows; "
 				+ "the effect of a ring on its wearer will intensify. Weapons and armor will also "
 				+ "require less strength to use, and any curses on the item will be lifted.";

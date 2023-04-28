@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.items.weapon.enchantments;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Lightning;
@@ -28,6 +25,11 @@ import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public class NeptuneShock extends Weapon.Enchantment {
 
@@ -88,7 +90,7 @@ public class NeptuneShock extends Weapon.Enchantment {
 
 		affected.add(ch);
 		ch.damage(Level.water[ch.pos] && !ch.flying ? damage * 2
-				: damage, this);
+				: damage, SHOCK_DAMAGE);
 
 		ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 		ch.sprite.flash();

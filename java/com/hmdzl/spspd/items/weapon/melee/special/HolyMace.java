@@ -125,13 +125,13 @@ public class HolyMace extends MeleeWeapon {
 		} else if (action == AC_LIGHT) {
 			curUser = hero;
 			Buff.affect(hero,Light.class,10f+uptime1);
+			curUser.spendAndNext(1f);
 			charge-=5;
 			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 				if (Level.fieldOfView[mob.pos]) {
 					Buff.affect(mob, Terror.class, 10f+uptime1).object = curUser
 							.id();
 				}
-				curUser.spendAndNext(1f);
 			}
 		} else if (action == AC_TRIAL) {
 			curUser = hero;

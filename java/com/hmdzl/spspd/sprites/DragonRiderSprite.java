@@ -28,19 +28,19 @@ public class DragonRiderSprite extends MobSprite {
 
 		texture( Assets.DRAGONRIDER );
 
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+		TextureFilm frames = new TextureFilm( texture, 22, 18 );
 
         idle = new Animation( 10, true );
-        idle.frames(frames, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3);
+        idle.frames(frames, 0, 0, 1, 1, 2, 2, 1, 1, 0);
 
         run = new Animation( 20, true );
-        run.frames( frames, 0 );
+        run.frames( frames, 0, 0, 1, 1, 2, 2, 1, 1, 0 );
 
         attack = new Animation( 12, false );
-        attack.frames( frames, 0, 2, 3 );
+        attack.frames( frames, 4, 4, 5,5,6,6,7,7 );
 
         die = new Animation( 20, false );
-        die.frames( frames, 0 );
+        die.frames( frames, 0,8,8,9,9,10,10,11 );
 
         play( idle );
     }

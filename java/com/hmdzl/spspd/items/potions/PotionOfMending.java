@@ -48,7 +48,7 @@ public class PotionOfMending extends Potion {
 
 	public static void heal(Hero hero) {
 
-		Buff.affect(hero, BerryRegeneration.class).level(Math.max(0,hero.HT - hero.HP));
+		Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/4,30));
 		Buff.detach(hero, Poison.class);
 		Buff.detach(hero, Cripple.class);
 		Buff.detach(hero, STRdown.class);

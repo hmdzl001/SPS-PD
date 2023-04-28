@@ -24,20 +24,18 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Generator.Category;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.MitBottle;
+import com.hmdzl.spspd.items.StrBottle;
+import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.potions.Potion;
-import com.hmdzl.spspd.items.potions.PotionOfHealing;
-import com.hmdzl.spspd.items.potions.PotionOfMending;
-import com.hmdzl.spspd.items.potions.PotionOfMight;
-import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 
 public class WaterOfTransmutation extends WellWater {
 
@@ -58,6 +56,8 @@ public class WaterOfTransmutation extends WellWater {
 			item = changeWand((Wand) item);
 		}  else if (item instanceof Artifact) {
 			item = changeArtifact((Artifact) item);
+		} else if (item instanceof StrBottle) {
+			item = new MitBottle();
 		} else {
 			item = null;
 		}
@@ -203,18 +203,13 @@ public class WaterOfTransmutation extends WellWater {
 	}
 
 	private Potion changePotion(Potion p) {
-		if (p instanceof PotionOfStrength) {
-
-			return new PotionOfMight();
-
-		} else {
 
 			Potion n;
 			do {
 				n = (Potion) Generator.random(Category.POTION);
 			} while (n.getClass() == p.getClass());
 			return n;
-		}
+		
 	}
 	
 

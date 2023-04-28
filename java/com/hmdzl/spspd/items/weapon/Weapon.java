@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
@@ -210,13 +211,18 @@ public class Weapon extends KindOfWeapon {
 		}
 
 		if (this instanceof MissileWeapon) {
+			
+			if (Dungeon.hero.buff(TargetShoot.class)!= null)
+				 damage = (int)(damage*1.5f);
+			
 			float bonus = 0;
 			for (Buff buff : hero.buffs(RingOfSharpshooting.Aim.class)) {
-				bonus += ((RingOfSharpshooting.Aim) buff).level;
+				bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
 			}
-			if (Dungeon.hero.buff(TargetShoot.class)!= null)
-				bonus += 10;
-			damage = (int)(damage*(1 + 0.05*bonus));
+			if (Random.Int(10) < 3  &&  bonus > 0 ) {
+			damage = (int)(damage * ( 1.5 + 0.25 * bonus));
+			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
+		    }
 		}
 
 		return Math.round(damage);

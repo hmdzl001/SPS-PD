@@ -3,21 +3,19 @@ package com.hmdzl.spspd.items.artifacts;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.AttackUp;
-import com.hmdzl.spspd.actors.buffs.Bless;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.keys.Key;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndOptions;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -62,7 +60,7 @@ public class TimekeepersHourglass extends Artifact {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && charge > 0 && !cursed)
 			actions.add(AC_ACTIVATE);
-		if (isEquipped(hero) && level > 1 && !cursed)
+		if (!isEquipped(hero) && level > 4 && !cursed)
 			actions.add(AC_RESTART);		
 		return actions;
 	}
@@ -105,16 +103,16 @@ public class TimekeepersHourglass extends Artifact {
                 });
 		} else  if (action.equals(AC_RESTART)){
 
-			level--;
+			level=0;
 			curUser = hero;
-            curUser.HP = curUser.HT;
-			Buff.affect(curUser,AttackUp.class,50f).level(20);
-			Buff.affect(curUser,DefenceUp.class,50f).level(20);
-			Buff.affect(curUser,Bless.class,50f);
-			curUser.belongings.charge( true );
-			Sample.INSTANCE.play(Assets.SND_BURNING);
-			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
-            curUser.spendAndNext(1f);
+			InterlevelScene.returnDepth = Dungeon.depth;
+				for (Item item : Dungeon.hero.belongings.backpack.items.toArray( new Item[0])){
+					if (item instanceof Key && ((Key)item).depth == Dungeon.depth){
+						item.detachAll(Dungeon.hero.belongings.backpack);
+					}
+				}
+				InterlevelScene.mode = InterlevelScene.Mode.RESET;
+				Game.switchScene(InterlevelScene.class);
 			
         } else
 			super.execute(hero, action);

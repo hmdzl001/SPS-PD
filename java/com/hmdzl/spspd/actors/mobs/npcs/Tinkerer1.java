@@ -36,16 +36,8 @@ public class Tinkerer1 extends NPC {
 		//name = "tinkerer";
 		spriteClass = TinkererSprite.class;
 		properties.add(Property.HUMAN);
-	    properties.add(Property.IMMOVABLE);
+		properties.add(Property.IMMOVABLE);
 	}
-
-	private static final String TXT_DUNGEON = "Oh wow, have you seen this dungeon! This is an awesome dungeon.  "
-			+ "I'm here checking things out of course, but also scavenging for toadstool mushrooms. "
-			+ "Could you bring me any toadstool mushrooms you find? ";
-	
-	private static final String TXT_DUNGEON2 = "Oh wow, have you seen this dungeon! This is an awesome dungeon.  ";
-
-	private static final String TXT_MUSH = "Any luck finding toadstool mushrooms, %s?";
 
 	@Override
 	protected boolean act() {

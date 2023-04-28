@@ -82,7 +82,7 @@ public class Fly extends PET {
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(hero.petLevel,(int)(hero.petLevel*1.5));
+		return Random.IntRange(hero.petLevel*2,hero.petLevel*5);
 	}
 
 	@Override

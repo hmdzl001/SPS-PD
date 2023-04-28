@@ -74,7 +74,7 @@ public class Haro extends PET {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(5, (10+Dungeon.hero.petLevel*2));
+		return Random.NormalIntRange(5, (10+Dungeon.hero.petLevel*4));
 	}
 
 	@Override

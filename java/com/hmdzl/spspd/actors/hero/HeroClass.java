@@ -21,40 +21,45 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.items.Ankh;
-import com.hmdzl.spspd.items.ArmorKit;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Elevator;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KnowledgeBook;
 import com.hmdzl.spspd.items.Palantir;
 import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.items.PowerHand;
 import com.hmdzl.spspd.items.SaveYourLife;
+import com.hmdzl.spspd.items.SkillBook;
 import com.hmdzl.spspd.items.SoulCollect;
+import com.hmdzl.spspd.items.StrBottle;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.TomeOfMastery;
 import com.hmdzl.spspd.items.TriForce;
+import com.hmdzl.spspd.items.UnBlessAnkh;
 import com.hmdzl.spspd.items.Weightstone;
-import com.hmdzl.spspd.items.Whistle;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.ClothArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
-import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.RubberArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.StyrofoamArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.VestArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.PerformerArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.TestArmor;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.artifacts.CloakOfShadows;
+import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.Pylon;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
 import com.hmdzl.spspd.items.bags.KeyRing;
 import com.hmdzl.spspd.items.bags.PotionBandolier;
 import com.hmdzl.spspd.items.bags.ScrollHolder;
@@ -68,25 +73,29 @@ import com.hmdzl.spspd.items.bombs.StormBomb;
 import com.hmdzl.spspd.items.challengelists.CaveChallenge;
 import com.hmdzl.spspd.items.challengelists.CityChallenge;
 import com.hmdzl.spspd.items.challengelists.CourageChallenge;
+import com.hmdzl.spspd.items.challengelists.IceChallenge;
 import com.hmdzl.spspd.items.challengelists.PowerChallenge;
 import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
 import com.hmdzl.spspd.items.challengelists.SewerChallenge;
 import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
-import com.hmdzl.spspd.items.eggs.BlueDragonEgg;
+import com.hmdzl.spspd.items.eggs.AflyEgg;
 import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.eggs.GoldDragonEgg;
-import com.hmdzl.spspd.items.eggs.GreenDragonEgg;
-import com.hmdzl.spspd.items.eggs.LightDragonEgg;
 import com.hmdzl.spspd.items.eggs.RandomEgg;
 import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
-import com.hmdzl.spspd.items.eggs.RedDragonEgg;
-import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
-import com.hmdzl.spspd.items.eggs.VioletDragonEgg;
 import com.hmdzl.spspd.items.food.Honey;
+import com.hmdzl.spspd.items.food.completefood.AflyFood;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
+import com.hmdzl.spspd.items.food.completefood.FruitCandy;
 import com.hmdzl.spspd.items.food.completefood.Hamburger;
+import com.hmdzl.spspd.items.food.completefood.Meatroll;
+import com.hmdzl.spspd.items.food.completefood.MixPizza;
 import com.hmdzl.spspd.items.food.completefood.MoonCake;
+import com.hmdzl.spspd.items.food.completefood.NutCookie;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
+import com.hmdzl.spspd.items.food.completefood.Porksoup;
+import com.hmdzl.spspd.items.food.completefood.RiceGruel;
+import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.journalpages.EnergyCore;
 import com.hmdzl.spspd.items.journalpages.NewHome;
@@ -135,6 +144,7 @@ import com.hmdzl.spspd.items.misc.PPC2;
 import com.hmdzl.spspd.items.misc.PotionOfMage;
 import com.hmdzl.spspd.items.misc.RangeBag;
 import com.hmdzl.spspd.items.misc.RewardPaper;
+import com.hmdzl.spspd.items.misc.RockManJumpshoes;
 import com.hmdzl.spspd.items.misc.SavageHelmet;
 import com.hmdzl.spspd.items.misc.SeriousPunch;
 import com.hmdzl.spspd.items.misc.Shovel;
@@ -165,6 +175,7 @@ import com.hmdzl.spspd.items.rings.RingOfMagic;
 import com.hmdzl.spspd.items.rings.RingOfMight;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.rings.RingOfTenacity;
+import com.hmdzl.spspd.items.scrolls.ScrollOfDummy;
 import com.hmdzl.spspd.items.scrolls.ScrollOfIdentify;
 import com.hmdzl.spspd.items.scrolls.ScrollOfLullaby;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
@@ -184,6 +195,7 @@ import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
+import com.hmdzl.spspd.items.wands.WandOfTest;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunA;
 import com.hmdzl.spspd.items.weapon.guns.GunB;
@@ -205,14 +217,17 @@ import com.hmdzl.spspd.items.weapon.melee.special.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.special.EleKatana;
 import com.hmdzl.spspd.items.weapon.melee.special.HolyMace;
 import com.hmdzl.spspd.items.weapon.melee.special.LinkSword;
+import com.hmdzl.spspd.items.weapon.melee.special.NinjaFan;
 import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
+import com.hmdzl.spspd.items.weapon.melee.special.Whisk;
 import com.hmdzl.spspd.items.weapon.melee.zero.EmptyPotion;
 import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ElfBow;
 import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
 import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
+import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
 import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
 import com.hmdzl.spspd.items.weapon.missiles.Skull;
@@ -226,6 +241,9 @@ import com.hmdzl.spspd.items.weapon.spammo.WoodenAmmo;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Dewcatcher;
 import com.hmdzl.spspd.plants.Seedpod;
+import com.hmdzl.spspd.sprites.HeroSkinSprite;
+import com.hmdzl.spspd.sprites.HeroSkinSpriteSheet;
+import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
 public enum HeroClass {
@@ -237,7 +255,8 @@ public enum HeroClass {
 	PERFORMER( "performer", "performer_name"),
 	SOLDIER( "soldier", "soldier_name"),
 	FOLLOWER( "follower", "follower_name"),
-	ASCETIC( "ascetic", "ascetic_name");
+	ASCETIC( "ascetic", "ascetic_name"),
+	NEWPLAYER( "newplayer", "newplayer_name");
 	
 
 	private String title;
@@ -253,7 +272,8 @@ public enum HeroClass {
 
 		hero.heroClass = this;
 
-		initCommon( hero );
+		if (hero.heroClass != HeroClass.NEWPLAYER)
+		   initCommon( hero );
 
 		switch (this) {
 		case WARRIOR:
@@ -286,13 +306,18 @@ public enum HeroClass {
 			
 		case ASCETIC:
 			initAscetic( hero );
+			break;	
+
+        case NEWPLAYER:
+			initNewPlayer( hero );
 			break;				
 			
 		}			
 		
-		/*if (Badges.isUnlocked(masteryBadge())) {
-			new TomeOfMastery().collect();
-		}*/
+		if (Badges.isUnlocked(learnBadge())) {
+			new PlantPotBlock(3).identify().collect();
+			//new WandOfTest().identify().collect();
+		}
 		
 		hero.updateAwareness();
 	}
@@ -301,8 +326,8 @@ public enum HeroClass {
 		new KeyRing().collect();
 		new Pasty().identify().collect();
 		new Chocolate().identify().collect();
-		new DewVial().identify().collect();
-		new PlantPotBlock(3).identify().collect();
+		new DewVial(0,0).identify().collect();
+		//new WandOfTest().identify().collect();
 		if (Dungeon.skins != 3 && Dungeon.skins != 6) {
 			new Ankhshield().collect();
 		}
@@ -327,7 +352,7 @@ public enum HeroClass {
 		
 		if (Dungeon.skins == 5) {
 
-			Weapon weapon = (Weapon) Generator.random(Generator.Category.WEAPON);
+			Weapon weapon = (Weapon) Generator.random(Generator.Category.MELEEWEAPON);
 			Armor armor = new BaseArmor();
 			Ring ring = (Ring) Generator.random(Generator.Category.RING);
 			Artifact artifact = (Artifact) Generator.random(Generator.Category.ARTIFACT);
@@ -343,7 +368,7 @@ public enum HeroClass {
             Dungeon.limitedDrops.strengthPotions.count+=10;
 			Item shoes = Generator.random(Generator.Category.SHOES);
 			shoes.identify().collect();
-			new Whistle().collect();
+			new KnowledgeBook().collect();
 
 		}		
 
@@ -356,7 +381,7 @@ public enum HeroClass {
 			new Honey().collect();
 		}
 		if (Dungeon.isChallenged(Challenges.NIGHTMARE_VIRUS)){
-			new Ankh().collect();
+			new UnBlessAnkh().collect();
 		}
 		if (Dungeon.isChallenged(Challenges.ENERGY_LOST)){
 			new Pasty().collect();
@@ -387,7 +412,7 @@ public enum HeroClass {
 			//Dungeon.dewWater = true;
            // Dungeon.dewDraw = true;
 			new Elevator().collect();
-			new ArmorKit().collect();
+			new SkillBook().collect();
 			new SafeSpotPage().collect();
 		    new Town().collect();
 			new SewerChallenge().collect();
@@ -413,7 +438,7 @@ public enum HeroClass {
 			new TriForce().collect();
 			new Palantir().collect();
 
-
+           // new ApostleBox().collect();
 
 			new SoulCollect().collect();
 			//new ErrorAmmo(20).collect();
@@ -425,27 +450,27 @@ public enum HeroClass {
 			new EasterEgg().collect();
 			//new WandOfFlock().upgrade(5).identify().collect();
 			//new WandOfFlock().upgrade(10).identify().collect();
-
+           new AflyEgg().collect();
 			new GoldDragonEgg().collect();
-			new VioletDragonEgg().collect();
-			new ShadowDragonEgg().collect();
-			new LightDragonEgg().collect();
-			new GreenDragonEgg().collect();
-			new RedDragonEgg().collect();
-			new BlueDragonEgg().collect();
+			//new VioletDragonEgg().collect();
+		//	new ShadowDragonEgg().collect();
+		//	new LightDragonEgg().collect();
+		//	new GreenDragonEgg().collect();
+		//	new RedDragonEgg().collect();
+		//	new BlueDragonEgg().collect();
 			new PocketBall(10).collect();
 
-			//new Whistle().collect();
+			//new KnowledgeBook().collect();
 
 		for(int i=0; i<199; i++){
-			new ScrollOfMagicalInfusion().identify().collect();
+			//new ScrollOfMagicalInfusion().identify().collect();
 			//new ScrollOfTeleportation().identify().collect();
 			new ScrollOfIdentify().identify().collect();
             new ScrollOfMagicMapping().identify().collect();
 			//new WaterItem().collect();
 			new MoonCake().collect();
 			new PotionOfMindVision().identify().collect();
-			new PotionOfStrength().identify().collect();
+			//new PotionOfStrength().identify().collect();
 			//new ExpOre().collect();
 			//new SkillOfMig().collect();
 			//new PotionOfShield().identify().collect();
@@ -457,11 +482,14 @@ public enum HeroClass {
 	   }
 			for(int i=0; i<10; i++){
 		   // new ExpOre().collect();
-		    //new LevelDown().collect();
+		  // new StrBottle().collect();
+		   // new TransmutationBall().collect();
 				new Seedpod.Seed().collect();
 				new Dewcatcher.Seed().collect();
-				new ScrollOfRegrowth().collect();
-				//new PotionOfLiquidFlame().collect();
+				//new BlandfruitBush.Seed().collect();
+				//new Rotberry.Seed().collect();
+				new ScrollOfDummy().collect();
+				new PotionOfMending().collect();
 				new ScrollOfPsionicBlast().collect();
 				new Hamburger().collect();
 				new RandomMonthEgg().collect();
@@ -481,7 +509,10 @@ public enum HeroClass {
 
 			//new SewerReward().collect();
 		new SaveYourLife().collect();
-		//new BugMeat().collect();
+		new IceChallenge().collect();
+
+		//new UnBlessAnkh().collect();
+
 		//new WandOfFlock().upgrade(10).identify().collect();
 		//new WandOfBlackMeow().identify().collect();
 		new Pumpkin().collect();
@@ -522,7 +553,10 @@ public enum HeroClass {
 		return null;
 	}
 
-
+	public Badges.Badge learnBadge() {
+		return Badges.Badge.LEARN;
+	}
+	
 	private static void initWarrior(Hero hero) {
 
 		if (Dungeon.skins == 1) {
@@ -549,10 +583,10 @@ public enum HeroClass {
 				(hero.belongings.armor = new BaseArmor()).upgrade(6).identify();
 				new WandOfFirebolt().upgrade(6).identify().collect();
 				new DemoScroll().collect();
-				new PotionOfStrength().collect();
-				new PotionOfStrength().collect();
-				new PotionOfStrength().collect();
-				new PotionOfStrength().collect();
+				new StrBottle().collect();
+				new StrBottle().collect();
+				new StrBottle().collect();
+				new StrBottle().collect();
 				Dungeon.gold+=666;
 			new JumpW().collect();
 
@@ -578,7 +612,8 @@ public enum HeroClass {
 			new TestWeapon().identify().collect();
 			new TestWeapon().identify().collect();
 			new TestWeapon().identify().collect();
-			new TestWeapon().identify().collect();
+			new WandOfTest().identify().collect();
+			new TestArmor().identify().collect();
 
             new RewardPaper().identify().collect();
 
@@ -612,6 +647,7 @@ public enum HeroClass {
 			new JumpW().collect();
 	}
 
+		new Porksoup().identify().collect();
 			new PotionOfStrength().setKnown();
 			new ScrollOfUpgrade().setKnown();
 
@@ -682,6 +718,7 @@ public enum HeroClass {
 
 		}
 		hero.magicSkill = hero.magicSkill + 3;
+		new Meatroll().identify().collect();
 		new ScrollOfIdentify().setKnown();
 		new PotionOfLiquidFlame().setKnown();
 	
@@ -754,6 +791,18 @@ public enum HeroClass {
 
             hero.STR += 2;
             Dungeon.limitedDrops.strengthPotions.count+=2;
+		} else if (Dungeon.skins == 7) {
+			(hero.belongings.weapon = new Dagger()).identify();
+			(hero.belongings.armor = new VestArmor()).identify();
+			new JumpR().collect();
+			new AflyFood().collect();
+			new AflyFood().collect();
+			new AflyFood().collect();
+			new AflyEgg().collect();
+			new AflyEgg().collect();
+			new AflyEgg().collect();
+			hero.STR += 10;
+			Dungeon.limitedDrops.strengthPotions.count+=10;
 
         }else {
 
@@ -768,6 +817,7 @@ public enum HeroClass {
 			new JumpR().collect();
 		}
 
+		new RiceGruel().identify().collect();
 		new ScrollOfMagicMapping().setKnown();
 		new PotionOfInvisibility().setKnown();
 	}
@@ -835,6 +885,7 @@ public enum HeroClass {
 			empbola.identify().collect();
 			new JumpH().collect();
 		}
+		new Vegetablekebab().identify().collect();
 		new PotionOfMindVision().setKnown();
 		new ScrollOfRemoveCurse().setKnown();
 	}
@@ -896,7 +947,34 @@ public enum HeroClass {
             new PPC2().collect();
             new JumpP().collect();
 
-		} else {
+		}   else if (Dungeon.skins == 7) {
+
+            hero.STR += 2;
+            Dungeon.limitedDrops.strengthPotions.count+=2;
+
+            (hero.belongings.weapon = new MegaCannon()).identify();
+             hero.belongings.weapon.activate(hero);
+             (hero.belongings.armor = new PerformerArmor()).identify();
+
+           new Dewcatcher.Seed().collect();
+            new Dewcatcher.Seed().collect();
+           new RockManJumpshoes().collect();
+
+
+          // new Alink().collect();
+		//	new Bmech().collect();
+		//	new Dpotion().collect();
+		//	new Gleaf().collect();
+		//	new Ichain().collect();
+		//	new Lbox().collect();
+		//	new Mlaser().collect();
+		//	new Nshuriken().collect();
+		//	new Obubble().collect();
+		//	new Sweb().collect();
+		//	new Trush().collect();
+		//	new Zshield().collect();
+
+    } else {
 
             (hero.belongings.weapon = new Triangolo()).identify();
             (hero.belongings.armor = new ClothArmor()).identify();
@@ -911,6 +989,7 @@ public enum HeroClass {
 			new DungeonBomb().collect();
         }
 
+		new NutCookie(6).identify().collect();
 		new DungeonBomb().collect();
 		new ScrollOfLullaby().setKnown();
 		new PotionOfPurity().setKnown();
@@ -980,6 +1059,8 @@ public enum HeroClass {
 			EscapeKnive knife = new EscapeKnive(3);
 			knife.identify().collect();
 		}
+
+		new MixPizza(4).identify().collect();
 			new ScrollOfRage().setKnown();
 			new PotionOfMending().setKnown();
 
@@ -1042,6 +1123,7 @@ public enum HeroClass {
 			new JumpF().collect();
 		}
 
+		new MoonCake().collect();
 		new ScrollOfTerror().setKnown();
         new PotionOfHealing().setKnown();
 
@@ -1068,13 +1150,16 @@ public enum HeroClass {
 			new JumpA().collect();
 		}  else if (Dungeon.skins == 3) {
 
-			//(hero.belongings.weapon = new WoodenStaff()).identify();
-			//(hero.belongings.armor = new VestArmor()).identify();
+            (hero.belongings.weapon = new Whisk()).identify();
+            (hero.belongings.armor = new LeatherArmor()).identify();
 
-			//new WandOfFirebolt().identify().collect();
-			//new WandOfFreeze().identify().collect();
-			//new GnollMark().collect();
-			//new PotionOfMage().identify().collect();
+            new BigBattery().identify().collect();
+            UnstableSpellbook spellbook = new UnstableSpellbook();
+            (hero.belongings.misc1 = spellbook).identify();
+            hero.belongings.misc1.activate(hero);
+
+            hero.STR += 4;
+            Dungeon.limitedDrops.strengthPotions.count+=4;
 
 		} else if (Dungeon.skins == 4) {
 
@@ -1097,6 +1182,21 @@ public enum HeroClass {
           //  new Hardpill().collect();
           //  new JumpW().collect();
 
+		} else if (Dungeon.skins == 7) {
+			 (hero.belongings.weapon = new NinjaFan()).identify();
+			  (hero.belongings.armor = new VestArmor()).identify();
+
+			DriedRose rose = new DriedRose();
+			(hero.belongings.misc1 = rose).identify();
+			hero.belongings.misc1.activate(hero);
+
+			Pylon pylon = new Pylon();
+			(hero.belongings.misc2 = pylon).identify();
+			hero.belongings.misc2.activate(hero);
+
+			  new WandOfFirebolt().identify().collect();
+			  new JumpW().collect();
+
 		} else {
 			(hero.belongings.weapon = new TrickSand()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -1108,11 +1208,17 @@ public enum HeroClass {
 
 		}
 		hero.magicSkill = hero.magicSkill + 3;
+		new FruitCandy(3).collect();
 		new ScrollOfMirrorImage().setKnown();
 		new PotionOfShield().setKnown();
 	
-	}	
-	
+	}
+
+	private static void initNewPlayer(Hero hero) {
+		hero.TRUE_HT = 50;
+		hero.HP = 10;
+	}
+
 	public String title() {
 		return Messages.get(HeroClass.class, title);
 	}
@@ -1140,12 +1246,39 @@ public enum HeroClass {
 		case FOLLOWER:
 			return Assets.FOLLOWER;	
 		case ASCETIC:
-			return Assets.ASCETIC;					
+			return Assets.ASCETIC;	
+        case NEWPLAYER:
+			return Assets.WARRIOR;				
 		}
 		
 		return null;
 	}
-	
+
+	public Image skinsheet(int skins) {
+		switch (this) {
+			case WARRIOR:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.WARRIOR + skins );
+			case MAGE:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.MAGE + skins );
+			case ROGUE:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.ROGUE + skins );
+			case HUNTRESS:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.HUNTRESS + skins );
+			case PERFORMER:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.PERFORMER + skins );
+			case SOLDIER:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.SOLDIER + skins );
+			case FOLLOWER:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.FOLLOWER + skins );
+			case ASCETIC:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.ASCETIC + skins );
+			case NEWPLAYER:
+				return new HeroSkinSprite(HeroSkinSpriteSheet.WARRIOR + skins );
+		}
+
+		return null;
+	}
+
 	public String[] perks() {
 		
 		switch (this) {

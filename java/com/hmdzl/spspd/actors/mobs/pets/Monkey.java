@@ -67,7 +67,7 @@ public class Monkey extends PET {
 	public int damageRoll() {
 		return Random.NormalIntRange((int)(5+hero.petLevel*0.5), (int)(5+hero.petLevel*1.5));
 	}
-
+	
 	@Override
 	public Item SupercreateLoot(){
 		return Generator.random(Generator.Category.BERRY);
@@ -75,7 +75,7 @@ public class Monkey extends PET {
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(hero.petLevel,hero.petLevel);
+		return Random.IntRange(hero.petLevel,hero.petLevel*3);
 	}
 
 	@Override

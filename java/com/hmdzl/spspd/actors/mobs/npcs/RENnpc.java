@@ -72,7 +72,7 @@ public class RENnpc extends NPC {
 	
 	@Override
 	public boolean interact() {
-		
+		CursePhone phone = Dungeon.hero.belongings.getItem(CursePhone.class);
 		sprite.turnTo(pos, Dungeon.hero.pos);
 		if(Dungeon.challengebookdrop == false) {
 			//Dungeon.limitedDrops.challengebook.dropped();
@@ -85,7 +85,7 @@ public class RENnpc extends NPC {
 			Dungeon.goeidrop = true;
 			yell(Messages.get(this, "yell5"));
 		} else
-		switch (Random.Int (3)) {
+		switch (Random.Int (4)) {
             case 0:
 			yell(Messages.get(this, "yell1"));
 			break;
@@ -95,6 +95,11 @@ public class RENnpc extends NPC {
 			case 2:
 			yell(Messages.get(this, "yell4"));
 			break;
+			case 3:
+				if (phone!=null){
+						yell(Messages.get(this, "yell6"));
+					}
+				break;
 		}
 		return true;
 	}

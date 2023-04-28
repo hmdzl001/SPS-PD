@@ -17,15 +17,16 @@
  */
 package com.hmdzl.spspd.items.potions;
 
-import com.hmdzl.spspd.Badges;
+import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Muscle;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.sprites.CharSprite;
+import com.hmdzl.spspd.effects.Speck;
 
 public class PotionOfStrength extends Potion {
 
 	{
-		//name = "Potion of Strength";
+		//name = "Potion of MoonFury";
         initials = 13;
 		 
 	}
@@ -33,11 +34,10 @@ public class PotionOfStrength extends Potion {
 	@Override
 	public void apply(Hero hero) {
 		setKnown();
-
-		hero.STR++;
-        hero.HP += (hero.HT - hero.HP);
-		hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "msg_1"));
-		Badges.validateStrengthAttained();
+        Buff.affect(hero, AttackUp.class,360f).level(40);
+		Buff.affect(hero, Muscle.class,360f);
+		hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
+		
 	}
 
 	@Override

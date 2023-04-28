@@ -36,6 +36,7 @@ import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
@@ -48,6 +49,7 @@ import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
+import com.hmdzl.spspd.items.weapon.rockcode.Sweb;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
@@ -205,6 +207,9 @@ public class SpiderQueen extends Mob {
 	    Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
 	
 	    Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Sweb(), Dungeon.hero.pos).sprite.drop();
 		yell(Messages.get(this,"die"));
 		super.die(cause);
 	}

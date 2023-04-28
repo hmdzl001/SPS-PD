@@ -116,7 +116,7 @@ public class SoldierSkill extends ClassSkill {
 	@Override
 	public void doSpecial2() {
 		SoldierSkill.charge += 25;
-		Buff.affect(curUser, MechArmor.class).level(250);
+		Buff.affect(curUser, MechArmor.class).level(300);
 		Buff.affect(curUser, ShieldArmor.class).level(Dungeon.hero.lvl*3);
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);

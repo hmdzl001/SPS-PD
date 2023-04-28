@@ -11,6 +11,7 @@ public class RingOfEnergy extends Ring {
 	{
 		//name = "Ring of Energy";
 		initials = 11;
+		sname = "ENG";
 	}
 	
 	public String statsInfo() {

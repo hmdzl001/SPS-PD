@@ -24,6 +24,7 @@ public class RingOfMagic extends Ring {
 	{
 		//name = "Ring of Magic";
 		initials = 6;
+		sname = "MIG";
 	}
 
 	public String statsInfo() {

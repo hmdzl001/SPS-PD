@@ -26,10 +26,11 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.items.ArmorKit2;
+import com.hmdzl.spspd.items.ArmorKit;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
@@ -40,6 +41,7 @@ import com.hmdzl.spspd.items.misc.UndeadBook;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.missiles.Skull;
+import com.hmdzl.spspd.items.weapon.rockcode.Zshield;
 import com.hmdzl.spspd.levels.CityBossLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
@@ -196,8 +198,11 @@ public class King extends Mob {
 		 for (Mob mob : Dungeon.level.mobs) {
 			if (mob instanceof DwarfKingTomb){findTomb=mob.pos;}
 		 }
-		Dungeon.level.drop(new ArmorKit2(), pos).sprite.drop();
+		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
 		 Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Zshield(), Dungeon.hero.pos).sprite.drop();
 		summonLiches(findTomb);
 		GLog.n(Messages.get(this, "liches"));
 

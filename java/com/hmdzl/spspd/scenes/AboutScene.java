@@ -40,7 +40,20 @@ public class AboutScene extends PixelScene {
 
 	private static final String TXT_SHPX = "Modified from lots of Pixel Dungeon Mods";
 
-	private static final String LNK_SHPX = "github.com/hmdzl001/SPS-PD";
+	private static final String TXT_CODE = "Game based code";
+
+	private static final String LNK_CODE = "github.com/hmdzl001/SPS-PD";
+
+	private static final String TXT_FOR_DEV = "Support developer";
+
+	private static final String LNK_FOR_DEV = "afdian.net/a/Hmdzl001SPS";
+
+	private static final String LNK_FOR_DEV2 = "PayPal.Me/Hmdzl001";
+
+	private static final String TXT_FOR_CHILD = "Support this mod";
+
+	private static final String LNK_FOR_CHILD = "unicef.org";
+
 
 	private static final String TTL_WATA = "Original Pixel Dungeon";
 
@@ -55,7 +68,7 @@ public class AboutScene extends PixelScene {
 		final float colWidth = Camera.main.width
 				/ (ShatteredPixelDungeon.landscape() ? 2 : 1);
 		final float colTop = (Camera.main.height / 2)
-				- (ShatteredPixelDungeon.landscape() ? 30 : 90);
+				- (ShatteredPixelDungeon.landscape() ? 60 : 120);
 		final float wataOffset = ShatteredPixelDungeon.landscape() ? colWidth
 				: 0;
 
@@ -72,38 +85,105 @@ public class AboutScene extends PixelScene {
 		add( shpxtitle );
 
 		shpxtitle.x = (colWidth - shpxtitle.width()) / 2;
-		shpxtitle.y = shpx.y + shpx.height + 5;
+		shpxtitle.y = shpx.y + shpx.height + 3;
 		align(shpxtitle);
 
 		RenderedTextMultiline shpxtext = renderMultiline( TXT_SHPX, 8 );
 		shpxtext.maxWidth((int)Math.min(colWidth, 120));
 		add( shpxtext );
 
-		shpxtext.setPos((colWidth - shpxtext.width()) / 2, shpxtitle.y + shpxtitle.height() + 12);
+		shpxtext.setPos((colWidth - shpxtext.width()) / 2, shpxtitle.y + shpxtitle.height() + 4);
 		align(shpxtext);
 
-		RenderedTextMultiline shpxlink = renderMultiline( LNK_SHPX, 8 );
+		RenderedTextMultiline codetext = renderMultiline( TXT_CODE, 8 );
+		codetext.maxWidth((int)Math.min(colWidth, 120));
+		add( codetext );
+
+		codetext.setPos((colWidth - codetext.width()) / 2, shpxtext.bottom() );
+		align(codetext);
+
+		RenderedTextMultiline shpxlink = renderMultiline(LNK_CODE, 8 );
 		shpxlink.maxWidth(shpxtext.maxWidth());
 		shpxlink.hardlight( Window.SHPX_COLOR );
 		add( shpxlink );
 
-		shpxlink.setPos((colWidth - shpxlink.width()) / 2, shpxtext.bottom() + 6);
+		shpxlink.setPos((colWidth - shpxlink.width()) / 2, codetext.bottom());
 		align(shpxlink);
-		
 		TouchArea shpxhotArea = new TouchArea( shpxlink.left(), shpxlink.top(), shpxlink.width(), shpxlink.height() ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "https://" + LNK_SHPX ) );
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "https://" + LNK_CODE) );
 				Game.instance.startActivity( intent );
 			}
 		};
 		add(shpxhotArea);
 
+		RenderedTextMultiline supdtext = renderMultiline( TXT_FOR_DEV, 8 );
+		supdtext.maxWidth((int)Math.min(colWidth, 120));
+		add( supdtext );
+		supdtext.setPos((colWidth - supdtext.width()) / 2, shpxlink.bottom() );
+		align(supdtext);
+
+		RenderedTextMultiline supdlink = renderMultiline(LNK_FOR_DEV, 8 );
+		supdlink.maxWidth(supdtext.maxWidth());
+		supdlink.hardlight( Window.SHPX_COLOR );
+		add( supdlink );
+
+		supdlink.setPos((colWidth - supdlink.width()) / 2, supdtext.bottom());
+		align(supdlink);
+		TouchArea supdlinkArea = new TouchArea( supdlink.left(), supdlink.top(), supdlink.width(), supdlink.height() ) {
+			@Override
+			protected void onClick( Touch touch ) {
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "https://" + LNK_FOR_DEV) );
+				Game.instance.startActivity( intent );
+			}
+		};
+		add(supdlinkArea);
+
+		RenderedTextMultiline supdlink2 = renderMultiline(LNK_FOR_DEV2, 8 );
+		supdlink2.maxWidth(supdlink.maxWidth());
+		supdlink2.hardlight( Window.SHPX_COLOR );
+		add( supdlink2 );
+
+		supdlink2.setPos((colWidth - supdlink2.width()) / 2, supdlink.bottom() );
+		align(supdlink2);
+		TouchArea supdlink2Area = new TouchArea( supdlink2.left(), supdlink2.top(), supdlink2.width(), supdlink2.height() ) {
+			@Override
+			protected void onClick( Touch touch ) {
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "https://" + LNK_FOR_DEV2) );
+				Game.instance.startActivity( intent );
+			}
+		};
+		add(supdlink2Area);
+
+		RenderedTextMultiline supgtext = renderMultiline( TXT_FOR_CHILD, 8 );
+		supgtext.maxWidth((int)Math.min(colWidth, 120));
+		add( supgtext );
+
+		supgtext.setPos((colWidth - supgtext.width()) / 2, supdlink2.bottom());
+		align(supgtext);
+
+		RenderedTextMultiline supglink = renderMultiline(LNK_FOR_CHILD, 8 );
+		supglink.maxWidth(supgtext.maxWidth());
+		supglink.hardlight( Window.SHPX_COLOR );
+		add( supglink );
+
+		supglink.setPos((colWidth - supglink.width()) / 2, supgtext.bottom() );
+		align(supglink);
+		TouchArea supglinkArea = new TouchArea( supglink.left(), supglink.top(), supglink.width(), supglink.height() ) {
+			@Override
+			protected void onClick( Touch touch ) {
+				Intent intent = new Intent( Intent.ACTION_VIEW, Uri.parse( "https://" + LNK_FOR_CHILD) );
+				Game.instance.startActivity( intent );
+			}
+		};
+		add(supglinkArea);
+
+
 		Image wata = Icons.WATA.get();
 		wata.x = wataOffset + (colWidth - wata.width()) / 2;
 		wata.y = ShatteredPixelDungeon.landscape() ?
-						colTop:
-						shpxlink.top() + wata.height + 20;
+						colTop:supglink.top() + wata.height + 20;
 		align(wata);
 		add( wata );
 

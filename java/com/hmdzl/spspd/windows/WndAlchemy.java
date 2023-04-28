@@ -27,16 +27,12 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.items.Stylus;
-import com.hmdzl.spspd.items.Torch;
-import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
-import com.hmdzl.spspd.items.bombs.HugeBomb;
 import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.food.FishCracker;
 import com.hmdzl.spspd.items.food.Honey;
@@ -44,11 +40,9 @@ import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.items.food.completefood.Chickennugget;
 import com.hmdzl.spspd.items.food.completefood.Chocolate;
-import com.hmdzl.spspd.items.sellitem.Crystalnucleus;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
 import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
-import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.food.completefood.Gel;
 import com.hmdzl.spspd.items.food.completefood.Hamburger;
 import com.hmdzl.spspd.items.food.completefood.Herbmeat;
@@ -64,6 +58,7 @@ import com.hmdzl.spspd.items.food.completefood.NutCake;
 import com.hmdzl.spspd.items.food.completefood.PerfectFood;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.completefood.Porksoup;
+import com.hmdzl.spspd.items.food.completefood.RiceGruel;
 import com.hmdzl.spspd.items.food.completefood.Ricefood;
 import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.items.food.completefood.Vegetableroll;
@@ -97,25 +92,8 @@ import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfMixing;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
+import com.hmdzl.spspd.items.sellitem.Crystalnucleus;
 import com.hmdzl.spspd.items.summon.Honeypot;
-import com.hmdzl.spspd.items.weapon.spammo.BattleAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.BlindAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.DewAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.DreamAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.EmptyAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.EvolveAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.FireAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.GoldAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.HeavyAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.IceAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.MossAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.RotAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.SandAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.StarAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.StormAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.SunAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.ThornAmmo;
-import com.hmdzl.spspd.items.weapon.spammo.WoodenAmmo;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.BlandfruitBush;
 import com.hmdzl.spspd.plants.Blindweed;
@@ -125,6 +103,7 @@ import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Fadeleaf;
 import com.hmdzl.spspd.plants.Firebloom;
 import com.hmdzl.spspd.plants.Flytrap;
+import com.hmdzl.spspd.plants.Freshberry;
 import com.hmdzl.spspd.plants.Icecap;
 import com.hmdzl.spspd.plants.NutPlant;
 import com.hmdzl.spspd.plants.Phaseshift;
@@ -351,9 +330,6 @@ public class WndAlchemy extends Window {
 		ArrayList<StapleFood> staplefoods = filterInput(StapleFood.class);
 		ArrayList<MeatFood> meatfoods = filterInput(MeatFood.class);
 
-		ArrayList<Weightstone> ws = filterInput(Weightstone.class);
-		ArrayList<Stylus> sty = filterInput(Stylus.class);
-
 		ArrayList<FishCracker> fishs = filterInput(FishCracker.class);
 
 		ArrayList<Potion> potions = filterInput(Potion.class);
@@ -374,6 +350,7 @@ public class WndAlchemy extends Window {
 		ArrayList<Fadeleaf.Seed> sandseed = filterInput(Fadeleaf.Seed.class);
 		ArrayList<Seedpod.Seed> seedseed = filterInput(Seedpod.Seed.class);
 		ArrayList<Rotberry.Seed> rotseed = filterInput(Rotberry.Seed.class);
+		ArrayList<Freshberry.Seed> freseed = filterInput( Freshberry.Seed.class);
 		ArrayList<Earthroot.Seed> rootseed = filterInput(Earthroot.Seed.class);
 		ArrayList<BlandfruitBush.Seed> blandseed = filterInput(BlandfruitBush.Seed.class);
 		ArrayList<Flytrap.Seed> trapseed = filterInput(Flytrap.Seed.class);
@@ -385,9 +362,7 @@ public class WndAlchemy extends Window {
 		Statistics.potionsCooked++;
 		Badges.validatePotionsCooked();
 
-        if (honey.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && seeds.size() == 1 ){
-			result = new PerfectFood();
-		} else if (vegetables.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && fruits.size() == 1 ){
+        if (vegetables.size() == 1  && ore.size() == 1 && staplefoods.size() ==1 && water.size() == 1 && fruits.size() == 1 ){
 			result = new PerfectFood();
 		} else if (fishs.size() == 1){
 			result = new PerfectFood();
@@ -413,6 +388,8 @@ public class WndAlchemy extends Window {
 			result = new Chocolate();
 		} else if ( nut.size() == 4 ){
 			result = new OverpricedRation();
+		} else if (staplefoods.size() ==1  && water.size() ==2 ){
+			result = new RiceGruel(2);
 		} else if (staplefoods.size() ==1  && vegetables.size() == 1 && meatfoods.size() ==1 ){
 			result = new ZongZi();
 		} else if (fruits.size() ==1  && potions.size() == 2 ){
@@ -474,7 +451,6 @@ public class WndAlchemy extends Window {
 			result = new NutCake();
 		} else if (staplefoods.size() ==1  && nut.size() == 2 ){
 			result = new MoonCake();
-
 		} else if ( nut.size() == 3 ){
 			result = new StoneOre();
 		} else if (nut.size() == 2 && water.size() == 1){
@@ -502,54 +478,6 @@ public class WndAlchemy extends Window {
 			result = new Vegetableroll();
 		} else if ( ore.size() == 1 && water.size() == 1 ){
 			result = new Gel();
-		} else if ( ore.size() == 1 && seeds.size() == 1 && scrolls.size() == 1 ){
-			result = new BuildBomb();
-		} else if ( bbomb.size() == 1 && seeds.size() == 2 ){
-			result = Generator.random( Generator.Category.BOMBS );
-	    } else if ( bbomb.size() == 2 ){
-		    result = new HugeBomb();
-        } else if ( ore.size() == 2 ){
-            result = new HeavyAmmo();
-		} else if ( ore.size() == 1 && nutseed.size()==1){
-			result = new WoodenAmmo();
-        } else if ( ore.size() == 1 && fireseed.size() == 1 ){
-            result = new FireAmmo();
-        } else if ( ore.size() == 1 && iceseed.size() == 1 ){
-            result = new IceAmmo();
-        } else if (ore.size() == 1 && stormseed.size() == 1  ){
-            result = new StormAmmo();
-        } else if (ore.size() == 1 && mossseed.size() == 1 ){
-            result = new MossAmmo();
-        } else if ( ore.size() == 1 && blindseed.size() == 1 ){
-            result = new BlindAmmo();
-        } else if ( ore.size() == 1 && starseed.size() == 1 ){
-            result = new StarAmmo();
-        } else if ( ore.size() == 1 && dreamseed.size() == 1  ){
-			result = new DreamAmmo();
-		} else if ( ore.size() == 1 && dewseed.size() == 1  ){
-			result = new DewAmmo();
-		} else if ( ore.size() == 1 && sunseed.size() == 1  ){
-			result = new SunAmmo();
-		} else if ( ore.size() == 1 && sandseed.size() == 1  ){
-			result = new SandAmmo();
-		} else if ( ore.size() == 1 && seedseed.size() == 1  ){
-			result = new GoldAmmo();
-		} else if ( ore.size() == 1 && rotseed.size() == 1  ){
-			result = new RotAmmo();
-		} else if ( ore.size() == 1 && rootseed.size() == 1  ){
-			result = new ThornAmmo();
-		} else if ( ore.size() == 1 && blandseed.size() == 1  ){
-			result = new EmptyAmmo();
-		} else if ( ore.size() == 1 && phaseseed.size() == 1  ){
-			result = new EvolveAmmo();
-		} else if ( ore.size() == 1 && trapseed.size() == 1  ){
-			result = new BattleAmmo();
-		} else if ( ws.size() == 1 && sty.size() == 1  ){
-			result = new GreatRune();
-		} else if ( miscroll.size() == 1  ){
-			result = new GreatRune();
-		} else if ( gels.size() == 1  ){
-			result = new Torch();
 		} else if ( nut.size() == 1  ){
 			result = new NutVegetable();
 	} else result = new Garbage();

@@ -203,6 +203,7 @@ public class Armor extends KindOfArmor {
 				: super.toString();
 	}
 
+
 	@Override
 	public String name() {
 		return glyph == null ? super.name() : glyph.name(super.name());

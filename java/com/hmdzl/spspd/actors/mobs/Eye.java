@@ -73,7 +73,7 @@ public class Eye extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return Generator.random(Generator.Category.WAND);
+		return Random.oneOf( Generator.random(Generator.Category.POTION), Generator.random(Generator.Category.WAND));
 	}
 
 	@Override

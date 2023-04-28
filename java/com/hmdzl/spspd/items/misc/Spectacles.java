@@ -23,7 +23,7 @@ public class Spectacles extends MiscEquippable {
 
 	{
 		image = ItemSpriteSheet.OTILUKES_SPECS;
-		unique = true;
+		//unique = true;
 	}
 	
 	@Override
@@ -42,6 +42,11 @@ public class Spectacles extends MiscEquippable {
 	@Override
 	public boolean isUpgradable() {
 		return false;
+	}
+
+	@Override
+	public int price() {
+		return 500 * quantity;
 	}
 
 }

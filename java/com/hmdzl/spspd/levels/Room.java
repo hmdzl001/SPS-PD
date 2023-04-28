@@ -27,13 +27,13 @@ import com.hmdzl.spspd.levels.painters.ExitPainter;
 import com.hmdzl.spspd.levels.painters.GardenPainter;
 import com.hmdzl.spspd.levels.painters.JunglePainter;
 import com.hmdzl.spspd.levels.painters.LibraryPainter;
-import com.hmdzl.spspd.levels.painters.MagicKeeperPainter;
 import com.hmdzl.spspd.levels.painters.MaterialPainter;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.painters.PassagePainter;
 import com.hmdzl.spspd.levels.painters.PitPainter;
 import com.hmdzl.spspd.levels.painters.PoolPainter;
 import com.hmdzl.spspd.levels.painters.RatKingPainter;
+import com.hmdzl.spspd.levels.painters.RuinRoomPainter;
 import com.hmdzl.spspd.levels.painters.ShopPainter;
 import com.hmdzl.spspd.levels.painters.StandardPainter;
 import com.hmdzl.spspd.levels.painters.StatuePainter;
@@ -42,7 +42,8 @@ import com.hmdzl.spspd.levels.painters.TenguBoxPainter;
 import com.hmdzl.spspd.levels.painters.TrapsPainter;
 import com.hmdzl.spspd.levels.painters.TunnelPainter;
 import com.hmdzl.spspd.levels.painters.VaultPainter;
-import com.hmdzl.spspd.levels.painters.WeakFloorPainter;
+import com.hmdzl.spspd.levels.painters.challengeroom.PowerRoomPainter;
+import com.hmdzl.spspd.levels.painters.challengeroom.WisdomRoomPainter;
 import com.hmdzl.spspd.levels.painters.hidenroom.BarricadedPainter;
 import com.hmdzl.spspd.levels.painters.hidenroom.GlassRoomPainter;
 import com.hmdzl.spspd.levels.painters.hidenroom.HidenShopPainter;
@@ -90,19 +91,22 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		STORAGE(StoragePainter.class),
 		BARRICADED	(BarricadedPainter.class ),
 		MAGIC_WELL(MagicWellPainter.class), 
-		MAGIC_KEEPER(MagicKeeperPainter.class),
+
 		GARDEN(GardenPainter.class), 
 		CRYPT(CryptPainter.class), 
 		STATUE(StatuePainter.class), 
 		POOL(PoolPainter.class), 
 		RAT_KING(RatKingPainter.class), 
-		WEAK_FLOOR(WeakFloorPainter.class), 
-		PIT(PitPainter.class), 
+		RUIN_ROOM(RuinRoomPainter.class),
+		PRISON_PIT(PitPainter.class),
 		TENGU_BOX(TenguBoxPainter.class),
 		MEMORY(MemoryPainter.class),
 		HIDE_SHOP(HidenShopPainter.class),
 		WISH_POOL(WishPoolPainter.class),
-		GLASSROOM(GlassRoomPainter.class);
+		GLASSROOM(GlassRoomPainter.class),
+
+        WISDOM_ROOM(WisdomRoomPainter.class),
+        POWER_ROOM(PowerRoomPainter.class);
 
 
 		private Method paint;
@@ -125,16 +129,13 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	}
 
     public static final ArrayList<Type> SPECIALS = new ArrayList<Type>(
-			Arrays.asList(Type.WEAK_FLOOR, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,
+			Arrays.asList(Type.RUIN_ROOM, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,
 					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.COOKING, Type.VAULT));
 
 	public static final ArrayList<Type> HIDE = new ArrayList<Type>(
 			Arrays.asList( Type.MAGIC_WELL, Type.MEMORY, Type.BARRICADED,Type.HIDE_SHOP,
 					Type.MAGIC_WELL, Type.HIDE_SHOP, Type.WISH_POOL,Type.GLASSROOM,
-					Type.MEMORY, Type.BARRICADED, Type.WISH_POOL,Type.GLASSROOM));
-
-	//public static final ArrayList<Type> HIDE = new ArrayList<Type>(
-	//		Arrays.asList( Type.WISH_POOL));
+					Type.PRISON_PIT, Type.BARRICADED, Type.WISH_POOL,Type.PRISON_PIT));
 
 	public Type type = Type.NULL;
 
@@ -151,8 +152,8 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	public void addNeigbour(Room other) {
 
 		Rect i = intersect(other);
-		if ((i.width() == 0 && i.height() >= 2)
-				|| (i.height() == 0 && i.width() >= 2)) {
+		if ((i.width() == 0 && i.height() >= 3)
+				|| (i.height() == 0 && i.width() >= 3)) {
 			neigbours.add(other);
 			other.neigbours.add(this);
 		}
@@ -209,7 +210,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	}
 
 	@Override
-	public void price(int value) {
+   	public void price(int value) {
 		price = value;
 	}
 

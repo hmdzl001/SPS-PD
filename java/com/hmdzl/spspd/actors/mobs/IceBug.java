@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.FrostIce;
@@ -27,7 +28,9 @@ import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce2;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.plants.Icecap;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.IceBugSprite;
 import com.watabou.utils.Random;
 
@@ -76,6 +79,29 @@ public class IceBug extends Mob {
 	@Override
 	public int drRoll() {
 	    return Random.NormalIntRange(2, 5);
+	}
+
+	public static void spawnAround(int pos) {
+		for (int n : Level.NEIGHBOURS4) {
+			int cell = pos + n;
+			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				spawnAt(cell);
+			}
+		}
+	}
+
+	public static IceBug spawnAt(int pos) {
+		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+
+			IceBug w = new IceBug();
+			w.pos = pos;
+			w.state = w.HUNTING;
+			GameScene.add(w, 1f);
+			return w;
+
+		} else {
+			return null;
+		}
 	}
 
 	{

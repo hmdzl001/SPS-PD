@@ -27,7 +27,8 @@ public class Shootpill extends Pill {
 
 	{
 		//name = "shootpill";
-		image = ItemSpriteSheet.PILL_SOT;
+		image = ItemSpriteSheet.GREAT_PILL;
+		sname = "RNG";
 		 
 	}
 

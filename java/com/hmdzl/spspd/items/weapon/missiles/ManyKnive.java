@@ -18,10 +18,14 @@
 package com.hmdzl.spspd.items.weapon.missiles;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
@@ -29,20 +33,19 @@ import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndOptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 import java.util.ArrayList;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class ManyKnive extends Weapon {
 
@@ -135,8 +138,8 @@ public class ManyKnive extends Weapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-		MIN += 1;
-		MAX += 3;
+		//MIN += 1;
+		MAX += 2;
 		super.upgrade(enchant);
 
 		updateQuickslot();
@@ -152,15 +155,20 @@ public class ManyKnive extends Weapon {
 	public int damageRoll(Hero owner) {
 		int damage = Random.Int(MIN, MAX);
 
+		if (hero.buff(TargetShoot.class)!= null)
+	        damage = (int)(damage*1.5f);
+		if (hero.buff(MechArmor.class)!= null)
+			damage = (int)(damage*1.5f);
+		
 		float bonus = 0;
 		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-				bonus += ((RingOfSharpshooting.Aim) buff).level;
+			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+		}	
+		
+		if (Random.Int(10) < 3  &&  bonus > 0 ) {
+			damage = (int)(damage * ( 1.5 + 0.25 * bonus));
+			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
 		}
-		if (Dungeon.hero.buff(TargetShoot.class)!= null)
-			bonus += 10;
-		if (Dungeon.hero.buff(MechArmor.class)!= null)
-			bonus += 10;
-		damage = (int)(damage*(1 + 0.05*bonus));
 		return Math.round(damage);
 	}	
 	

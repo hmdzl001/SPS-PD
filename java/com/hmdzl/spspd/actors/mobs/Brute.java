@@ -25,6 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.missiles.Tamahawk;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BruteSprite;
@@ -35,13 +36,12 @@ import com.watabou.utils.Random;
 
 public class Brute extends Mob {
 
-	private static final String TXT_ENRAGED = "%s becomes enraged!";
 
 	{
 		spriteClass = BruteSprite.class;
 
-		HP = HT = 120+(adj(0)*Random.NormalIntRange(4, 8));
-		evadeSkill = 15+adj(0);
+		HP = HT = 120+(adj(0)*Random.NormalIntRange(1, 2));
+		evadeSkill = 10+adj(0);
 
 		EXP = 8;
 		maxLvl = 25;
@@ -70,21 +70,21 @@ public class Brute extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return enraged ? Random.NormalIntRange(25+adj(0), 60+adj(0)) : Random.NormalIntRange(10+adj(0), 35+adj(0));
+		return enraged ? Random.NormalIntRange(25+adj(0), 40+adj(0)) : Random.NormalIntRange(5+adj(0), 25+adj(0));
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return 20+adj(1);
+		return 10+adj(1);
 	}
 
 	@Override
 	protected float attackDelay() {
-		return 1.2f;
+		return 1.5f;
 	}
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, 10);
+		return enraged ? 0 :Random.NormalIntRange(0, 10);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class Brute extends Mob {
 
 		if (isAlive() && !enraged && HP < HT / 4) {
 			enraged = true;
-			Buff.affect(this,DefenceUp.class,5f).level(70);
+			Buff.affect(this,DefenceUp.class,3f).level(70);
 			spend(TICK);
 			if (Dungeon.visible[pos]) {
 				GLog.w(Messages.get(this, "enraged"));
@@ -110,6 +110,7 @@ public class Brute extends Mob {
 	}	*/
 
 	{
+		weakness.add(Wand.class);
 		immunities.add(Terror.class);
 	}
 

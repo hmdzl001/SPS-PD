@@ -50,6 +50,7 @@ public class Assets {
 	public static final String ASCETIC = "ascetic.png";
 	
 	public static final String AVATARS = "avatars.png";
+	public static final String AVATARS2 = "avatarsold.png";
 	public static final String PET = "pet.png";
 
 	public static final String SURFACE = "surface.png";
@@ -411,6 +412,11 @@ public class Assets {
 	public static final String LIT_DEMON = "litdemon.png";
 	public static final String STAR_KID = "starkid.png";
 	public static final String FROG_PET = "frogpet.png";
+
+	public static final String BLUE_GIRL = "bluegirl.png";
+
+	public static final String HERO_SKIN= "heroskin.png";
+	public static final String ABI= "Abbey.png";
 
 }
 

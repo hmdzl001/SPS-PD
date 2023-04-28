@@ -21,7 +21,7 @@ package com.hmdzl.spspd.actors.buffs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.Thief;
+import com.hmdzl.spspd.actors.mobs.ThiefImp;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.IceMeat;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
@@ -55,9 +55,7 @@ public class Chill extends FlavourBuff {
 
 				Hero hero = (Hero)target;
 				Item item = hero.belongings.randomUnequipped();
-				if (item instanceof Potion
-						&& !(item instanceof PotionOfStrength || item instanceof PotionOfMight)) {
-
+				if (item instanceof Potion) {
 					item = item.detach( hero.belongings.backpack );
 					GLog.w(Messages.get(this, "freezes", item.toString()));
 					((Potion) item).shatter(hero.pos);
@@ -72,13 +70,13 @@ public class Chill extends FlavourBuff {
 					GLog.w(Messages.get(this, "freezes", item.toString()));
 
 				}
-			} else if (target instanceof Thief) {
+			} else if (target instanceof ThiefImp) {
 
-				Item item = ((Thief) target).item;
+				Item item = ((ThiefImp) target).item;
 
-				if (item instanceof Potion && !(item instanceof PotionOfStrength || item instanceof PotionOfMight)) {
-					((Potion) ((Thief) target).item).shatter(target.pos);
-					((Thief) target).item = null;
+				if (item instanceof Potion) {
+					((Potion) ((ThiefImp) target).item).shatter(target.pos);
+					((ThiefImp) target).item = null;
 				}
 
 			}

@@ -116,8 +116,8 @@ public class PotionOfPurity extends Potion {
 	@Override
 	public void apply(Hero hero) {
 		GLog.w(Messages.get(this, "no_smell"));
-		Buff.prolong(hero, GasesImmunity.class, GasesImmunity.DURATION);
-		Buff.prolong(hero, HighLight.class, 10f);
+		Buff.prolong(hero, GasesImmunity.class, 60f);
+		Buff.prolong(hero, HighLight.class, 120f);
 		setKnown();
 	}
 

@@ -24,6 +24,7 @@ public class RingOfAccuracy extends Ring {
 	{
 		//name = "Ring of Accuracy";
 		initials = 0;
+		sname = "ACU";
 	}
 
 	public String statsInfo() {

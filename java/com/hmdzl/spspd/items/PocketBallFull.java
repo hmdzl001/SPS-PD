@@ -24,7 +24,9 @@ import com.hmdzl.spspd.actors.buffs.HiddenShadow;
 import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.pets.Abi;
 import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
+import com.hmdzl.spspd.actors.mobs.pets.BlueGirl;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Bunny;
 import com.hmdzl.spspd.actors.mobs.pets.ButterflyPet;
@@ -224,6 +226,7 @@ public class PocketBallFull extends Item {
                 pet = new Velocirooster();
                 break;
             case 405:
+			   pet = new Abi();
                 break;
             case 501:
                 pet = new BlueDragon();
@@ -254,6 +257,9 @@ public class PocketBallFull extends Item {
                 break;
             case 510:
                 pet = new BugDragon();
+                break;
+			case 601:
+                pet = new BlueGirl();
                 break;
             case 666:
                 pet = new YearPet();
@@ -359,6 +365,7 @@ public class PocketBallFull extends Item {
                   pet = new Velocirooster();
                   break;
               case 405:
+			  pet = new Abi();
                   break;
               case 501:
                   pet = new BlueDragon();
@@ -390,6 +397,9 @@ public class PocketBallFull extends Item {
               case 510:
                   pet = new BugDragon();
                   break;
+              case 601:
+                pet = new BlueGirl();
+                break;				  
               case 666:
                   pet = new YearPet();
                   break;

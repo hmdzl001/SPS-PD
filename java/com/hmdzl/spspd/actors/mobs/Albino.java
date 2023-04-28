@@ -21,12 +21,15 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
+import com.hmdzl.spspd.actors.blobs.SandStorm;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
+import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AlbinoSprite;
 import com.watabou.utils.Random;
@@ -58,14 +61,25 @@ public class Albino extends Rat {
 
 	@Override
 	public boolean act() {
-		GameScene.add(Blob.seed(pos, 15, CorruptGas.class));
+		for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
+			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2, SandStorm.class));
+		}
 		return super.act();
 	}
-	
+
+	@Override
+	public void damage(int dmg, Object src) {
+		GameScene.add(Blob.seed(pos, 15, CorruptGas.class));
+		super.damage(dmg, src);
+	}
+
+
 	{
+		resistances.add(Wand.class);
 		immunities.add(Amok.class);
 		immunities.add(Terror.class);
 		immunities.add(CorruptGas.class);
 		immunities.add(Vertigo.class);
+		immunities.add(SandStorm.class);
 	}
 }

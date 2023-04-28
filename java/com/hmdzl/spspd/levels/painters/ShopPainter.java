@@ -57,7 +57,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunB;
 import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
-import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
+import com.hmdzl.spspd.items.weapon.melee.special.PaperFan;
 import com.hmdzl.spspd.levels.HallsLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
@@ -122,14 +122,14 @@ public class ShopPainter extends Painter {
 		case 1:
 			itemsToSpawn.add(new GunA().identify());
 			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new Pumpkin());
-		    itemsToSpawn.add(new DolyaSlate().identify());
+			itemsToSpawn.add(new PaperFan());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());
             break;	
 			
 		case 6:
-			itemsToSpawn.add(new SafeSpotPage().identify());
+            itemsToSpawn.add(new DolyaSlate().identify());
+
 			itemsToSpawn.add(new GunB().identify());
 			//itemsToSpawn.add(new DiscArmor().identify());
 			break;

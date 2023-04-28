@@ -17,14 +17,15 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.skills.ClassSkill;
+import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
 
 public class ArmorKit extends Item {
 
@@ -61,9 +62,9 @@ public class ArmorKit extends Item {
 		curUser.busy();
 
 		//GLog.w(Messages.get(this,"upgraded", armor.name()));
-		ClassSkill classSkill = ClassSkill.upgrade(curUser);
-		classSkill.collect(curUser.belongings.backpack);
-
+		NormalArmor classArmor = NormalArmor.upgrade(curUser);
+		//classArmor.collect(curUser.belongings.backpack);
+		Dungeon.level.drop(classArmor, Dungeon.hero.pos).sprite.drop();
 		curUser.sprite.operate(curUser.pos);
 		Sample.INSTANCE.play(Assets.SND_EVOKE);
 
@@ -116,13 +117,13 @@ public class ArmorKit extends Item {
 		@Override
 		public void onSelect(Item item) {
 			if (item != null) {
-				ArmorKit.this.upgrade((Armor) item);
+				SkillBook.this.upgrade((Armor) item);
 			}
 		}
 	};*/
 	
 	@Override
 	public int price() {
-		return 200 * quantity;
+		return 100 * quantity;
 	}
 }

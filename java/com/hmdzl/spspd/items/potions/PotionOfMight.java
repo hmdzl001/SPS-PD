@@ -17,9 +17,11 @@
  */
 package com.hmdzl.spspd.items.potions;
 
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.actors.buffs.HTimprove;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.sprites.CharSprite;
+import com.hmdzl.spspd.effects.Speck;
 
 public class PotionOfMight extends Potion {
 
@@ -32,12 +34,12 @@ public class PotionOfMight extends Potion {
 	@Override
 	public void apply(Hero hero) {
 		setKnown();
-		
-		hero.TRUE_HT += 10;
-		hero.HP += 10;
+		Buff.affect(hero, DefenceUp.class,360f).level(40);
+		hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
+		Buff.prolong(hero, HTimprove.class,360f);
 		hero.updateHT(true);
 		
-		hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "msg_1"));
+		
 	}
 
 

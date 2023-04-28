@@ -46,27 +46,33 @@ public class DemoScroll extends Item {
 	}
 
 	public static int charge;
+	public static int charge2;
 	private static final String CHARGE = "charge";
-	
+	private static final String CHARGE2 = "charge2";
+
+
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (Dungeon.hero.spp < hero.lvl && hero.TRUE_HT >  hero.lvl) actions.add(AC_READ);
+		if (charge2 < hero.lvl && hero.TRUE_HT >  hero.lvl) actions.add(AC_READ);
 		if (charge>10 ) actions.add(AC_READ2);
 		return actions;
 	}
-	
+
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(CHARGE, charge);
+		bundle.put(CHARGE2, charge2);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
-	}		
+		charge2 = bundle.getInt(CHARGE2);
+	}
+
 	@Override
 	public int price() {
 		return 30 * quantity;
@@ -95,7 +101,7 @@ public class DemoScroll extends Item {
 		default:
 			break;
         }
-		 Dungeon.hero.spp ++;
+		 charge2 ++;
 		 hero.sprite.operate(hero.pos);
 		hero.busy();
 		hero.spend(2f);
@@ -128,6 +134,7 @@ public class DemoScroll extends Item {
 	public String info() {
 		String info = desc();
 		info += "\n\n" + Messages.get(this, "charge",charge);
+		info += "\n\n" + Messages.get(this, "charge2",charge);
 		return info;
 	}
 

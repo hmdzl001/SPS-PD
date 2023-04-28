@@ -45,7 +45,8 @@ public class InterlevelScene extends PixelScene {
 	public enum Mode {
 		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, PORT4,
 		PORTSHADOWEATER,PORTPOT, PORTCRAB, PORTTENGU, PORTCOIN, PORTBONE, RETURNSAVE,
-		JOURNAL, SOKOBANFAIL, PALANTIR, BOSSRUSH, PORTMAP, SAVE, SLEEP, CHALLENGEBOOK, RESET,CHAOS
+		JOURNAL, SOKOBANFAIL, PALANTIR, BOSSRUSH, PORTMAP, SAVE, SLEEP, CHALLENGEBOOK, RESET,CHAOS,
+		LEARN
 	}
 
     public static Mode mode;
@@ -60,7 +61,6 @@ public class InterlevelScene extends PixelScene {
 
 	public static boolean noStory = false;
 
-	public static boolean fallIntoPit;
 
 	private enum Phase {
 		FADE_IN, STATIC, FADE_OUT
@@ -96,7 +96,6 @@ public class InterlevelScene extends PixelScene {
 				try {
 
 					Generator.reset();
-
 					switch (mode) {
 					case DESCEND:
 						descend();
@@ -187,6 +186,9 @@ public class InterlevelScene extends PixelScene {
 						break;
 					case CHAOS:
 						portal(17);
+						break;
+					case LEARN:
+						learn();
 						break;
 					}
 
@@ -311,8 +313,7 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.depth++;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 		}
-		Dungeon.switchLevel(level,
-				fallIntoPit ? level.pitCell() : level.randomRespawnCell());
+		Dungeon.switchLevel(level, level.randomRespawnCell());
 	}
 
 	private void ascend() throws IOException {
@@ -540,7 +541,7 @@ public class InterlevelScene extends PixelScene {
 		Dungeon.saveAll();
 		Level level;
 		if (branch==0 && !first){
-			Dungeon.depth=26;
+			Dungeon.depth=90;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
 		} else if (branch==1 && !first){
@@ -559,7 +560,7 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.depth=30;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
-		} else	if (branch==5 && !first){
+		} /*else	if (branch==5 && !first){
 			Dungeon.depth=31;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
@@ -567,16 +568,40 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.depth=32;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
 
-		/*} else if (branch==7 && !first){
+		} else if (branch==7 && !first){
 			Dungeon.depth=33;
 			level = Dungeon.loadLevel(Dungeon.hero.heroClass);*/
-		}else{
+		else{
 		level=Dungeon.newChallengeLevel(branch, first);
 		}
 
 		Dungeon.switchLevel(level, level.entrance);
 	}
-		
+
+	private void learn() throws IOException {
+
+		Actor.fixTime();
+		if (Dungeon.hero == null) {
+			//DriedRose.clearHeldGhostHero();
+			Dungeon.initlearn();
+			GameLog.wipe();
+		} else {
+			//DriedRose.holdGhostHero( Dungeon.level );
+			//DriedRose.clearHeldGhostHero();
+			//Dungeon.saveLevel();
+			Dungeon.saveAll();
+		}
+
+		Level level;
+		if (Dungeon.depth >= Statistics.deepestFloor){
+			level = Dungeon.newLearnLevel();
+		} else {
+			Dungeon.depth++;
+			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+		}
+		Dungeon.switchLevel(level, level.entrance);
+	}
+
 	@Override
 	protected void onBackPressed() {
 		// Do nothing

@@ -56,7 +56,9 @@ public class WallBlock extends MissileWeapon {
 				!(Dungeon.level.map[cell] == Terrain.WELL ||
 						Dungeon.level.map[cell] == Terrain.EMPTY_WELL ||
 						Dungeon.level.map[cell] == Terrain.ENTRANCE ||
-						Dungeon.level.map[cell] == Terrain.EXIT || Dungeon.level.map[cell] == Terrain.ALCHEMY )){
+						Dungeon.level.map[cell] == Terrain.EXIT ||
+						Dungeon.level.map[cell] == Terrain.ALCHEMY ||
+						Dungeon.level.map[cell] == Terrain.IRON_MAKER)){
 			Level.set(cell, Terrain.WALL);
 			GameScene.updateMap(cell);
 		}

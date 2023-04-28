@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.rings;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
@@ -27,17 +25,21 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.ItemStatusHandler;
 import com.hmdzl.spspd.items.KindofMisc;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Ring extends KindofMisc {
 
 	private static final int TICKS_TO_KNOW = 200;
 
 	private static final float TIME_TO_EQUIP = 1f;
+
+	public String sname = "RING" ;
 
 	protected Buff buff;
 	
@@ -84,6 +86,7 @@ public class Ring extends KindofMisc {
 	public Ring() {
 		super();
 		sync();
+		sname = "R";
 	}
 
 	@Override

@@ -23,9 +23,9 @@ import com.watabou.noosa.Image;
 
 public enum Icons {
 
-	SKULL, BUSY, COMPASS, INFO, PREFS, WARNING, TARGET, MASTERY, WATA, SHPX, WARRIOR, MAGE, ROGUE, HUNTRESS, PERFORMER, SOLDIER, FOLLOWER, ASCETIC, CLOSE, DEPTH, SLEEP, ALERT, 
+	SKULL, BUSY, COMPASS, INFO, PREFS, WARNING, TARGET, MASTERY, WATA, SHPX, WARRIOR, MAGE, ROGUE, HUNTRESS, PERFORMER, NEWPLAYER, SOLDIER, FOLLOWER, ASCETIC, CLOSE, DEPTH, SLEEP, ALERT,
 	BACKPACK, SEED_POUCH, SCROLL_HOLDER, POTION_BANDOLIER, WAND_HOLSTER, CHECKED, UNCHECKED, EXIT, CHALLENGE_OFF, CHALLENGE_ON, RESUME, SHOP_CART, KEYRING,
-	LAN, NOTES, SAVELOAD, HOS, LOST;
+	LAN, NOTES, SAVELOAD, HOS, CRASH_R, LOST;
 
 	public Image get() {
 		return get(this);
@@ -86,7 +86,7 @@ public enum Icons {
 			icon.frame(icon.texture.uvRect(86, 62, 97, 73));
 			break;	
 		case ASCETIC:
-			icon.frame(icon.texture.uvRect(102, 62, 115, 74));
+			icon.frame(icon.texture.uvRect(76, 78, 92, 89));
 			break;				
 		case CLOSE:
 			icon.frame(icon.texture.uvRect(0, 45, 13, 58));
@@ -154,6 +154,14 @@ public enum Icons {
 		case HOS:
 		    icon.frame( icon.texture.uvRect( 30, 65, 41, 75 ));
             break;
+			
+		case CRASH_R:
+		    icon.frame( icon.texture.uvRect(23,75,41,91));
+            break;
+			
+		case NEWPLAYER:
+		    icon.frame( icon.texture.uvRect( 102, 65, 126, 89 ));
+		    break;
 		}		
 		return icon;
 	}
@@ -175,7 +183,9 @@ public enum Icons {
 		case FOLLOWER:
 			return get(FOLLOWER);
 		case ASCETIC:
-			return get(ASCETIC);				
+			return get(ASCETIC);	
+        case NEWPLAYER:
+			return get(NEWPLAYER);				
 		default:
 			return null;
 		}

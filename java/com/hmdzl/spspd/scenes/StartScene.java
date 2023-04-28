@@ -34,6 +34,7 @@ import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.windows.WndChallenges;
 import com.hmdzl.spspd.windows.WndClass;
+import com.hmdzl.spspd.windows.WndImageOptions;
 import com.hmdzl.spspd.windows.WndOptions;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -196,7 +197,7 @@ public class StartScene extends PixelScene {
 		add(btnExit);
 
 		curClass = null;
-		updateClass(HeroClass.values()[ShatteredPixelDungeon.lastClass()]);
+		updateClass(HeroClass.values()[Math.min(ShatteredPixelDungeon.lastClass(),7)]);
 
 		fadeIn();
 
@@ -336,8 +337,8 @@ public class StartScene extends PixelScene {
 		private static final int MASTERY_NORMAL = 0x666644;
 		private static final int MASTERY_HIGHLIGHTED = 0xFFFF88;
 
-		private static final int WIDTH = 24;
-		private static final int HEIGHT = 32;
+		private static final int WIDTH = 28;
+		private static final int HEIGHT = 36;
 		private static final float SCALE = 1f;
 
 		private HeroClass cl;
@@ -382,7 +383,7 @@ public class StartScene extends PixelScene {
 			avatar = new Image(Assets.AVATARS);
 			add(avatar);
 
-			name = PixelScene.renderText(9);
+			name = PixelScene.renderText(6);
 			add(name);
 
 			emitter = new BitmaskEmitter(avatar);
@@ -493,21 +494,22 @@ public class StartScene extends PixelScene {
 		}
 	}
 	
-    private class WndSkin extends WndOptions {
+    private class WndSkin extends WndImageOptions {
 
         public WndSkin() {
             super(Messages.get(Skins.class, "title"), Messages.get(Skins.class, "info"),Messages.get(Skins.class, "normal"),
                     Messages.get(Skins.class, "first"),Messages.get(Skins.class, "second"),Messages.get(Skins.class, "third"),
-					Messages.get(Skins.class, "fourth"),Messages.get(Skins.class, "fifth"),Messages.get(Skins.class, "sixth"));
+					Messages.get(Skins.class, "fourth"),Messages.get(Skins.class, "fifth"),Messages.get(Skins.class, "sixth"),
+					Messages.get(Skins.class, "seventh"));
         }
 
      @Override
         protected void onSelect( int index ) {
 
             skins = index;
-		       final String skin = Skins.NAME_IDS[index];
+            final String skin = Skins.NAME_IDS[index];
                 StartScene.this.add( 
-				new WndOptions( Messages.get(Skins.class,skin),
+				new WndOptions( curClass.skinsheet(index) ,Messages.get(Skins.class,skin),
 						Messages.get(Skins.class, skin+"_desc"),
 							Messages.get(Skins.class, "yes"),
 							Messages.get(Skins.class, "no")

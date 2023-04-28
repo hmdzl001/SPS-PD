@@ -20,11 +20,11 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
+import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.input.Touchscreen.Touch;
-import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.TouchArea;
 import com.watabou.utils.SparseArray;
@@ -52,6 +52,7 @@ public class WndStory extends Window {
 	public static final int ID_TOWN = 10;
 	public static final int ID_CHAOS = 11;
 	public static final int ID_ZOT = 12;
+	public static final int ID_LEARN = 12;
 
 	private static final SparseArray<String> CHAPTERS = new SparseArray<String>();
 
@@ -69,6 +70,7 @@ public class WndStory extends Window {
         CHAPTERS.put( ID_TOWN,"town");
 		CHAPTERS.put( ID_CHAOS,"chaos");
 		CHAPTERS.put( ID_ZOT,"zot");
+		CHAPTERS.put( ID_LEARN,"learn");
 	}
 
 	private RenderedTextMultiline tf;

@@ -21,8 +21,10 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.misc.SkillOfAtk;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BilboldevSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.utils.Random;
 
 public class Bilboldev extends NPC {
@@ -37,8 +39,13 @@ public class Bilboldev extends NPC {
 	protected boolean act() {
 		throwItem();
 		return super.act();
-	}	
-	
+	}
+
+	@Override
+	public Item SupercreateLoot(){
+		return new SkillOfAtk();
+	}
+
 	@Override
 	public int evadeSkill(Char enemy) {
 		return 1000;

@@ -22,6 +22,7 @@ import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.effects.Wound;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
@@ -33,7 +34,8 @@ public class AirTrap {
 		if (ch != null) {
 			int damage = Random.NormalIntRange(Dungeon.depth, Dungeon.depth*2);
 			//ch.damage(damage,Bleeding.class);
-			Buff.affect( ch, Bleeding.class).set(damage/2);
+			Buff.affect( ch, Bleeding.class).set(damage);
+			Buff.affect( ch, Cripple.class,5f);
 			Wound.hit( ch );
 			if (ch == Dungeon.hero && !ch.isAlive()) {
 				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));

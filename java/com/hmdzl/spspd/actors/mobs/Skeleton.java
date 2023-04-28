@@ -52,7 +52,7 @@ public class Skeleton extends Mob {
 		EXP = 5;
 		maxLvl = 25;
 
-		loot = Generator.Category.WEAPON;
+		loot = Generator.Category.MELEEWEAPON;
 		lootChance = 0.15f;
 		
 		properties.add(Property.UNDEAD);
@@ -100,9 +100,9 @@ public class Skeleton extends Mob {
 
 	@Override
 	protected Item createLoot() {
-		Item loot = Generator.random(Generator.Category.WEAPON);
+		Item loot = Generator.random(Generator.Category.MELEEWEAPON);
 		for (int i = 0; i < 2; i++) {
-			Item l = Generator.random(Generator.Category.WEAPON);
+			Item l = Generator.random(Generator.Category.MELEEWEAPON);
 			if (l.level < loot.level) {
 				loot = l;
 			}

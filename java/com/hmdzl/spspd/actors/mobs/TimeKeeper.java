@@ -29,6 +29,8 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.medicine.Timepill;
+import com.hmdzl.spspd.items.potions.PotionOfMindVision;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
@@ -58,7 +60,7 @@ public class TimeKeeper extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new TimekeepersHourglass();
+		return Random.oneOf( new Timepill(),new PotionOfMindVision(), new TimekeepersHourglass());
 	}
 
 	@Override

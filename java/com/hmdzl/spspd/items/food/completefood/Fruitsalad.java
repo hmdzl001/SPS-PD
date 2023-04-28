@@ -44,7 +44,7 @@ public class Fruitsalad extends CompleteFood {
 
 		if (action.equals(AC_EAT)){
 			hero.HP+= hero.HT/3;
-			Buff.affect(hero, BerryRegeneration.class).level(hero.HT*2);
+			Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/2,30));
 			hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 5);
 		}
 	}

@@ -35,10 +35,12 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.UpgradeBlobViolet;
@@ -51,6 +53,7 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
+import com.hmdzl.spspd.items.weapon.rockcode.Obubble;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
@@ -267,7 +270,10 @@ public class Goo extends Mob {
 				
 	
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
-		
+		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Obubble(), Dungeon.hero.pos).sprite.drop();
 
 		yell("glurp... glurp...");
 	}

@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -61,6 +62,12 @@ public class DungeonBomb extends Bomb {
 					Level.set(c, Terrain.EMPTY);
 					GameScene.updateMap(c);
 					terrainAffected = true;
+				}
+				if ((Dungeon.level.map[c] == Terrain.FLOWER_POT)&& Level.insideMap(c)){
+					Level.set(c, Terrain.EMPTY);
+					GameScene.updateMap(c);
+					terrainAffected = true;
+					Dungeon.level.drop(new PlantPotBlock(), c).sprite.drop();
 				}
 
 				Char ch = Actor.findChar(c);

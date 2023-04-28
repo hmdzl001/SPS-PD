@@ -50,7 +50,7 @@ public class WndTinkerer extends Window {
 	private static final String TXT_MESSAGE_DRAW = "Drawing out dew makes it so that mobs on special levels drop dew to fill your vial. "
 			                                        +"Additionally, your character is buffed with dew charge at the start of each normal level. "
 			                                        +"As long as you are dew charged, enemies drop dew to fill your vial. "
-			                                        +"Each level dew charges you for a set amount of moves. "
+			                                        +"Each level dew energy you for a set amount of moves. "
 			                                        +"Each level also has a move goal for killing all regular generated enemies. (Not special enemies like statues and piranha) "
 			                                        +"Killing all regular enemies that were generated with the level clears that level. "
 			                                        +"If you clear a level in less moves than the goal, the additional moves are added to your dew charge for the next level. "

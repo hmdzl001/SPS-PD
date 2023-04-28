@@ -19,6 +19,8 @@ package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Frost;
@@ -62,6 +64,7 @@ import com.hmdzl.spspd.items.weapon.melee.relic.NeptunusTrident;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.plants.Rotberry;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -185,7 +188,6 @@ public class Heap implements Bundlable {
 			break;
 		case M_WEB:
 			CellEmitter.center(pos).start(Speck.factory(Speck.COBWEB), 0.1f, 3);
-
 				if (Random.Int(10) == 0){
 					if (Spinner.spawnAt(pos) == null) {
 						Spinner.spawnAround(hero.pos);
@@ -282,7 +284,11 @@ public class Heap implements Bundlable {
 		}
 		
 		if (type == Type.M_WEB) {
+			GameScene.add(Blob.seed(pos, 2, Fire.class));
 			type = Type.HEAP;
+			sprite.link();
+			sprite.drop();
+			return;
 		}		
 				
 		if (type != Type.HEAP) {
@@ -548,8 +554,7 @@ public class Heap implements Bundlable {
 			if (item instanceof MysteryMeat) {
 				replace(item, IceMeat.cook((MysteryMeat) item));
 				frozen = true;
-			} else if (item instanceof Potion
-			    && !(item instanceof PotionOfStrength || item instanceof PotionOfMight)) {
+			} else if (item instanceof Potion) {
 				items.remove(item);
 				((Potion) item).shatter(pos);
 				frozen = true;

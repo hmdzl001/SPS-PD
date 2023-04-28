@@ -62,6 +62,7 @@ import com.hmdzl.spspd.items.misc.DemoScroll;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.misc.PPC;
 import com.hmdzl.spspd.items.misc.Shovel;
+import com.hmdzl.spspd.items.reward.BoundReward;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Level;
@@ -253,7 +254,7 @@ public abstract class Mob extends Char {
 		if ( enemy == null || !enemy.isAlive() || state == WANDERING)
 			newEnemy = true;
 			//We are corrupted, and current enemy is either the hero or another corrupted character.
-		else if (buff(Corruption.class) != null && (enemy == Dungeon.hero || enemy.buff(Corruption.class) != null))
+		else if (buff(Corruption.class) != null && enemy == Dungeon.hero)
 			newEnemy = true;
 			//We are amoked and current enemy is the hero
 		else if (buff( Amok.class ) != null && enemy == Dungeon.hero)
@@ -267,7 +268,6 @@ public abstract class Mob extends Char {
 
 			//if the mob is corrupted...
 			if ( buff(Corruption.class) != null) {
-
 				//look for enemy mobs to attack, which are also not corrupted
 				for (Mob mob : Dungeon.level.mobs)
 					if (mob != this && Level.fieldOfView[mob.pos] && mob.hostile)
@@ -526,7 +526,7 @@ public abstract class Mob extends Char {
 	  } else if (type == 2){
 		 adjustment = Dungeon.depth /4;
 	  } else if (type == 3){
-		 adjustment = Dungeon.depth *2;
+		 adjustment = Dungeon.depth*2;
 	  } else adjustment = 1;
 
 		return adjustment;
@@ -602,6 +602,9 @@ public abstract class Mob extends Char {
 
 		MasterThievesArmband.Thievery armband = Dungeon.hero.buff(MasterThievesArmband.Thievery.class);
 		if (armband != null) armband.gainCharge();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.hero.belongings.recode();
 	
 		if (Dungeon.hero.lvl <= maxLvl && EXP > 0) {
 			Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "exp", EXP));
@@ -655,6 +658,7 @@ public abstract class Mob extends Char {
 			if(Dungeon.depth>0){Statistics.prevfloormoves=Math.max(Dungeon.pars[Dungeon.depth]-Dungeon.level.currentmoves,0);
 			   if (Statistics.prevfloormoves>1){
 			     GLog.h(Messages.get(this, "clear1"), Statistics.prevfloormoves);
+				 Dungeon.level.drop(new BoundReward(), pos).sprite.drop();
 			   } else if (Statistics.prevfloormoves==0){
 				 GLog.h(Messages.get(this, "clear3"));
 			   }

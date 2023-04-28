@@ -33,17 +33,17 @@ public class CoconutSprite extends MobSprite {
 
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
-        idle = new Animation( 3, true );
-        idle.frames(frames, 0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 3, 3);
+        idle = new Animation( 10, true );
+        idle.frames(frames, 0, 0, 1, 1, 0, 0, 2, 2, 3, 3, 2, 2);
 
         run = new Animation( 20, true );
-        run.frames( frames, 0 );
+        run.frames( frames, 4,5,7,5,7,5);
 
         attack = new Animation( 12, false );
-        attack.frames( frames, 0, 2, 3 );
+        attack.frames( frames, 0, 8, 9,10,11 );
 
         die = new Animation( 20, false );
-        die.frames( frames, 3,4,5,6 );
+        die.frames( frames, 12,12,12,13,13,13,14,14,14,15 );
 
         play( idle );
     }

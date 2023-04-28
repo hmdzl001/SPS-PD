@@ -20,19 +20,25 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.DarkGas;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BanditSprite;
+import com.hmdzl.spspd.sprites.CharSprite;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Bandit extends Thief {
 
-	//public Item item;
-
+	private int breaks=0;
 	{
 		spriteClass = BanditSprite.class;
 
@@ -43,26 +49,83 @@ public class Bandit extends Thief {
 		properties.add(Property.ELF);
 	}
 
+	private static final String BREAKS	= "breaks";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( BREAKS, breaks );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		breaks = bundle.getInt( BREAKS );
+	}
+
+	@Override
+	public boolean act() {
+
+		if( 2 - breaks > 3 * HP / HT ) {
+			breaks++;
+            Buff.detach(this,SkillUse.class);
+			return true;
+		}
+
+		for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
+			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 10, DarkGas.class));
+		}
+
+		return super.act();
+	}
+
+	@Override
+	protected boolean canAttack(Char enemy) {
+		return Level.distance( pos, enemy.pos ) <= 2 ;
+	}
+
+
 	@Override
 	public Item SupercreateLoot(){
-		return Generator.random(Generator.Category.WEAPON);
+		return Generator.random(Generator.Category.MELEEWEAPON);
 	}
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
+		int golddrop = (int)(Dungeon.gold/20);
+		if (this.buff(SkillUse.class)== null && enemy == Dungeon.hero) {
+			Buff.affect(this, SkillUse.class);
+			Buff.affect(this,EnergyArmor.class).level((int)(Dungeon.gold/40));
+			Dungeon.gold -=golddrop;
+			enemy.sprite.showStatus(CharSprite.NEUTRAL,"-" + golddrop);
+		}
 
-		Buff.prolong(enemy, Blindness.class, Random.Int(5, 12));
-		Buff.affect(enemy, Poison.class).set(
-				Random.Int(5, 7));
-		Buff.prolong(enemy, Cripple.class, Cripple.DURATION);
-			Dungeon.observe();
-
+		if (this.buff(SkillUse.class)!= null && Random.Int(3) == 1) {
+			Buff.affect(enemy, Poison.class).set(Random.Int(2, 3));
+		}
 		return damage;
+	}
+
+	@Override
+	public void damage(int dmg, Object src) {
+		if (dmg> HT/6) {
+			dmg =(int)Math.max(HT/6,1);
+		}
+
+		super.damage(dmg,src);
+
 	}
 
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
 		Badges.validateRare(this);
+	}
+
+	{
+		//immunities.add(Burning.class);
+		immunities.add(Blindness.class);
+		immunities.add(DarkGas.class);
+
 	}
 }

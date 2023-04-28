@@ -40,7 +40,7 @@ import com.hmdzl.spspd.items.misc.GnollMark;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.ui.QuickSlotButton;
@@ -154,7 +154,6 @@ public abstract class Wand extends Item {
 	}
 	
 	public int level() {
-		
 		return level;
 	}
 	
@@ -322,7 +321,7 @@ public abstract class Wand extends Item {
 	}
 
 	private static final String UNFAMILIRIARITY     = "unfamiliarity";
-	private static final String CUR_CHARGES			= "curCharges";
+	private static final String CUR_CHARGES			= "energy";
 	private static final String CUR_CHARGE_KNOWN	= "curChargeKnown";
 	private static final String PARTIALCHARGE 		= "partialCharge";
 	

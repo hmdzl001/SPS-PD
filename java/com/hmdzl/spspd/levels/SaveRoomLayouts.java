@@ -29,7 +29,7 @@ public class SaveRoomLayouts {
 
 	private static final int S = Terrain.STATUE;
 	private static final int S1 = Terrain.STATUE_SP;
-	private static final int S2 = Terrain.STATUE_BROKEN;
+	private static final int S2 = Terrain.BROKEN_DOOR;
 	
 	private static final int O = Terrain.SIGN;
 	
@@ -40,7 +40,7 @@ public class SaveRoomLayouts {
 	
 	private static final int H = Terrain.WELL;
 	private static final int H1 = Terrain.EMPTY_WELL;
-	private static final int H2 = Terrain.GROUND_B;
+	private static final int H2 = Terrain.FLOWER_POT;
 	
 	private static final int T = Terrain.TENT;
 

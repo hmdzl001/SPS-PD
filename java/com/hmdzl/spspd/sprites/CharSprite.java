@@ -57,14 +57,27 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	
 	// Color constants for floating text
 	public static final int DEFAULT		= 0xFFFFFF;
+	//white
 	public static final int POSITIVE	= 0x00FF00;
+	//green
 	public static final int NEGATIVE	= 0xFF0000;
+	//red
 	public static final int WARNING		= 0xFF8800;
+	//orange
 	public static final int NEUTRAL		= 0xFFFF00;
-
+    //yellow
+	public static final int VIOLET		= 0x9400D3;
+	//violet
+	public static final int BLUE		= 0x00CCFF;
+	//blue
 	public static final int MELEE_DAMAGE		= 0xFF8800;
+	//orange
 	public static final int MAGIC_DAMAGE		= 0x00CCFF;
+	//blue
 	public static final int NULL_DAMAGE		= 0xFFFFFF;
+    //white
+	public static final int CHAOS_DAMAGE		= 0x9400D3;
+	//violet
 
 	private static final float MOVE_INTERVAL	= 0.1f;
 	private static final float FLASH_INTERVAL	= 0.05f;

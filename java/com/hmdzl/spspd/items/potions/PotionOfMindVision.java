@@ -42,8 +42,10 @@ public class PotionOfMindVision extends Potion {
 	public void apply(Hero hero) {
 		setKnown();
 
-		Buff.affect(hero, MindVision.class, Dungeon.hero.buff(MagicSight.class) != null ? MindVision.DURATION*4 : MindVision.DURATION);
-		Buff.affect(hero, Awareness.class, Dungeon.hero.buff(MagicSight.class) != null ? 20f : 5f);
+		//Buff.affect(hero, MindVision.class, Dungeon.hero.buff(MagicSight.class) != null ? MindVision.DURATION*4 : MindVision.DURATION);
+		//Buff.affect(hero, Awareness.class, Dungeon.hero.buff(MagicSight.class) != null ? 20f : 5f);
+		Buff.affect(hero, MindVision.class,  60f);
+		Buff.affect(hero, Awareness.class, 30f);
 		Dungeon.observe();
 
 		if (Dungeon.level.mobs.size() > 0) {

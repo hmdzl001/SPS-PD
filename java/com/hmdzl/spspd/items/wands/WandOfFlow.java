@@ -147,7 +147,7 @@ public class WandOfFlow extends DamageWand {
 					int level = level();
 					int damage= Random.Int(level+3, 6 + level * 3);
 					Buff.prolong(ch, Wet.class, 5f);
-					if (Dungeon.hero.buff(Strength.class) != null){ damage *= (int) 4f; Buff.detach(Dungeon.hero, Strength.class);}
+					if (Dungeon.hero.buff(MoonFury.class) != null){ damage *= (int) 4f; Buff.detach(Dungeon.hero, MoonFury.class);}
 					ch.damage(damage, this);
 
 				} else {
@@ -203,7 +203,7 @@ public class WandOfFlow extends DamageWand {
 						int level = level();
 						int damage= Random.Int(level+3, 6 + level * 3);
 						Buff.prolong(ch, Wet.class, 5f);
-						if (Dungeon.hero.buff(Strength.class) != null){ damage *= (int) 4f; Buff.detach(Dungeon.hero, Strength.class);}
+						if (Dungeon.hero.buff(MoonFury.class) != null){ damage *= (int) 4f; Buff.detach(Dungeon.hero, MoonFury.class);}
 						ch.damage(damage, this);
 
 					}

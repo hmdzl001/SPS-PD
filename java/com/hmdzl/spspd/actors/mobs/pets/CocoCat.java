@@ -73,7 +73,7 @@ public class CocoCat extends PET {
 
 	@Override
 	public int damageRoll() {		
-		return Random.NormalIntRange((2+Dungeon.hero.petLevel), (5+Dungeon.hero.petLevel*2)) ;
+		return Random.NormalIntRange((2+Dungeon.hero.petLevel), (5+Dungeon.hero.petLevel*3)) ;
 	}
 	
 	@Override

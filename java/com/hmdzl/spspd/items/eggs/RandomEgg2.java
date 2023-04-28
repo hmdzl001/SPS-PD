@@ -41,6 +41,8 @@ public class RandomEgg2 extends Egg {
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_BREAK)) {
 			rollpet();
+			//BlueGirl pet = new BlueGirl();
+			//eggHatch(pet);
             Statistics.eggBreak++;
 			detach(Dungeon.hero.belongings.backpack);
             Badges.validateEggBreak();
@@ -68,8 +70,6 @@ public class RandomEgg2 extends Egg {
 				break;
 	
 		}
-
-
 	}
 		
 	@Override

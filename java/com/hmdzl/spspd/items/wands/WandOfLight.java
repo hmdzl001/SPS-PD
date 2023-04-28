@@ -40,7 +40,7 @@ public class WandOfLight extends DamageWand {
 
 	{
 		image = ItemSpriteSheet.WAND_LIGHT;
-		collisionProperties = Ballistica.PROJECTILE;
+		collisionProperties = Ballistica.GLASSPASS;
 	}
 
 	public int min(int lvl){

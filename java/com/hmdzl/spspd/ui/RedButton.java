@@ -20,9 +20,9 @@
  */
 package com.hmdzl.spspd.ui;
 
-import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Chrome;
+import com.hmdzl.spspd.scenes.PixelScene;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.RenderedText;
@@ -151,8 +151,29 @@ public class RedButton extends Button {
 		this(label, 9);
 	}
 
+	public RedButton( Image image, String label ) {
+		super();
+		icon = image;
+		add(icon);
+
+		text = PixelScene.renderText( 9 );
+		text.text( label );
+		add( text );
+	}
+
 	public RedButton( String label, int size ){
 		super();
+
+		text = PixelScene.renderText( size );
+		text.text( label );
+		add( text );
+	}
+
+	public RedButton(Image image, String label, int size ){
+		super();
+
+		icon = image;
+		add(icon);
 
 		text = PixelScene.renderText( size );
 		text.text( label );

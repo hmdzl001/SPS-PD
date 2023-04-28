@@ -28,8 +28,8 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfRage extends Scroll {
@@ -80,13 +80,10 @@ public class ScrollOfRage extends Scroll {
 				Buff.affect(mob, Silent.class, 40f);
 			}
 		}
-		
 		setKnown();
-		
 		curUser.sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
 		Sample.INSTANCE.play( Assets.SND_READ );
 		Invisibility.dispel();
-
 		curUser.spendAndNext(TIME_TO_READ);
 	}
 	

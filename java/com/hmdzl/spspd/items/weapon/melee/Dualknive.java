@@ -18,11 +18,11 @@
 package com.hmdzl.spspd.items.weapon.melee;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KindOfWeapon;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
@@ -62,9 +62,9 @@ public class Dualknive extends MeleeWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 
-		int DMG = damage;
+		int exdmg = Dungeon.hero.damageRoll();
 
-		defender.damage(Random.Int(DMG/4,DMG/2), this);
+		defender.damage(Random.Int(exdmg/4,exdmg/2), this);
 		
 	    if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);		

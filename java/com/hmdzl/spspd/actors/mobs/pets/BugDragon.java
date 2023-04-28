@@ -59,12 +59,12 @@ public class BugDragon extends PET{
 
 	@Override
 	public Item SupercreateLoot(){
-		return Random.oneOf( new ErrorAmmo(3), new ErrorArmor(),new ErrorW(),new WandOfError());
+		return Random.oneOf( new ErrorAmmo(1), new ErrorArmor(),new ErrorW(),new WandOfError());
 	}
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(5+Dungeon.hero.petLevel,10+Dungeon.hero.petLevel);
+		return Random.IntRange(5+Dungeon.hero.petLevel,10+Dungeon.hero.petLevel*3);
 	}
 
 	@Override

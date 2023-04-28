@@ -28,9 +28,10 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Silent;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.ArmorKit;
+import com.hmdzl.spspd.items.SkillBook;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.TenguKey;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
@@ -42,6 +43,7 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
+import com.hmdzl.spspd.items.weapon.rockcode.Nshuriken;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.PoisonTrap;
@@ -104,10 +106,12 @@ public class Tengu extends Mob {
 		GameScene.bossSlain();	
 	    Badges.validateBossSlain();	
 	    Dungeon.level.unseal();
-	    Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
+	    Dungeon.level.drop(new SkillBook(), pos).sprite.drop();
 		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		
 		Dungeon.level.drop(new TenguKey(), pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Nshuriken(), Dungeon.hero.pos).sprite.drop();
         super.die(cause);
 	}
 

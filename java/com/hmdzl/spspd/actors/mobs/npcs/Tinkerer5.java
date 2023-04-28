@@ -37,16 +37,6 @@ public class Tinkerer5 extends NPC {
 		properties.add(Property.HUMAN);
 	}
 
-	private static final String TXT_DUNGEON = "We used to mine stone ore out of the mines. "
-			                                  +"But now a powerful dragon ruin the enter and watch in there."
-			                                  +"Be careful if you enter its space.";
-	
-	
-	private static final String TXT_DUNGEON2 = "The building directly to the East from here houses the alter of the Gods. "
-			                                   +"Bringing three Norn stones to the alter will be rewarded with a special treasure. ";
-	
-	private static final String TXT_DUNGEON3 = "You will need this food.Good luck!";
-
 	@Override
 	protected boolean act() {
 		throwItem();

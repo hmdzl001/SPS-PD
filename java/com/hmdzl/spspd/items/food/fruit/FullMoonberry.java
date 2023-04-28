@@ -21,9 +21,8 @@ import com.hmdzl.spspd.actors.buffs.Barkskin;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.FullMoonStrength;
 import com.hmdzl.spspd.actors.buffs.Light;
-import com.hmdzl.spspd.actors.buffs.Strength;
+import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -46,12 +45,12 @@ public class FullMoonberry extends Fruit {
 
 				switch (Random.Int(2)) {
 				case 0:
-					Buff.affect(hero, Strength.class);
+					Buff.affect(hero, MoonFury.class);
 					Buff.affect(hero, FullMoonStrength.class);
 					Buff.affect(hero, Light.class, Light.DURATION);
 					break;
 				case 1:
-					Buff.affect(hero, Strength.class);
+					Buff.affect(hero, MoonFury.class);
 					Buff.affect(hero, FullMoonStrength.class);
 					Buff.affect(hero, Barkskin.class).level(hero.lvl);
 					Buff.affect(hero, Light.class, Light.DURATION);

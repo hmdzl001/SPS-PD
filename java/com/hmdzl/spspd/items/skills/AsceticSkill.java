@@ -27,12 +27,12 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
+import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndBag;
@@ -66,7 +66,12 @@ public class AsceticSkill extends ClassSkill {
 	@Override
 	public void doSpecial2() {
 		curUser.spend(SKILL_TIME);
-		GameScene.selectItem(itemSelector, WndBag.Mode.ENCHANTABLE, Messages.get(AsceticSkill.class, "prompt"));
+		Dungeon.level.drop(new GreatRune(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		AsceticSkill.charge += 20;
+		curUser.sprite.operate(curUser.pos);
+		curUser.sprite.centerEmitter().start(PurpleParticle.BURST, 0.05f, 10);
+		Sample.INSTANCE.play(Assets.SND_MISS);
+		//GameScene.selectItem(itemSelector, WndBag.Mode.ENCHANTABLE, Messages.get(AsceticSkill.class, "prompt"));
 	}
 
 	@Override

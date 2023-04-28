@@ -23,14 +23,20 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.BloodImbue;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Disarm;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Muscle;
+import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.SpAttack;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
@@ -61,12 +67,12 @@ public class WarriorSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-        Buff.affect(curUser,Muscle.class,200f);
+        Buff.affect(curUser,Muscle.class,160f);
 		if (Random.Int(2)==0){
-			Buff.affect(curUser,DefenceUp.class,100f).level(75);
-			Dungeon.level.drop(Generator.random(Generator.Category.WEAPON).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Buff.affect(curUser,DefenceUp.class,80f).level(75);
+			Dungeon.level.drop(Generator.random(Generator.Category.MELEEWEAPON).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 		} else{
-			Buff.affect(curUser,AttackUp.class,100f).level(75);
+			Buff.affect(curUser,AttackUp.class,80f).level(75);
 			Dungeon.level.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 		}
 		WarriorSkill.charge += 20;
@@ -78,7 +84,7 @@ public class WarriorSkill extends ClassSkill {
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos]) {
 				if (Level.distance(curUser.pos, mob.pos) <= 3){
-					Buff.affect(mob, AttackDown.class).level(10);
+					Buff.affect(mob, AttackDown.class,20f).level(10);
 				} else {
 				Buff.affect(mob, Disarm.class, curUser.STR);
 				Buff.affect(mob, Silent.class, curUser.STR);
@@ -107,10 +113,21 @@ public class WarriorSkill extends ClassSkill {
 			Char mob = Actor.findChar(curUser.pos
 					+ Level.NEIGHBOURS8[i]);
 			if (mob != null && mob != curUser && !(mob instanceof PET ) ) {
-				mob.damage(curUser.HT /2, this);
+				mob.damage(curUser.HT /2, Hero.class);
 			}
 
 		}
+
+		if (curUser.buff(Poison.class) != null ||
+				curUser.buff(Cripple.class) != null ||
+				curUser.buff(STRdown.class) != null ||
+				curUser.buff(BeOld.class) != null
+				) Buff.affect(curUser, EnergyArmor.class).level(10*targets.size());
+
+		Buff.detach(curUser, Poison.class);
+		Buff.detach(curUser, Cripple.class);
+		Buff.detach(curUser, STRdown.class);
+		Buff.detach(curUser, BeOld.class);
 
 		WarriorSkill.charge += 25;
 		curUser.spend(SKILL_TIME);

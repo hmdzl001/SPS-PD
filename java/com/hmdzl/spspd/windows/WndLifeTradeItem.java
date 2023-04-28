@@ -125,7 +125,7 @@ public class WndLifeTradeItem extends Window {
 
 		int price = price(item);
 		Dungeon.hero.TRUE_HT -= price;
-		Dungeon.hero.updateHT(false);
+		Dungeon.hero.updateHT(true);
 
 		if (!item.doPickUp(hero)) {
 			Dungeon.level.drop(item, heap.pos).sprite.drop();

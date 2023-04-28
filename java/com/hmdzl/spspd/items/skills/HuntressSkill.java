@@ -20,8 +20,6 @@ package com.hmdzl.spspd.items.skills;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.buffs.Awareness;
-import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.actors.buffs.FireImbue;
@@ -36,6 +34,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.KindOfWeapon;
+import com.hmdzl.spspd.items.reward.BoundReward;
 import com.hmdzl.spspd.items.summon.FairyCard;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
@@ -68,20 +67,14 @@ public class HuntressSkill extends ClassSkill {
 
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Buff.affect(curUser, TargetShoot.class,20f);
-		Buff.affect(curUser, Needling.class,20f);
-		switch(Random.Int(4)){
+		Buff.affect(curUser, TargetShoot.class,50f);
+		Buff.affect(curUser, Needling.class,50f);
+		switch(Random.Int(2)){
 			case 0:
-		    Buff.affect(curUser, FireImbue.class).set(30f);
+		    Buff.affect(curUser, FireImbue.class).set(50f);
 			break;
 			case 1:
-			Buff.affect(curUser, EarthImbue.class,30);
-			break;
-			case 2:
-		    Buff.affect(curUser, Awareness.class,10);
-			break;
-			case 3:
-	        Buff.affect(curUser, BerryRegeneration.class).level(curUser.HP/2);
+			Buff.affect(curUser, EarthImbue.class,50);
 			break;
 		}
 	}
@@ -105,7 +98,7 @@ public class HuntressSkill extends ClassSkill {
 			item3.reinforced = true;
 		}
 
-		Dungeon.level.drop(Generator.random(Generator.Category.ARTIFACT), hero.pos).sprite.drop(hero.pos);
+		Dungeon.level.drop(new BoundReward(), hero.pos).sprite.drop(hero.pos);
 		HuntressSkill.charge +=20;
 
         curUser.spend(SKILL_TIME);
@@ -139,6 +132,7 @@ public class HuntressSkill extends ClassSkill {
 
 		if (spawnPoints.size() > 0) {
 			FairyCard.Fairy fairy = new FairyCard.Fairy();
+			fairy.HP = 10;
 			fairy.pos = Random.element(spawnPoints);
 			GameScene.add(fairy);
 			HuntressSkill.charge +=15;

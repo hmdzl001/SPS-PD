@@ -21,14 +21,16 @@ import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class Smashpill extends Pill {
 
 	{
 		//name = "smashpill";
-		image = ItemSpriteSheet.PILL_ATK;
-		 
+		image = ItemSpriteSheet.GREAT_PILL;
+		sname = "DMG";
+		
 	}
 
 	@Override

@@ -21,11 +21,11 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Locked;
+import com.hmdzl.spspd.items.SacrificeBook;
 import com.hmdzl.spspd.items.TreasureMap;
 import com.hmdzl.spspd.items.challengelists.SewerChallenge;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.reward.SewerReward;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.items.weapon.missiles.ForestDart;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -109,7 +109,7 @@ public class GnollArcher extends Mob {
 		}
 
 		if (Statistics.archersKilled == 50) {
-			Dungeon.level.drop(new ScrollOfSacrifice(), pos).sprite.drop();
+			Dungeon.level.drop(new SacrificeBook(), pos).sprite.drop();
 		}
 
 		if (Statistics.archersKilled == 100) {

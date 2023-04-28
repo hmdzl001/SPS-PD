@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.potions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 
@@ -29,7 +29,7 @@ public class PotionOfMixing extends Potion {
 	{
 
 	    image = ItemSpriteSheet.POTION_CATALYST;
-		initials = 0;
+		initials = 15;
 	}
 
 	@Override

@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Feed;
 import com.hmdzl.spspd.actors.buffs.FrostIce;
+import com.hmdzl.spspd.actors.buffs.HTimprove;
 import com.hmdzl.spspd.actors.buffs.LightShootAttack;
 import com.hmdzl.spspd.actors.buffs.MagicWeak;
 import com.hmdzl.spspd.actors.buffs.Ooze;
@@ -136,6 +137,7 @@ public class MageSkill extends ClassSkill {
 	public void doSpecial2() {
 
 		Buff.affect(curUser, Feed.class, 50f);
+		Buff.affect(curUser, HTimprove.class, 100f);
 		MageSkill.charge += 15;
 
 		curUser.spend(SKILL_TIME);

@@ -21,16 +21,18 @@
 package com.hmdzl.spspd.scenes;
 
 import android.opengl.GLES20;
+
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.effects.BannerSprites;
 import com.hmdzl.spspd.effects.Fireball;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-//import com.hmdzl.spspd.scenes.PixelScene;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.ChangesButton;
+import com.hmdzl.spspd.ui.CrashReportButton;
 import com.hmdzl.spspd.ui.ExitButton;
 import com.hmdzl.spspd.ui.LanguageButton;
+import com.hmdzl.spspd.ui.LearnButton;
 import com.hmdzl.spspd.ui.PrefsButton;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
@@ -42,6 +44,8 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
 
 import javax.microedition.khronos.opengles.GL10;
+
+//import com.hmdzl.spspd.scenes.PixelScene;
 
 public class TitleScene extends PixelScene {
 
@@ -154,6 +158,10 @@ public class TitleScene extends PixelScene {
 		version.y = h - version.height() - source.height();
 		add(version);
 
+		Button crash = new CrashReportButton();
+		crash.setPos( w-crash.width(), h - version.height() - source.height() - crash.height());
+		add( crash );
+
 		Button changes = new ChangesButton();
 		changes.setPos( 6, h - version.height() - changes.height());
 		add( changes );
@@ -169,6 +177,17 @@ public class TitleScene extends PixelScene {
 		ExitButton btnExit = new ExitButton();
 		btnExit.setPos(w - btnExit.width(), 0);
 		add(btnExit);
+
+		LearnButton btnLearn = new LearnButton();
+		btnLearn.setPos(w / 2, h - h / 6 );
+		add( btnLearn );
+
+		RenderedText learn =PixelScene.renderText( Messages.get(this, "learn"), 6);
+		//learn.hardlight(0xCCCCCC);
+		learn.x = w / 3;
+		learn.y = h - h / 6;
+		add(learn);
+
 
 		fadeIn();
 	}

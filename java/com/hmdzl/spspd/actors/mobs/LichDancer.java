@@ -26,9 +26,10 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.ArmorKit2;
+import com.hmdzl.spspd.items.ArmorKit;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
@@ -41,6 +42,7 @@ import com.hmdzl.spspd.items.misc.DanceLion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
+import com.hmdzl.spspd.items.weapon.rockcode.Lbox;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
@@ -201,9 +203,12 @@ public class LichDancer extends Mob {
 		 GameScene.bossSlain();
 		Dungeon.level.unseal();
 
-		Dungeon.level.drop(new ArmorKit2(), pos).sprite.drop();
+		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Lbox(), Dungeon.hero.pos).sprite.drop();
 
 		Badges.validateBossSlain();
 		//summonLiches(findTomb);

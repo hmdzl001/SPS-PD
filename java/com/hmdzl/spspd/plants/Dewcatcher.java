@@ -19,6 +19,7 @@ package com.hmdzl.spspd.plants;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
@@ -35,9 +36,10 @@ public class Dewcatcher extends Plant {
 
 	@Override
 	public void activate(Char ch) {
-		
+		super.activate(ch);
 		explodeDew(pos);
-		if (Random.Int(2)==0){super.activate(ch);}	
+		//if (Random.Int(2)==0)
+		//{}
 		    
 		
 	}
@@ -60,6 +62,7 @@ public void explodeDew(int cell) {
 				if (Random.Int(10)==1){Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();}		
 			    else if (Random.Int(5)==1){Dungeon.level.drop(new RedDewdrop(), c).sprite.drop();}
 				else if (Random.Int(3)==1){Dungeon.level.drop(new YellowDewdrop(), c).sprite.drop();}
+				else {Dungeon.level.drop(new Dewdrop(), c).sprite.drop();}
 			}
 		  }	
 		

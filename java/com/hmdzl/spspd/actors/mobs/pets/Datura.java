@@ -71,7 +71,7 @@ public class Datura extends PET {
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(hero.petLevel,hero.petLevel);
+		return Random.IntRange(hero.petLevel,hero.petLevel*3);
 	}
 
 	@Override

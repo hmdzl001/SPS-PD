@@ -21,7 +21,7 @@ package com.hmdzl.spspd.plants;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Strength;
+import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.items.food.vegetable.BattleFlower;
 import com.hmdzl.spspd.items.potions.PotionOfExperience;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -37,7 +37,7 @@ public class Starflower extends Plant {
 		super.activate(ch);
 		Dungeon.level.drop(new BattleFlower(), pos).sprite.drop();
 		if (ch != null) {
-		  Buff.affect(ch, Strength.class);
+		  Buff.affect(ch, MoonFury.class);
 		}
 	}
 

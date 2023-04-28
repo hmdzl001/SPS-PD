@@ -28,7 +28,7 @@ public class AsceticArmor extends NormalArmor {
 
 	{
 		//name = "phantom armor";
-		image = ItemSpriteSheet.PHANTOM_ARMOR;
+		image = ItemSpriteSheet.ASCETIC_SHELL;
 		STR -= 1;
 		MAX = 15;
 		MIN = 0;

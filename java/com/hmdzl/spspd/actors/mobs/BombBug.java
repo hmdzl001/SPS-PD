@@ -22,18 +22,22 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.potions.PotionOfFrost;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BombBugSprite;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class BombBug extends IceBug {
 
+	private int breaks=0;
 	{
 		spriteClass = BombBugSprite.class;
 
@@ -50,9 +54,25 @@ public class BombBug extends IceBug {
 		properties.add(Property.BEAST);
 	}
 
+
+	private static final String BREAKS	= "breaks";
+
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle(bundle);
+		bundle.put( BREAKS, breaks );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		breaks = bundle.getInt( BREAKS );
+	}
+
+
 	@Override
 	public Item SupercreateLoot(){
-		return new WandOfFreeze();
+		return Random.oneOf( new PotionOfFrost(), new WandOfFreeze());
 	}
 
 	@Override
@@ -60,7 +80,47 @@ public class BombBug extends IceBug {
 		return Random.NormalIntRange(10, 15+adj(0));
 	}
 
-		
+	@Override
+	public boolean act() {
+
+		if( 1 - breaks > 2 * HP / HT ) {
+			breaks++;
+            IceBug.spawnAround(pos);
+			return true;
+		}
+
+		return super.act();
+	}
+
+	@Override
+	public int attackProc(Char enemy, int damage) {
+		if (Random.Int(5) == 0) {
+			Buff.affect(enemy, FrostIce.class).level(5);
+		}
+
+		return damage;
+	}
+
+	@Override
+	public void damage(int dmg, Object src) {
+		if (dmg> HT/6) {
+			dmg =(int)Math.max(HT/6,1);
+		}
+
+		if (Random.Int(8) == 0) {
+			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
+				Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
+				if (ch != null && ch.isAlive()) {
+					Buff.affect(ch, StoneIce.class).level(10);
+				}
+			}
+		}
+
+		super.damage(dmg,src);
+
+	}
+
+
 	@Override
 	public void die(Object cause) {
 
@@ -70,7 +130,6 @@ public class BombBug extends IceBug {
 			Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
 			if (ch != null && ch.isAlive()) {
 				Buff.affect(ch,StoneIce.class).level(10);
-
 			}
 		}
 

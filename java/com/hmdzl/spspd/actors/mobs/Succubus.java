@@ -28,6 +28,7 @@ import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
+import com.hmdzl.spspd.items.scrolls.ScrollOfDummy;
 import com.hmdzl.spspd.items.scrolls.ScrollOfLullaby;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfCharm;
@@ -66,7 +67,7 @@ public class Succubus extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new WandOfCharm();
+		return Random.oneOf( new ScrollOfDummy(),new WandOfCharm());
 	}
 
 	@Override

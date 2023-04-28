@@ -1,12 +1,12 @@
 package com.hmdzl.spspd;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import com.hmdzl.spspd.items.Item;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by debenhame on 16/01/2015.
@@ -21,7 +21,7 @@ public class QuickSlot {
 
 	// note that the current max size is coded at 4, due to UI constraints, but
 	// it could be much much bigger with no issue.
-	public static int SIZE = 6;
+	public static int SIZE = 9;
 	private Item[] slots = new Item[SIZE];
 
 	// direct array interaction methods, everything should build from these

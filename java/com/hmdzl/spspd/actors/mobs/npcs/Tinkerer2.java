@@ -20,15 +20,14 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.quest.Mushroom;
+import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.LynnSprite;
- 
 import com.hmdzl.spspd.windows.WndQuest;
 import com.hmdzl.spspd.windows.WndTinkerer2;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class Tinkerer2 extends NPC {
 
@@ -38,12 +37,6 @@ public class Tinkerer2 extends NPC {
 		properties.add(Property.ELF);
 		properties.add(Property.IMMOVABLE);
 	}
-
-	private static final String TXT_DUNGEON = "I'm scavenging for toadstool mushrooms. "
-			+ "Could you bring me any toadstool mushrooms you find? ";
-	
-
-	private static final String TXT_MUSH = "Any luck finding toadstool mushrooms, %s?";
 
 	@Override
 	protected boolean act() {

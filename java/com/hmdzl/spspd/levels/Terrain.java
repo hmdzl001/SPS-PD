@@ -42,7 +42,7 @@ public class Terrain {
 	public static final int INACTIVE_TRAP   = 19;	
 	
 	public static final int GROUND_A   = 20;
-	public static final int GROUND_B   = 21;
+	public static final int FLOWER_POT = 21;
 	public static final int WALL_GROUND = 22;
 	public static final int WALL_LIVER = 23;
 	public static final int BUY_WALL   = 24;
@@ -63,7 +63,7 @@ public class Terrain {
 	public static final int WELL = 34;
 	public static final int STATUE = 35;
 	public static final int STATUE_SP = 36;
-	public static final int STATUE_BROKEN = 37;
+	public static final int BROKEN_DOOR = 37;
 	public static final int TENT = 38;
 
 	public static final int DEW_BLESS= 39;
@@ -132,7 +132,7 @@ public class Terrain {
 		flags[EMPTY_SP] = flags[EMPTY] | UNSTITCHABLE;
 
 		flags[GROUND_A] = flags[EMPTY] | UNSTITCHABLE;
-		flags[GROUND_B] = flags[EMPTY] | UNSTITCHABLE;
+		flags[FLOWER_POT] = flags[EMPTY] | UNSTITCHABLE;
 		flags[WALL_LIVER] = flags[WALL];
 		flags[WALL_GROUND] = flags[WALL];
 		flags[BUY_WALL] = flags[WALL];
@@ -161,7 +161,7 @@ public class Terrain {
 		flags[WELL] = AVOID;
 		flags[STATUE] = SOLID;
 		flags[STATUE_SP] = flags[STATUE] | UNSTITCHABLE;
-		flags[STATUE_BROKEN] = flags[STATUE] | UNSTITCHABLE;
+		flags[BROKEN_DOOR] = flags[STATUE] | UNSTITCHABLE;
 		flags[BOOKSHELF] = flags[BARRICADE] | LOS_BLOCKING | UNSTITCHABLE  | WALLS;
 		flags[ALCHEMY] = AVOID;
 		flags[SHRUB] =  FLAMABLE | LOS_BLOCKING | SOLID ;

@@ -23,18 +23,18 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Button;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class QuickSlotButton extends Button implements WndBag.Listener {
 
 	private static final String TXT_SELECT_ITEM = "Select an item for the quickslot";
 
-	private static QuickSlotButton[] instance = new QuickSlotButton[6];
+	private static QuickSlotButton[] instance = new QuickSlotButton[10];
 	private int slotNum;
 
 	private ItemSlot slot;
@@ -61,7 +61,8 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 	}
 
 	public static void reset() {
-		instance = new QuickSlotButton[6];
+
+		instance = new QuickSlotButton[10];
 
 		lastTarget = null;
 	}
@@ -106,7 +107,7 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 				icon.resetColor();
 			}
 		};
-		slot.showParams( true, false, true, false );
+		slot.showParams( true, false, true, true );
 		add(slot);
 
 		crossB = Icons.TARGET.get();

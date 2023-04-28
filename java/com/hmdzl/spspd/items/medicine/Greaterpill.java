@@ -32,6 +32,7 @@ public class Greaterpill extends Pill {
 	{
 		//name = "shootpill";
 		image = ItemSpriteSheet.GREAT_PILL;
+		sname = "HT+";
 		 
 	}
 
@@ -40,7 +41,7 @@ public class Greaterpill extends Pill {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)){
-			Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
+			Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/2,30));
 		hero.HP = hero.HP+Math.min(hero.HT, (int)(hero.HT*2-hero.HP));
 		Buff.detach(hero, Poison.class);
 		Buff.detach(hero, Cripple.class);

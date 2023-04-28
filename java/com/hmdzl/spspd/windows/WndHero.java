@@ -173,7 +173,6 @@ public class WndHero extends WndTabbed {
 			pos += GAP;
 
 			statSlot(Messages.get(this, "gold"), Statistics.goldCollected);
-			statSlot(Messages.get(this, "depth"), Statistics.deepestFloor);
 			statSlot(Messages.get(this, "atkskill"), hero.hitSkill);
 			statSlot(Messages.get(this, "defskill"), hero.evadeSkill);
 			statSlot(Messages.get(this, "magskill"), hero.magicSkill());
@@ -318,16 +317,27 @@ public class WndHero extends WndTabbed {
 					PocketBallFull.distarget(Dungeon.hero);
 				}
 			};
-			btnDisTarget.setRect(btnTarget.right() + 1, btnTarget.top(),
+			btnDisTarget.setRect(0, title.height()+ btnSummon.top() + 1,
 					btnDisTarget.reqWidth() + 2, btnDisTarget.reqHeight() + 2);
 			add(btnDisTarget);
+
+			RedButton btnChangeAction = new RedButton(Messages.get(this, "change")) {
+				@Override
+				protected void onClick() {
+					GameScene.show(new WndChangeAction());
+				}
+			};
+
+            btnChangeAction.setRect(btnDisTarget.right() + 1, title.height()+ btnSummon.top() + 1,
+                    btnSummon.reqWidth() + 2, btnSummon.reqHeight() + 2);
+			add(btnChangeAction);
 
 			pos = btnDisTarget.bottom() + GAP;
 
 			if (Dungeon.depth<26 && (Dungeon.dewDraw || Dungeon.dewWater)) {
 				statSlot(Messages.get(this, "level_move"), Dungeon.level.currentmoves);
 				statSlot(Messages.get(this, "level_max"), Dungeon.pars[Dungeon.depth]);
-				statSlot(Messages.get(this, "level_prefect"), Statistics.prevfloormoves);
+				//statSlot(Messages.get(this, "level_prefect"), Statistics.prevfloormoves);
 			}
 
             statSlot(Messages.get(this, "pet_level"), Dungeon.hero.petLevel);
@@ -365,4 +375,16 @@ public class WndHero extends WndTabbed {
         }
     }
 
+	private class WndChangeAction extends WndOptions {
+		public WndChangeAction() {
+			super(Messages.get(WndHero.class, "pa_t"), Messages.get(WndHero.class, "pa_i"),Messages.get(WndHero.class, "pa_de"),
+					Messages.get(WndHero.class, "pa_ch"),Messages.get(WndHero.class, "pa_fe"));
+		}
+
+		@Override
+		protected void onSelect( int index ) {
+			Dungeon.hero.petAction = index;
+		}
+
 	}
+}

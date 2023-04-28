@@ -86,13 +86,7 @@ public class ScrollOfPsionicBlast extends Scroll {
 
 		curUser.spendAndNext(TIME_TO_READ);
 	}	
-	
-	public boolean checkOriginalGenMobs (){
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			if (mob.originalgen){return true;}
-		 }	
-		return false;
-	}
+
 
 	@Override
 	public int price() {

@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
@@ -39,6 +40,8 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class ElfBow extends Weapon {
 
@@ -131,8 +134,8 @@ public class ElfBow extends Weapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-		MIN += 1;
-		MAX += 3;
+		MIN += 2;
+		MAX += 4;
 		super.upgrade(enchant);
 
 		updateQuickslot();
@@ -148,16 +151,23 @@ public class ElfBow extends Weapon {
 	public int damageRoll(Hero owner) {
 		int damage = Random.Int(MIN, MAX);
 
+		if (hero.buff(TargetShoot.class)!= null)
+	        damage = (int)(damage*1.5f);
+		if (hero.buff(MechArmor.class)!= null)
+			damage = (int)(damage*1.5f);
+		
 		float bonus = 0;
 		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += ((RingOfSharpshooting.Aim) buff).level;
+			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+		}	
+		
+		if (Random.Int(10) < 3  &&  bonus > 0 ) {
+			damage = (int)(damage * ( 1.5 + 0.25 * bonus));
+			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
 		}
-		if (Dungeon.hero.buff(TargetShoot.class)!= null)
-			bonus += 10;
-		if (Dungeon.hero.buff(MechArmor.class)!= null)
-			bonus += 10;
-
-		damage = (int)(damage*(1 + 0.05*bonus ) * (1 + 0.1 * Dungeon.hero.magicSkill()));
+		
+		
+		damage = (int)(damage * (1 + 0.1 * hero.magicSkill()));
 
 
 		return Math.round(damage);
@@ -215,7 +225,7 @@ public class ElfBow extends Weapon {
 			}
 
 			if (damage > defender.HP){
-				Dungeon.hero.spp++;
+				hero.spp++;
 			}
 
 			super.proc(attacker, defender, damage);

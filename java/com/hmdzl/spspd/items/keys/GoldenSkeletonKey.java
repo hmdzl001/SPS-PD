@@ -42,4 +42,8 @@ public class GoldenSkeletonKey extends Key {
 	public Glowing glowing() {
 		return WHITE;
 	}
+	@Override
+	public int price() {
+		return 100 * quantity;
+	}
 }

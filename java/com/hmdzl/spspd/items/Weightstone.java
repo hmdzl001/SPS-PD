@@ -17,21 +17,22 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
+import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Weightstone extends Item {
 
@@ -88,7 +89,8 @@ public class Weightstone extends Item {
 		GLog.w(Messages.get(this,"apply"));
 
 		weapon.enchant();
-		
+		ScrollOfRemoveCurse.uncurse(Dungeon.hero, weapon);
+		weapon.identify();
 		curUser.sprite.operate(curUser.pos);
 		curUser.sprite.centerEmitter().start(PurpleParticle.BURST, 0.05f, 10);
 		Sample.INSTANCE.play(Assets.SND_MISS);

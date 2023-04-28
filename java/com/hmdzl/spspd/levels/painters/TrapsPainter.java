@@ -49,7 +49,7 @@ public class TrapsPainter extends Painter {
         }
 
         if (trapClass == null){
-            Painter.fill(level, room, 1, Terrain.CHASM);
+            Painter.fill(level, room, 1, Terrain.TRAP_AIR);
         } else {
             Painter.fill(level, room, 1, Terrain.TRAP);
         }
@@ -57,7 +57,7 @@ public class TrapsPainter extends Painter {
 		Room.Door door = room.entrance();
 		door.set(Room.Door.Type.REGULAR);
 
-		int lastRow = level.map[room.left + 1 + (room.top + 1) * Level.getWidth()] == Terrain.CHASM ? Terrain.CHASM
+		int lastRow = level.map[room.left + 1 + (room.top + 1) * Level.getWidth()] == Terrain.TRAP_AIR? Terrain.TRAP_AIR
 				: Terrain.EMPTY;
 
 		int x = -1;
@@ -92,7 +92,7 @@ public class TrapsPainter extends Painter {
 		
 		int pos = x + y * Level.getWidth();
 		if (Random.Int(3) == 0) {
-			if (lastRow == Terrain.CHASM) {
+			if (lastRow == Terrain.TRAP_AIR) {
 				set(level, pos, Terrain.EMPTY);
 			}
 			level.drop(prize(level), pos).type = Heap.Type.CHEST;
@@ -114,12 +114,12 @@ public class TrapsPainter extends Painter {
 				return prize;
 		}
 
-		prize = Generator.random(Random.oneOf(Generator.Category.WEAPON,
+		prize = Generator.random(Random.oneOf(Generator.Category.MELEEWEAPON,
 				Generator.Category.ARMOR));
 
 		for (int i = 0; i < 3; i++) {
 			Item another = Generator.random(Random.oneOf(
-					Generator.Category.WEAPON, Generator.Category.ARMOR));
+					Generator.Category.MELEEWEAPON, Generator.Category.ARMOR));
 			if (another.level > prize.level) {
 				prize = another;
 			}

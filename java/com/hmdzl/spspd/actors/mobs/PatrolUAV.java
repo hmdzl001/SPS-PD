@@ -30,6 +30,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EnergyParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.levels.Level;
@@ -61,7 +62,7 @@ public class PatrolUAV extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new WandOfTCloud();
+		return Random.oneOf( new ScrollOfRecharging(),new WandOfTCloud());
 	}
 	
 	@Override

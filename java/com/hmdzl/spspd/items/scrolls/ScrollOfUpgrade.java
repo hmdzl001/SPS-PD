@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items.scrolls;
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
@@ -32,8 +31,6 @@ public class ScrollOfUpgrade extends InventoryScroll {
 		mode = WndBag.Mode.UPGRADEABLE;
 		consumedValue = 15;
 		initials = 14;
-
-		 
 	}
 
 	@Override
@@ -54,7 +51,8 @@ public class ScrollOfUpgrade extends InventoryScroll {
 	
 	@Override
 	public void empoweredRead() {
-		//does nothing for now, this should never happen.
+		///DewVial.uncurse(hero, hero.belongings.weapon, hero.belongings.armor, hero.belongings.misc1, hero.belongings.misc2, hero.belongings.misc3);
+
 	}	
 
 	@Override

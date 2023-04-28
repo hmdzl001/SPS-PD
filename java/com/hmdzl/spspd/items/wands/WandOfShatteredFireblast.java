@@ -167,7 +167,7 @@ public class WandOfShatteredFireblast extends DamageWand {
 
 	@Override
 	protected int chargesPerCast() {
-		//consumes 30% of current charges, rounded up, with a minimum of one.
+		//consumes 30% of current energy, rounded up, with a minimum of one.
 		return Math.max(1, (int)Math.ceil(curCharges*0.3f));
 	}
 

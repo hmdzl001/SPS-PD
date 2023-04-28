@@ -184,7 +184,7 @@ public class UDM300 extends Mob {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 
-		int dmg = Random.IntRange(0, damage/3);
+		int dmg = Random.IntRange(0, damage/3) - enemy.drRoll();
 
 		if (dmg > 0 || (Random.Int(3) == 0 )) {
 			enemy.damage(dmg, this);

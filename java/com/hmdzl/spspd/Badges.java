@@ -119,6 +119,7 @@ public class Badges {
         ORB(68),
         OTILUKE(65),
 		TRI(66),
+		LEARN(67),
 		EGG_BREAK_1(69),
 		EGG_BREAK_2(70),
 		EGG_BREAK_3(71);
@@ -821,6 +822,16 @@ public class Badges {
 			break;					
 		}
 
+		if (!global.contains(badge)) {
+			global.add(badge);
+			saveNeeded = true;
+		}
+	}
+	
+	public static void validateLearn() {
+
+		Badge badge = Badge.LEARN;
+		
 		if (!global.contains(badge)) {
 			global.add(badge);
 			saveNeeded = true;

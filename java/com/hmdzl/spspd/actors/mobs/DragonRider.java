@@ -24,6 +24,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DragonRiderSprite;
+import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 
@@ -66,8 +67,15 @@ public class DragonRider extends Mob {
 			Mob mob = Bestiary.mob(84);
 			mob.pos = pos;
 			mob.state = mob.HUNTING;
-		    GameScene.add(mob,1f);
-		super.die(cause);
+			GameScene.add(mob,1f);
+		   mob.sprite.jump(pos-4,pos, new Callback() {
+			@Override
+			public void call() {
+				move(pos);
+			}
+		});
+
+		   super.die(cause);
 
 	}
 	

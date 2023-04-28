@@ -26,7 +26,7 @@ public class TestWeapon extends MeleeWeapon {
 
 	{
 		//name = "TestWeapon";
-		image = ItemSpriteSheet.ADAMANT_WEAPON;
+		image = ItemSpriteSheet.TEST_WEAPON;
 		 
 	}
 
@@ -49,7 +49,7 @@ public class TestWeapon extends MeleeWeapon {
 		//Buff.affect(attacker,AttackUp.class,5).level(50);
 		//Buff.affect(attacker,DefenceUp.class,5).level(50);
 
-		//defender.damage(100,DamageType.ENERGY_DAMAGE);
+		//defender.damage(10,WandOfMagicMissile.class);
 		//defender.damage(100,DamageType.FIRE_DAMAGE);
 		//defender.damage(100,DamageType.ICE_DAMAGE);
 		//defender.damage(100,DamageType.SHOCK_DAMAGE);

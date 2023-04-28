@@ -97,6 +97,7 @@ import com.hmdzl.spspd.actors.mobs.Warlock;
 import com.hmdzl.spspd.actors.mobs.Wraith;
 import com.hmdzl.spspd.actors.mobs.Yog;
 import com.hmdzl.spspd.actors.mobs.Zombie;
+import com.hmdzl.spspd.actors.mobs.pets.Abi;
 import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Bunny;
@@ -105,7 +106,10 @@ import com.hmdzl.spspd.actors.mobs.pets.Chocobo;
 import com.hmdzl.spspd.actors.mobs.pets.CocoCat;
 import com.hmdzl.spspd.actors.mobs.pets.Datura;
 import com.hmdzl.spspd.actors.mobs.pets.DogPet;
+import com.hmdzl.spspd.actors.mobs.pets.DwarfBoy;
 import com.hmdzl.spspd.actors.mobs.pets.Fly;
+import com.hmdzl.spspd.actors.mobs.pets.FoxHelper;
+import com.hmdzl.spspd.actors.mobs.pets.FrogPet;
 import com.hmdzl.spspd.actors.mobs.pets.GentleCrab;
 import com.hmdzl.spspd.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.actors.mobs.pets.GreenDragon;
@@ -113,6 +117,7 @@ import com.hmdzl.spspd.actors.mobs.pets.Haro;
 import com.hmdzl.spspd.actors.mobs.pets.Kodora;
 import com.hmdzl.spspd.actors.mobs.pets.LeryFire;
 import com.hmdzl.spspd.actors.mobs.pets.LightDragon;
+import com.hmdzl.spspd.actors.mobs.pets.LitDemon;
 import com.hmdzl.spspd.actors.mobs.pets.Monkey;
 import com.hmdzl.spspd.actors.mobs.pets.PigPet;
 import com.hmdzl.spspd.actors.mobs.pets.RedDragon;
@@ -121,6 +126,7 @@ import com.hmdzl.spspd.actors.mobs.pets.Scorpion;
 import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Snake;
 import com.hmdzl.spspd.actors.mobs.pets.Spider;
+import com.hmdzl.spspd.actors.mobs.pets.StarKid;
 import com.hmdzl.spspd.actors.mobs.pets.Stone;
 import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
@@ -259,6 +265,12 @@ public enum NewMobCatalog {
 		ETC.seen.put( Velocirooster.class , true);
 		ETC.seen.put( VioletDragon.class , true);
 		ETC.seen.put( YearPet.class , true);
+		ETC.seen.put( FoxHelper.class , true);
+		ETC.seen.put( DwarfBoy.class , true);
+		ETC.seen.put( FrogPet.class , true);
+		ETC.seen.put( StarKid.class , true);
+		ETC.seen.put( LitDemon.class , true);
+		ETC.seen.put( Abi.class , true);
 
 
 	}

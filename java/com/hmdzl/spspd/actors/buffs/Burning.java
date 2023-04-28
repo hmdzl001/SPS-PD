@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.Thief;
+import com.hmdzl.spspd.actors.mobs.ThiefImp;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
@@ -107,14 +107,14 @@ public class Burning extends Buff implements Hero.Doom {
 
 				}
 
-			} else if (target instanceof Thief) {
+			} else if (target instanceof ThiefImp) {
 
-				Item item = ((Thief) target).item;
+				Item item = ((ThiefImp) target).item;
 
 				if (item instanceof Scroll &&
 						!(item instanceof ScrollOfUpgrade || item instanceof ScrollOfMagicalInfusion)) {
 					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
-					((Thief)target).item = null;
+					((ThiefImp)target).item = null;
 				}
 
 			}

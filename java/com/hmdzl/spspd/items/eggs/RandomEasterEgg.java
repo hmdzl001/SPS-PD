@@ -52,7 +52,7 @@ public class RandomEasterEgg extends Egg {
 
 
 	public void rollpet() {
-		switch (Random.Int (4)) {
+		switch (Random.Int (3)) {
 			case 0:
 				Bunny pet = new Bunny();
 				eggHatch(pet);
@@ -62,10 +62,7 @@ public class RandomEasterEgg extends Egg {
 				eggHatch(pet1);
 				break;
 			case 2:
-				Haro pet2 = new Haro();
-				eggHatch(pet2);
-				break;
-			case 3:
+			
 				Velocirooster pet3 = new Velocirooster();
 				eggHatch(pet3);
 				break;

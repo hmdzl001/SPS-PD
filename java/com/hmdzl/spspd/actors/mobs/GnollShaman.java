@@ -25,6 +25,8 @@ import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
+import com.hmdzl.spspd.items.potions.PotionOfLevitation;
+import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
@@ -65,7 +67,7 @@ public class GnollShaman extends Mob implements Callback {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new SandalsOfNature();
+		return Random.oneOf( new ScrollOfRegrowth(),new PotionOfLevitation(),new SandalsOfNature());
 	}
 
 	@Override

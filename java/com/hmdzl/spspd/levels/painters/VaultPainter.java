@@ -60,7 +60,7 @@ public class VaultPainter extends Painter {
 				pos = room.random();
 			} while (level.map[pos] == Terrain.EMPTY_SP
 					|| level.heaps.get(pos) != null);
-			level.drop(i3, pos);	
+			level.drop(i3, pos).type= Type.CRYSTAL_CHEST;
 					
 			break;
 

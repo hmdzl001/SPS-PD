@@ -26,6 +26,7 @@ public class RingOfHaste extends Ring {
 	{
 		//name = "Ring of HasteBuff";
 		initials = 5;
+		sname = "FAST";
 	}
 
 	public String statsInfo() {

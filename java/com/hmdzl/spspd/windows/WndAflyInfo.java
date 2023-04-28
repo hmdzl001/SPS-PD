@@ -3,17 +3,19 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
+import com.hmdzl.spspd.items.eggs.AflyEgg;
 import com.hmdzl.spspd.items.food.completefood.AflyFood;
-import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.items.food.staplefood.StapleFood;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.Icons;
@@ -82,7 +84,7 @@ public class WndAflyInfo extends Window {
 						item = null;
 						slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
 					}
-					GameScene.selectItem( itemSelector, WndBag.Mode.COOKING, Messages.get(WndAlchemy.class, "select") );
+					GameScene.selectItem( itemSelector, WndBag.Mode.COOKING_A, Messages.get(WndAlchemy.class, "select") );
 				}
 			};
 			inputs[i].setRect(15, h, BTN_SIZE, BTN_SIZE);
@@ -204,6 +206,8 @@ public class WndAflyInfo extends Window {
 		ArrayList<Fruit> fruits = filterInput(Fruit.class);
 		ArrayList<StapleFood> staplefoods = filterInput(StapleFood.class);
 		ArrayList<MeatFood> meatfoods = filterInput(MeatFood.class);
+		ArrayList<Ankh> ankh = filterInput(Ankh.class);
+		ArrayList<AflyFood> aflyfood = filterInput(AflyFood.class);
 		
 		Item result = null;
 
@@ -215,7 +219,12 @@ public class WndAflyInfo extends Window {
 
 			result = new LifeArmor();
 
-		} else result = new Garbage();
+		} else if (aflyfood.size() == 1  && ankh.size() == 1 ){
+
+			result = new AflyEgg();
+
+		}
+		 else result = new Garbage();
 
 		if (result != null){
 			bubbleEmitter.start(Speck.factory( Speck.BUBBLE ), 0.2f, 10 );

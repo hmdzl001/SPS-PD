@@ -19,7 +19,6 @@ package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.Foliage;
-import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.levels.Level;
@@ -61,13 +60,13 @@ public class GardenPainter extends Painter {
 			level.drop(new Honeypot(), pos);		
 		}
 		
-		if (!Dungeon.limitedDrops.shopcart.dropped()){
-			int pos;
-			do {pos = room.random();}
-			while (level.heaps.get(pos) != null);
-			level.drop(new ShoppingCart(), pos);
-			Dungeon.limitedDrops.shopcart.drop();
-		}
+		//if (!Dungeon.limitedDrops.shopcart.dropped()){
+		//	int pos;
+		//	do {pos = room.random();}
+		//	while (level.heaps.get(pos) != null);
+		//	level.drop(new ShoppingCart(), pos);
+		//	Dungeon.limitedDrops.shopcart.drop();
+		//}
 				
 		if (Random.Int(50)==0 && Dungeon.getMonth()==4){
 			int pos;

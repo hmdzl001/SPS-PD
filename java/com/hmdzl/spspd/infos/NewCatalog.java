@@ -22,23 +22,21 @@
 package com.hmdzl.spspd.infos;
 
 import com.hmdzl.spspd.items.CrystalVial;
+import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.TestCloak;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.BulletArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.CDArmor;
-import com.hmdzl.spspd.items.armor.specialarmor.CatSharkArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.CeramicsArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.ClothArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
-import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.MachineArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.MailArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.MultiplelayerArmor;
@@ -51,6 +49,17 @@ import com.hmdzl.spspd.items.armor.normalarmor.StoneArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.StyrofoamArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.VestArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.AsceticArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.CatSharkArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.FollowerArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.HuntressArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.MageArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.PerformerArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.RogueArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.SoldierArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.TestArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.WarriorArmor;
 import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
@@ -79,6 +88,7 @@ import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.FishPetFood;
 import com.hmdzl.spspd.items.food.completefood.FoodFans;
 import com.hmdzl.spspd.items.food.completefood.Frenchfries;
+import com.hmdzl.spspd.items.food.completefood.FruitCandy;
 import com.hmdzl.spspd.items.food.completefood.Fruitsalad;
 import com.hmdzl.spspd.items.food.completefood.Gel;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
@@ -91,10 +101,13 @@ import com.hmdzl.spspd.items.food.completefood.Honeyrice;
 import com.hmdzl.spspd.items.food.completefood.Icecream;
 import com.hmdzl.spspd.items.food.completefood.Kebab;
 import com.hmdzl.spspd.items.food.completefood.Meatroll;
+import com.hmdzl.spspd.items.food.completefood.MixPizza;
 import com.hmdzl.spspd.items.food.completefood.NutCake;
+import com.hmdzl.spspd.items.food.completefood.NutCookie;
 import com.hmdzl.spspd.items.food.completefood.PerfectFood;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.completefood.Porksoup;
+import com.hmdzl.spspd.items.food.completefood.RiceGruel;
 import com.hmdzl.spspd.items.food.completefood.Ricefood;
 import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.items.food.completefood.Vegetableroll;
@@ -141,6 +154,7 @@ import com.hmdzl.spspd.items.medicine.Powerpill;
 import com.hmdzl.spspd.items.medicine.RealgarWine;
 import com.hmdzl.spspd.items.medicine.Shootpill;
 import com.hmdzl.spspd.items.medicine.Smashpill;
+import com.hmdzl.spspd.items.medicine.Timepill;
 import com.hmdzl.spspd.items.misc.AttackShield;
 import com.hmdzl.spspd.items.misc.AttackShoes;
 import com.hmdzl.spspd.items.misc.BShovel;
@@ -231,6 +245,7 @@ import com.hmdzl.spspd.items.wands.WandOfMeteorite;
 import com.hmdzl.spspd.items.wands.WandOfShatteredFireblast;
 import com.hmdzl.spspd.items.wands.WandOfSwamp;
 import com.hmdzl.spspd.items.wands.WandOfTCloud;
+import com.hmdzl.spspd.items.wands.WandOfTest;
 import com.hmdzl.spspd.items.weapon.guns.GunA;
 import com.hmdzl.spspd.items.weapon.guns.GunB;
 import com.hmdzl.spspd.items.weapon.guns.GunC;
@@ -420,7 +435,9 @@ public enum NewCatalog {
 		WEAPONS.seen.put( GoblinShield.class , true);
 		WEAPONS.seen.put( SpKnuckles.class , true);
 		WEAPONS.seen.put( TenguSword.class , true);
+		WEAPONS.seen.put( HolyMace.class , true);
 		WEAPONS.seen.put( Weightstone.class , true);
+		WEAPONS.seen.put( DewVial.class , true);
 
 		ARMOR.seen.put( BaseArmor.class, true);
 		ARMOR.seen.put( VestArmor.class, true);
@@ -452,7 +469,15 @@ public enum NewCatalog {
 		ARMOR.seen.put( SoldierSkill.class, true);
 		ARMOR.seen.put( FollowerSkill.class, true);
 		ARMOR.seen.put( AsceticSkill.class, true);
-		ARMOR.seen.put( Stylus.class, true);
+		ARMOR.seen.put( TestArmor.class, true);
+		ARMOR.seen.put(WarriorArmor.class, true);
+		ARMOR.seen.put( MageArmor.class, true);
+		ARMOR.seen.put( RogueArmor.class, true);
+		ARMOR.seen.put( HuntressArmor.class, true);
+		ARMOR.seen.put( PerformerArmor.class, true);
+		ARMOR.seen.put( SoldierArmor.class, true);
+		ARMOR.seen.put( FollowerArmor.class, true);
+		ARMOR.seen.put( AsceticArmor.class, true);
 		ARMOR.seen.put( GreatRune.class, true);
 		ARMOR.seen.put( Torch.class, true);
 
@@ -471,6 +496,7 @@ public enum NewCatalog {
 		WANDS.seen.put( WandOfFlock.class,             true);
 		WANDS.seen.put( WandOfBlood.class,               true);
 		WANDS.seen.put( WandOfError.class,               true);
+		WANDS.seen.put( WandOfTest.class,               true);
 
 
 		SPECIALS.seen.put(MissileShield.class,true);
@@ -653,6 +679,12 @@ public enum NewCatalog {
 		FOODS.seen.put( Vegetablesoup.class, true);
 		FOODS.seen.put( ZongZi.class, true);
 
+		FOODS.seen.put( FruitCandy.class, true);
+		FOODS.seen.put( NutCookie.class, true);
+		FOODS.seen.put( MixPizza.class, true);
+		FOODS.seen.put( RiceGruel.class, true);
+
+
 		PILLS.seen.put( Powerpill.class, true);
 		PILLS.seen.put( Magicpill.class, true);
 		PILLS.seen.put( Shootpill.class, true);
@@ -668,6 +700,7 @@ public enum NewCatalog {
 		PILLS.seen.put( PixieParasol.class, true);
 		PILLS.seen.put( RealgarWine.class, true);
 		PILLS.seen.put( Greaterpill.class, true);
+		PILLS.seen.put( Timepill.class, true);
 
 	}
 

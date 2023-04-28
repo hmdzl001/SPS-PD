@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -42,7 +39,6 @@ import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-
 import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
@@ -52,7 +48,7 @@ import com.hmdzl.spspd.levels.traps.ChangeSheepTrap;
 import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.HeapGenTrap;
 import com.hmdzl.spspd.levels.traps.SokobanPortalTrap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.plants.Starflower;
@@ -62,6 +58,9 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 public class SokobanCastle extends Level {
 
@@ -638,17 +637,16 @@ public class SokobanCastle extends Level {
 		 addItemToGen(new IronKey(Dungeon.depth) , 3, 24 + WIDTH * 22);
 		 addItemToGen(new IronKey(Dungeon.depth) , 4, 24 + WIDTH * 22);
 		 addItemToGen(new IronKey(Dungeon.depth) , 5, 24 + WIDTH * 22);
-       
+		addItemToGen(new Spectacles() , 6, 30 + WIDTH * 23);
 		 
 		 if (first){
-			 addItemToGen(new Phaseshift.Seed() , 6, 30 + WIDTH * 23);
-			 addItemToGen(new Starflower.Seed() , 7, 18 + WIDTH * 23);
-			 addItemToGen(new Spectacles() , 8, 25 + WIDTH * 2);
+		 	addItemToGen(new Starflower.Seed() , 7, 18 + WIDTH * 23);
+			 addItemToGen(new Phaseshift.Seed() , 8, 25 + WIDTH * 2);
 			 addItemToGen(new ScrollOfMagicalInfusion() , 9, 26 + WIDTH * 2);
 			 addItemToGen(new ScrollOfMagicalInfusion() , 10, 8 + WIDTH * 37);
 			 addItemToGen(new ScrollOfRegrowth() , 11, 10 + WIDTH * 37);
-		 } 
-		 
+		 }
+
 		 drop(new PotionOfLiquidFlame(), 9 + WIDTH * 24).type = Heap.Type.CHEST;
 	}
 

@@ -75,7 +75,7 @@ public class PitPainter extends Painter {
 		} else if (loot == 1) {
 			level.drop(Generator.random(Generator.Category.ARTIFACT), remains);
 		} else {
-			level.drop(Generator.random(Random.oneOf(Generator.Category.WEAPON,
+			level.drop(Generator.random(Random.oneOf(Generator.Category.MELEEWEAPON,
 					Generator.Category.ARMOR)), remains);
 		}
 		level.drop(new Ankh(), remains);

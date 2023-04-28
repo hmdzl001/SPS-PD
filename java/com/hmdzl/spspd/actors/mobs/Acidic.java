@@ -22,6 +22,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.StenchGas;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.wands.WandOfAcid;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AcidicSprite;
@@ -45,7 +46,7 @@ public class Acidic extends Scorpio {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 
-		int dmg = Random.IntRange(0, damage/2);
+		int dmg = Random.IntRange(0, damage/2) - enemy.drRoll();
 		if (dmg > 0) {
 			enemy.damage(dmg, this);
 		}
@@ -65,6 +66,6 @@ public class Acidic extends Scorpio {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new WandOfAcid();
+		return Random.oneOf( new PotionOfToxicGas(), new WandOfAcid());
 	}
 }

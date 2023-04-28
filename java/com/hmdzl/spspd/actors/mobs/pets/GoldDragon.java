@@ -71,7 +71,7 @@ public class GoldDragon extends PET{
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(5+Dungeon.hero.petLevel,10+Dungeon.hero.petLevel);
+		return Random.IntRange(5+Dungeon.hero.petLevel,10+Dungeon.hero.petLevel*3);
 	}
 
 	@Override

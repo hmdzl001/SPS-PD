@@ -23,7 +23,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
 public class Blackberry extends Fruit {
@@ -44,16 +43,15 @@ public class Blackberry extends Fruit {
 		if (action.equals(AC_EAT)) {
 
 			switch (Random.Int(10)) {
+			case 0:
 			case 1:
 				Buff.affect(hero, MindVision.class, MindVision.DURATION);
 				Dungeon.observe();
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT);
-				GLog.w("The berry releases energy your body!");
+				Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/8,20));
 				break;
-			case 0: case 2: case 3: case 4: case 5: 
-			case 6: case 7: case 8: case 9: case 10:
-				GLog.w("The berry releases energy into your body!");
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HT/2);
+			 case 2: case 3: case 4: case 5:
+			case 6: case 7: case 8: case 9:
+				Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/10,15));
 				break;
 			}
 		}

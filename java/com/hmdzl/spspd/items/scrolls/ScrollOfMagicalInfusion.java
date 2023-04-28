@@ -23,9 +23,9 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.weapon.Weapon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class ScrollOfMagicalInfusion extends InventoryScroll {
 
@@ -42,7 +42,8 @@ public class ScrollOfMagicalInfusion extends InventoryScroll {
 	@Override
 	protected void onItemSelected(Item item) {
 
-		//ScrollOfRemoveCurse.uncurse(Dungeon.hero, item);
+		ScrollOfRemoveCurse.uncurse(Dungeon.hero, item);
+		item.identify();
 		if (item instanceof Weapon)
 			((Weapon) item).upgrade(true);
 		else

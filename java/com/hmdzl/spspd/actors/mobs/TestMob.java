@@ -20,10 +20,13 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
 import com.hmdzl.spspd.sprites.ScarecrowSprite;
 import com.watabou.utils.Bundle;
@@ -67,7 +70,7 @@ public class TestMob extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return 1;
+		return 10;
 	}
 
 	@Override
@@ -80,6 +83,13 @@ public class TestMob extends Mob {
 		return 0;
 	}
 
+	//@Override
+//	public int defenseProc(Char enemy, int damage) {
+  //      if (this.HP > damage){
+  //      	doAttack(enemy);
+	//	}
+	//	return super.defenseProc(enemy, damage);
+	//}
 	
 	@Override
 	public void beckon(int cell) {
@@ -89,18 +99,25 @@ public class TestMob extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		if (!Dungeon.limitedDrops.heartScarecrow.dropped()) {
+		if (!Dungeon.limitedDrops.heartScarecrow.dropped() && Dungeon.hero.heroClass != HeroClass.NEWPLAYER) {
 			Dungeon.limitedDrops.heartScarecrow.drop();
 			Dungeon.level.drop(new HeartOfScarecrow(), pos).sprite.drop();
 			explodeDew(pos);
 		}
-		
+		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+			if (mob instanceof TestMob && mob.isAlive())
+				mob.HP+=100;
+				Buff.affect(mob, ShieldArmor.class).level(1000000);
+		}
+
 	}
 
 	{
 		//WEAKNESS.add(Burning.class);
 		//WEAKNESS.add(WandOfFirebolt.class);
 		//WEAKNESS.add(TestWeapon.class);
+		//resistances.add(Hero.class);
+		//resistances.add(Wand.class);
 		immunities.add(Terror.class);
 		immunities.add(Amok.class);
 		immunities.add(Charm.class);

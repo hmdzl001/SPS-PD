@@ -120,7 +120,7 @@ public class CavesLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 100+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.depth] = 300+(Dungeon.depth*50)+(secretDoors*20);
 	}
 
 	@Override

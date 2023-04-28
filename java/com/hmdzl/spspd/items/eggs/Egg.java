@@ -23,6 +23,7 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
+import com.hmdzl.spspd.actors.mobs.pets.BlueGirl;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.actors.mobs.pets.GoldDragon;
 import com.hmdzl.spspd.actors.mobs.pets.GreenDragon;
@@ -35,6 +36,7 @@ import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.VIPcard;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -148,30 +150,37 @@ public class Egg extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action.equals(AC_BREAK)) {
-			
+			if (Random.Int(10) == 0) {
+				Dungeon.level.drop(new VIPcard(), hero.pos).sprite.drop();
+			}
 			boolean hatch = false;
 			if (checkFreezes()>=20 && checkPoisons()>=20 && checkBurns()>=20 && checkLits()>=20
-			          && checkLight()>=20 && checkDarks()>=20 && checkMoves()>=2000){
-				if (Dungeon.getMonth()==9 || Random.Int(50) == 0){
-				   BugDragon pet = new BugDragon();
-				   eggHatch(pet);
-					  hatch=true;
-				 } else {
-				  GoldDragon pet = new GoldDragon();
-				  eggHatch(pet);
-				  hatch=true;
-				 }		
+			          && checkLight()>=20 && checkDarks()>=20 && checkMoves()>=2000) {
+				if (Dungeon.getMonth() == 9 || Random.Int(50) == 0) {
+					BugDragon pet = new BugDragon();
+					eggHatch(pet);
+					hatch = true;
+				} else {
+					GoldDragon pet = new GoldDragon();
+					eggHatch(pet);
+					hatch = true;
+				}
+			} else if (checkPoisons()>=30 && checkLight()>=66 && checkLight()<=122){
+				BlueGirl pet = new BlueGirl();
+				eggHatch(pet);
+				hatch=true;
+				//spawn leryfire	 }
+			} else if (checkFreezes()>=5 && checkPoisons()>=5 && checkBurns()>=5 && checkLits()>=5 && checkMoves()>=50){
+					LeryFire pet = new LeryFire();
+					eggHatch(pet);
+					hatch=true;
+					//spawn leryfire	 }
 			 } else if (checkLight()>= 20 ){
                   ShadowDragon pet = new ShadowDragon();
                   eggHatch(pet);
 				  hatch=true;
                  //spawn ShadowDragon
-				
-              } else if (checkFreezes()>=5 && checkPoisons()>=5 && checkBurns()>=5 && checkLits()>=5 && checkMoves()>=50){
-                  LeryFire pet = new LeryFire();
-                  eggHatch(pet);
-				  hatch=true;
-                 //spawn leryfire
+
 			  } else if (checkFreezes()>=20) {
 				  BlueDragon pet = new BlueDragon();
 				  eggHatch(pet);

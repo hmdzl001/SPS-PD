@@ -26,36 +26,43 @@ public class DamageType {
 	public static final EnergyDamage ENERGY_DAMAGE = new EnergyDamage();
 
 	public static class EnergyDamage extends DamageType {
+
 	}
 
 	public static final FireDamage FIRE_DAMAGE = new FireDamage();
 
 	public static class FireDamage extends DamageType{
+
 	}
 
 	public static final IceDamage ICE_DAMAGE = new IceDamage();
 
 	public static class IceDamage extends DamageType{
+
 	}
 
 	public static final ShockDamage SHOCK_DAMAGE = new ShockDamage();
 
 	public static class ShockDamage extends DamageType{
+
 	}
 
 	public static final EarthDamage EARTH_DAMAGE = new EarthDamage();
 
 	public static class EarthDamage extends DamageType{
+
 	}
 
 	public static final LightDamage LIGHT_DAMAGE = new LightDamage();
 
 	public static class LightDamage extends DamageType{
+
 	}
 
 	public static final DarkDamage DARK_DAMAGE = new DarkDamage();
 
 	public static class DarkDamage extends DamageType{
+
 	}
 
 	public void onDeath() {

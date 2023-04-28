@@ -62,14 +62,16 @@ public class UndeadBook extends Item {
 	}
 
 	public static int charge;
+	public static int charge2;
 	private static final String CHARGE = "charge";
+	private static final String CHARGE2 = "charge2";
 	
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (charge > 10) actions.add(AC_READ);
 		if (hero.TRUE_HT > 10) actions.add(AC_READ2);
-		if (Dungeon.hero.spp < hero.lvl) actions.add(AC_BLESS);
+		if (charge2< hero.lvl) actions.add(AC_BLESS);
 		return actions;
 	}
 	
@@ -77,12 +79,14 @@ public class UndeadBook extends Item {
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(CHARGE, charge);
+		bundle.put(CHARGE2, charge2);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
+		charge2 = bundle.getInt(CHARGE2);
 	}		
 	
 
@@ -144,7 +148,7 @@ public class UndeadBook extends Item {
 		}
 
 		if (action.equals(AC_BLESS)) {
-			    Dungeon.hero.spp ++;
+			    charge2++;
                 Dungeon.level.drop(new Ankh(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				GLog.p(Messages.get(this, "1up"));
 		} else {
@@ -157,6 +161,7 @@ public class UndeadBook extends Item {
 	public String info() {
 		String info = desc();
 		info += "\n\n" + Messages.get(this, "charge",charge);
+		info += "\n\n" + Messages.get(this, "charge2",charge2);
 		return info;
 	}
 

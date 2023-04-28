@@ -41,8 +41,10 @@ import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
@@ -50,6 +52,7 @@ import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.PotionOfMage;
 import com.hmdzl.spspd.items.wands.WandOfLight;
+import com.hmdzl.spspd.items.weapon.rockcode.Dpotion;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -250,6 +253,10 @@ public class PlagueDoctor extends Mob {
 					break;					
 		}
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
+		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Dpotion(), Dungeon.hero.pos).sprite.drop();
 	}
 
 	@Override
@@ -300,11 +307,11 @@ public class PlagueDoctor extends Mob {
 
 	public static class ShadowRatSummon extends Buff {
 
-		int spawnPower = 0;
+		int shadowRat = 0;
 
 		@Override
 		public boolean act() {
-			spawnPower++;
+			shadowRat++;
 			int srat = 1; //we include the wraith we're trying to spawn
 			for (Mob mob : Dungeon.level.mobs) {
 				if (mob instanceof ShadowRat) {
@@ -314,8 +321,8 @@ public class PlagueDoctor extends Mob {
 
 			int powerNeeded = Math.min(10, srat);
 
-			if (powerNeeded <= spawnPower) {
-				spawnPower -= powerNeeded;
+			if (powerNeeded <= shadowRat) {
+				shadowRat -= powerNeeded;
 				int pos = 0;
 				do {
 					pos = Random.Int(Dungeon.level.randomRespawnCellMob());
@@ -337,18 +344,18 @@ public class PlagueDoctor extends Mob {
 			}
 		}
 
-		private static String SPAWNPOWER = "spawnpower";
+		private static String SHADOWRAT = "shadowrat";
 
 		@Override
 		public void storeInBundle(Bundle bundle) {
 			super.storeInBundle(bundle);
-			bundle.put(SPAWNPOWER, spawnPower);
+			bundle.put(SHADOWRAT, shadowRat);
 		}
 
 		@Override
 		public void restoreFromBundle(Bundle bundle) {
 			super.restoreFromBundle(bundle);
-			spawnPower = bundle.getInt(SPAWNPOWER);
+			shadowRat = bundle.getInt(SHADOWRAT);
 		}
 	}
 

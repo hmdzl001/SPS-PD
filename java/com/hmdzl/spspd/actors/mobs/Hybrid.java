@@ -36,6 +36,7 @@ import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Tar;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
@@ -45,6 +46,7 @@ import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.MKbox;
 import com.hmdzl.spspd.items.potions.PotionOfExperience;
+import com.hmdzl.spspd.items.weapon.rockcode.Mlaser;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
@@ -229,6 +231,9 @@ public class Hybrid extends Mob {
 		
 		Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
 	    Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Mlaser(), Dungeon.hero.pos).sprite.drop();
 		yell(Messages.get(this,"die"));
 		
 	}

@@ -94,7 +94,7 @@ import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.AdamantWand;
 import com.hmdzl.spspd.items.AdamantWeapon;
 import com.hmdzl.spspd.items.Ankh;
-import com.hmdzl.spspd.items.ArmorKit2;
+import com.hmdzl.spspd.items.ArmorKit;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
@@ -103,27 +103,17 @@ import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
-import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
+import com.hmdzl.spspd.items.keys.GoldenSkeletonKey;
 import com.hmdzl.spspd.items.misc.SkillOfAtk;
 import com.hmdzl.spspd.items.misc.SkillOfDef;
 import com.hmdzl.spspd.items.misc.SkillOfMig;
 import com.hmdzl.spspd.items.quest.DarkGold;
+import com.hmdzl.spspd.items.reward.BoundReward;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-import com.hmdzl.spspd.items.weapon.guns.ToyGun;
-import com.hmdzl.spspd.items.weapon.melee.special.Brick;
-import com.hmdzl.spspd.items.weapon.melee.special.DragonBoat;
-import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
-import com.hmdzl.spspd.items.weapon.melee.special.HookHam;
-import com.hmdzl.spspd.items.weapon.melee.special.KeyWeapon;
-import com.hmdzl.spspd.items.weapon.melee.special.Lollipop;
-import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
+import com.hmdzl.spspd.items.wands.WandOfTest;
 import com.hmdzl.spspd.items.weapon.melee.special.RunicBlade;
-import com.hmdzl.spspd.items.weapon.melee.special.SJRBMusic;
-import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
-import com.hmdzl.spspd.items.weapon.melee.special.Tree;
-import com.hmdzl.spspd.items.weapon.missiles.MiniMoai;
 import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
@@ -361,7 +351,7 @@ public class TownLevel extends Level {
 			prize = new PetFood();
 			break;
 		case 8:
-			prize = new NutVegetable();
+			prize = new BoundReward();
 			break;
 		default:
 			prize = new Nut();
@@ -391,7 +381,7 @@ public class TownLevel extends Level {
 			prize = Generator.random(Generator.Category.RING);
 			break;			
 		case 5:
-			prize = Generator.random(Generator.Category.WEAPON);  
+			prize = Generator.random(Generator.Category.MELEEWEAPON);
 			break;
 		case 6:
 			prize = Generator.random(Generator.Category.NORNSTONE);
@@ -405,6 +395,9 @@ public class TownLevel extends Level {
 		case 9:
 			prize = Generator.random(Generator.Category.RANGEWEAPON);
 			break;
+		case 10:
+				prize = new GoldenSkeletonKey();
+				break;
 		default:
 			prize = new ScrollOfUpgrade();
 			break;
@@ -498,45 +491,22 @@ public class TownLevel extends Level {
 
 	public Item storeItem7 (){
 		Item prize;
-		switch (Random.Int(13)) {
+		switch (Random.Int(10)) {
 			case 0:
-				prize = new Pumpkin();
+				prize = new MoneyPack(3);
 				break;
 			case 1:
-				prize = new Tree();
+				prize = new WandOfTest();
 				break;
 			case 2:
-				prize = new FireCracker();
-				break;
 			case 3:
-				prize = new MiniMoai();
-				break;
 			case 4:
-				prize = new TestWeapon();
-				break;
 			case 5:
-				prize = new ToyGun();
-				break;
 			case 6:
-				prize = new HookHam();
-				break;
 			case 7:
-				prize = new Brick();
-				break;
 			case 8:
-				prize = new Lollipop();
-				break;
 			case 9:
-				prize = new SJRBMusic();
-				break;
-			case 10:
-				prize = new MoneyPack(5);
-				break;
-			case 11:
-				prize = new KeyWeapon();
-				break;
-			case 12:
-				prize = new DragonBoat();
+				prize = Generator.random(Generator.Category.EASTERWEAPON);
 				break;
 			default:
 				prize = new PetFood();
@@ -572,7 +542,7 @@ public class TownLevel extends Level {
 
 	public Item storeItem10 (){
 		Item prize;
-		prize = new ArmorKit2();
+		prize = new ArmorKit();
 		return prize;
 	}
 
@@ -1082,13 +1052,13 @@ public class TownLevel extends Level {
 
 	@Override
 	public String tilesTex() {
-		return (Dungeon.getMonth() > 3 && Dungeon.getMonth() < 11) ? Assets.TILES_TOWN : Assets.TILES_SNOWTOWN;
+		return (Dungeon.getMonth() > 2 && Dungeon.getMonth() < 11) ? Assets.TILES_TOWN : Assets.TILES_SNOWTOWN;
 		//return Dungeon.skins == 3 ? Assets.TILES_TOWN : Assets.TILES_SNOWTOWN;
 	}
 
 	@Override
 	public String waterTex() {
-		return (Dungeon.getMonth() > 3 && Dungeon.getMonth() < 11) ? Assets.WATER_PRISON : Assets.WATER_SNOW;
+		return (Dungeon.getMonth() > 2 && Dungeon.getMonth() < 11) ? Assets.WATER_PRISON : Assets.WATER_SNOW;
 		//return Dungeon.skins == 3 ? Assets.WATER_HONEY  : Assets.WATER_SNOW ;
 	}
 

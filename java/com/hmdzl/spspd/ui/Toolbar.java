@@ -22,12 +22,12 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndCatalogus;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.Image;
@@ -48,6 +48,9 @@ public class Toolbar extends Component {
 	private Tool btnQuick4;
 	private Tool btnQuick5;
 	private Tool btnQuick6;
+	private Tool btnQuick7;
+	private Tool btnQuick8;
+	private Tool btnQuick9;
 	public static int QuickSlots;
 
 	private PickedUpItem pickedUp;
@@ -175,6 +178,12 @@ public class Toolbar extends Component {
 		btnQuick5 = new QuickslotTool(105, 7, 22, 24, 4);
 		
 		add(btnQuick6 = new QuickslotTool(105, 7, 22, 24, 5));
+		
+		btnQuick7 = new QuickslotTool(105, 7, 22, 24, 6);
+		
+		add(btnQuick8 = new QuickslotTool(105, 7, 22, 24, 7));
+		
+		btnQuick9 = new QuickslotTool(105, 7, 22, 24, 8);
 
 		add(pickedUp = new PickedUpItem());
 		
@@ -195,13 +204,21 @@ public class Toolbar extends Component {
 		btnQuick4.setPos(width - btnQuick.width(), btnQuick.height()*2);
 		btnQuick5.setPos(width - btnInventory.width()*4+4, y);
 		btnQuick6.setPos(width - btnInventory.width()*3+3, y);
+		btnQuick7.setPos(0, btnInventory.width()*2+4);
+		btnQuick8.setPos(0, btnInventory.width()*3+4);
+		btnQuick9.setPos(0, btnInventory.width()*4+4);
+		
 		if (QuickSlots == 2) {
 			add(btnQuick2);
 			btnQuick2.visible = btnQuick2.active = true;
 			add(btnQuick3);
 			btnQuick3.visible = btnQuick3.active = true;
 			add(btnQuick5);
-			btnQuick5.visible = btnQuick5.active = true;		
+			btnQuick5.visible = btnQuick5.active = true;
+            add(btnQuick7);
+			btnQuick7.visible = btnQuick7.active = true;
+            add(btnQuick9);
+			btnQuick9.visible = btnQuick9.active = true;			
 		} else {
 			remove(btnQuick2);
 			btnQuick2.visible = btnQuick2.active = false;
@@ -209,6 +226,10 @@ public class Toolbar extends Component {
 			btnQuick5.visible = btnQuick5.active = false;
 			remove(btnQuick3);
 			btnQuick3.visible = btnQuick3.active = false;
+			remove(btnQuick7);
+			btnQuick7.visible = btnQuick7.active = false;
+			remove(btnQuick9);
+			btnQuick9.visible = btnQuick9.active = false;
 		}
 	}
 

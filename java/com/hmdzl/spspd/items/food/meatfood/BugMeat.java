@@ -45,27 +45,19 @@ public class BugMeat extends MeatFood {
 	//@Override
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
-			if (hero.buff(BugSlow.class) == null){
-				Buff.affect(hero,BugSlow.class);
-		 	}
+			Buff.affect(hero,BugSlow.class);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-
-
 	@Override
 	public void execute(Hero hero, String action) {
-
 		super.execute(hero, action);
-
 		if (action.equals(AC_EAT)) {
-		
 			hero.TRUE_HT = Math.max(hero.TRUE_HT-1,1);
 			hero.updateHT(true);
-		
 		}
 	}	
 

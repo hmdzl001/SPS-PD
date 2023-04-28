@@ -18,8 +18,10 @@
 package com.hmdzl.spspd.scenes;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Flare;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.watabou.noosa.Camera;
@@ -91,8 +93,10 @@ public class Pudding_CupScene extends PixelScene {
 
 	@Override
 	protected void onBackPressed() {
-		InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
-		Game.switchScene(InterlevelScene.class);
+		if (Dungeon.hero.heroClass != HeroClass.NEWPLAYER) {
+			InterlevelScene.mode = InterlevelScene.Mode.CONTINUE;
+			Game.switchScene(InterlevelScene.class);
+		} else Game.switchScene(TitleScene.class);
 	}
 
 	private float timer = 0;

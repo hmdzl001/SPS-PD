@@ -27,7 +27,8 @@ public class Powerpill extends Pill {
 
 	{
 		//name = "powerpill";
-		image = ItemSpriteSheet.PILL_STR;
+		image = ItemSpriteSheet.GREAT_PILL;
+		sname = "STR";
 		 
 	}
 

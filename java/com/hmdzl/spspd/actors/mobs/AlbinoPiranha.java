@@ -28,12 +28,12 @@ import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.items.ConchShell;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.SacrificeBook;
 import com.hmdzl.spspd.items.bombs.FishingBomb;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.reward.CaveReward;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.AlbinoPiranhaSprite;
@@ -139,7 +139,7 @@ public class AlbinoPiranha extends Mob {
 	}
 		
 	if(Statistics.albinoPiranhasKilled == 50) {
-		Dungeon.level.drop(new ScrollOfSacrifice(), pos).sprite.drop();
+		Dungeon.level.drop(new SacrificeBook(), pos).sprite.drop();
 	}	
 	
 	if(Statistics.albinoPiranhasKilled == 100) {

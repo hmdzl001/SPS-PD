@@ -26,11 +26,10 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.Artifact;
-
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndBag;
@@ -100,6 +99,8 @@ public class TransmutationBall extends Item {
 					result = changeWand((Wand) item);
 				} else if (item instanceof Artifact) {
 					result = changeArtifact((Artifact) item);
+				} else if (item instanceof StrBottle) {
+					result = new MitBottle();
 				} else {
 					result = null;
 				}
@@ -112,29 +113,23 @@ public class TransmutationBall extends Item {
 
 	
 		private MeleeWeapon changeWeapon(MeleeWeapon w) {
-
 			MeleeWeapon n;
 			do {
 				n = (MeleeWeapon) Generator.random(Generator.Category.MELEEWEAPON);
 			} while (n.getClass() == w.getClass());
-
 			n.level = 0;
-
 			int level = w.level;
 			if (level > 0) {
 				n.upgrade(level);
 			} else if (level < 0) {
 				n.degrade(-level);
 			}
-
 			n.enchantment = w.enchantment;
 			n.reinforced = w.reinforced;
 			n.levelKnown = w.levelKnown;
 			n.cursedKnown = w.cursedKnown;
 			n.cursed = w.cursed;
-
 			return n;
-
 		}
 
 		private Armor changeArmor(Armor r) {

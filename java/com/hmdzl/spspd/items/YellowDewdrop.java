@@ -22,7 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
@@ -43,9 +43,9 @@ public class YellowDewdrop extends Item {
 
 		DewVial vial = hero.belongings.getItem(DewVial.class);
 
-		if (vial == null || vial.isFull()) {
-
-			int value = 2 + (Dungeon.depth - 1) / 5;
+		//if (vial == null || vial.isFull()) {
+			if (vial == null ) {
+			int value = 5 + (Dungeon.depth - 1) / 5;
 			if (hero.heroClass == HeroClass.HUNTRESS) {
 				value++;
 			}

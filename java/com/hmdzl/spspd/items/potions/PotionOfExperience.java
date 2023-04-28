@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.potions;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
-import com.hmdzl.spspd.actors.buffs.Strength;
+import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.actors.hero.Hero;
 
 public class PotionOfExperience extends Potion {
@@ -37,9 +37,9 @@ public class PotionOfExperience extends Potion {
 	public void apply(Hero hero) {
 		setKnown();
 		//hero.earnExp(Random.Int(hero.maxExp()/2,hero.maxExp() - hero.exp));
-		Buff.affect(hero, Bless.class, 50f);
-		Buff.affect(hero, HasteBuff.class, 50f);
-		Buff.affect(hero,Strength.class);
+		Buff.affect(hero, Bless.class, 180f);
+		Buff.affect(hero, HasteBuff.class, 180f);
+		Buff.affect(hero,MoonFury.class);
 	}
 
 	@Override

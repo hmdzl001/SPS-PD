@@ -13,11 +13,12 @@ public class RingOfForce extends Ring {
 	{
 		//name = "Ring of Force";
 		initials = 3;
+		sname = "DMG";
 	}
 		;
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100 * Math.min(3f,((level*1.00/10)*1f))), Dungeon.hero.STR/2 + level, Dungeon.hero.STR/2 * level + Dungeon.hero.STR/2);
+			return Messages.get(this, "stats", Math.min(65, 5 + level*2), Dungeon.hero.STR/2 + level, Dungeon.hero.STR/2 * level + Dungeon.hero.STR/2);
 		} else {
 			return "???";
 		}

@@ -20,7 +20,6 @@ package com.hmdzl.spspd.levels;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Alchemy;
@@ -53,6 +52,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PocketBallFull;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.StrBottle;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.Weightstone;
@@ -61,7 +61,6 @@ import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
-import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.levels.features.Chasm;
@@ -167,7 +166,7 @@ public abstract class  Level implements Bundlable {
 	public boolean[] visited;
 	public boolean[] mapped;
 	
-	public int movepar=0;
+	public int movepar=400;
 	public int currentmoves=0;
 	public boolean genpetnext = false;
 
@@ -217,8 +216,6 @@ public abstract class  Level implements Bundlable {
 	public int color1 = 0x004400;
 	public int color2 = 0x88CC44;
 
-	protected static boolean pitRoomNeeded = false;
-	protected static boolean weakFloorCreated = false;
 	public boolean reset = false;
 
 	private static final String MAP = "map";
@@ -267,7 +264,7 @@ public abstract class  Level implements Bundlable {
 			addItemToSpawn(new ScrollOfUpgrade());
 			
 			if (Dungeon.posNeeded()) {
-				addItemToSpawn(new PotionOfStrength());
+				addItemToSpawn(new StrBottle());
 				Dungeon.limitedDrops.strengthPotions.count++;
 			}
 			
@@ -360,7 +357,7 @@ public abstract class  Level implements Bundlable {
                         feeling = Feeling.SPECIAL_FLOOR;
                         break;
 				}
-			} else if (Dungeon.depth > 20 && Dungeon.depth < 27) {
+			} else if (Dungeon.depth > 20 && Dungeon.depth < 26) {
 				switch (Random.Int(8)) {
 				case 1:
 					feeling = Feeling.WATER;
@@ -368,7 +365,6 @@ public abstract class  Level implements Bundlable {
 				case 2: 
 					feeling = Feeling.GRASS;
 					break;
-
 					case 3:
                         feeling = Feeling.SPECIAL_FLOOR;
                         break;
@@ -380,39 +376,32 @@ public abstract class  Level implements Bundlable {
 					viewDistance = (int) Math.ceil(viewDistance / 3f);
 					break;
 				}
-			} else if (Dungeon.depth==29) {
-				feeling = Feeling.WATER;
 			} else if (Dungeon.depth==31) {
 				feeling = Feeling.DARK;
 				viewDistance = (int) Math.ceil(viewDistance / 3f);
-			} else if (Dungeon.depth>55) {			
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-			}else if (Dungeon.depth==32) {
-				feeling = Feeling.WATER;
+			} else if (Dungeon.depth==32) {
+				//feeling = Feeling.WATER;
 			} else if (Dungeon.depth==33) {
 				feeling = Feeling.TRAP;
+			}else if (Dungeon.depth>55) {			
+				addItemToSpawn(new StoneOre());
+				addItemToSpawn(new StoneOre());
+				addItemToSpawn(new StoneOre());
+				addItemToSpawn(new StoneOre());
+				addItemToSpawn(new StoneOre());
+				addItemToSpawn(new StoneOre());
+				addItemToSpawn(new StoneOre());
+				addItemToSpawn(new StoneOre());
+				addItemToSpawn(new StoneOre());
 			}
 			
 		}
 
-		boolean pitNeeded = Dungeon.depth > 1 && weakFloorCreated;
 
 		do {
 			Arrays.fill(map, feeling == Feeling.CHASM ? Terrain.CHASM
 					: (feeling == Feeling.TRAP ? Terrain.TRAP_AIR : Terrain.WALL));
 					//: (feeling == Feeling.SPECIAL_FLOOR ? Terrain.GLASS_WALL : Terrain.WALL)));
-
-			pitRoomNeeded = pitNeeded;
-			weakFloorCreated = false;
-
 		} while (!build());
 		decorate();
 
@@ -461,8 +450,6 @@ public abstract class  Level implements Bundlable {
 		forcedone = bundle.getBoolean(FORCEDONE);
 		genpetnext = bundle.getBoolean(GENPETNEXT);
 		//sealedlevel = bundle.getBoolean(SEALEDLEVEL);
-
-		weakFloorCreated = false;
 
 		adjustMapSize();
 
@@ -654,7 +641,7 @@ public abstract class  Level implements Bundlable {
 	}
 	
 	public int movepar(){
-		return movepar+Statistics.prevfloormoves;
+		return movepar;
 	}
 
 
@@ -1847,8 +1834,8 @@ public abstract class  Level implements Bundlable {
 		case Terrain.STATUE:
 		case Terrain.STATUE_SP:
 			return Messages.get(Level.class, "statue_name");
-		case Terrain.STATUE_BROKEN:
-			return Messages.get(Level.class, "statue_ssp_name");			
+		case Terrain.BROKEN_DOOR:
+			return Messages.get(Level.class, "broken_door_name");
 		case Terrain.TENT:
 			return Messages.get(Level.class, "tent_name");
 		case Terrain.BED:
@@ -1891,8 +1878,8 @@ public abstract class  Level implements Bundlable {
 			return Messages.get(Level.class, "shrub_name");
 		case Terrain.GLASS_WALL:
 			return Messages.get(Level.class, "glass_name");
-		case Terrain.GROUND_B:
-				return Messages.get(Level.class, "groundb_name");
+		case Terrain.FLOWER_POT:
+				return Messages.get(Level.class, "flower_pot_name");
 		default:
 			return Messages.get(Level.class, "default_name");
 		}
@@ -1956,16 +1943,16 @@ public abstract class  Level implements Bundlable {
 		case Terrain.STATUE:
 		case Terrain.STATUE_SP:
 			return Messages.get(Level.class, "statue_desc");
-		case Terrain.STATUE_BROKEN:
-			return Messages.get(Level.class, "statue_ssp_desc");			
+		case Terrain.BROKEN_DOOR:
+			return Messages.get(Level.class, "broken_door_desc");
 		case Terrain.ALCHEMY:
 			return Messages.get(Level.class, "alchemy_desc");
 		case Terrain.EMPTY_WELL:
 			return Messages.get(Level.class, "empty_well_desc");
 		case Terrain.GLASS_WALL:
 			return Messages.get(Level.class, "glass_desc");
-			case Terrain.GROUND_B:
-				return Messages.get(Level.class, "groundb_desc");
+			case Terrain.FLOWER_POT:
+				return Messages.get(Level.class, "flower_pot_desc");
 	 case Terrain.WOOL_RUG:
 			return Messages.get(Level.class, "wool_rug_desc");
 		default:	

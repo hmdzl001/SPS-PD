@@ -32,13 +32,14 @@ import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Chains;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.ArmorKit;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.SkillBook;
 import com.hmdzl.spspd.items.TenguKey;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
@@ -48,6 +49,7 @@ import com.hmdzl.spspd.items.misc.SavageHelmet;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
+import com.hmdzl.spspd.items.weapon.rockcode.Ichain;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -250,11 +252,14 @@ public class PrisonWander extends Mob {
 	    
 	    Dungeon.level.unseal();
 
-		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
+		Dungeon.level.drop(new SkillBook(), pos).sprite.drop();
 
 		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
 		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		
 		Dungeon.level.drop(new TenguKey(), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Ichain(), Dungeon.hero.pos).sprite.drop();
 		
 	    super.die(cause);
 	}

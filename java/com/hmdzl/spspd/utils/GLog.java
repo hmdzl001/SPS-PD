@@ -19,8 +19,8 @@ package com.hmdzl.spspd.utils;
 
 import android.util.Log;
 
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Signal;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class GLog {
 
@@ -30,6 +30,8 @@ public class GLog {
 	public static final String NEGATIVE = "-- ";
 	public static final String WARNING = "** ";
 	public static final String HIGHLIGHT = "@@ ";
+	public static final String VIOLET = "## ";
+	public static final String BLUE = "$$ ";
 
 	public static Signal<String> update = new Signal<String>();
 
@@ -58,4 +60,9 @@ public class GLog {
 	public static void h(String text, Object... args) {
 		i(HIGHLIGHT + text, args);
 	}
+
+    public static void v(String text, Object... args) {i(VIOLET + text, args);}
+
+	public static void b(String text, Object... args) {i(BLUE + text, args);}
+
 }

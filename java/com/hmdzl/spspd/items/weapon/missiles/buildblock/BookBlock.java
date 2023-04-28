@@ -28,8 +28,6 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
-import static com.hmdzl.spspd.Dungeon.hero;
-
 public class BookBlock extends MissileWeapon {
 
 	{
@@ -56,8 +54,10 @@ public class BookBlock extends MissileWeapon {
 		Char enemy = Actor.findChar(cell);
 		if ((enemy == null) && !(Dungeon.level.map[cell] == Terrain.WELL ||
 				Dungeon.level.map[cell] == Terrain.EMPTY_WELL ||
-				Dungeon.level.map[cell] == Terrain.ENTRANCE || Dungeon.level.map[cell] == Terrain.EXIT
-				|| Dungeon.level.map[cell] == Terrain.ALCHEMY )){
+				Dungeon.level.map[cell] == Terrain.ENTRANCE ||
+				Dungeon.level.map[cell] == Terrain.EXIT ||
+				Dungeon.level.map[cell] == Terrain.ALCHEMY ||
+				Dungeon.level.map[cell] == Terrain.IRON_MAKER)){
 			Level.set(cell, Terrain.BOOKSHELF);
 			GameScene.updateMap(cell);
 		} else

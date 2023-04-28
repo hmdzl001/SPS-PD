@@ -35,14 +35,17 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.MissileShield;
+import com.hmdzl.spspd.items.weapon.rockcode.Gleaf;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -301,6 +304,10 @@ public class SewerHeart extends Mob {
 					break;
 					}		
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
+		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+			Dungeon.level.drop(new Gleaf(), Dungeon.hero.pos).sprite.drop();
 	}
 
 	@Override
@@ -354,11 +361,11 @@ public class SewerHeart extends Mob {
 
 	public static class LasherSpawner extends Buff {
 
-		int spawnPower = 0;
+		int spawnLasher = 0;
 
 		@Override
 		public boolean act() {
-			spawnPower++;
+			spawnLasher++;
 			int lasher = 1; //we include the wraith we're trying to spawn
 			for (Mob mob : Dungeon.level.mobs){
 				if (mob instanceof SewerLasher){
@@ -368,8 +375,8 @@ public class SewerHeart extends Mob {
 
 			int powerNeeded = Math.min(25, lasher);
 
-			if (powerNeeded <= spawnPower){
-				spawnPower -= powerNeeded;
+			if (powerNeeded <= spawnLasher){
+				spawnLasher -= powerNeeded;
 				int pos = 0;
 				do{
 					pos = Random.Int(Dungeon.level.randomRespawnCellMob());
@@ -391,18 +398,18 @@ public class SewerHeart extends Mob {
 			}
 		}
 
-		private static String SPAWNPOWER = "spawnpower";
+		private static String SPAWNLASHER = "spawnlasher";
 
 		@Override
 		public void storeInBundle(Bundle bundle) {
 			super.storeInBundle(bundle);
-			bundle.put( SPAWNPOWER, spawnPower );
+			bundle.put(SPAWNLASHER, spawnLasher);
 		}
 
 		@Override
 		public void restoreFromBundle(Bundle bundle) {
 			super.restoreFromBundle(bundle);
-			spawnPower = bundle.getInt( SPAWNPOWER );
+			spawnLasher = bundle.getInt(SPAWNLASHER);
 		}
 	}
 	public static class SewerLasher extends Mob {

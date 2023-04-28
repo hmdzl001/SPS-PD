@@ -116,7 +116,9 @@ public class Handcannon extends MeleeWeapon {
 	public String desc() {
         DewVial vial = Dungeon.hero.belongings.getItem(DewVial.class);
 		String info = super.desc();
-        info += "\n\n" + vial.checkVol();
+		if (vial != null) {
+			info += "\n\n" + vial.checkVol();
+		}
         if (turnedOn)
 		info += "\n\n" + "ON";
 		return info;

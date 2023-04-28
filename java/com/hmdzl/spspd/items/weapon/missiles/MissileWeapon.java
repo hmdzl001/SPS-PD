@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.weapon.missiles;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -31,8 +29,10 @@ import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class MissileWeapon extends Weapon {
 
@@ -76,9 +76,6 @@ public class MissileWeapon extends Weapon {
 				int bonus = 0;
 				for (Buff buff : curUser.buffs(RingOfSharpshooting.Aim.class))
 					bonus += ((RingOfSharpshooting.Aim) buff).level;
-
-				if (curUser.heroClass == HeroClass.HUNTRESS)
-					bonus += 3;
 			}
 		}
 	}
@@ -88,7 +85,8 @@ public class MissileWeapon extends Weapon {
 		for (Buff buff : curUser.buffs(RingOfSharpshooting.Aim.class)) {
 			bonus += ((RingOfSharpshooting.Aim) buff).level;
 		}
-
+		if (curUser.heroClass == HeroClass.HUNTRESS)
+			bonus += 3;
 		// degraded ring of sharpshooting will even make missed shots break.
 		if (Random.Float() < Math.pow(0.6, -bonus))
 			super.onThrow(cell);

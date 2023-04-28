@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
 import com.hmdzl.spspd.sprites.SeniorSprite;
@@ -36,7 +37,7 @@ public class Senior extends Monk {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new HornOfPlenty();
+		return Random.oneOf( Generator.random(Generator.Category.HIGHFOOD) ,new HornOfPlenty());
 	}
 
 	@Override

@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.scenes;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
 
 import com.hmdzl.spspd.Assets;
@@ -36,8 +34,10 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.Visual;
-import com.watabou.utils.BitmapCache;
 import com.watabou.noosa.ui.Component;
+import com.watabou.utils.BitmapCache;
+
+import javax.microedition.khronos.opengles.GL10;
 
 public class PixelScene extends Scene {
 
@@ -260,9 +260,9 @@ public class PixelScene extends Scene {
 		return renderMultiline("", size);
 	}
 
-	public static RenderedTextMultiline renderMultiline( String text, int size ){
-		RenderedTextMultiline result = new RenderedTextMultiline( text, size*defaultZoom);
-		result.zoom(1/(float)defaultZoom);
+	public static RenderedTextMultiline renderMultiline( String text, int size ) {
+		RenderedTextMultiline result = new RenderedTextMultiline(text, size * defaultZoom);
+		result.zoom(1 / (float) defaultZoom);
 		return result;
 	}
 

@@ -37,6 +37,7 @@ import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.actors.buffs.BloodImbue;
+import com.hmdzl.spspd.actors.buffs.BoxStar;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
@@ -48,6 +49,7 @@ import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Dry;
 import com.hmdzl.spspd.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.actors.buffs.EnergyArmor;
+import com.hmdzl.spspd.actors.buffs.ExProtect;
 import com.hmdzl.spspd.actors.buffs.FireImbue;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.FrostIce;
@@ -390,6 +392,12 @@ public abstract class Char extends Actor {
 			Buff.detach(this, MagicalSleep.class);
 			dmg = (int) Math.ceil(dmg *1.5);
 		}
+		
+		if (this.buff(ExProtect.class) != null) {
+			Buff.detach(this, ExProtect.class);
+			dmg = 0;
+			Buff.affect(this,BoxStar.class,3f);
+		}
 
 		ArmorBreak ab = buff(ArmorBreak.class);
 		if (buff(ArmorBreak.class) != null){
@@ -488,9 +496,9 @@ public abstract class Char extends Actor {
 		}
 
 		Class<?> srcClass = src.getClass();
-		if (isImmune( srcClass )) {dmg = 0; sprite.showStatus(CharSprite.NULL_DAMAGE, "...");}
-		if (isResist( srcClass )) {dmg = Random.IntRange(dmg/4, dmg*3/4);sprite.showStatus(CharSprite.NULL_DAMAGE, "???");}
-		if (isWeak(srcClass)) {dmg = Random.IntRange(dmg + dmg / 2, 2 * dmg + dmg / 2);sprite.showStatus(CharSprite.NULL_DAMAGE, "!!!");}
+		if (isImmune( srcClass )) {dmg = 0; sprite.showStatus(CharSprite.NULL_DAMAGE, "IMM" );}
+		if (isResist( srcClass )) {dmg = Random.IntRange(dmg/4, dmg*3/4);sprite.showStatus(CharSprite.NULL_DAMAGE, "RES");}
+		if (isWeak(srcClass)) {dmg = Random.IntRange(dmg + dmg / 2, 2 * dmg + dmg / 2);sprite.showStatus(CharSprite.NULL_DAMAGE, "WEK");}
 
 
 

@@ -92,12 +92,12 @@ public class PoolPainter extends Painter {
 				return prize;
 		}
 
-		prize = Generator.random(Random.oneOf(Generator.Category.WEAPON,
+		prize = Generator.random(Random.oneOf(Generator.Category.MELEEWEAPON,
 				Generator.Category.ARMOR));
 
 		for (int i = 0; i < 4; i++) {
 			Item another = Generator.random(Random.oneOf(
-					Generator.Category.WEAPON, Generator.Category.ARMOR));
+					Generator.Category.MELEEWEAPON, Generator.Category.ARMOR));
 			if (another.level > prize.level) {
 				prize = another;
 			}

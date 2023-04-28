@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.special;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Terror;
@@ -44,14 +45,13 @@ public class KeyWeapon extends MeleeWeapon {
 	
     @Override
     public void proc(Char attacker, Char defender, int damage) {
-
+		int exdmg = Dungeon.hero.damageRoll();
         if (Random.Int(100) < 40) {
 			Buff.prolong(defender, Paralysis.class, 2);
 		}
-		
-		int DMG = damage;
+
 		if (Random.Int(100) < 40) {
-		defender.damage(Random.Int(DMG/2,DMG/4*3), this);
+		defender.damage(Random.Int(exdmg/2,exdmg/4*3), this);
 		}
 		
 	    if (Random.Int(100) < 40) {

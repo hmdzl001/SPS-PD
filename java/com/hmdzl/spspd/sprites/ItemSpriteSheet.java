@@ -54,6 +54,7 @@ public class ItemSpriteSheet {
 	private static final int ROW32 = 31 * 16;
 	private static final int ROW33 = 32 * 16;
 	private static final int ROW34 = 33 * 16;
+	private static final int ROW35 = 34 * 16;
 
 	// Row One: Items which can't be obtained
 	// null warning occupies space 0, should only show up if there's a bug.
@@ -289,7 +290,9 @@ public class ItemSpriteSheet {
 	public static final int MEAT = ROW13 + 0;
 	public static final int STEAK = ROW13 + 1;
 	public static final int OVERPRICED = ROW13 + 2;
+
 	public static final int CARPACCIO = ROW13 + 3;
+
 	public static final int BLANDFRUIT = ROW13 + 4;
 	public static final int RATION = ROW13 + 5;
 	public static final int PASTY = ROW13 + 6;
@@ -334,6 +337,7 @@ public class ItemSpriteSheet {
 	public static final int ICE_BOMB = ROW15 + 14;
 	public static final int HUGE_BOMB = ROW15 + 15;	
 	public static final int MINI_BOMB = ROW15 + 8;
+
     public static final int BUILD_BOMB = ROW15 + 9;
 	
 	// Row Sixteen: Random OP Stuff
@@ -356,7 +360,7 @@ public class ItemSpriteSheet {
 	public static final int TOWEL = ROW17 + 0;
 	public static final int OTILUKES_SPECS = ROW17 + 1;
 	public static final int PUDDING_CUP = ROW17 + 2;
-	public static final int POCKET_BALL = ROW17 + 3;
+	public static final int KNOWLEDGE_BOOK = ROW17 + 3;
 	
 
     public static final int JUMP = ROW17 + 5;
@@ -384,7 +388,9 @@ public class ItemSpriteSheet {
 	
 	public static final int RANDOWNEGG = ROW19 + 0;
 	public static final int SCORPIONEGG = ROW19 + 1;
+
 	public static final int SPIDEREGG = ROW19 + 2;
+
 	public static final int FIREEGG = ROW19 + 3;
 	public static final int RED_DRAGONEGG = ROW19 + 4;
 	public static final int BLUE_DRAGONEGG = ROW19 + 5;
@@ -395,7 +401,9 @@ public class ItemSpriteSheet {
 	public static final int PET_FOOD = ROW19 + 9;
 
 	public static final int RABBITEGG = ROW19 + 10;
+
 	public static final int VELOCIROOSTEREGG = ROW19 + 11;
+
 	public static final int LIGHT_DRAGONEGG = ROW19 + 13;
 	public static final int GOLD_DRAGONEGG = ROW19 + 14;
 
@@ -404,7 +412,7 @@ public class ItemSpriteSheet {
 	public static final int HUGESHURIKEN = ROW8 + 15;
 	public static final int TPTRAP = ROW3 + 15;
 
-	public static final int POTION = ROW18 + 12;
+
 
 	public static final int FIGHTGLOVES = ROW18 + 6;
 	public static final int LANCE = ROW20 + 11;
@@ -412,7 +420,6 @@ public class ItemSpriteSheet {
 	public static final int CLUB = ROW20 + 13;
 	public static final int GNOLL_ARMOR = ROW20 + 14;
 	public static final int FIRECRACKER = ROW20 + 15;
-
 
 	public static final int ITEM_BAG = ROW18 + 15;
 	public static final int PUMPKIN = ROW19 + 15;
@@ -431,6 +438,7 @@ public class ItemSpriteSheet {
 	public static final int ERROR_ARMOR = ROW18 + 8;
 	public static final int ERROR_WAND = ROW18 + 9;
 	public static final int MIND_ARROW = ROW18 + 10;
+
 	public static final int ERROR_FOOD = ROW18 + 11;
 	public static final int ERROR_AMMO = ROW20 + 5;
 
@@ -463,7 +471,9 @@ public class ItemSpriteSheet {
 	public static final int MEATSOUP = ROW22 + 4;
 	public static final int HOTDOG = ROW22 + 5;
 	public static final int KEBAB = ROW22 + 6 ;
+
 	public static final int SANDWICH = ROW22 + 7;
+
 	public static final int ALIEN_BAG = ROW22 + 8;
 	public static final int ICECREAM = ROW22 + 9;
 	public static final int VEGETABLESOUP = ROW22 + 10;
@@ -505,12 +515,18 @@ public class ItemSpriteSheet {
 	public static final int SLING = ROW24 + 7;
 	public static final int MOBS = ROW24 + 8;
 	public static final int W_BRICK = ROW24 + 9;
+
+
 	public static final int PILL_ATK = ROW24 + 10;
 	public static final int PILL_DEF = ROW24 + 11;
 	public static final int PILL_STR = ROW24 + 12;
 	public static final int PILL_MIG = ROW24 + 13;
 	public static final int PILL_MUC = ROW24 + 14;
 	public static final int PILL_SOT = ROW24 + 15;
+
+	public static final int WOODEN_H = ROW25 + 12;
+
+	public static final int POTION = ROW18 + 12;
 
 	public static final int BRICK = ROW20 + 4;
 
@@ -534,8 +550,6 @@ public class ItemSpriteSheet {
 	public static final int MANY_KNIVE = ROW25 + 10;
 
 	public static final int MK_BOX = ROW25 + 11;
-
-	public static final int WOODEN_H = ROW25 + 12;
 
 	public static final int S_AND_S = ROW25 + 13;
 
@@ -603,8 +617,10 @@ public class ItemSpriteSheet {
 	public static final int NEED_PAPER = ROW29 + 0;
 	public static final int PPC = ROW29 + 1;
 	public static final int H_GEL = ROW29 + 2;
+
 	public static final int MIX_RICE = ROW29 + 3;
 	public static final int C_BOW = ROW29 + 4;
+
 	public static final int H_RICE = ROW29 + 5;
 
     public static final int LEADER_FLAG = ROW29 + 13;
@@ -625,22 +641,6 @@ public class ItemSpriteSheet {
 	public static final int SHATTERED_FIRE = ROW30 + 13;
 	public static final int HOLY_MACE = ROW30 + 14;
 	public static final int GREAT_PILL = ROW30 + 15;
-
-	public static final int INFO  = ROW31 + 0;
-	public static final int INFO_1  = ROW31 + 1;
-	public static final int INFO_2  = ROW31 + 2;
-	public static final int INFO_3  = ROW31 + 3;
-	public static final int INFO_4  = ROW31 + 4;
-	public static final int INFO_5  = ROW31 + 5;
-	public static final int INFO_6  = ROW31 + 6;
-
-	public static final int INFO2  = ROW31 + 8;
-	public static final int INFO2_1  = ROW31 + 9;
-	public static final int INFO2_2  = ROW31 + 10;
-	public static final int INFO2_3  = ROW31 + 11;
-	public static final int INFO2_4  = ROW31 + 12;
-	public static final int INFO2_5  = ROW31 + 13;
-	public static final int INFO2_6  = ROW31 + 14;
 
 	public static final int BOTTLE_FLOWER  = ROW32 + 0;
 	public static final int AFLY_SOCK  = ROW32 + 1;
@@ -671,6 +671,8 @@ public class ItemSpriteSheet {
 	public static final int FUNNY_FOOD = ROW33 + 9;
 	public static final int PINK_FISH = ROW33 + 10;
 	public static final int GIRL_ROSE = ROW33 + 11;
+	public static final int GRASSBOOK = ROW33 + 12;
+	public static final int PAPERFAN = ROW33 + 13;
 
 	public static final int MIRROR_DOLL  = ROW34 + 0;
 	public static final int WIND_BOTTLE  = ROW34 + 1;
@@ -687,4 +689,37 @@ public class ItemSpriteSheet {
 	public static final int SKILL_ASCETIC  = ROW34 + 11;
 
 	public static final int PLANT_POT  = ROW34 + 12;
+	public static final int SKILL_BOOK  = ROW34 + 13;
+	public static final int VIP_CARD  = ROW34 + 14;
+	
+	public static final int TEST_WEAPON  = ROW31 + 0;
+	public static final int TEST_ARMOR  = ROW31 + 1;
+	public static final int TEST_WAND  = ROW31 + 2;
+	public static final int SCR_BOOK  = ROW31 + 3;
+	public static final int STR_BOTTLE  = ROW31 + 4;
+
+	public static final int NUT_COOKIE  = ROW31 + 5;
+	public static final int MIX_PIZZA  = ROW31 + 6;
+	public static final int RICE_GRUEL  = ROW31 + 7;
+	public static final int FRUIT_CANDY  = ROW31 + 8;
+	public static final int NINJA_FAN  = ROW31 + 9;
+	public static final int WHISK = ROW31 + 10;
+
+	public static final int MEGA_CANNON = ROW31 + 11;
+
+	public static final int INFO  = ROW35 + 0;
+	public static final int INFO_1  = ROW35 + 1;
+	public static final int INFO_2  = ROW35 + 2;
+	public static final int INFO_3  = ROW35 + 3;
+	public static final int INFO_4  = ROW35 + 4;
+	public static final int INFO_5  = ROW35 + 5;
+	public static final int INFO_6  = ROW35 + 6;
+
+	public static final int INFO2  = ROW35 + 8;
+	public static final int INFO2_1  = ROW35 + 9;
+	public static final int INFO2_2  = ROW35 + 10;
+	public static final int INFO2_3  = ROW35 + 11;
+	public static final int INFO2_4  = ROW35 + 12;
+	public static final int INFO2_5  = ROW35 + 13;
+	public static final int INFO2_6  = ROW35 + 14;
 }

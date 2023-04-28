@@ -45,7 +45,7 @@ public class GrimTrap extends Trap {
 
 	@Override
 	public void activate(Char ch) {
-		
+		super.activate(ch);
 		if (Dungeon.visible[pos]){
 			Sample.INSTANCE.play(Assets.SND_HIT);
 			Wound.hit(pos);

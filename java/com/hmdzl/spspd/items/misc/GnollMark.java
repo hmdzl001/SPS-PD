@@ -154,7 +154,7 @@ public class GnollMark extends Item {
             Sample.INSTANCE.play(Assets.SND_BURNING);
             hero.spendAndNext(1f);
             updateQuickslot();
-            charge+=curUser.HT/5;
+            charge = fullCharge;
 
         } else super.execute(hero, action);
 

@@ -207,14 +207,14 @@ public class LinkSword extends MeleeWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 
-		int DMG = damage;
+		int exdmg = Dungeon.hero.damageRoll();
 		if (Random.Int(100) > 60) {
 			switch (Random.Int(7)) {
 				case 0:
-					defender.damage(Random.Int(DMG / 4, DMG / 2), this);
+					defender.damage(Random.Int(exdmg / 4, exdmg / 2), this);
 					break;
 				case 1:
-					Buff.affect(defender, Bleeding.class).set(Random.Int(3, DMG));
+					Buff.affect(defender, Bleeding.class).set(Random.Int(3, damage));
 					break;
 				case 2:
 					Buff.prolong(defender, Paralysis.class, 2);
@@ -228,9 +228,7 @@ public class LinkSword extends MeleeWeapon {
 						Char ch = Actor.findChar(n + p);
 						if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
 
-							int dr = Random.IntRange(0, 1);
-							int dmg = Random.Int(MIN, MAX);
-							int effectiveDamage = Math.max(dmg - dr, 0);
+							int effectiveDamage = Math.max(exdmg, 0);
 
 							ch.damage(effectiveDamage / 2, this);
 						}
@@ -243,7 +241,7 @@ public class LinkSword extends MeleeWeapon {
 					break;
 				case 6:
 					if (charge > 25 && Random.Int(10)==0) {
-						defender.damage(2*DMG, this);
+						defender.damage(2*damage, this);
 					}
 					break;
 				default:

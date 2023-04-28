@@ -26,7 +26,9 @@ import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
+import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.sprites.SuffererSprite;
 import com.watabou.utils.Random;
 
@@ -53,7 +55,7 @@ import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
 
 	 @Override
 	 public Item SupercreateLoot(){
-		 return new UnstableSpellbook();
+		 return Random.oneOf( new ScrollOfUpgrade(),new RedDewdrop(),new UnstableSpellbook());
 	 }
 
 	@Override

@@ -83,7 +83,7 @@ public class Potion extends Item {
 
 	private String color;
 
-	public boolean ownedByFruit = false;
+	//public boolean ownedByFruit = false;
 
 	{
 		stackable = true;
@@ -237,13 +237,12 @@ public class Potion extends Item {
 	}
 
 	public void setKnown() {
-		if (!ownedByFruit) {
-			if (!isKnown()) {
-				handler.know(this);
-			}
-
-			Badges.validateAllPotionsIdentified();
+		
+		if (!isKnown()) {
+			handler.know(this);
 		}
+		Badges.validateAllPotionsIdentified();
+		
 	}
 	
 	public Integer initials(){

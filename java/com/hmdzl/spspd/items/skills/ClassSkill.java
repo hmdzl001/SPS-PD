@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.items.skills;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
@@ -48,6 +49,7 @@ abstract public class ClassSkill extends Item {
 
 	{
 		defaultAction = AC_CHOOSE;
+		stackable= true;
 		unique = true;
 	}
 
@@ -137,11 +139,16 @@ abstract public class ClassSkill extends Item {
 		actions.remove(AC_THROW);
 		if (charge < 1 ||  hero.buff(SkillRecharge.class) != null){
 		actions.add(AC_SPECIAL);
-		actions.add(AC_SPECIAL_TWO);
-		actions.add(AC_SPECIAL_THREE);
-		actions.add(AC_SPECIAL_FOUR);
 		}
-		
+		if ((charge < 1 ||  hero.buff(SkillRecharge.class) != null) && Dungeon.hero.lvl > 20) {
+			actions.add(AC_SPECIAL_TWO);
+		}
+		if ((charge < 1 ||  hero.buff(SkillRecharge.class) != null )&& Dungeon.hero.lvl > 30) {
+			actions.add(AC_SPECIAL_THREE);
+		}
+		if ((charge < 1 ||  hero.buff(SkillRecharge.class) != null )&& Dungeon.hero.lvl > 40) {
+			actions.add(AC_SPECIAL_FOUR);
+		}
 		return actions;
 	}
 

@@ -25,10 +25,11 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.AncientCoin;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.SacrificeBook;
 import com.hmdzl.spspd.items.challengelists.CityChallenge;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.reward.CityReward;
-import com.hmdzl.spspd.items.scrolls.ScrollOfSacrifice;
+
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GoldThiefSprite;
@@ -106,7 +107,7 @@ public class GoldThief extends Mob {
 	}
 
 	if(Statistics.goldThievesKilled == 50) {
-		Dungeon.level.drop(new ScrollOfSacrifice(), pos).sprite.drop();
+		Dungeon.level.drop(new SacrificeBook(), pos).sprite.drop();
 	}	
 	
 	if(Statistics.goldThievesKilled == 100) {

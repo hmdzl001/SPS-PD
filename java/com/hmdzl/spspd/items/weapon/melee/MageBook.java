@@ -61,7 +61,7 @@ public class MageBook extends MeleeWeapon {
     @Override
     public void proc(Char attacker, Char defender, int damage) {
 		/*if (wand != null && Dungeon.hero.subClass == HeroSubClass.BATTLEMAGE) {
-			if (wand.curCharges < wand.maxCharges) wand.curCharge += 0.33f;
+			if (wand.energy < wand.maxCharges) wand.curCharge += 0.33f;
 			ScrollOfRecharging.charge((Hero)attacker);
 			wand.onHit(this, attacker, defender, damage);
 		}*/

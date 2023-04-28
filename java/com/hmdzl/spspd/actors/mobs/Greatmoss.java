@@ -49,7 +49,7 @@ public class Greatmoss extends Mob {
 
 		baseSpeed = 0.5f;
 
-		loot = Generator.Category.SEED;
+		loot = Generator.Category.MUSHROOM;
 		lootChance = 0.3f;
 
 		state = PASSIVE;

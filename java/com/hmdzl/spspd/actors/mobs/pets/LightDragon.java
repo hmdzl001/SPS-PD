@@ -75,7 +75,7 @@ public class LightDragon extends PET{
 
 	@Override
 	public int drRoll(){
-		return Random.IntRange(5+hero.petLevel,10+hero.petLevel);
+		return Random.IntRange(5+hero.petLevel,10+hero.petLevel*3);
 	}
 
 	@Override

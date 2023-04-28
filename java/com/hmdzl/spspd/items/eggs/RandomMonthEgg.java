@@ -20,6 +20,7 @@ package com.hmdzl.spspd.items.eggs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.sellitem.VIPcard;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -60,6 +61,9 @@ public class RandomMonthEgg extends Item {
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_USE)) {
 			curUser = hero;
+			if (Random.Int(10) == 0) {
+				Dungeon.level.drop(new VIPcard(), hero.pos).sprite.drop();
+			}
 			if (Random.Int(10) == 0){
 				Dungeon.level.drop(new RandomEasterEgg(), hero.pos).sprite.drop();
 			} else {

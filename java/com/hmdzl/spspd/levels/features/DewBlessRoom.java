@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.levels.features;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
@@ -37,12 +36,13 @@ public class DewBlessRoom {
 
 		if (ch instanceof Hero) {
 
-            Buff.affect(Dungeon.hero, Dewcharge.class,(240f+(Math.max(Statistics.prevfloormoves,1))));
+            Buff.affect(Dungeon.hero, Dewcharge.class,720f);
 			GLog.h(Messages.get(DewBlessRoom.class, "order"), Dungeon.pars[Dungeon.depth]);
 			CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
 			Dungeon.observe();
 			Level.set(pos, Terrain.GRASS);
 			GameScene.updateMap(pos);
+			//Dungeon.dewWater = true;
 		} else {
 			CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
 			Dungeon.observe();

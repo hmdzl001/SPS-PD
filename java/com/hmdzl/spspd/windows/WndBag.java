@@ -30,12 +30,14 @@ import com.hmdzl.spspd.items.AdamantArmor;
 import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.AdamantWand;
 import com.hmdzl.spspd.items.AdamantWeapon;
+import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.EquipableItem;
 import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.StrBottle;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.Weightstone;
@@ -52,7 +54,13 @@ import com.hmdzl.spspd.items.bags.WandHolster;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.challengelists.ChallengeList;
 import com.hmdzl.spspd.items.food.Food;
+import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.WaterItem;
+import com.hmdzl.spspd.items.food.completefood.Gel;
+import com.hmdzl.spspd.items.food.fruit.Fruit;
+import com.hmdzl.spspd.items.food.meatfood.MeatFood;
+import com.hmdzl.spspd.items.food.staplefood.StapleFood;
+import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
 import com.hmdzl.spspd.items.medicine.Greaterpill;
 import com.hmdzl.spspd.items.misc.JumpH;
@@ -63,6 +71,7 @@ import com.hmdzl.spspd.items.misc.JumpW;
 import com.hmdzl.spspd.items.misc.Jumpshoes;
 import com.hmdzl.spspd.items.nornstone.NornStone;
 import com.hmdzl.spspd.items.potions.Potion;
+import com.hmdzl.spspd.items.quest.DarkGold;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.summon.Honeypot;
@@ -71,7 +80,9 @@ import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
+import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
+import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
@@ -124,7 +135,9 @@ public class WndBag extends WndTabbed {
 		AMMO,
 		EATABLE,
 		HOLY_MACE,
-		IRON_MAKE
+		IRON_MAKE,
+		COOKING_A,
+		ROCK_CODE
     }
 
 	protected static final int COLS_P = 5;
@@ -489,7 +502,7 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.ARMOR
 						&& (item instanceof Armor)
 				 || mode == Mode.ENCHANTABLE
-						&& (item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof Armor || item instanceof ManyKnive || item instanceof TaurcenBow)
+						&& (item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof Armor || item instanceof ManyKnive || item instanceof TaurcenBow  || item instanceof MegaCannon)
 
 				 || mode == Mode.JOURNALPAGES
 						&& (item instanceof JournalPage)
@@ -508,7 +521,8 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.EQUIPMENT
 						&& (item instanceof EquipableItem)
 				 || mode == Mode.COOKING
-						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof StoneOre || item instanceof Honeypot || item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof BuildBomb ||item instanceof Weightstone ||item instanceof Stylus)
+						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof StoneOre || item instanceof Honeypot
+							|| item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll )
 				 || mode == Mode.CHALLENGELIST
 						&& (item instanceof ChallengeList)
 				 || mode == Mode.CANBEMIX
@@ -516,16 +530,25 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.STONE
 							&& ( item instanceof NornStone || item instanceof StoneOre)
 				|| mode == Mode.TRANMSUTABLE
-							&& (!item.isEquipped(hero) && ( item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Artifact || item instanceof Armor ))
+							&& (!item.isEquipped(hero) && ( item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Artifact
+							|| item instanceof Armor || item instanceof StrBottle))
 				|| mode == Mode.AMMO
 						&& (item instanceof SpAmmo)
+				|| mode == Mode.ROCK_CODE
+						&& (item instanceof RockCode)
 				|| mode == Mode.EATABLE
 						&& (!item.isEquipped(hero) && (item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Armor))
 				|| mode == Mode.HOLY_MACE
 						&& (item instanceof Torch || item instanceof GreatRune || item instanceof Greaterpill)
 				|| mode == Mode.IRON_MAKE
-						&& ((item.isUpgradable() && !item.isEquipped(hero)) || item instanceof WaterItem || item instanceof StoneOre || item instanceof Garbage)
-				|| mode == Mode.ALL);
+						&& ((item.isUpgradable() && !item.isEquipped(hero)) || item instanceof WaterItem || item instanceof StoneOre || item instanceof Garbage
+							|| item instanceof Plant.Seed || item instanceof BuildBomb ||item instanceof Weightstone ||item instanceof Stylus
+							|| item instanceof Gel || item instanceof Scroll || item instanceof Potion || item instanceof DarkGold || item instanceof Nut
+							|| item instanceof Fruit || item instanceof Vegetable || item instanceof StapleFood || item instanceof MeatFood )
+				|| mode == Mode.COOKING_A
+						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof StoneOre || item instanceof Honeypot
+							|| item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof Ankh)
+				|| mode == Mode.ALL );
 				}
 			} else {
 				bg.color(NORMAL);

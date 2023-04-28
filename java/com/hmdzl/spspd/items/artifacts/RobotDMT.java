@@ -10,7 +10,7 @@ import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.MindVision;
-import com.hmdzl.spspd.actors.buffs.Strength;
+import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
@@ -97,11 +97,11 @@ public class RobotDMT extends Artifact {
 						GLog.w(Messages.get(this,"preseverance"));
 						break;
 					case 4:
-						Buff.affect(hero, BerryRegeneration.class).level(20);
+						Buff.affect(hero, BerryRegeneration.class).level(50);
 						GLog.w(Messages.get(this,"kindness"));
 						break;
 					case 5:
-						Buff.affect(hero,Strength.class);
+						Buff.affect(hero,MoonFury.class);
 						GLog.w(Messages.get(this,"justice"));
 						break;
 					case 6:

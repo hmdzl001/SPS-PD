@@ -43,7 +43,7 @@ public class GrassBook extends Item {
 
 	{
 		//name = "GrassBook";
-		image = ItemSpriteSheet.POWERTRIAL;
+		image = ItemSpriteSheet.GRASSBOOK;
 
 		unique = true;
         charge = 0;

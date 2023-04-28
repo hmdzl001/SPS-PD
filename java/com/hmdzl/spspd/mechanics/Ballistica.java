@@ -17,8 +17,10 @@
  */
 package com.hmdzl.spspd.mechanics;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,29 +36,29 @@ public class Ballistica {
 	public static final int STOP_TARGET = 1; //ballistica will stop at the target cell
 	public static final int STOP_CHARS = 2; //ballistica will stop on first char hit
 	public static final int STOP_TERRAIN = 4; //ballistica will stop on terrain(LOS blocking, impassable, etc.)
-	//public static final int STOP_BLOCK = 8; //ballistica will stop on terrain(LOS blocking, impassable, etc.)
+	public static final int PASS_LIGHT = 8; //ballistica won't stop on terrain(LOS blocking, impassable, etc.)
 
-	public static final int PROJECTILE =  	STOP_TARGET	| STOP_CHARS	| STOP_TERRAIN;
+	public static final int PROJECTILE =  	STOP_TARGET	| STOP_CHARS | STOP_TERRAIN;
 
-	//public static final int GLASSPASS =   STOP_CHARS | STOP_BLOCK ;
+	public static final int GLASSPASS =   STOP_CHARS | PASS_LIGHT ;
 
 	public static final int MAGIC_BOLT =    STOP_CHARS  | STOP_TERRAIN;
 
-	public static final int WONT_STOP =     0;
+	public static final int WONT_STOP =  0;
 
 	public static int[] trace = new int[Math.max(Level.getWidth(), Level.HEIGHT)];
 	public static int distance;
 
 	public Ballistica( int from, int to, int params ){
 		sourcePos = from;
-		build(from, to, (params & STOP_TARGET) > 0, (params & STOP_CHARS) > 0, (params & STOP_TERRAIN) > 0);
+		build(from, to, (params & STOP_TARGET) > 0, (params & STOP_CHARS) > 0, (params & STOP_TERRAIN) > 0,(params & PASS_LIGHT) > 0);
 		if (collisionPos != null)
 			dist = path.indexOf( collisionPos );
 		else
 			collisionPos = path.get( dist=path.size()-1 );
 	}
 	
-	private void build( int from, int to, boolean stopTarget, boolean stopChars, boolean stopTerrain ) {
+	private void build( int from, int to, boolean stopTarget, boolean stopChars, boolean stopTerrain, boolean passlight ) {
 		int w = Level.WIDTH;
 
 		int x0 = from % w;
@@ -100,7 +102,11 @@ public class Ballistica {
 		while (Level.insideMap(cell)) {
 
 			//if we're in a wall, collide with the previous cell along the path.
-			if (stopTerrain && cell != sourcePos && !Level.passable[cell] && !Level.avoid[cell]) {
+			if (passlight && cell != sourcePos && !Level.passable[cell] && !( Level.avoid[cell] || Dungeon.level.map[cell] == Terrain.GLASS_WALL)) {
+				collide(path.get(path.size() - 1));
+			}
+
+			if (stopTerrain && cell != sourcePos && !Level.passable[cell] && !Level.avoid[cell] ) {
 				collide(path.get(path.size() - 1));
 			}
 

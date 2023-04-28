@@ -209,7 +209,7 @@ public class StatusPane extends Component {
 		spp.text( String.format( "%d", Dungeon.hero.spp));
         spp.measure();
 		spp.x = PixelScene.align(camera(), shield.x + 15 - avatar.width / 2);
-		spp.y = PixelScene.align(camera(), shield.y + 40 - avatar.height / 2);
+		spp.y = PixelScene.align(camera(), shield.y + 38 - avatar.height / 2);
 
 		int k = IronKey.curDepthQuantity;
 		if (k != lastKeys) {

@@ -82,6 +82,7 @@ public class RingOfElements extends Ring {
 	{
 		//name = "Ring of Elements";
 		initials = 1;
+		sname = "ELE";
 	}
 
 	public String statsInfo() {

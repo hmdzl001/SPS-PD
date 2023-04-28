@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.InventoryScroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
@@ -40,8 +41,11 @@ import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 
 import java.util.HashMap;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 
 public class FollowerSkill extends ClassSkill {
@@ -84,6 +88,8 @@ public class FollowerSkill extends ClassSkill {
 		int goldearn = people*(Dungeon.hero.lvl/10+100);
 		Dungeon.gold+= goldearn;
 		Dungeon.hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, goldearn);
+		if (Random.Int(4) == 0)
+			Dungeon.level.drop(Generator.random(),curUser.pos).sprite.drop(curUser.pos);
 	}
 
 	@Override

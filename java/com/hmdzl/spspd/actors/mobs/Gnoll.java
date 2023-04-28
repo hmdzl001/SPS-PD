@@ -23,6 +23,8 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.GlassTotem;
+import com.hmdzl.spspd.items.weapon.melee.Club;
+import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.GnollSprite;
 import com.watabou.utils.Random;
@@ -51,7 +53,7 @@ public class Gnoll extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new GlassTotem();
+		return Random.oneOf( new EscapeKnive(2) ,new Club(),new GlassTotem());
 	}
 
 	@Override

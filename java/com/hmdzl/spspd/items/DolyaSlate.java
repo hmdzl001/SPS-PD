@@ -23,6 +23,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
+import com.hmdzl.spspd.items.journalpages.SafeSpotPage;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -70,6 +71,7 @@ public class DolyaSlate extends Item {
 		//name = "Otiluke's journal";
 		image = ItemSpriteSheet.OTILUKES_JOURNAL;
 
+		stackable= true;
 		unique = true;
 		
 		//rooms[0] = true;
@@ -105,9 +107,21 @@ public class DolyaSlate extends Item {
 	}
 
 	@Override
+	public boolean doPickUp(Hero hero) {
+		if (super.doPickUp(hero)) {
+            Dungeon.level.drop(new SafeSpotPage().identify(),hero.pos);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		
+
+		actions.remove(AC_DROP);
+		actions.remove(AC_THROW);
 		actions.add(AC_ADD);
 		
 		if (returnDepth > 0 && (Dungeon.depth<56 || Dungeon.depth==66 || Dungeon.depth==67 || Dungeon.depth==68) && Dungeon.depth>49 ){
@@ -125,6 +139,7 @@ public class DolyaSlate extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action == AC_PORT) {
+			PocketBallFull.removePet(hero);
 			if (Dungeon.bossLevel()) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
@@ -133,6 +148,7 @@ public class DolyaSlate extends Item {
 		}
 
 		if (action == AC_PORT) {
+			PocketBallFull.removePet(hero);
 			GameScene.show(new WndOtiluke(rooms, this));
 		}
               

@@ -22,9 +22,12 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.SkillUse;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.quest.DarkGold;
+import com.hmdzl.spspd.items.sellitem.VIPcard;
+import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GoldCollectorSprite;
 import com.watabou.utils.Random;
 
@@ -45,7 +48,7 @@ public class GoldCollector extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new MasterThievesArmband();
+		return Random.oneOf( new Gold(100) ,new VIPcard(),new MasterThievesArmband());
 	}
 
 	@Override
@@ -60,10 +63,12 @@ public class GoldCollector extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
+		int golddrop = (int)(Dungeon.gold/10);
 		if (this.buff(SkillUse.class)== null && enemy == Dungeon.hero) {
 			Buff.affect(this, SkillUse.class);
 			Buff.affect(this,ShieldArmor.class).level((int)(Dungeon.gold/20));
-			Dungeon.gold -=(int)(Dungeon.gold/10);
+			Dungeon.gold -=golddrop;
+			enemy.sprite.showStatus(CharSprite.NEUTRAL,"-" + golddrop);
 		}
 		return damage;
 	}

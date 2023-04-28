@@ -43,6 +43,7 @@ import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndBag;
@@ -100,6 +101,8 @@ public class PerformerSkill extends ClassSkill {
 				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
 
 				mob.damage(Random.Int(1,dmg) , DamageType.ENERGY_DAMAGE);
+
+				Dungeon.level.plant((Plant.Seed)(Generator.random(Generator.Category.SEED)),mob.pos);
 
 				if (mob.isAlive()) {
 					Buff.prolong(mob, Blindness.class, 10f);
