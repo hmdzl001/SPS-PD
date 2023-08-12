@@ -28,8 +28,12 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.BlindFruit;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Blindweed extends Plant {
 
@@ -67,7 +71,31 @@ public class Blindweed extends Plant {
 			image = ItemSpriteSheet.SEED_BLINDWEED;
 
 			plantClass = Blindweed.class;
+			explantClass = ExBlindweed.class;
 			alchemyClass = PotionOfInvisibility.class;
 		}
 	}
+	public static class ExBlindweed extends Plant {
+		{
+			image = 3;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new BlindFruit(), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}	
+	
 }

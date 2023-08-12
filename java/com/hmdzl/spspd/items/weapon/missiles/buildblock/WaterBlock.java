@@ -21,23 +21,17 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
-public class WaterBlock extends MissileWeapon {
+public class WaterBlock extends BuildBlock {
 
 	{
 		//name = "WaterBlock";
 		image = ItemSpriteSheet.WATER_BLOCK;
-
-		STR = 10;
-
-		MIN = 1;
-		MAX = 1;
 	}
 
 	public WaterBlock() {

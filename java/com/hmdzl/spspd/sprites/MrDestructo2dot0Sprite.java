@@ -30,21 +30,21 @@ public class MrDestructo2dot0Sprite extends MobSprite {
 	public MrDestructo2dot0Sprite() {
 		super();
 
-		texture(Assets.MRDESTRUCTO2);
+		texture(Assets.MRDESTRUCTO);
 
-		TextureFilm frames = new TextureFilm(texture, 16, 18);
+		TextureFilm frames = new TextureFilm(texture, 16, 16);
 
 		idle = new Animation(2, true);
-		idle.frames(frames, 1, 2, 3, 4);
+		idle.frames(frames, 8, 9, 10, 11);
 
 		run = new Animation(12, true);
-		run.frames(frames, 2, 3, 4);
+		run.frames(frames, 9, 10, 11);
 
 		attack = new Animation(15, false);
-		attack.frames(frames, 1, 5);
+		attack.frames(frames, 8, 12);
 
 		die = new Animation(8, false);
-		die.frames(frames, 1, 0, 6);
+		die.frames(frames, 8, 7, 13);
 
 		play(idle);
 	}

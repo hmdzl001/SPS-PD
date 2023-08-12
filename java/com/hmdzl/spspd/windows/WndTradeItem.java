@@ -27,6 +27,7 @@ import com.hmdzl.spspd.items.EquipableItem;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.bags.ArrowCollecter;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
 import com.hmdzl.spspd.items.bags.KeyRing;
 import com.hmdzl.spspd.items.bags.PotionBandolier;
@@ -230,7 +231,7 @@ public class WndTradeItem extends Window {
 		Hero hero = Dungeon.hero;
 
 		if (item instanceof SeedPouch || item instanceof KeyRing || item instanceof ShoppingCart || item instanceof HeartOfScarecrow
-		|| item instanceof PotionBandolier || item instanceof WandHolster || item instanceof ScrollHolder
+		|| item instanceof PotionBandolier || item instanceof WandHolster || item instanceof ScrollHolder || item instanceof ArrowCollecter
 		|| item instanceof JournalPage || item instanceof DolyaSlate || item instanceof ChallengeList || item instanceof ChallengeBook){
 			GLog.w( Messages.get(this, "donot") );
 			return ;

@@ -155,12 +155,12 @@ public class Dungeon {
 	public static boolean dewNorn = false;
 	public static boolean canSave = false;
 	public static boolean gnollmission = false;
-	public static boolean error = false;
+	public static boolean picktype = false;
 	//public static boolean secondQuest = false;
 
 	public static int challenges;
 	public static int skins;
-	
+
 	public static int ratChests = 0;
 	public static int sacrifice = 0;
 	public static int saferoom = 0;
@@ -261,7 +261,7 @@ public class Dungeon {
 		dewNorn = false;
 		canSave = false;
 		gnollmission = false;
-		error = false;
+		picktype = false;
 	    
 		pars = new int[100];
 		
@@ -341,7 +341,7 @@ public class Dungeon {
 		dewNorn = false;
 		canSave = false;
 		gnollmission = false;
-		error = false;
+		picktype = false;
 
 		pars = new int[100];
 
@@ -1201,7 +1201,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String DEWNORN = "dewNorn";
 	private static final String CANSAVE = "canSave";
 	private static final String GNOLLMISSION = "gnollmission";
-    private static final String ERROR = "error";
+    private static final String PICKTYPE = "error";
 	private static final String WINGS = "wings";
 	private static final String PARS = "pars";
 	
@@ -1297,7 +1297,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 			bundle.put(DEWNORN, dewNorn);
 			bundle.put(CANSAVE, canSave);
 			bundle.put(GNOLLMISSION, gnollmission);
-			bundle.put(ERROR, error);
+			bundle.put(PICKTYPE, picktype);
 			bundle.put(PARS, pars);
 	
 			for (int d : droppedItems.keyArray()) {
@@ -1489,7 +1489,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		dewNorn = bundle.getBoolean(DEWNORN);
 		canSave = bundle.getBoolean(CANSAVE);
 		gnollmission = bundle.getBoolean(GNOLLMISSION);
-		error = bundle.getBoolean(ERROR);
+		picktype = bundle.getBoolean(PICKTYPE);
 		pars = bundle.getIntArray(PARS);
 		
 		Statistics.restoreFromBundle(bundle);

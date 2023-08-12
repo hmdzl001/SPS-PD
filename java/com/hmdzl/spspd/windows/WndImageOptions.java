@@ -24,8 +24,6 @@ import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.Image;
 
-import static com.hmdzl.spspd.scenes.StartScene.curClass;
-
 public class WndImageOptions extends Window {
 
 	private static final int MARGIN = 2;
@@ -54,7 +52,7 @@ public class WndImageOptions extends Window {
 
 		for (int i=0; i < options.length; i++) {
 			final int index = i;
-			RedButton btn = new RedButton( curClass.skinsheet(i), options[i] ) {
+			RedButton btn = new RedButton( null , options[i] ) {
 				@Override
 				protected void onClick() {
 					hide();

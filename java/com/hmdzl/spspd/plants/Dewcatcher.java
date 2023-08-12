@@ -23,10 +23,13 @@ import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
-import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
+import com.hmdzl.spspd.items.medicine.GreenSpore;
+import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Dewcatcher extends Plant {
 
@@ -49,11 +52,35 @@ public class Dewcatcher extends Plant {
 			image = ItemSpriteSheet.SEED_DEWCATCHER;
 
 			plantClass = Dewcatcher.class;
-			alchemyClass = PotionOfOverHealing.class;				
+			explantClass = ExDewcatcher.class;
+			alchemyClass = PotionOfHealing.class;
 		}
 	}
 	
-public void explodeDew(int cell) {
+	public static class ExDewcatcher extends Plant {
+		{
+			image = 12;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new GreenSpore(), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}	
+	
+    public void explodeDew(int cell) {
 		
 		 for (int n : Level.NEIGHBOURS8) {
 			 int c = cell + n;

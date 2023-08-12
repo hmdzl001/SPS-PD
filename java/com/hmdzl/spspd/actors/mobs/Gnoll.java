@@ -24,7 +24,7 @@ import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.GlassTotem;
 import com.hmdzl.spspd.items.weapon.melee.Club;
-import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.GnollSprite;
 import com.watabou.utils.Random;

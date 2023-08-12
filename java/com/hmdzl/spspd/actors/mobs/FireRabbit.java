@@ -18,17 +18,22 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.Fire;
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.damageblobs.FireEffectDamage;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Locked;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.FireRabbitSprite;
 import com.watabou.utils.Random;
 
@@ -49,10 +54,24 @@ public class FireRabbit extends Mob {
 		properties.add(Property.ORC);
 	}
 
+	private Ballistica beam;
+
+
+
 	@Override
 	public Item SupercreateLoot(){
 		return Generator.random(Generator.Category.FOOD);
 	}
+
+	@Override
+	public boolean attack(Char enemy) {
+
+		for (int hitpos : beam.subPath(1, beam.dist)) {
+			GameScene.add(Blob.seed(hitpos, 5, FireEffectDamage.class));
+		}
+		return super.attack(enemy);
+	}
+
 
 	@Override
 	public int damageRoll() {
@@ -84,13 +103,15 @@ public class FireRabbit extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 3 ;
+		beam = new Ballistica( pos, enemy.pos, Ballistica.STOP_TARGET);
+		return beam.subPath(1, beam.dist).contains(enemy.pos) && Level.distance( pos, enemy.pos ) <= 3 ;
 	}		
 
 
 	{
 		immunities.add(Locked.class);
 		immunities.add(Burning.class);
+		immunities.add(DamageType.FireDamage.class);
 		immunities.add(Fire.class);
 		immunities.add(WandOfFirebolt.class);
 	}

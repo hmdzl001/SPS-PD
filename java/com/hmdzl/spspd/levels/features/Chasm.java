@@ -21,27 +21,28 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.effects.Wound;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.traps.PitfallTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.MobSprite;
 import com.hmdzl.spspd.windows.WndOptions;
 import com.watabou.noosa.Camera;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
-public class Chasm {
+import static com.hmdzl.spspd.Dungeon.hero;
 
-	private static final String TXT_CHASM = "Chasm";
-	private static final String TXT_YES = "Yes, I know what I'm doing";
-	private static final String TXT_NO = "No, I changed my mind";
-	private static final String TXT_JUMP = "Do you really want to jump into the chasm? You can probably die.";
+public class Chasm {
 
 	public static boolean jumpConfirmed = false;
 
@@ -68,16 +69,26 @@ public class Chasm {
 
 		Sample.INSTANCE.play(Assets.SND_FALLING);
 
-		Buff buff = Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class);
+		Buff buff = hero.buff(TimekeepersHourglass.timeFreeze.class);
 		if (buff != null)
 			buff.detach();
-
-		if (Dungeon.hero.isAlive()) {
-			Dungeon.hero.interrupt();
-			InterlevelScene.mode = InterlevelScene.Mode.FALL;
-			Game.switchScene(InterlevelScene.class);
+            int damage = Random.NormalIntRange(Dungeon.depth, Dungeon.depth*2);
+			Buff.affect( hero, Bleeding.class).set(damage);
+			Buff.affect( hero, Cripple.class,5f);
+		    hero.damage(Random.IntRange(hero.HT/4, hero.HT/3), new Hero.Doom() {
+			@Override
+			public void onDeath() {
+				Badges.validateDeathFromFalling();
+				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//GLog.n("You fell to death...");
+			}
+		});
+			Wound.hit( pos );
+		if (hero.isAlive()) {
+			hero.interrupt();
 		} else {
-			Dungeon.hero.sprite.visible = false;
+			hero.sprite.visible = false;
+			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		}
 	}
 	
@@ -104,8 +115,15 @@ public class Chasm {
 	}
 
 	public static void mobFall(Mob mob) {
-		mob.die(null);
-
+		int pos = mob.pos;
+		int damage = Random.NormalIntRange(Dungeon.depth, Dungeon.depth*2);
+		mob.damage(mob.HT/5,Item.class);
+	    Buff.affect( mob, Bleeding.class).set(damage);
+		Buff.affect( mob, Cripple.class,5f);
+		Wound.hit( mob );
+		Dungeon.level.setTrap( new PitfallTrap().hide(), mob.pos );
+		Level.set( mob.pos, Terrain.SECRET_TRAP);
+		GameScene.updateMap( mob.pos);
 		((MobSprite) mob.sprite).fall();
 	}
 }

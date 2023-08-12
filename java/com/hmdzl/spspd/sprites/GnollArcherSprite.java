@@ -1,7 +1,7 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
 import com.hmdzl.spspd.levels.Level;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;

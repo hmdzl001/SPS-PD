@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -180,7 +180,8 @@ unique = true;
 						 targets.remove(this);
 						 if (targets.isEmpty()) {
 							 //curUser.spendAndNext(curUser.attackDelay());
-							 curUser.spendAndNext(0.5f);
+							// curUser.spendAndNext(0.5f);
+                               curUser.HP++;
 						 }
 					 }
 				 };

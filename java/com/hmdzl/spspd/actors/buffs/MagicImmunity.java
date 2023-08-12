@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.mobs.Eye;
 import com.hmdzl.spspd.actors.mobs.Warlock;
 import com.hmdzl.spspd.actors.mobs.Yog;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 

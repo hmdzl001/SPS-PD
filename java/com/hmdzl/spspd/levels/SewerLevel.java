@@ -25,7 +25,6 @@ import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.mobs.GnollArcher;
 import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer1;
-import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.items.food.fruit.Blueberry;
@@ -33,14 +32,21 @@ import com.hmdzl.spspd.items.food.fruit.Cloudberry;
 import com.hmdzl.spspd.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.levels.traps.AlarmTrap;
-import com.hmdzl.spspd.levels.traps.ChillingTrap;
+import com.hmdzl.spspd.levels.traps.BoundTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
-import com.hmdzl.spspd.levels.traps.OozeTrap;
-import com.hmdzl.spspd.levels.traps.ShockTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
 import com.hmdzl.spspd.levels.traps.WornTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.IceBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.LightBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuffTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.EarthDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.IceDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.ShockDamageTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Game;
@@ -83,18 +89,18 @@ public class SewerLevel extends RegularLevel {
 	protected Class<?>[] trapClasses() {
 		return Dungeon.depth == 1 ?
 				new Class<?>[]{WornTrap.class} :
-				new Class<?>[]{ChillingTrap.class, ToxicTrap.class, WornTrap.class,
-						AlarmTrap.class, OozeTrap.class, ShockTrap.class,
-						FlockTrap.class, SummoningTrap.class, TeleportationTrap.class, };
+				new Class<?>[]{ToxicTrap.class, AlarmTrap.class, FlockTrap.class, BoundTrap.class,
+				        FireBuffTrap.class, IceBuffTrap.class, ShockBuffTrap.class, EarthBuffTrap.class,
+						LightBuffTrap.class, DarkBuffTrap.class};
 }
 
 	@Override
 	protected float[] trapChances() {
 		return Dungeon.depth == 1 ?
 				new float[]{1} :
-				new float[]{4, 4, 4,
+				new float[]{3, 3, 3, 3,
 			            2, 2, 2,
-						1, 1, 1};
+						2, 2, 2};
 	}
 	
 	@Override

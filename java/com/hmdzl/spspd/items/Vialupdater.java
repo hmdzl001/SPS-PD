@@ -50,7 +50,7 @@ public class Vialupdater extends Item {
 			detach(curUser.belongings.backpack);
 		   curUser = hero;
 			//Dungeon.dewNorn=true;
-           // Dungeon.dewWater=true;
+            Dungeon.dewWater=true;
 			//Dungeon.dewDraw=true;
 		   Dungeon.wings=true;
 		   curUser.sprite.centerEmitter().start(Speck.factory(Speck.KIT), 0.05f,10);

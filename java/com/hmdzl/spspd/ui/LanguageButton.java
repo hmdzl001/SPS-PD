@@ -22,7 +22,7 @@
 package com.hmdzl.spspd.ui;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.windows.WndLangs;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;

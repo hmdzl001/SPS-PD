@@ -20,6 +20,7 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Light;
@@ -87,7 +88,7 @@ public class Succubus extends Mob {
 		
 		int reg = Math.min(damage, HT - HP);
 
-		if (reg > 0) {
+		if (reg > 0 && this.buff(BeOld.class) == null ) {
 			HP += reg;
 			sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 		}		

@@ -17,16 +17,15 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.relic;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Shadows;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
-
 import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
 
 public class LokisFlail extends RelicMeleeWeapon {
 

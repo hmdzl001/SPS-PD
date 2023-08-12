@@ -39,8 +39,12 @@ public class Bestiary {
 		if (Random.Int(8) == 0) {
 			if (cl == Rat.class) {
 				cl = Albino.class;
+			} else if (cl == Vagrant.class) {
+				cl = ExVagrant.class;
 			} else if (cl == Thief.class) {
 				cl = Bandit.class;
+			} else if (cl == BambooMob.class) {
+				cl = ExBambooMob.class;
 			} else if (cl == Brute.class) {
 				cl = Shielded.class;
 			} else if (cl == IceBug.class) {
@@ -49,6 +53,8 @@ public class Bestiary {
 				cl = Senior.class;
 			} else if (cl == Scorpio.class) {
 				cl = Acidic.class;
+			} else if (cl == Succubus.class) {
+				cl = FireSuccubus.class;
 			}
 		}
 
@@ -449,28 +455,28 @@ public class Bestiary {
 				classes = new Class<?>[]{Albino.class};
 				break;
 			case 3:
-				chances = new float[]{1};
-				classes = new Class<?>[]{Albino.class};
+				chances = new float[]{1,1};
+				classes = new Class<?>[]{Albino.class,ExVagrant.class};
 				break;
 			case 4:
-				chances = new float[]{1};
-				classes = new Class<?>[]{Albino.class};
+				chances = new float[]{1,1};
+				classes = new Class<?>[]{Albino.class,ExVagrant.class};
 				break;
 			case 6:
-				chances = new float[]{ 1};
-				classes = new Class<?>[]{Bandit.class};
+				chances = new float[]{ 1,1};
+				classes = new Class<?>[]{Bandit.class,ExVagrant.class};
 				break;
 			case 7:
-				chances = new float[]{ 1};
-				classes = new Class<?>[]{Bandit.class};
+				chances = new float[]{ 1,1};
+				classes = new Class<?>[]{Bandit.class,ExVagrant.class};
 				break;
 			case 8:
-				chances = new float[]{1};
-				classes = new Class<?>[]{Bandit.class};
+				chances = new float[]{1,1};
+				classes = new Class<?>[]{Bandit.class, ExBambooMob.class};
 				break;
 			case 9:
-				chances = new float[]{1};
-				classes = new Class<?>[]{Bandit.class};
+				chances = new float[]{1,1};
+				classes = new Class<?>[]{Bandit.class,ExBambooMob.class};
 				break;
 			case 11:
 				chances = new float[] { 1,1};
@@ -507,19 +513,19 @@ public class Bestiary {
 				break;
 			case 21:
 				chances = new float[] { 1};
-				classes = new Class<?>[] { Acidic.class};
+				classes = new Class<?>[] { FireSuccubus.class};
 				break;
 			case 22:
-				chances = new float[] { 1};
-				classes = new Class<?>[] { Acidic.class};
+				chances = new float[] { 1,1};
+				classes = new Class<?>[] { Acidic.class,FireSuccubus.class};
 				break;
 			case 23:
-				chances = new float[] { 1 };
-				classes = new Class<?>[] { Acidic.class};
+				chances = new float[] { 1,1 };
+				classes = new Class<?>[] { Acidic.class,FireSuccubus.class};
 				break;
 			case 24:
-				chances = new float[] { 1 };
-				classes = new Class<?>[] {Acidic.class};
+				chances = new float[] { 1,1 };
+				classes = new Class<?>[] {Acidic.class,FireSuccubus.class};
 				break;
 
 			case 31:

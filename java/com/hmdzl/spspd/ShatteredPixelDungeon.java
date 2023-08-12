@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
@@ -32,9 +30,11 @@ import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.scenes.TitleScene;
 import com.hmdzl.spspd.scenes.WelcomeScene;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.noosa.RenderedText;
+
+import javax.microedition.khronos.opengles.GL10;
 
 public class ShatteredPixelDungeon extends Game {
 
@@ -299,12 +299,20 @@ public class ShatteredPixelDungeon extends Game {
 		return Preferences.INSTANCE.getInt(Preferences.KEY_CHALLENGES, 0);
 	}
 
-	public static void quickSlots(int value) {
+	public static void quicktypes(int value) {
 		Preferences.INSTANCE.put(Preferences.KEY_QUICKSLOTS, value);
 	}
 
-	public static int quickSlots() {
+	public static int quicktypes() {
 		return Preferences.INSTANCE.getInt(Preferences.KEY_QUICKSLOTS, 1);
+	}
+
+	public static void basetooltypes(int value) {
+		Preferences.INSTANCE.put(Preferences.KEY_BASETOOL, value);
+	}
+
+	public static int basetooltypes() {
+		return Preferences.INSTANCE.getInt(Preferences.KEY_BASETOOL, 0);
 	}
 
 	public static void intro(boolean value) {

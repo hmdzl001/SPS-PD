@@ -22,9 +22,14 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MoonFury;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.food.vegetable.BattleFlower;
 import com.hmdzl.spspd.items.potions.PotionOfExperience;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Starflower extends Plant {
 
@@ -47,7 +52,31 @@ public class Starflower extends Plant {
 			image = ItemSpriteSheet.SEED_STARFLOWER;
 
 			plantClass = Starflower.class;
+			explantClass = ExStarflower.class;
 			alchemyClass = PotionOfExperience.class;
 		}
 	}
+	public static class ExStarflower extends Plant {
+		{
+			image = 11;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 1 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(Generator.random(Generator.Category.NORNSTONE), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}	
+	
 }

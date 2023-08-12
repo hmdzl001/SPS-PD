@@ -21,7 +21,7 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Random;
 

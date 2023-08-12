@@ -19,7 +19,7 @@ package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.keys.IronKey;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.RedButton;

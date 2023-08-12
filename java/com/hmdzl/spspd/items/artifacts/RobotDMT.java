@@ -16,7 +16,7 @@ import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
 import com.hmdzl.spspd.items.wands.WandOfError;
 import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
-import com.hmdzl.spspd.items.weapon.missiles.ErrorAmmo;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.ErrorAmmo;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -50,6 +50,8 @@ public class RobotDMT extends Artifact {
 		defaultAction = AC_HEART;
 	}
 
+	public boolean error = false;
+
     public static final String AC_HEART = "HEART";
 	public static final String AC_MEMORY = "MEMORY";
 	public static final String AC_ERROR = "ERROR";
@@ -61,7 +63,7 @@ public class RobotDMT extends Artifact {
 			actions.add(AC_HEART);
 		if (level > 9 && !isEquipped(hero) )
 			actions.add(AC_MEMORY);
-		if (Dungeon.error == true && !isEquipped(hero))
+		if (this.error && !isEquipped(hero))
 			actions.add(AC_ERROR);
 		return actions;
 	}
@@ -115,7 +117,7 @@ public class RobotDMT extends Artifact {
 					case 8:
 						//
 						GLog.w(Messages.get(this,"chaos"));
-                       Dungeon.error = true;
+                       this.error = true;
 						break;
 					default:
 						//
@@ -141,7 +143,6 @@ public class RobotDMT extends Artifact {
 			curUser = hero;
             curUser.spendAndNext(1f);
 			detach(curUser.belongings.backpack);
-			Dungeon.error = false;
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 			hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 			switch (Random.Int(4)){
@@ -210,12 +211,14 @@ public class RobotDMT extends Artifact {
 	
 	private static final String PARTIALCHARGE = "partialCharge";
 	private static final String CHARGE = "charge";
+	private static final String ERROR = "error";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(PARTIALCHARGE, partialCharge);
 		bundle.put(CHARGE, charge);
+		bundle.put(ERROR, error);
 	}
 
 	@Override
@@ -223,5 +226,6 @@ public class RobotDMT extends Artifact {
 		super.restoreFromBundle(bundle);
 		partialCharge = bundle.getInt(PARTIALCHARGE);
 		charge = bundle.getInt(CHARGE);
+		error = bundle.getBoolean(ERROR);
 	}
 }

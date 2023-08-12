@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.effects;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
 
 import com.hmdzl.spspd.Assets;
@@ -33,6 +31,8 @@ import com.watabou.utils.Random;
 
 import java.util.Arrays;
 import java.util.List;
+
+import javax.microedition.khronos.opengles.GL10;
 
 public class Lightning extends Group {
 

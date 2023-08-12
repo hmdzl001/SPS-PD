@@ -20,7 +20,6 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
-import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.LiveMossSprite;
@@ -65,9 +64,9 @@ public class LiveMoss extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (Random.Int(3) == 0 && this.buff(SkillUse.class)==null)  {
+		if (Random.Int(3) == 0 && !skilluse)  {
 			Buff.affect(enemy, GrowSeed.class).set(5f);
-			Buff.affect(this,SkillUse.class);
+			skilluse = true;
 		}
 
 		return damage;

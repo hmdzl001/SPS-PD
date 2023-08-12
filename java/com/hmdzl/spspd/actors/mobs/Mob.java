@@ -115,6 +115,7 @@ public abstract class Mob extends Char {
 	protected Char enemy;
 	protected boolean enemySeen;
 	protected boolean alerted = false;
+	protected boolean skilluse = false;
 
 	protected static final float TIME_TO_WAKE_UP = 1f;
 
@@ -128,6 +129,7 @@ public abstract class Mob extends Char {
 	private static final String TARGET = "target";
 	private static final String ORIGINAL = "originalgen";
 	private static final String FIRSTITEM = "firstitem";
+	private static final String SkillUSE = "skilluse";
 	
 	public int getExp(){
 		return EXP;
@@ -153,6 +155,7 @@ public abstract class Mob extends Char {
 		bundle.put(TARGET, target);
 		bundle.put(ORIGINAL, originalgen);
 		bundle.put(FIRSTITEM, firstitem);
+		bundle.put(SkillUSE, skilluse);
 	}
 
 	@Override
@@ -179,6 +182,7 @@ public abstract class Mob extends Char {
 		
 		originalgen = bundle.getBoolean(ORIGINAL);
 		firstitem = bundle.getBoolean(FIRSTITEM);
+		skilluse = bundle.getBoolean(SkillUSE);
 	}
 
 	public CharSprite sprite() {
@@ -438,6 +442,7 @@ public abstract class Mob extends Char {
 		if (Dungeon.isChallenged(Challenges.ELE_STOME)){
 			enemy.damage( Statistics.deepestFloor/5 , DamageType.ENERGY_DAMAGE);
 		}
+
 		if (buff(Shocked.class)!=null && Shocked.first == false){
 			Buff.detach(this,Shocked.class);
 			Buff.affect(this, Disarm.class,5f);
@@ -638,7 +643,7 @@ public abstract class Mob extends Char {
 		
 		if(this instanceof Virus){
 			Virus virus = (Virus) this;
-			generation=virus.generation;
+			generation=1;
 		}
 
 		if(this instanceof SandMob.MiniSand){
@@ -705,7 +710,7 @@ public abstract class Mob extends Char {
 		DemoScroll dc = Dungeon.hero.belongings.getItem(DemoScroll.class);
 		if (dc!=null) {dc.charge++;}
 		
-		if (Dungeon.isChallenged(Challenges.NIGHTMARE_VIRUS) && !(this instanceof Virus)) {
+		if (Dungeon.isChallenged(Challenges.NIGHTMARE_VIRUS) && generation == 0) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			boolean[] passable = Level.passable;
 			int[] neighbours = { pos + 1, pos - 1, pos + Level.getWidth(),
@@ -728,7 +733,9 @@ public abstract class Mob extends Char {
 
 				GameScene.add(virus, 1f);
 				Actor.addDelayed(new Pushing(virus, pos, virus.pos), -1);
-			}			
+			} else {
+				Dungeon.level.drop(new RedDewdrop(), pos).sprite.drop();
+			}	
 			
 		}
 		

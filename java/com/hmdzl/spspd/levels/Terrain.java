@@ -52,8 +52,7 @@ public class Terrain {
 	public static final int UNLOCKED_EXIT = 27;
 	public static final int WALL_SP   = 28;
 	public static final int SIGN = 29;
-	
-	public static final int TRAP_AIR = 30;
+
 	public static final int GLASS_WALL = 31;
 
 	public static final int OLD_HIGH_GRASS = 32;
@@ -146,9 +145,7 @@ public class Terrain {
 		flags[SECRET_DOOR]  = flags[WALL]  | SECRET	  | UNSTITCHABLE;
 		flags[SECRET_TRAP]  = flags[EMPTY] | SECRET;
 		flags[TRAP]         = AVOID;
-		flags[INACTIVE_TRAP]= flags[EMPTY];	
-
-        flags[TRAP_AIR]     = AVOID;
+		flags[INACTIVE_TRAP]= flags[EMPTY];
 
 		flags[DEW_BLESS] = AVOID;
 

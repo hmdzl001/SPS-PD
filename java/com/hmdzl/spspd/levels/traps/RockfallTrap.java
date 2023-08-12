@@ -22,13 +22,14 @@ package com.hmdzl.spspd.levels.traps;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Camera;
@@ -38,8 +39,8 @@ import com.watabou.utils.Random;
 public class RockfallTrap extends Trap {
 
 	{
-		color = TrapSprite.GREY;
-		shape = TrapSprite.DIAMOND;
+		color = TrapSprite.YELLOW;
+		shape = TrapSprite.LARGE_DOT;
 	}
 
 	@Override

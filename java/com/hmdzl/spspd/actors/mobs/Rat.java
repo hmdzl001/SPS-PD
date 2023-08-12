@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
-import com.hmdzl.spspd.items.weapon.melee.special.Brick;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Brick;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.RatSprite;

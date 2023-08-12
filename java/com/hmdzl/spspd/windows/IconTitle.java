@@ -18,12 +18,12 @@
 package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.HealthBar;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
 

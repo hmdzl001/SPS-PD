@@ -36,6 +36,7 @@ import com.hmdzl.spspd.items.SoulCollect;
 import com.hmdzl.spspd.items.StrBottle;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.TomeOfMastery;
+import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.TriForce;
 import com.hmdzl.spspd.items.UnBlessAnkh;
 import com.hmdzl.spspd.items.Weightstone;
@@ -58,8 +59,10 @@ import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.Pylon;
+import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
+import com.hmdzl.spspd.items.bags.ArrowCollecter;
 import com.hmdzl.spspd.items.bags.KeyRing;
 import com.hmdzl.spspd.items.bags.PotionBandolier;
 import com.hmdzl.spspd.items.bags.ScrollHolder;
@@ -85,7 +88,6 @@ import com.hmdzl.spspd.items.eggs.RandomEgg;
 import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
 import com.hmdzl.spspd.items.food.Honey;
 import com.hmdzl.spspd.items.food.completefood.AflyFood;
-import com.hmdzl.spspd.items.food.completefood.Chocolate;
 import com.hmdzl.spspd.items.food.completefood.FruitCandy;
 import com.hmdzl.spspd.items.food.completefood.Hamburger;
 import com.hmdzl.spspd.items.food.completefood.Meatroll;
@@ -203,6 +205,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.Sling;
 import com.hmdzl.spspd.items.weapon.melee.Dagger;
 import com.hmdzl.spspd.items.weapon.melee.Glaive;
+import com.hmdzl.spspd.items.weapon.melee.HolyWater;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
 import com.hmdzl.spspd.items.weapon.melee.Mace;
 import com.hmdzl.spspd.items.weapon.melee.MageBook;
@@ -217,29 +220,43 @@ import com.hmdzl.spspd.items.weapon.melee.special.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.special.EleKatana;
 import com.hmdzl.spspd.items.weapon.melee.special.HolyMace;
 import com.hmdzl.spspd.items.weapon.melee.special.LinkSword;
+import com.hmdzl.spspd.items.weapon.melee.special.MeleePan;
 import com.hmdzl.spspd.items.weapon.melee.special.NinjaFan;
 import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.Whisk;
-import com.hmdzl.spspd.items.weapon.melee.zero.EmptyPotion;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ElfBow;
-import com.hmdzl.spspd.items.weapon.missiles.EmpBola;
-import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
-import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
+import com.hmdzl.spspd.items.weapon.missiles.MiniGun;
 import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
-import com.hmdzl.spspd.items.weapon.missiles.Skull;
-import com.hmdzl.spspd.items.weapon.missiles.Smoke;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.BlindFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.HealFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.NutFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.RocketMissile;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.RootFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.SmokeFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.ToxicFruit;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
+import com.hmdzl.spspd.items.weapon.missiles.buildblock.WallBlock;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Javelin;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MiniMoai;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Tamahawk;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.EmpBola;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.PoisonDart;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Skull;
+import com.hmdzl.spspd.items.weapon.ranges.WoodenBowN;
 import com.hmdzl.spspd.items.weapon.spammo.BattleAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.GoldAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.HeavyAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.WoodenAmmo;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Dewcatcher;
+import com.hmdzl.spspd.plants.Firebloom;
+import com.hmdzl.spspd.plants.Rotberry;
 import com.hmdzl.spspd.plants.Seedpod;
 import com.hmdzl.spspd.sprites.HeroSkinSprite;
 import com.hmdzl.spspd.sprites.HeroSkinSpriteSheet;
@@ -324,10 +341,15 @@ public enum HeroClass {
 
 	private static void initCommon(Hero hero) {
 		new KeyRing().collect();
+		new ArrowCollecter().collect();
 		new Pasty().identify().collect();
-		new Chocolate().identify().collect();
+		//new Lollipop().identify().collect();
+		//new Chocolate().identify().collect();
+		//new HealFruit(99).collect();
+		new MeleePan().identify().collect();
 		new DewVial(0,0).identify().collect();
-		//new WandOfTest().identify().collect();
+		new RocketMissile(5).collect();
+		//new Vialupdater().collect();
 		if (Dungeon.skins != 3 && Dungeon.skins != 6) {
 			new Ankhshield().collect();
 		}
@@ -337,7 +359,7 @@ public enum HeroClass {
 			hero.belongings.misc3.activate(hero);
 			new EmpBola(10).collect();
 			new PoisonDart(10).collect();
-			new Smoke(10).collect();
+			new BlindFruit(10).collect();
 			new Weightstone().collect();
 			new Stylus().collect();
 			new PotionOfHealing().identify().collect();
@@ -782,12 +804,12 @@ public enum HeroClass {
 			hero.belongings.misc3.activate(hero);
 			new EmpBola(10).collect();
 			new PoisonDart(10).collect();
-			new Smoke(10).collect();
+			new BlindFruit(10).collect();
 			new Weightstone().collect();
 			new Stylus().collect();
 			new PotionOfHealing().identify().collect();
 			new ScrollOfMagicMapping().identify().collect();
-           //new HorseTotem().identify().collect();
+           new WandOfLightning().upgrade(3).identify().collect();
 
             hero.STR += 2;
             Dungeon.limitedDrops.strengthPotions.count+=2;
@@ -813,7 +835,7 @@ public enum HeroClass {
 			(hero.belongings.misc1 = cloak).identify();
 			hero.belongings.misc1.activate(hero);
 
-			new Smoke(3).identify().collect();
+			new BlindFruit(3).identify().collect();
 			new JumpR().collect();
 		}
 
@@ -908,7 +930,11 @@ public enum HeroClass {
 			Dungeon.hero.updateHT(false);
 			hero.magicSkill+=3;
 			hero.evadeSkill+=5;
-			(hero.belongings.weapon = new EmptyPotion()).identify();
+
+			hero.STR += 4;
+			Dungeon.limitedDrops.strengthPotions.count+=4;
+
+			(hero.belongings.weapon = new HolyWater()).identify();
 			(hero.belongings.armor = new BaseArmor()).identify();
 			new CopyBall().collect();
             new PotionOfMending().identify().collect();
@@ -1051,6 +1077,20 @@ public enum HeroClass {
 			Dungeon.limitedDrops.strengthPotions.count += 6;
 			new ShootGun().identify().collect();
 			new JumpS().collect();
+		} else if (Dungeon.skins == 7) {
+			//hero.STR += 6;
+			//hero.magicSkill+=5;
+			//hero.hitSkill-=10;
+			//hero.evadeSkill-=35;
+			//(hero.belongings.weapon = new TrickSand()).identify().upgrade(100);
+			//(hero.belongings.armor = new BaseArmor()).identify();
+			//Dungeon.limitedDrops.strengthPotions.count += 6;
+			//new ShootGun().identify().collect();
+			//new JumpS().collect();
+
+			RobotDMT robotDMT = new RobotDMT();
+			(hero.belongings.misc1 = robotDMT).identify();
+			hero.belongings.misc1.activate(hero);
 		} else {
 			(hero.belongings.weapon = new Sling()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -1217,6 +1257,54 @@ public enum HeroClass {
 	private static void initNewPlayer(Hero hero) {
 		hero.TRUE_HT = 50;
 		hero.HP = 10;
+		new WoodenBowN().identify().collect();
+		//new MeleePan().identify().collect();
+
+		new SmokeFruit(99).collect();
+
+		new MiniGun().identify().collect();
+
+		new Torch().collect();
+
+		new HealFruit(99).collect();
+		new ToxicFruit(99).collect();
+		new NutFruit(99).collect();
+		new ScrollOfUpgrade().collect();
+		new ScrollOfUpgrade().collect();
+
+		new ScrollOfIdentify().collect();
+		new ScrollOfIdentify().collect();
+		//new ScrollOfIdentify().collect();
+
+        new ShortSword().collect();
+
+		new MiniMoai().collect();
+		new MiniMoai().collect();
+
+		new Tamahawk().collect();
+		new Javelin().collect();
+
+		new ScrollOfMagicalInfusion().collect();
+		new ScrollOfMagicalInfusion().collect();
+		new ScrollOfMagicalInfusion().collect();
+
+		new Firebloom.Seed().collect();
+		new Firebloom.Seed().collect();
+		new Firebloom.Seed().collect();
+
+		new Rotberry.Seed().collect();
+
+		new RootFruit().collect();
+		new RootFruit().collect();
+		new RootFruit().collect();
+
+		new RocketMissile().collect();
+		new RocketMissile().collect();
+		new RocketMissile().collect();
+
+		new PlantPotBlock().collect();
+        new WallBlock().collect();
+
 	}
 
 	public String title() {

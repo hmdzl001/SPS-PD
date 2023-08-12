@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import java.text.DecimalFormat;
-
 //buff whose only logic is to wait and detach after a time.
 public class FlavourBuff extends Buff {
 

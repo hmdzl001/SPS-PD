@@ -22,7 +22,10 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.blobs.damageblobs.DarkEffectDamage;
+import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
@@ -153,7 +156,9 @@ public class Tank extends Mob {
 	@Override
 	public void move(int step) {
 		super.move(step);
-		
+
+		GameScene.add(Blob.seed(pos, Random.Int(5, 7), DarkEffectDamage.class));
+
 		int[] cells = { step - 1, step + 1, step - Level.getWidth(),
 				step + Level.getWidth(), step - 1 - Level.getWidth(),
 				step - 1 + Level.getWidth(), step + 1 - Level.getWidth(),
@@ -168,7 +173,7 @@ public class Tank extends Mob {
 
 		Char ch = Actor.findChar(cell);
 		if (ch != null && ch != this) {
-			Buff.prolong(ch, Vertigo.class, 2f);
+			Buff.prolong(ch, AttackDown.class, 3f).level(10);
 		}
 	}	
 	
@@ -259,6 +264,8 @@ public class Tank extends Mob {
 		resistances.add(ToxicGas.class);
 		resistances.add(Poison.class);
 		resistances.add(EnchantmentDark.class);
+
+		immunities.add(DarkEffectDamage.class);
 		
 	}
 

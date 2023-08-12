@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.levels.painters.hidenroom;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.HoneyPoooot;
 import com.hmdzl.spspd.actors.mobs.npcs.Ice13;
@@ -95,10 +96,10 @@ public class HidenShopPainter extends Painter {
 	private static void generateItems() {
 
 		itemsToSpawn = new ArrayList<Item>();
-		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON).identify().uncurse().upgrade(5));
-		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR).identify().uncurse().upgrade(5));
-		itemsToSpawn.add(Generator.random(Generator.Category.WAND).identify().uncurse().upgrade(5));
-		itemsToSpawn.add(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(5));
+		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON).identify().uncurse().upgrade(Dungeon.depth));
+		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR).identify().uncurse().upgrade(Dungeon.depth));
+		itemsToSpawn.add(Generator.random(Generator.Category.WAND).identify().uncurse().upgrade(Dungeon.depth));
+		itemsToSpawn.add(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(Dungeon.depth));
 		itemsToSpawn.add(Generator.random(Generator.Category.ARTIFACT));
 		itemsToSpawn.add(new Ankh());
 
@@ -106,10 +107,10 @@ public class HidenShopPainter extends Painter {
 		itemsToSpawn2.add(Generator.random(Generator.Category.POTION));
 		itemsToSpawn2.add(Generator.random(Generator.Category.SCROLL));
 		itemsToSpawn2.add(Generator.random(Generator.Category.LINKDROP));
-		itemsToSpawn2.add(Generator.random(Generator.Category.MELEEWEAPON));
-		itemsToSpawn2.add(Generator.random(Generator.Category.ARMOR));
-		itemsToSpawn2.add(Generator.random(Generator.Category.WAND));
-		itemsToSpawn2.add(Generator.random(Generator.Category.RING));
+		itemsToSpawn2.add(Generator.random(Generator.Category.MELEEWEAPON).uncurse().upgrade(Dungeon.depth));
+		itemsToSpawn2.add(Generator.random(Generator.Category.ARMOR).uncurse().upgrade(Dungeon.depth));
+		itemsToSpawn2.add(Generator.random(Generator.Category.WAND).uncurse().upgrade(Dungeon.depth));
+		itemsToSpawn2.add(Generator.random(Generator.Category.RING).uncurse().upgrade(Dungeon.depth));
 		itemsToSpawn2.add(Generator.random(Generator.Category.ARTIFACT));
 
 		// this is a hard limit, level gen allows for at most an 8x5 room, can't

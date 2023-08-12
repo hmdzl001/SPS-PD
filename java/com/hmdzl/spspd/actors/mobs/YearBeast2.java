@@ -19,8 +19,8 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
@@ -45,7 +45,7 @@ import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
 import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
-import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.MoneyPack;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;

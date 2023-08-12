@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.actors.hero;
 
+import android.annotation.SuppressLint;
+
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
@@ -106,7 +108,6 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Amulet;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.DewVial;
-import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
@@ -119,7 +120,6 @@ import com.hmdzl.spspd.items.OrbOfZot;
 import com.hmdzl.spspd.items.PocketBallFull;
 import com.hmdzl.spspd.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
-import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.Pylon;
 import com.hmdzl.spspd.items.artifacts.TalismanOfForesight;
@@ -161,10 +161,7 @@ import com.hmdzl.spspd.items.misc.SavageHelmet;
 import com.hmdzl.spspd.items.misc.SeriousPunch;
 import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.misc.UndeadBook;
-import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
-import com.hmdzl.spspd.items.potions.PotionOfMight;
-import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.items.rings.RingOfForce;
 import com.hmdzl.spspd.items.rings.RingOfFuror;
@@ -172,10 +169,7 @@ import com.hmdzl.spspd.items.rings.RingOfHaste;
 import com.hmdzl.spspd.items.rings.RingOfMagic;
 import com.hmdzl.spspd.items.rings.RingOfMight;
 import com.hmdzl.spspd.items.rings.RingOfTenacity;
-import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
-import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
-import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
@@ -254,7 +248,9 @@ public class Hero extends Char {
 
 	public int petAction = 0;
 
-	private boolean damageInterrupt = true;
+    public boolean damagetwice;
+
+    private boolean damageInterrupt = true;
 	public HeroAction curAction = null;
 	public HeroAction lastAction = null;
 
@@ -779,6 +775,72 @@ public class Hero extends Char {
 	public void spend(float time) {
 		justMoved = false;
 		TimekeepersHourglass.timeFreeze freeze = buff(TimekeepersHourglass.timeFreeze.class);
+		if (buff(SpeedImbue.class) != null ) {
+			Statistics.ashield++;
+		}
+
+		Egg egg = belongings.getItem(Egg.class);
+		if (egg!=null){
+			egg.moves++;
+		}
+
+		DolyaSlate journal = belongings.getItem(DolyaSlate.class);
+		if (journal!=null && (Dungeon.depth < 26)
+				&& journal.charge<journal.fullCharge){
+			journal.charge++;
+		}
+
+		Jumpshoes jump = belongings.getItem(Jumpshoes.class);
+		if (jump!=null && jump.charge<jump.fullCharge) {jump.charge++;}
+
+		JumpW jumpw = belongings.getItem(JumpW.class);
+		if (jumpw!=null && jumpw.charge<jumpw.fullCharge) {jumpw.charge++;}
+
+		JumpM jumpm = belongings.getItem(JumpM.class);
+		if (jumpm!=null && jumpm.charge<jumpm.fullCharge) {jumpm.charge++;}
+
+		JumpR jumpr = belongings.getItem(JumpR.class);
+		if (jumpr!=null && jumpr.charge<jumpr.fullCharge) {jumpr.charge++;}
+
+		JumpH jumph = belongings.getItem(JumpH.class);
+		if (jumph!=null && jumph.charge<jumph.fullCharge) {jumph.charge++;}
+
+		JumpP jumpp = belongings.getItem(JumpP.class);
+		if (jumpp!=null && jumpp.charge<jumpp.fullCharge) {jumpp.charge++;}
+
+		JumpS jumps = belongings.getItem(JumpS.class);
+		if (jumps!=null && jumps.charge<jumps.fullCharge) {jumps.charge++;}
+
+		JumpF jumpf = belongings.getItem(JumpF.class);
+		if (jumpf!=null && jumpf.charge<jumpf.fullCharge) {jumpf.charge++;}
+
+		JumpA jumpa = belongings.getItem(JumpA.class);
+		if (jumpa!=null && jumpa.charge<jumpa.fullCharge) {jumpa.charge++;}
+
+		Shovel shovel = belongings.getItem(Shovel.class);
+		if (shovel!=null && shovel.charge<shovel.fullCharge) {shovel.charge++;}
+
+		BShovel bshovel = belongings.getItem(BShovel.class);
+		if (bshovel!=null && bshovel.charge<bshovel.fullCharge) {bshovel.charge++;}
+
+		Ankhshield shield = belongings.getItem(Ankhshield.class);
+		if (shield!=null && shield.charge<shield.fullCharge) {shield.charge++;}
+
+		MissileShield missileshield = belongings.getItem(MissileShield.class);
+		if (missileshield!=null && missileshield.charge<missileshield.fullCharge) {missileshield.charge++;}
+
+		PotionOfMage pom = belongings.getItem(PotionOfMage.class);
+		if (pom!=null && pom.charge<pom.fullCharge) {pom.charge++;}
+
+		GunOfSoldier gos = belongings.getItem(GunOfSoldier.class);
+		if (gos!=null && gos.charge<gos.fullCharge) {gos.charge++;}
+
+		OrbOfZot ofz = belongings.getItem(OrbOfZot.class);
+		if (ofz!=null && ofz.charge<ofz.fullCharge) {ofz.charge++;}
+
+		DanceLion lion = belongings.getItem(DanceLion.class);
+		if (lion!=null && lion.charge<lion.fullCharge) {lion.charge++;}
+
 		if (freeze != null) {
 			freeze.processTime(time);
 			return;
@@ -849,68 +911,6 @@ public class Hero extends Char {
 			}
 		}
 
-		Egg egg = belongings.getItem(Egg.class);
-		if (egg!=null){
-			egg.moves++;
-		}
-		
-		DolyaSlate journal = belongings.getItem(DolyaSlate.class);
-		if (journal!=null && (Dungeon.depth < 26) 
-				&& journal.charge<journal.fullCharge){
-			journal.charge++;
-		}
-		
-		Jumpshoes jump = belongings.getItem(Jumpshoes.class);
-		if (jump!=null && jump.charge<jump.fullCharge) {jump.charge++;}
-		
-		JumpW jumpw = belongings.getItem(JumpW.class);
-		if (jumpw!=null && jumpw.charge<jumpw.fullCharge) {jumpw.charge++;}
-		
-		JumpM jumpm = belongings.getItem(JumpM.class);
-		if (jumpm!=null && jumpm.charge<jumpm.fullCharge) {jumpm.charge++;}
-				
-		JumpR jumpr = belongings.getItem(JumpR.class);
-		if (jumpr!=null && jumpr.charge<jumpr.fullCharge) {jumpr.charge++;}
-		
-		JumpH jumph = belongings.getItem(JumpH.class);
-		if (jumph!=null && jumph.charge<jumph.fullCharge) {jumph.charge++;}
-
-		JumpP jumpp = belongings.getItem(JumpP.class);
-		if (jumpp!=null && jumpp.charge<jumpp.fullCharge) {jumpp.charge++;}
-
-		JumpS jumps = belongings.getItem(JumpS.class);
-		if (jumps!=null && jumps.charge<jumps.fullCharge) {jumps.charge++;}
-
-		JumpF jumpf = belongings.getItem(JumpF.class);
-		if (jumpf!=null && jumpf.charge<jumpf.fullCharge) {jumpf.charge++;}
-		
-		JumpA jumpa = belongings.getItem(JumpA.class);
-		if (jumpa!=null && jumpa.charge<jumpa.fullCharge) {jumpa.charge++;}
-		
-		Shovel shovel = belongings.getItem(Shovel.class);
-		if (shovel!=null && shovel.charge<shovel.fullCharge) {shovel.charge++;}
-
-		BShovel bshovel = belongings.getItem(BShovel.class);
-		if (bshovel!=null && bshovel.charge<bshovel.fullCharge) {bshovel.charge++;}
-
-		Ankhshield shield = belongings.getItem(Ankhshield.class);
-		if (shield!=null && shield.charge<shield.fullCharge) {shield.charge++;}
-
-         MissileShield missileshield = belongings.getItem(MissileShield.class);
-		if (missileshield!=null && missileshield.charge<missileshield.fullCharge) {missileshield.charge++;}
-
-		PotionOfMage pom = belongings.getItem(PotionOfMage.class);
-		if (pom!=null && pom.charge<pom.fullCharge) {pom.charge++;}
-
-		GunOfSoldier gos = belongings.getItem(GunOfSoldier.class);
-		if (gos!=null && gos.charge<gos.fullCharge) {gos.charge++;}
-
-        OrbOfZot ofz = belongings.getItem(OrbOfZot.class);
-		if (ofz!=null && ofz.charge<ofz.fullCharge) {ofz.charge++;}
-
-		DanceLion lion = belongings.getItem(DanceLion.class);
-		if (lion!=null && lion.charge<lion.fullCharge) {lion.charge++;}
-
 		if (buff(DeadRaise.class) != null && Random.Int(30) == 0) {
 			ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
@@ -926,7 +926,6 @@ public class Hero extends Char {
 				Sample.INSTANCE.play(Assets.SND_CURSED);
 			}
 		}
-		
 
 		/*
 		Heap heap = Dungeon.level.heaps.get(pos);
@@ -1183,35 +1182,37 @@ public class Hero extends Char {
 
 	private boolean actPickUp(HeroAction.PickUp action) {
 		int dst = action.dst;
-		if (pos == dst || ( ( Dungeon.level.map[ dst ] == Terrain.PEDESTAL
-            || Level.solid[ dst ] ) && Level.adjacent( pos, dst ))) {
+		if (pos == dst || (Level.adjacent( pos, dst ) && !Dungeon.picktype )) {
 
 			Heap heap = Dungeon.level.heaps.get(dst);
 			if (heap != null) {
 				Item item = heap.pickUp();
 				if (item.doPickUp(this)) {
 
-					if (item instanceof Dewdrop
+				/*	if (item instanceof Dewdrop
+					|| item instanceof RedDewdrop
+					|| item instanceof YellowDewdrop
+					|| item instanceof VioletDewdrop
 							|| item instanceof TimekeepersHourglass.sandBag
 							|| item instanceof DriedRose.Petal) {
 						// Do Nothing
 					} else {
 
 						boolean important = ((item instanceof ScrollOfUpgrade || item instanceof ScrollOfMagicalInfusion) && ((Scroll) item)
-								.isKnown())
-								|| ((item instanceof PotionOfStrength || item instanceof PotionOfMight) && ((Potion) item)
-										.isKnown());
-						if (important) {
-							GLog.p(Messages.get(this, "you_now_have", item.name()));
-						} else {
-							GLog.i(Messages.get(this, "you_now_have", item.name()));
-						}
+                                .isKnown())
+                                || ((item instanceof PotionOfStrength || item instanceof PotionOfMight) && ((Potion) item)
+                                .isKnown());
+                        if (important) {
+                            GLog.p(Messages.get(this, "you_now_have", item.name()));
+                        } else {
+                            GLog.i(Messages.get(this, "you_now_have", item.name()));
+                        }
 
 						// Alright, if anyone complains about not knowing the
 						// vial doesn't revive
 						// after this... I'm done, I'm just done.
 					}
-
+*/
 					curAction = null;
 				} else {
 					Dungeon.level.drop(item, pos).sprite.drop();
@@ -1545,6 +1546,9 @@ public class Hero extends Char {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
+
+		hero.damagetwice = false;
+
 		KindOfWeapon wep = rangedWeapon != null ? rangedWeapon
 				: belongings.weapon;
 
@@ -1803,7 +1807,7 @@ public class Hero extends Char {
 			damage = star.proc(damage, enemy);
 		}			
 		
-		Earthroot.Armor earmor = buff(Earthroot.Armor.class);
+		Earthroot.MagicPlantArmor earmor = buff(Earthroot.MagicPlantArmor.class);
 		if (earmor != null) {
 			damage = earmor.absorb(damage);
 		}
@@ -1874,6 +1878,7 @@ public class Hero extends Char {
 		return damage;
 	}
 
+	@SuppressLint("SuspiciousIndentation")
 	@Override
 	public void damage(int dmg, Object src) {
 		if (buff(TimekeepersHourglass.timeStasis.class) != null)
@@ -1885,7 +1890,7 @@ public class Hero extends Char {
 			restoreHealth = false;
 			}
 
-		if (!(src instanceof Hunger || src instanceof Iceglyph.DeferedDamage || src instanceof NmGas || src instanceof SpeedImbue)
+		if (!(src instanceof Hunger || src instanceof Iceglyph.DeferedDamage || src instanceof NmGas)
 				&& damageInterrupt){
 			interrupt();
 
@@ -1948,8 +1953,8 @@ public class Hero extends Char {
 		if (friend != 0 ) {
 			if (hasProp(enemy, Property.FISHER))
 				dmg = 0;
-		}
-
+		}	
+		
 		int tenacity = 0;
 		for (Buff buff : buffs(RingOfTenacity.Tenacity.class)) {
 			tenacity += ((RingOfTenacity.Tenacity) buff).level;
@@ -1962,6 +1967,7 @@ public class Hero extends Char {
 		if (buff(BloodAngry.class) != null){dmg = (int) Math.ceil(dmg * 0.80);}
 		if (buff(Rhythm2.class) != null){dmg = (int) Math.ceil(dmg * 0.90);}
         if (buff(WeakMind.class) != null){dmg = (int) Math.ceil(dmg * 1.30);}
+		if (buff(SpeedImbue.class) != null){dmg = (int) Math.ceil(dmg * 1.1);}
 		if (buff(HighVoice.class)!=null &&  Random.Int(10) == 0){
 			dmg = (int) Math.ceil(dmg * 0.80);
 			GLog.p(Messages.get(HighVoice.class,"save",Dungeon.hero.givenName()));
@@ -2191,10 +2197,7 @@ public class Hero extends Char {
 			} else {
 				curAction = new HeroAction.Attack(ch);
 			}
-		} else if (Dungeon.level.map[cell] == Terrain.LOCKED_DOOR
-				|| Dungeon.level.map[cell] == Terrain.LOCKED_EXIT) {
 
-			curAction = new HeroAction.Unlock(cell);
 		} else if ((heap = Dungeon.level.heaps.get(cell)) != null) {
 
 			switch (heap.type) {
@@ -2214,7 +2217,10 @@ public class Hero extends Char {
 				curAction = new HeroAction.OpenChest(cell);
 			}
 
+		} else if (Dungeon.level.map[cell] == Terrain.LOCKED_DOOR
+				|| Dungeon.level.map[cell] == Terrain.LOCKED_EXIT) {
 
+			curAction = new HeroAction.Unlock(cell);
 
 		} else if (cell == Dungeon.level.exit && (Dungeon.depth < 26)) {
 

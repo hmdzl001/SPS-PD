@@ -32,7 +32,12 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.food.vegetable.DreamLeaf;
 import com.hmdzl.spspd.items.potions.PotionOfPurity;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.CharmFruit;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Dreamfoil extends Plant {
 
@@ -66,7 +71,32 @@ public class Dreamfoil extends Plant {
 			image = ItemSpriteSheet.SEED_DREAMFOIL;
 
 			plantClass = Dreamfoil.class;
+			explantClass = ExDreamfoil.class;
 			alchemyClass = PotionOfPurity.class;
 		}
 	}
+	
+	public static class ExDreamfoil extends Plant {
+		{
+			image = 10;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new CharmFruit(), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}	
+	
 }

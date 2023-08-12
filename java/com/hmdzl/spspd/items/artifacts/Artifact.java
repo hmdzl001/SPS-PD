@@ -1,18 +1,17 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindofMisc;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
- 
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 /**
  * Created by Evan on 24/08/2014.
@@ -63,8 +62,31 @@ public class Artifact extends KindofMisc {
 	@Override
 	public boolean doEquip(Hero hero) {
 
-		if (hero.belongings.misc1 != null && hero.belongings.misc2 != null  && hero.belongings.misc3 != null) {
 
+		if ((hero.belongings.misc1 != null && hero.belongings.misc1.getClass() == this.getClass())
+				|| (hero.belongings.misc2 != null && hero.belongings.misc2.getClass() == this.getClass())
+				|| (hero.belongings.misc3 != null && hero.belongings.misc3.getClass() == this.getClass())
+		){
+
+			GLog.w( Messages.get(Artifact.class, "cannot_wear_two") );
+			return false;
+
+		} else {
+
+			if (super.doEquip( hero )){
+
+				identify();
+				return true;
+
+			} else {
+
+				return false;
+
+			}
+
+		}
+
+		/*if (hero.belongings.misc1 != null && hero.belongings.misc2 != null  && hero.belongings.misc3 != null) {
 			GLog.w(Messages.get(Artifact.class, "onlythree"));
 			return false;
 
@@ -99,7 +121,7 @@ public class Artifact extends KindofMisc {
 			hero.spendAndNext(TIME_TO_EQUIP);
 			return true;
 
-		}
+		}*/
 
 	}
 
@@ -113,13 +135,13 @@ public class Artifact extends KindofMisc {
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)) {
 
-			if (hero.belongings.misc1 == this) {
-				hero.belongings.misc1 = null;
-			} else if (hero.belongings.misc2 == this) {
-				hero.belongings.misc2 = null;
-			} else {
-				hero.belongings.misc3 = null;
-			}
+			//if (hero.belongings.misc1 == this) {
+			//	hero.belongings.misc1 = null;
+			//} else if (hero.belongings.misc2 == this) {
+			//	hero.belongings.misc2 = null;
+			//} else {
+			//	hero.belongings.misc3 = null;
+			//}
 
 			passiveBuff.detach();
 			passiveBuff = null;

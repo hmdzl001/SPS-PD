@@ -94,8 +94,8 @@ public class ThiefBossLevel extends Level {
 
 		int y = TOP + 1;
 		while (y < TOP + HALL_HEIGHT) {
-			map[y * getWidth() + CENTER - 2] = Terrain.TRAP_AIR;
-			map[y * getWidth() + CENTER + 2] = Terrain.TRAP_AIR;
+			map[y * getWidth() + CENTER - 2] = Terrain.CHASM;
+			map[y * getWidth() + CENTER + 2] = Terrain.CHASM;
 			y += 2;
 		}
 		

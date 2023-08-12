@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.pets.LeryFire;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.watabou.noosa.TextureFilm;
@@ -51,16 +50,16 @@ public class LerySprite extends MobSprite {
 		play( idle );
     }
 
-	@Override
-	public void link( Char ch ) {
-		super.link( ch );
-		add( CharSprite.State.BURNING );
-	}	
-	@Override
-	public void die() {
-		super.die();
-		remove( CharSprite.State.BURNING );
-	}
+	//@Override
+	//public void link( Char ch ) {
+	//	super.link( ch );
+	//	add( CharSprite.State.BURNING );
+	//}
+	//@Override
+	//public void die() {
+	//	super.die();
+	//	remove( CharSprite.State.BURNING );
+	//}
 
 	@Override
 	public void zap(int cell) {

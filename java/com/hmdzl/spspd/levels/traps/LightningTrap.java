@@ -21,6 +21,7 @@
 package com.hmdzl.spspd.levels.traps;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Lightning;
@@ -29,7 +30,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Camera;
@@ -41,7 +42,7 @@ public class LightningTrap extends Trap {
 
 	{
 		color = TrapSprite.TEAL;
-		shape = TrapSprite.CROSSHAIR;
+		shape = TrapSprite.DIAMOND;
 	}
 
 	@Override

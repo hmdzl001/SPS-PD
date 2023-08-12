@@ -29,7 +29,6 @@ import com.hmdzl.spspd.items.SacrificeBook;
 import com.hmdzl.spspd.items.challengelists.CityChallenge;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.reward.CityReward;
-
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GoldThiefSprite;

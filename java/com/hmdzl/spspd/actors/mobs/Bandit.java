@@ -26,7 +26,6 @@ import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
@@ -68,7 +67,7 @@ public class Bandit extends Thief {
 
 		if( 2 - breaks > 3 * HP / HT ) {
 			breaks++;
-            Buff.detach(this,SkillUse.class);
+            skilluse = false;
 			return true;
 		}
 
@@ -93,14 +92,14 @@ public class Bandit extends Thief {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		int golddrop = (int)(Dungeon.gold/20);
-		if (this.buff(SkillUse.class)== null && enemy == Dungeon.hero) {
-			Buff.affect(this, SkillUse.class);
+		if (!skilluse && enemy == Dungeon.hero) {
+			skilluse = true;
 			Buff.affect(this,EnergyArmor.class).level((int)(Dungeon.gold/40));
 			Dungeon.gold -=golddrop;
 			enemy.sprite.showStatus(CharSprite.NEUTRAL,"-" + golddrop);
 		}
 
-		if (this.buff(SkillUse.class)!= null && Random.Int(3) == 1) {
+		if (skilluse && Random.Int(3) == 1) {
 			Buff.affect(enemy, Poison.class).set(Random.Int(2, 3));
 		}
 		return damage;

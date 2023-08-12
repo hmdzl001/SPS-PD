@@ -25,7 +25,12 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.potions.PotionOfMindVision;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.SmokeFruit;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Fadeleaf extends Plant {
 
@@ -73,8 +78,33 @@ public class Fadeleaf extends Plant {
 			image = ItemSpriteSheet.SEED_FADELEAF;
 
 			plantClass = Fadeleaf.class;
+			explantClass = ExFadeleaf.class;
 			alchemyClass = PotionOfMindVision.class;
 		}
 
 	}
+	
+	public static class ExFadeleaf extends Plant {
+		{
+			image = 6;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new SmokeFruit(), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}
+	
 }

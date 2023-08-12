@@ -19,13 +19,12 @@ package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.items.TomeOfMastery;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.RedButton;
-import com.hmdzl.spspd.ui.Window;
- 
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
+import com.hmdzl.spspd.ui.Window;
 
 public class WndChooseWay extends Window {
 

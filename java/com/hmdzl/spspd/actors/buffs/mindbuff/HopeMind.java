@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.actors.buffs.mindbuff;
 
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class HopeMind extends Buff {

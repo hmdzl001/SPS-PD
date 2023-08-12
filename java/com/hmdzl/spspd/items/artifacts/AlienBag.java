@@ -13,6 +13,7 @@ import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
+import com.hmdzl.spspd.windows.WndIronMaker;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.utils.Bundle;
 
@@ -41,8 +42,8 @@ public class AlienBag extends Artifact {
 
     public static final String AC_SHIELD = "SHIELD";
 	public static final String AC_BOMB = "BOMB";
-	public static final String AC_FLY = "FLY";
-	public static final String AC_ETC = "ETC";
+	public static final String AC_BUILD = "BUILD";
+	//public static final String AC_ETC = "ETC";
 	private static final String AC_CHOOSE = "CHOOSE";
 
 	@Override
@@ -50,10 +51,10 @@ public class AlienBag extends Artifact {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && charge == 100 && !cursed) {
             actions.add(AC_SHIELD);
-            actions.add(AC_FLY);
+
         }
-        if (level > 1) actions.add(AC_BOMB);
-		if (level > 2) actions.add(AC_ETC);
+        if (level > 2) actions.add(AC_BOMB);
+		actions.add(AC_BUILD);
 		return actions;
 	}
 
@@ -70,40 +71,31 @@ public class AlienBag extends Artifact {
 				GLog.i(Messages.get(this, "no_charge"));
 			else {	
 			    charge = 0;
-                Buff.affect(hero,EnergyArmor.class).level(level * 20);
-				Buff.affect(hero,DefenceUp.class,20).level(level * 5);
+                Buff.affect(hero,EnergyArmor.class).level(level * 10);
+				Buff.affect(hero,DefenceUp.class,20).level(level * 3);
+				Buff.affect(hero, Invisibility.class, level * 3f);
+				Buff.affect(hero, Levitation.class, level * 3f);
+				Buff.affect(hero, HasteBuff.class, level * 3f);
 				hero.spend(1f);
 				updateQuickslot();	
 			}
 			
 		} else if (action.equals(AC_BOMB)) {
-			    level--;
-			for(int i=0; i<2; i++) {
-            Dungeon.level.drop(Generator.random(Generator.Category.BOMBS), hero.pos).sprite.drop();
-			}
+
+			 for(int i=0; i<level/4; i++) {
+				Dungeon.level.drop(Generator.random(Generator.Category.BOMBS), hero.pos).sprite.drop();
+				Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), hero.pos).sprite.drop();
+			 }
+			 level-=2;
 				hero.spend(1f);
 				updateQuickslot();	
 			
-		} else if (action.equals(AC_FLY)) {
+		} else if (action.equals(AC_BUILD)) {
 			if (!isEquipped(hero))
 				GLog.i(Messages.get(Artifact.class, "need_to_equip") );
-			else if (charge != chargeCap)
-				GLog.i(Messages.get(this, "no_charge"));
 			else {
-				charge = 0;
-				Buff.affect(hero, Invisibility.class, level * 5f);
-				Buff.affect(hero, Levitation.class, level * 5f);
-				Buff.affect(hero, HasteBuff.class, level * 5f);
-				hero.spend(1f);
-				updateQuickslot();
+				GameScene.show(new WndIronMaker());
 			}
-		} else if (action.equals(AC_ETC)) {
-			level-=2;
-			for(int i=0; i<level/2; i++) {
-				Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), hero.pos).sprite.drop();
-			}
-			hero.spend(5f);
-			updateQuickslot();
 		}
 		super.execute(hero, action);
 	}

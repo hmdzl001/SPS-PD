@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.blobs;
 
-import java.util.Arrays;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -26,6 +24,8 @@ import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.utils.Bundle;
+
+import java.util.Arrays;
 
 public class Blob extends Actor {
 
@@ -168,10 +168,10 @@ public class Blob extends Actor {
 
 					int value = sum >= count ? (sum / count) - 1 : 0;
 					off[pos] = value;
-
 					volume += value;
 				} else {
 					off[pos] = 0;
+					//cell = 0;
 				}
 			}
 		}

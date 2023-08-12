@@ -25,11 +25,15 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShaftParticle;
 import com.hmdzl.spspd.items.food.vegetable.HealGrass;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.HealFruit;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.BuffIndicator;
- 
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Sungrass extends Plant {
 
@@ -57,12 +61,37 @@ public class Sungrass extends Plant {
 			image = ItemSpriteSheet.SEED_SUNGRASS;
 
 			plantClass = Sungrass.class;
+			explantClass = ExSungrass.class;
 			alchemyClass = PotionOfHealing.class;
 
 			 
 		}
 	}
+	
+	public static class ExSungrass extends Plant {
+		{
+			image = 4;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
 
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 2 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new HealFruit(), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}
+	
+	
 	public static class Health extends Buff {
 
 		private static final float STEP = 1f;

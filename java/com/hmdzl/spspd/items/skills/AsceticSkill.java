@@ -59,7 +59,7 @@ public class AsceticSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Buff.affect(curUser, SpeedImbue.class).level(30);
+		Buff.affect(curUser, SpeedImbue.class, 40f);
 		AsceticSkill.charge += 10;
 	}
 

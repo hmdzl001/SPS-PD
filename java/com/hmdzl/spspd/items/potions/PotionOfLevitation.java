@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.ElectriShock;
+import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Levitation;

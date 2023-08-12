@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.effects;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.graphics.RectF;
 import android.opengl.GLES20;
 
@@ -32,6 +30,8 @@ import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.Random;
+
+import javax.microedition.khronos.opengles.GL10;
 
 public class Fireball extends Component {
 

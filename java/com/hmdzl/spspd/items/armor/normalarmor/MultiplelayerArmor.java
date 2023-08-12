@@ -23,7 +23,7 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 public class MultiplelayerArmor extends NormalArmor {
 
 	{
-		//name = "Multiplelayer Armor";
+		//name = "Multiplelayer MagicPlantArmor";
 		image = ItemSpriteSheet.MUL_ARMOR;
 		STR += 1;
 		MAX = 36;

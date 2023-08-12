@@ -29,21 +29,30 @@ import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.traps.AlarmTrap;
-import com.hmdzl.spspd.levels.traps.ChillingTrap;
+import com.hmdzl.spspd.levels.traps.BoundTrap;
 import com.hmdzl.spspd.levels.traps.ConfusionTrap;
-import com.hmdzl.spspd.levels.traps.FireTrap;
 import com.hmdzl.spspd.levels.traps.FlashingTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.levels.traps.OozeTrap;
 import com.hmdzl.spspd.levels.traps.ParalyticTrap;
 import com.hmdzl.spspd.levels.traps.PoisonTrap;
-import com.hmdzl.spspd.levels.traps.ShockTrap;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.IceBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.LightBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuffTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.DarkDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.EarthDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.IceDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.LightDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.ShockDamageTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.particles.Emitter;
@@ -79,16 +88,22 @@ public class PrisonLevel extends RegularLevel {
 
 	@Override
 	protected Class<?>[] trapClasses() {
-		return new Class[]{ ChillingTrap.class, FireTrap.class, PoisonTrap.class, SpearTrap.class, ToxicTrap.class, ShockTrap.class,
-				AlarmTrap.class, FlashingTrap.class, GrippingTrap.class, ParalyticTrap.class, LightningTrap.class, OozeTrap.class,
-				ConfusionTrap.class, FlockTrap.class, SummoningTrap.class, TeleportationTrap.class, };
+		return new Class[]{ PoisonTrap.class, SpearTrap.class, ToxicTrap.class,
+				AlarmTrap.class, FlashingTrap.class, GrippingTrap.class,
+				ParalyticTrap.class, ConfusionTrap.class, FlockTrap.class,
+				SummoningTrap.class, TeleportationTrap.class, BoundTrap.class,
+				FireDamageTrap.class, IceDamageTrap.class, ShockDamageTrap.class, EarthDamageTrap.class,
+				LightDamageTrap.class, DarkDamageTrap.class};
 	}
 
 	@Override
 	protected float[] trapChances() {
-		return new float[]{ 4, 4, 4, 4, 4,
-				2, 2, 2, 2, 2, 2,
-				1, 1, 1, 1 };
+		return new float[]{ 4, 4, 4,
+				3, 4, 3,
+				2, 2, 1,
+				2, 1, 3,
+				3, 3, 3, 3,
+		        3, 3};
 	}	
 	
 	@Override

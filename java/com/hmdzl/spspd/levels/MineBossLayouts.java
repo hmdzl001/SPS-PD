@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import com.watabou.utils.Random;
-
 public class MineBossLayouts {
 	
 	//32X32

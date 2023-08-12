@@ -17,11 +17,11 @@
  */
 package com.hmdzl.spspd.effects;
 
-import com.watabou.noosa.Game;
-import com.watabou.noosa.Visual;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.sprites.CharSprite;
+import com.watabou.noosa.Game;
+import com.watabou.noosa.Visual;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
 

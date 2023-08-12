@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.plants;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
@@ -34,13 +32,14 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.PlantSprite;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Plant implements Bundlable {
 
@@ -114,6 +113,7 @@ public class Plant implements Bundlable {
 		}
 
 		protected Class<? extends Plant> plantClass;
+		protected Class<? extends Plant> explantClass;
 
 		public Class<? extends Item> alchemyClass;
 
@@ -126,8 +126,13 @@ public class Plant implements Bundlable {
 
 		@Override
 		protected void onThrow(int cell) {
-			if (Dungeon.level.map[cell] == Terrain.ALCHEMY || Level.pit[cell]) {
+			if (Dungeon.level.map[cell] == Terrain.ALCHEMY
+					|| Dungeon.level.map[cell] == Terrain.IRON_MAKER
+			        || Dungeon.level.map[cell] == Terrain.TENT
+					|| Level.pit[cell]) {
 				super.onThrow(cell);
+			} else if (Dungeon.level.map[cell] == Terrain.FLOWER_POT) {
+				Dungeon.level.explant(this, cell);
 			} else {
 				Dungeon.level.plant(this, cell);
 			}
@@ -154,6 +159,19 @@ public class Plant implements Bundlable {
 					Sample.INSTANCE.play(Assets.SND_PLANT);
 				}
 				Plant plant = plantClass.newInstance();
+				plant.pos = pos;
+				return plant;
+			} catch (Exception e) {
+				return null;
+			}
+		}
+
+		public Plant excouch(int pos) {
+			try {
+				if (Dungeon.visible[pos]) {
+					Sample.INSTANCE.play(Assets.SND_PLANT);
+				}
+				Plant plant = explantClass.newInstance();
 				plant.pos = pos;
 				return plant;
 			} catch (Exception e) {

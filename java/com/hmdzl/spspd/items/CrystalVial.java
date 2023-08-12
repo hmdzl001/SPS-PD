@@ -91,7 +91,7 @@ public class CrystalVial extends Item {
 		} else	if (action.equals(AC_DRINK)) {
 			if (volume > 0) 
 
-                hero.HP += hero.HT/5;
+                hero.HP += Math.min(hero.HT/5,hero.HT-hero.HP);
 				volume -= 10;
 				hero.spend(TIME_TO_DRINK);
 				hero.busy();
@@ -138,6 +138,7 @@ public class CrystalVial extends Item {
 	public boolean isIdentified() {
 		return true;
 	}
+
 
 	public void fill() {
 		if (volume < 50)

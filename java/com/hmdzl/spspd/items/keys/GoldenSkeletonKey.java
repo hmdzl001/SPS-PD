@@ -17,8 +17,8 @@
  */
 package com.hmdzl.spspd.items.keys;
 
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class GoldenSkeletonKey extends Key {
 

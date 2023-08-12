@@ -22,16 +22,15 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.Fire;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.scenes.GameScene;
-
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 

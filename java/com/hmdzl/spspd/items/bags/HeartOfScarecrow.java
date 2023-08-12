@@ -23,7 +23,6 @@ import com.hmdzl.spspd.items.ShadowEaterKey;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class HeartOfScarecrow extends Bag {
@@ -39,7 +38,7 @@ public class HeartOfScarecrow extends Bag {
 	@Override
 	public boolean grab(Item item) {
         return item instanceof MeleeWeapon
-                || item instanceof MissileWeapon
+                //|| item instanceof MissileWeapon
                 || item instanceof RelicMeleeWeapon
                 || item instanceof Armor
                 || item instanceof ShadowEaterKey;

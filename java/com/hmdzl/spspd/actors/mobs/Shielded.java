@@ -100,7 +100,9 @@ public class Shielded extends Brute {
 	public int defenseProc(Char enemy, int damage) {
 
 		if (this.HP > damage && Random.Int(2) == 0){
-			doAttack(enemy);
+			this.sprite.attack(enemy.pos);
+			attack(enemy);
+
 		}
 		return super.defenseProc(enemy, damage);
 	}

@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
-import com.hmdzl.spspd.items.weapon.missiles.ShitBall;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.ShitBall;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ShitSprite;
 

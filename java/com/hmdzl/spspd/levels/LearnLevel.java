@@ -25,8 +25,8 @@ import com.hmdzl.spspd.actors.mobs.npcs.Leadercn;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.KnowledgeBook;
+import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.armor.specialarmor.TestArmor;
 import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
 import com.hmdzl.spspd.items.keys.IronKey;
@@ -34,7 +34,7 @@ import com.hmdzl.spspd.items.potions.PotionOfMending;
 import com.hmdzl.spspd.items.potions.PotionOfMindVision;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
-import com.hmdzl.spspd.levels.traps.FireTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamageTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
 
@@ -109,6 +109,7 @@ public class LearnLevel extends Level {
 					 Actor.occupyCell(npc);
 				 }
 				 if (map[i] == Terrain.EMPTY_SP) {
+				 //if (map[i] == Terrain.EMPTY) {
 					 TestMob mob = new TestMob();
 					 mobs.add(mob);
 					 mob.pos = i;
@@ -237,7 +238,7 @@ public class LearnLevel extends Level {
 	protected void placeTraps() {
 		for (int i = 0; i < LENGTH; i ++) {
 			if (map[i] == Terrain.SECRET_TRAP){
-				setTrap(new FireTrap().hide(), i);
+				setTrap(new FireDamageTrap().hide(), i);
 			}
 		}
 	}

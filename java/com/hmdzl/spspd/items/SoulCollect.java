@@ -17,15 +17,14 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
+
+import java.util.ArrayList;
 
 public class SoulCollect extends Item {
 

@@ -17,16 +17,12 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
-import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Light;
-import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 

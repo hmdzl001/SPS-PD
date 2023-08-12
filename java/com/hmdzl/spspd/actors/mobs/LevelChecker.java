@@ -19,8 +19,6 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.items.ExpOre;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.LevelDown;
@@ -64,8 +62,8 @@ public class LevelChecker extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (this.buff(SkillUse.class)== null && enemy == Dungeon.hero) {
-			Buff.affect(this, SkillUse.class);
+		if (!skilluse && enemy == Dungeon.hero) {
+			skilluse = true;
 			//Dungeon.hero.exp=0;
 			Dungeon.hero.lvl++;
 

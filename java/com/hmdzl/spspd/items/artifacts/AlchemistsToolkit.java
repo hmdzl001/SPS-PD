@@ -1,8 +1,5 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -14,14 +11,18 @@ import com.hmdzl.spspd.items.potions.PotionOfExperience;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
+import com.hmdzl.spspd.windows.WndAlchemy;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by debenhame on 24/11/2014.
@@ -39,6 +40,7 @@ public class AlchemistsToolkit extends Artifact {
 
 	public static final String AC_BREW = "BREW";
 	public static final String AC_CREATE = "CREATE";
+	public static final String AC_COOKING = "COOKING";
 
 	// arrays used in containing potion collections for mix logic.
 	public final ArrayList<Class> combination = new ArrayList<>();
@@ -74,6 +76,7 @@ public class AlchemistsToolkit extends Artifact {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
+		   actions.add(AC_COOKING);
 		if (isEquipped(hero) && level < levelCap && !cursed)
 			actions.add(AC_BREW);
 		if (level > 0 && !isEquipped(hero) )
@@ -83,7 +86,9 @@ public class AlchemistsToolkit extends Artifact {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action.equals(AC_BREW)) {
+		if (action.equals(AC_COOKING)) {
+			GameScene.show(new WndAlchemy());
+		} else if (action.equals(AC_BREW)) {
 			GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
 		} else if (action.equals(AC_CREATE)) {
 			curUser = hero;

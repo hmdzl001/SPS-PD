@@ -17,23 +17,22 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-
 import com.hmdzl.spspd.items.potions.PotionOfMixing;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
 
 public class RewardPaper extends Item {
 

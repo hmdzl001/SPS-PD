@@ -18,14 +18,13 @@
 package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.ui.HealthBar;
-
-import com.watabou.noosa.ui.Component;
 import com.watabou.noosa.RenderedText;
+import com.watabou.noosa.ui.Component;
 
 public class WndInfoMob extends WndTitledMessage {
 

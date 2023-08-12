@@ -36,12 +36,16 @@ public class TrapSprite extends Image {
 	//trap colors
 	public static final int RED     = 0;
 	public static final int ORANGE  = 1;
+
 	public static final int YELLOW  = 2;
+
 	public static final int GREEN   = 3;
 	public static final int TEAL    = 4;
 	public static final int VIOLET  = 5;
+
 	public static final int WHITE   = 6;
 	public static final int GREY    = 7;
+
 	public static final int BLACK   = 8;
 
 	//trap shapes
@@ -52,6 +56,8 @@ public class TrapSprite extends Image {
 	public static final int DIAMOND     = 4;
 	public static final int CROSSHAIR   = 5;
 	public static final int LARGE_DOT   = 6;
+
+	public static final int ONE_DOT   = 7;
 
 
 	public TrapSprite() {

@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd;
 
-import  com.hmdzl.spspd.messages.Messages;
-
 public class ResultDescriptions {
 
 	// Mobs

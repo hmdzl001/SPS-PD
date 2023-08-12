@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -34,8 +31,8 @@ import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanSwitch;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.levels.features.Chasm;
@@ -51,6 +48,9 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 public class DragonCaveLevel extends Level {
 

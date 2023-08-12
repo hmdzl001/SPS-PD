@@ -2,17 +2,17 @@ package com.hmdzl.spspd.scenes;
 
 import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.Archs;
+import com.hmdzl.spspd.ui.ExitButton;
 import com.hmdzl.spspd.ui.RedButton;
+import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.ScrollPane;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.NinePatch;
-import com.watabou.noosa.ui.Component;
-import com.hmdzl.spspd.ui.RenderedTextMultiline;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.RenderedText;
-import com.hmdzl.spspd.ui.ExitButton;
+import com.watabou.noosa.ui.Component;
 
 //TODO: update this class with relevant info as new versions come out.
 public class WelcomeScene extends PixelScene {

@@ -23,7 +23,6 @@ import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
@@ -57,10 +56,10 @@ public class TrollWarrior extends Mob {
 
 	@Override
     public boolean act() {
-        if( HP < HT && this.buff(SkillUse.class)==null ) {
+        if( HP < HT && !skilluse ) {
 			Buff.affect(this,AttackUp.class,8f).level(20);
 			Buff.affect(this,DefenceUp.class,8f).level(80);
-            Buff.affect(this,SkillUse.class);
+            skilluse = true;
 			yell(Messages.get(this,"angry"));}
         return super.act();
     }

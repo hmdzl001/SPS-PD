@@ -21,7 +21,6 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
-import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
@@ -64,8 +63,8 @@ public class GoldCollector extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		int golddrop = (int)(Dungeon.gold/10);
-		if (this.buff(SkillUse.class)== null && enemy == Dungeon.hero) {
-			Buff.affect(this, SkillUse.class);
+		if (!skilluse && enemy == Dungeon.hero) {
+			skilluse = true;
 			Buff.affect(this,ShieldArmor.class).level((int)(Dungeon.gold/20));
 			Dungeon.gold -=golddrop;
 			enemy.sprite.showStatus(CharSprite.NEUTRAL,"-" + golddrop);

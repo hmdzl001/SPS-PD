@@ -17,15 +17,10 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.HighLight;
-import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.noosa.particles.Emitter;
+
+import java.util.ArrayList;
 
 public class EmptyBody extends Item {
 

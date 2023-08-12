@@ -6,11 +6,11 @@ import com.hmdzl.spspd.actors.mobs.NormalCell;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.sprites.ItemSprite;
+import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
 public class EvolveAmmo extends SpAmmo {

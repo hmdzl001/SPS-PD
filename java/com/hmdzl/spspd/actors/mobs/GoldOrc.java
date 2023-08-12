@@ -17,16 +17,14 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
+import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.sprites.GoldOrcSprite;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.GoldOrcSprite;
 import com.watabou.utils.Random;
 
 public class GoldOrc extends Mob {

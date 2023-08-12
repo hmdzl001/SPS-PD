@@ -17,14 +17,14 @@
  */
 package com.hmdzl.spspd.sprites;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShaftParticle;
 import com.watabou.noosa.TextureFilm;
+
+import javax.microedition.khronos.opengles.GL10;
 
 public class NewGhostSprite extends MobSprite {
 

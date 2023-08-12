@@ -17,7 +17,9 @@
  */
 package com.hmdzl.spspd.items.food;
 
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class WaterItem extends Food {
 
@@ -30,7 +32,17 @@ public class WaterItem extends Food {
 		 
 	}
 
-	@Override
+	public WaterItem() {
+		this(1);
+	}
+
+
+	public WaterItem(int number) {
+		super();
+		quantity = number;
+	}
+
+
 	public boolean isUpgradable() {
 		return false;
 	}
@@ -38,6 +50,12 @@ public class WaterItem extends Food {
 	@Override
 	public boolean isIdentified() {
 		return true;
+	}
+
+	@Override
+	public Item random() {
+		quantity = Random.Int(1);
+		return this;
 	}
 
 	@Override

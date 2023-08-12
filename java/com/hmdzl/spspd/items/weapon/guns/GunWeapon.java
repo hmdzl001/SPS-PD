@@ -9,6 +9,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.effects.Speck;
@@ -44,7 +45,7 @@ public class GunWeapon extends Weapon {
 
 	private int tier;
 	private int fullcharge;
-   // private Ammo ammo = null;
+   // private Arrow ammo = null;
 	
     private SpAmmo spammo;
 	
@@ -91,7 +92,7 @@ public class GunWeapon extends Weapon {
 
 
 	private int min() {
-		return tier + 3;
+		return tier + 2;
 	}
 
 	private int max() {
@@ -103,8 +104,8 @@ public class GunWeapon extends Weapon {
 	}
 
 	public Item upgrade() {
-		MIN += 2;
-		MAX += 3 + tier/2;
+		MIN += 1;
+		MAX += 2 + tier/2;
 		maxammo += 10;
 
 		return super.upgrade();
@@ -208,7 +209,7 @@ public class GunWeapon extends Weapon {
 			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
 		}	
 		
-		if (Random.Int(10) < 3) {
+		if (Random.Int(10) < 3 && bonus > 0) {
 			damage = (int)(damage * ( 1.5 + 0.25 * bonus));
 			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
 		}
@@ -350,6 +351,7 @@ public class GunWeapon extends Weapon {
 			if (spammo != null) {
 				spammo.onHit(GunWeapon.this, attacker, defender, damage);
 			}
+			defender.damage( (int)(damageRoll2(hero)/2),DamageType.ENERGY_DAMAGE);
 			super.proc(attacker, defender, damage);
 		}
 		

@@ -38,8 +38,8 @@ import com.watabou.noosa.audio.Sample;
 public class GuardianTrap extends Trap {
 
 	{
-		color = TrapSprite.RED;
-		shape = TrapSprite.STARS;
+		color = TrapSprite.GREEN;
+		shape = TrapSprite.LARGE_DOT;
 	}
 
 	@Override

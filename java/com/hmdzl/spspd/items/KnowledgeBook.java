@@ -67,4 +67,9 @@ public class KnowledgeBook extends Item {
 		return true;
 	}
 
+	@Override
+	public int price() {
+		return 5000 * quantity;
+	}
+
 }

@@ -282,9 +282,12 @@ public class Blandfruit extends Fruit {
 			name = Messages.get(this, "heartfruit");
 			potionGlow = new ItemSprite.Glowing( 0xB20000 );
 		} else if (potionAttrib instanceof PotionOfShield) {
-			name = Messages.get(this, "nutfruit");
+			name = Messages.get(this, "glassfruit");
 			potionGlow = new ItemSprite.Glowing(0x67583D);
-		} else if (potionAttrib instanceof PotionOfMixing) {
+		}  else if (potionAttrib instanceof PotionOfMending) {
+		name = Messages.get(this, "nutfruit");
+		potionGlow = new ItemSprite.Glowing(0x67583D);
+	} else if (potionAttrib instanceof PotionOfMixing) {
 				name = Messages.get(this, "mixfruit");
 				potionGlow = new ItemSprite.Glowing(0xB20000);
 		} else if (potionAttrib instanceof PotionOfMight) {

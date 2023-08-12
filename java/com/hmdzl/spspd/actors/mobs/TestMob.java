@@ -84,12 +84,10 @@ public class TestMob extends Mob {
 	}
 
 	//@Override
-//	public int defenseProc(Char enemy, int damage) {
-  //      if (this.HP > damage){
-  //      	doAttack(enemy);
-	//	}
+	//public int defenseProc(Char enemy, int damage) {
+	//	Buff.affect(enemy,Terror.class,6f).object = this.id();
 	//	return super.defenseProc(enemy, damage);
-	//}
+//	}
 	
 	@Override
 	public void beckon(int cell) {
@@ -106,8 +104,8 @@ public class TestMob extends Mob {
 		}
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 			if (mob instanceof TestMob && mob.isAlive())
-				mob.HP+=100;
-				Buff.affect(mob, ShieldArmor.class).level(1000000);
+				mob.HP+=10;
+				Buff.affect(mob, ShieldArmor.class).level(1000);
 		}
 
 	}

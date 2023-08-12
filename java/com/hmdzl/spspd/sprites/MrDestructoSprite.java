@@ -32,7 +32,7 @@ public class MrDestructoSprite extends MobSprite {
 
 		texture(Assets.MRDESTRUCTO);
 
-		TextureFilm frames = new TextureFilm(texture, 16, 18);
+		TextureFilm frames = new TextureFilm(texture, 16, 16);
 
 		idle = new Animation(2, true);
 		idle.frames(frames, 1, 2, 3, 4);

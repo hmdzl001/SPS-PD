@@ -18,12 +18,12 @@
 package com.hmdzl.spspd.items.weapon.melee.special;
 
 import com.hmdzl.spspd.Badges;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.actors.Char;
 import com.watabou.utils.Random;
 
 public class TekkoKagi extends MeleeWeapon {

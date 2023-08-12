@@ -24,12 +24,12 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Alchemy;
 import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.TorchLight;
 import com.hmdzl.spspd.actors.blobs.WellWater;
 import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.Awareness;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.ExitFind;
 import com.hmdzl.spspd.actors.buffs.HiddenShadow;
 import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.buffs.Shadows;
@@ -69,7 +69,6 @@ import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
 import com.hmdzl.spspd.levels.features.OldHighGrass;
 import com.hmdzl.spspd.levels.painters.Painter;
-import com.hmdzl.spspd.levels.traps.AirTrap;
 import com.hmdzl.spspd.levels.traps.ChangeSheepTrap;
 import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.HeapGenTrap;
@@ -180,7 +179,7 @@ public abstract class  Level implements Bundlable {
 	public static boolean[] losBlockHigh = new boolean[getLength()];
 	public static boolean[] losBlockLow	 = new boolean[getLength()];	
 	public static boolean[] flamable = new boolean[getLength()];
-	public static boolean[] shockable = new boolean[getLength()];
+	//public static boolean[] shockable = new boolean[getLength()];
 	public static boolean[] secret = new boolean[getLength()];
 	public static boolean[] solid = new boolean[getLength()];
 	public static boolean[] avoid = new boolean[getLength()];
@@ -194,6 +193,7 @@ public abstract class  Level implements Bundlable {
 
 	public int entrance;
 	public int exit;
+
 	public int pitSign;
 	public int tent;
 
@@ -314,7 +314,7 @@ public abstract class  Level implements Bundlable {
 				if (Dungeon.depth == 4 && !Dungeon.earlygrass) {
 					feeling = Feeling.GRASS;
 				} else {
-				  switch (Random.Int(8)) {
+				  switch (Random.Int(10)) {
 				  case 0:
 				  	if (!Dungeon.bossLevel(Dungeon.depth + 1)) {
 				 		feeling = Feeling.CHASM;
@@ -323,18 +323,18 @@ public abstract class  Level implements Bundlable {
 				  case 1:
 					feeling = Feeling.WATER;
 					break;
-				  case 2: case 3:
+				  case 2: 
 					feeling = Feeling.GRASS;
 					Dungeon.earlygrass = true;
 					break;
-					  case 4: case 5:
-						  feeling = Feeling.SPECIAL_FLOOR;
-						  break;
+				   case 3:			
+					feeling = Feeling.SPECIAL_FLOOR;
+					break;
 
 				 }
 				}
 			} else if (Dungeon.depth > 5 && Dungeon.depth < 21) {
-				switch (Random.Int(8)) {
+				switch (Random.Int(14)) {
 				case 0:
 					if (!Dungeon.bossLevel(Dungeon.depth + 1)) {
 						feeling = Feeling.CHASM;
@@ -353,21 +353,12 @@ public abstract class  Level implements Bundlable {
 					addItemToSpawn(new Torch());
 					viewDistance = (int) Math.ceil(viewDistance / 3f);
 					break;
-                    case 4:
-                        feeling = Feeling.SPECIAL_FLOOR;
-                        break;
+                case 4:
+                     feeling = Feeling.SPECIAL_FLOOR;
+                      break;
 				}
 			} else if (Dungeon.depth > 20 && Dungeon.depth < 26) {
-				switch (Random.Int(8)) {
-				case 1:
-					feeling = Feeling.WATER;
-					break;
-				case 2: 
-					feeling = Feeling.GRASS;
-					break;
-					case 3:
-                        feeling = Feeling.SPECIAL_FLOOR;
-                        break;
+				switch (Random.Int(14)) {
 				case 0:
 					feeling = Feeling.DARK;
 					addItemToSpawn(new Torch());
@@ -375,6 +366,16 @@ public abstract class  Level implements Bundlable {
 					addItemToSpawn(new Torch());
 					viewDistance = (int) Math.ceil(viewDistance / 3f);
 					break;
+				case 1:
+					feeling = Feeling.WATER;
+					break;
+				case 2: 
+					feeling = Feeling.GRASS;
+					break;
+				case 3:
+                    feeling = Feeling.SPECIAL_FLOOR;
+                    break;
+				
 				}
 			} else if (Dungeon.depth==31) {
 				feeling = Feeling.DARK;
@@ -400,7 +401,7 @@ public abstract class  Level implements Bundlable {
 
 		do {
 			Arrays.fill(map, feeling == Feeling.CHASM ? Terrain.CHASM
-					: (feeling == Feeling.TRAP ? Terrain.TRAP_AIR : Terrain.WALL));
+					: (feeling == Feeling.TRAP ? Terrain.CHASM : Terrain.WALL));
 					//: (feeling == Feeling.SPECIAL_FLOOR ? Terrain.GLASS_WALL : Terrain.WALL)));
 		} while (!build());
 		decorate();
@@ -945,6 +946,7 @@ public abstract class  Level implements Bundlable {
 			itemsToSpawn.add(item);
 		}
 	}
+	
 
 	public Item findPrizeItem() {
 		return findPrizeItem(null);
@@ -1239,6 +1241,30 @@ public abstract class  Level implements Bundlable {
 
 		return plant;
 	}
+	
+	public Plant explant(Plant.Seed seed, int pos) {
+
+		Plant plant = plants.get(pos);
+		if (plant != null) {
+			plant.wither();
+		}
+
+		if (map[pos] == Terrain.HIGH_GRASS || 
+		    map[pos] == Terrain.OLD_HIGH_GRASS || 
+		    map[pos] == Terrain.EMPTY  || 
+		    map[pos] == Terrain.EMBERS || 
+			map[pos] == Terrain.EMPTY_DECO) {
+			map[pos] = Terrain.GRASS;
+			GameScene.updateMap(pos);
+		}
+
+		plant = seed.excouch(pos);
+		plants.put(pos, plant);
+
+		GameScene.add(plant);
+
+		return plant;
+	}	
 
 	public void uproot(int pos) {
 		plants.remove(pos);
@@ -1382,12 +1408,6 @@ public abstract class  Level implements Bundlable {
 				ChangeSheepTrap.trigger(cell, ch);
 			}						
 			break;
-
-		case Terrain.TRAP_AIR:
-		    trap = null;
-		    if (ch != null)
-            	AirTrap.trigger(cell,ch);
-            break;				
 			
 		case Terrain.HIGH_GRASS:
 			HighGrass.trample(this, cell, ch);
@@ -1557,13 +1577,7 @@ public abstract class  Level implements Bundlable {
 			break;*/
 		case Terrain.TRAP:
 			trap = traps.get( cell );
-			break;			
-			
-		case Terrain.TRAP_AIR:
-		    trap = null;
-            AirTrap.trigger(cell,mob);
-            break;				
-
+			break;
 		case Terrain.DOOR:
 			Door.enter(cell);
             break;
@@ -1700,20 +1714,7 @@ public abstract class  Level implements Bundlable {
 					fieldOfView[p - getWidth()] = true;
 				}
 			}
-			
-			if (c.buff(ExitFind.class) != null && Dungeon.depth < 26) {
-					int p = Dungeon.level.exit;
-					fieldOfView[p] = true;
-					fieldOfView[p + 1] = true;
-					fieldOfView[p - 1] = true;
-					fieldOfView[p + getWidth() + 1] = true;
-					fieldOfView[p + getWidth() - 1] = true;
-					fieldOfView[p - getWidth() + 1] = true;
-					fieldOfView[p - getWidth() - 1] = true;
-					fieldOfView[p + getWidth()] = true;
-					fieldOfView[p - getWidth()] = true;
 
-			}
 			for (Mob mob : mobs) {
 				if (mob.isAlive() && mob.buff(WatchOut.class) != null) {
 					int p = mob.pos;
@@ -1732,12 +1733,33 @@ public abstract class  Level implements Bundlable {
 					fieldOfView[p] = false;
 				}
 			}
+			for (int i = 0; i <  Level.getLength(); i++)  {
+				for (Blob blob : Dungeon.level.blobs.values()) {
+					if (blob.cur[i] > 0 && blob instanceof TorchLight) {
+						fieldOfView[i] = true;
+						fieldOfView[i + 1] = true;
+						fieldOfView[i + 2] = true;
+						fieldOfView[i - 1] = true;
+						fieldOfView[i - 2] = true;
+						fieldOfView[i + getWidth() + 1] = true;
+						fieldOfView[i + getWidth() - 1] = true;
+						fieldOfView[i - getWidth() + 1] = true;
+						fieldOfView[i - getWidth() - 1] = true;
+						fieldOfView[i + getWidth()] = true;
+						fieldOfView[i - getWidth()] = true;
+						fieldOfView[i + 2*getWidth()] = true;
+						fieldOfView[i - 2*getWidth()] = true;
+					//} else if (blob.cur[i] > 0 && blob instanceof DarkGas) {
+					//	fieldOfView[i] = false;
+					}
+				}
+			}
 		}
 		
 
 		for (Heap heap : heaps.values())
-						if (!heap.seen && fieldOfView[heap.pos])
-							heap.seen = true;
+				if (!heap.seen && fieldOfView[heap.pos])
+						heap.seen = true;
 		
 		return fieldOfView;
 	}
@@ -1866,8 +1888,7 @@ public abstract class  Level implements Bundlable {
 			//return "Gripping trap";
 		//case Terrain.SUMMONING_TRAP:
 			//return "Summoning trap"
-        case Terrain.TRAP_AIR:
-        	return Messages.get(Level.class, "trap_air_name");
+
 		case Terrain.INACTIVE_TRAP:
 			return Messages.get(Level.class, "inactive_trap_name");
 		case Terrain.BOOKSHELF:
@@ -1926,8 +1947,7 @@ public abstract class  Level implements Bundlable {
 		//case Terrain.ALARM_TRAP:
 		//case Terrain.LIGHTNING_TRAP:
 		//case Terrain.GRIPPING_TRAP:
-		case Terrain.TRAP_AIR:
-			return Messages.get(Level.class, "trap_air_desc");
+
 		case Terrain.FLEECING_TRAP:
 			return Messages.get(Level.class, "fleecing_trap_desc");
 	    case Terrain.CHANGE_SHEEP_TRAP:

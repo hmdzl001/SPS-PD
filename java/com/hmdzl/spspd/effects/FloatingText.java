@@ -17,15 +17,15 @@
  */
 package com.hmdzl.spspd.effects;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
-import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.RenderedText;
 import com.watabou.utils.SparseArray;
+
+import java.util.ArrayList;
 
 public class FloatingText extends RenderedText {
 

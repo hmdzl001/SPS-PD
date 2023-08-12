@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -42,7 +42,7 @@ public class AttackShield extends Item {
 
 	{
 		//name = "AttackShield";
-		image = ItemSpriteSheet.ATTACKSHIELD;
+		image = ItemSpriteSheet.BIG_AMMO;
 	
 		stackable = false;
 		unique = true;

@@ -101,6 +101,7 @@ import com.hmdzl.spspd.items.food.completefood.Honeyrice;
 import com.hmdzl.spspd.items.food.completefood.Icecream;
 import com.hmdzl.spspd.items.food.completefood.Kebab;
 import com.hmdzl.spspd.items.food.completefood.Meatroll;
+import com.hmdzl.spspd.items.food.completefood.Mediummeat;
 import com.hmdzl.spspd.items.food.completefood.MixPizza;
 import com.hmdzl.spspd.items.food.completefood.NutCake;
 import com.hmdzl.spspd.items.food.completefood.NutCookie;
@@ -109,6 +110,7 @@ import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.completefood.Porksoup;
 import com.hmdzl.spspd.items.food.completefood.RiceGruel;
 import com.hmdzl.spspd.items.food.completefood.Ricefood;
+import com.hmdzl.spspd.items.food.completefood.Sishimi;
 import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.items.food.completefood.Vegetableroll;
 import com.hmdzl.spspd.items.food.completefood.Vegetablesoup;
@@ -297,7 +299,6 @@ import com.hmdzl.spspd.items.weapon.melee.relic.JupitersWraith;
 import com.hmdzl.spspd.items.weapon.melee.relic.LokisFlail;
 import com.hmdzl.spspd.items.weapon.melee.relic.NeptunusTrident;
 import com.hmdzl.spspd.items.weapon.melee.special.AFlySock;
-import com.hmdzl.spspd.items.weapon.melee.special.Brick;
 import com.hmdzl.spspd.items.weapon.melee.special.DemonBlade;
 import com.hmdzl.spspd.items.weapon.melee.special.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.special.DragonBoat;
@@ -318,22 +319,49 @@ import com.hmdzl.spspd.items.weapon.melee.special.ShadowEater;
 import com.hmdzl.spspd.items.weapon.melee.special.Spork;
 import com.hmdzl.spspd.items.weapon.melee.special.TekkoKagi;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
-import com.hmdzl.spspd.items.weapon.melee.special.Tree;
 import com.hmdzl.spspd.items.weapon.melee.special.WraithBreath;
 import com.hmdzl.spspd.items.weapon.melee.special.XiXiBox;
-import com.hmdzl.spspd.items.weapon.melee.zero.EmptyPotion;
-import com.hmdzl.spspd.items.weapon.melee.zero.WoodenHammer;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
-import com.hmdzl.spspd.items.weapon.missiles.BottleFire;
 import com.hmdzl.spspd.items.weapon.missiles.ElfBow;
-import com.hmdzl.spspd.items.weapon.missiles.HoneyArrow;
-import com.hmdzl.spspd.items.weapon.missiles.LynnDoll;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.MiniMoai;
-import com.hmdzl.spspd.items.weapon.missiles.MoneyBook;
 import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
-import com.hmdzl.spspd.items.weapon.missiles.TempestBoomerang;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.BlindFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.CharmFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.FireFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.GlassFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.HealFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.IceFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.MagicHand;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.NutFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.RocketMissile;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.RootFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.ShockFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.SmokeFruit;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.ToxicFruit;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Brick;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MiniMoai;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Tree;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.BottleFire;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.HoneyArrow;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.LynnDoll;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.MoneyBook;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.TempestBoomerang;
+import com.hmdzl.spspd.items.weapon.ranges.AlloyBowN;
+import com.hmdzl.spspd.items.weapon.ranges.AlloyBowR;
+import com.hmdzl.spspd.items.weapon.ranges.AlloyBowS;
+import com.hmdzl.spspd.items.weapon.ranges.MetalBowN;
+import com.hmdzl.spspd.items.weapon.ranges.MetalBowR;
+import com.hmdzl.spspd.items.weapon.ranges.MetalBowS;
+import com.hmdzl.spspd.items.weapon.ranges.PVCBowN;
+import com.hmdzl.spspd.items.weapon.ranges.PVCBowR;
+import com.hmdzl.spspd.items.weapon.ranges.PVCBowS;
+import com.hmdzl.spspd.items.weapon.ranges.StoneBowN;
+import com.hmdzl.spspd.items.weapon.ranges.StoneBowR;
+import com.hmdzl.spspd.items.weapon.ranges.StoneBowS;
+import com.hmdzl.spspd.items.weapon.ranges.WoodenBowN;
+import com.hmdzl.spspd.items.weapon.ranges.WoodenBowR;
+import com.hmdzl.spspd.items.weapon.ranges.WoodenBowS;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -361,7 +389,7 @@ public enum NewCatalog {
 		WEAPONS.seen.put( BattleAxe.class , true);
 		WEAPONS.seen.put( Gsword.class , true);
 
-		WEAPONS.seen.put( WoodenHammer.class , true);
+		//WEAPONS.seen.put( WoodenHammer.class , true);
 		WEAPONS.seen.put( MageBook.class , true);
 		WEAPONS.seen.put( FightGloves.class , true);
 		WEAPONS.seen.put( Nunchakus.class , true);
@@ -380,7 +408,7 @@ public enum NewCatalog {
 		WEAPONS.seen.put( Glaive.class , true);
 		WEAPONS.seen.put( Halberd.class , true);
 
-		WEAPONS.seen.put( EmptyPotion.class , true);
+		//WEAPONS.seen.put( EmptyPotion.class , true);
 		WEAPONS.seen.put( Triangolo.class , true);
 		WEAPONS.seen.put( Flute.class , true);
 		WEAPONS.seen.put( Wardrum.class , true);
@@ -438,6 +466,8 @@ public enum NewCatalog {
 		WEAPONS.seen.put( HolyMace.class , true);
 		WEAPONS.seen.put( Weightstone.class , true);
 		WEAPONS.seen.put( DewVial.class , true);
+
+
 
 		ARMOR.seen.put( BaseArmor.class, true);
 		ARMOR.seen.put( VestArmor.class, true);
@@ -497,6 +527,24 @@ public enum NewCatalog {
 		WANDS.seen.put( WandOfBlood.class,               true);
 		WANDS.seen.put( WandOfError.class,               true);
 		WANDS.seen.put( WandOfTest.class,               true);
+
+		WANDS.seen.put( WoodenBowN.class,               true);
+		WANDS.seen.put( StoneBowN.class,               true);
+		WANDS.seen.put( MetalBowN.class,               true);
+		WANDS.seen.put( AlloyBowN.class,               true);
+		WANDS.seen.put( PVCBowN.class,               true);
+
+		WANDS.seen.put( WoodenBowS.class,               true);
+		WANDS.seen.put( StoneBowS.class,               true);
+		WANDS.seen.put( MetalBowS.class,               true);
+		WANDS.seen.put( AlloyBowS.class,               true);
+		WANDS.seen.put( PVCBowS.class,               true);
+
+		WANDS.seen.put( WoodenBowR.class,               true);
+		WANDS.seen.put( StoneBowR.class,               true);
+		WANDS.seen.put( MetalBowR.class,               true);
+		WANDS.seen.put( AlloyBowR.class,               true);
+		WANDS.seen.put( PVCBowR.class,               true);
 
 
 		SPECIALS.seen.put(MissileShield.class,true);
@@ -684,6 +732,9 @@ public enum NewCatalog {
 		FOODS.seen.put( MixPizza.class, true);
 		FOODS.seen.put( RiceGruel.class, true);
 
+		FOODS.seen.put( Sishimi.class, true);
+		FOODS.seen.put( Mediummeat.class, true);
+
 
 		PILLS.seen.put( Powerpill.class, true);
 		PILLS.seen.put( Magicpill.class, true);
@@ -701,6 +752,23 @@ public enum NewCatalog {
 		PILLS.seen.put( RealgarWine.class, true);
 		PILLS.seen.put( Greaterpill.class, true);
 		PILLS.seen.put( Timepill.class, true);
+
+		PILLS.seen.put( BlindFruit.class, true);
+		PILLS.seen.put( CharmFruit.class, true);
+		PILLS.seen.put( FireFruit.class, true);
+		PILLS.seen.put( GlassFruit.class, true);
+		PILLS.seen.put( HealFruit.class, true);
+		PILLS.seen.put( IceFruit.class, true);
+		PILLS.seen.put( MagicHand.class, true);
+		PILLS.seen.put( NutFruit.class, true);
+		//PILLS.seen.put( RiceBall.class, true);
+		PILLS.seen.put( RocketMissile.class, true);
+		PILLS.seen.put( RootFruit.class, true);
+		PILLS.seen.put( ShockFruit.class, true);
+		PILLS.seen.put( SmokeFruit.class, true);
+		PILLS.seen.put( ToxicFruit.class, true);
+
+
 
 	}
 

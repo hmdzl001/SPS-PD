@@ -31,9 +31,10 @@ import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.SkillBook;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.SkillBook;
 import com.hmdzl.spspd.items.TenguKey;
+import com.hmdzl.spspd.items.artifacts.CloakOfShadows;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.journalpages.Sokoban2;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
@@ -41,8 +42,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
-import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
-import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.HugeShuriken;
 import com.hmdzl.spspd.items.weapon.rockcode.Nshuriken;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
@@ -72,7 +72,7 @@ public class Tengu extends Mob {
 		loot =  new MasterThievesArmband().identify();
 		lootChance = 0.2f;
 
-		lootOther = new HugeShuriken(20);
+		lootOther = new HugeShuriken();
 		lootChanceOther = 1f; // by default, see die()
 
 	}
@@ -97,7 +97,7 @@ public class Tengu extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new ManyKnive().identify().dounique();
+		return new CloakOfShadows().identify().dounique();
 	}
 
 	@Override

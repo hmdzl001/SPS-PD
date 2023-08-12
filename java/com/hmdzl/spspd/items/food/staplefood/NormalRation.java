@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.food.staplefood;
 
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class NormalRation extends StapleFood {

@@ -122,7 +122,6 @@ public class Assets {
 	public static final String REDWRAITH = "redwraith.png";
 	public static final String GOLDTHIEF = "goldthief.png";
 	public static final String MRDESTRUCTO = "mrdestructo.png";
-	public static final String MRDESTRUCTO2 = "mrdestructo2.png";
 	public static final String GREYONI = "greyoni.png";
 	public static final String TINKERER1 = "tinkerer.png";
 	public static final String DEWPROTECTOR = "dewprotector.png";

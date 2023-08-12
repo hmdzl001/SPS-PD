@@ -17,17 +17,16 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
 
 public class MechPocket extends Item {
 

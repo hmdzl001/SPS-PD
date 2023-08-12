@@ -17,17 +17,16 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GreatCrabSprite;
 import com.hmdzl.spspd.utils.GLog;
-
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class GreatCrab extends Crab {
 		{

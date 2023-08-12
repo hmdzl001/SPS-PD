@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.BoxStar;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -28,12 +26,13 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-
-import com.hmdzl.spspd.items.weapon.melee.zero.WoodenHammer;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.weapon.melee.WarHammer;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class MKbox extends Item {
 
@@ -79,7 +78,7 @@ public class MKbox extends Item {
 				   Dungeon.level.drop(new Ankh(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				   GLog.p(Messages.get(MKbox.class, "1up"));
 			   } else if (Random.Int(45) < 20) {
-				   WoodenHammer wh = new WoodenHammer();
+				   WarHammer wh = new WarHammer();
 				   Dungeon.level.drop(wh, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				   GLog.p(Messages.get(MKbox.class, "hammer"));
 			   } else if (Random.Int(25) < 20) {

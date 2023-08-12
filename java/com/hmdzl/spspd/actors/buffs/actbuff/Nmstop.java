@@ -20,10 +20,8 @@
  */
 package com.hmdzl.spspd.actors.buffs.actbuff;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.buffs.FlavourBuff;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class Nmstop extends FlavourBuff {

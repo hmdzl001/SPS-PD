@@ -38,6 +38,8 @@ public class DragonRider extends Mob {
 		EXP = 14;
 		maxLvl = 30;
 
+		flying = true;
+
 		properties.add(Property.DRAGON);
 	}
 

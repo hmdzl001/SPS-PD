@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.ui;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -26,6 +24,8 @@ import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class AttackIndicator extends Tag {
 

@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.ui;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.effects.ShadowBox;
 import com.hmdzl.spspd.scenes.PixelScene;
@@ -32,6 +29,9 @@ import com.watabou.noosa.Group;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.TouchArea;
 import com.watabou.utils.Signal;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Window extends Group implements Signal.Listener<Key> {
 

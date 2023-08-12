@@ -20,7 +20,7 @@ package com.hmdzl.spspd.sprites;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.HugeShuriken;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.TextureFilm;

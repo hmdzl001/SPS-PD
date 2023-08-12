@@ -31,7 +31,7 @@ import com.watabou.noosa.Game;
 public class DistortionTrap extends Trap{
 
 	{
-		color = TrapSprite.TEAL;
+		color = TrapSprite.WHITE;
 		shape = TrapSprite.LARGE_DOT;
 	}
 

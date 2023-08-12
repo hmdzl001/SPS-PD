@@ -28,6 +28,7 @@ import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -53,6 +54,8 @@ public class Gold extends Item {
 
 	public static final String AC_UNARMOR = "UNARMOR";
 
+	public static final String AC_PICKONE = "PICKONE";
+
 	public Gold() {
 		this(1);
 	}
@@ -67,6 +70,7 @@ public class Gold extends Item {
 		actions.remove(AC_DROP);
 		actions.remove(AC_THROW);
 		actions.add(AC_UNARMOR);
+		actions.add(AC_PICKONE);
 		return actions;
 	}
 
@@ -105,6 +109,14 @@ public class Gold extends Item {
 			Buff.detach(hero,MechArmor.class);
 			Buff.detach(hero,EnergyArmor.class);
 		}
+
+		if (action.equals(AC_PICKONE)) {
+			if (Dungeon.picktype) {
+				Dungeon.picktype = false;
+			} else {
+				Dungeon.picktype = true;
+			}
+		}
 	}
 
 	@Override
@@ -122,6 +134,24 @@ public class Gold extends Item {
 		quantity = Random.Int(30 + Dungeon.depth * 10, 60 + Dungeon.depth * 20);
 		return this;
 	}
+
+	@Override
+	public String info() {
+		String name = name();
+
+		String info = desc();
+
+		if (Dungeon.picktype) {
+			info += "\n" + Messages.get(this, "pick");
+		} else {
+			info += "\n" + Messages.get(this, "get");
+		}
+
+
+
+		return info;
+	}
+
 
 	private static final String VALUE = "value";
 

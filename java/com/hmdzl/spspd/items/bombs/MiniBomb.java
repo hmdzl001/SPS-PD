@@ -26,7 +26,6 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-
 import com.watabou.utils.Random;
 
 public class MiniBomb extends Bomb {

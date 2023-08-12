@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.medicine;
 
-import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.FireImbue;
 import com.hmdzl.spspd.actors.buffs.ToxicImbue;

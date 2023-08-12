@@ -19,7 +19,6 @@ package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.Alchemy;
-import com.hmdzl.spspd.actors.blobs.weather.WeatherOfQuite;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.IronKey;

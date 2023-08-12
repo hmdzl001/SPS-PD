@@ -17,17 +17,17 @@
  */
 package com.hmdzl.spspd.windows;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.CheckBox;
 import com.hmdzl.spspd.ui.IconButton;
 import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.Window;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.RenderedText;
+
+import java.util.ArrayList;
 
 public class WndChallenges extends Window {
 

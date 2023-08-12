@@ -155,6 +155,15 @@ public abstract class PET extends NPC {
 		return item instanceof PetFood;
 	}
 
+
+	public int defenseProc(Char enemy, int damage) {
+		if (this.HP > damage && stay){
+			attack(enemy);
+		}
+		return super.defenseProc(enemy, damage);
+	}
+
+
 	@Override
 	public void damage(int dmg, Object src) {
 		
@@ -162,7 +171,9 @@ public abstract class PET extends NPC {
 			//goaways++;
 			//GLog.n(Messages.get(this,"warning",name));
 			dmg = 0;
-		} else if (dmg> HT/6) {
+		} else if (stay && !(src instanceof Mob)) {
+            dmg = 0;
+		} else	if (dmg> HT/6) {
 			dmg =(int)Math.max(HT/6,1);
 		}
 		
@@ -173,10 +184,12 @@ public abstract class PET extends NPC {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		Dungeon.hero.haspet=false;
-		Dungeon.hero.petType = 1;
-		//Statistics.petDies++;
-	    GLog.n(Messages.get(this,"pet_died"));
+		if (Dungeon.depth != 50) {
+			Dungeon.hero.haspet = false;
+			Dungeon.hero.petType = 1;
+
+	        GLog.n(Messages.get(this,"pet_died"));
+		}
 	}
 
 	@Override
@@ -233,9 +246,9 @@ public abstract class PET extends NPC {
 		
 		  Dungeon.hero.petType=pet.type;
 
-		  Dungeon.hero.petHP=pet.HP;
+		  //Dungeon.hero.petHP=pet.HP;
 
-		  Dungeon.hero.petCooldown=pet.cooldown;		
+		  //Dungeon.hero.petCooldown=pet.cooldown;		
 	}
 
 	@Override

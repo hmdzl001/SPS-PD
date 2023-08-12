@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Rankings;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.effects.Flare;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.Archs;
@@ -32,13 +33,12 @@ import com.hmdzl.spspd.ui.Window;
 import com.hmdzl.spspd.windows.WndError;
 import com.hmdzl.spspd.windows.WndRanking;
 import com.watabou.noosa.BitmapText;
-import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.ui.Button;
 import com.watabou.utils.GameMath;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 
 public class RankingsScene extends PixelScene {
 

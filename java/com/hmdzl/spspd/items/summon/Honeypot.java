@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.items.summon;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
@@ -43,6 +40,9 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Honeypot extends Item {
 

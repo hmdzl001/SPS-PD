@@ -18,20 +18,20 @@
 package com.hmdzl.spspd.items.wands;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Frost;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.effects.MagicMissile;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.items.Heap;
 
 public class WandOfFreeze extends DamageWand {
 
@@ -59,12 +59,12 @@ public class WandOfFreeze extends DamageWand {
 			if (ch.buff(Frost.class) != null){
 				return; //do nothing, can't affect a frozen target
 			}
-			if (ch.buff(Chill.class) != null){
-				float chill = ch.buff(Chill.class).cooldown();
-				damage = (int)(Math.round(damage * Math.pow(0.9f, chill)) * (1 + 0.1 * Dungeon.hero.magicSkill()));
-			} else {
-				ch.sprite.burst( 0xFF99CCFF, level() / 2 + 2 );
-			}
+			//if (ch.buff(Chill.class) != null){
+			//	float chill = ch.buff(Chill.class).cooldown();
+			//	damage = (int)(Math.round(damage * Math.pow(0.9f, chill)) * (1 + 0.1 * Dungeon.hero.magicSkill()));
+		//	} else {
+			//	ch.sprite.burst( 0xFF99CCFF, level() / 2 + 2 );
+			//}
 
 			processSoulMark(ch, chargesPerCast());
 			ch.damage(damage, this);
@@ -75,9 +75,9 @@ public class WandOfFreeze extends DamageWand {
 					if (Random.Int(10) >= 8-level() )
 						Buff.affect(ch, Frost.class, Frost.duration(ch)*Random.Float(2f, 4f));
 					else
-						Buff.prolong(ch, Chill.class, 6+level());
+						Buff.affect(ch, FrostIce.class).level(5+level());
 				} else {
-					Buff.prolong(ch, Chill.class, 4+level());
+					Buff.affect(ch, FrostIce.class).level(5+level());
 				}
 			}
 			

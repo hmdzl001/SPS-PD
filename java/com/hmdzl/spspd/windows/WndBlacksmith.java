@@ -22,14 +22,13 @@ import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.npcs.Blacksmith;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.ItemSlot;
 import com.hmdzl.spspd.ui.RedButton;
-import com.hmdzl.spspd.ui.Window;
- 
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
+import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Component;

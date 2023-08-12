@@ -25,11 +25,16 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.potions.PotionOfParalyticGas;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.RootFruit;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Earthroot extends Plant {
 
@@ -61,13 +66,37 @@ public class Earthroot extends Plant {
 			image = ItemSpriteSheet.SEED_EARTHROOT;
 
 			plantClass = Earthroot.class;
+			explantClass = ExEarthroot.class;
 			alchemyClass = PotionOfParalyticGas.class;
 
 			 
 		}
 	}
+	
+	public static class ExEarthroot extends Plant {
+		{
+			image = 0;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
 
-	public static class Armor extends Buff {
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new RootFruit(), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}	
+
+	public static class MagicPlantArmor extends Buff {
 
 		private static final float STEP = 1f;
 

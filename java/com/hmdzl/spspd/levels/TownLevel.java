@@ -98,6 +98,7 @@ import com.hmdzl.spspd.items.ArmorKit;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KnowledgeBook;
 import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.eggs.Egg;
@@ -114,13 +115,13 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.wands.WandOfTest;
 import com.hmdzl.spspd.items.weapon.melee.special.RunicBlade;
-import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.MoneyPack;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.ReNepenth;
 import com.hmdzl.spspd.plants.Starflower;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
@@ -527,6 +528,9 @@ public class TownLevel extends Level {
 			case 2:
 				prize = new SkillOfMig();
 				break;
+			case 3:
+				prize = new KnowledgeBook();
+				break;
 			default:
 				prize = Generator.random(Generator.Category.MUSICWEAPON);
 				break;
@@ -805,6 +809,11 @@ public class TownLevel extends Level {
 	  test4.pos = 18 + WIDTH * 44;
 	  mobs.add(test4);
 
+		 // TestMob test6 = new TestMob();
+		 // test6.pos = 18 + WIDTH * 45;
+		  //mobs.add(test6);
+		 // Buff.affect(test6,ShieldArmor.class).level(1000000);
+
 	  RainTrainer rain = new RainTrainer();
 	  rain.pos = 17 + WIDTH * 42;
 	  mobs.add(rain);
@@ -821,6 +830,7 @@ public class TownLevel extends Level {
 	  TestMob2 test5 = new TestMob2();
 	  test5.pos = 21 + WIDTH * 44;
 	  mobs.add(test5);
+	  //Buff.affect(test5,ShieldArmor.class).level(1000000);
 
 	  /*Assassin test5 = new Assassin();
 	  test5.pos = 14 + WIDTH * 28;
@@ -963,7 +973,7 @@ public class TownLevel extends Level {
 		Item prize;
 		switch (Random.Int(10)) {
 		case 0:
-			prize = new Phaseshift.Seed();
+			prize = new ReNepenth.Seed();
 			break;
 		case 1:
 			prize = Generator.random(Generator.Category.MUSHROOM);

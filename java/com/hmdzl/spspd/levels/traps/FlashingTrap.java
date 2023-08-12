@@ -38,8 +38,8 @@ import com.watabou.utils.Random;
 public class FlashingTrap extends Trap {
 
 	{
-		color = TrapSprite.YELLOW;
-		shape = TrapSprite.STARS;
+		color = TrapSprite.GREY;
+		shape = TrapSprite.ONE_DOT;
 	}
 
 	@Override

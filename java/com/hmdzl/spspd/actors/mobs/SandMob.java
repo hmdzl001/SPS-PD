@@ -24,7 +24,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Dry;
 import com.hmdzl.spspd.actors.buffs.HiddenShadow;
 import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.buffs.SkillUse;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.effects.Speck;
@@ -79,8 +78,8 @@ public class SandMob extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (this.buff(SkillUse.class)== null && enemy == Dungeon.hero) {
-			Buff.affect(this, SkillUse.class);
+		if (!skilluse && enemy == Dungeon.hero) {
+			skilluse = true;
 			Buff.affect(this,HiddenShadow.class,6f);
 		}
 
@@ -139,7 +138,7 @@ public class SandMob extends Mob {
 			state = WANDERING;
 		}
 		
-		int generation = 0;
+		int generation = 1;
 
 		@Override
 		public int damageRoll() {

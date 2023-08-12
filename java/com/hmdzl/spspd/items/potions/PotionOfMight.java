@@ -36,7 +36,7 @@ public class PotionOfMight extends Potion {
 		setKnown();
 		Buff.affect(hero, DefenceUp.class,360f).level(40);
 		hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		Buff.prolong(hero, HTimprove.class,360f);
+		Buff.prolong(hero, HTimprove.class,600f);
 		hero.updateHT(true);
 		
 		

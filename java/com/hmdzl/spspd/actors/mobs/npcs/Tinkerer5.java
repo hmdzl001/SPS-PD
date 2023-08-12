@@ -21,11 +21,10 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.food.meatfood.FireMeat;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-
 import com.hmdzl.spspd.sprites.Xavier251998Sprite;
 import com.hmdzl.spspd.windows.WndQuest;
-import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 

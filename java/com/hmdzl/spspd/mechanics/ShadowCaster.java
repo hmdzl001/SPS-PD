@@ -17,9 +17,9 @@
  */
 package com.hmdzl.spspd.mechanics;
 
-import java.util.Arrays;
-
 import com.hmdzl.spspd.levels.Level;
+
+import java.util.Arrays;
 
 public final class ShadowCaster {
 

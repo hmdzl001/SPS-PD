@@ -24,7 +24,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.levels.traps.FireTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamageTrap;
 import com.watabou.utils.Random;
 
 public class BlacksmithPainter extends Painter {
@@ -68,7 +68,7 @@ public class BlacksmithPainter extends Painter {
 
 		for(int cell : room.getCells()) {
 			if (level.map[cell] == Terrain.TRAP){
-				level.setTrap(new FireTrap().reveal(), cell);
+				level.setTrap(new FireDamageTrap().reveal(), cell);
 			}
 		}
 	}

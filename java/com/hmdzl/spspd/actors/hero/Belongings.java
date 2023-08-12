@@ -94,7 +94,7 @@ public class Belongings implements Iterable<Item> {
 		if (armor != null) {
 			armor.activate(owner);
 		}
-		//armor = (Armor) bundle.get(ARMOR);
+		//armor = (MagicPlantArmor) bundle.get(ARMOR);
 
 		misc1 = (KindofMisc) bundle.get(MISC1);
 		if (misc1 != null) {

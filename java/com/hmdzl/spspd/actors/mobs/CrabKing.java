@@ -29,7 +29,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.AdamantArmor;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.melee.special.Tree;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Tree;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;

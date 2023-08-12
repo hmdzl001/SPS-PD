@@ -28,7 +28,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
 import com.hmdzl.spspd.levels.traps.Trap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Scene;

@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items.medicine;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.Fire;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DBurning;
 import com.hmdzl.spspd.actors.hero.Hero;

@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
@@ -26,7 +27,7 @@ import com.hmdzl.spspd.items.keys.GoldenSkeletonKey;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.HermitCrabSprite;
 import com.hmdzl.spspd.utils.GLog;

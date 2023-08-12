@@ -1,7 +1,7 @@
 package com.hmdzl.spspd.actors.buffs.armorbuff;
 
-import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.blobs.TarGas;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.DBurning;

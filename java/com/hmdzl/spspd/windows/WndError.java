@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.windows;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.Icons;
 
 public class WndError extends WndTitledMessage {

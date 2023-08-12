@@ -20,8 +20,6 @@
  */
 package com.hmdzl.spspd.levels.traps;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -34,12 +32,14 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.watabou.utils.Random;
 
+import java.util.ArrayList;
+
 public class SummoningTrap extends Trap {
 
 	private static final float DELAY = 2f;
 
 	{
-		color = TrapSprite.TEAL;
+		color = TrapSprite.RED;
 		shape = TrapSprite.WAVES;
 	}
 

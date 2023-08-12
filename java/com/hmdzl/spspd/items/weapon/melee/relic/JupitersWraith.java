@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.relic;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -30,9 +28,10 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
-
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class JupitersWraith extends RelicMeleeWeapon {
 

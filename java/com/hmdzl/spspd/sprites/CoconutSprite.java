@@ -18,9 +18,9 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.ShitBall;
 import com.hmdzl.spspd.levels.Level;
 import com.watabou.noosa.TextureFilm;
-import com.hmdzl.spspd.items.weapon.missiles.ShitBall;
 import com.watabou.utils.Callback;
 
 public class CoconutSprite extends MobSprite {

@@ -33,8 +33,6 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Maze;
-import com.hmdzl.spspd.levels.traps.BlazingTrap;
-import com.hmdzl.spspd.levels.traps.ChillingTrap;
 import com.hmdzl.spspd.levels.traps.ConfusionTrap;
 import com.hmdzl.spspd.levels.traps.DisintegrationTrap;
 import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
@@ -47,6 +45,14 @@ import com.hmdzl.spspd.levels.traps.ToxicTrap;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.levels.traps.VenomTrap;
 import com.hmdzl.spspd.levels.traps.WarpingTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.FireBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.IceBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.LightBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuff2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.IceDamageTrap;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -294,11 +300,10 @@ public class StandardPainter extends Painter {
 
 	@SuppressWarnings("unchecked")
 	private static Class<?extends Trap>[] trapType = new Class[]{
-			ToxicTrap.class, TeleportationTrap.class, FlockTrap.class,
-			ConfusionTrap.class, ExplosiveTrap.class, ParalyticTrap.class,
-			BlazingTrap.class, VenomTrap.class, ExplosiveTrap.class,
-			WarpingTrap.class, DisintegrationTrap.class,
-			GrimTrap.class,ChillingTrap.class, SummoningTrap.class};
+			ToxicTrap.class, ConfusionTrap.class, ExplosiveTrap.class, ParalyticTrap.class, VenomTrap.class,
+			DisintegrationTrap.class, GrimTrap.class, SummoningTrap.class,
+			FireBuff2Trap.class, IceBuff2Trap.class, EarthBuff2Trap.class, ShockBuff2Trap.class,
+			LightBuff2Trap.class, DarkBuff2Trap.class};
 
 	private static void paintGraveyard(Level level, Room room) {
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
@@ -534,7 +539,7 @@ public class StandardPainter extends Painter {
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
 				room.height() - 1,
 				!Dungeon.bossLevel() && !Dungeon.bossLevel(Dungeon.depth + 1) && (Dungeon.depth < 22 || Dungeon.depth > 26)
-						&& Random.Int(3) == 0 ? Terrain.TRAP_AIR : Terrain.WATER);
+						&& Random.Int(3) == 0 ? Terrain.CHASM : Terrain.WATER);
 
 		Point door1 = null;
 		Point door2 = null;

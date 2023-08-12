@@ -17,13 +17,12 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import java.util.Arrays;
-
-import com.hmdzl.spspd.actors.blobs.Foliage;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.watabou.utils.Point;
 import com.watabou.utils.Rect;
+
+import java.util.Arrays;
 
 public class Painter {
 

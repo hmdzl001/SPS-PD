@@ -17,12 +17,7 @@
  */
 package com.hmdzl.spspd.actors.animate;
 
-import java.text.DecimalFormat;
-import java.util.HashSet;
-
 import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class WeaponAnimate extends Actor {
 	

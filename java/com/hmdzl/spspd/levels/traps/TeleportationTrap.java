@@ -38,8 +38,8 @@ import com.watabou.noosa.audio.Sample;
 public class TeleportationTrap extends Trap {
 
 	{
-		color = TrapSprite.TEAL;
-		shape = TrapSprite.DOTS;
+		color = TrapSprite.GREY;
+		shape = TrapSprite.GRILL;
 	}
 
 	@Override

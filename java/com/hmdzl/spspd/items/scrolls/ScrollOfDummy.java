@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.ScarecrowSprite;
+import com.hmdzl.spspd.sprites.DummySprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -101,12 +101,13 @@ public class ScrollOfDummy extends Scroll {
 	public static class MiniDummy extends Mob {
 
 		{
-			spriteClass = ScarecrowSprite.class;
+			spriteClass = DummySprite.class;
 			hostile = false;
 			state = HUNTING;
 			HP = HT = 40;
 			evadeSkill = 0;
 			ally=true;
+			EXP = 0;
 			properties.add(Property.UNKNOW);
 		}
 

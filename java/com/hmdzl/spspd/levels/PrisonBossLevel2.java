@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.List;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
@@ -33,13 +31,15 @@ import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
 import com.hmdzl.spspd.levels.traps.Trap;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
+
+import java.util.List;
 
 public class PrisonBossLevel2 extends RegularLevel {
 

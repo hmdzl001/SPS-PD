@@ -43,6 +43,7 @@ import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.Artifact;
+import com.hmdzl.spspd.items.bags.ArrowCollecter;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
 import com.hmdzl.spspd.items.bags.KeyRing;
@@ -63,12 +64,6 @@ import com.hmdzl.spspd.items.food.staplefood.StapleFood;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
 import com.hmdzl.spspd.items.medicine.Greaterpill;
-import com.hmdzl.spspd.items.misc.JumpH;
-import com.hmdzl.spspd.items.misc.JumpM;
-import com.hmdzl.spspd.items.misc.JumpR;
-import com.hmdzl.spspd.items.misc.JumpS;
-import com.hmdzl.spspd.items.misc.JumpW;
-import com.hmdzl.spspd.items.misc.Jumpshoes;
 import com.hmdzl.spspd.items.nornstone.NornStone;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.quest.DarkGold;
@@ -76,12 +71,15 @@ import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
+import com.hmdzl.spspd.items.weapon.ranges.RangeWeapon;
 import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.messages.Messages;
@@ -204,6 +202,7 @@ public class WndBag extends WndTabbed {
         bags.add( stuff.getItem(KeyRing.class));
         bags.add( stuff.getItem(ShoppingCart.class));
         bags.add( stuff.getItem(HeartOfScarecrow.class));	
+		bags.add( stuff.getItem(ArrowCollecter.class));
 
         while(bags.remove(null));
 
@@ -393,6 +392,8 @@ public class WndBag extends WndTabbed {
 				return Icons.get(Icons.KEYRING);
 			} else if (bag instanceof HeartOfScarecrow) {
 				return Icons.get(Icons.HOS);	
+			} else if (bag instanceof ArrowCollecter) {
+				return Icons.get(Icons.ARROW_C);
 			} else {
 				return Icons.get(Icons.BACKPACK);
 			}
@@ -498,17 +499,14 @@ public class WndBag extends WndTabbed {
 				 || mode == Mode.QUICKSLOT
 						&& (item.defaultAction != null)
 				 || mode == Mode.WEAPON
-						&& ((item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof ManyKnive || item instanceof TaurcenBow)&& !(item instanceof Handcannon))
+						&& ((item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof ManyKnive || item instanceof RangeWeapon || item instanceof TaurcenBow || item instanceof MegaCannon || item instanceof MeleeThrowWeapon)&& !(item instanceof Handcannon))
 				 || mode == Mode.ARMOR
 						&& (item instanceof Armor)
 				 || mode == Mode.ENCHANTABLE
-						&& (item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof Armor || item instanceof ManyKnive || item instanceof TaurcenBow  || item instanceof MegaCannon)
-
+						&& (item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof MeleeThrowWeapon || item instanceof RangeWeapon || item instanceof Armor || item instanceof ManyKnive || item instanceof TaurcenBow  || item instanceof MegaCannon)
 				 || mode == Mode.JOURNALPAGES
 						&& (item instanceof JournalPage)
-				 || mode == Mode.SHOES
-						&& (item instanceof JumpW || item instanceof JumpM || item instanceof JumpR || item instanceof JumpH || item instanceof JumpS || item instanceof Jumpshoes)
-				 || mode == Mode.WAND 
+                 || mode == Mode.WAND
 				        && (item instanceof Wand)
 				 || mode == Mode.SEED 
 				        && (item instanceof Seed)
@@ -531,13 +529,13 @@ public class WndBag extends WndTabbed {
 							&& ( item instanceof NornStone || item instanceof StoneOre)
 				|| mode == Mode.TRANMSUTABLE
 							&& (!item.isEquipped(hero) && ( item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Artifact
-							|| item instanceof Armor || item instanceof StrBottle))
+							|| item instanceof Armor || item instanceof StrBottle || item instanceof MeleeThrowWeapon))
 				|| mode == Mode.AMMO
 						&& (item instanceof SpAmmo)
 				|| mode == Mode.ROCK_CODE
 						&& (item instanceof RockCode)
 				|| mode == Mode.EATABLE
-						&& (!item.isEquipped(hero) && (item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Armor))
+						&& (!item.isEquipped(hero) && (item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Armor || item instanceof MeleeThrowWeapon || item instanceof RangeWeapon || item instanceof GunWeapon))
 				|| mode == Mode.HOLY_MACE
 						&& (item instanceof Torch || item instanceof GreatRune || item instanceof Greaterpill)
 				|| mode == Mode.IRON_MAKE

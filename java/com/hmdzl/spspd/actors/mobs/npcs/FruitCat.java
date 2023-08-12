@@ -22,7 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.missiles.MoneyBook;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.MoneyBook;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.FruitCatSprite;
 import com.watabou.utils.Random;

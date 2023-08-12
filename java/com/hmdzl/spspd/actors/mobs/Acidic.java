@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.StenchGas;
+import com.hmdzl.spspd.effects.Wound;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.wands.WandOfAcid;
@@ -49,6 +50,7 @@ public class Acidic extends Scorpio {
 		int dmg = Random.IntRange(0, damage/2) - enemy.drRoll();
 		if (dmg > 0) {
 			enemy.damage(dmg, this);
+			Wound.hit(enemy);
 		}
 
 		return super.defenseProc(enemy, damage);

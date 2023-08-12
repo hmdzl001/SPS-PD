@@ -1,6 +1,6 @@
 package com.hmdzl.spspd.items.rings;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 
 /**
  * Created by debenhame on 10/09/2014.

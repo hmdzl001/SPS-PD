@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.FrostGas;
+import com.hmdzl.spspd.actors.blobs.SlowGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -47,7 +47,7 @@ public class IceBomb extends Bomb {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}
-                GameScene.add(Blob.seed(c, 10, FrostGas.class));
+                GameScene.add(Blob.seed(c, 10, SlowGas.class));
 
 				Char ch = Actor.findChar(c);
 				if (ch != null) {

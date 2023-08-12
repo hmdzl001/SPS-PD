@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.sellitem;
 
-import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class Mirror2 extends SellItem {

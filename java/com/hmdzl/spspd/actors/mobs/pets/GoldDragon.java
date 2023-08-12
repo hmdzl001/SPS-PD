@@ -29,7 +29,13 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.GoldDragonSprite;
 import com.watabou.utils.Random;
 
+import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
 import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.FIRE_DAMAGE;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ICE_DAMAGE;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.LIGHT_DAMAGE;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public class GoldDragon extends PET{
 	
@@ -87,6 +93,21 @@ public class GoldDragon extends PET{
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		enemy.damage(damageRoll()/2, ENERGY_DAMAGE);
+		switch (Random.Int(6)){
+			case 0: enemy.damage(damageRoll()/2, FIRE_DAMAGE);
+				break;
+			case 1: enemy.damage(damageRoll()/2, ICE_DAMAGE);
+				break;
+			case 2: enemy.damage(damageRoll()/2, SHOCK_DAMAGE);
+				break;
+			case 3: enemy.damage(damageRoll()/2, EARTH_DAMAGE);
+				break;
+			case 4: enemy.damage(damageRoll()/2, LIGHT_DAMAGE);
+				break;
+			case 5: enemy.damage(damageRoll()/2, DARK_DAMAGE);
+				break;
+		}
+
 		damage = damage/2;
 		if (cooldown > 0) cooldown --;
 		if (cooldown==0 && enemy.isAlive()) {

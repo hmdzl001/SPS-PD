@@ -275,7 +275,7 @@ public class ItemSpriteSheet {
 	public static final int SEED_TOASTEDDUNGEONNUT = ROW12 + 12;
 	public static final int SEED_GOLDENDUNGEONNUT = ROW12 + 13;
 	public static final int SEED_BLACKBERRY = ROW12 + 14;
-	public static final int SEED_RICE = ROW12 + 15;
+	public static final int SEED_SIOFLOWER = ROW12 + 15;
 	public static final int SEED_CLOUDBERRY = ROW13 + 11;
 	public static final int SEED_BLUEBERRY = ROW13 + 12;
 	public static final int SEED_MOONBERRY = ROW13 + 14;
@@ -389,7 +389,7 @@ public class ItemSpriteSheet {
 	public static final int RANDOWNEGG = ROW19 + 0;
 	public static final int SCORPIONEGG = ROW19 + 1;
 
-	public static final int SPIDEREGG = ROW19 + 2;
+	public static final int ROCKET = ROW19 + 2;
 
 	public static final int FIREEGG = ROW19 + 3;
 	public static final int RED_DRAGONEGG = ROW19 + 4;
@@ -515,14 +515,12 @@ public class ItemSpriteSheet {
 	public static final int SLING = ROW24 + 7;
 	public static final int MOBS = ROW24 + 8;
 	public static final int W_BRICK = ROW24 + 9;
-
-
-	public static final int PILL_ATK = ROW24 + 10;
-	public static final int PILL_DEF = ROW24 + 11;
-	public static final int PILL_STR = ROW24 + 12;
-	public static final int PILL_MIG = ROW24 + 13;
-	public static final int PILL_MUC = ROW24 + 14;
-	public static final int PILL_SOT = ROW24 + 15;
+	public static final int MIDDLE_AMMO = ROW24 + 10;
+	public static final int N_BOW = ROW24 + 11;
+	public static final int S_BOW = ROW24 + 12;
+	public static final int KU_WU = ROW24 + 13;
+	public static final int BIAO_QIANG = ROW24 + 14;
+	public static final int YUAN_REN = ROW24 + 15;
 
 	public static final int WOODEN_H = ROW25 + 12;
 
@@ -541,7 +539,7 @@ public class ItemSpriteSheet {
 	public static final int CHOCOLATE = ROW25 + 5;
 	public static final int FOODFANS = ROW25 + 6;
 
-	public static final int ATTACKSHIELD = ROW25 + 8;
+	public static final int BIG_AMMO = ROW25 + 8;
 
 	public static final int BSHOVEL = ROW25 + 7;
 
@@ -558,7 +556,7 @@ public class ItemSpriteSheet {
 	public static final int FLAG = ROW25 + 15;
 
 	public static final int COPY_BALL = ROW26 + 1;
-	public static final int EMPTY_BOMB = ROW26 + 2;
+	public static final int SHIT_BOMB = ROW26 + 2;
 	public static final int SHATTERED_AMMO = ROW26 + 3;
 	public static final int BOW = ROW26 + 4;
 
@@ -706,6 +704,9 @@ public class ItemSpriteSheet {
 	public static final int WHISK = ROW31 + 10;
 
 	public static final int MEGA_CANNON = ROW31 + 11;
+	public static final int R_BOW = ROW31 + 12;
+	public static final int MAGIC_HAND = ROW31 + 13;
+	public static final int ARROW_COLLECTER = ROW31 + 14;
 
 	public static final int INFO  = ROW35 + 0;
 	public static final int INFO_1  = ROW35 + 1;

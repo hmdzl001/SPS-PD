@@ -40,7 +40,7 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.UndeadBook;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
-import com.hmdzl.spspd.items.weapon.missiles.Skull;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Skull;
 import com.hmdzl.spspd.items.weapon.rockcode.Zshield;
 import com.hmdzl.spspd.levels.CityBossLevel;
 import com.hmdzl.spspd.levels.Level;

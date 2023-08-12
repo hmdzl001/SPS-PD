@@ -298,7 +298,7 @@ public class MegaCannon extends Weapon {
 	public class MegamanAmmo extends MissileWeapon {
 		
 		{
-			image = charge > 2 ? ItemSpriteSheet.ATTACKSHIELD : charge > 1 ? ItemSpriteSheet.VIOLETDEWDROP : ItemSpriteSheet.DEWDROP;
+			image = charge > 2 ? ItemSpriteSheet.BIG_AMMO : charge > 1 ? ItemSpriteSheet.MIDDLE_AMMO : ItemSpriteSheet.AMMO;
 			ACU = 100f;
 			//enchantment = MegaCannon.this.enchantment;
 		}

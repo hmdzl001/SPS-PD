@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.scenes;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.windows.WndStory;
 import com.watabou.noosa.Game;
 

@@ -19,12 +19,12 @@ package com.hmdzl.spspd.plants;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.potions.PotionOfMixing;
-import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.potions.PotionOfMixing;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
+
 import java.util.ArrayList;
 
 public class Seedpod extends Plant{
@@ -60,9 +60,33 @@ public class Seedpod extends Plant{
 			image = ItemSpriteSheet.SEED_SEEDPOD;
 	
 			plantClass = Seedpod.class;
+			explantClass = ExSeedpod.class;
 			alchemyClass = PotionOfMixing.class;
 		}
 	}
+	public static class ExSeedpod extends Plant {
+		{
+			image = 13;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(Generator.random(Generator.Category.BERRY), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}	
+	
 }
 
 

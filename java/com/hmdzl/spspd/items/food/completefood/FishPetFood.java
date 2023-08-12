@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
-import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class FishPetFood extends PetFood {

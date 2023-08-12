@@ -19,12 +19,13 @@ package com.hmdzl.spspd.actors.blobs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
 
 public class ToxicGas extends Blob implements Hero.Doom {
@@ -56,7 +57,7 @@ public class ToxicGas extends Blob implements Hero.Doom {
 	public void use(BlobEmitter emitter) {
 		super.use(emitter);
 
-		emitter.pour(Speck.factory(Speck.TOXIC), 0.6f);
+		emitter.pour(Speck.factory(Speck.TOXIC), 0.8f);
 	}
 
 	@Override

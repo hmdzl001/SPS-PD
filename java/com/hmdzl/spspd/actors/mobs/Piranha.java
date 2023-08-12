@@ -29,7 +29,7 @@ import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.challengelists.CaveChallenge;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
-import com.hmdzl.spspd.items.weapon.missiles.HugeShuriken;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.HugeShuriken;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.PiranhaSprite;
 import com.watabou.utils.Random;
@@ -58,7 +58,7 @@ public class Piranha extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new HugeShuriken(4);
+		return new HugeShuriken();
 	}
 
 	@Override

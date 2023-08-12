@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
@@ -27,10 +24,9 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.Weapon.Enchantment;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.SentinelSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;

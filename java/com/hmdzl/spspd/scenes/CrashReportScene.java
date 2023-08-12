@@ -48,7 +48,6 @@ public class CrashReportScene extends PixelScene {
     private final ArrayList<CrashInfo> infos = new ArrayList<>();
 
     private static final int WIDTH		= 115;
-    private static final int HEIGHT		= 120;
 
     @Override
     public void create() {
@@ -72,7 +71,7 @@ public class CrashReportScene extends PixelScene {
         RedButton btnDelete = new RedButton( Messages.get(this, "clear") ) {
             @Override
             protected void onClick() {
-                FileUtils.deleteFile( CrashHandler.CRASH_FILE );
+                FileUtils.deleteFile( "aaa" );
                 onBackPressed();
             }
         };
@@ -121,8 +120,8 @@ public class CrashReportScene extends PixelScene {
         ArrayList<ExceptionStrings> exceptions = new ArrayList<>();
         Bundle bundle = new Bundle();
         try {
-            Bundle exceptionBundle = FileUtils.bundleFromFile(CrashHandler.CRASH_FILE);
-            for (Bundlable expt : exceptionBundle.getCollection(CrashHandler.EXCEPTIONS)) {
+            Bundle exceptionBundle = FileUtils.bundleFromFile("AAA");
+            for (Bundlable expt : exceptionBundle.getCollection("AAA")) {
                 if (expt != null) {
                     exceptions.add((ExceptionStrings) expt);
                 }
@@ -165,14 +164,14 @@ public class CrashReportScene extends PixelScene {
 
         fadeIn();
 
-        /*
+
         bundle.put(CrashHandler.EXCEPTIONS, exceptions);
         try {
             FileUtils.bundleToFile( CrashHandler.CRASH_FILE, bundle );
         } catch (IOException e) {
-            Fushiginopixeldungeon.reportException(e);
+            ShatteredPixelDungeon.reportException(e);
         }
-        */
+
     }
 
     @Override

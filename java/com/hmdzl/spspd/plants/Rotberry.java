@@ -23,9 +23,14 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.StrBottle;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Rotberry extends Plant {
 
@@ -51,7 +56,33 @@ public class Rotberry extends Plant {
 			image = ItemSpriteSheet.SEED_ROTBERRY;
 
 			plantClass = Rotberry.class;
+			explantClass = ExRotberry.class;
 			alchemyClass = StrBottle.class;
 		}
 	}
+	public static class ExRotberry extends Plant {
+		{
+			image = 7;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			Dungeon.level.drop(new Rotberry.Seed(), pos).sprite.drop();
+			
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 1 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new Gold(1), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}	
+	
 }

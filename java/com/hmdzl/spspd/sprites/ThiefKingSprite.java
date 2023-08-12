@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.items.weapon.missiles.EscapeKnive;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.TextureFilm;

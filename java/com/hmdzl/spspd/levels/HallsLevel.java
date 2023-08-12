@@ -31,24 +31,37 @@ import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
-import com.hmdzl.spspd.levels.traps.BlazingTrap;
+import com.hmdzl.spspd.levels.traps.BoundTrap;
 import com.hmdzl.spspd.levels.traps.CursingTrap;
 import com.hmdzl.spspd.levels.traps.DisarmingTrap;
 import com.hmdzl.spspd.levels.traps.DisintegrationTrap;
 import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
-import com.hmdzl.spspd.levels.traps.FrostTrap;
 import com.hmdzl.spspd.levels.traps.GrimTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
 import com.hmdzl.spspd.levels.traps.GuardianTrap;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.levels.traps.OozeTrap;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
-import com.hmdzl.spspd.levels.traps.StormTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.VenomTrap;
 import com.hmdzl.spspd.levels.traps.WeakeningTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuff3Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuff3Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.FireBuff3Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.IceBuff3Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.IceBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.LightBuff3Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.LightBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuff3Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuffTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.EarthDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.IceDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.ShockDamage2Trap;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -103,18 +116,22 @@ public class HallsLevel extends RegularLevel {
 	
 	@Override
 	protected Class<?>[] trapClasses() {
-		return new Class[]{ BlazingTrap.class, DisintegrationTrap.class, FrostTrap.class, SpearTrap.class, VenomTrap.class, StormTrap.class,
-				ExplosiveTrap.class, GrippingTrap.class, LightningTrap.class, OozeTrap.class, WeakeningTrap.class,
-				CursingTrap.class, FlockTrap.class, GrimTrap.class, GuardianTrap.class, SummoningTrap.class, TeleportationTrap.class,
-				DisarmingTrap.class};
+		return new Class[]{ DisintegrationTrap.class, VenomTrap.class, BoundTrap.class,
+				GrippingTrap.class,  WeakeningTrap.class, CursingTrap.class,
+				FlockTrap.class, GrimTrap.class, GuardianTrap.class,
+				SummoningTrap.class, TeleportationTrap.class, DisarmingTrap.class,
+				FireBuff3Trap.class, IceBuff3Trap.class, ShockBuff3Trap.class, EarthBuff3Trap.class,
+				LightBuff3Trap.class, DarkBuff3Trap.class};
 	}
 
 	@Override
 	protected float[] trapChances() {
-		return new float[]{ 8, 8, 8, 8, 8, 8,
-				4, 4, 4, 4, 4,
-				2, 2, 2, 2, 2, 2,
-				1};
+		return new float[]{ 4, 4, 3,
+				4, 1, 1,
+				1, 4, 4,
+				4, 2, 3,
+				3, 3, 3, 3,
+				3, 2 };
 	}	
 
 	@Override

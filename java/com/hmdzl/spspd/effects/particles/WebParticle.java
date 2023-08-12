@@ -17,11 +17,11 @@
  */
 package com.hmdzl.spspd.effects.particles;
 
+import com.hmdzl.spspd.effects.Speck;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.Emitter.Factory;
 import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.effects.Speck;
 
 public class WebParticle extends PixelParticle {
 

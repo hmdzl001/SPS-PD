@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
 public class Shield extends Buff {

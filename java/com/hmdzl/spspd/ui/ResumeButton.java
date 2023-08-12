@@ -17,9 +17,9 @@
  */
 package com.hmdzl.spspd.ui;
 
-import com.watabou.noosa.Image;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.scenes.PixelScene;
+import com.watabou.noosa.Image;
 
 public class ResumeButton extends Tag {
 	

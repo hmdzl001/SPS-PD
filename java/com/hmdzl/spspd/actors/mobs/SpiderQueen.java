@@ -28,6 +28,7 @@ import com.hmdzl.spspd.actors.blobs.DarkGas;
 import com.hmdzl.spspd.actors.blobs.SlowWeb;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Poison;
@@ -396,7 +397,7 @@ public class SpiderQueen extends Mob {
 		@Override
 		public int attackProc(Char enemy, int damage) {
 			int reg = Random.Int(damage);
-			if (reg > 0) {
+			if (reg > 0 && this.buff(BeOld.class) == null) {
 				HP += reg;
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}

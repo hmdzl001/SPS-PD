@@ -46,7 +46,7 @@ public class CursePhone extends MiscEquippable {
 		@Override
 		public boolean act() {
 			if(cursed && Random.Int(10) == 0){
-				Buff.prolong( target, Terror.class, 10f);
+				Buff.prolong( target, Terror.class, 10f).object = target.id();
 				Buff.prolong( target, Vertigo.class, 10f);
 				Buff.affect(target,ArmorBreak.class,10f).level(30);
 				Buff.prolong(target,Arcane.class,10f);

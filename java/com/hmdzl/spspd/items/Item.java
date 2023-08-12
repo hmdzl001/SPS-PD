@@ -27,8 +27,8 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.bags.Bag;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -46,6 +46,8 @@ import com.watabou.utils.Callback;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import static com.hmdzl.spspd.items.weapon.missiles.MissileWeapon.updateRangeWeapon;
 
 public class Item implements Bundlable {
 
@@ -66,6 +68,7 @@ public class Item implements Bundlable {
 
 	protected String name = Messages.get(this, "name");
 	public int image = 0;
+	public int image2 = 0;
 
 	public boolean stackable = false;
 	public boolean breakable = true;
@@ -126,7 +129,8 @@ public class Item implements Bundlable {
 
 
 	public void doThrow(Hero hero) {
-		GameScene.selectCell(thrower);
+		updateRangeWeapon();
+    	GameScene.selectCell(thrower);
 	}
 
 	public void execute(Hero hero, String action) {
@@ -482,6 +486,7 @@ public class Item implements Bundlable {
 		try {
 
 			Item item = cl.newInstance();
+			item.dounique();
 			return item;
 
 		} catch (Exception e) {
@@ -581,14 +586,14 @@ public class Item implements Bundlable {
 				}
 			}
 		}
+
 		final float finalDelay = delay;
 
 		((MissileSprite) user.sprite.parent.recycle(MissileSprite.class))
 				.reset(user.pos, cell, this, new Callback() {
 					@Override
 					public void call() {
-						Item.this.detach(user.belongings.backpack)
-								.onThrow(cell);
+						Item.this.detach(user.belongings.backpack).onThrow(cell);
 						user.spendAndNext(finalDelay);
 					}
 				});

@@ -26,7 +26,26 @@ import com.hmdzl.spspd.items.potions.PotionOfLevitation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.levels.traps.*;
+import com.hmdzl.spspd.levels.traps.ConfusionTrap;
+import com.hmdzl.spspd.levels.traps.DisintegrationTrap;
+import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
+import com.hmdzl.spspd.levels.traps.FlockTrap;
+import com.hmdzl.spspd.levels.traps.GrimTrap;
+import com.hmdzl.spspd.levels.traps.ParalyticTrap;
+import com.hmdzl.spspd.levels.traps.SpearTrap;
+import com.hmdzl.spspd.levels.traps.SummoningTrap;
+import com.hmdzl.spspd.levels.traps.TeleportationTrap;
+import com.hmdzl.spspd.levels.traps.ToxicTrap;
+import com.hmdzl.spspd.levels.traps.Trap;
+import com.hmdzl.spspd.levels.traps.VenomTrap;
+import com.hmdzl.spspd.levels.traps.WarpingTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.FireBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.IceBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.LightBuff2Trap;
+import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuff2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamage2Trap;
 import com.watabou.utils.Random;
 
 public class TrapsPainter extends Painter {
@@ -49,7 +68,7 @@ public class TrapsPainter extends Painter {
         }
 
         if (trapClass == null){
-            Painter.fill(level, room, 1, Terrain.TRAP_AIR);
+            Painter.fill(level, room, 1, Terrain.CHASM);
         } else {
             Painter.fill(level, room, 1, Terrain.TRAP);
         }
@@ -57,7 +76,7 @@ public class TrapsPainter extends Painter {
 		Room.Door door = room.entrance();
 		door.set(Room.Door.Type.REGULAR);
 
-		int lastRow = level.map[room.left + 1 + (room.top + 1) * Level.getWidth()] == Terrain.TRAP_AIR? Terrain.TRAP_AIR
+		int lastRow = level.map[room.left + 1 + (room.top + 1) * Level.getWidth()] == Terrain.CHASM? Terrain.CHASM
 				: Terrain.EMPTY;
 
 		int x = -1;
@@ -92,7 +111,7 @@ public class TrapsPainter extends Painter {
 		
 		int pos = x + y * Level.getWidth();
 		if (Random.Int(3) == 0) {
-			if (lastRow == Terrain.TRAP_AIR) {
+			if (lastRow == Terrain.CHASM) {
 				set(level, pos, Terrain.EMPTY);
 			}
 			level.drop(prize(level), pos).type = Heap.Type.CHEST;
@@ -143,11 +162,10 @@ public class TrapsPainter extends Painter {
 	};*/
 	@SuppressWarnings("unchecked")
 	private static Class<?extends Trap>[] trapType = new Class[]{
-			ToxicTrap.class, TeleportationTrap.class, FlockTrap.class,
-			ConfusionTrap.class, ExplosiveTrap.class, ParalyticTrap.class,
-			BlazingTrap.class, VenomTrap.class, ExplosiveTrap.class,
-			WarpingTrap.class, DisintegrationTrap.class,
-			GrimTrap.class,SpearTrap.class,
-			!Dungeon.bossLevel(Dungeon.depth + 1)? null : SummoningTrap.class};
+			ToxicTrap.class, ConfusionTrap.class, ExplosiveTrap.class, ParalyticTrap.class,
+			 VenomTrap.class,DisintegrationTrap.class,
+			 GrimTrap.class,SpearTrap.class, SummoningTrap.class,
+	         FireBuff2Trap.class, IceBuff2Trap.class, EarthBuff2Trap.class, ShockBuff2Trap.class,
+	         LightBuff2Trap.class, DarkBuff2Trap.class};
 
 }

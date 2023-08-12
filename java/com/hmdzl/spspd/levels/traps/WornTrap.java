@@ -23,7 +23,7 @@ package com.hmdzl.spspd.levels.traps;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
 

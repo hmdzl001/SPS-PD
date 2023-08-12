@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Rankings;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Ankh;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;

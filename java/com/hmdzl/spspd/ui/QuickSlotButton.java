@@ -34,7 +34,7 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 
 	private static final String TXT_SELECT_ITEM = "Select an item for the quickslot";
 
-	private static QuickSlotButton[] instance = new QuickSlotButton[10];
+	private static QuickSlotButton[] instance = new QuickSlotButton[12];
 	private int slotNum;
 
 	private ItemSlot slot;
@@ -62,7 +62,7 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 
 	public static void reset() {
 
-		instance = new QuickSlotButton[10];
+		instance = new QuickSlotButton[12];
 
 		lastTarget = null;
 	}

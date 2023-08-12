@@ -54,6 +54,7 @@ import com.hmdzl.spspd.items.weapon.enchantments.NeptuneShock;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.watabou.utils.Bundlable;
@@ -80,7 +81,6 @@ public class Weapon extends KindOfWeapon {
 	public int durable = 100;
 
 	public Enchantment enchantment;
-	//private int hitsToKnow = HITS_TO_KNOW;
 
 	//@Override
 	public void proc(Char attacker, Char defender, int damage) {
@@ -211,7 +211,6 @@ public class Weapon extends KindOfWeapon {
 		}
 
 		if (this instanceof MissileWeapon) {
-			
 			if (Dungeon.hero.buff(TargetShoot.class)!= null)
 				 damage = (int)(damage*1.5f);
 			
@@ -223,6 +222,11 @@ public class Weapon extends KindOfWeapon {
 			damage = (int)(damage * ( 1.5 + 0.25 * bonus));
 			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
 		    }
+			
+			if (this instanceof MeleeThrowWeapon && hero.damagetwice){
+				damage = damage*2;
+			}
+			
 		}
 
 		return Math.round(damage);

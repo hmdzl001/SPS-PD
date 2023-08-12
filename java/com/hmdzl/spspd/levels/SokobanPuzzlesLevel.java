@@ -49,9 +49,9 @@ import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.HeapGenTrap;
 import com.hmdzl.spspd.levels.traps.SokobanPortalTrap;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.plants.Flytrap;
-import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.ReNepenth;
+import com.hmdzl.spspd.plants.StarEater;
 import com.hmdzl.spspd.plants.Starflower;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
@@ -656,11 +656,11 @@ public class SokobanPuzzlesLevel extends Level {
 		 if (first){
 			 addItemToGen(new ScrollOfMagicalInfusion() , 7, 41 + WIDTH * 2);
 			 addItemToGen(new Egg() , 8, 41 + WIDTH * 2);
-			 addItemToGen(new Phaseshift.Seed() , 9, 41 + WIDTH * 2);
+			 addItemToGen(new ReNepenth.Seed() , 9, 41 + WIDTH * 2);
 			 addItemToGen(new Starflower.Seed() , 10, 41 + WIDTH * 2);
-			 addItemToGen(new Flytrap.Seed() , 11, 41 + WIDTH * 2);
-			 addItemToGen(new Phaseshift.Seed() , 12, 41 + WIDTH * 2);
-			 addItemToGen(new Flytrap.Seed() , 13, 41 + WIDTH * 2);
+			 addItemToGen(new StarEater.Seed() , 11, 41 + WIDTH * 2);
+			 addItemToGen(new ReNepenth.Seed() , 12, 41 + WIDTH * 2);
+			 addItemToGen(new StarEater.Seed() , 13, 41 + WIDTH * 2);
 			 addItemToGen(new ScrollOfMagicalInfusion() , 14, 41 + WIDTH * 2);
 
 		 }

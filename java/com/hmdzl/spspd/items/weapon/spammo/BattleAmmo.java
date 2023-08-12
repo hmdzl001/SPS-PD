@@ -5,10 +5,10 @@ import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.sprites.ItemSprite;
+import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 
 
 public class BattleAmmo extends SpAmmo {

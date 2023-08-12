@@ -2,6 +2,7 @@ package com.hmdzl.spspd.items.artifacts;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -9,7 +10,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -97,7 +98,7 @@ public class ChaliceOfBlood extends Artifact {
 	private void prick(Hero hero) {
 		int damage = 2 * (level * level);
 
-		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);
+		Earthroot.MagicPlantArmor armor = hero.buff(Earthroot.MagicPlantArmor.class);
 		if (armor != null) {
 			damage = armor.absorb(damage);
 		}

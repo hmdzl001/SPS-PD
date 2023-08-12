@@ -17,21 +17,20 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.actors.buffs.Locked;
-import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.Fire;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.weapon.missiles.PoisonDart;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.PoisonDart;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GnollTricksterSprite;
-
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 

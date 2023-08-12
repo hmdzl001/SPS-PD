@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.BadgesList;
 import com.hmdzl.spspd.ui.ExitButton;
@@ -30,9 +30,9 @@ import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.NinePatch;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Callback;
-import com.watabou.noosa.RenderedText;
 
 public class BadgesScene extends PixelScene {
 

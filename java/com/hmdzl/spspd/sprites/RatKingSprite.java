@@ -17,10 +17,10 @@
  */
 package com.hmdzl.spspd.sprites;
 
-import java.util.Calendar;
-
 import com.hmdzl.spspd.Assets;
 import com.watabou.noosa.TextureFilm;
+
+import java.util.Calendar;
 
 public class RatKingSprite extends MobSprite {
 

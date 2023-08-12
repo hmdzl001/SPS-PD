@@ -17,11 +17,11 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.Arrays;
-
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
+
+import java.util.Arrays;
 
 public class DeadEndLevel extends Level {
 

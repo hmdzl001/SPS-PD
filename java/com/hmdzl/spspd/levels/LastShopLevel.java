@@ -17,16 +17,15 @@
  */
 package com.hmdzl.spspd.levels;
 
-import java.util.List;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Random;
+
+import java.util.List;
 
 public class LastShopLevel extends RegularLevel {
 

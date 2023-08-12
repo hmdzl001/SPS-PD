@@ -38,7 +38,7 @@ public class FlockTrap extends Trap {
 
 	{
 		color = TrapSprite.WHITE;
-		shape = TrapSprite.WAVES;
+		shape = TrapSprite.GRILL;
 	}
 
 

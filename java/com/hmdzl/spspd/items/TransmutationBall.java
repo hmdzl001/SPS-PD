@@ -29,6 +29,7 @@ import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -91,6 +92,8 @@ public class TransmutationBall extends Item {
 			if (item != null) {
 				if (item instanceof MeleeWeapon) {
 					result = changeWeapon((MeleeWeapon) item);
+				} else if (item instanceof MeleeThrowWeapon) {
+					result = changeWeapon2((MeleeThrowWeapon) item);
 				} else if (item instanceof Armor) {
 					result = changeArmor((Armor) item);
 				} else if (item instanceof Ring) {
@@ -113,24 +116,44 @@ public class TransmutationBall extends Item {
 
 	
 		private MeleeWeapon changeWeapon(MeleeWeapon w) {
-			MeleeWeapon n;
-			do {
-				n = (MeleeWeapon) Generator.random(Generator.Category.MELEEWEAPON);
-			} while (n.getClass() == w.getClass());
-			n.level = 0;
-			int level = w.level;
-			if (level > 0) {
-				n.upgrade(level);
-			} else if (level < 0) {
-				n.degrade(-level);
-			}
-			n.enchantment = w.enchantment;
-			n.reinforced = w.reinforced;
-			n.levelKnown = w.levelKnown;
-			n.cursedKnown = w.cursedKnown;
-			n.cursed = w.cursed;
-			return n;
+		MeleeWeapon n;
+		do {
+			n = (MeleeWeapon) Generator.random(Generator.Category.MELEEWEAPON);
+		} while (n.getClass() == w.getClass());
+		n.level = 0;
+		int level = w.level;
+		if (level > 0) {
+			n.upgrade(level);
+		} else if (level < 0) {
+			n.degrade(-level);
 		}
+		n.enchantment = w.enchantment;
+		n.reinforced = w.reinforced;
+		n.levelKnown = w.levelKnown;
+		n.cursedKnown = w.cursedKnown;
+		n.cursed = w.cursed;
+		return n;
+	}
+
+	private MeleeThrowWeapon changeWeapon2(MeleeThrowWeapon w) {
+		MeleeThrowWeapon n;
+		do {
+			n = (MeleeThrowWeapon) Generator.random(Generator.Category.MELEEWEAPON);
+		} while (n.getClass() == w.getClass());
+		n.level = 0;
+		int level = w.level;
+		if (level > 0) {
+			n.upgrade(level);
+		} else if (level < 0) {
+			n.degrade(-level);
+		}
+		n.enchantment = w.enchantment;
+		n.reinforced = w.reinforced;
+		n.levelKnown = w.levelKnown;
+		n.cursedKnown = w.cursedKnown;
+		n.cursed = w.cursed;
+		return n;
+	}
 
 		private Armor changeArmor(Armor r) {
 			Armor n;

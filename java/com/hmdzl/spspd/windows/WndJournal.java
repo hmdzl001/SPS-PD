@@ -17,20 +17,20 @@
  */
 package com.hmdzl.spspd.windows;
 
-import java.util.Collections;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Journal;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.ScrollPane;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Image;
-import com.watabou.noosa.ui.Component;
 import com.watabou.noosa.RenderedText;
+import com.watabou.noosa.ui.Component;
+
+import java.util.Collections;
 
 public class WndJournal extends Window {
 

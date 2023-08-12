@@ -26,8 +26,6 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.IceMeat;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.Potion;
-import com.hmdzl.spspd.items.potions.PotionOfMight;
-import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;

@@ -19,8 +19,8 @@ package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.Window;
-import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.BitmapTextMultiline;
+import com.watabou.noosa.RenderedText;
 
 public class WndList extends Window {
 

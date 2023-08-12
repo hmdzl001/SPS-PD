@@ -17,14 +17,14 @@
  */
 package com.hmdzl.spspd.effects;
 
-import java.util.HashMap;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
+
+import java.util.HashMap;
 
 public class SpellSprite extends Image {
 

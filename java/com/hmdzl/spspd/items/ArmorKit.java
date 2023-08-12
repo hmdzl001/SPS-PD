@@ -85,7 +85,7 @@ public class ArmorKit extends Item {
 		return true;
 	}
 
-	/*private void upgrade(Armor armor) {
+	/*private void upgrade(MagicPlantArmor armor) {
 
 		detach(curUser.belongings.backpack);
 
@@ -117,7 +117,7 @@ public class ArmorKit extends Item {
 		@Override
 		public void onSelect(Item item) {
 			if (item != null) {
-				SkillBook.this.upgrade((Armor) item);
+				SkillBook.this.upgrade((MagicPlantArmor) item);
 			}
 		}
 	};*/

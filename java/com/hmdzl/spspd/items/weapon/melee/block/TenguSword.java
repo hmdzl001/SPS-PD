@@ -17,37 +17,14 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.block;
 
-import java.util.ArrayList;
-
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.buffs.MirrorShield;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
-import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.particles.PurpleParticle;
-import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.scenes.CellSelector;
-import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.sprites.MissileSprite;
-import com.hmdzl.spspd.ui.QuickSlotButton;
-import com.hmdzl.spspd.utils.GLog;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class TenguSword extends MeleeWeapon {
 

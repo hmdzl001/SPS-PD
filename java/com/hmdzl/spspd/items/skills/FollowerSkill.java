@@ -45,8 +45,6 @@ import com.watabou.utils.Random;
 
 import java.util.HashMap;
 
-import static com.hmdzl.spspd.Dungeon.hero;
-
 
 public class FollowerSkill extends ClassSkill {
 	private static final String TXT_VALUE = "%+d";

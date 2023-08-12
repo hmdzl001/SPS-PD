@@ -18,13 +18,14 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.PoisonGas;
+import com.hmdzl.spspd.actors.blobs.SwampGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.effects.Wound;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
@@ -85,6 +86,7 @@ public class BambooMob extends Mob {
 		int dmg = Random.IntRange(0, damage) - enemy.drRoll();
 		if (dmg > 0) {
 			enemy.damage(dmg, this);
+			Wound.hit(enemy);
 		}
 
 		return super.defenseProc(enemy, damage);
@@ -106,7 +108,7 @@ public class BambooMob extends Mob {
 	{
 		weakness.add(ToxicGas.class);
 		weakness.add(Ooze.class);
-		weakness.add(PoisonGas.class);
+		weakness.add(SwampGas.class);
 
 		resistances.add(Roots.class);
 

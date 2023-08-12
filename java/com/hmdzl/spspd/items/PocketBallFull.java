@@ -290,6 +290,8 @@ public class PocketBallFull extends Item {
         }
         PET petCheck = checkpet();
         if(petCheck!=null){
+            Dungeon.hero.petHP = petCheck.HP;
+            Dungeon.hero.petCooldown = petCheck.cooldown;
             petCheck.destroy();
             petCheck.sprite.killAndErase();
         }
@@ -419,12 +421,15 @@ public class PocketBallFull extends Item {
             GameScene.add(pet);
             pet.updateStats();
             pet.HP = Dungeon.hero.petHP;
+            pet.cooldown = Dungeon.hero.petCooldown;
         } else GLog.n(Messages.get(PocketBallFull.class, "no_pet"));
 	}
 
     public static void removePet(Hero hero) {
         for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
             if(mob instanceof PET) {
+                Dungeon.hero.petHP = mob.HP;
+                Dungeon.hero.petCooldown = ((PET) mob).cooldown;
                 mob.destroy();
                 mob.sprite.killAndErase();
             }
@@ -435,6 +440,7 @@ public class PocketBallFull extends Item {
     public static void target(Hero hero) {
         PET petCheck = checkpet();
         if(petCheck!=null){
+
             Buff.detach(petCheck,HiddenShadow.class);
             Buff.affect(petCheck, WatchOut.class);
         }

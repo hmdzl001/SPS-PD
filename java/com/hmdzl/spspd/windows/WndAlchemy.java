@@ -60,6 +60,7 @@ import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.completefood.Porksoup;
 import com.hmdzl.spspd.items.food.completefood.RiceGruel;
 import com.hmdzl.spspd.items.food.completefood.Ricefood;
+import com.hmdzl.spspd.items.food.completefood.Sishimi;
 import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.items.food.completefood.Vegetableroll;
 import com.hmdzl.spspd.items.food.completefood.Vegetablesoup;
@@ -102,15 +103,15 @@ import com.hmdzl.spspd.plants.Dreamfoil;
 import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Fadeleaf;
 import com.hmdzl.spspd.plants.Firebloom;
-import com.hmdzl.spspd.plants.Flytrap;
 import com.hmdzl.spspd.plants.Freshberry;
 import com.hmdzl.spspd.plants.Icecap;
 import com.hmdzl.spspd.plants.NutPlant;
-import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.ReNepenth;
 import com.hmdzl.spspd.plants.Rotberry;
 import com.hmdzl.spspd.plants.Seedpod;
 import com.hmdzl.spspd.plants.Sorrowmoss;
+import com.hmdzl.spspd.plants.StarEater;
 import com.hmdzl.spspd.plants.Starflower;
 import com.hmdzl.spspd.plants.Stormvine;
 import com.hmdzl.spspd.plants.Sungrass;
@@ -353,8 +354,8 @@ public class WndAlchemy extends Window {
 		ArrayList<Freshberry.Seed> freseed = filterInput( Freshberry.Seed.class);
 		ArrayList<Earthroot.Seed> rootseed = filterInput(Earthroot.Seed.class);
 		ArrayList<BlandfruitBush.Seed> blandseed = filterInput(BlandfruitBush.Seed.class);
-		ArrayList<Flytrap.Seed> trapseed = filterInput(Flytrap.Seed.class);
-		ArrayList<Phaseshift.Seed> phaseseed = filterInput(Phaseshift.Seed.class);
+		ArrayList<StarEater.Seed> trapseed = filterInput(StarEater.Seed.class);
+		ArrayList<ReNepenth.Seed> phaseseed = filterInput(ReNepenth.Seed.class);
 		ArrayList<NutPlant.Seed> nutseed = filterInput(NutPlant.Seed.class);
 
 		Item result = null;
@@ -461,7 +462,8 @@ public class WndAlchemy extends Window {
 			result = new Frenchfries();
 		} else if ( honey.size() == 1 && gels.size() == 1 ){
 			result = new HoneyGel();
-
+		}  else if ( water.size() == 1 && meatfoods.size() == 1  ){
+			result = new Sishimi();
 		} else if (honey.size() == 1  && staplefoods.size() ==1  ){
 			result = new Honeyrice();
 		} else if (honey.size() == 1  && meatfoods.size() ==1  ){

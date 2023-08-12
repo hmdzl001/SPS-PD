@@ -17,11 +17,11 @@
  */
 package com.hmdzl.spspd;
 
-import java.util.ArrayList;
-
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+
+import java.util.ArrayList;
 
 public class Journal {
 

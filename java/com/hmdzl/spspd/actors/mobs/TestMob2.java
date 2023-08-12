@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.ElectriShock;
+import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HiddenShadow;
 import com.hmdzl.spspd.actors.buffs.Locked;
@@ -80,7 +80,7 @@ public class TestMob2 extends Mob {
 		//	} else if (enemy.buff(BugMeat.BugSlow.class) == null)
 		//		Buff.affect(enemy,BugMeat.BugSlow.class);
 		//}
-
+		//Buff.affect(this,Terror.class,6f).object = enemy.id();
 		Buff.prolong(this,HiddenShadow.class,2f);
 		return damage;
 	}

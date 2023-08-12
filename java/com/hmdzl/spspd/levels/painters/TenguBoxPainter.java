@@ -27,7 +27,7 @@ import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.plants.Phaseshift;
+import com.hmdzl.spspd.plants.ReNepenth;
 import com.hmdzl.spspd.plants.Starflower;
 import com.watabou.utils.Random;
 
@@ -80,7 +80,7 @@ public class TenguBoxPainter extends Painter {
 			prize = new Egg();
 			break;
 		case 1:
-			prize = new Phaseshift.Seed();
+			prize = new ReNepenth.Seed();
 			break;
 		case 2:
 			prize = Generator.random(Generator.Category.BERRY);

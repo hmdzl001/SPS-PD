@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.missiles.LynnDoll;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.LynnDoll;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.LynnSprite;
 import com.watabou.utils.Random;

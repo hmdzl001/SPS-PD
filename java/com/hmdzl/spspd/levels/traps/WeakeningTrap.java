@@ -23,8 +23,8 @@ package com.hmdzl.spspd.levels.traps;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.STRdown;
+import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Heap;
@@ -33,8 +33,8 @@ import com.hmdzl.spspd.sprites.TrapSprite;
 public class WeakeningTrap extends Trap{
 
 	{
-		color = TrapSprite.GREEN;
-		shape = TrapSprite.WAVES;
+		color = TrapSprite.WHITE;
+		shape = TrapSprite.DIAMOND;
 	}
 
 	@Override

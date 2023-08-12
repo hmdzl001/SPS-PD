@@ -19,6 +19,7 @@ package com.hmdzl.spspd.items.armor.glyphs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Frost;
@@ -33,7 +34,7 @@ import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.Armor.Glyph;
 import com.hmdzl.spspd.items.misc.FourClover;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;

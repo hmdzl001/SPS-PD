@@ -23,8 +23,8 @@ import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.plants.BlandfruitBush;
-import com.hmdzl.spspd.plants.Flytrap;
-import com.hmdzl.spspd.plants.Phaseshift;
+import com.hmdzl.spspd.plants.ReNepenth;
+import com.hmdzl.spspd.plants.StarEater;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -41,11 +41,11 @@ public class WisdomRoomPainter extends Painter {
 
 		int bushes = Random.Int(3);
 		if (bushes == 0) {
-			level.plant(new Flytrap.Seed(),room.random());
+			level.plant(new StarEater.Seed(),room.random());
 		} else if (bushes == 1) {
 			level.plant(new BlandfruitBush.Seed(), room.random());
 		} else if (bushes == 2) {
-			level.plant(new Phaseshift.Seed(), room.random());
+			level.plant(new ReNepenth.Seed(), room.random());
 		}
 
 		Sentinel statue = new Sentinel();

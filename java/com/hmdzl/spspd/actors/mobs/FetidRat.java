@@ -17,17 +17,14 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
-import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.StenchGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Ooze;
+import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.FetidRatSprite;
-
 import com.watabou.utils.Random;
 	
 	public class FetidRat extends Rat {

@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackDown;
@@ -30,13 +28,14 @@ import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class NmHealBag extends Item {
 

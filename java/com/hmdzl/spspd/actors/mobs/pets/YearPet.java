@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
-import com.hmdzl.spspd.items.weapon.missiles.MoneyPack;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.MoneyPack;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.BeastYearSprite;
 import com.watabou.utils.Random;

@@ -23,7 +23,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.normalarmor.ErrorArmor;
 import com.hmdzl.spspd.items.wands.WandOfError;
 import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
-import com.hmdzl.spspd.items.weapon.missiles.ErrorAmmo;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.ErrorAmmo;
 import com.hmdzl.spspd.sprites.BugDragonSprite;
 import com.watabou.utils.Random;
 

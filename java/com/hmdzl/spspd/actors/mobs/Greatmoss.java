@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ConfusionGas;
 import com.hmdzl.spspd.actors.blobs.DarkGas;
@@ -27,13 +28,11 @@ import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.plants.Sungrass;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GreatMossSprite;
-
 import com.watabou.utils.Random;
 
 public class Greatmoss extends Mob {

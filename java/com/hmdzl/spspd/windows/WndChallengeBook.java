@@ -21,16 +21,15 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.ChallengeBook;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.RedButton;
-import com.hmdzl.spspd.ui.Window;
-
-import com.watabou.noosa.Game;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
+import com.hmdzl.spspd.ui.Window;
+import com.watabou.noosa.Game;
 
 public class WndChallengeBook extends Window {
 

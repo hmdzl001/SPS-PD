@@ -19,7 +19,6 @@ package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
 import com.watabou.noosa.TextureFilm;
-import com.watabou.utils.Random;
 
 public class BlueGirlSprite extends MobSprite {
 

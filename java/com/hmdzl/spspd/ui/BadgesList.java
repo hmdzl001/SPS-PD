@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.ui;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.effects.BadgeBanner;
@@ -26,9 +24,11 @@ import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.windows.WndBadge;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Component;
-import com.watabou.noosa.RenderedText;
+
+import java.util.ArrayList;
 
 public class BadgesList extends ScrollPane {
 

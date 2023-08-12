@@ -40,6 +40,7 @@ import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.items.food.completefood.FruitCandy;
 import com.hmdzl.spspd.items.food.completefood.Gel;
+import com.hmdzl.spspd.items.food.completefood.Mediummeat;
 import com.hmdzl.spspd.items.food.completefood.MixPizza;
 import com.hmdzl.spspd.items.food.completefood.NutCookie;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
@@ -78,15 +79,15 @@ import com.hmdzl.spspd.plants.Dreamfoil;
 import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Fadeleaf;
 import com.hmdzl.spspd.plants.Firebloom;
-import com.hmdzl.spspd.plants.Flytrap;
 import com.hmdzl.spspd.plants.Freshberry;
 import com.hmdzl.spspd.plants.Icecap;
 import com.hmdzl.spspd.plants.NutPlant;
-import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.ReNepenth;
 import com.hmdzl.spspd.plants.Rotberry;
 import com.hmdzl.spspd.plants.Seedpod;
 import com.hmdzl.spspd.plants.Sorrowmoss;
+import com.hmdzl.spspd.plants.StarEater;
 import com.hmdzl.spspd.plants.Starflower;
 import com.hmdzl.spspd.plants.Stormvine;
 import com.hmdzl.spspd.plants.Sungrass;
@@ -237,10 +238,17 @@ public class WndIronMaker extends Window {
 		@Override
 		public void onSelect( Item item ) {
 			if (item != null) {
-				for (int i = 0; i < (inputs.length ); i++) {
-					if (inputs[i].item == null){
+				Garbage gb = hero.belongings.getItem(Garbage.class);
+				if (item instanceof Garbage && gb.quantity() > 5) {
+					for (int i = 0; i < 5; i++) {
 						inputs[i].item(item.detach(hero.belongings.backpack));
-						break;
+					}
+				} else {
+					for (int i = 0; i < (inputs.length); i++) {
+						if (inputs[i].item == null) {
+							inputs[i].item(item.detach(hero.belongings.backpack));
+							break;
+						}
 					}
 				}
 			}
@@ -306,8 +314,8 @@ public class WndIronMaker extends Window {
 		ArrayList<Rotberry.Seed> rotseed = filterInput(Rotberry.Seed.class);
 		ArrayList<Earthroot.Seed> rootseed = filterInput(Earthroot.Seed.class);
 		ArrayList<BlandfruitBush.Seed> blandseed = filterInput(BlandfruitBush.Seed.class);
-		ArrayList<Flytrap.Seed> trapseed = filterInput(Flytrap.Seed.class);
-		ArrayList<Phaseshift.Seed> phaseseed = filterInput(Phaseshift.Seed.class);
+		ArrayList<StarEater.Seed> trapseed = filterInput(StarEater.Seed.class);
+		ArrayList<ReNepenth.Seed> phaseseed = filterInput(ReNepenth.Seed.class);
 		ArrayList<NutPlant.Seed> nutseed = filterInput(NutPlant.Seed.class);
 		
 		ArrayList<Plant.Seed> seeds = filterInput(Plant.Seed.class);
@@ -391,6 +399,8 @@ public class WndIronMaker extends Window {
 			result = new BattleAmmo();
 		} else if ( ws.size() == 1 && sty.size() == 1  ){
 			result = new GreatRune();
+		} else if ( water.size() == 1 && meatfoods.size() == 1  ){
+			result = new Mediummeat();
 		} else if ( miscroll.size() == 1  ){
 			result = new GreatRune();
 		} else if ( gels.size() == 1  ){
@@ -401,7 +411,7 @@ public class WndIronMaker extends Window {
 				result = (water.size() * 15 > Random.Int(100))? item1.upgrade(1) : new Garbage();
 		} else if (equip.size() == 1){
 			result = new Garbage(2);
-		} else result = new Garbage();
+		} else result = new Garbage(item.size());
 
 		if (result != null){
 			bubbleEmitter.start(Speck.factory( Speck.BUBBLE ), 0.2f, 10 );

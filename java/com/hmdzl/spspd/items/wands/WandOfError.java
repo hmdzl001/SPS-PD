@@ -31,6 +31,7 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.effects.Speck;
@@ -41,15 +42,14 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
+import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.actors.buffs.Slow;
-import com.watabou.noosa.tweeners.AlphaTweener;
 
 public class WandOfError extends Wand {
 

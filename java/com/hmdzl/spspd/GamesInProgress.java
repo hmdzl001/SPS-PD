@@ -17,10 +17,10 @@
  */
 package com.hmdzl.spspd;
 
-import java.util.HashMap;
-
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.watabou.utils.Bundle;
+
+import java.util.HashMap;
 
 public class GamesInProgress {
 

@@ -109,8 +109,9 @@ public class TimeKeeper extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		if (HT/2 > HP - dmg  && HP > HT/2){
-			dmg = HP-(int)(HT/2)+1;
+		if ( HP - dmg < HT/2 && !skilluse){
+			dmg = 0;
+			skilluse = true;
 			Buff.affect(this,WatchOut.class);
 			int newPos;
 			do {

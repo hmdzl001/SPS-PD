@@ -35,15 +35,12 @@ import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.RedWraithSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class RedWraith extends Mob {
 
@@ -104,7 +101,7 @@ public class RedWraith extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(4) == 0) {
 			Buff.affect(enemy, Vertigo.class, 5f);
-			Buff.affect(enemy, Terror.class, Terror.DURATION).object = enemy.id();
+			Buff.affect(enemy, Terror.class, Terror.DURATION).object = this.id();
 		}
 
 		return damage;

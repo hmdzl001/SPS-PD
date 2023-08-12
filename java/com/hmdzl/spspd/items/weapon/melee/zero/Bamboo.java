@@ -17,10 +17,10 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.zero;
 
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.actors.Char;
 import com.watabou.utils.Random;
 
 public class Bamboo extends MeleeWeapon {

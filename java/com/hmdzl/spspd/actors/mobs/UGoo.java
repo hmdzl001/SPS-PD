@@ -24,10 +24,10 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
-import com.hmdzl.spspd.actors.blobs.ElectriShock;
-import com.hmdzl.spspd.actors.blobs.Fire;
-import com.hmdzl.spspd.actors.blobs.FrostGas;
+import com.hmdzl.spspd.actors.blobs.SlowGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -451,7 +451,7 @@ public class UGoo extends Mob {
 
 			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
 					GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2,
-							FrostGas.class));
+							SlowGas.class));
 				}
 
 				return super.act();
@@ -466,7 +466,7 @@ public class UGoo extends Mob {
 			immunities.add(Poison.class);
 			immunities.add(Vertigo.class);
 			immunities.add(ToxicGas.class);
-			immunities.add(FrostGas.class);
+			immunities.add(SlowGas.class);
 
 		}
 

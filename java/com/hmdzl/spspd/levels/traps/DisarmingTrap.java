@@ -32,7 +32,7 @@ import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -40,7 +40,7 @@ import com.watabou.noosa.audio.Sample;
 public class DisarmingTrap extends Trap{
 
 	{
-		color = TrapSprite.RED;
+		color = TrapSprite.ORANGE;
 		shape = TrapSprite.LARGE_DOT;
 	}
 

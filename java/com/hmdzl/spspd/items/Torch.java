@@ -17,19 +17,22 @@
  */
 package com.hmdzl.spspd.items;
 
-import java.util.ArrayList;
-
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.TorchLight;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HighLight;
-import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
+
+import java.util.ArrayList;
 
 public class Torch extends Item {
 
 	public static final String AC_LIGHT = "LIGHT";
+	public static final String AC_SET = "SET";
 
 	public static final float TIME_TO_LIGHT = 1;
 
@@ -39,13 +42,14 @@ public class Torch extends Item {
 
 		stackable = true;
 
-		defaultAction = AC_LIGHT;
+		defaultAction = AC_SET;
 	}
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		actions.add(AC_LIGHT);
+		actions.add(AC_SET);
 		return actions;
 	}
 
@@ -62,6 +66,16 @@ public class Torch extends Item {
 			detach(hero.belongings.backpack);
 			Buff.affect(hero, HighLight.class, 300);
 
+			Emitter emitter = hero.sprite.centerEmitter();
+			emitter.start(FlameParticle.FACTORY, 0.2f, 3);
+
+		} else if (action.equals(AC_SET)) {
+
+			hero.spend(TIME_TO_LIGHT);
+			hero.busy();
+			hero.sprite.operate(hero.pos);
+			detach(hero.belongings.backpack);
+			GameScene.add(Blob.seed(hero.pos, 1, TorchLight.class));
 			Emitter emitter = hero.sprite.centerEmitter();
 			emitter.start(FlameParticle.FACTORY, 0.2f, 3);
 

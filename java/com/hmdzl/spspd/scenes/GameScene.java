@@ -253,7 +253,7 @@ public class GameScene extends PixelScene {
 		attack = new AttackIndicator();
 		attack.camera = uiCamera;
 		attack.setPos(uiCamera.width - attack.width(),
-				toolbar.top() - attack.height());
+				toolbar.top() - 2 * attack.height());
 		add(attack);
 
 		loot = new LootIndicator();
@@ -263,7 +263,7 @@ public class GameScene extends PixelScene {
 		action = new ActionIndicator();
 		action.camera = uiCamera;
 		action.setPos(uiCamera.width - attack.width(),
-				toolbar.top() -3 * attack.height());
+				toolbar.top() -4 * attack.height());
 		add( action );		
 		
 		resume = new ResumeIndicator();
@@ -274,7 +274,7 @@ public class GameScene extends PixelScene {
 
 		log = new GameLog();
 		log.camera = uiCamera;
-		log.setRect(0, toolbar.top(), attack.left(), 0);
+		log.setRect(0, toolbar.top()-16, attack.left(), 0);
 		add(log);
 
 		if (Dungeon.depth < Statistics.deepestFloor)
@@ -471,7 +471,7 @@ public class GameScene extends PixelScene {
 
 	private void layoutTags() {
 
-		float pos = tagAttack ? attack.top() : toolbar.top();
+		float pos = tagAttack ? attack.top() : toolbar.top()-16;
 
 		if (tagLoot) {
 			loot.setPos(uiCamera.width - loot.width(), pos - loot.height());

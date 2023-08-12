@@ -21,6 +21,12 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Recharging;
+import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
+import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
+import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
+import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
+import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
+import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EnergyParticle;
@@ -29,14 +35,6 @@ import com.hmdzl.spspd.items.armor.Armor.Glyph;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
-
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
-
 import com.watabou.utils.Random;
 
 public class Electricityglyph extends Glyph {

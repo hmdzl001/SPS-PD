@@ -31,26 +31,40 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.Imp;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.levels.Room.Type;
-import com.hmdzl.spspd.levels.traps.BlazingTrap;
+import com.hmdzl.spspd.levels.traps.BoundTrap;
 import com.hmdzl.spspd.levels.traps.CursingTrap;
 import com.hmdzl.spspd.levels.traps.DisarmingTrap;
 import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
-import com.hmdzl.spspd.levels.traps.FrostTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
 import com.hmdzl.spspd.levels.traps.GuardianTrap;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
-import com.hmdzl.spspd.levels.traps.OozeTrap;
 import com.hmdzl.spspd.levels.traps.PitfallTrap;
 import com.hmdzl.spspd.levels.traps.RockfallTrap;
-import com.hmdzl.spspd.levels.traps.ShockTrap;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
-import com.hmdzl.spspd.levels.traps.StormTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.VenomTrap;
 import com.hmdzl.spspd.levels.traps.WarpingTrap;
 import com.hmdzl.spspd.levels.traps.WeakeningTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.IceBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.LightBuffTrap;
+import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuffTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.DarkDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.DarkDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.EarthDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.EarthDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.IceDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.IceDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.LightDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.LightDamageTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.ShockDamage2Trap;
+import com.hmdzl.spspd.levels.traps.damagetrap.ShockDamageTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Scene;
 import com.watabou.noosa.particles.Emitter;
@@ -92,18 +106,22 @@ public class CityLevel extends RegularLevel {
 
 	@Override
 	protected Class<?>[] trapClasses() {
-		return new Class[]{ BlazingTrap.class, FrostTrap.class, SpearTrap.class, VenomTrap.class, ShockTrap.class,
-				ExplosiveTrap.class, GrippingTrap.class, LightningTrap.class, RockfallTrap.class, OozeTrap.class, WeakeningTrap.class, 
-				CursingTrap.class, FlockTrap.class, GuardianTrap.class, PitfallTrap.class, SummoningTrap.class, TeleportationTrap.class, StormTrap.class,
-				DisarmingTrap.class, WarpingTrap.class};
+		return new Class[]{ SpearTrap.class, ExplosiveTrap.class, GrippingTrap.class,
+				RockfallTrap.class, WeakeningTrap.class, BoundTrap.class,
+				CursingTrap.class, GuardianTrap.class, PitfallTrap.class,
+				SummoningTrap.class, TeleportationTrap.class, DisarmingTrap.class, WarpingTrap.class,
+				FireDamage2Trap.class, IceDamage2Trap.class, ShockDamage2Trap.class, EarthDamage2Trap.class,
+				LightDamage2Trap.class, DarkDamage2Trap.class};
 	}
 
 	@Override
 	protected float[] trapChances() {
-		return new float[]{ 8, 8, 8, 8, 8,
-				4, 4, 4, 4, 4, 4,
-				2, 2, 2, 2, 2, 2, 2,
-				1, 1 };
+		return new float[]{ 6, 4, 3,
+				6, 3, 3,
+				4, 4, 4,
+				4, 1, 2, 3,
+				3, 3, 3, 3,
+				3, 3};
 	}	
 	
 	@Override

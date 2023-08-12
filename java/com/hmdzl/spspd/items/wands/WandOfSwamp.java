@@ -22,7 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.PoisonGas;
+import com.hmdzl.spspd.actors.blobs.SwampGas;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -64,7 +64,7 @@ public class WandOfSwamp extends DamageWand {
 			heap.earthhit();
 		}
 		
-        GameScene.add( Blob.seed(bolt.collisionPos, 100, PoisonGas.class ) );
+        GameScene.add( Blob.seed(bolt.collisionPos, 100, SwampGas.class ) );
 	}
 
 	@Override

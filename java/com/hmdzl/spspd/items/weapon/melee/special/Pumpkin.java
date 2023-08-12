@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.special;
 
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Terror;
@@ -25,8 +27,6 @@ import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.watabou.utils.Random;
 
 public class Pumpkin extends MeleeWeapon {

@@ -34,8 +34,8 @@ import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.windows.WndChallenges;
 import com.hmdzl.spspd.windows.WndClass;
-import com.hmdzl.spspd.windows.WndImageOptions;
 import com.hmdzl.spspd.windows.WndOptions;
+import com.hmdzl.spspd.windows.WndSkinImageOptions;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -262,7 +262,7 @@ public class StartScene extends PixelScene {
 	
     private void askSkin() {
 
-        StartScene.this.add( new WndSkin() );
+        StartScene.this.add( new WndSkinSkin() );
     }	
 
 	private void startNewGame() {
@@ -494,9 +494,9 @@ public class StartScene extends PixelScene {
 		}
 	}
 	
-    private class WndSkin extends WndImageOptions {
+    private class WndSkinSkin extends WndSkinImageOptions {
 
-        public WndSkin() {
+        public WndSkinSkin() {
             super(Messages.get(Skins.class, "title"), Messages.get(Skins.class, "info"),Messages.get(Skins.class, "normal"),
                     Messages.get(Skins.class, "first"),Messages.get(Skins.class, "second"),Messages.get(Skins.class, "third"),
 					Messages.get(Skins.class, "fourth"),Messages.get(Skins.class, "fifth"),Messages.get(Skins.class, "sixth"),
@@ -522,7 +522,7 @@ public class StartScene extends PixelScene {
 
                         } else {
 
-                            StartScene.this.add( new WndSkin() );
+                            StartScene.this.add( new WndSkinSkin() );
 
                         }
                     }

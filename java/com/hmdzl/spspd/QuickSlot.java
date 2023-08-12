@@ -21,7 +21,7 @@ public class QuickSlot {
 
 	// note that the current max size is coded at 4, due to UI constraints, but
 	// it could be much much bigger with no issue.
-	public static int SIZE = 9;
+	public static int SIZE = 12;
 	private Item[] slots = new Item[SIZE];
 
 	// direct array interaction methods, everything should build from these

@@ -20,15 +20,15 @@
  */
 package com.hmdzl.spspd.effects;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
 
+import com.hmdzl.spspd.Assets;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
-import com.hmdzl.spspd.Assets;
 import com.watabou.utils.PointF;
+
+import javax.microedition.khronos.opengles.GL10;
 
 public class Beam extends Image {
 	

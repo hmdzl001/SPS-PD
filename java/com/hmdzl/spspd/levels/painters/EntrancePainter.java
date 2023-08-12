@@ -17,9 +17,11 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.plants.Plant;
 
 public class EntrancePainter extends Painter {
 
@@ -39,6 +41,11 @@ public class EntrancePainter extends Painter {
         while (level.map[dewbless] == Terrain.ENTRANCE ) {
             dewbless = room.random();
         }
+
+		Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
+		level.explant(seed, room.random());
+
+
         //if (depth<25 && depth >1 ) {
            // level.map[dewbless] = Terrain.DEW_BLESS;
       //  }

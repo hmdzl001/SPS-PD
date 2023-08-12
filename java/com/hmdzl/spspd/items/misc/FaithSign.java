@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.misc;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.faithbuff.BalanceFaith;
 import com.hmdzl.spspd.actors.buffs.faithbuff.DemonFaith;
@@ -27,10 +25,11 @@ import com.hmdzl.spspd.actors.buffs.faithbuff.LifeFaith;
 import com.hmdzl.spspd.actors.buffs.faithbuff.MechFaith;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
-
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndItem;
+
+import java.util.ArrayList;
 
 public class FaithSign extends Item {
 

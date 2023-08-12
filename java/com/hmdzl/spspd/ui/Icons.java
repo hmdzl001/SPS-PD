@@ -25,7 +25,7 @@ public enum Icons {
 
 	SKULL, BUSY, COMPASS, INFO, PREFS, WARNING, TARGET, MASTERY, WATA, SHPX, WARRIOR, MAGE, ROGUE, HUNTRESS, PERFORMER, NEWPLAYER, SOLDIER, FOLLOWER, ASCETIC, CLOSE, DEPTH, SLEEP, ALERT,
 	BACKPACK, SEED_POUCH, SCROLL_HOLDER, POTION_BANDOLIER, WAND_HOLSTER, CHECKED, UNCHECKED, EXIT, CHALLENGE_OFF, CHALLENGE_ON, RESUME, SHOP_CART, KEYRING,
-	LAN, NOTES, SAVELOAD, HOS, CRASH_R, LOST;
+	LAN, NOTES, SAVELOAD, HOS, CRASH_R, LOST, ARROW_C;
 
 	public Image get() {
 		return get(this);
@@ -162,6 +162,11 @@ public enum Icons {
 		case NEWPLAYER:
 		    icon.frame( icon.texture.uvRect( 102, 65, 126, 89 ));
 		    break;
+
+		case ARROW_C:
+			icon.frame( icon.texture.uvRect( 2, 78, 12, 89 ));
+			break;
+
 		}		
 		return icon;
 	}

@@ -51,7 +51,7 @@ public class MiscEquippable extends KindofMisc {
 	@Override
 	public boolean doEquip(Hero hero) {
 
-		if (hero.belongings.misc1 != null && hero.belongings.misc2 != null && hero.belongings.misc3 != null) {
+		/*if (hero.belongings.misc1 != null && hero.belongings.misc2 != null && hero.belongings.misc3 != null) {
 
 			GLog.w(Messages.get(Artifact.class, "onlythree"));
 			return false;
@@ -79,6 +79,28 @@ public class MiscEquippable extends KindofMisc {
 			hero.spendAndNext(TIME_TO_EQUIP);
 			return true;
 
+		}*/
+		if ((hero.belongings.misc1 != null && hero.belongings.misc1.getClass() == this.getClass())
+				|| (hero.belongings.misc2 != null && hero.belongings.misc2.getClass() == this.getClass())
+				|| (hero.belongings.misc3 != null && hero.belongings.misc3.getClass() == this.getClass())
+				){
+
+			GLog.w( Messages.get(Artifact.class, "cannot_wear_two") );
+			return false;
+
+		} else {
+
+			if (super.doEquip( hero )){
+
+				identify();
+				return true;
+
+			} else {
+
+				return false;
+
+			}
+
 		}
 
 	}
@@ -93,13 +115,13 @@ public class MiscEquippable extends KindofMisc {
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)) {
 
-			if (hero.belongings.misc1 == this) {
-				hero.belongings.misc1 = null;
-			} else if (hero.belongings.misc2 == this){
-				hero.belongings.misc2 = null;
-			} else {
-				hero.belongings.misc3 = null;
-			}
+			//if (hero.belongings.misc1 == this) {
+			//	hero.belongings.misc1 = null;
+			//} else if (hero.belongings.misc2 == this){
+			//	hero.belongings.misc2 = null;
+			//} else if (hero.belongings.misc3 == this){
+			//	hero.belongings.misc3 = null;
+			//}
 
 			if (buff != null) {
 			buff.detach();

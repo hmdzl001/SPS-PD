@@ -17,13 +17,11 @@
  */
 package com.hmdzl.spspd.scenes;
 
-import java.nio.FloatBuffer;
-import java.util.Calendar;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.RatSprite;
 import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.RedButton;
@@ -44,7 +42,9 @@ import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+
+import java.nio.FloatBuffer;
+import java.util.Calendar;
 
 public class SurfaceScene extends PixelScene {
 

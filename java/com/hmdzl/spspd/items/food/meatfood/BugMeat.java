@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.food.meatfood;
 
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.BugSlow;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -40,16 +38,6 @@ public class BugMeat extends MeatFood {
         actions.remove( AC_THROW );
         actions.remove( AC_DROP );
 		return actions;
-	}
-
-	//@Override
-	public boolean doPickUp(Hero hero) {
-		if (super.doPickUp(hero)) {
-			Buff.affect(hero,BugSlow.class);
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override

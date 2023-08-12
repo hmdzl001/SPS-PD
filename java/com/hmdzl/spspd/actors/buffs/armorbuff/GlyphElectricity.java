@@ -1,6 +1,6 @@
 package com.hmdzl.spspd.actors.buffs.armorbuff;
 
-import com.hmdzl.spspd.actors.blobs.ElectriShock;
+import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Shocked;

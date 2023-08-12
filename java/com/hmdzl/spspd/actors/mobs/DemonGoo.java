@@ -31,7 +31,7 @@ import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
-import com.hmdzl.spspd.items.weapon.missiles.Skull;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.Skull;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;

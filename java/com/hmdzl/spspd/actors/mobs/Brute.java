@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.items.weapon.missiles.Tamahawk;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Tamahawk;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BruteSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -59,7 +59,7 @@ public class Brute extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return new Tamahawk(5);
+		return new Tamahawk();
 	}
 
 	@Override

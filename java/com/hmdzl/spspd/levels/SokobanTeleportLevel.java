@@ -48,8 +48,8 @@ import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.HeapGenTrap;
 import com.hmdzl.spspd.levels.traps.SokobanPortalTrap;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.ReNepenth;
 import com.hmdzl.spspd.plants.Starflower;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
@@ -697,7 +697,7 @@ public class SokobanTeleportLevel extends Level {
 		 addItemToGen(new AutoPotion(), 6, 36 + WIDTH * 28);
 
 		 if (first){
-			 addItemToGen(new Phaseshift.Seed(), 7, 36 + WIDTH * 28);
+			 addItemToGen(new ReNepenth.Seed(), 7, 36 + WIDTH * 28);
 			 addItemToGen(new Starflower.Seed(), 8, 36 + WIDTH * 28);
 
 			 addItemToGen(new ScrollOfMagicalInfusion(), 9, 36 + WIDTH * 28);

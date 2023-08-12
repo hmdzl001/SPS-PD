@@ -29,6 +29,8 @@ import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
+import com.hmdzl.spspd.items.weapon.ranges.RangeWeapon;
 import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
@@ -217,8 +219,7 @@ public class ItemSlot extends Button {
 			if (isArmor || isWeapon) {
 
 				if (item.levelKnown
-						|| (isWeapon && !(item instanceof MeleeWeapon))) {
-
+						|| (isWeapon && !(item instanceof MeleeWeapon || item instanceof MeleeThrowWeapon || item instanceof RangeWeapon))) {
 					int str = isArmor ? ((Armor) item).STR()
 							: ((Weapon) item).STR();
 					topRight.text( Messages.format( TXT_STRENGTH, str ));
@@ -227,12 +228,10 @@ public class ItemSlot extends Button {
 					} else {
 						topRight.resetColor();
 					}
-
 				} else {
-
 					topRight.text(Messages.format(TXT_TYPICAL_STR,
 							isArmor ? ((Armor) item).STR()
-									: ((MeleeWeapon) item).typicalSTR()));
+									: ((Weapon) item).STR()));
 					topRight.hardlight(WARNING);
 
 				}
@@ -242,14 +241,14 @@ public class ItemSlot extends Button {
 				topRight.text(Messages.format(TXT_KEY_DEPTH, ((Key) item).depth));
 				topRight.measure();
 			} else if (item instanceof Pill) {
-				topRight.text(Messages.format(TXT_ITEM_NAME, ((Pill) item).sname));
-				topRight.measure();
+				bottomLeft.text(Messages.format(TXT_ITEM_NAME, ((Pill) item).sname));
+				bottomLeft.measure();
 			} else if (item instanceof RockCode) {
 				bottomLeft.text(Messages.format(TXT_ITEM_NAME, ((RockCode) item).sname));
 				bottomLeft.measure();
 			} else if ( item instanceof Ring && item.levelKnown) {
-				topRight.text(Messages.format(TXT_ITEM_NAME, ((Ring) item).sname));
-				topRight.measure();
+                topRight.text(Messages.format(TXT_ITEM_NAME, ((Ring) item).sname));
+                topRight.measure();
 			} else {
 
 				topRight.text(null);

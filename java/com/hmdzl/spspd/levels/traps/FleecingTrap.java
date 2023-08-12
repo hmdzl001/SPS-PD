@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.levels.traps;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.npcs.Sheep;
@@ -29,7 +30,7 @@ import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.utils.GLog;

@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
+import android.annotation.SuppressLint;
+
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Belongings;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -29,7 +31,6 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.items.Stylus;
-import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.bags.PotionBandolier;
 import com.hmdzl.spspd.items.bags.ScrollHolder;
@@ -41,7 +42,6 @@ import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
 import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
-import com.hmdzl.spspd.items.journalpages.SafeSpotPage;
 import com.hmdzl.spspd.items.journalpages.Town;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
@@ -58,6 +58,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.melee.special.PaperFan;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.MagicHand;
 import com.hmdzl.spspd.levels.HallsLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
@@ -114,6 +115,7 @@ public class ShopPainter extends Painter {
 		itemsToSpawn = null;
 	}
 
+	@SuppressLint("SuspiciousIndentation")
 	private static void generateItems() {
 
 		itemsToSpawn = new ArrayList<Item>();
@@ -157,15 +159,11 @@ public class ShopPainter extends Painter {
 		ChooseBag(Dungeon.hero.belongings);
 
 		itemsToSpawn.add(new PotionOfHealing());
-		for (int i = 0; i < 2; i++)
 		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
-
-		//itemsToSpawn.add(new ScrollOfIdentify());
-		//itemsToSpawn.add(new ScrollOfRemoveCurse());
 		itemsToSpawn.add(new ScrollOfMagicMapping());
-		for (int i = 0; i < 2; i++)
 		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
-		itemsToSpawn.add(new PocketBall());
+		//itemsToSpawn.add(new PocketBall());
+		itemsToSpawn.add(new MagicHand());
 		itemsToSpawn.add(Generator.random(Generator.Category.BOMBS));
 		//for (int i = 0; i < 2; i++)
 		itemsToSpawn.add(Random.Int(2) == 0 ?
@@ -173,6 +171,7 @@ public class ShopPainter extends Painter {
 		        Generator.random(Generator.Category.SCROLL));
 
 		itemsToSpawn.add(Generator.random(Generator.Category.RANGEWEAPON));
+		itemsToSpawn.add(Generator.random(Generator.Category.SHOOTWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR));
 
@@ -193,7 +192,7 @@ public class ShopPainter extends Painter {
 			itemsToSpawn.add(new Honeypot());
 			break;
 		default:
-			itemsToSpawn.add(new Torch());
+			itemsToSpawn.add(new PocketBall());
 			break;
 		}
 

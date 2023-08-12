@@ -21,11 +21,11 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.ElectriShock;
-import com.hmdzl.spspd.actors.blobs.Fire;
-import com.hmdzl.spspd.actors.blobs.FrostGas;
 import com.hmdzl.spspd.actors.blobs.HealLight;
+import com.hmdzl.spspd.actors.blobs.SlowGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
@@ -80,6 +80,7 @@ import com.hmdzl.spspd.actors.buffs.Shocked2;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.SoulMark;
 import com.hmdzl.spspd.actors.buffs.SpeedImbue;
+import com.hmdzl.spspd.actors.buffs.SpeedSlow;
 import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.actors.buffs.Tar;
@@ -213,10 +214,14 @@ public abstract class Char extends Actor {
 						( h.heroClass == HeroClass.FOLLOWER && Dungeon.skins == 2) ){
 					dr = 0;
 				}
-			}			
+			}
+
+
 			
 			int dmg = damageRoll();
-
+			if (isTerroredBy(enemy)){
+				dmg *= 0.5f;
+			}
 			AttackUp atkup = buff(AttackUp.class);
 			if (atkup != null) {
 				dmg *=(1f+atkup.level()*0.01f);
@@ -344,7 +349,7 @@ public abstract class Char extends Actor {
 	public int damageRoll() {
 		return 1;
 	}
-
+	
 	public int attackProc(Char enemy, int damage) {
 		//if (buff(Shocked.class)!=null && Shocked.first == false){
 		//	Buff.detach(this,Shocked.class);
@@ -446,7 +451,7 @@ public abstract class Char extends Actor {
 		EnergyArmor earmor = buff(EnergyArmor.class);
 		if(!(src instanceof Hunger)) {
 			//if (!(src instanceof DamageType) && !(src instanceof Buff) && !(src instanceof Blob)
-					//&& !(src instanceof Wand) && !(src instanceof Weapon.Enchantment) && !(src instanceof Armor.Glyph)) {
+					//&& !(src instanceof Wand) && !(src instanceof Weapon.Enchantment) && !(src instanceof MagicPlantArmor.Glyph)) {
 
 			//} else {
 
@@ -569,8 +574,12 @@ public abstract class Char extends Actor {
 		float timeScale = 1f;
 		if (buff(Slow.class) != null) {
 			timeScale *= 0.67f;
-		} else if (buff( Chill.class ) != null) {
+		}
+		if (buff( Chill.class ) != null) {
 			timeScale *= buff( Chill.class ).speedFactor();
+		}
+		if (buff( SpeedSlow.class ) != null) {
+			timeScale *= buff( SpeedSlow.class ).speedFactor();
 		}
 		if (buff(SpeedUp.class) != null) {
 			timeScale *= 1.5f;
@@ -621,6 +630,16 @@ public abstract class Char extends Actor {
 		return null;
 	}
 
+	public boolean isTerroredBy(Char ch) {
+		int chID = ch.id();
+		for (Buff b : buffs) {
+			if (b instanceof Terror && ((Terror) b).object == chID) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean isCharmedBy(Char ch) {
 		int chID = ch.id();
 		for (Buff b : buffs) {
@@ -901,11 +920,11 @@ public abstract class Char extends Actor {
 				new HashSet<Class>( )
 		),
 
-		MECH( new HashSet<Class>(  Arrays.asList(Fire.class, FrostGas.class, Frost.class,Burning.class)),
+		MECH( new HashSet<Class>(  Arrays.asList(Fire.class, SlowGas.class, Frost.class,Burning.class)),
 				new HashSet<Class>( Arrays.asList(Charm.class, Terror.class) ),
 				new HashSet<Class>(  Arrays.asList(Ooze.class,WandOfAcid.class, WandOfSwamp.class,DamageType.EarthDamage.class))
 		),
-		UNDEAD( new HashSet<Class>( Arrays.asList(Cold.class, FrostGas.class, Frost.class,BeCorrupt.class)),
+		UNDEAD( new HashSet<Class>( Arrays.asList(Cold.class, SlowGas.class, Frost.class,BeCorrupt.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, HealLight.class, Poison.class,BeOld.class)),
 				new HashSet<Class>(Arrays.<Class>asList(Blindness.class, WandOfLight.class, DamageType.LightDamage.class))
 		),

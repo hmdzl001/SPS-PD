@@ -17,12 +17,12 @@
  */
 package com.hmdzl.spspd.effects;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
 
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.watabou.noosa.Game;
+
+import javax.microedition.khronos.opengles.GL10;
 
 public class TorchHalo extends Halo {
 

@@ -1,6 +1,6 @@
 package com.hmdzl.spspd.items.rings;
 
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 
 import java.text.DecimalFormat;
 

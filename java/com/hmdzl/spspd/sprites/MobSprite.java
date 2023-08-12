@@ -56,17 +56,17 @@ public class MobSprite extends CharSprite {
 		origin.set(width / 2, height - DungeonTilemap.SIZE / 2);
 		angularSpeed = Random.Int(2) == 0 ? -720 : 720;
 
-		parent.add(new ScaleTweener(this, new PointF(0, 0), FALL_TIME) {
+		parent.add(new ScaleTweener(this, new PointF(1, 1), FALL_TIME) {
 			@Override
 			protected void onComplete() {
-				MobSprite.this.killAndErase();
-				parent.erase(this);
+				//MobSprite.this.killAndErase();
+				//parent.erase(this);
 			}
 
             @Override
 			protected void updateValues(float progress) {
 				super.updateValues(progress);
-				am = 1 - progress;
+				//am = 1 - progress;
 			}
 		});
 	}

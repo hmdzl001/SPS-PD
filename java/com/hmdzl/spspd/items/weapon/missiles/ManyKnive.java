@@ -32,6 +32,7 @@ import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
+import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.spammo.SpAmmo;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -138,8 +139,8 @@ public class ManyKnive extends Weapon {
 	@Override
 	public Item upgrade(boolean enchant) {
 		
-		//MIN += 1;
-		MAX += 2;
+		MIN += 1;
+		MAX += 1;
 		super.upgrade(enchant);
 
 		updateQuickslot();

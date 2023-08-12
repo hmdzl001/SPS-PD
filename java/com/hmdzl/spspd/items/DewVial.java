@@ -24,11 +24,11 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.TorchLight;
 import com.hmdzl.spspd.actors.blobs.Water;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.ExitFind;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
@@ -167,7 +167,7 @@ public class DewVial extends Item {
 
 		if (dewpoint + dewpointex > 29) {
 			actions.add(AC_PEEK);
-			actions.add(AC_REFINE);
+
 		}
 
 		if ((Dungeon.dewWater || Dungeon.dewDraw) && dewpoint + dewpointex > 39) {
@@ -176,6 +176,7 @@ public class DewVial extends Item {
 
 		if ((Dungeon.dewWater || Dungeon.dewDraw) && dewpoint + dewpointex > 99){
 			actions.add(AC_BLESS);
+			actions.add(AC_REFINE);
 		}
 		return actions;
 	}
@@ -186,7 +187,11 @@ public class DewVial extends Item {
 
 		if (action.equals( AC_CHOOSE )) {
 
-			GameScene.show(new WndItem(null, this, true));
+			if (Dungeon.hero.buff(DewLight.class) == null) {
+				GameScene.show(new WndItem(null, this, true));
+			} else{
+				Buff.detach(hero, DewLight.class);
+			}
 
 		} else	if (action.equals(AC_DRINK)) {
 			if (dewpoint > 0) {
@@ -209,7 +214,7 @@ public class DewVial extends Item {
 				}
 
 				dewpoint -= dropsNeeded;
-                if (cv!=null && cv.volume<50) {cv.volume+=5;}
+                if (cv!=null) {cv.fill();}
 
 				hero.spend(TIME_TO_DRINK);
 				hero.busy();
@@ -278,7 +283,7 @@ public class DewVial extends Item {
 				dewpoint = dewpoint - 25 - rejection;
 			}
 			//dewpoint = dewpoint - 25 - rejection;
-            if (cv!=null && cv.volume<50) {cv.volume+=5;}
+            if (cv!=null) {cv.fill();}
 			GLog.i(Messages.get(this, "watered"));
 			hero.sprite.operate(hero.pos);
 			hero.busy();
@@ -295,7 +300,7 @@ public class DewVial extends Item {
 			//GLog.i(Messages.get(this, "invisible"));
 			GLog.i(Messages.get(this, "fast"));
 			dewpoint = dewpoint - 15 - rejection;
-            if (cv!=null && cv.volume<50) {cv.volume+=5;}
+            if (cv!=null) {cv.fill();}
 			 updateQuickslot();
 			
 		} else if (action.equals(AC_BLESS) && !Dungeon.dewDraw) {
@@ -321,7 +326,7 @@ public class DewVial extends Item {
 			}
 
 			//dewpoint = dewpoint - 70 - rejection;
-            if (cv!=null && cv.volume<50) {cv.volume+=10;}
+            if (cv!=null ) {cv.fill();cv.fill();}
 			 updateQuickslot();
 			
 		} else if (action.equals(AC_BLESS) && Dungeon.dewDraw) {
@@ -348,7 +353,7 @@ public class DewVial extends Item {
              Buff.detach(hero, Vertigo.class);
             Buff.affect(hero, Invisibility.class, Invisibility.DURATION);
              dewpoint = dewpoint - 20  - rejection;
-             if (cv!=null && cv.volume<50) {cv.volume+=5;}
+             if (cv!=null) {cv.fill();}
              Buff.affect(hero, Bless.class, 30f);
              hero.sprite.operate(hero.pos);
              hero.busy();
@@ -357,7 +362,10 @@ public class DewVial extends Item {
 
 		} else if (action.equals(AC_PEEK)) {
 			Buff.affect(hero, MindVision.class, 2f);
-			Buff.affect(hero, ExitFind.class, 2f);
+			if(Dungeon.depth < 25 && !Dungeon.bossLevel()) {
+				GameScene.add(Blob.seed(Dungeon.level.exit, 1, TorchLight.class));
+				GameScene.add(Blob.seed(Dungeon.level.entrance, 1, TorchLight.class));
+			}
 			if (dewpointex > 0){
 				if (dewpointex > 5 + rejection){
 					dewpointex = dewpointex - 5 - rejection;
@@ -369,7 +377,7 @@ public class DewVial extends Item {
 				dewpoint = dewpoint - 5 - rejection;
 			}
 			//dewpoint = dewpoint - 5  - rejection;
-            if (cv!=null && cv.volume<50) {cv.volume+=5;}
+            if (cv!=null) {cv.fill();}
 			hero.sprite.operate(hero.pos);
 			hero.busy();
 			hero.spend(TIME_TO_LIGHT);
@@ -377,21 +385,21 @@ public class DewVial extends Item {
 		} else if (action.equals(AC_REFINE)) {
 
 			if (dewpointex > 0){
-				if (dewpointex > 10 + rejection){
-					dewpointex = dewpointex - 10 - rejection;
+				if (dewpointex > 100 + rejection){
+					dewpointex = dewpointex - 100 - rejection;
 				} else {
-					dewpoint = dewpoint + dewpointex - 10 - rejection;
+					dewpoint = dewpoint + dewpointex - 100 - rejection;
 					dewpointex = 0;
 				}
 			} else {
-				dewpoint = dewpoint - 10 - rejection;
+				dewpoint = dewpoint - 100 - rejection;
 			}
 			// dewpoint = dewpoint - 10 - rejection;
             //if (cv!=null && cv.dewpoint<50) {cv.dewpoint+=5;}
 			 hero.sprite.operate(hero.pos);
 			 hero.busy();
 			 hero.spend(TIME_TO_DRINK);
-			 WaterItem wateritem = new WaterItem();
+			 WaterItem wateritem = new WaterItem(10);
 			 if (wateritem.doPickUp(Dungeon.hero)) {
 				 GLog.i( Messages.get(Dungeon.hero, "you_now_have", wateritem.name()));
 			 } else {
@@ -466,7 +474,7 @@ public class DewVial extends Item {
 				}
 				//dewpoint = dewpoint - 70 - rejection;
                 CrystalVial cv = hero.belongings.getItem(CrystalVial.class);
-                if (cv!=null && cv.volume<50) {cv.volume+=5;}
+                if (cv!=null) {cv.fill();}
 			}
 		}
 	};

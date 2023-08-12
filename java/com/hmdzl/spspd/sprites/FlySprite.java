@@ -23,8 +23,8 @@
  */
 package com.hmdzl.spspd.sprites;
 
-import com.watabou.noosa.TextureFilm;
 import com.hmdzl.spspd.Assets;
+import com.watabou.noosa.TextureFilm;
 
 public class FlySprite extends MobSprite {
 	

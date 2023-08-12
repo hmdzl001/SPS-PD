@@ -33,7 +33,7 @@ public class PoisonTrap extends Trap{
 
 	{
 		color = TrapSprite.VIOLET;
-		shape = TrapSprite.CROSSHAIR;
+		shape = TrapSprite.DIAMOND;
 	}
 
 	@Override

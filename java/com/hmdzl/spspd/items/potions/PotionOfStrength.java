@@ -35,7 +35,7 @@ public class PotionOfStrength extends Potion {
 	public void apply(Hero hero) {
 		setKnown();
         Buff.affect(hero, AttackUp.class,360f).level(40);
-		Buff.affect(hero, Muscle.class,360f);
+		Buff.affect(hero, Muscle.class,600f);
 		hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 		
 	}

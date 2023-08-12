@@ -52,7 +52,7 @@ public class BlueWraith extends Wraith  {
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(10) == 0) {
 			Buff.affect(enemy, Vertigo.class, 5f);
-			Buff.affect(enemy, Terror.class, Terror.DURATION).object = enemy.id();
+			Buff.affect(enemy, Terror.class, Terror.DURATION).object = this.id();
 		}
 
 		return damage;

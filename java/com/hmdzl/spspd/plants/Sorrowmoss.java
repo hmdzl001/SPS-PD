@@ -26,7 +26,12 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PoisonParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.ToxicFruit;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Sorrowmoss extends Plant {
 
@@ -59,7 +64,30 @@ public class Sorrowmoss extends Plant {
 			image = ItemSpriteSheet.SEED_SORROWMOSS;
 
 			plantClass = Sorrowmoss.class;
+			explantClass = ExSorrowmoss.class;
 			alchemyClass = PotionOfToxicGas.class;
 		}
 	}
+	public static class ExSorrowmoss extends Plant {
+		{
+			image = 2;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new ToxicFruit(), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
+		}
+	}	
 }

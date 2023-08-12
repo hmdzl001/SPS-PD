@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.buffs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Freezing;
-import com.hmdzl.spspd.actors.blobs.FrostGas;
+import com.hmdzl.spspd.actors.blobs.SlowGas;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSnow;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.ThiefImp;
@@ -116,7 +116,7 @@ public class Frost extends FlavourBuff {
 
 	{
 		immunities.add( Chill.class );
-		immunities.add( FrostGas.class );
+		immunities.add( SlowGas.class );
 		immunities.add( Freezing.class );
 		immunities.add( Cold.class );
 		immunities.add(WeatherOfSnow.class);

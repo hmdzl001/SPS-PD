@@ -37,9 +37,9 @@ import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.painters.ShopPainter;
-import com.hmdzl.spspd.levels.traps.FireTrap;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.levels.traps.WornTrap;
+import com.hmdzl.spspd.levels.traps.damagetrap.FireDamageTrap;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Graph;
 import com.watabou.utils.Random;
@@ -191,7 +191,6 @@ public abstract class  RegularLevel extends Level {
 		paint();
 		paintWater();
 		paintGrass();
-
 		placeTraps();
 
 		return true;
@@ -360,9 +359,7 @@ public abstract class  RegularLevel extends Level {
 				map[i] = (Random.Int(40) < 1) ? Terrain.OLD_HIGH_GRASS
 							: Terrain.EMPTY;
 			}
-
 		}
-
 	}
 
 	protected abstract boolean[] water();
@@ -378,7 +375,7 @@ public abstract class  RegularLevel extends Level {
 		LinkedList<Integer> validCells = new LinkedList<Integer>();
 
 		for (int i = 0; i < LENGTH; i ++) {
-			if (map[i] == Terrain.EMPTY){
+			if (map[i] == Terrain.EMPTY || map[i] == Terrain.WATER || map[i] == Terrain.HIGH_GRASS ){
 
 				if(Dungeon.depth == 1){
 					//extra check to prevent annoying inactive traps in hallways on floor 1
@@ -392,7 +389,7 @@ public abstract class  RegularLevel extends Level {
 		}
 
 		//no more than one trap every 5 valid tiles.
-		nTraps = Math.min(nTraps, validCells.size()/5);
+		nTraps = Math.min(nTraps, validCells.size()/2);
 
 		Collections.shuffle(validCells);
 
@@ -412,7 +409,7 @@ public abstract class  RegularLevel extends Level {
 	}
 
 	protected int nTraps() {
-		return Random.NormalIntRange( 1, 4+(Dungeon.depth/2) );
+		return Random.NormalIntRange( 15, 20+(Dungeon.depth/2) );
 	}
 	
 	protected Class<?>[] trapClasses(){
@@ -795,19 +792,20 @@ public abstract class  RegularLevel extends Level {
 				default:
 			}
 		}
-
 //}
 		for (Item item : itemsToSpawn) {
 			int cell = randomDropCell();
 			if (item instanceof Scroll) {
 				while (map[cell] == Terrain.TRAP
 						|| map[cell] == Terrain.SECRET_TRAP
-						&& traps.get( cell ) instanceof FireTrap) {
+						&& traps.get( cell ) instanceof FireDamageTrap) {
 					cell = randomDropCell();
 				}
 			}
 			drop(item, cell).type = HEAP;
 		}
+
+
 	}
 
 	protected Room randomRoom(Room.Type type, int tries) {
@@ -835,6 +833,11 @@ public abstract class  RegularLevel extends Level {
 			Room room = randomRoom(Room.Type.STANDARD, 1);
 			if (room != null) {
 				int pos = room.random();
+				if (heaps.get(pos) != null) {
+					do {
+						pos = room.random();
+					} while (heaps.get(pos) != null);
+				}
 				if (passable[pos]) {
 					return pos;
 				}

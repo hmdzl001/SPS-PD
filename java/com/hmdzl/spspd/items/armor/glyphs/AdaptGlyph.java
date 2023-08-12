@@ -26,18 +26,18 @@ import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Recharging;
-import com.hmdzl.spspd.items.armor.Armor;
-import com.hmdzl.spspd.items.armor.Armor.Glyph;
-import com.hmdzl.spspd.items.misc.FourClover;
-import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.sprites.ItemSprite;
-import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
+import com.hmdzl.spspd.items.armor.Armor;
+import com.hmdzl.spspd.items.armor.Armor.Glyph;
+import com.hmdzl.spspd.items.misc.FourClover;
+import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.sprites.ItemSprite;
+import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
 public class AdaptGlyph extends Glyph {

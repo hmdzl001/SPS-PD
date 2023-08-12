@@ -22,9 +22,9 @@ import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
-import com.watabou.noosa.RenderedText;
 
 public class SpellButton extends Button {
 

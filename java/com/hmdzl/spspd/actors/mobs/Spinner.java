@@ -31,14 +31,14 @@ import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.SpinnerSprite;
+import com.hmdzl.spspd.sprites.NewSpinnerSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Random;
 
 public class Spinner extends Mob {
 
 	{
-		spriteClass = SpinnerSprite.class;
+		spriteClass = NewSpinnerSprite.class;
 
 		HP = HT = 120+(adj(0)*Random.NormalIntRange(5, 7));
 		evadeSkill = 14+adj(1);

@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
@@ -73,7 +74,7 @@ public class Bat extends Mob {
 
 		int reg = Math.min(damage, HT - HP);
 
-		if (reg > 0) {
+		if (reg > 0 && this.buff(BeOld.class) == null ) {
 			HP += reg;
 			sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 		}

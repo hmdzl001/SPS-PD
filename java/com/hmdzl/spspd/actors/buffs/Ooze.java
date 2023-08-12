@@ -18,8 +18,9 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Random;
 
@@ -54,8 +55,6 @@ public class Ooze extends Buff {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-
-
 			if (Random.Int(6) == 0)
 				target.damage(1, EARTH_DAMAGE);
             else target.damage(Math.min(500,(int)(target.HT/25)), EARTH_DAMAGE);

@@ -56,7 +56,7 @@ public class PocketBall extends Item {
             PET pet = (PET) Actor.findChar(cell);
             PocketBallFull pbf = new PocketBallFull(
 					pet.type,
-				pet.HP
+				    pet.HP
 			);
             Dungeon.level.drop( pbf, cell ).sprite.drop();
 			((PET) Actor.findChar(cell)).sprite.killAndErase();
@@ -64,6 +64,7 @@ public class PocketBall extends Item {
 			//Actor.findChar(cell).destroy();
             if (Dungeon.depth != 50) {
 				Dungeon.hero.haspet = false;
+				Dungeon.hero.petType = 1;
 			}
 			GLog.n(Messages.get(this, "get_pet"));
         } else super.onThrow(cell);

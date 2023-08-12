@@ -27,7 +27,6 @@ import com.hmdzl.spspd.items.ItemStatusHandler;
 import com.hmdzl.spspd.items.KindofMisc;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -103,7 +102,7 @@ public class Ring extends KindofMisc {
 		return actions;
 	}
 
-	@Override
+	/*@Override
 	public boolean doEquip(Hero hero) {
 
 		if (hero.belongings.misc1 != null && hero.belongings.misc2 != null && hero.belongings.misc3 != null) {
@@ -137,6 +136,7 @@ public class Ring extends KindofMisc {
 		}
 
 	}
+	*/
 
 	@Override
 	public void activate(Char ch) {
@@ -148,13 +148,13 @@ public class Ring extends KindofMisc {
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)) {
 
-			if (hero.belongings.misc1 == this) {
-				hero.belongings.misc1 = null;
-			} else if (hero.belongings.misc2 == this) {
-				hero.belongings.misc2 = null;
-			} else {
-				hero.belongings.misc3 = null;
-			}
+			//if (hero.belongings.misc1 == this) {
+			//	hero.belongings.misc1 = null;
+			//} else if (hero.belongings.misc2 == this) {
+			//	hero.belongings.misc2 = null;
+			//} else if (hero.belongings.misc3 == this) {
+			//	hero.belongings.misc3 = null;
+			//}
 
 			hero.remove(buff);
 			buff = null;

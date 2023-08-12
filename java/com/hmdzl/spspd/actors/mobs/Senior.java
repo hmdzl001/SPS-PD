@@ -19,8 +19,10 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.DBurning;
+import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
@@ -36,6 +38,22 @@ public class Senior extends Monk {
 	}
 
 	@Override
+	public boolean act() {
+
+		if( 1 > 2 * HP / HT && !skilluse ) {
+			skilluse = true;
+			Buff.affect(this,AttackUp.class,10f).level(50);
+			Buff.affect(this,DefenceUp.class,10f).level(75);
+			HP = HT;
+			//Buff.affect(this,AttackUp.class,10f).level(50);
+			return true;
+		}
+
+		return super.act();
+	}
+
+
+	@Override
 	public Item SupercreateLoot(){
 		return Random.oneOf( Generator.random(Generator.Category.HIGHFOOD) ,new HornOfPlenty());
 	}
@@ -47,23 +65,26 @@ public class Senior extends Monk {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (Random.Int(10) == 0) {
-			Buff.prolong(enemy, Paralysis.class, 1.1f);
-		}
+		Buff.affect(enemy, DBurning.class).set(2f);
 		return super.attackProc(enemy, damage);
 	}
 	
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 
-		int dmg = Random.IntRange(0, damage/3);
-		if (dmg > 0) {
-			enemy.damage(dmg, this);
-		}
 
 		return super.defenseProc(enemy, damage);
-	}	
+	}
 
+	@Override
+	public void damage(int dmg, Object src) {
+		if (dmg> HT/6) {
+			dmg =(int)Math.max(HT/6,1);
+		}
+
+		super.damage(dmg,src);
+
+	}
 	
 
 	@Override

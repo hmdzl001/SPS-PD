@@ -49,6 +49,8 @@ public class DustElement extends Mob {
 		EXP = 2;
 		maxLvl = 8;
 
+		//baseSpeed = 1/0;
+
 		loot = Generator.random(Generator.Category.SEED);
 		lootChance = 0.5f;
 

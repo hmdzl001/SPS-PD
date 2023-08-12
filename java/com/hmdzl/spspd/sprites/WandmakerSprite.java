@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.sprites;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES20;
 
 import com.hmdzl.spspd.Assets;
@@ -28,6 +26,8 @@ import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.PointF;
+
+import javax.microedition.khronos.opengles.GL10;
 
 public class WandmakerSprite extends MobSprite {
 

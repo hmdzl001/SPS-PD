@@ -17,11 +17,6 @@
  */
 package com.hmdzl.spspd.actors.blobs;
 
-import com.hmdzl.spspd.effects.particles.MemoryParticle;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.scenes.LoadSaveScene;
-import com.watabou.noosa.Game;
-import com.watabou.noosa.audio.Sample;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Journal;
@@ -29,6 +24,11 @@ import com.hmdzl.spspd.Journal.Feature;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.BlobEmitter;
+import com.hmdzl.spspd.effects.particles.MemoryParticle;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.LoadSaveScene;
+import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 import java.io.IOException;

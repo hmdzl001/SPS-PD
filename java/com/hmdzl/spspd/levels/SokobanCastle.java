@@ -49,8 +49,8 @@ import com.hmdzl.spspd.levels.traps.FleecingTrap;
 import com.hmdzl.spspd.levels.traps.HeapGenTrap;
 import com.hmdzl.spspd.levels.traps.SokobanPortalTrap;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.plants.Phaseshift;
 import com.hmdzl.spspd.plants.Plant;
+import com.hmdzl.spspd.plants.ReNepenth;
 import com.hmdzl.spspd.plants.Starflower;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
@@ -641,7 +641,7 @@ public class SokobanCastle extends Level {
 		 
 		 if (first){
 		 	addItemToGen(new Starflower.Seed() , 7, 18 + WIDTH * 23);
-			 addItemToGen(new Phaseshift.Seed() , 8, 25 + WIDTH * 2);
+			 addItemToGen(new ReNepenth.Seed() , 8, 25 + WIDTH * 2);
 			 addItemToGen(new ScrollOfMagicalInfusion() , 9, 26 + WIDTH * 2);
 			 addItemToGen(new ScrollOfMagicalInfusion() , 10, 8 + WIDTH * 37);
 			 addItemToGen(new ScrollOfRegrowth() , 11, 10 + WIDTH * 37);

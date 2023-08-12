@@ -17,11 +17,11 @@
  */
 package com.hmdzl.spspd.items.armor.specialarmor;
 
-	import com.hmdzl.spspd.actors.Char;
-	import com.hmdzl.spspd.effects.Speck;
-	import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.utils.Random;
+    import com.hmdzl.spspd.actors.Char;
+    import com.hmdzl.spspd.effects.Speck;
+    import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
+    import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+    import com.watabou.utils.Random;
 
 	public class FollowerArmor extends NormalArmor {
 

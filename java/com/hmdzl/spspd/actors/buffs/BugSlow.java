@@ -18,29 +18,28 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.food.meatfood.BugMeat;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 	public class BugSlow extends Buff {
 
-        int slowDelay = 0;
+       public int slowDelay = 0;
         @Override
         public boolean act() {
 
 			if (target.isAlive()) {
-				Hero hero = (Hero) target;
 				slowDelay++;
-				if (slowDelay > Random.Int(10) && slowDelay > 3) {
-					Buff.affect(target, Slow.class, 2f);
-					slowDelay = 0;
-				}
-				if (target == hero) {
-					if (hero.belongings.getItem(BugMeat.class) == null) {
+				if ( slowDelay > 8 ) {
+					if (target instanceof Hero && Dungeon.hero.belongings.getItem(BugMeat.class) == null) {
+						slowDelay = 0;
 						detach();
+					} else {
+						Buff.affect(target, Slow.class, 2f);
+						slowDelay = 0;
 					}
 				}
 			}

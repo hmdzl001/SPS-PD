@@ -17,20 +17,20 @@
  */
 package com.hmdzl.spspd.windows;
 
-import java.io.IOException;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.scenes.RankingsScene;
 import com.hmdzl.spspd.scenes.TitleScene;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.Game;
+
+import java.io.IOException;
 
 public class WndGame extends Window {
 

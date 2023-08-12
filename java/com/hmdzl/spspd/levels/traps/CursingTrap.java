@@ -26,8 +26,13 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
-import com.hmdzl.spspd.items.*;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.items.EquipableItem;
+import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.KindOfArmor;
+import com.hmdzl.spspd.items.KindOfWeapon;
+import com.hmdzl.spspd.items.KindofMisc;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -36,7 +41,7 @@ public class CursingTrap extends Trap {
 
 	{
 		color = TrapSprite.VIOLET;
-		shape = TrapSprite.WAVES;
+		shape = TrapSprite.LARGE_DOT;
 	}
 
 	@Override

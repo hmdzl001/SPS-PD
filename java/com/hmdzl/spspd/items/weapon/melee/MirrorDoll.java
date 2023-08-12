@@ -19,6 +19,9 @@ package com.hmdzl.spspd.items.weapon.melee;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.EnergyArmor;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -45,9 +48,15 @@ public class MirrorDoll extends MeleeWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-
+		if(defender.buff(ShieldArmor.class) != null) {
+			defender.damage(damage,attacker);
+		} else if(defender.buff(MagicArmor.class) != null){
+			defender.damage(damage,attacker);
+		} else if (defender.buff(EnergyArmor.class) != null){
+			defender.damage(damage,attacker);
+		}
 		if (defender.buff(Silent.class) != null) {
-			damage = (int) (damage * 1.5);
+			defender.damage((int) (damage * 0.5),attacker);
 		} else Buff.affect(defender,Silent.class,5f);
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);

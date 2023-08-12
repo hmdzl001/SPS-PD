@@ -51,7 +51,13 @@ public class Toolbar extends Component {
 	private Tool btnQuick7;
 	private Tool btnQuick8;
 	private Tool btnQuick9;
-	public static int QuickSlots;
+	private Tool btnQuick10;
+	private Tool btnQuick11;
+	private Tool btnQuick12;
+	public static int quicktype;
+	public static int basetooltype;
+
+	private static Toolbar instance;
 
 	private PickedUpItem pickedUp;
 
@@ -62,7 +68,8 @@ public class Toolbar extends Component {
 	public Toolbar() {
 		super();
 
-		QuickSlots = ShatteredPixelDungeon.quickSlots();
+		quicktype = ShatteredPixelDungeon.quicktypes();
+		basetooltype = ShatteredPixelDungeon.basetooltypes();
 
 		height = btnInventory.height();
 	}
@@ -71,40 +78,6 @@ public class Toolbar extends Component {
 
 	@Override
 	protected void createChildren() {
-
-		add(btnWait = new Tool(0, 7, 20, 24) {
-			@Override
-			protected void onClick() {
-				examining = false;
-				Dungeon.hero.rest(false);
-			}
-
-            @Override
-			protected boolean onLongClick() {
-				examining = false;
-				Dungeon.hero.rest(true);
-				return true;
-			}
-        });
-		
-		add(btnSearch = new Tool(20, 7, 20, 24) {
-			@Override
-			protected void onClick() {
-				
-                if(!examining) {
-                    GameScene.selectCell(informer);
-					examining = true;
-                } else {
-					informer.onSelect(null);
-                    Dungeon.hero.search(true);
-                }
-			}
-            @Override
-            protected boolean onLongClick() {
-                Dungeon.hero.search(true); 
-				return true;
-            }
-        } );
 
 		/*add(btnInfo = new Tool(40, 7, 21, 24) {
 			@Override
@@ -137,6 +110,29 @@ public class Toolbar extends Component {
 			};
 		});*/
 		
+		add(btnQuick = new QuickslotTool(105, 7, 22, 24, 0));
+
+		add(btnQuick2 = new QuickslotTool(105, 7, 22, 24, 1));
+		
+		add(btnQuick3 = new QuickslotTool(105, 7, 22, 24, 2));
+		
+		add(btnQuick4 = new QuickslotTool(105, 7, 22, 24, 3));
+
+		add(btnQuick5 = new QuickslotTool(105, 7, 22, 24, 4));
+		
+		add(btnQuick6 = new QuickslotTool(105, 7, 22, 24, 5));
+		
+		add(btnQuick7 = new QuickslotTool(105, 7, 22, 24, 6));
+		
+		add(btnQuick8 = new QuickslotTool(105, 7, 22, 24, 7));
+		
+		add(btnQuick9 = new QuickslotTool(105, 7, 22, 24, 8));
+
+		add(btnQuick10 = new QuickslotTool(105, 7, 22, 24, 9));
+
+		add(btnQuick11 = new QuickslotTool(105, 7, 22, 24, 10));
+
+		add(btnQuick12 = new QuickslotTool(105, 7, 22, 24, 11));		
 
 		add(btnInventory = new Tool(82, 7, 23, 24) {
 			private GoldIndicator gold;
@@ -167,72 +163,220 @@ public class Toolbar extends Component {
 			}
         });
 
-		add(btnQuick = new QuickslotTool(105, 7, 22, 24, 0));
-
-		btnQuick2 = new QuickslotTool(105, 7, 22, 24, 1);
-		
-		btnQuick3 = new QuickslotTool(105, 7, 22, 24, 2);
-		
-		add(btnQuick4 = new QuickslotTool(105, 7, 22, 24, 3));
-		
-		btnQuick5 = new QuickslotTool(105, 7, 22, 24, 4);
-		
-		add(btnQuick6 = new QuickslotTool(105, 7, 22, 24, 5));
-		
-		btnQuick7 = new QuickslotTool(105, 7, 22, 24, 6);
-		
-		add(btnQuick8 = new QuickslotTool(105, 7, 22, 24, 7));
-		
-		btnQuick9 = new QuickslotTool(105, 7, 22, 24, 8);
-
 		add(pickedUp = new PickedUpItem());
+
+		add(btnWait = new Tool(0, 7, 20, 24) {
+			@Override
+			protected void onClick() {
+				examining = false;
+				Dungeon.hero.rest(false);
+			}
+
+			@Override
+			protected boolean onLongClick() {
+				examining = false;
+				Dungeon.hero.rest(true);
+				return true;
+			}
+		});
+
+		add(btnSearch = new Tool(20, 7, 20, 24) {
+			@Override
+			protected void onClick() {
+
+				if(!examining) {
+					GameScene.selectCell(informer);
+					examining = true;
+				} else {
+					informer.onSelect(null);
+					Dungeon.hero.search(true);
+				}
+			}
+			@Override
+			protected boolean onLongClick() {
+				Dungeon.hero.search(true);
+				return true;
+			}
+		} );
 		
 
 	}
 
 	@Override
 	protected void layout() {
-		btnWait.setPos(x, y);
-		btnSearch.setPos(btnWait.right(), y);
-		//btnInfo.setPos(btnSearch.right(), y);
-		//btnResume.setPos(btnInfo.right(), y);
-		//btnRoll.setPos(btnSearch.right(), y);
-		btnInventory.setPos( width - btnInventory.width(), y );
-		btnQuick.setPos(width - btnInventory.width()*2+2, y);
-		btnQuick2.setPos(width - btnQuick.width(), btnQuick.height()*3-2);
-		btnQuick3.setPos(width - btnQuick.width(), btnQuick.height()*4-3);
-		btnQuick4.setPos(width - btnQuick.width(), btnQuick.height()*2);
-		btnQuick5.setPos(width - btnInventory.width()*4+4, y);
-		btnQuick6.setPos(width - btnInventory.width()*3+3, y);
-		btnQuick7.setPos(0, btnInventory.width()*2+4);
-		btnQuick8.setPos(0, btnInventory.width()*3+4);
-		btnQuick9.setPos(0, btnInventory.width()*4+4);
-		
-		if (QuickSlots == 2) {
-			add(btnQuick2);
-			btnQuick2.visible = btnQuick2.active = true;
-			add(btnQuick3);
-			btnQuick3.visible = btnQuick3.active = true;
-			add(btnQuick5);
-			btnQuick5.visible = btnQuick5.active = true;
-            add(btnQuick7);
-			btnQuick7.visible = btnQuick7.active = true;
-            add(btnQuick9);
-			btnQuick9.visible = btnQuick9.active = true;			
-		} else {
-			remove(btnQuick2);
-			btnQuick2.visible = btnQuick2.active = false;
-			remove(btnQuick5);
-			btnQuick5.visible = btnQuick5.active = false;
-			remove(btnQuick3);
-			btnQuick3.visible = btnQuick3.active = false;
-			remove(btnQuick7);
-			btnQuick7.visible = btnQuick7.active = false;
-			remove(btnQuick9);
-			btnQuick9.visible = btnQuick9.active = false;
-		}
-	}
+	    switch (quicktype) {
+			case 0:
+				btnQuick10.setPos(width - btnInventory.width() * 2 + 2, y);
+				btnQuick4.setPos(width - btnQuick.width(), btnQuick.height() * 2);
+				btnQuick12.setPos(width - btnInventory.width() * 4 + 4, y);
+				btnQuick11.setPos(width - btnInventory.width() * 3 + 3, y);
+				btnQuick8.setPos(0, btnInventory.width() * 2 + 4);
 
+				if (ShatteredPixelDungeon.landscape()) {
+					btnQuick5.setPos(width - btnQuick.width(), btnQuick.height() * 3 - 2);
+					btnQuick6.setPos(width - btnInventory.width() * 7 + 7, y);
+					btnQuick7.setPos(width - btnInventory.width() * 5 + 5, y);
+					btnQuick9.setPos(width - btnInventory.width() * 6 + 6, y);
+					btnQuick.setPos(width - btnInventory.width() * 6 + 6, y);
+					btnQuick2.setPos(width - btnInventory.width() * 6 + 6, y);
+					btnQuick3.setPos(width - btnInventory.width() * 6 + 6, y);
+				} else {
+					btnQuick5.setPos(width - btnQuick.width(), btnQuick.height() * 3 - 2);
+					btnQuick6.setPos(width - btnQuick.width(), btnQuick.height() * 4 - 3);
+					btnQuick7.setPos(0, btnInventory.width() * 3 + 4);
+					btnQuick9.setPos(0, btnInventory.width() * 4 + 4);
+					btnQuick.setPos(width - btnInventory.width() * 2 + 2, y);
+					btnQuick2.setPos(width - btnInventory.width() * 3 + 3, y);
+					btnQuick3.setPos(width - btnInventory.width() * 4 + 4, y);
+				}
+				break;
+            case 1:
+                //btnQuick.setPos(width - btnInventory.width()+1, y - btnQuick.height()/2);
+                //btnQuick2.setPos(width - btnInventory.width()*2+2, y - btnQuick.height()/2 );
+                //btnQuick3.setPos(width - btnInventory.width()*3+3, y - btnQuick.height()/2);
+                //btnQuick4.setPos(width - btnInventory.width()*4+4, y - btnQuick.height()/2);
+                //btnQuick5.setPos(width - btnInventory.width()*5+5, y - btnQuick.height()/2);
+                //btnQuick6.setPos(width - btnInventory.width()*6+6, y - btnQuick.height()/2);
+
+                btnQuick7.setPos(width - btnInventory.width() + 1, y);
+                btnQuick8.setPos(width - btnInventory.width() * 2 + 2, y);
+                btnQuick9.setPos(width - btnInventory.width() * 3 + 3, y);
+                btnQuick10.setPos(width - btnInventory.width() * 4 + 4, y);
+                btnQuick11.setPos(width - btnInventory.width() * 5 + 5, y);
+                btnQuick12.setPos(width - btnInventory.width() * 6 + 6, y);
+
+                if (ShatteredPixelDungeon.landscape()) {
+                    btnQuick.setPos(width - btnInventory.width() * 7 + 7, y);
+                    btnQuick2.setPos(width - btnInventory.width() * 8 + 8, y);
+                    btnQuick3.setPos(width - btnInventory.width() * 9 + 9, y);
+                    btnQuick4.setPos(width - btnInventory.width() * 10 + 10, y);
+                    btnQuick5.setPos(width - btnInventory.width() * 11 + 11, y);
+                    btnQuick6.setPos(width - btnInventory.width() * 12 + 12, y);
+                } else {
+                    btnQuick.setPos(width - btnInventory.width() + 1, y - btnQuick.height() / 2);
+                    btnQuick2.setPos(width - btnInventory.width() * 2 + 2, y - btnQuick.height() / 2);
+                    btnQuick3.setPos(width - btnInventory.width() * 3 + 3, y - btnQuick.height() / 2);
+                    btnQuick4.setPos(width - btnInventory.width() * 4 + 4, y - btnQuick.height() / 2);
+                    btnQuick5.setPos(width - btnInventory.width() * 5 + 5, y - btnQuick.height() / 2);
+                    btnQuick6.setPos(width - btnInventory.width() * 6 + 6, y - btnQuick.height() / 2);
+                }
+                break;
+            case 2:
+                //btnWait.setPos(x, y);
+               // btnSearch.setPos(btnWait.right(), y);
+               // btnInventory.setPos(width - btnInventory.width(), y);
+                btnQuick10.setPos(width - btnInventory.width() * 2 + 2, y);
+                btnQuick4.setPos(width - btnQuick.width(), btnQuick.height() * 2);
+                btnQuick12.setPos(width - btnInventory.width() * 4 + 4, y);
+                btnQuick11.setPos(width - btnInventory.width() * 3 + 3, y);
+                btnQuick8.setPos(0, btnInventory.width() * 2 + 4);
+
+                if (ShatteredPixelDungeon.landscape()) {
+                    btnQuick5.setPos(width - btnQuick.width(), btnQuick.height() * 3 - 2);
+                    btnQuick6.setPos(width - btnInventory.width() * 7 + 7, y);
+                    btnQuick7.setPos(width - btnInventory.width() * 5 + 5, y);
+                    btnQuick9.setPos(width - btnInventory.width() * 6 + 6, y);
+                    btnQuick.setPos(width - btnInventory.width() * 10 + 10, y);
+                    btnQuick2.setPos(width - btnInventory.width() * 8 + 8, y);
+                    btnQuick3.setPos(width - btnInventory.width() * 9 + 9, y);
+                } else {
+                    btnQuick5.setPos(width - btnQuick.width(), btnQuick.height() * 3 - 2);
+                    btnQuick6.setPos(width - btnQuick.width(), btnQuick.height() * 4 - 3);
+                    btnQuick7.setPos(0, btnInventory.width() * 3 + 4);
+                    btnQuick9.setPos(0, btnInventory.width() * 4 + 4);
+                    btnQuick.setPos(width - btnInventory.width() * 2 + 2, y - btnQuick.height() / 2);
+                    btnQuick2.setPos(width - btnInventory.width() * 3 + 3, y - btnQuick.height() / 2);
+                    btnQuick3.setPos(width - btnInventory.width() * 4 + 4, y - btnQuick.height() / 2);
+                }
+                break;
+			case 3:
+				//btnWait.setPos(x, y);
+				// btnSearch.setPos(btnWait.right(), y);
+				// btnInventory.setPos(width - btnInventory.width(), y);
+				btnQuick10.setPos(width - btnInventory.width() * 2 + 2, y);
+				btnQuick4.setPos(width - btnQuick.width(), btnQuick.height() * 2);
+				btnQuick12.setPos(width - btnInventory.width() * 4 + 4, y);
+				btnQuick11.setPos(width - btnInventory.width() * 3 + 3, y);
+				btnQuick8.setPos(0, btnInventory.width() * 2 + 4);
+
+				if (ShatteredPixelDungeon.landscape()) {
+					btnQuick5.setPos(width - btnQuick.width(), btnQuick.height() * 3 - 2);
+					btnQuick6.setPos(width - btnInventory.width() * 6 + 6, y);
+					btnQuick7.setPos(width - btnInventory.width() * 5 + 5, y);
+					btnQuick9.setPos(width - btnInventory.width() * 6 + 6, y);
+					btnQuick.setPos(width - btnInventory.width() * 6 + 6, y);
+					btnQuick2.setPos(width - btnInventory.width() * 6 + 6, y);
+					btnQuick3.setPos(width - btnInventory.width() * 6 + 6, y);
+				} else {
+					btnQuick5.setPos(width - btnQuick.width(), btnQuick.height() * 3 - 2);
+					btnQuick6.setPos(width - btnQuick.width(), btnQuick.height() * 4 - 3);
+					btnQuick7.setPos(width - btnQuick.width(), btnQuick.height() * 5 - 4);
+					btnQuick9.setPos(width - btnQuick.width(), btnQuick.height() * 5 - 4);
+					btnQuick.setPos(width - btnInventory.width() * 2 + 2, y);
+					btnQuick2.setPos(width - btnInventory.width() * 3 + 3, y);
+					btnQuick3.setPos(width - btnInventory.width() * 4 + 4, y);
+				}
+				break;
+			case 4:
+				btnQuick7.setPos(width - btnInventory.width() + 1, y);
+				btnQuick8.setPos(width - btnInventory.width() * 2 + 2, y);
+				btnQuick9.setPos(width - btnInventory.width() * 3 + 3, y);
+				btnQuick10.setPos(width - btnInventory.width() * 4 + 4, y);
+				btnQuick11.setPos(width - btnInventory.width() * 5 + 5, y);
+				btnQuick12.setPos(width - btnInventory.width() * 6 + 6, y);
+
+				if (ShatteredPixelDungeon.landscape()) {
+					btnQuick.setPos(width - btnInventory.width() * 1 + 1, y);
+					btnQuick2.setPos(width - btnInventory.width() * 2 + 2, y);
+					btnQuick3.setPos(width - btnInventory.width() * 3 + 3, y);
+					btnQuick4.setPos(width - btnInventory.width() * 4 + 4, y);
+					btnQuick5.setPos(width - btnInventory.width() * 5 + 5, y);
+					btnQuick6.setPos(width - btnInventory.width() * 6 + 6, y);
+				} else {
+					btnQuick.setPos(width - btnInventory.width() + 1, y );
+					btnQuick2.setPos(width - btnInventory.width() * 2 + 2, y);
+					btnQuick3.setPos(width - btnInventory.width() * 3 + 3, y);
+					btnQuick4.setPos(width - btnInventory.width() * 4 + 4, y);
+					btnQuick5.setPos(width - btnInventory.width() * 5 + 5, y);
+					btnQuick6.setPos(width - btnInventory.width() * 6 + 6, y);
+				}
+				break;
+        }
+
+        switch (basetooltype) {
+			case 0:
+				btnWait.setPos(0, btnInventory.width() * 2 + 4);
+				btnSearch.setPos(0, btnInventory.width() * 3 + 4);
+				btnInventory.setPos(width - btnQuick.width(), btnQuick.height() * 2);
+				break;
+			case 1 :
+				btnWait.setPos(x, y);
+				btnSearch.setPos(btnWait.right(), y);
+				btnInventory.setPos(width - btnInventory.width(), y);
+				break;
+			case 2 :
+				btnWait.setPos(x, y);
+				btnSearch.setPos(btnWait.right(), y);
+				btnInventory.setPos(btnSearch.right()-1, y);
+				break;
+			case 3 :
+				btnWait.setPos(width - btnWait.width() - btnInventory.width() - btnSearch.width(), y);
+				btnSearch.setPos(width - btnInventory.width() - btnSearch.width(), y);
+				btnInventory.setPos(width - btnInventory.width(), y);
+				break;
+			case 4 :
+				btnWait.setPos(width - btnQuick.width(), btnQuick.height() * 2);
+				btnSearch.setPos(width - btnQuick.width(), btnQuick.height() * 3);
+				btnInventory.setPos(0, btnInventory.width() * 2 + 4);
+				break;
+		}
+
+	}
+	
+	public static void updateLayout(){
+		if (instance != null) instance.layout();
+	}
+	
 	@Override
 	public void update() {
 		super.update();
@@ -253,11 +397,6 @@ public class Toolbar extends Component {
 			btnInventory.enable(true);
 		}
 
-		// If we have 2 slots, and 2nd one isn't visible, or we have 1, and 2nd
-		// one is visible...
-		if ((QuickSlots == 1) == btnQuick2.visible) {
-			layout();
-		}
 	}
 
 	public void pickup(Item item) {
@@ -394,9 +533,7 @@ public class Toolbar extends Component {
 			super.update();
 
 			if ((left -= Game.elapsed) <= 0) {
-
 				visible = active = false;
-
 			} else {
 				float p = left / DURATION;
 				scale.set((float) Math.sqrt(p));

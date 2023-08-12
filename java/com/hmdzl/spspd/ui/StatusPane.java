@@ -19,6 +19,7 @@ package com.hmdzl.spspd.ui;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.BloodParticle;
 import com.hmdzl.spspd.items.keys.IronKey;
@@ -64,6 +65,7 @@ public class StatusPane extends Component {
 
 	private MenuButton btnMenu;
 	private BitmapText version;
+	private BitmapText time;
 
 	@Override
 	protected void createChildren() {
@@ -132,6 +134,10 @@ public class StatusPane extends Component {
 		version = new BitmapText( "v" + Game.version, /*PixelScene.pixelFont*/PixelScene.font1x);
 		version.alpha( 0.5f );
 		add(version);
+
+		time = new BitmapText(PixelScene.font1x);
+		time.alpha( 0.5f );
+		add(time);
 	}
 
 	@Override
@@ -166,7 +172,7 @@ public class StatusPane extends Component {
 		version.measure();
 		version.x = width - version.width();
 		version.y = btnMenu.bottom() + (4 - version.baseLine());
-		PixelScene.align(version);		
+		PixelScene.align(version);
 	}
 
 	@Override
@@ -207,9 +213,16 @@ public class StatusPane extends Component {
 		}
 		
 		spp.text( String.format( "%d", Dungeon.hero.spp));
+		//spp.text( String.format( "%d", Statistics.ashield));
         spp.measure();
 		spp.x = PixelScene.align(camera(), shield.x + 15 - avatar.width / 2);
 		spp.y = PixelScene.align(camera(), shield.y + 38 - avatar.height / 2);
+
+		time.text( (int)(Statistics.time/60) + ":" + (int)(Statistics.time%60));
+		time.measure();
+		time.x = 2;
+		time.y = btnMenu.bottom() + (13 - time.baseLine());
+		PixelScene.align(time);
 
 		int k = IronKey.curDepthQuantity;
 		if (k != lastKeys) {

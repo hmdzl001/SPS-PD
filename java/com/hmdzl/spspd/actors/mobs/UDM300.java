@@ -24,8 +24,8 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.blobs.DarkGas;
-import com.hmdzl.spspd.actors.blobs.FrostGas;
 import com.hmdzl.spspd.actors.blobs.ShockWeb;
+import com.hmdzl.spspd.actors.blobs.SlowGas;
 import com.hmdzl.spspd.actors.blobs.TarGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
@@ -118,7 +118,7 @@ public class UDM300 extends Mob {
         } 
 		
 	    if (breaks == 1){
-		   GameScene.add(Blob.seed(pos, 30, FrostGas.class));
+		   GameScene.add(Blob.seed(pos, 30, SlowGas.class));
 		}
 		
 		if (breaks == 2){
@@ -243,7 +243,7 @@ public class UDM300 extends Mob {
 		immunities.add(Paralysis.class);
 	    immunities.add(Bleeding.class);
 		immunities.add(CorruptGas.class);
-		immunities.add(FrostGas.class);
+		immunities.add(SlowGas.class);
 		immunities.add(TarGas.class);
 		immunities.add(Tar.class);
 	}

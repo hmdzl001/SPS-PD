@@ -20,6 +20,7 @@ package com.hmdzl.spspd.actors.blobs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.effects.CellEmitter;

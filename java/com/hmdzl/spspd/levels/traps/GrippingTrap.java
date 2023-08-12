@@ -36,7 +36,7 @@ public class GrippingTrap extends Trap {
 
 	{
 		color = TrapSprite.GREY;
-		shape = TrapSprite.CROSSHAIR;
+		shape = TrapSprite.DIAMOND;
 	}
 
 	@Override

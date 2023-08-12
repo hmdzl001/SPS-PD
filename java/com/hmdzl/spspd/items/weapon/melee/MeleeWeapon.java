@@ -20,8 +20,7 @@ package com.hmdzl.spspd.items.weapon.melee;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
 
 import java.text.DecimalFormat;
@@ -48,15 +47,15 @@ public class MeleeWeapon extends Weapon {
 	}
 
 	private int min() {
-		return tier;
+		return tier + 5;
 	}
 
 	private int max() {
-		return (int) (((tier * tier - tier + 10) / ACU * DLY )/ (0.8 + 0.2*RCH) );
+		return (int) (((tier * tier - tier + 12) / ACU * DLY )/ (0.8 + 0.2*RCH) );
 	}
-
+	
 	/*@Override
-	public void proc(Char attacker, Char defender, int damage) {
+	public void b(Char attacker, Char defender, int damage) {
 	
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);		
@@ -164,7 +163,7 @@ public class MeleeWeapon extends Weapon {
 	public Item random() {
 		super.random();
 
-		if (Random.Int(10 + level) == 0) {
+		if (Random.Int(5 + level) == 0) {
 			enchant();
 		}
 

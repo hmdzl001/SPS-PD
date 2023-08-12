@@ -22,7 +22,6 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.pets.Bunny;
 import com.hmdzl.spspd.actors.mobs.pets.CocoCat;
-import com.hmdzl.spspd.actors.mobs.pets.Haro;
 import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;

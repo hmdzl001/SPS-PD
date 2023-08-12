@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.TreasureMap;
 import com.hmdzl.spspd.items.challengelists.SewerChallenge;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.reward.SewerReward;
-import com.hmdzl.spspd.items.weapon.missiles.ForestDart;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.NutFruit;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -90,7 +90,7 @@ public class GnollArcher extends Mob {
 	public void die(Object cause) {
 		super.die(cause);
 		if (Dungeon.depth > 25) {
-			Dungeon.level.drop(new ForestDart(3), pos).sprite.drop();
+			Dungeon.level.drop(new NutFruit(3), pos).sprite.drop();
 		}
 
 		Statistics.archersKilled++;

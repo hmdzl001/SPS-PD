@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.actors;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import android.util.SparseArray;
 
 import com.hmdzl.spspd.Dungeon;
@@ -31,6 +28,9 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.levels.Level;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public abstract class Actor implements Bundlable {
 

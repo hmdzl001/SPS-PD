@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import java.util.HashSet;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -33,7 +31,6 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GreyRatSprite;

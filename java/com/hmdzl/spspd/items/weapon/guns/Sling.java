@@ -18,8 +18,8 @@
 package com.hmdzl.spspd.items.weapon.guns;
 
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
 public class Sling extends GunWeapon {

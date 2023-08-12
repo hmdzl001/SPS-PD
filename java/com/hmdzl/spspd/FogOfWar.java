@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd;
 
-import java.util.Arrays;
-
 import android.graphics.Bitmap;
 
 import com.hmdzl.spspd.scenes.GameScene;
@@ -26,6 +24,8 @@ import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Texture;
 import com.watabou.noosa.Image;
+
+import java.util.Arrays;
 
 public class FogOfWar extends Image {
 

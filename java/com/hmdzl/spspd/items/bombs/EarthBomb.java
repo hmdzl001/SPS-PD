@@ -18,9 +18,6 @@
  */
 package com.hmdzl.spspd.items.bombs;
 
-import java.util.ArrayList;
-
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -30,6 +27,8 @@ import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.utils.PathFinder;
+
+import java.util.ArrayList;
 
 public class EarthBomb extends Bomb {
 

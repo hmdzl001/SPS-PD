@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.actors.blobs;
 
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.messages.Messages;

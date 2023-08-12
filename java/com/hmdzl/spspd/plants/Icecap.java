@@ -19,13 +19,17 @@ package com.hmdzl.spspd.plants;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.blobs.Fire;
 import com.hmdzl.spspd.actors.blobs.Freezing;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.items.potions.PotionOfFrost;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.IceFruit;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Icecap extends Plant {
 
@@ -56,7 +60,31 @@ public class Icecap extends Plant {
 			image = ItemSpriteSheet.SEED_ICECAP;
 
 			plantClass = Icecap.class;
+			explantClass = ExIcecap.class;
 			alchemyClass = PotionOfFrost.class;
+		}
+	}
+	
+	public static class ExIcecap extends Plant {
+		{
+			image = 1;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(new IceFruit(), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
 		}
 	}
 }

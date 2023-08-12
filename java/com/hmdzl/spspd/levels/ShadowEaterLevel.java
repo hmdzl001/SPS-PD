@@ -25,8 +25,6 @@ import com.hmdzl.spspd.actors.blobs.Alter;
 import com.hmdzl.spspd.actors.blobs.WellWater;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NutPainter;
-
-
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;

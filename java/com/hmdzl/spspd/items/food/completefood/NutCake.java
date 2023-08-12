@@ -39,7 +39,7 @@ public class NutCake extends CompleteFood {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)) {
-			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(4, 8));
+			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(7,14));
 			hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
             Buff.affect(hero, ShieldArmor.class).level(hero.HT/3);
 			//Buff.detach(hero, Bleeding.class);

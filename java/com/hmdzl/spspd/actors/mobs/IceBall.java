@@ -22,13 +22,13 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.MrDestructo2dot0Sprite;
+import com.hmdzl.spspd.sprites.SnowballSprite;
 import com.watabou.utils.Callback;
 
 
 public class IceBall extends Mob {
 	{
-		spriteClass = MrDestructo2dot0Sprite.class;
+		spriteClass = SnowballSprite.class;
 		baseSpeed = 0.5f;
 
 		HP = HT = 10;

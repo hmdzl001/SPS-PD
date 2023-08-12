@@ -1,7 +1,5 @@
 package com.hmdzl.spspd.items.artifacts;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Awareness;
@@ -11,12 +9,14 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+
+import java.util.ArrayList;
 
 /**
  * Created by debenhame on 08/09/2014.

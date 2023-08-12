@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.items.wands;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Actor;
@@ -31,6 +29,8 @@ import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class WandOfDisintegration extends DamageWand {
 

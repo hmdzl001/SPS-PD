@@ -17,23 +17,27 @@
  */
 package com.hmdzl.spspd.actors.blobs;
 
+import android.annotation.SuppressLint;
+
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
+import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Tar;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
-import com.watabou.utils.Random;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.watabou.utils.Random;
 
 
 public class TarGas extends Blob {
 
-	@Override
+	@SuppressLint("SuspiciousIndentation")
+    @Override
 	protected void evolve() {
 		super.evolve();
 		

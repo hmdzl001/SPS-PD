@@ -299,8 +299,8 @@ public class Egg extends Item {
 	private void assignPet(PET pet){
 		  Dungeon.hero.haspet=true;
 		  Dungeon.hero.petType=pet.type;
-		  Dungeon.hero.petHP=pet.HP;
-		  Dungeon.hero.petCooldown=pet.cooldown;		
+		 // Dungeon.hero.petHP=pet.HP;
+		  //Dungeon.hero.petCooldown=pet.cooldown;		
 	}
 
 	public void rollpet() {

@@ -23,8 +23,11 @@ package com.hmdzl.spspd.levels.traps;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.effects.particles.WindParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;
@@ -59,7 +62,7 @@ public class PitfallTrap extends Trap {
 		}
 	}
 
-	/*@Override
+	@Override
 	protected void disarm() {
 		super.disarm();
 
@@ -79,5 +82,5 @@ public class PitfallTrap extends Trap {
 			sprite.kill();
 			GameScene.updateMap( pos );
 		}
-	}*/
+	}
 }

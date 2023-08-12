@@ -21,9 +21,7 @@
 package com.hmdzl.spspd.levels.traps;
 
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.bombs.Bomb;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
-import com.hmdzl.spspd.items.bombs.MiniBomb;
 import com.hmdzl.spspd.sprites.TrapSprite;
 
 public class ExplosiveTrap extends Trap {

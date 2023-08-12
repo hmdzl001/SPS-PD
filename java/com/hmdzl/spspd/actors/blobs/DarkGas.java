@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.effects.BlobEmitter;
-import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.effects.particles.DarkLightParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
@@ -65,8 +65,7 @@ public class DarkGas extends Blob {
 	@Override
 	public void use(BlobEmitter emitter) {
 		super.use(emitter);
-
-		emitter.pour(Speck.factory(Speck.DARKNESS), 0.6f);
+		emitter.start(DarkLightParticle.FACTORY, 0.8f, 0);
 	}
 
 	@Override

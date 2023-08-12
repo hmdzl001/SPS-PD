@@ -18,17 +18,15 @@
 package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.SPSSettings;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
-import com.hmdzl.spspd.messages.Messages;import com.hmdzl.spspd.ResultDescriptions;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.CheckBox;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.Toolbar;
 import com.hmdzl.spspd.ui.Window;
-import com.watabou.noosa.Game;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.audio.Sample;
 
 public class WndSettings extends Window {
 
@@ -175,45 +173,54 @@ public class WndSettings extends Window {
 			btnBrightness.checked(ShatteredPixelDungeon.brightness());
 			add(btnBrightness);
 
-			CheckBox btnQuickSlot = new CheckBox(Messages.get(WndSettings.class, "quickslot")) {
+			//CheckBox btnQuickSlot = new CheckBox(Messages.get(WndSettings.class, "quickslot")) {
+			//	@Override
+			//	protected void onClick() {
+			//		super.onClick();
+			//		ShatteredPixelDungeon.quicktypes(checked() ? 2 : 1);
+			//		Toolbar.quicktype = checked() ? 2 : 1;
+			//		Toolbar.updateLayout();
+			//	}
+			//};
+			//btnQuickSlot.setRect(0, btnBrightness.bottom() + GAP, WIDTH,BTN_HEIGHT);
+			//btnQuickSlot.checked(ShatteredPixelDungeon.quicktypes() == 2);
+			//add(btnQuickSlot);
+
+			RedButton btnQuickSlot = new RedButton(Messages.get(WndSettings.class, "quickslot_" + ShatteredPixelDungeon.quicktypes())) {
 				@Override
 				protected void onClick() {
 					super.onClick();
-					ShatteredPixelDungeon.quickSlots(checked() ? 2 : 1);
-					Toolbar.QuickSlots = checked() ? 2 : 1;
+					int val = ShatteredPixelDungeon.quicktypes();
+					val = val < 4 ? val + 1 : 0;
+					ShatteredPixelDungeon.quicktypes(val);
+					text.text( Messages.get(WndSettings.class, "quickslot_" + ShatteredPixelDungeon.quicktypes()) );
+					Toolbar.quicktype = val;
+					Toolbar.updateLayout();
 				}
 			};
-			btnQuickSlot.setRect(0, btnBrightness.bottom() + GAP, WIDTH,
-					BTN_HEIGHT);
-			btnQuickSlot.checked(ShatteredPixelDungeon.quickSlots() == 2);
+			btnQuickSlot.setRect(0, btnBrightness.bottom() + GAP, WIDTH, BTN_HEIGHT);
 			add(btnQuickSlot);
-			
-			
-			
-			resize(WIDTH, (int) btnQuickSlot.bottom());
+			//resize(WIDTH, (int) btnQuickSlot.bottom());
 
-		    /*CheckBox chkFont = new CheckBox(Messages.get(WndSettings.class, "system_font")){
+			RedButton btnBaseTool = new RedButton(Messages.get(WndSettings.class, "basetool_" + ShatteredPixelDungeon.basetooltypes())) {
 				@Override
 				protected void onClick() {
 					super.onClick();
-					ShatteredPixelDungeon.switchNoFade((Class<? extends PixelScene>) ShatteredPixelDungeon.scene().getClass(), new Game.SceneChangeCallback() {
-						@Override
-						public void beforeCreate() {
-							SPSSettings.systemFont(checked());
-						}
-
-						@Override
-						public void afterCreate() {
-							Game.scene().add(new WndSettings(true));
-						}
-					});
+					int val = ShatteredPixelDungeon.basetooltypes();
+					val = val < 4 ? val + 1 : 0;
+					ShatteredPixelDungeon.basetooltypes(val);
+					text.text( Messages.get(WndSettings.class, "basetool_" + ShatteredPixelDungeon.basetooltypes()) );
+					Toolbar.basetooltype = val;
+					Toolbar.updateLayout();
 				}
 			};
-			chkFont.setRect(0, btnQuickSlot.bottom() + GAP, WIDTH, BTN_HEIGHT);
-			chkFont.checked(SPSSettings.systemFont());
-			add(chkFont);
-*/
-			//resize(WIDTH, (int) chkFont.bottom());
+			btnBaseTool.setRect(0, btnQuickSlot.bottom() + GAP, WIDTH,
+					BTN_HEIGHT);
+			add(btnBaseTool);
+			
+			
+			
+			resize(WIDTH, (int) btnBaseTool.bottom());
 		
 		}
 	}

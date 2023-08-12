@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.windows;
 
-import java.util.ArrayList;
-
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.scenes.PixelScene;
@@ -28,6 +26,8 @@ import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
+
+import java.util.ArrayList;
 
 public class WndTabbed extends Window {
 

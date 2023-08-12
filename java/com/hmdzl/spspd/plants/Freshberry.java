@@ -25,8 +25,11 @@ import com.hmdzl.spspd.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.items.food.fruit.Cloudberry;
 import com.hmdzl.spspd.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Freshberry extends Plant {
 
@@ -61,7 +64,31 @@ public class Freshberry extends Plant {
 			image = ItemSpriteSheet.SEED_ROTBERRY;
 
 			plantClass = Freshberry.class;
+			explantClass = ExFreshberry.class;
 			alchemyClass = PotionOfStrength.class;
+		}
+	}
+	
+	public static class ExFreshberry extends Plant {
+		{
+			image = 7;
+		}
+		@Override
+		public void activate(Char ch) {
+			super.activate(ch);
+
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			for (int i : Level.NEIGHBOURS8){
+				if (Level.passable[pos+i]){
+					candidates.add(pos+i);
+				}
+			}
+
+			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
+				Integer c = Random.element(candidates);
+				Dungeon.level.drop(Generator.random(Generator.Category.BERRY), c).sprite.drop(pos);
+				candidates.remove(c);
+			}
 		}
 	}
 }

@@ -41,6 +41,8 @@ import com.hmdzl.spspd.actors.mobs.DragonRider;
 import com.hmdzl.spspd.actors.mobs.DustElement;
 import com.hmdzl.spspd.actors.mobs.DwarfLich;
 import com.hmdzl.spspd.actors.mobs.ElderAvatar;
+import com.hmdzl.spspd.actors.mobs.ExBambooMob;
+import com.hmdzl.spspd.actors.mobs.ExVagrant;
 import com.hmdzl.spspd.actors.mobs.Eye;
 import com.hmdzl.spspd.actors.mobs.Fiend;
 import com.hmdzl.spspd.actors.mobs.FireElemental;
@@ -160,10 +162,9 @@ public enum NewMobCatalog {
 		SEWER.seen.put( Swarm.class , true);
 		SEWER.seen.put( Crab.class , true);
 		SEWER.seen.put( Shit.class , true);
-		SEWER.seen.put( Vagrant.class , true);
 		SEWER.seen.put( PatrolUAV.class , true);
-		SEWER.seen.put( Shit.class , true);
 		SEWER.seen.put( Vagrant.class , true);
+		SEWER.seen.put( ExVagrant.class , true);
 		SEWER.seen.put( Goo.class , true);
 		SEWER.seen.put( SewerHeart.class , true);
 		SEWER.seen.put( PlagueDoctor.class , true);
@@ -175,6 +176,7 @@ public enum NewMobCatalog {
 		PRISON.seen.put( Zombie.class , true);
 		PRISON.seen.put( GoldCollector.class , true);
 		PRISON.seen.put( BambooMob.class , true);
+		PRISON.seen.put( ExBambooMob.class , true);
 		PRISON.seen.put( Assassin.class , true);
 		PRISON.seen.put( TrollWarrior.class , true);
 		PRISON.seen.put( FireRabbit.class , true);

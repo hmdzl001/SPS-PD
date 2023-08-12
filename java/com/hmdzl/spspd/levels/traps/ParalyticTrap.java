@@ -31,7 +31,7 @@ public class ParalyticTrap extends Trap{
 
 	{
 		color = TrapSprite.YELLOW;
-		shape = TrapSprite.GRILL;
+		shape = TrapSprite.DIAMOND;
 	}
 
 	@Override

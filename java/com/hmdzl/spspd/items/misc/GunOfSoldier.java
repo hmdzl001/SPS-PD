@@ -123,7 +123,7 @@ public class GunOfSoldier extends Item {
 	public class SoldierAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.BOLA;
+			image = ItemSpriteSheet.MIDDLE_AMMO;
 			ACU = 1000;
 		}
 
