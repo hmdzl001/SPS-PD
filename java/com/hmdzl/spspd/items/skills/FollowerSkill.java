@@ -76,6 +76,7 @@ public class FollowerSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 		FollowerSkill.charge += 20;
+
 		int people = 0;
 		for (Mob mob : Dungeon.level.mobs) {
 			mob.beckon(curUser.pos);
@@ -83,11 +84,16 @@ public class FollowerSkill extends ClassSkill {
 				people++;
 			}
 		}
-		int goldearn = people*(Dungeon.hero.lvl/10+100);
-		Dungeon.gold+= goldearn;
-		Dungeon.hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, goldearn);
-		if (Random.Int(4) == 0)
-			Dungeon.level.drop(Generator.random(),curUser.pos).sprite.drop(curUser.pos);
+		if (Dungeon.hero.lvl > 55) {
+			int goldearn = people * (Dungeon.hero.lvl / 10 + 100);
+			Dungeon.gold += goldearn;
+			Dungeon.hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, goldearn);
+		}
+
+		for(int i=0; i<people; i++) {
+			if (Random.Int(4) == 0)
+				Dungeon.level.drop(Generator.random(),curUser.pos);
+		}
 	}
 
 	@Override
@@ -102,6 +108,9 @@ public class FollowerSkill extends ClassSkill {
 			Dungeon.hero.evadeSkill++;
 			Dungeon.hero.magicSkill++;
 			Buff.affect(curUser, Blasphemy.class).level(1);
+			if (Dungeon.hero.lvl > 55) {
+				Buff.affect(curUser, Blasphemy.class).level(1);
+			}
 		} else {
 			Buff.affect(Dungeon.hero, AttackUp.class,50).level(50);
 			Buff.affect(Dungeon.hero, ArmorBreak.class,50).level(50);
@@ -134,8 +143,10 @@ public class FollowerSkill extends ClassSkill {
 		GLog.w(Messages.get(ScrollOfUpgrade.class,"looks_better", item.name()));
 
 		item.upgrade(1);
-        item.uncurse();
-		
+
+		if (Dungeon.hero.lvl > 55) {
+			item.uncurse();
+		}
 		curUser.sprite.operate(curUser.pos);
 		curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 		Badges.validateItemLevelAquired(item);

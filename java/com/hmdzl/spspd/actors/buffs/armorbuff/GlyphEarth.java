@@ -2,6 +2,7 @@ package com.hmdzl.spspd.actors.buffs.armorbuff;
 
 import com.hmdzl.spspd.actors.blobs.SwampGas;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSand;
+import com.hmdzl.spspd.actors.buffs.AcidOoze;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Ooze;
@@ -15,7 +16,7 @@ public class GlyphEarth extends Buff {
 
 		{
 			immunities.add( Roots.class );
-			immunities.add( Ooze.class );
+			immunities.add( AcidOoze.class );
 			immunities.add( Poison.class );
 			immunities.add(WeatherOfSand.class );
 

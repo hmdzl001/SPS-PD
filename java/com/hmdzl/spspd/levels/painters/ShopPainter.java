@@ -20,7 +20,6 @@ package com.hmdzl.spspd.levels.painters;
 import android.annotation.SuppressLint;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.hero.Belongings;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.ImpShopkeeper;
 import com.hmdzl.spspd.actors.mobs.npcs.Shopkeeper;
@@ -43,27 +42,29 @@ import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.journalpages.Town;
-import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
-import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.summon.FairyCard;
 import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.summon.Mobile;
-import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunA;
 import com.hmdzl.spspd.items.weapon.guns.GunB;
 import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
+import com.hmdzl.spspd.items.weapon.melee.special.MeleePan;
 import com.hmdzl.spspd.items.weapon.melee.special.PaperFan;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.MagicHand;
+import com.hmdzl.spspd.items.weapon.ranges.AlloyBowN;
+import com.hmdzl.spspd.items.weapon.ranges.MetalBowN;
+import com.hmdzl.spspd.items.weapon.ranges.PVCBowN;
+import com.hmdzl.spspd.items.weapon.ranges.StoneBowN;
+import com.hmdzl.spspd.items.weapon.ranges.WoodenBowN;
 import com.hmdzl.spspd.levels.HallsLevel;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.plants.Plant;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -120,43 +121,68 @@ public class ShopPainter extends Painter {
 
 		itemsToSpawn = new ArrayList<Item>();
 
+
+
+
 		switch (Dungeon.depth) {
 		case 1:
-			itemsToSpawn.add(new GunA().identify());
+			itemsToSpawn.add(new SeedPouch());
+			if(Random.Int(2) ==0) {
+				itemsToSpawn.add(new WoodenBowN().identify());
+			} else {
+				itemsToSpawn.add(new GunA().identify());
+			}
 			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new PaperFan());
+			itemsToSpawn.add(new MeleePan());
 			itemsToSpawn.add(new Pasty());
 			//itemsToSpawn.add(new UnstableSpellbook());
             break;	
 			
 		case 6:
+			itemsToSpawn.add(new ScrollHolder());
             itemsToSpawn.add(new DolyaSlate().identify());
-
-			itemsToSpawn.add(new GunB().identify());
+			if(Random.Int(2) ==0) {
+				itemsToSpawn.add(new StoneBowN().identify());
+			} else {
+				itemsToSpawn.add(new GunB().identify());
+			}
 			//itemsToSpawn.add(new DiscArmor().identify());
 			break;
 
 		case 11:
+			itemsToSpawn.add(new PotionBandolier());
 			itemsToSpawn.add(new Town().identify());
-			itemsToSpawn.add(new GunC().identify());
+			if(Random.Int(2) ==0) {
+				itemsToSpawn.add(new MetalBowN().identify());
+			} else {
+				itemsToSpawn.add(new GunC().identify());
+			}
 			//itemsToSpawn.add(new MailArmor().identify());
 			break;
 
 		case 16:
-			itemsToSpawn.add(new GunD().identify());
+			itemsToSpawn.add(new WandHolster());
+			if(Random.Int(2) ==0) {
+				itemsToSpawn.add(new AlloyBowN().identify());
+			} else {
+				itemsToSpawn.add(new GunD().identify());
+			}
 			//itemsToSpawn.add(new ScaleArmor().identify());
 			break;
 
 		case 21:
 			//itemsToSpawn.add(new Torch());
-			itemsToSpawn.add(new GunE().identify());
+			if(Random.Int(2) ==0) {
+				itemsToSpawn.add(new PVCBowN().identify());
+			} else {
+				itemsToSpawn.add(new GunE().identify());
+			}
 			itemsToSpawn.add(new CourageChallenge());
 			itemsToSpawn.add(new PowerChallenge());
 			itemsToSpawn.add(new WisdomChallenge());
 			break;
 		}
 
-		ChooseBag(Dungeon.hero.belongings);
 
 		itemsToSpawn.add(new PotionOfHealing());
 		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
@@ -261,7 +287,7 @@ public class ShopPainter extends Painter {
 		Collections.shuffle(itemsToSpawn);
 	}
 
-	private static void ChooseBag(Belongings pack) {
+	/*private static void ChooseBag(Belongings pack) {
 		// FIXME: this whole method is pretty messy to accomplish a fairly
 		// simple logic goal. Should be a better way.
 
@@ -295,20 +321,20 @@ public class ShopPainter extends Painter {
 		if (seeds >= scrolls && seeds >= potions && seeds >= wands
 				&& !Dungeon.limitedDrops.seedBag.dropped()) {
 			Dungeon.limitedDrops.seedBag.drop();
-			itemsToSpawn.add(new SeedPouch());
+
 		} else if (scrolls >= potions && scrolls >= wands
 				&& !Dungeon.limitedDrops.scrollBag.dropped()) {
 			Dungeon.limitedDrops.scrollBag.drop();
-			itemsToSpawn.add(new ScrollHolder());
+
 		} else if (potions >= wands
 				&& !Dungeon.limitedDrops.potionBag.dropped()) {
 			Dungeon.limitedDrops.potionBag.drop();
-			itemsToSpawn.add(new PotionBandolier());
+
 		} else if (!Dungeon.limitedDrops.wandBag.dropped()) {
 			Dungeon.limitedDrops.wandBag.drop();
-			itemsToSpawn.add(new WandHolster());
+
 		}
-	}
+	}*/
 
 	public static int spaceNeeded() {
 		if (itemsToSpawn == null)

@@ -77,12 +77,12 @@ public class RatKing extends NPC {
 	@Override
 	public boolean interact() {
 		
-		int checkChests = 2;
-		int length = Level.getLength();
-		for (int i = 0; i < length; i++) {
-			Heap chest = Dungeon.level.heaps.get(i);
-			if(chest != null && chest.chestCheck()){checkChests++;}
-		}
+		//int checkChests = 2;
+		//	int length = Level.getLength();
+		//for (int i = 0; i < length; i++) {
+		//	Heap chest = Dungeon.level.heaps.get(i);
+		//	if(chest != null && chest.chestCheck()){checkChests++;}
+		//}
 		
 		Spork spork = Dungeon.hero.belongings.getItem(Spork.class);
 		//RunicBlade runicblade = Dungeon.hero.belongings.getItem(RunicBlade.class);
@@ -94,12 +94,9 @@ public class RatKing extends NPC {
 			yell(Messages.get(this, "not_takeing"));
 			state = WANDERING;
 		//} else if (Statistics.deepestFloor>9 && checkChests >= Dungeon.ratChests && spork==null && runicblade==null){ 
-		} else if (Statistics.deepestFloor>10 && checkChests >= Dungeon.ratChests && spork==null){ 
+		} else if (Statistics.deepestFloor>10 && spork==null){
 			yell(Messages.get(this, "thanks"));
 			Dungeon.sporkAvail = true;
-		} else if (checkChests < Dungeon.ratChests){
-			Dungeon.sporkAvail = false;
-			yell(Messages.get(this, "why"));
 		} else if (spork!=null) {
 			//yell("You found my spork! Here, trade me for this old one.");
 			yell(Messages.get(this, "havefun"));

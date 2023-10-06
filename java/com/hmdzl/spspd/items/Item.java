@@ -28,6 +28,7 @@ import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -191,7 +192,7 @@ public class Item implements Bundlable {
 			}
 
 			items.add(this);
-			if (stackable || this instanceof Boomerang)
+			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon)
 				Dungeon.quickslot.replaceSimilar(this);
 			updateQuickslot();
 			Collections.sort(items, itemComparator);
@@ -217,7 +218,7 @@ public class Item implements Bundlable {
 
 		} else if (quantity == 1) {
 
-			if (stackable || this instanceof Boomerang ) {
+			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon) {
 				Dungeon.quickslot.convertToPlaceholder(this);
 			}
 
@@ -273,7 +274,7 @@ public class Item implements Bundlable {
 
 		} else if (quantity == 1) {
 
-			if (stackable || this instanceof Boomerang) {
+			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon) {
 				Dungeon.quickslot.convertToPlaceholder(this);
 			}
 
@@ -338,6 +339,11 @@ public class Item implements Bundlable {
 		return this;
 	}
 
+	public Item unique(){
+		unique=true;
+		return this;
+	}	
+	
 	public Item dounique(){
 		unique=false;
 		return this;
@@ -391,6 +397,10 @@ public class Item implements Bundlable {
 
 	public boolean isReinforced() {
 		return reinforced;
+	}
+	
+	public boolean isunique() {
+		return unique;
 	}
 	
 	public boolean isIdentified() {

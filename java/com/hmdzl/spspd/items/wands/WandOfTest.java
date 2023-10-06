@@ -17,10 +17,16 @@
  */
 package com.hmdzl.spspd.items.wands;
 
+import com.hmdzl.spspd.Challenges;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.actors.hero.Belongings;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.items.misc.GnollMark;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -132,6 +138,31 @@ public class WandOfTest extends DamageWand {
 		}  else {
 			super.execute(hero, action);
 		}
+	}
+
+	@Override
+	public void updateLevel() {
+		maxCharges = 99;
+		curCharges = Math.min( curCharges, maxCharges );
+	}
+
+	@Override
+	protected void wandUsed() {
+		curCharges -= chargesPerCast();
+		//if (!isIdentified() && usagesToKnow <= 0) {
+		//	identify();
+		//	GLog.w( Messages.get(Wand.class, "identify", name()) );
+		//} else {
+		if (curUser.heroClass == HeroClass.MAGE) levelKnown = true;
+		updateQuickslot();
+		//	}
+	    curUser.spendAndNext(1f);
+
+		if (curCharges == 0){
+			Dungeon.hero.spp += 100;
+			this.detach(curUser.belongings.backpack);
+		}
+
 	}
 
 	@Override

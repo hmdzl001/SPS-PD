@@ -35,7 +35,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.ExMobBambooSprite;
+import com.hmdzl.spspd.sprites.ExBambooSprite;
 import com.watabou.utils.Random;
 
 import java.util.HashSet;
@@ -45,7 +45,7 @@ public class ExBambooMob extends BambooMob {
 	{
 		
 		HP = HT = 80;
-		spriteClass = ExMobBambooSprite.class;
+		spriteClass = ExBambooSprite.class;
 		properties.add(Property.PLANT);
 	}
 	

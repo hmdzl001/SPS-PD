@@ -54,6 +54,14 @@ public class LearnSkill extends Buff {
 			Dungeon.hero.TRUE_HT++;
 			Dungeon.hero.updateHT(true);
 			GLog.i("DANG DANG DANG");
+            if(Dungeon.hero.lvl > 55){
+				Dungeon.hero.magicSkill++;
+				Dungeon.hero.hitSkill++;
+				Dungeon.hero.evadeSkill++;
+				Dungeon.hero.TRUE_HT++;
+				Dungeon.hero.updateHT(true);
+			}
+
 			detach();
 		}
 		return true;

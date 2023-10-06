@@ -516,8 +516,12 @@ public class ItemSpriteSheet {
 	public static final int MOBS = ROW24 + 8;
 	public static final int W_BRICK = ROW24 + 9;
 	public static final int MIDDLE_AMMO = ROW24 + 10;
-	public static final int N_BOW = ROW24 + 11;
-	public static final int S_BOW = ROW24 + 12;
+	public static final int PVC_BOW = ROW24 + 11;
+	public static final int WOODEN_BOW = ROW24 + 12;
+
+	public static final int STONE_BOW = ROW34 + 15;
+
+	public static final int ALLOW_BOW = ROW31 + 13;
 	public static final int KU_WU = ROW24 + 13;
 	public static final int BIAO_QIANG = ROW24 + 14;
 	public static final int YUAN_REN = ROW24 + 15;
@@ -704,7 +708,7 @@ public class ItemSpriteSheet {
 	public static final int WHISK = ROW31 + 10;
 
 	public static final int MEGA_CANNON = ROW31 + 11;
-	public static final int R_BOW = ROW31 + 12;
+	public static final int METAL_BOW = ROW31 + 12;
 	public static final int MAGIC_HAND = ROW31 + 13;
 	public static final int ARROW_COLLECTER = ROW31 + 14;
 

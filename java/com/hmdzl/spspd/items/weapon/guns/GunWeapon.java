@@ -243,6 +243,10 @@ public class GunWeapon extends Weapon {
         if (reinforced) {
             info += "\n" + Messages.get(Item.class, "reinforced");
         }
+		
+		if (unique) {
+			info += "\n\n" +  Messages.get(Item.class, "unique");
+		}	
 
         info += "\n " + Messages.get(ToyGun.class, "charge", charge, fullcharge);
 

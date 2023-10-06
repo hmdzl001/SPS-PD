@@ -20,26 +20,42 @@
  */
 package com.hmdzl.spspd.items.misc;
 
+import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.ArmorBreak;
-import com.hmdzl.spspd.actors.buffs.AttackDown;
+import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Corruption;
-import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.buffs.DefenceUp;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.actors.buffs.HiddenShadow;
+import com.hmdzl.spspd.actors.buffs.Hunger;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.buffs.SpeedUp;
+import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.npcs.NPC;
+import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.GooSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class CopyBall extends Item {
 
@@ -152,13 +168,9 @@ public class CopyBall extends Item {
 
 		@Override
 		public void proc(Char attacker, Char defender, int damage) {
-			if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
-			Buff.affect(defender, AttackDown.class, 30f).level(70);
-			Buff.affect(defender, ArmorBreak.class, 30f).level(70);
-            Buff.prolong(defender, Vertigo.class, 5f);
-			} else {
-				Buff.affect(defender,Corruption.class);
-			}
+			defender.damage(attacker.damageRoll()+10, Hunger.class);
+			CopyBall.shattercopy(null,defender.pos);
+
 			super.proc(attacker, defender, damage);
 		}
 		
@@ -183,4 +195,143 @@ public class CopyBall extends Item {
 			return Messages.get(CopyBall.class, "prompt");
 		}
 	};
+
+	public static void shattercopy(Char owner, int pos) {
+
+		if (Dungeon.visible[pos]) {
+			Sample.INSTANCE.play(Assets.SND_SHATTER);
+			Splash.at(pos, 0xffd500, 5);
+		}
+
+		int newPos = pos;
+		if (Actor.findChar(pos) != null) {
+			ArrayList<Integer> candidates = new ArrayList<Integer>();
+			boolean[] passable = Level.passable;
+
+			for (int n : Level.NEIGHBOURS4) {
+				int c = pos + n;
+				if (passable[c] && Actor.findChar(c) == null) {
+					candidates.add(c);
+				}
+			}
+
+			newPos = candidates.size() > 0 ? Random.element(candidates) : -1;
+		}
+
+		if (newPos != -1 ) {
+				CopyBall.SlimeS slime = new CopyBall.SlimeS();
+			    slime.spawn();
+			    slime.HP = (int)(Dungeon.hero.HT/3);
+			    slime.pos = newPos;
+
+				GameScene.add(slime);
+				Actor.addDelayed(new Pushing(slime, pos, newPos), -1f);
+
+			    slime.sprite.alpha(0);
+			    slime.sprite.parent.add(new AlphaTweener(slime.sprite, 1, 0.15f));
+
+				Sample.INSTANCE.play(Assets.SND_BEE);
+
+		} else new DungeonBomb().explode(pos);
+	}
+
+	public static class SlimeS extends NPC {
+
+		{
+			//name = "Slime S";
+			spriteClass = GooSprite.class;
+
+			viewDistance = 6;
+			ally=true;
+			flying = true;
+			state = WANDERING;
+		}
+
+		public void spawn() {
+			HT = 100;
+			evadeSkill = Dungeon.hero.evadeSkill;
+		}
+		@Override
+		public int hitSkill(Char target) {
+			return Dungeon.hero.hitSkill;
+		}
+
+		@Override
+		public int damageRoll() {
+			return 0;
+		}
+
+		@Override
+		public int attackProc(Char enemy, int damage) {
+			enemy.damage((int)(Dungeon.hero.damageRoll()/3), Hunger.class);
+			return damage;
+		}
+
+		@Override
+		protected boolean canAttack(Char enemy) {
+			return Level.distance( pos, enemy.pos ) <= 2 ;
+		}
+
+		@Override
+		public void add( Buff buff ) {
+			if (buff instanceof AttackUp ||
+					buff instanceof DefenceUp ||
+					buff instanceof ShieldArmor ||
+					buff instanceof MagicArmor ||
+					buff instanceof HasteBuff ||
+					buff instanceof SpeedUp ||
+					buff instanceof HasteBuff||
+					buff instanceof HiddenShadow ||
+					buff instanceof WatchOut) {
+				super.add(buff);
+			} else {
+
+			}
+			//in other words, can't be directly affected by buffs/debuffs.
+		}
+
+		@Override
+		protected boolean getCloser(int target) {
+			if (state == WANDERING
+					|| Level.distance(target, Dungeon.hero.pos) > 6)
+				this.target = target = Dungeon.hero.pos;
+			return super.getCloser(target);
+		}
+		@Override
+		protected Char chooseEnemy() {
+			if (enemy == null || !enemy.isAlive() || state == WANDERING) {
+
+				HashSet<Mob> enemies = new HashSet<Mob>();
+				for (Mob mob : Dungeon.level.mobs) {
+					if (mob.hostile && Level.fieldOfView[mob.pos]
+							&& mob.state != mob.PASSIVE) {
+						enemies.add(mob);
+					}
+				}
+				enemy = enemies.size() > 0 ? Random.element(enemies) : null;
+			}
+			return enemy;
+		}
+
+		@Override
+		public boolean interact() {
+			if (Level.passable[pos] || Dungeon.hero.flying) {
+				int curPos = pos;
+
+				moveSprite(pos, Dungeon.hero.pos);
+				move(Dungeon.hero.pos);
+
+				Dungeon.hero.sprite.move(Dungeon.hero.pos, curPos);
+				Dungeon.hero.move(curPos);
+
+				Dungeon.hero.spend(1 / Dungeon.hero.speed());
+				Dungeon.hero.busy();
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+	}
+
 }

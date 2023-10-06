@@ -67,6 +67,7 @@ import com.hmdzl.spspd.actors.buffs.MagicalSleep;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.Needling;
 import com.hmdzl.spspd.actors.buffs.Ooze;
+import com.hmdzl.spspd.actors.buffs.AcidOoze;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.ParyAttack;
 import com.hmdzl.spspd.actors.buffs.Poison;
@@ -108,6 +109,7 @@ import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMeteorite;
 import com.hmdzl.spspd.items.wands.WandOfSwamp;
+import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Terrain;
@@ -209,10 +211,14 @@ public abstract class Char extends Actor {
 
 			if (this instanceof Hero){
 				Hero h = (Hero)this;
-				if ((h.belongings.weapon instanceof MissileWeapon
-						&& h.subClass == HeroSubClass.SNIPER )||
-						( h.heroClass == HeroClass.FOLLOWER && Dungeon.skins == 2) ){
+				if ((h.rangedWeapon != null && h.subClass == HeroSubClass.SNIPER )){
 					dr = 0;
+			    } else if (h.heroClass == HeroClass.FOLLOWER && Dungeon.skins == 2){
+					dr = 0;
+				} else if ( h.rangedWeapon != null && h.heroClass == HeroClass.HUNTRESS) {
+					dr = dr/2;
+				}else if ( h.rangedWeapon != null && h.rangedWeapon instanceof GunWeapon.NormalAmmo) {
+					dr = dr/2;
 				}
 			}
 
@@ -886,7 +892,7 @@ public abstract class Char extends Actor {
 				new HashSet<Class>( ),
 				new HashSet<Class>( Arrays.asList(Vertigo.class,Blindness.class))
 		),
-		DWARF( new HashSet<Class>(  Arrays.asList(Paralysis.class , Ooze.class,GrowSeed.class ) ),
+		DWARF( new HashSet<Class>(  Arrays.asList(Paralysis.class , AcidOoze.class,GrowSeed.class ) ),
 				new HashSet<Class>( Arrays.asList(Cripple.class, Roots.class) ),
 				new HashSet<Class>(  Arrays.asList(ShadowCurse.class,DamageType.DarkDamage.class,Darkglyph.class,WandOfBlood.class))
 		),
@@ -911,7 +917,7 @@ public abstract class Char extends Actor {
 				new HashSet<Class>(  Arrays.asList(BeCorrupt.class,BeOld.class,AttackDown.class) ),
 				new HashSet<Class>(  Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class) )
 		),
-		PLANT( new HashSet<Class>(Arrays.asList(Roots.class, Cripple.class, Ooze.class,DamageType.LightDamage.class)),
+		PLANT( new HashSet<Class>(Arrays.asList(Roots.class, Cripple.class, AcidOoze.class,DamageType.LightDamage.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class)),
 		        new HashSet<Class>( Arrays.asList(Burning.class, WandOfFirebolt.class,DamageType.FireDamage.class))
 				),
@@ -922,7 +928,7 @@ public abstract class Char extends Actor {
 
 		MECH( new HashSet<Class>(  Arrays.asList(Fire.class, SlowGas.class, Frost.class,Burning.class)),
 				new HashSet<Class>( Arrays.asList(Charm.class, Terror.class) ),
-				new HashSet<Class>(  Arrays.asList(Ooze.class,WandOfAcid.class, WandOfSwamp.class,DamageType.EarthDamage.class))
+				new HashSet<Class>(  Arrays.asList(AcidOoze.class,WandOfAcid.class, WandOfSwamp.class,DamageType.EarthDamage.class))
 		),
 		UNDEAD( new HashSet<Class>( Arrays.asList(Cold.class, SlowGas.class, Frost.class,BeCorrupt.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, HealLight.class, Poison.class,BeOld.class)),

@@ -28,7 +28,6 @@ import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Corruption;
 import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.Feed;
@@ -258,8 +257,6 @@ public abstract class Mob extends Char {
 		if ( enemy == null || !enemy.isAlive() || state == WANDERING)
 			newEnemy = true;
 			//We are corrupted, and current enemy is either the hero or another corrupted character.
-		else if (buff(Corruption.class) != null && enemy == Dungeon.hero)
-			newEnemy = true;
 			//We are amoked and current enemy is the hero
 		else if (buff( Amok.class ) != null && enemy == Dungeon.hero)
 			newEnemy = true;
@@ -271,18 +268,7 @@ public abstract class Mob extends Char {
 			HashSet<Char> enemies = new HashSet<>();
 
 			//if the mob is corrupted...
-			if ( buff(Corruption.class) != null) {
-				//look for enemy mobs to attack, which are also not corrupted
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && mob.hostile)
-						enemies.add(mob);
-				if (enemies.size() > 0) return Random.element(enemies);
-
-				//otherwise go for nothing
-				else return null;
-
-				//if the mob is amoked...
-			} else if ( buff(Amok.class) != null) {
+			if ( buff(Amok.class) != null) {
 
 				//try to find an enemy mob to attack first.
 				for (Mob mob : Dungeon.level.mobs)
@@ -303,7 +289,7 @@ public abstract class Mob extends Char {
 
 				//try to find ally mobs to attack.
 				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && (mob.ally || mob.buff(Corruption.class) != null || mob.buff(Amok.class) != null))
+					if (mob != this && Level.fieldOfView[mob.pos] && (mob.ally || mob.buff(Amok.class) != null))
 						enemies.add(mob);
 
 				//and add the hero to the list of targets.

@@ -265,11 +265,11 @@ import com.hmdzl.spspd.items.weapon.melee.Wardrum;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
 import com.hmdzl.spspd.items.weapon.melee.WindBottle;
 import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
-import com.hmdzl.spspd.items.weapon.melee.special.DragonBoat;
 import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
 import com.hmdzl.spspd.items.weapon.melee.special.HookHam;
 import com.hmdzl.spspd.items.weapon.melee.special.KeyWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.Lollipop;
+import com.hmdzl.spspd.items.weapon.melee.special.MeleePan;
 import com.hmdzl.spspd.items.weapon.melee.special.PaperFan;
 import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.items.weapon.melee.special.SJRBMusic;
@@ -290,6 +290,7 @@ import com.hmdzl.spspd.items.weapon.missiles.arrows.ShockFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.SmokeFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.ToxicFruit;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Brick;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.DragonBoat;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.HugeShuriken;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Javelin;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Kunai;
@@ -363,7 +364,7 @@ public class Generator {
 		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),SEED4(0,	Plant.Seed.class),
 		FOOD(10, Food.class), GOLD(400, Gold.class), BERRY(50, Food.class), MUSHROOM(5, Pill.class), BOMBS(20, Bomb.class),
 		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(5, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class)
-		,SHOES(0,Item.class),DEW(0,Item.class),BASEPET(0,Egg.class),EASTERWEAPON(0,Item.class),ROCKCODE(0,RockCode.class),THROWWEAPON(0,Arrows.class);
+		,SHOES(0,Item.class),DEW(0,Item.class),BASEPET(0,Egg.class),EASTERWEAPON(0,Item.class),ROCKCODE(0,RockCode.class), ARROWS(0,Arrows.class);
 
 		public Class<?>[] classes;
 		public float[] probs;
@@ -501,26 +502,26 @@ public class Generator {
 		};
 
 		Category.SHOOTWEAPON.classes = new Class<?>[] {
-				WoodenBowN.class, WoodenBowS.class, WoodenBowR.class,
-				StoneBowN.class, StoneBowS.class, StoneBowR.class,
-				MetalBowN.class, MetalBowS.class, MetalBowR.class,
-				AlloyBowN.class, AlloyBowS.class, AlloyBowR.class,
-				PVCBowN.class, PVCBowS.class, PVCBowR.class};
+				WoodenBowN.class, WoodenBowS.class, WoodenBowR.class, GunA.class,
+				StoneBowN.class, StoneBowS.class, StoneBowR.class, GunB.class,
+				MetalBowN.class, MetalBowS.class, MetalBowR.class, GunC.class,
+				AlloyBowN.class, AlloyBowS.class, AlloyBowR.class, GunD.class,
+				PVCBowN.class, PVCBowS.class, PVCBowR.class, GunE.class};
 		Category.SHOOTWEAPON.probs = new float[] {
-				1, 1, 1,
-				1, 1, 1,
-				1, 1, 1,
-				1, 1, 1,
-				1, 1, 1,
+				1, 1, 1,1,
+				1, 1, 1,1,
+				1, 1, 1,1,
+				1, 1, 1,1,
+				1, 1, 1,1,
 		};
 
-		Category.THROWWEAPON.classes = new Class<?>[] {
+		Category.ARROWS.classes = new Class<?>[] {
 				BlindFruit.class, CharmFruit.class, CharmFruit.class,
 				FireFruit.class, GlassFruit.class, HealFruit.class,
 				IceFruit.class, MagicHand.class, NutFruit.class,
 				RocketMissile.class, RootFruit.class, ShockFruit.class,
 				SmokeFruit.class, ToxicFruit.class, RiceBall.class};
-		Category.THROWWEAPON.probs = new float[] {
+		Category.ARROWS.probs = new float[] {
 				1, 1, 1,
 				1, 1, 1,
 				1, 1, 1,
@@ -665,10 +666,10 @@ public class Generator {
 
 		Category.EASTERWEAPON.classes = new Class<?>[] {Pumpkin.class,Tree.class,MiniMoai.class,TestWeapon.class,ToyGun.class,
 				HookHam.class,Brick.class,Lollipop.class,FireCracker.class,SJRBMusic.class,RocketMissile.class,
-				KeyWeapon.class,DragonBoat.class,PaperFan.class};
+				KeyWeapon.class,DragonBoat.class,PaperFan.class, MeleePan.class};
 		Category.EASTERWEAPON.probs = new float[] {1,1,1,1,1,
 				1,1,1,1,1,1,
-				1,1,1};
+				1,1,1,1};
 
 		Category.ROCKCODE.classes = new Class<?>[] {Alink.class,Bmech.class,Dpotion.class,Gleaf.class,Ichain.class,
 				Lbox.class,Mlaser.class,Nshuriken.class,Obubble.class,Sweb.class,

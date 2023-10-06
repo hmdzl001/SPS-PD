@@ -24,8 +24,9 @@ public class StoneBowR extends RangeWeapon {
 
 	{
 		//name = "GunA";
-		image = ItemSpriteSheet.R_BOW;
+		image = ItemSpriteSheet.STONE_BOW;
 		STR++;
+		sname = "R";
 		//MIN=10;
 		//MAX=10;
 	}

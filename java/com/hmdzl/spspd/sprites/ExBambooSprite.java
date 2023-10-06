@@ -18,12 +18,11 @@
 package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.actors.Char;
 import com.watabou.noosa.TextureFilm;
 
-public class ExMobBambooSprite extends MobSprite {
+public class ExBambooSprite extends MobSprite {
 
-	public ExMobBambooSprite() {
+	public ExBambooSprite() {
 		super();
 
 		texture( Assets.MOB_BAMBOO );
@@ -31,31 +30,19 @@ public class ExMobBambooSprite extends MobSprite {
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 
         idle = new Animation( 15, true );
-        idle.frames(frames, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 3);
+        idle.frames(frames, 4, 4, 4, 4, 4, 4, 4, 5, 6, 6, 6, 7);
 
-        run = new Animation( 20, true );
-        run.frames( frames, 0 );
+        run = new Animation( 24, true );
+        run.frames( frames, 4 );
 
         attack = new Animation( 12, false );
-        attack.frames( frames, 0, 2, 3 );
+        attack.frames( frames, 4, 6, 7 );
 
-        die = new Animation( 20, false );
-        die.frames( frames, 0 );
+        die = new Animation( 24, false );
+        die.frames( frames, 4 );
 
         play( idle );
     }
-	
-	@Override
-	public void link(Char ch) {
-		super.link(ch);
-		add(State.REGROW);
-	}
-
-	@Override
-	public void die() {
-		super.die();
-		remove(State.REGROW);
-	}
 
 
 }

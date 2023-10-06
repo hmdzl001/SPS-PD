@@ -21,9 +21,11 @@
 package com.hmdzl.spspd.levels.traps.damagetrap;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.damageblobs.DarkEffectDamage;
+import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -44,6 +46,7 @@ public class DarkDamage2Trap extends Trap {
 			if (Level.insideMap(pos+i) && !Level.solid[pos+i]) {
 				GameScene.add(Blob.seed(pos + i, 20, DarkEffectDamage.class));
 			}
+
 		}
 		Sample.INSTANCE.play(Assets.SND_ZAP);
 	}

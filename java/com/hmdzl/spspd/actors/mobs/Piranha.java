@@ -22,7 +22,6 @@ import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.Corruption;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Roots;
@@ -155,7 +154,6 @@ public class Piranha extends Mob {
 		immunities.add(ToxicGas.class);
 		immunities.add(Roots.class);
 		immunities.add(Frost.class);
-		immunities.add(Corruption.class);
 	}
 	
 }

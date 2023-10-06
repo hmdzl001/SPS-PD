@@ -58,8 +58,13 @@ public class RogueSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Buff.affect(curUser, Invisibility.class,20);
-		
-		switch (Random.Int(3)){
+
+		if (Dungeon.hero.lvl > 55) {
+			Buff.affect(curUser, MoonFury.class);
+			Buff.affect(curUser, HasteBuff.class,15);
+			Buff.affect(curUser, AttackUp.class,15).level(50);
+		} else {
+		    switch (Random.Int(3)){
 			case 0:
 		    Buff.affect(curUser, MoonFury.class);
 			break;
@@ -71,6 +76,7 @@ public class RogueSkill extends ClassSkill {
 			break;
 			case 3:
 			break;
+		    }
 		}
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
@@ -93,15 +99,23 @@ public class RogueSkill extends ClassSkill {
 		
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Buff.affect(curUser, GoldTouch.class,15f);
-		Buff.affect(curUser, ItemSteal.class,15f);
+
+		if (Dungeon.hero.lvl > 55) {
+		    Buff.affect(curUser, ItemSteal.class,30f);
+			Buff.affect(curUser, GoldTouch.class,30f);
+		} else {
+			Buff.affect(curUser, ItemSteal.class,15f);
+			Buff.affect(curUser, GoldTouch.class,15f);
+		}
 	}
 
 	@Override
 	public void doSpecial3() {
-
-		Dungeon.level.drop(Generator.random(Generator.Category.RING).identify().uncurse().reinforce().upgrade(3), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-
+		if (Dungeon.hero.lvl > 55) {
+			Dungeon.level.drop(Generator.random(Generator.Category.RING).identify().uncurse().reinforce().upgrade(5), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		} else {
+			Dungeon.level.drop(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(5), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		}
 		RogueSkill.charge += 20;
 
 		curUser.spend(SKILL_TIME);

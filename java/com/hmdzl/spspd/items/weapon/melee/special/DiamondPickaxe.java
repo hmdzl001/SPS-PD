@@ -351,8 +351,12 @@ public class DiamondPickaxe extends MeleeWeapon {
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);
 		}
-		if ( defender.HP <= damage && Random.Int(12) == 0) {
-			Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
+
+		if ( defender.HP <= damage && ((Mob) defender).firstitem) {
+			((Mob) defender).firstitem = false;
+			if (Random.Int(6) == 0) {
+				Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
+			}
 		}
 	}
 

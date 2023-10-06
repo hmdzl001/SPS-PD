@@ -326,7 +326,7 @@ public class Yog extends Mob {
 		@Override
 		public int attackProc(Char enemy, int damage) {
 			if (Random.Int(3) == 0) {
-				Buff.affect(enemy, Ooze.class);
+				Buff.affect(enemy, Ooze.class).set(10f);
 				enemy.sprite.burst(0xFF000000, 5);
 			}
 

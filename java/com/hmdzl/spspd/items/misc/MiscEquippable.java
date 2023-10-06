@@ -89,7 +89,6 @@ public class MiscEquippable extends KindofMisc {
 			return false;
 
 		} else {
-
 			if (super.doEquip( hero )){
 
 				identify();

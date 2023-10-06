@@ -45,6 +45,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BMirrorSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -97,14 +98,17 @@ public class SoldierSkill extends ClassSkill {
 				nImages--;
 			}
 		}
+
 		SoldierSkill.charge += 12;
-	    Buff.detach(curUser, Poison.class);
-		Buff.detach(curUser, Cripple.class);
-		Buff.detach(curUser, STRdown.class);
-		Buff.detach(curUser, Burning.class);
-		Buff.detach(curUser, Ooze.class);
-		Buff.detach(curUser, Chill.class);
-		Buff.affect(curUser, Bless.class, 5f);
+		if (Dungeon.hero.lvl > 55) {
+			Buff.detach(curUser, Poison.class);
+			Buff.detach(curUser, Cripple.class);
+			Buff.detach(curUser, STRdown.class);
+			Buff.detach(curUser, Burning.class);
+			Buff.detach(curUser, Ooze.class);
+			Buff.detach(curUser, Chill.class);
+			Buff.affect(curUser, Bless.class, 5f);
+		}
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -116,8 +120,13 @@ public class SoldierSkill extends ClassSkill {
 	@Override
 	public void doSpecial2() {
 		SoldierSkill.charge += 25;
-		Buff.affect(curUser, MechArmor.class).level(300);
-		Buff.affect(curUser, ShieldArmor.class).level(Dungeon.hero.lvl*3);
+		if (Dungeon.hero.lvl > 55) {
+			Buff.affect(curUser, MechArmor.class).level(600);
+			Buff.affect(curUser, ShieldArmor.class).level(Dungeon.hero.lvl * 6);
+		} else {
+			Buff.affect(curUser, MechArmor.class).level(300);
+			Buff.affect(curUser, ShieldArmor.class).level(Dungeon.hero.lvl * 3);
+		}
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -127,8 +136,14 @@ public class SoldierSkill extends ClassSkill {
 		}
 	@Override
 	public void doSpecial3() {
-		Dungeon.level.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-		SoldierSkill.charge += 20;
+		if (Dungeon.hero.lvl > 55 ) {
+			Dungeon.level.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		} else if (Random.Int(2) == 0) {
+			Dungeon.level.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		} else {
+			Dungeon.level.drop(Generator.random(),Dungeon.hero.pos);
+		}
+		SoldierSkill.charge += 15;
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -140,22 +155,17 @@ public class SoldierSkill extends ClassSkill {
 	public void doSpecial4() {
 		SoldierSkill.charge += 20;
 
-		int cell = Dungeon.level.randomRespawnCell();
-
-		if (cell != -1) {
-			//Dungeon.level.spdrop(Generator.random(Generator.Category.HIGHFOOD), cell);
-			Dungeon.level.spdrop(Generator.random(Generator.Category.RANGEWEAPON), cell);
-			if (Dungeon.hero.isHungry() || Dungeon.hero.isStarving())
-                Dungeon.level.spdrop(Generator.random(Generator.Category.HIGHFOOD), cell);
-			else Dungeon.level.spdrop(Generator.random(Generator.Category.FOOD), cell);
-		} else {
-			//Dungeon.level.spdrop(Generator.random(Generator.Category.HIGHFOOD), curUser.pos);
-			Dungeon.level.spdrop(Generator.random(Generator.Category.RANGEWEAPON), Dungeon.hero.pos);
-            if (Dungeon.hero.isHungry() || Dungeon.hero.isStarving())
-                Dungeon.level.spdrop(Generator.random(Generator.Category.HIGHFOOD), Dungeon.hero.pos);
-            else Dungeon.level.spdrop(Generator.random(Generator.Category.FOOD), Dungeon.hero.pos);
+		for (int n : Level.NEIGHBOURS4OUT) {
+			int cell = curUser.pos + n;
+			if (Dungeon.hero.lvl > 55) {
+				Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), cell);
+				Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), cell);
+			} else {
+				Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), cell);
+				Dungeon.level.drop(Generator.random(Generator.Category.FOOD), cell);
+			}
 		}
-        Buff.affect( curUser, Awareness.class, 2f);
+        Buff.affect( curUser, Awareness.class, 5f);
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();

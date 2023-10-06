@@ -35,38 +35,24 @@ import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.traps.BoundTrap;
 import com.hmdzl.spspd.levels.traps.ConfusionTrap;
+import com.hmdzl.spspd.levels.traps.DewTrap;
 import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
 import com.hmdzl.spspd.levels.traps.FlashingTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
 import com.hmdzl.spspd.levels.traps.GuardianTrap;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.levels.traps.ParalyticTrap;
-import com.hmdzl.spspd.levels.traps.PitfallTrap;
-import com.hmdzl.spspd.levels.traps.PoisonTrap;
 import com.hmdzl.spspd.levels.traps.RockfallTrap;
-import com.hmdzl.spspd.levels.traps.SpearTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.VenomTrap;
 import com.hmdzl.spspd.levels.traps.WarpingTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuff2Trap;
-import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuff2Trap;
-import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.FireBuff2Trap;
-import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.IceBuff2Trap;
-import com.hmdzl.spspd.levels.traps.bufftrap.IceBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.LightBuff2Trap;
-import com.hmdzl.spspd.levels.traps.bufftrap.LightBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuff2Trap;
-import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuffTrap;
-import com.hmdzl.spspd.levels.traps.damagetrap.EarthDamageTrap;
-import com.hmdzl.spspd.levels.traps.damagetrap.FireDamageTrap;
-import com.hmdzl.spspd.levels.traps.damagetrap.IceDamage2Trap;
-import com.hmdzl.spspd.levels.traps.damagetrap.ShockDamage2Trap;
-import com.hmdzl.spspd.levels.traps.damagetrap.ShockDamageTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -110,7 +96,7 @@ public class CavesLevel extends RegularLevel {
 		return new Class[]{ VenomTrap.class, ExplosiveTrap.class, FlashingTrap.class,
 				            GrippingTrap.class, ParalyticTrap.class,RockfallTrap.class,
 						    ConfusionTrap.class, FlockTrap.class, GuardianTrap.class, SummoningTrap.class,
-				            TeleportationTrap.class, WarpingTrap.class, BoundTrap.class,
+				            TeleportationTrap.class, WarpingTrap.class, BoundTrap.class, DewTrap.class,
 				FireBuff2Trap.class, IceBuff2Trap.class, ShockBuff2Trap.class, EarthBuff2Trap.class,
 				LightBuff2Trap.class, DarkBuff2Trap.class};
 	}
@@ -120,7 +106,7 @@ public class CavesLevel extends RegularLevel {
 		return new float[]{ 4, 4, 4,
 				      2, 3, 4,
 				1, 1, 2, 2,
-				1, 1, 3,
+				1, 1, 4, 3,
 				3, 3, 3, 3,
 				3, 3};
 	}	

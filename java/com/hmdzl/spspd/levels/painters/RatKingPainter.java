@@ -42,8 +42,7 @@ public class RatKingPainter extends Painter {
 		Room.Door entrance = room.entrance();
 		entrance.set(Room.Door.Type.HIDDEN);
 		int door = entrance.x + entrance.y * Level.getWidth();
-		
-		Dungeon.ratChests=0;
+
 
 		for (int i = room.left + 1; i < room.right; i++) {
 			addChest(level, (room.top + 1) * Level.getWidth() + i, door);
@@ -115,8 +114,6 @@ public class RatKingPainter extends Painter {
 		}
 
 		level.drop(prize, pos).type = Heap.Type.CHEST;
-		Dungeon.ratChests++;
 
-		
 	}
 }

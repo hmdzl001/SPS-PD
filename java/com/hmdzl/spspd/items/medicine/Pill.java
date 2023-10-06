@@ -67,7 +67,7 @@ public class Pill extends Item {
 			if (hero.buff(Locked.class) != null ) {
 				GLog.w(Messages.get(Food.class, "locked"));
 			} else {
-				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
+				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER) || Random.Int(10)>=1 )
 				detach(hero.belongings.backpack);
 				/*int healEnergy = Math.max(7, Math.round(energy / 40));
 				switch (hero.heroClass) {

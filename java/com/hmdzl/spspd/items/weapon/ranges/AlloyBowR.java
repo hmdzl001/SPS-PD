@@ -24,8 +24,9 @@ public class AlloyBowR extends RangeWeapon {
 
 	{
 		//name = "GunA";
-		image = ItemSpriteSheet.R_BOW;
+		image = ItemSpriteSheet.ALLOW_BOW;
 		STR++;
+		sname = "R";
 		//MIN=10;
 		//MAX=10;
 	}

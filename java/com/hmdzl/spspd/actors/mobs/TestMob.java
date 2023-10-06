@@ -80,7 +80,7 @@ public class TestMob extends Mob {
 
 	@Override
 	public int drRoll() {
-		return 0;
+		return 6;
 	}
 
 	//@Override

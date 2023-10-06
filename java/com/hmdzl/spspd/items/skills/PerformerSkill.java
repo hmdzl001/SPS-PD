@@ -36,8 +36,10 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.TransmutationBall;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.Artifact;
+import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
@@ -62,14 +64,18 @@ public class PerformerSkill extends ClassSkill {
 
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos]) {
-				Buff.affect(mob, Charm.class,5f).object = curUser.id();
+				Buff.affect(mob, Charm.class,10f).object = curUser.id();
 				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
 				Buff.affect(mob, Amok.class, 10f);
 				Buff.prolong(mob, HasteBuff.class, 5f);
 				Buff.prolong(mob, ArmorBreak.class, 20f).level(50);
 			}
 		}
-		PerformerSkill.charge += 20;
+		if (Dungeon.hero.lvl > 55) {
+			PerformerSkill.charge += 10;
+		} else {
+			PerformerSkill.charge += 20;
+		}
 		Buff.affect(curUser, DefenceUp.class,10).level(25);
 		Buff.affect(curUser, AttackUp.class,10).level(25);
 		Buff.affect(curUser, HighVoice.class,100);
@@ -84,7 +90,7 @@ public class PerformerSkill extends ClassSkill {
 	@Override
 	public void doSpecial2() {
 
-		Buff.affect(curUser, HighVoice.class,100);
+		Buff.affect(curUser, HighVoice.class, 100);
 		PerformerSkill.charge += 10;
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -92,17 +98,20 @@ public class PerformerSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 
+		if (Dungeon.hero.lvl > 55) {
+			Dungeon.level.drop(new DungeonBomb(), curUser.pos);
+		}
 
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
+		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 			if (Level.fieldOfView[mob.pos]) {
 				int base = Dungeon.hero.lvl;
-				double improve = (1 + 0.1* Dungeon.hero.magicSkill());
-				int dmg = (int)(base * improve) ;
-				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
+				double improve = (1 + 0.1 * Dungeon.hero.magicSkill());
+				int dmg = (int) (base * improve);
+				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
 
-				mob.damage(Random.Int(1,dmg) , DamageType.ENERGY_DAMAGE);
+				mob.damage(Math.max(1, dmg), DamageType.ENERGY_DAMAGE);
 
-				Dungeon.level.plant((Plant.Seed)(Generator.random(Generator.Category.SEED)),mob.pos);
+				Dungeon.level.plant((Plant.Seed) (Generator.random(Generator.Category.SEED)), mob.pos);
 
 				if (mob.isAlive()) {
 					Buff.prolong(mob, Blindness.class, 10f);
@@ -110,10 +119,6 @@ public class PerformerSkill extends ClassSkill {
 				}
 			}
 		}
-
-
-
-
 
 	}
 
@@ -159,6 +164,9 @@ public class PerformerSkill extends ClassSkill {
 				item.detach(Dungeon.hero.belongings.backpack);
 				Dungeon.level.drop(result, Dungeon.hero.pos).sprite.drop();
 				Buff.affect(curUser, HighVoice.class,100);
+				if (Dungeon.hero.lvl > 55) {
+					Dungeon.level.drop(new TransmutationBall(), Dungeon.hero.pos).sprite.drop();
+				}
 				PerformerSkill.charge += 20;
 			}
 		}

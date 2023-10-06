@@ -21,7 +21,7 @@ public class StenchGas extends Blob {
 		for (int i = 0; i < LENGTH; i++) {
 			if (cur[i] > 0 && (ch = Actor.findChar(i)) != null) {
 				if (!ch.isImmune(this.getClass()))
-					Buff.affect(ch, Ooze.class);
+					Buff.affect(ch, Ooze.class).set(5f);
 			}
 		}
 	}

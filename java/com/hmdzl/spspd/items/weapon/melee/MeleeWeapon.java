@@ -124,6 +124,10 @@ public class MeleeWeapon extends Weapon {
 			info += "\n" + Messages.get(Item.class, "reinforced");
 		}
 		
+		if (unique) {
+			info += "\n\n" +  Messages.get(Item.class, "unique");
+		}	
+		
 		if (levelKnown && STR() > Dungeon.hero.STR()) {
 			info += "\n" + Messages.get(MeleeWeapon.class, "too_heavy");
 		}		

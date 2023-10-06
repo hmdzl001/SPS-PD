@@ -20,6 +20,7 @@ package com.hmdzl.spspd.items.misc;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
+import com.hmdzl.spspd.actors.buffs.BeTired;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
@@ -27,13 +28,17 @@ import com.hmdzl.spspd.actors.buffs.HighLight;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.sprites.MissileSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
 
@@ -47,7 +52,7 @@ public class BigBattery extends Item {
 	}
 
 
-	public final int fullCharge = 50;
+	public final int fullCharge = 20;
 	public int charge = 0;	
 
 	private static final String AC_CHOOSE = "CHOOSE";
@@ -94,26 +99,31 @@ public class BigBattery extends Item {
 
 		} else if (action.equals(AC_USE)) {
 
-		 if (charge < 10) {
+		 if (charge < 15) {
 				GLog.p(Messages.get(this, "break"));
 			} else {	 
-		        Buff.prolong(hero,Recharging.class,10f);
-				Buff.affect(hero, Arcane.class, 10f);
-				charge-=10;
+		        Buff.prolong(hero,Recharging.class,25f);
+				Buff.affect(hero, Arcane.class, 25f);
+			    Buff.affect(hero, HighLight.class, 25f);
+			    Buff.affect(hero, AttackUp.class, 25f).level(30);
+			    Buff.affect(hero, DefenceUp.class, 25f).level(30);
+			    Buff.affect(hero, HasteBuff.class, 25f);
+			    Buff.affect(hero, Rhythm.class, 25f);
+				charge-=15;
 				hero.spendAndNext(1f);
 			}
         } else
 		 if (action.equals(AC_ADD)) {
-			 if (charge < 25) {
+			 if (charge < 15) {
 				 GLog.p(Messages.get(this, "break"));
 			 } else {
-				Buff.affect(hero, HighLight.class, 25f);
-				Buff.affect(hero, AttackUp.class, 25f).level(30);
-				Buff.affect(hero, DefenceUp.class, 25f).level(30);
-				Buff.affect(hero, HasteBuff.class, 25f);
-				Buff.affect(hero, Rhythm.class, 25f);
-				charge-=25;
-				hero.spendAndNext(1f);
+				 for (Mob mob : Dungeon.level.mobs) {
+					 if (Level.fieldOfView[mob.pos] && mob.isAlive()) {
+						 Buff.affect(mob, BeTired.class).set(30);
+					 }
+				 }
+				 charge-=15;
+				 hero.spendAndNext(1f);
 			 }
 
 		} else {

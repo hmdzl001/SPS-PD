@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.items.armor.specialarmor;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -115,7 +116,7 @@ public class TestArmor extends NormalArmor {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-
+		Dungeon.hero.spp ++;
 		if (glyph != null) {
 			glyph.proc(this, attacker, defender, damage);
 		}

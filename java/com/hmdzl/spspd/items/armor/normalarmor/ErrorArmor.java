@@ -74,7 +74,7 @@ public class ErrorArmor extends NormalArmor {
 				Buff.affect(attacker, Bleeding.class).set(5);
 				break;
 			case 2 :
-				Buff.affect(attacker, Ooze.class);
+				Buff.affect(attacker, Ooze.class).set(5f);
 				break;
 			case 3 :
 				Buff.affect(attacker, Terror.class, Terror.DURATION).object = defender.id();

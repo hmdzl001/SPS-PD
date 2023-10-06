@@ -63,11 +63,17 @@ public class GoldCollector extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		int golddrop = (int)(Dungeon.gold/10);
-		if (!skilluse && enemy == Dungeon.hero) {
-			skilluse = true;
-			Buff.affect(this,ShieldArmor.class).level((int)(Dungeon.gold/20));
-			Dungeon.gold -=golddrop;
-			enemy.sprite.showStatus(CharSprite.NEUTRAL,"-" + golddrop);
+		if (enemy == Dungeon.hero) {
+			if (!skilluse) {
+				skilluse = true;
+				Buff.affect(this, ShieldArmor.class).level((int) (Dungeon.gold / 20));
+				Dungeon.gold -= golddrop;
+				enemy.sprite.showStatus(CharSprite.NEUTRAL, "-" + golddrop);
+			} else {
+				Dungeon.gold -= 10;
+				enemy.sprite.showStatus(CharSprite.NEUTRAL, "-10" );
+				Dungeon.level.drop(new Gold(10),enemy.pos);
+			}
 		}
 		return damage;
 	}

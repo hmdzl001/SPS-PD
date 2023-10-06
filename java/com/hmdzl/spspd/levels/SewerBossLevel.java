@@ -20,27 +20,36 @@ package com.hmdzl.spspd.levels;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.levels.Room.Type;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Gold;
+import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.YellowDewdrop;
+import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
+import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Graph;
 import com.watabou.utils.Random;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.hmdzl.spspd.Dungeon.hero;
 
-public class SewerBossLevel extends RegularLevel {
+public class SewerBossLevel extends Level {
 
 	{
-		color1 = 0x48763c;
-		color2 = 0x59994a;
+		color1 = 0x6a723d;
+		color2 = 0x88924c;
 	}
 
-	private int stairs = 0;
+	//private Room anteroom;
+	//private int arenaDoor;
+
+	private int stairs = -1;
+	private boolean enteredArena = false;
+
 
 	@Override
 	public String tilesTex() {
@@ -52,181 +61,59 @@ public class SewerBossLevel extends RegularLevel {
 		return Assets.WATER_SEWERS;
 	}
 
+	//private static final String ARENA = "arena";
+	//private static final String STAIRS	= "stairs";
+	//private static final String DOOR = "door";
+	private static final String ENTERED = "entered";
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		//bundle.put(DOOR, arenaDoor);
+		//bundle.put( STAIRS, stairs );
+		bundle.put(ENTERED, enteredArena);
+	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		//arenaDoor = bundle.getInt(DOOR);
+		//stairs = bundle.getInt( STAIRS );
+		enteredArena = bundle.getBoolean(ENTERED);
+	}
+
 	@Override
 	protected boolean build() {
+		map = MAP_S_START.clone();
+		decorate();
 
-		initRooms();
+		buildFlagMaps();
+		cleanWalls();
 
-		int distance;
-		// if we ever need to try 20 or more times to find a room, better to
-		// give up and try again.
-		int retry = 0;
+		entrance = 23 + WIDTH * 15;
+		exit = 23 + WIDTH * 37;
 
-		// start with finding an entrance room (will also contain exit)
-		// the room must be at least 4x4 and be nearer the top of the map(so
-		// that it is less likely something connects to the top)
-		do {
-			if (retry++ > 6) {
-				return false;
-			}
-			roomEntrance = Random.element(rooms);
-		} while (roomEntrance.width() < 4 || roomEntrance.height() < 4
-				|| roomEntrance.top == 0 || roomEntrance.top >= 12);
 
-		roomEntrance.type = Type.ENTRANCE;
-		roomExit = roomEntrance;
-
-		// now find the rest of the rooms for this boss mini-maze
-		Room curRoom = null;
-		Room lastRoom = roomEntrance;
-		// we make 4 rooms, last iteration is tieing the final room to the start
-		for (int i = 0; i <= 9; i++) {
-			retry = 0;
-			// find a suitable room the first four times
-			// suitable room should be empty, have a distance of 2 from the
-			// current room, and not touch the entrance.
-			if (i < 9) {
-				do {
-					if (retry++ > 12) {
-						return false;
-					}
-					curRoom = Random.element(rooms);
-					Graph.buildDistanceMap(rooms, curRoom);
-					distance = lastRoom.distance();
-				} while (curRoom.type != Type.NULL || distance != 2
-						|| !curRoom.intersect(roomEntrance).isEmpty());
-
-				curRoom.type = Type.STANDARD;
-
-				// otherwise, we're on the last iteration.
-			} else {
-				// set the current room to the entrance, so we can build a
-				// connection to it.
-				curRoom = roomEntrance;
-			}
-
-			// now build a connection between the current room and the last one.
-			Graph.buildDistanceMap(rooms, curRoom);
-			List<Room> path = Graph.buildPath(rooms, lastRoom, curRoom);
-
-			Graph.setPrice(path, lastRoom.distance);
-
-			path = Graph.buildPath(rooms, lastRoom, curRoom);
-
-			Room room = lastRoom;
-			for (Room next : path) {
-				room.connect(next);
-				room = next;
-			}
-
-			if (i == 4) {
-
-				// we must find a room for his royal highness!
-				// look at rooms adjacent to the final found room (likely to be
-				// furthest from start)
-				ArrayList<Room> candidates = new ArrayList<Room>();
-				for (Room r : lastRoom.neigbours) {
-					if (r.type == Type.NULL && r.connected.size() == 0
-							&& !r.neigbours.contains(roomEntrance)) {
-						candidates.add(r);
-					}
-				}
-
-				// if we have candidates, pick a room and put the king there
-				if (candidates.size() > 0) {
-					Room kingsRoom = Random.element(candidates);
-					kingsRoom.connect(lastRoom);
-					kingsRoom.type = Room.Type.RAT_KING;
-
-					// unacceptable! make a new level...
-				} else {
-					return false;
-				}
-			}
-			lastRoom = curRoom;
-		}
-
-		// the connection structure ensures that (most of the time) there is a
-		// nice loop for the player to kite the
-		// boss around. What's nice is that there is enough chaos such that the
-		// loop is rarely straightforward
-		// and boring.
-
-		// fills our connection rooms in with tunnel
-		for (Room r : rooms) {
-			if (r.type == Type.NULL && r.connected.size() > 0) {
-				r.type = Type.TUNNEL;
-			}
-		}
-
-		// make sure nothing is connecting at the top of the entrance, this
-		// would be bad.
-		for (Room r : roomEntrance.neigbours) {
-			if (r.bottom == roomEntrance.top && r.type != Type.NULL)
-				return false;
-		}
-
-		paint();
-
-		// TODO: not handling this through a painter is kinda iffy, separate
-		// into a painter if you use it again.
-		// sticks the exit in the room entrance.
-		exit = roomEntrance.top * Level.getWidth()
-				+ (roomEntrance.left + roomEntrance.right) / 2;
-		map[exit] = Terrain.LOCKED_EXIT;
-
-		paintWater();
-		paintGrass();
+		
 
 		return true;
-	}
 
-	@Override
-	protected boolean[] water() {
-		return Patch.generate(0.5f, 5);
-	}
-
-	@Override
-	protected boolean[] grass() {
-		return Patch.generate(0.40f, 4);
 	}
 
 	@Override
 	protected void decorate() {
-		int start = roomExit.top * getWidth() + roomExit.left + 1;
-		int end = start + roomExit.width() - 1;
-		for (int i = start; i < end; i++) {
-			if (i != exit) {
-				map[i] = Terrain.WALL_DECO;
-				map[i + getWidth()] = Terrain.WATER;
-			} else {
-				map[i + getWidth()] = Terrain.EMPTY;
+		for (int i = 0; i < getLength(); i++) {
+			if (map[i] == Terrain.EMPTY && heaps.get(i) == null && Random.Float() < .10) {
+				map[i] = Terrain.HIGH_GRASS;
+			}
+			if (map[i] == Terrain.EMPTY && heaps.get(i) == null && Random.Float() < .10) {
+				map[i] = Terrain.OLD_HIGH_GRASS;
 			}
 		}
-
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.SIGN;
-				break;
-			}
-		}
-	}
-
-	@Override
-	public void addVisuals(Scene scene) {
-		SewerLevel.addVisuals(this, scene);
 	}
 
 	@Override
 	protected void createMobs() {
-		Mob mob = Bestiary.mob(Dungeon.depth);
-		Room room;
-		do {
-			room = Random.element(rooms);
-		} while (room.type != Type.STANDARD);
-		mob.pos = room.random();
-		mobs.add(mob);
 	}
 
 	@Override
@@ -236,23 +123,52 @@ public class SewerBossLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
+		for (int i = 0; i < LENGTH; i++) {
+			if (map[i]==Terrain.GROUND_A && heaps.get(i) == null){
+				 drop(Generator.random(), i).type = Heap.Type.CHEST;
+			}
+		}
+
+
+	}
+
+	@Override
+	public void press(int cell, Char ch) {
+
+		super.press(cell, ch);
+
+		if (!enteredArena && hero == Dungeon.hero && cell != entrance) {
+
+			enteredArena = true;
+			seal();
+
+			Mob boss = Bestiary.mob(Dungeon.depth);
+			boss.state = boss.HUNTING;
+			boss.pos = 23 + WIDTH * 21;
+			GameScene.add(boss);
+			boss.notice();
+
+			GameScene.updateMap();
+			Dungeon.observe();
+			
+
+		}
 	}
 	
 	@Override
 	public int randomRespawnCell() {
 		return -1;
 	}
+	
 	public void seal() {
 		if (entrance != 0) {
 
 			locked = true;
 
-			set(entrance, Terrain.WATER_TILES);
+			set(entrance, Terrain.WALL_DECO);
 			GameScene.updateMap(entrance);
 			GameScene.ripple(entrance);
 
-			stairs = entrance;
-			entrance = 0;
 		}
 	}
 
@@ -261,29 +177,12 @@ public class SewerBossLevel extends RegularLevel {
 
 			locked = false;
 
-			entrance = stairs;
-			stairs = 0;
-
 			set(entrance, Terrain.ENTRANCE);
 			GameScene.updateMap(entrance);
 
 		}
-	}
-
-	private static final String STAIRS = "stairs";
-
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(STAIRS, stairs);
-	}
-
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		stairs = bundle.getInt(STAIRS);
-	}
-
+	}	
+	
 	@Override
 	public String tileName( int tile ) {
 		switch (tile) {
@@ -305,4 +204,79 @@ public class SewerBossLevel extends RegularLevel {
 				return super.tileDesc( tile );
 		}
 	}
+
+	@Override
+	public void addVisuals(Scene scene) {
+		SewerLevel.addVisuals(this, scene);
+	}
+
+	private static final int W = Terrain.WALL;
+	private static final int D = Terrain.DOOR;
+	private static final int B = Terrain.SECRET_DOOR;
+	private static final int I = Terrain.GLASS_WALL;
+	private static final int O = Terrain.EMPTY; //for readability
+	private static final int S = Terrain.SIGN;
+	private static final int A = Terrain.WATER;
+
+	private static final int T = Terrain.EMPTY_DECO;
+
+	private static final int E = Terrain.ENTRANCE;
+	private static final int X = Terrain.LOCKED_EXIT;
+	private static final int F = Terrain.EMPTY_SP;
+	private static final int C = Terrain.GROUND_A;
+
+	private static final int M = Terrain.WALL_DECO;
+	private static final int P = Terrain.PEDESTAL;
+
+	private static final int[] MAP_S_START =
+			{
+					M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M,
+					M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	T, 	T, 	T, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	W, 	W, 	W, 	W, 	O, 	O, 	B, 	T, 	C, 	T, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	C, 	W, 	W, 	W, 	W, 	W, 	A, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	T, 	T, 	T, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	T, 	T, 	T, 	W, 	W, 	W, 	W, 	A, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	W, 	T, 	T, 	T, 	W, 	W, 	W, 	W, 	A, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	O, 	T, 	T, 	T, 	O, 	W, 	W, 	W, 	O, 	W, 	W, 	D, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O,  O, 	W, 	O, 	S, 	O, 	O, 	O, 	W, 	W, 	W, 	O, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	O, 	C, 	O, 	O, 	D, 	O, 	O, 	O, 	O, 	D, 	O, 	O, 	O,  O, 	D, 	O, 	O, 	E, 	O, 	O, 	D, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O,  O, 	O, 	W, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	O, 	W, 	W, 	O, 	I, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	A, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	W, 	I, 	I, 	I, 	I, 	B, 	I, 	I, 	I, 	I, 	W, 	O, 	A, 	A, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	W, 	I, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	I, 	W, 	O, 	A, 	A, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	A, 	I, 	O, 	W, 	A, 	A, 	A, 	W, 	O, 	I, 	A, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	A, 	I, 	O, 	A, 	A, 	P, 	A, 	A, 	O, 	I, 	A, 	O, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	F, 	F, 	F, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	B, 	O, 	A, 	B, 	O, 	A, 	P, 	P, 	P, 	A, 	O, 	B, 	A, 	O, 	O, 	O, 	B, 	O, 	W, 	W, 	W, 	W, 	W, 	B, 	F, 	C, 	F, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	A, 	I, 	O, 	A, 	A, 	P, 	A, 	A, 	O, 	I, 	A, 	W, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	F, 	F, 	F, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	A, 	I, 	O, 	W, 	A, 	A,  A, 	W, 	O, 	I, 	A, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	W, 	I, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	I, 	W, 	D, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	W, 	I, 	I, 	I, 	I, 	B, 	I, 	I, 	I, 	I, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	A, 	A, 	A, 	A, 	A, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	A, 	A, 	W, 	O, 	I, 	O, 	W, 	A, 	A, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	A, 	A, 	W, 	O, 	O, 	O, 	W, 	A, 	A, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	O, 	W, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	O, 	W, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	W, 	O, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	D, 	O, 	O, 	O, 	D, 	O, 	O, 	O, 	O, 	O, 	O, 	I, 	O, 	C, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	C, 	O, 	W, 	W, 	W, 	O, 	W, 	O, 	O, 	O, 	B, 	O, 	O, 	O, 	C, 	O, 	O, 	W, 	W, 	D, 	W, 	W, 	O,  O, 	C, 	O, 	O, 	O, 	W, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	W, 	O, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	F, 	F, 	F, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	D, 	F, 	X, 	F, 	D, 	O, 	O, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	F, 	F, 	F, 	W, 	W, 	W, 	W, 	B, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	D, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	W, 	W, 	W, 	A, 	A, 	A, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	W, 	A, 	A, 	A, 	A, 	A, 	O, 	O, 	O, 	O, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	O, 	A, 	C, 	A, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	W, 	A, 	W, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	O, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	W, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	A, 	A, 	A, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	W, 	M, 	M,
+					M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M,
+					M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M
+			};
 }

@@ -42,7 +42,7 @@ public class FoxHelper extends PET {
 		state = HUNTING;
 		type = 305;
         cooldown=50;
-		oldcooldown=120;
+		oldcooldown=135;
 		properties.add(Property.ORC);
 	}
 
@@ -77,7 +77,7 @@ public class FoxHelper extends PET {
 			if (cooldown <= 0){
 				this.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f,	1);
 				Dungeon.level.drop(new ScrollOfUpgrade(), pos).sprite.drop();
-				cooldown = Math.max(40,60-hero.petLevel);
+				cooldown = Math.max(45,65-hero.petLevel);
 			}
 
 		}

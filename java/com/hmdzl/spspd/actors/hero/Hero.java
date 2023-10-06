@@ -341,6 +341,7 @@ public class Hero extends Char {
 		return weakened ? STR - 3 : STR;
 	}
 	
+	@SuppressLint("SuspiciousIndentation")
 	public int magicSkill() {
 		int magicSkill = this.magicSkill;
 
@@ -490,6 +491,7 @@ public class Hero extends Char {
 		return result;
 	}
 
+
 	@Override
 	public int hitSkill(Char target) {
 		float accuracy = 1;
@@ -559,6 +561,7 @@ public class Hero extends Char {
 	public int damageRoll() {
 		KindOfWeapon wep = rangedWeapon != null ? rangedWeapon
 				: belongings.weapon;
+		int magic = hero.magicSkill();
 		int dmg;
 		int bonus = 0;
 		for (Buff buff : buffs(RingOfForce.Force.class)) {
@@ -589,6 +592,11 @@ public class Hero extends Char {
 
 		if (bonus > 0 && Random.Int(100)< bonus * 2 + 5 ){
 			dmg *= 2.50f;
+			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
+		}
+
+		if (hero.subClass == HeroSubClass.MONK && Random.Int(10) == 0 ){
+			dmg *= (10f + magic * 1f) /10f ;
 			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
 		}
 
@@ -1687,10 +1695,10 @@ public class Hero extends Char {
 				Dungeon.level.drop(Generator.random(), enemy.pos).sprite.drop();
 				}
 				break;
-			case MONK:
-			if (enemy.buff(BeTired.class) == null)
-				Buff.affect(enemy,BeTired.class).set(20);
-				break;	
+			//case MONK:
+			//if (enemy.buff(BeTired.class) == null)
+			//	Buff.affect(enemy,BeTired.class).set(20);
+			//	break;
 			case HACKER:
 				if (hero.magicSkill() >0) {
 					enemy.damage((int) (hero.magicSkill() * damage / 10), ENERGY_DAMAGE);
@@ -2294,7 +2302,7 @@ public class Hero extends Char {
 				TRUE_HT+=3;
 			}
 
-			if (heroClass == HeroClass.WARRIOR && Dungeon.skins == 4){
+			/*if (heroClass == HeroClass.WARRIOR && Dungeon.skins == 4){
 				Hero hero = Dungeon.hero;
 				KindOfWeapon weapon = hero.belongings.weapon;
 				KindOfArmor armor = hero.belongings.armor;
@@ -2322,7 +2330,9 @@ public class Hero extends Char {
 					Dungeon.hero.spp +=1;
 				}
 
-			}
+
+
+			}*/
 
 			if (heroClass == HeroClass.PERFORMER && (Dungeon.skins == 4 || Dungeon.skins == 6)){
 					Dungeon.hero.spp += lvl;

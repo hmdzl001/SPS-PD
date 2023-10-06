@@ -18,9 +18,9 @@
 package com.hmdzl.spspd.items.armor.specialarmor;
 
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
-import com.hmdzl.spspd.actors.buffs.Corruption;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.normalarmor.NormalArmor;
@@ -91,8 +91,8 @@ public class CatSharkArmor extends NormalArmor {
 			charge ++;
 		}
 
-		if (charge > 18 && !(attacker.properties().contains(Char.Property.BOSS) || attacker.properties().contains(Char.Property.MINIBOSS))) {
-			Buff.affect(attacker, Corruption.class);
+		if (charge > 18 ) {
+			Buff.affect(attacker, BeCorrupt.class).level(20);
 			charge = 0;
 		}
 		if (glyph != null) {

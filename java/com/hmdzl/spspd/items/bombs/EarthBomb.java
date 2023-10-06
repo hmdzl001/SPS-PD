@@ -48,7 +48,7 @@ public class EarthBomb extends Bomb {
 				Char ch = Actor.findChar(i);
 				if (ch != null && ch.isAlive()){
 					Buff.prolong(ch, Roots.class,5f);
-					Buff.affect(ch, Ooze.class);
+					Buff.affect(ch, Ooze.class).set(10f);
 				}
 			}
 		}

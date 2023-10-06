@@ -186,7 +186,7 @@ public class Pickaxe extends Weapon {
             Buff.affect(defender, Bleeding.class).set(10);
 			break;
 		case 2 :
-            Buff.affect(defender, Ooze.class);
+            Buff.affect(defender, Ooze.class).set(10f);
 			break;
 		case 3 :
             Buff.affect(defender, Poison.class).set(

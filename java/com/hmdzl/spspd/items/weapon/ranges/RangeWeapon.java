@@ -5,19 +5,24 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
+import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -31,10 +36,13 @@ import static com.hmdzl.spspd.Dungeon.hero;
 
 public class RangeWeapon extends Weapon {
 
+	public String sname = "RANGEWEAPON" ;
+
 	{
 		image2 = ItemSpriteSheet.MIND_ARROW;
         defaultAction = AC_SHOOT;
         usesTargeting = true;
+		sname = "N";
     }
 
 
@@ -126,33 +134,47 @@ public class RangeWeapon extends Weapon {
 
 	@Override
 	public int damageRoll(Hero owner) {
-	    int damage = Random.Int(MIN, MAX);
-		damage = damage/2;
+		int damage = Random.Int(MIN, MAX);
+		int exStr = hero.STR() - STR();
+		if (exStr >= 0 ) {
+			damage = damage / 2;
+		} else {
+			damage = 0;
+		}
 		return Math.round(damage);
 	}
 
 	public int damageRoll2(Hero owner) {
 		int damage = Random.Int(MIN, MAX);
 
-		if (hero.buff(TargetShoot.class)!= null)
-	        damage = (int)(damage*1.5f);
-		if (hero.buff(MechArmor.class)!= null)
-			damage = (int)(damage*1.5f);
-		
-		float bonus = 0;
-		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
-		}	
-		
-		if (Random.Int(10) < 3 && bonus > 0) {
-			damage = (int)(damage * ( 1.5 + 0.25 * bonus));
-			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
+		int exStr = hero.STR() - STR();
+		if (exStr >= 0 ) {
+			if (hero.buff(TargetShoot.class) != null)
+				damage = (int) (damage * 1.5f);
+			if (hero.buff(MechArmor.class) != null)
+				damage = (int) (damage * 1.5f);
+
+			float bonus = 0;
+			for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
+				bonus += Math.min(((RingOfSharpshooting.Aim) buff).level, 30);
+			}
+
+			if (Random.Int(10) < 3 && bonus > 0) {
+				damage = (int) (damage * (1.5 + 0.25 * bonus));
+				hero.sprite.emitter().burst(Speck.factory(Speck.STAR), 8);
+			}
 		}
 		return Math.round(damage);
 	}	
 	
    @Override
     public void proc(Char attacker, Char defender, int damage) {
+
+	   int oppositeDefender = attacker.pos + (attacker.pos - defender.pos);
+	   Ballistica trajectory = new Ballistica(attacker.pos, oppositeDefender, Ballistica.MAGIC_BOLT);
+	   WandOfFlow.pushChar(attacker, trajectory, 1);
+	   Buff.prolong(attacker, HasteBuff.class,2f);
+	   Buff.prolong(attacker, Levitation.class,3f);
 
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);		
@@ -165,9 +187,6 @@ public class RangeWeapon extends Weapon {
 
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(RangeWeapon.class, "stats_known", tier, MIN, MAX, STR, DLY);
-			if (Dungeon.hero.STR() > typicalSTR()){
-				info += " " + Messages.get(MeleeWeapon.class, "excess_str", Dungeon.hero.STR() - typicalSTR());
-			}
 		} else {
 			info += "\n" + Messages.get(RangeWeapon.class, "stats_unknown", tier, min(), max(), typicalSTR());
 		}
@@ -183,6 +202,10 @@ public class RangeWeapon extends Weapon {
         if (reinforced) {
             info += "\n" + Messages.get(Item.class, "reinforced");
         }
+		
+		if (unique) {
+			info += "\n\n" +  Messages.get(Item.class, "unique");
+		}	
 
 		if (levelKnown && STR() > Dungeon.hero.STR()) {
 			info += "\n" + Messages.get(MeleeWeapon.class, "too_heavy");

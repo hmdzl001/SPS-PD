@@ -27,7 +27,7 @@ public class MossAmmo extends SpAmmo {
 	public void onHit(GunWeapon gunweapon, Char attacker, Char defender, int damage) {
 		defender.damage((int)(0.10*damage), EARTH_DAMAGE);
 		if (Random.Int(4) == 3) {
-			Buff.affect(defender, Ooze.class);
+			Buff.affect(defender, Ooze.class).set(5f);
 			defender.sprite.emitter().burst(EarthParticle.FACTORY, 5);
 		} else {
 			Buff.affect(defender, Poison.class).set(Random.Int(4, 5));

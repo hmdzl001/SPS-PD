@@ -42,6 +42,7 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.mobs.npcs.RatKing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
@@ -51,6 +52,7 @@ import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.PotionOfMage;
+import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.rockcode.Dpotion;
 import com.hmdzl.spspd.levels.Level;
@@ -63,6 +65,8 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
+import java.util.ArrayList;
+
 import static com.hmdzl.spspd.Dungeon.hero;
 
 public class PlagueDoctor extends Mob {
@@ -71,6 +75,7 @@ public class PlagueDoctor extends Mob {
 		spriteClass = PlagueDoctorSprite.class;
 
 		HP = HT = 500;
+
 		evadeSkill = 5;
 		baseSpeed = 0.75f;
 
@@ -254,6 +259,15 @@ public class PlagueDoctor extends Mob {
 		}
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+
+		ArrayList<Mob> mobs = new ArrayList<>();
+
+		Mob mob = new RatKing();
+		mob.state = mob.WANDERING;
+		mob.pos = pos;
+		GameScene.add( mob, 1f );
+		mobs.add( mob );
+		ScrollOfTeleportation.appear(mob, mob.pos);
 
 		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
 			Dungeon.level.drop(new Dpotion(), Dungeon.hero.pos).sprite.drop();

@@ -36,6 +36,7 @@ import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.mobs.npcs.RatKing;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
@@ -47,6 +48,7 @@ import com.hmdzl.spspd.items.UpgradeBlobViolet;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.CopyBall;
+import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
@@ -140,7 +142,7 @@ public class Goo extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(3) == 0) {
-			Buff.affect(enemy, Ooze.class);
+			Buff.affect(enemy, Ooze.class).set(7f);
 			enemy.sprite.burst(0x000000, 5);
 		}
 
@@ -271,6 +273,15 @@ public class Goo extends Mob {
 	
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+
+		ArrayList<Mob> mobs = new ArrayList<>();
+
+		Mob mob = new RatKing();
+		mob.state = mob.WANDERING;
+		mob.pos = pos;
+		GameScene.add( mob, 1f );
+		mobs.add( mob );
+		ScrollOfTeleportation.appear(mob, mob.pos);
 
 		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
 			Dungeon.level.drop(new Obubble(), Dungeon.hero.pos).sprite.drop();

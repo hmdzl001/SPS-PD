@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.TarGas;
@@ -93,12 +92,10 @@ public class Golem extends Mob {
 	public void die(Object cause) {
 		
 		Imp.Quest.process(this);
-		if (Dungeon.limitedDrops.nornstones.count<6 
-				&& Random.Int(6)<3
-				){
-			Dungeon.level.drop(Generator.random(Generator.Category.NORNSTONE), pos).sprite.drop();
-			Dungeon.limitedDrops.nornstones.count++;
-		}		
+		//if (Dungeon.limitedDrops.nornstones.count<6 
+		//		&& Random.Int(6)<3){
+		//	Dungeon.level.drop(Generator.random(Generator.Category.NORNSTONE), pos).sprite.drop();
+		//	Dungeon.limitedDrops.nornstones.count++;}		
 		super.die(cause);
 	}
 

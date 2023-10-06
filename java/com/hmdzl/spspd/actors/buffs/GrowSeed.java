@@ -60,7 +60,7 @@ public class GrowSeed extends Buff implements Hero.Doom {
 			
 			int dmg = Random.Int(1, target.HT/20);
 
-			target.damage(dmg, this);
+			target.damage(dmg, Bleeding.class);
 
 			int p = target.pos;
 			for (int n : Level.NEIGHBOURS8) {

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.weapon.melee.special;
+package com.hmdzl.spspd.items.weapon.missiles.meleethrow;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
@@ -23,13 +23,12 @@ import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
-public class DragonBoat extends MeleeWeapon {
+public class DragonBoat extends MeleeThrowWeapon {
 
 	{
 		//name = "Dragon Boat";
@@ -39,7 +38,7 @@ public class DragonBoat extends MeleeWeapon {
 	}
 
 	public DragonBoat() {
-		super(1, 1f, 1f, 1);
+		super(1);
 		MIN = 5;
 		MAX = 10;
 	}
@@ -55,9 +54,11 @@ public class DragonBoat extends MeleeWeapon {
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);		
 		}	
-		if (Random.Int(100) ==1 ){
-
-			Dungeon.hero.belongings.weapon = null;
+		if (Random.Int(100) ==1) {
+			this.isdestory = true ;
+			if (Dungeon.hero.belongings.weapon == this) {
+			    Dungeon.hero.belongings.weapon = null;
+			}
 			Buff.affect(defender, Bleeding.class).set(50);
 			GLog.n(Messages.get(KindOfWeapon.class,"destory"));
 		}		

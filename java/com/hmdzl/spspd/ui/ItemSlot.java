@@ -237,7 +237,11 @@ public class ItemSlot extends Button {
 				}
 				topRight.measure();
 
-			} else if (item instanceof Key && !(item instanceof SkeletonKey)) {
+				if (item instanceof RangeWeapon){
+					bottomLeft.text(Messages.format(TXT_ITEM_NAME,((RangeWeapon)item).sname));
+					bottomLeft.measure();
+				}
+            } else if (item instanceof Key && !(item instanceof SkeletonKey)) {
 				topRight.text(Messages.format(TXT_KEY_DEPTH, ((Key) item).depth));
 				topRight.measure();
 			} else if (item instanceof Pill) {

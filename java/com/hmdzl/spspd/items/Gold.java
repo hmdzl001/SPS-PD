@@ -82,7 +82,7 @@ public class Gold extends Item {
 		Badges.validateGoldCollected();
 
 		if(Dungeon.skins == 4 && Dungeon.hero.heroClass == HeroClass.WARRIOR){
-			Dungeon.gold += (int)(quantity*0.2);
+			Dungeon.gold += (int)(quantity*0.2) + Dungeon.hero.spp;
 			Statistics.goldCollected += quantity;
 		}
 

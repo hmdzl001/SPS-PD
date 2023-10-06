@@ -55,8 +55,10 @@ public class Brick extends  MeleeThrowWeapon {
 			enchantment.proc(this, attacker, defender, damage);		
 		}	
 		if (Random.Int(80) ==1 ){
-
-			Dungeon.hero.belongings.weapon = null;
+			this.isdestory = true;
+			if (Dungeon.hero.belongings.weapon == this) {
+			    Dungeon.hero.belongings.weapon = null;
+			}
 			GLog.n(Messages.get(KindOfWeapon.class,"destory"));
 			Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
 			Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();

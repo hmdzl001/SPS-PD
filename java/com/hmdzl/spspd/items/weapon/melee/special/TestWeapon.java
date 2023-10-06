@@ -17,10 +17,14 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.special;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.items.weapon.ranges.RangeWeapon;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class TestWeapon extends MeleeWeapon {
 
@@ -45,28 +49,9 @@ public class TestWeapon extends MeleeWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-
-		//Buff.affect(attacker,AttackUp.class,5).level(50);
-		//Buff.affect(attacker,DefenceUp.class,5).level(50);
-
-		//defender.damage(10,WandOfMagicMissile.class);
-		//defender.damage(100,DamageType.FIRE_DAMAGE);
-		//defender.damage(100,DamageType.ICE_DAMAGE);
-		//defender.damage(100,DamageType.SHOCK_DAMAGE);
-		//defender.damage(100,DamageType.EARTH_DAMAGE);
-		//defender.damage(100,DamageType.LIGHT_DAMAGE);
-		//defender.damage(100,DamageType.DARK_DAMAGE);
-
-		/*defender.damage(100,DamageType.EnergyDamage.class);
-		defender.damage(100,DamageType.FireDamage.class);
-		defender.damage(100,DamageType.IceDamage.class);
-		defender.damage(100,DamageType.EarthDamage.class);
-		defender.damage(100,DamageType.ShockDamage.class);
-		defender.damage(100,DamageType.LightDamage.class);
-		defender.damage(100,DamageType.DarkDamage.class);
-*/
-        damage = 0;
-
+		if (damage > Random.Int(8,20)) {
+			Dungeon.hero.spp++;
+		}
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);
 		}

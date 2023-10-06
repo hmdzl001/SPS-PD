@@ -61,7 +61,7 @@ public class WandOfAcid extends DamageWand {
 
 			processSoulMark(ch, chargesPerCast());
 			if (ch.isAlive() && Random.Int(2) == 0){
-				Buff.affect(ch, Ooze.class);
+				Buff.affect(ch, Ooze.class).set(this.level);
 			}
 			ch.damage((int)( damageRoll() * (1 + 0.1 * hero.magicSkill())), this);
 

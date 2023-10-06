@@ -33,9 +33,8 @@ import com.hmdzl.spspd.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.levels.traps.AlarmTrap;
 import com.hmdzl.spspd.levels.traps.BoundTrap;
+import com.hmdzl.spspd.levels.traps.DewTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
-import com.hmdzl.spspd.levels.traps.SummoningTrap;
-import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
 import com.hmdzl.spspd.levels.traps.WornTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
@@ -44,9 +43,6 @@ import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.IceBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.LightBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuffTrap;
-import com.hmdzl.spspd.levels.traps.damagetrap.EarthDamageTrap;
-import com.hmdzl.spspd.levels.traps.damagetrap.IceDamageTrap;
-import com.hmdzl.spspd.levels.traps.damagetrap.ShockDamageTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Game;
@@ -89,7 +85,7 @@ public class SewerLevel extends RegularLevel {
 	protected Class<?>[] trapClasses() {
 		return Dungeon.depth == 1 ?
 				new Class<?>[]{WornTrap.class} :
-				new Class<?>[]{ToxicTrap.class, AlarmTrap.class, FlockTrap.class, BoundTrap.class,
+				new Class<?>[]{ToxicTrap.class, AlarmTrap.class, FlockTrap.class, BoundTrap.class, DewTrap.class,
 				        FireBuffTrap.class, IceBuffTrap.class, ShockBuffTrap.class, EarthBuffTrap.class,
 						LightBuffTrap.class, DarkBuffTrap.class};
 }
@@ -98,7 +94,7 @@ public class SewerLevel extends RegularLevel {
 	protected float[] trapChances() {
 		return Dungeon.depth == 1 ?
 				new float[]{1} :
-				new float[]{3, 3, 3, 3,
+				new float[]{3, 3, 3, 6, 3,
 			            2, 2, 2,
 						2, 2, 2};
 	}

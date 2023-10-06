@@ -266,7 +266,7 @@ public class UGoo extends Mob {
 		@Override
 		public int attackProc(Char enemy, int damage) {
 			if (Random.Int(5) == 0) {
-				Buff.affect(enemy, Ooze.class);
+				Buff.affect(enemy, Ooze.class).set(8f);
 				enemy.sprite.burst(0xFF000000, 5);
 			}
 			if (Random.Int(5) == 0) {

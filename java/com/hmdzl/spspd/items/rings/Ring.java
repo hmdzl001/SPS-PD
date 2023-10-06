@@ -230,6 +230,10 @@ public class Ring extends KindofMisc {
 			desc += "\n\n" + Messages.get(Item.class, "reinforced");
 		}
 
+	    if (unique) {
+			desc += "\n\n" +  Messages.get(Item.class, "unique");
+		}			
+		
 		if (isKnown()) {
 			desc += "\n\n" + statsInfo();
 		}		

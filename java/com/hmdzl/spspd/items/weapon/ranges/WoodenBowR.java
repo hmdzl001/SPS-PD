@@ -24,8 +24,9 @@ public class WoodenBowR extends RangeWeapon {
 
 	{
 		//name = "GunA";
-		image = ItemSpriteSheet.R_BOW;
+		image = ItemSpriteSheet.WOODEN_BOW;
 		STR++;
+		sname = "R";
 		//MIN=10;
 		//MAX=10;
 	}

@@ -77,7 +77,7 @@ public class PrisonBossLevel extends Level {
 
 	@Override
 	protected boolean build() {
-		map = MAP_START.clone();
+		map = MAP_P_START.clone();
 		decorate();
 
 		buildFlagMaps();
@@ -202,7 +202,7 @@ public class PrisonBossLevel extends Level {
 	private static final int M = Terrain.WALL_DECO;
 	private static final int P = Terrain.PEDESTAL;
 
-	private static final int[] MAP_START =
+	private static final int[] MAP_P_START =
 			{
 					M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M,
 					M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M, 	M,

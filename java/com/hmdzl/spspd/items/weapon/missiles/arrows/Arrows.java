@@ -17,7 +17,14 @@
  */
 package com.hmdzl.spspd.items.weapon.missiles.arrows;
 
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.DamageUp;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
+import com.hmdzl.spspd.actors.buffs.Levitation;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
+import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSprite;
 
 public class Arrows extends MissileWeapon {
@@ -32,7 +39,7 @@ public class Arrows extends MissileWeapon {
 		this.dmgmax = dmgmax;
 
 		MIN = bow!= null ? min()+ bow.MIN : min();
-		MAX = bow!= null ? max() + bow.MAX : max();
+		MAX = bow!= null ? max() + 2*bow.MAX : max();
 
 		ACU = bow!= null ? 10 : 1;
 		DLY = bow!= null ? 1 : 0.2f;
@@ -52,8 +59,24 @@ public class Arrows extends MissileWeapon {
 	}
 
 	@Override
+	public boolean isUpgradable() {
+		return false;
+	}
+
+	@Override
 	public int price() {
 		return quantity * 2;
+	}
+
+	public void proc(Char attacker, Char defender, int damage) {
+		if (bow!= null) {
+			Buff.affect(attacker, DamageUp.class).level(damage/2);
+			//if (bow.enchantment != null) {
+			//	bow.enchantment.proc(this, attacker, defender, damage);
+			//}
+		}
+
+		super.proc(attacker, defender, damage);
 	}
 
 	@Override

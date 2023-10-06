@@ -36,6 +36,7 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.mobs.npcs.RatKing;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
@@ -45,6 +46,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.journalpages.Sokoban1;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.MissileShield;
+import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.weapon.rockcode.Gleaf;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -58,6 +60,8 @@ import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 import static com.hmdzl.spspd.Dungeon.hero;
 
@@ -127,22 +131,24 @@ public class SewerHeart extends Mob {
 	@Override
 	public void damage(int dmg, Object src) {
 		if( (5 - breaks) > 6 * HP / HT ) {
-			int newPos = -1;
-					for (int i = 0; i < 20; i++) {
-					newPos = Dungeon.level.randomRespawnCellMob();
-					if (newPos != -1) {
-						break;
-					}
-				}
-				if (newPos != -1){
-					Actor.freeCell(pos);
-					CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
-					pos = newPos;
-					sprite.place(pos);
-					sprite.visible = Dungeon.visible[pos];
-					GLog.n(Messages.get(this, "blink"));
-				}		
-				if (Dungeon.level.mobs.size()< hero.lvl*2){
+			int newPos;
+			do {
+				newPos = Random.Int(Level.getLength());
+			} while (!Level.fieldOfView[newPos] || !Level.passable[newPos]
+					|| Level.adjacent(newPos, enemy.pos)
+					|| Actor.findChar(newPos) != null);
+
+			sprite.move(pos, newPos);
+			move(newPos);
+
+			if (Dungeon.visible[newPos]) {
+				CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
+				Sample.INSTANCE.play(Assets.SND_PUFF);
+			}
+
+			GLog.n(Messages.get(this, "blink"));
+
+			if (Dungeon.level.mobs.size()< hero.lvl*2){
 				SewerLasher.spawnAroundChance(newPos);
 				}
 			}
@@ -305,6 +311,16 @@ public class SewerHeart extends Mob {
 					}		
 		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
 		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+
+		ArrayList<Mob> mobs = new ArrayList<>();
+
+		Mob mob = new RatKing();
+		mob.state = mob.WANDERING;
+		mob.pos = pos;
+		GameScene.add( mob, 1f );
+		mobs.add( mob );
+		ScrollOfTeleportation.appear(mob, mob.pos);
+		//important to process the visuals and pressing of cells last, so spawned mobs have a chance to occupy cells first
 
 		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
 			Dungeon.level.drop(new Gleaf(), Dungeon.hero.pos).sprite.drop();

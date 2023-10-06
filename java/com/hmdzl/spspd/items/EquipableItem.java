@@ -20,6 +20,7 @@ package com.hmdzl.spspd.items;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
@@ -95,6 +96,14 @@ public abstract class EquipableItem extends Item {
 			hero.spendAndNext(time2equip(hero));
 		} else {
 			hero.spend(time2equip(hero));
+		}
+
+		if (Dungeon.hero.heroClass == HeroClass.WARRIOR && Dungeon.skins == 4){
+			if(!this.isunique()){
+				Dungeon.hero.spp += 5;
+				Dungeon.hero.spp += this.level;
+				collect = false;
+			}
 		}
 
 		if (collect && !collect(hero.belongings.backpack)) {

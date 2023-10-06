@@ -23,6 +23,8 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.actors.buffs.FireImbue;
+import com.hmdzl.spspd.actors.buffs.FrostIce;
+import com.hmdzl.spspd.actors.buffs.FrostImbue;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Needling;
 import com.hmdzl.spspd.actors.buffs.Roots;
@@ -58,48 +60,60 @@ public class HuntressSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial() {
-		
-		HuntressSkill.charge +=15;
 
-        curUser.spend(SKILL_TIME);
+		HuntressSkill.charge += 15;
+
+		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
 
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Buff.affect(curUser, TargetShoot.class,50f);
-		Buff.affect(curUser, Needling.class,50f);
-		switch(Random.Int(2)){
+		Buff.affect(curUser, TargetShoot.class, 50f);
+		Buff.affect(curUser, Needling.class, 50f);
+
+		if (Dungeon.hero.lvl > 55) {
+			Buff.affect(curUser, FireImbue.class).set(50f);
+			Buff.affect(curUser, EarthImbue.class, 50);
+			Buff.affect(curUser, FrostImbue.class, 50);
+		} else {
+		    switch (Random.Int(3)) {
 			case 0:
-		    Buff.affect(curUser, FireImbue.class).set(50f);
-			break;
+				Buff.affect(curUser, FireImbue.class).set(50f);
+				break;
 			case 1:
-			Buff.affect(curUser, EarthImbue.class,50);
-			break;
+				Buff.affect(curUser, EarthImbue.class, 50);
+				break;
+			case 3:
+				Buff.affect(curUser, FrostImbue.class, 50);
+				break;
 		}
+	}
 	}
 
 	@Override
 	public void doSpecial2() {
-		KindOfWeapon weapon = hero.belongings.weapon;
-		KindOfArmor armor = hero.belongings.armor;
-		Item item1 = hero.belongings.misc1;
-		Item item2 = hero.belongings.misc2;
-		Item item3 = hero.belongings.misc3;
-		if (weapon != null && !weapon.reinforced){
-			weapon.reinforced = true;
-		}else if (armor != null && !armor.reinforced) {
-			armor.reinforced = true;
-		} else if (item1 != null && !item1.reinforced) {
-			item1.reinforced = true;
-		} else if (item2 != null && !item2.reinforced) {
-			item2.reinforced = true;
-		} else if (item3 != null && !item3.reinforced) {
-			item3.reinforced = true;
-		}
 
+		if (Dungeon.hero.lvl > 55) {
+			KindOfWeapon weapon = hero.belongings.weapon;
+			KindOfArmor armor = hero.belongings.armor;
+			Item item1 = hero.belongings.misc1;
+			Item item2 = hero.belongings.misc2;
+			Item item3 = hero.belongings.misc3;
+			if (weapon != null && !weapon.reinforced) {
+				weapon.reinforced = true;
+			} else if (armor != null && !armor.reinforced) {
+				armor.reinforced = true;
+			} else if (item1 != null && !item1.reinforced) {
+				item1.reinforced = true;
+			} else if (item2 != null && !item2.reinforced) {
+				item2.reinforced = true;
+			} else if (item3 != null && !item3.reinforced) {
+				item3.reinforced = true;
+			}
+		}
 		Dungeon.level.drop(new BoundReward(), hero.pos).sprite.drop(hero.pos);
-		HuntressSkill.charge +=20;
+		HuntressSkill.charge +=10;
 
         curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
@@ -121,7 +135,9 @@ public class HuntressSkill extends ClassSkill {
 
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Dungeon.level.drop(Generator.random(Generator.Category.BERRY), hero.pos).sprite.drop(hero.pos);
+		Dungeon.level.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
+		Dungeon.level.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
+		Dungeon.level.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
 		ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 			int p = curUser.pos + PathFinder.NEIGHBOURS8[i];
@@ -131,10 +147,17 @@ public class HuntressSkill extends ClassSkill {
 		}
 
 		if (spawnPoints.size() > 0) {
+			if (Dungeon.hero.lvl > 55) {
 			FairyCard.Fairy fairy = new FairyCard.Fairy();
 			fairy.HP = 10;
 			fairy.pos = Random.element(spawnPoints);
 			GameScene.add(fairy);
+			} else {
+				FairyCard.SugarplumFairy sfairy = new FairyCard.SugarplumFairy();
+				sfairy.HP = 100;
+				sfairy.pos = Random.element(spawnPoints);
+				GameScene.add(sfairy);
+			}
 			HuntressSkill.charge +=15;
 		} else {
 			GLog.i( Messages.get(this, "no_space") );

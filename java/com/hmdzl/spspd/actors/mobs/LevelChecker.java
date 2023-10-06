@@ -62,16 +62,15 @@ public class LevelChecker extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (!skilluse && enemy == Dungeon.hero) {
-			skilluse = true;
-			//Dungeon.hero.exp=0;
-			Dungeon.hero.lvl++;
-
-			//Dungeon.hero.TRUE_HT=30;
-			//Dungeon.hero.hitSkill=10;
-			//Dungeon.hero.evadeSkill=5;
-			//damage = 0;
-			//this.damage(this.HT*2,this);
+		if (enemy == Dungeon.hero) {
+			if (!skilluse) {
+				skilluse = true;
+				Dungeon.hero.lvl++;
+			} else {
+				enemy.damage(1,Item.class);
+			}
+		} else {
+			enemy.damage(1, Item.class);
 		}
 		return damage;
 

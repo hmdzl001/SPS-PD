@@ -20,19 +20,13 @@
  */
 package com.hmdzl.spspd.levels.traps.bufftrap;
 
-import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.actors.blobs.effectblobs.AcidWater;
-import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.blobs.effectblobs.FrostCloud;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;
-import com.watabou.noosa.audio.Sample;
 
 public class IceBuff2Trap extends Trap {
 

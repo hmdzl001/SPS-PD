@@ -31,22 +31,16 @@ import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.traps.AlarmTrap;
 import com.hmdzl.spspd.levels.traps.BoundTrap;
 import com.hmdzl.spspd.levels.traps.ConfusionTrap;
+import com.hmdzl.spspd.levels.traps.DewTrap;
 import com.hmdzl.spspd.levels.traps.FlashingTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
-import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.levels.traps.ParalyticTrap;
 import com.hmdzl.spspd.levels.traps.PoisonTrap;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
-import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
-import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuffTrap;
-import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
-import com.hmdzl.spspd.levels.traps.bufftrap.IceBuffTrap;
-import com.hmdzl.spspd.levels.traps.bufftrap.LightBuffTrap;
-import com.hmdzl.spspd.levels.traps.bufftrap.ShockBuffTrap;
 import com.hmdzl.spspd.levels.traps.damagetrap.DarkDamageTrap;
 import com.hmdzl.spspd.levels.traps.damagetrap.EarthDamageTrap;
 import com.hmdzl.spspd.levels.traps.damagetrap.FireDamageTrap;
@@ -91,7 +85,7 @@ public class PrisonLevel extends RegularLevel {
 		return new Class[]{ PoisonTrap.class, SpearTrap.class, ToxicTrap.class,
 				AlarmTrap.class, FlashingTrap.class, GrippingTrap.class,
 				ParalyticTrap.class, ConfusionTrap.class, FlockTrap.class,
-				SummoningTrap.class, TeleportationTrap.class, BoundTrap.class,
+				SummoningTrap.class, TeleportationTrap.class, BoundTrap.class, DewTrap.class,
 				FireDamageTrap.class, IceDamageTrap.class, ShockDamageTrap.class, EarthDamageTrap.class,
 				LightDamageTrap.class, DarkDamageTrap.class};
 	}
@@ -101,7 +95,7 @@ public class PrisonLevel extends RegularLevel {
 		return new float[]{ 4, 4, 4,
 				3, 4, 3,
 				2, 2, 1,
-				2, 1, 3,
+				2, 1, 5, 3,
 				3, 3, 3, 3,
 		        3, 3};
 	}	

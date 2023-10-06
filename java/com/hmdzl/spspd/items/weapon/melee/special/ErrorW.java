@@ -105,7 +105,7 @@ public class ErrorW extends MeleeWeapon {
 			attacker.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f,1);}
 			break;
 		case 7 :
-            Buff.affect(defender, Ooze.class);
+            Buff.affect(defender, Ooze.class).set(5f);
 			break;
 		case 8 :
             Buff.affect(defender, Charm.class, 3 ).object = attacker.id();

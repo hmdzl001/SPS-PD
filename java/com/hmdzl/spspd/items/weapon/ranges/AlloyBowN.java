@@ -23,7 +23,7 @@ public class AlloyBowN extends RangeWeapon {
 
 	{
 		//name = "GunA";
-		image = ItemSpriteSheet.N_BOW;
+		image = ItemSpriteSheet.ALLOW_BOW;
 		//MIN=10;
 		//MAX=10;
 	}

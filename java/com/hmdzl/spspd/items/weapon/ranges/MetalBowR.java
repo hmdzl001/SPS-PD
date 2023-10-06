@@ -24,8 +24,9 @@ public class MetalBowR extends RangeWeapon {
 
 	{
 		//name = "GunA";
-		image = ItemSpriteSheet.R_BOW;
+		image = ItemSpriteSheet.METAL_BOW;
 		STR++;
+		sname = "R";
 		//MIN=10;
 		//MAX=10;
 	}

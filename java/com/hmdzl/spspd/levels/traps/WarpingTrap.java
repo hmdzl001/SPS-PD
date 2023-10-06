@@ -78,7 +78,7 @@ public class WarpingTrap extends Trap {
 				if (buff != null) buff.detach();
 
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;
-				InterlevelScene.returnDepth = depth;
+				InterlevelScene.returnDepth = Dungeon.depth - 1;
 				InterlevelScene.returnPos = -1;
 				Game.switchScene(InterlevelScene.class);
 			} else if (ch != null) {

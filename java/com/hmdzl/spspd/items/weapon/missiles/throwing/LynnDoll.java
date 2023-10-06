@@ -23,7 +23,6 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Charm;
-import com.hmdzl.spspd.actors.buffs.Corruption;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Splash;
@@ -202,7 +201,6 @@ public class LynnDoll extends TossWeapon {
 
 
 		{
-			immunities.add(Corruption.class);
 			immunities.add(Amok.class);
 			immunities.add(Charm.class);
 		}

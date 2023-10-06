@@ -205,6 +205,10 @@ public class RelicMeleeWeapon extends Weapon {
 		if (reinforced) {
 			info += "\n" + Messages.get(Item.class, "reinforced");
 		}
+		
+		if (unique) {
+			info += "\n\n" +  Messages.get(Item.class, "unique");
+		}	
 
 		info += "\n " + Messages.get(Weapon.class, "charge", charge, chargeCap);	
 

@@ -30,6 +30,8 @@ import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.EnergyArmor;
+import com.hmdzl.spspd.actors.buffs.HTimprove;
+import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.Muscle;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
@@ -68,12 +70,16 @@ public class WarriorSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
         Buff.affect(curUser,Muscle.class,160f);
-		if (Random.Int(2)==0){
-			Buff.affect(curUser,DefenceUp.class,80f).level(75);
-			Dungeon.level.drop(Generator.random(Generator.Category.MELEEWEAPON).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-		} else{
-			Buff.affect(curUser,AttackUp.class,80f).level(75);
-			Dungeon.level.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+
+		if (Dungeon.hero.lvl > 55) {
+			Dungeon.level.drop(Generator.random(Generator.Category.MELEEWEAPON).upgrade(5).uncurse().identify().reinforce(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.level.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify().reinforce(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		} else {
+			if (Random.Int(2) == 0) {
+				Dungeon.level.drop(Generator.random(Generator.Category.MELEEWEAPON).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			} else {
+				Dungeon.level.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			}
 		}
 		WarriorSkill.charge += 20;
 	}
@@ -90,6 +96,10 @@ public class WarriorSkill extends ClassSkill {
 				Buff.affect(mob, Silent.class, curUser.STR);
 				}
 			}
+		}
+        if (Dungeon.hero.lvl > 55) {
+			Buff.affect(curUser, AttackUp.class, 80f).level(75);
+			Buff.affect(curUser, DefenceUp.class, 80f).level(75);
 		}
 		WarriorSkill.charge += 15;
 		curUser.spend(SKILL_TIME);
@@ -117,17 +127,15 @@ public class WarriorSkill extends ClassSkill {
 			}
 
 		}
-
-		if (curUser.buff(Poison.class) != null ||
-				curUser.buff(Cripple.class) != null ||
-				curUser.buff(STRdown.class) != null ||
-				curUser.buff(BeOld.class) != null
-				) Buff.affect(curUser, EnergyArmor.class).level(10*targets.size());
-
 		Buff.detach(curUser, Poison.class);
 		Buff.detach(curUser, Cripple.class);
 		Buff.detach(curUser, STRdown.class);
 		Buff.detach(curUser, BeOld.class);
+		if (Dungeon.hero.lvl > 55) {
+			Buff.affect(curUser, MagicArmor.class).level(curUser.HT/2);
+			Buff.affect(curUser, EnergyArmor.class).level(curUser.HT/2);
+		}
+
 
 		WarriorSkill.charge += 25;
 		curUser.spend(SKILL_TIME);
@@ -145,8 +153,14 @@ public class WarriorSkill extends ClassSkill {
 		curUser.busy();
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Buff.prolong(curUser, BloodImbue.class,30f);
-		Buff.prolong(curUser, SpAttack.class,30f);
+		Buff.prolong(curUser, BloodImbue.class,50f);
+		Buff.prolong(curUser, SpAttack.class,50f);
+		if (Dungeon.hero.lvl > 55) {
+			Dungeon.hero.TRUE_HT ++;
+			Buff.affect(curUser, HTimprove.class,50f);
+			Dungeon.hero.updateHT(true);
+		}
+
 		WarriorSkill.charge += 10;
 	}
 

@@ -21,12 +21,14 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.SpeedImbue;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
@@ -38,6 +40,7 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 
 import java.util.HashMap;
 
@@ -60,13 +63,18 @@ public class AsceticSkill extends ClassSkill {
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
 		Buff.affect(curUser, SpeedImbue.class, 40f);
-		AsceticSkill.charge += 10;
+		if (Dungeon.hero.lvl < 56) {
+			AsceticSkill.charge += 10;
+		}
 	}
 
 	@Override
 	public void doSpecial2() {
 		curUser.spend(SKILL_TIME);
 		Dungeon.level.drop(new GreatRune(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		if (Dungeon.hero.lvl > 55) {
+			Dungeon.level.drop(Generator.random(), Dungeon.hero.pos);
+		}
 		AsceticSkill.charge += 20;
 		curUser.sprite.operate(curUser.pos);
 		curUser.sprite.centerEmitter().start(PurpleParticle.BURST, 0.05f, 10);
@@ -89,6 +97,20 @@ public class AsceticSkill extends ClassSkill {
 		Dungeon.hero.magicSkill++;
 
 		AsceticSkill.charge += 30;
+
+		if (Dungeon.hero.lvl > 55) {
+			switch (Random.Int(3)){
+				case 0:
+					Dungeon.hero.magicSkill++;
+					break;
+				case 1:
+					Dungeon.hero.hitSkill++;
+					break;
+				case 2:
+					Dungeon.hero.evadeSkill++;
+					break;
+			}
+		}
 	}
 
 	@Override
@@ -126,7 +148,9 @@ public class AsceticSkill extends ClassSkill {
 				Char ch2 = Actor.findChar(c);
 				if (ch2 != null) {
 					int dmg = (int) (Dungeon.depth * (1 + 0.1 * Dungeon.hero.magicSkill()));
-					Buff.affect(ch2, Vertigo.class, 3f);
+					if (Dungeon.hero.lvl > 55)
+						Buff.affect(ch2, Vertigo.class, 10f);
+					    Buff.affect(ch2, Blindness.class, 10f);
 					if (dmg > 0) {
 						ch2.damage(dmg, this);
 					}

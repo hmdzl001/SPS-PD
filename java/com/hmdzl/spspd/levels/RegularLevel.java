@@ -389,7 +389,7 @@ public abstract class  RegularLevel extends Level {
 		}
 
 		//no more than one trap every 5 valid tiles.
-		nTraps = Math.min(nTraps, validCells.size()/2);
+		nTraps = Math.min(nTraps, validCells.size()/3);
 
 		Collections.shuffle(validCells);
 
@@ -401,7 +401,7 @@ public abstract class  RegularLevel extends Level {
 				Trap trap = ((Trap)trapClasses[Random.chances( trapChances )].newInstance()).hide();
 				setTrap( trap, trapPos );
 				//some traps will not be hidden
-				map[trapPos] = trap.visible ? Terrain.TRAP : Terrain.SECRET_TRAP;
+				map[trapPos] = (trap.visible ||  Random.Int(2) == 0 ) ? Terrain.TRAP : Terrain.SECRET_TRAP;
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
@@ -409,7 +409,7 @@ public abstract class  RegularLevel extends Level {
 	}
 
 	protected int nTraps() {
-		return Random.NormalIntRange( 15, 20+(Dungeon.depth/2) );
+		return Random.NormalIntRange( 13, 20+(Dungeon.depth/2) );
 	}
 	
 	protected Class<?>[] trapClasses(){

@@ -61,9 +61,11 @@ public class ParyAttack extends Buff {
 			
 			if (target.pos != pos || Dungeon.gold < level*10) {
 				detach();
-			} 
-			
+			}
 			level++;
+			if (Dungeon.hero.lvl > 55){
+				level++;
+			}
 			if (level > 100 )
 				Dungeon.gold -=level*10;
 

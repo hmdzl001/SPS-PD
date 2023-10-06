@@ -251,14 +251,14 @@ public class Heap implements Bundlable {
 		}
 	}
 
-	public void spdrop(Item item) {
+	//public void spdrop(Item item) {
 
-		items.add(item);
+		//items.add(item);
 
-		if (sprite != null) {
-			sprite.view(image(), glowing());
-		}
-	}
+		//if (sprite != null) {
+		//	sprite.view(image(), glowing());
+		//}
+	//}
 
 	
 	

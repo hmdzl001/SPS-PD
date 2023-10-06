@@ -47,6 +47,7 @@ import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.particles.FlowParticle;
 import com.hmdzl.spspd.effects.particles.WindParticle;
+import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
@@ -1147,13 +1148,13 @@ public abstract class  Level implements Bundlable {
 
 		} else if (heap.type == Heap.Type.LOCKED_CHEST
 				|| heap.type == Heap.Type.CRYSTAL_CHEST
-				//|| heap.type == Heap.Type.MONSTERBOX
+				|| heap.type == Heap.Type.G_MIMIC
 				) {
 
 			int n;
 			do {
 				n = cell + Level.NEIGHBOURS8[Random.Int(8)];
-			} while (!Level.passable[n] && !Level.avoid[n]);
+			} while (!Level.passable[n] && !Level.avoid[n] && n == cell);
 			return drop(item, n);
 
 		} else {
@@ -1167,7 +1168,7 @@ public abstract class  Level implements Bundlable {
 		return heap;
 	}
 	
-	public Heap spdrop(Item item, int cell) {
+	/*public Heap spdrop(Item item, int cell) {
 
 		if (item == null ){
 
@@ -1217,7 +1218,7 @@ public abstract class  Level implements Bundlable {
 
 		return heap;
 	}	
-
+*/
 	public Plant plant(Plant.Seed seed, int pos) {
 
 		Plant plant = plants.get(pos);
@@ -1736,19 +1737,32 @@ public abstract class  Level implements Bundlable {
 			for (int i = 0; i <  Level.getLength(); i++)  {
 				for (Blob blob : Dungeon.level.blobs.values()) {
 					if (blob.cur[i] > 0 && blob instanceof TorchLight) {
-						fieldOfView[i] = true;
-						fieldOfView[i + 1] = true;
-						fieldOfView[i + 2] = true;
-						fieldOfView[i - 1] = true;
-						fieldOfView[i - 2] = true;
-						fieldOfView[i + getWidth() + 1] = true;
-						fieldOfView[i + getWidth() - 1] = true;
-						fieldOfView[i - getWidth() + 1] = true;
-						fieldOfView[i - getWidth() - 1] = true;
-						fieldOfView[i + getWidth()] = true;
-						fieldOfView[i - getWidth()] = true;
-						fieldOfView[i + 2*getWidth()] = true;
-						fieldOfView[i - 2*getWidth()] = true;
+						if (distance(c.pos, i) < 6) {
+							fieldOfView[i] = true;
+							fieldOfView[i + 1] = true;
+							fieldOfView[i + 2] = true;
+							fieldOfView[i - 1] = true;
+							fieldOfView[i - 2] = true;
+							fieldOfView[i + getWidth() + 1] = true;
+							fieldOfView[i + getWidth() - 1] = true;
+							fieldOfView[i - getWidth() + 1] = true;
+							fieldOfView[i - getWidth() - 1] = true;
+							fieldOfView[i + getWidth()] = true;
+							fieldOfView[i - getWidth()] = true;
+							fieldOfView[i + 2 * getWidth()] = true;
+							fieldOfView[i - 2 * getWidth()] = true;
+						}
+						if (c.buff(DewVial.DewLight.class) != null){
+							fieldOfView[i] = true;
+							fieldOfView[i + 1] = true;
+							fieldOfView[i - 1] = true;
+							fieldOfView[i + getWidth() + 1] = true;
+							fieldOfView[i + getWidth() - 1] = true;
+							fieldOfView[i - getWidth() + 1] = true;
+							fieldOfView[i - getWidth() - 1] = true;
+							fieldOfView[i + getWidth()] = true;
+							fieldOfView[i - getWidth()] = true;
+						}
 					//} else if (blob.cur[i] > 0 && blob instanceof DarkGas) {
 					//	fieldOfView[i] = false;
 					}

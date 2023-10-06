@@ -110,14 +110,11 @@ public class Dungeon {
 		// limited world drops
 		strengthPotions,
 
-		//Norn Stones
-		nornstones,
-
 		// doesn't use Generator, so we have to enforce one armband drop here
 		spork, dragoncave, goei,caveskey,
 
 		// containers
-		seedBag, scrollBag, potionBag, wandBag, shopcart, heartScarecrow, challengebook;
+		 shopcart, heartScarecrow, challengebook;
 
 		public int count =  0;
 
@@ -161,7 +158,6 @@ public class Dungeon {
 	public static int challenges;
 	public static int skins;
 
-	public static int ratChests = 0;
 	public static int sacrifice = 0;
 	public static int saferoom = 0;
 	public static boolean sporkAvail = false;
@@ -249,7 +245,7 @@ public class Dungeon {
 		tengudenkilled = false;
 		skeletonkingkilled = false;
 		zotkilled = false;
-        ratChests = 0;
+
 		sacrifice = 0 ;
 		saferoom = 0;
 		sporkAvail = false;
@@ -329,7 +325,7 @@ public class Dungeon {
 		tengudenkilled = false;
 		skeletonkingkilled = false;
 		zotkilled = false;
-		ratChests = 0;
+
 		sacrifice = 0 ;
 		saferoom = 0;
 		sporkAvail = false;
@@ -1000,7 +996,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		depth++;
 		Arrays.fill(visible, false);
 		Level level;
-		level = new LearnLevel();;
+		level = new LearnLevel();
 		level.create();
 		return level;
 	}
@@ -1106,7 +1102,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static void dropToChasm(Item item) {
-		int depth = Dungeon.depth + 1;
+		int depth = Dungeon.depth > 26 ? Dungeon.depth : Dungeon.depth + 1;
 		ArrayList<Item> dropped = Dungeon.droppedItems
 				.get(depth);
 		if (dropped == null) {
@@ -1177,7 +1173,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String BADGES = "badges";
 	
 	private static final String SACRIFICE = "sacrifice";
-	private static final String RATCHESTS = "ratChests";
+
 	private static final String EARLYGRASS = "earlygrass";
 	private static final String GNOLLSPAWN = "gnollspawned";
 	private static final String SKELETONSPAWN = "skeletonspawned";
@@ -1272,7 +1268,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 			
 			//bundle.put(SECONDQUEST, secondQuest);
 			bundle.put(SACRIFICE, sacrifice);
-			bundle.put(RATCHESTS, ratChests);
+
 			bundle.put(EARLYGRASS, earlygrass);
 			bundle.put(GNOLLSPAWN, gnollspawned);
 			bundle.put(SKELETONSPAWN, skeletonspawned);
@@ -1464,7 +1460,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 		depth = bundle.getInt(DEPTH);
 		
 		sacrifice = bundle.getInt(SACRIFICE);
-		ratChests = bundle.getInt(RATCHESTS);
+
 		earlygrass = bundle.getBoolean(EARLYGRASS);
 		gnollspawned = bundle.getBoolean(GNOLLSPAWN);
 		skeletonspawned = bundle.getBoolean(SKELETONSPAWN);

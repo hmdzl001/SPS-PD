@@ -274,7 +274,7 @@ public class TaurcenBow extends Weapon {
 				}
 				if (arrow == Arrow.POSION) {
 					defender.damage(DMG/4,this);
-					if (defender.isAlive())Buff.affect(defender, Ooze.class);
+					if (defender.isAlive())Buff.affect(defender, Ooze.class).set(5f);
 					TaurcenBow.charge = 0;
 				}
 				if (arrow == Arrow.ELE) {

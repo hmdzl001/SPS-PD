@@ -57,7 +57,7 @@ import com.watabou.utils.Random;
 		@Override
 		public int attackProc(Char enemy, int damage) {
 			if (Random.Int(3) == 0) {
-				Buff.affect(enemy, Ooze.class);
+				Buff.affect(enemy, Ooze.class).set(5f);
 			}
 
 			return damage;

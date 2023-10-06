@@ -95,7 +95,7 @@ public class VioletDragon extends PET{
 		damage = damage/2;
 		if (cooldown > 0) cooldown --;
 		if (cooldown==0 && enemy.isAlive()) {
-			Buff.affect(enemy,Ooze.class);
+			Buff.affect(enemy,Ooze.class).set(hero.petLevel);
 			cooldown = Math.max(9,30 - hero.petLevel);
 		}
 		return damage;

@@ -20,23 +20,36 @@
  */
 package com.hmdzl.spspd.levels.traps;
 
+import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.bombs.BuildBomb;
-import com.hmdzl.spspd.items.bombs.DungeonBomb;
+import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.VioletDewdrop;
+import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.sprites.TrapSprite;
+import com.watabou.noosa.audio.Sample;
 
-public class ExplosiveTrap extends Trap {
+public class DewTrap extends Trap {
 
 	{
-		color = TrapSprite.ORANGE;
-		shape = TrapSprite.DIAMOND;
+		color = TrapSprite.RED;
+		shape = TrapSprite.LARGE_DOT;
 	}
 
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		new DungeonBomb().explode(pos);
+		if (Dungeon.visible[ pos ]) {
+			CellEmitter.get(pos).burst(ShadowParticle.UP, 5);
+			Sample.INSTANCE.play(Assets.SND_BLAST, 2);
+		}
+		for (int i : Level.NEIGHBOURS9){
+			int q =  pos + i ;
+			if (Level.insideMap(q)) {
+				Dungeon.level.drop(new VioletDewdrop(), q).sprite.drop();
+			} else Dungeon.level.drop(new VioletDewdrop(), pos).sprite.drop();
+		}
 	}
-
 }

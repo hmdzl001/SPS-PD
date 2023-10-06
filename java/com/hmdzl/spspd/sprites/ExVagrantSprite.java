@@ -34,32 +34,26 @@ public class ExVagrantSprite extends MobSprite {
 		TextureFilm frames = new TextureFilm( texture, 12, 16 );
 
 		idle = new Animation( 2, true );
-		idle.frames( frames, 0, 0, 0, 1, 0, 0, 1, 1 );
+		idle.frames( frames, 15, 15, 15, 16, 15, 15, 16, 16 );
 
 		run = new Animation( 15, true );
-		run.frames( frames, 2, 3, 4, 5, 6, 7 );
+		run.frames( frames, 17, 18, 19, 20, 21, 22 );
 
 		attack = new Animation( 12, false );
-		attack.frames( frames, 8, 9, 10 );
+		attack.frames( frames, 23, 24, 25 );
 
 
 		die = new Animation( 8, false );
-		die.frames( frames, 11, 12, 13, 14 );
+		die.frames( frames, 26, 27, 28, 29 );
 
 		play( idle );
     }
 	
 	
-	@Override
-	public void link(Char ch) {
-		super.link(ch);
-		add(State.CHILLED);
-	}
 
 	@Override
 	public void die() {
 		super.die();
-		remove(State.CHILLED);
 		if (Dungeon.visible[ch.pos]) {
 			emitter().burst(Speck.factory(Speck.STAR), 6);
 		}

@@ -127,10 +127,9 @@ public class Tengu extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		if (buff(Locked.class) != null){
+		if (this.buff(Locked.class) != null){
 			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
-		} else
-		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
+		} else return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
 
 	@Override

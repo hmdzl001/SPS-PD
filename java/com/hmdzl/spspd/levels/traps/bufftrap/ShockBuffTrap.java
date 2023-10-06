@@ -20,16 +20,9 @@
  */
 package com.hmdzl.spspd.levels.traps.bufftrap;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
-import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Ooze;
-import com.hmdzl.spspd.actors.buffs.Shocked;
-import com.hmdzl.spspd.effects.Splash;
-import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;

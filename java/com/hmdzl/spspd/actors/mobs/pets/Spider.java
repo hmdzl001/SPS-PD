@@ -27,7 +27,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.SpinnerSprite;
+import com.hmdzl.spspd.sprites.NewSpinnerSprite;
 import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.Dungeon.hero;
@@ -36,7 +36,7 @@ public class Spider extends PET {
 	
 	{
 		//name = "spider";
-		spriteClass = SpinnerSprite.class;
+		spriteClass = NewSpinnerSprite.class;
 		//flying=false;
 		state = HUNTING;
 

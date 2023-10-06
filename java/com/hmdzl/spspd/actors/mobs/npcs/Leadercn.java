@@ -79,7 +79,7 @@ public class Leadercn extends NPC {
 	public boolean interact() {
 		
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		switch (Dungeon.ratChests) {
+		switch (Dungeon.sacrifice) {
             case 0:
 			yell(Messages.get(this, "yell1"));
 				Dungeon.level.drop(new IronKey(Dungeon.depth), Dungeon.hero.pos).sprite.drop();
@@ -110,7 +110,7 @@ public class Leadercn extends NPC {
 				Dungeon.level.drop(new PuddingCup(), this.pos).sprite.drop();
 			break;						
 		}
-		Dungeon.ratChests++;
+		Dungeon.sacrifice++;
 		this.destroy();
 		this.sprite.die();
 		return true;

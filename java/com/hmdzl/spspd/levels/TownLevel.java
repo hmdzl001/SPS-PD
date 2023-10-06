@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.levels;
 
+import android.annotation.SuppressLint;
+
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
@@ -557,6 +559,7 @@ public class TownLevel extends Level {
    }	
   
    	
+  @SuppressLint("SuspiciousIndentation")
   @Override
 	protected void createItems() {
 	    

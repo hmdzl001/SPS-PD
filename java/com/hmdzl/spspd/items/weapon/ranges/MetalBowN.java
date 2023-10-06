@@ -23,7 +23,7 @@ public class MetalBowN extends RangeWeapon {
 
 	{
 		//name = "GunA";
-		image = ItemSpriteSheet.N_BOW;
+		image = ItemSpriteSheet.METAL_BOW;
 		//MIN=10;
 		//MAX=10;
 	}

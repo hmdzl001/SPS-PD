@@ -461,7 +461,7 @@ public class DewVial extends Item {
 		@Override
 		public void onSelect(Item item) {
 			if (item != null) {
-				upgrade(item);
+				dewupgrade(item);
 				if (dewpointex > 0){
 					if (dewpointex > 70 + rejection){
 						dewpointex = dewpointex - 70 - rejection;
@@ -479,7 +479,7 @@ public class DewVial extends Item {
 		}
 	};
 	
-	private void upgrade(Item item) {
+	private void dewupgrade(Item item) {
         int n = Random.Int(Math.min(1, Statistics.deepestFloor/24) , Math.max(2, Statistics.deepestFloor/6));
 
 		//GLog.w(Messages.get(this, "looks_better", item.name()));
@@ -487,7 +487,7 @@ public class DewVial extends Item {
 			item.upgrade();
 		}
 		item.upgrade();
-		//item.identify();
+		if (item.level > 14) {item.identify();}
 		curUser.sprite.operate(curUser.pos);
 		curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 		Badges.validateItemLevelAquired(item);

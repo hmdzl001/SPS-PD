@@ -57,7 +57,6 @@ public class MageSkill extends ClassSkill {
 
 		for (Mob mob : Dungeon.level.mobs) {
 			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
-
 				int dmg = (int) (Dungeon.hero.lvl * (1 + 0.1 * Dungeon.hero.magicSkill())) ;
 				switch (Random.Int(7)) {
 					case 0:
@@ -81,7 +80,7 @@ public class MageSkill extends ClassSkill {
 					case 3:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.EARTH_DAMAGE);
 						if (mob.isAlive()) {
-						Buff.affect(mob, Ooze.class);
+						Buff.affect(mob, Ooze.class).set(10f);
 						}
 						break;
 					case 4:
@@ -110,16 +109,18 @@ public class MageSkill extends ClassSkill {
 			}
 		}
 
-        for (int n : Level.NEIGHBOURS4OUT) {
-            int c = curUser.pos + n;
-            if (c >= 0 && c < Level.getLength()) {
-                if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL || Dungeon.level.map[c] == Terrain.WALL_DECO)&& Level.insideMap(c)) {
-                    Level.set(c, Terrain.EMBERS);
-                    GameScene.updateMap(c);
-                    Dungeon.observe();
-                }
-            }
-        }
+		if (Dungeon.hero.lvl > 55) {
+			for (int n : Level.NEIGHBOURS4OUT) {
+				int c = curUser.pos + n;
+				if (c >= 0 && c < Level.getLength()) {
+					if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL || Dungeon.level.map[c] == Terrain.WALL_DECO) && Level.insideMap(c)) {
+						Level.set(c, Terrain.EMBERS);
+						GameScene.updateMap(c);
+						Dungeon.observe();
+					}
+				}
+			}
+		}
 
 
         MageSkill.charge += 20;
@@ -138,8 +139,12 @@ public class MageSkill extends ClassSkill {
 
 		Buff.affect(curUser, Feed.class, 50f);
 		Buff.affect(curUser, HTimprove.class, 100f);
-		MageSkill.charge += 15;
 
+		if (Dungeon.hero.lvl < 56) {
+			MageSkill.charge += 20;
+		} else {
+			MageSkill.charge += 10;
+		}
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();
@@ -154,7 +159,9 @@ public class MageSkill extends ClassSkill {
 
 		ScrollOfTeleportation.teleportHero(curUser);
 		Dungeon.hero.lvl--;
-		Dungeon.hero.TRUE_HT-=10;
+		if (Dungeon.hero.lvl < 56) {
+			Dungeon.hero.TRUE_HT -= 10;
+		}
 		if (Dungeon.hero.TRUE_HT<0){
 			Dungeon.hero.die(Messages.format(ResultDescriptions.LOSE));
 			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
@@ -174,7 +181,11 @@ public class MageSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial4() {
-		Dungeon.level.drop(Generator.random(Generator.Category.WAND).identify().reinforce().uncurse(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		if (Dungeon.hero.lvl < 56) {
+			Dungeon.level.drop(Generator.random(Generator.Category.WAND).upgrade(5).identify().uncurse(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		} else {
+			Dungeon.level.drop(Generator.random(Generator.Category.WAND).upgrade(5).identify().reinforce().uncurse(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		}
 		Buff.affect(curUser, Recharging.class, 30);
 		MageSkill.charge += 20;
 

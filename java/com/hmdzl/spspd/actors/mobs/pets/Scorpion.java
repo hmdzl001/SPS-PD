@@ -88,12 +88,12 @@ public class Scorpion extends PET {
 			cooldown--;
 		}
 		if( Random.Int(10) == 0 && enemy.isAlive()) {
-			Buff.affect(enemy, Ooze.class);			
+			Buff.affect(enemy, Ooze.class).set(10f);
 		}
 
 		if (cooldown==0) {
 			if (enemy.isAlive()) {
-				Buff.affect(enemy, Ooze.class);
+				Buff.affect(enemy, Ooze.class).set(20f);
 			}
 			sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f,	1);
 			sprite.showStatus(CharSprite.POSITIVE,Integer.toString(damage));

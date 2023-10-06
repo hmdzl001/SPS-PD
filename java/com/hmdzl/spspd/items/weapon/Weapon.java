@@ -80,6 +80,8 @@ public class Weapon extends KindOfWeapon {
 	
 	public int durable = 100;
 
+	public boolean isdestory = false;
+
 	public Enchantment enchantment;
 
 	//@Override

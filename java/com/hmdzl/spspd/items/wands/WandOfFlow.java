@@ -121,7 +121,7 @@ public class WandOfFlow extends DamageWand {
 						ch instanceof SheepSokobanSwitch ||
 						ch instanceof SheepSokobanBlack) {
 					Dungeon.level.mobPress((NPC) ch);
-				} else {if (ch.pos == trajectory.collisionPos) {
+				} else {if (ch.pos == trajectory.collisionPos ) {
 					ch.damage(Random.NormalIntRange((finalDist + 1) / 2, finalDist), this);
 					Paralysis.prolong(ch, Paralysis.class, Random.NormalIntRange((finalDist + 1) / 2, finalDist));
 				} Dungeon.level.press(ch.pos, ch);}
@@ -130,7 +130,54 @@ public class WandOfFlow extends DamageWand {
 				}
 			}
 		}), -1);
-	}	
+	}
+
+	public static void pushChar(final Char ch, final Ballistica trajectory, int power){
+		int dist = Math.min(trajectory.dist, power);
+
+		if (ch.properties().contains(Char.Property.BOSS))
+			dist /= 2;
+
+		if (dist == 0 ) return;
+
+		if (Actor.findChar(trajectory.path.get(dist)) != null){
+			dist--;
+		}
+		if (ch instanceof SheepSokoban ||
+				ch instanceof SheepSokobanCorner ||
+				ch instanceof SheepSokobanStop ||
+				ch instanceof SheepSokobanSwitch ||
+				ch instanceof SheepSokobanBlack) {
+			dist=1;
+		}
+		final int newPos = trajectory.path.get(dist);
+
+		if (newPos == ch.pos) return;
+
+		final int finalDist = dist;
+		final int initialpos = ch.pos;
+
+		Actor.addDelayed(new Pushing(ch, ch.pos, newPos, new Callback() {
+			public void call() {
+				if (initialpos != ch.pos) {
+					//something cased movement before pushing resolved, cancel to be safe.
+					ch.sprite.place(ch.pos);
+					return;
+				}
+				ch.pos = newPos;
+				if (ch instanceof SheepSokoban ||
+						ch instanceof SheepSokobanCorner ||
+						ch instanceof SheepSokobanStop ||
+						ch instanceof SheepSokobanSwitch ||
+						ch instanceof SheepSokobanBlack) {
+					Dungeon.level.mobPress((NPC) ch);
+				} else { Dungeon.level.press(ch.pos, ch);}
+				if (ch == hero){
+					Dungeon.observe();
+				}
+			}
+		}), -1);
+	}
 
 		/*Char ch;
 

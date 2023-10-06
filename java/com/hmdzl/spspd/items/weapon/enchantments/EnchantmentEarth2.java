@@ -56,7 +56,7 @@ public class EnchantmentEarth2 extends Weapon.Enchantment {
 		}		
 		if ((Random.Int(4) == 1 )&& defender.isAlive()) {
 			Buff.prolong(defender, Roots.class,3f);
-			Buff.affect(defender, Ooze.class);
+			Buff.affect(defender, Ooze.class).set(weapon.level);
 			CellEmitter.bottom(defender.pos).start(EarthParticle.FACTORY, 0.05f, 8);
 			return true;
 		} else {

@@ -74,7 +74,7 @@ public class CannonOfMage extends DamageWand {
 					Buff.affect(ch, Shocked.class).set(5f);
 					break;
 				case 3:
-					Buff.affect(ch, Ooze.class);
+					Buff.affect(ch, Ooze.class).set(5f);
 					break;
 				case 4:
 					Buff.affect(ch, Frost.class, 5f);

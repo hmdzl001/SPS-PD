@@ -53,9 +53,17 @@ public class HighAttack extends Buff {
 	
 	@Override
 	public boolean attachTo(Char target) {
-        return super.attachTo(target);
+		if (super.attachTo(target)) {
+			if (Dungeon.hero.lvl > 55) {
+				target.invisible++;
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
+
+
 	public boolean act() {
 
 		if (target.isAlive()) {
@@ -87,12 +95,18 @@ public class HighAttack extends Buff {
 		}
 
 		return true;
-	}	
+	}
 
 	@Override
 	public void detach() {
+		if (Dungeon.hero.lvl > 55) {
+		    if (target.invisible > 0 ){
+			   target.invisible--;
+			}
+		}
 		super.detach();
 	}
+
 
 	@Override
 	public int icon() {

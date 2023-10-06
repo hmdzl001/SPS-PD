@@ -22,15 +22,35 @@ import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
 
 public class Ooze extends Buff {
+ 
+    public static final float DURATION = 20f;
 
 	{
 		type = buffType.NEGATIVE;
 	}	
+	
+	private float left;
+	
+	private static final String LEFT = "left";
+	
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(LEFT, left);
+	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		left = bundle.getFloat(LEFT);
+	}	
+	
 	
 	@Override
 	public int icon() {
@@ -49,20 +69,29 @@ public class Ooze extends Buff {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc");
+		return Messages.get(this, "desc",dispTurns(left));
+	}
+
+
+	public void set(float left) {
+		 this.left = left;
 	}
 
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-			if (Random.Int(6) == 0)
+			if (Random.Int(6) == 0) {
 				target.damage(1, EARTH_DAMAGE);
-            else target.damage(Math.min(500,(int)(target.HT/25)), EARTH_DAMAGE);
+			} else target.damage(Math.min(500,(int)(target.HT/30)), EARTH_DAMAGE);
             if (!target.isAlive() && target == Dungeon.hero) {
 				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(TXT_HERO_KILLED, toString());
 			}
 			spend(TICK);
+			left -= TICK;
+			if (left <= 0){
+				detach();
+			}
 		}
 		if (Level.water[target.pos]) {
 			detach();

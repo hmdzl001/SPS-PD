@@ -24,8 +24,9 @@ public class PVCBowR extends RangeWeapon {
 
 	{
 		//name = "GunA";
-		image = ItemSpriteSheet.R_BOW;
+		image = ItemSpriteSheet.PVC_BOW;
 		STR++;
+		sname = "R";
 		//MIN=10;
 		//MAX=10;
 	}

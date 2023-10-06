@@ -37,6 +37,7 @@ import com.hmdzl.spspd.items.StrBottle;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.TomeOfMastery;
 import com.hmdzl.spspd.items.Torch;
+import com.hmdzl.spspd.items.TransmutationBall;
 import com.hmdzl.spspd.items.TriForce;
 import com.hmdzl.spspd.items.UnBlessAnkh;
 import com.hmdzl.spspd.items.Weightstone;
@@ -93,6 +94,7 @@ import com.hmdzl.spspd.items.food.completefood.Hamburger;
 import com.hmdzl.spspd.items.food.completefood.Meatroll;
 import com.hmdzl.spspd.items.food.completefood.MixPizza;
 import com.hmdzl.spspd.items.food.completefood.MoonCake;
+import com.hmdzl.spspd.items.food.completefood.NutCake;
 import com.hmdzl.spspd.items.food.completefood.NutCookie;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.completefood.Porksoup;
@@ -248,6 +250,7 @@ import com.hmdzl.spspd.items.weapon.missiles.throwing.EmpBola;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.PoisonDart;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Skull;
+import com.hmdzl.spspd.items.weapon.ranges.StoneBowN;
 import com.hmdzl.spspd.items.weapon.ranges.WoodenBowN;
 import com.hmdzl.spspd.items.weapon.spammo.BattleAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.GoldAmmo;
@@ -343,12 +346,13 @@ public enum HeroClass {
 		new KeyRing().collect();
 		new ArrowCollecter().collect();
 		new Pasty().identify().collect();
+		new NutCake().identify().collect();
 		//new Lollipop().identify().collect();
 		//new Chocolate().identify().collect();
 		//new HealFruit(99).collect();
-		new MeleePan().identify().collect();
+		//new MeleePan().identify().collect();
 		new DewVial(0,0).identify().collect();
-		new RocketMissile(5).collect();
+		new RocketMissile(2).collect();
 		//new Vialupdater().collect();
 		if (Dungeon.skins != 3 && Dungeon.skins != 6) {
 			new Ankhshield().collect();
@@ -360,6 +364,7 @@ public enum HeroClass {
 			new EmpBola(10).collect();
 			new PoisonDart(10).collect();
 			new BlindFruit(10).collect();
+			new RocketMissile(5).collect();
 			new Weightstone().collect();
 			new Stylus().collect();
 			new PotionOfHealing().identify().collect();
@@ -391,7 +396,11 @@ public enum HeroClass {
 			Item shoes = Generator.random(Generator.Category.SHOES);
 			shoes.identify().collect();
 			new KnowledgeBook().collect();
+			new ScrollOfRemoveCurse().identify().collect();
 
+			new TransmutationBall().collect();
+			new TransmutationBall().collect();
+			new TransmutationBall().collect();
 		}		
 
 		if (Dungeon.isChallenged(Challenges.ITEM_PHOBIA)){
@@ -629,20 +638,13 @@ public enum HeroClass {
             (hero.belongings.weapon = new GunB()).identify();
             (hero.belongings.armor = new StyrofoamArmor()).identify();
 
-            new TestWeapon().identify().collect();
-			new TestWeapon().identify().collect();
-			new TestWeapon().identify().collect();
-			new TestWeapon().identify().collect();
-			new TestWeapon().identify().collect();
+            new TestWeapon().identify().unique().collect();
 			new WandOfTest().identify().collect();
-			new TestArmor().identify().collect();
+			new TestArmor().identify().unique().collect();
 
             new RewardPaper().identify().collect();
 
 			new JumpW().collect();
-
-
-
 
 		} else if (Dungeon.skins == 5) {
 
@@ -1258,11 +1260,12 @@ public enum HeroClass {
 		hero.TRUE_HT = 50;
 		hero.HP = 10;
 		new WoodenBowN().identify().collect();
-		//new MeleePan().identify().collect();
+
+		new StoneBowN().identify().collect();
 
 		new SmokeFruit(99).collect();
 
-		new MiniGun().identify().collect();
+		new GunA().identify().collect();
 
 		new Torch().collect();
 

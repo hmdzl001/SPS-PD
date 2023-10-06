@@ -23,7 +23,7 @@ public class WoodenBowN extends RangeWeapon {
 
 	{
 		//name = "GunA";
-		image = ItemSpriteSheet.N_BOW;
+		image = ItemSpriteSheet.WOODEN_BOW;
 		//image2 = ItemSpriteSheet.N_BOW;
 		//MIN=10;
 		//MAX=10;

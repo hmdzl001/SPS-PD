@@ -53,7 +53,7 @@ public class Obubble extends RockCode {
 		if (ch != null) {
 			ch.damage( damageRoll,EARTH_DAMAGE );
 			if (ch.isAlive() && Random.Int(2) == 0){
-				Buff.affect(ch, Ooze.class);
+				Buff.affect(ch, Ooze.class).set(10f);
 			}
 		}
 	}

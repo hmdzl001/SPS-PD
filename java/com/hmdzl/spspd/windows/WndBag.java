@@ -135,6 +135,8 @@ public class WndBag extends WndTabbed {
 		HOLY_MACE,
 		IRON_MAKE,
 		COOKING_A,
+
+		TEST_RECOVER,
 		ROCK_CODE
     }
 
@@ -546,7 +548,9 @@ public class WndBag extends WndTabbed {
 				|| mode == Mode.COOKING_A
 						&& (item instanceof Food ||item instanceof Plant.Seed ||item instanceof StoneOre || item instanceof Honeypot
 							|| item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof Ankh)
-				|| mode == Mode.ALL );
+				|| mode == Mode.TEST_RECOVER
+							&& (!item.isunique() && item instanceof EquipableItem)
+				||mode == Mode.ALL );
 				}
 			} else {
 				bg.color(NORMAL);
