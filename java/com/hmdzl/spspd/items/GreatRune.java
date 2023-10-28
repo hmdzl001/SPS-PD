@@ -55,7 +55,7 @@ public class GreatRune extends Item {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_INSCRIBE) {
+		if (action.equals(AC_INSCRIBE)) {
 
 			curUser = hero;
 			detach(curUser.belongings.backpack);

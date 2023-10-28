@@ -79,7 +79,7 @@ public class Palantir extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 
-		if (action == AC_PORT) {
+		if (action.equals(AC_PORT)) {
 
 			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 ) && Dungeon.depth!=specialLevel) {
 				hero.spend(TIME_TO_USE);
@@ -96,7 +96,7 @@ public class Palantir extends Item {
 
 		}
 
-		if (action == AC_PORT) {
+		if (action.equals(AC_PORT)) {
 			
 			 hero.spend(TIME_TO_USE);
 

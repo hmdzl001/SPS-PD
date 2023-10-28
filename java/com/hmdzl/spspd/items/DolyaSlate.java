@@ -138,7 +138,7 @@ public class DolyaSlate extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 
-		if (action == AC_PORT) {
+		if (action.equals(AC_PORT)) {
 			PocketBallFull.removePet(hero);
 			if (Dungeon.bossLevel()) {
 				hero.spend(TIME_TO_USE);
@@ -147,12 +147,12 @@ public class DolyaSlate extends Item {
 			}
 		}
 
-		if (action == AC_PORT) {
+		if (action.equals(AC_PORT)) {
 			PocketBallFull.removePet(hero);
 			GameScene.show(new WndOtiluke(rooms, this));
 		}
               
-       if (action == AC_RETURN) {
+       if (action.equals(AC_RETURN)) {
 		   if (Dungeon.depth != 50){
 		   PocketBallFull.removePet(hero);
 		   }
@@ -168,7 +168,7 @@ public class DolyaSlate extends Item {
 				returnDepth=-1;
 			}
                
-       if (action == AC_ADD) {
+       if (action.equals(AC_ADD)) {
 
     	   GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
 			

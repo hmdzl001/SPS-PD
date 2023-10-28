@@ -69,7 +69,7 @@ public class RangePan extends RangeWeapon {
 	@Override
 	public void execute(Hero hero, String action) {
 		
-		if (action == AC_CHANGE){
+		if (action.equals(AC_CHANGE)){
 			Weapon weapon = (Weapon) hero.belongings.weapon;
 			MeleeWeapon n;
 			n = new MeleePan();

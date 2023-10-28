@@ -84,7 +84,7 @@ public class RunicBlade extends MeleeWeapon {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_REFORGE) {
+		if (action.equals(AC_REFORGE)) {
 
 			if (hero.belongings.weapon == this) {
 				equipped = true;

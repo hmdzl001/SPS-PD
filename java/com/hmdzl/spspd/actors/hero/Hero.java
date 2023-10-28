@@ -40,6 +40,7 @@ import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.actors.buffs.BoxStar;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.BunnyCombo;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Combo;
 import com.hmdzl.spspd.actors.buffs.DBurning;
@@ -220,8 +221,6 @@ public class Hero extends Char {
 	private static final String TXT_VALUE = "%+d";
 
 	public static final int STARTING_STR = 10;
-	public static final int STARTING_MAGIC = 0;
-
 
 	private static final float TIME_TO_REST = 1f;
 	private static final float TIME_TO_SEARCH = 2f;
@@ -281,8 +280,7 @@ public class Hero extends Char {
 		TRUE_HT = HT = 30;
 		HP = HT;
 		STR = STARTING_STR;
-		magicSkill = STARTING_MAGIC;
-		
+
 		awareness = 0.1f;
 
 		belongings = new Belongings(this);
@@ -372,7 +370,8 @@ public class Hero extends Char {
 
 	private static final String HIT_SKILL = "hitSkill";
 	private static final String EVADE_SKILL = "evadeSkill";
-	private static final String MAGIC = "magicSkill";
+
+	private static final String MAGIC_SKILL = "magicSkill";
 	private static final String SPP = "spp";
 	private static final String STRENGTH = "STR";
 	private static final String LEVEL = "lvl";
@@ -402,7 +401,7 @@ public class Hero extends Char {
 
 		bundle.put(HIT_SKILL, hitSkill);
 		bundle.put(EVADE_SKILL, evadeSkill);
-		bundle.put(MAGIC, magicSkill);
+		bundle.put(MAGIC_SKILL, magicSkill);
 		bundle.put(SPP, spp);
 
 		bundle.put(STRENGTH, STR);
@@ -434,7 +433,7 @@ public class Hero extends Char {
 
 		hitSkill = bundle.getInt(HIT_SKILL);
 		evadeSkill = bundle.getInt(EVADE_SKILL);
-		magicSkill = bundle.getInt(MAGIC);
+		magicSkill = bundle.getInt(MAGIC_SKILL);
 		spp = bundle.getInt(SPP);
 
 		STR = bundle.getInt(STRENGTH);
@@ -620,6 +619,18 @@ public class Hero extends Char {
 				 dmg *= 1f *( 1 + ((Dungeon.hero.spp-70)*4/100));
 			 } else {
 				dmg *= 1f * ( 2 + (Dungeon.hero.spp-95));
+			}
+		}
+
+		if (Dungeon.skins == 6 && Dungeon.hero.heroClass == HeroClass.FOLLOWER){
+			if (Dungeon.hero.spp > 75){
+				dmg *= 1f;
+			} else if (Dungeon.hero.spp > 50){
+				dmg *= 1f * (1 + (75-Dungeon.hero.spp)/50);
+			} else if (Dungeon.hero.spp > 25 ){
+				dmg *= 1f *( 1.5 + ((50-Dungeon.hero.spp)/25));
+			} else {
+				dmg *= 1f * ( 2.5 + (25-Dungeon.hero.spp)/10);
 			}
 		}
 		
@@ -1639,6 +1650,9 @@ public class Hero extends Char {
 				}
 
 			}
+				//if (Dungeon.skins==6) {
+				//	Dungeon.hero.spp --;
+				//}
 			break;
 			case ASCETIC:
 				if ( hero.magicSkill() > 0) {
@@ -2008,6 +2022,12 @@ public class Hero extends Char {
 			dmg= (int) Math.ceil(dmg *(ab.level()*0.01+1));
 		}*/
 
+		if (heroClass == HeroClass.FOLLOWER && Dungeon.skins == 6){
+			if (hero.spp <= 0){
+				dmg = (int)hero.HT*3;
+				hero.spp = 100;
+			}
+		}
 
 
 		super.damage(dmg, src);
@@ -2059,6 +2079,10 @@ public class Hero extends Char {
                 }
                 Dungeon.hero.spp = 0;
             }
+		}
+
+		if (heroClass == HeroClass.FOLLOWER && Dungeon.skins == 6){
+			hero.spp --;
 		}
 
 		if(heroClass == HeroClass.ASCETIC){
@@ -2637,6 +2661,17 @@ public class Hero extends Char {
 				if (newcombo != null) newcombo.miss();
 			}
 		}
+
+
+		if (heroClass.equals(HeroClass.SOLDIER) && Dungeon.skins==7){
+			if (hit) {
+				Buff.affect( this, BunnyCombo.class ).hit();
+			} else {
+				BunnyCombo bunnycombo = buff(BunnyCombo.class);
+				if (bunnycombo != null) bunnycombo.miss();
+			}
+		}		
+		
 		curAction = null;
 
 		Invisibility.dispel();

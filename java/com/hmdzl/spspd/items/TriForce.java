@@ -78,7 +78,7 @@ public class TriForce extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 
-		if (action == AC_PORT) {
+		if (action.equals(AC_PORT)) {
             PocketBallFull.removePet(hero);
 			if (Dungeon.bossLevel()) {
 				hero.spend(TIME_TO_USE);
@@ -95,7 +95,7 @@ public class TriForce extends Item {
 
 		}
 
-		if (action == AC_PORT) {
+		if (action.equals(AC_PORT)) {
 			
 			 hero.spend(TIME_TO_USE);
 

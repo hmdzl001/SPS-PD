@@ -39,18 +39,18 @@ public class SpearTrap extends Trap {
 		shape = TrapSprite.DOTS;
 	}
 
-	public void trigger() {
-		if (Dungeon.visible[pos]){
-			Sample.INSTANCE.play(Assets.SND_TRAP);
-		}
+	//public void trigger() {
+	//	if (Dungeon.visible[pos]){
+	//		Sample.INSTANCE.play(Assets.SND_TRAP);
+	//	}
 		//this trap is not disarmed by being triggered
-		reveal();
-		Level.set(pos, Terrain.TRAP);
-	}
+	//	reveal();
+	//	Level.set(pos, Terrain.TRAP);
+	//}
 
 	@Override
 	public void activate(Char ch) {
-		//super.activate(ch);
+		super.activate(ch);
 		if (Dungeon.visible[pos]){
 			Sample.INSTANCE.play(Assets.SND_HIT);
 			Wound.hit(pos);
@@ -58,7 +58,7 @@ public class SpearTrap extends Trap {
 
 		//Char ch = Actor.findChar( pos);
 		if (ch != null){
-			int damage = Random.NormalIntRange(Dungeon.depth, Dungeon.depth*2);
+			int damage = Random.NormalIntRange(Dungeon.depth*2, Dungeon.depth*4);
 			damage -= Random.IntRange( 0, ch.drRoll());
 			ch.damage( Math.max(damage, 0) , this);
 			if (!ch.isAlive() && ch == Dungeon.hero){

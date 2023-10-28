@@ -63,11 +63,12 @@ public class RewardPaper extends Item {
 		actions.remove(AC_THROW);
 
 		if (Dungeon.hero.spp > 100){
-			actions.add(AC_DOSP);
+
 			actions.add(AC_DOUP);
 			actions.add(AC_DORE);
 		}
 		if (Dungeon.hero.spp > 50) {
+			actions.add(AC_DOSP);
 			actions.add(AC_RANKUP);
 		}
 		if (Dungeon.gold > 1000) {
@@ -158,7 +159,7 @@ public class RewardPaper extends Item {
 		public void onSelect(Item item) {
 			if (item != null) {
 				Hero hero = Dungeon.hero;
-				Dungeon.hero.spp -= 100;
+				Dungeon.hero.spp -= 50;
 				item.unique();
 				hero.sprite.operate(hero.pos);
 				hero.busy();

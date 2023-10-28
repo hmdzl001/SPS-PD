@@ -78,7 +78,7 @@ public class Towel extends Item {
 	public void execute(Hero hero, String action) {
 
 		
-		if (action == AC_TOWEL) {
+		if (action.equals(AC_TOWEL)) {
            	  		  		 
 			  Buff.detach(hero, Bleeding.class);
 			  Buff.detach(hero, Ooze.class);
@@ -99,7 +99,7 @@ public class Towel extends Item {
 			  }
 				  
 	
-		} else if (action == AC_TOWEL_PET) {
+		} else if (action.equals(AC_TOWEL_PET)) {
 			
 			PET pet = checkpet();
 			pet.HP=pet.HT;

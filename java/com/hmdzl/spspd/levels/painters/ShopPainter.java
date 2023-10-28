@@ -30,6 +30,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PocketBall;
 import com.hmdzl.spspd.items.Stylus;
+import com.hmdzl.spspd.items.artifacts.NoomlinCrown;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.bags.PotionBandolier;
 import com.hmdzl.spspd.items.bags.ScrollHolder;
@@ -120,10 +121,6 @@ public class ShopPainter extends Painter {
 	private static void generateItems() {
 
 		itemsToSpawn = new ArrayList<Item>();
-
-
-
-
 		switch (Dungeon.depth) {
 		case 1:
 			itemsToSpawn.add(new SeedPouch());
@@ -135,6 +132,7 @@ public class ShopPainter extends Painter {
 			//itemsToSpawn.add(new MiniMoai().identify());
 			itemsToSpawn.add(new MeleePan());
 			itemsToSpawn.add(new Pasty());
+			itemsToSpawn.add(new NoomlinCrown());
 			//itemsToSpawn.add(new UnstableSpellbook());
             break;	
 			
@@ -184,9 +182,9 @@ public class ShopPainter extends Painter {
 		}
 
 
-		itemsToSpawn.add(new PotionOfHealing());
+		//itemsToSpawn.add(new PotionOfHealing());
 		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
-		itemsToSpawn.add(new ScrollOfMagicMapping());
+		//itemsToSpawn.add(new ScrollOfMagicMapping());
 		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
 		//itemsToSpawn.add(new PocketBall());
 		itemsToSpawn.add(new MagicHand());
@@ -196,8 +194,8 @@ public class ShopPainter extends Painter {
 				Generator.random(Generator.Category.POTION):
 		        Generator.random(Generator.Category.SCROLL));
 
-		itemsToSpawn.add(Generator.random(Generator.Category.RANGEWEAPON));
-		itemsToSpawn.add(Generator.random(Generator.Category.SHOOTWEAPON));
+		//itemsToSpawn.add(Generator.random(Generator.Category.RANGEWEAPON));
+		//itemsToSpawn.add(Generator.random(Generator.Category.SHOOTWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR));
 
@@ -223,7 +221,7 @@ public class ShopPainter extends Painter {
 		}
 
 		//if (Dungeon.depth == 6) {
-			itemsToSpawn.add(new Ankh());
+		itemsToSpawn.add(new Ankh());
 			//itemsToSpawn.add(new Weightstone());
 		//} else {
 			//itemsToSpawn.add(Random.Int(2) == 0 ? new Ankh()

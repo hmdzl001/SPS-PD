@@ -77,7 +77,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 	@Override
 	public void execute(final Hero hero, String action) {
 
-		if (action == AC_MINE) {
+		if (action.equals(AC_MINE)) {
 			if (Dungeon.hero.isHungry() || Dungeon.hero.isStarving()){
 				GLog.i(Messages.get(this, "break"));
 				return;

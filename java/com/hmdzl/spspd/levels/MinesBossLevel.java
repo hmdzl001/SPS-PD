@@ -45,6 +45,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.windows.WndOtilukeMessage;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class MinesBossLevel extends Level {
 
@@ -251,7 +252,14 @@ public class MinesBossLevel extends Level {
 	}
 	@Override
 	protected void decorate() {
-		//do nothing, all decorations are hard-coded.
+		for (int i = 0; i < getLength(); i++) {
+			if (map[i] == Terrain.EMPTY && heaps.get(i) == null && Random.Float() < .10) {
+				map[i] = Terrain.WATER;
+			}
+			if (map[i] == Terrain.EMPTY && heaps.get(i) == null && Random.Float() < .10) {
+				map[i] = Terrain.OLD_HIGH_GRASS;
+			}
+		}
 	}
 
 	@Override

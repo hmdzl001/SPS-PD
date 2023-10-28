@@ -60,8 +60,6 @@ public class ToyGun extends Weapon {
 	public ToyGun() {
 		super();
 
-		this.tier = tier;
-
 		//AMMO = ammo
 
 		STR = typicalSTR();

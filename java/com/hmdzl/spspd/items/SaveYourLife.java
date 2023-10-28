@@ -51,7 +51,7 @@ public class SaveYourLife extends Item {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_SAVE) {
+		if (action.equals(AC_SAVE)) {
 			curUser = hero;
 			try {
 				Dungeon.saveAll();

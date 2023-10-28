@@ -20,9 +20,12 @@ package com.hmdzl.spspd.items.misc;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Drowsy;
 import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
@@ -45,7 +48,7 @@ public class Ankhshield extends Item {
 	}
 	
 	private static final String AC_DEFENCE = "DEFENCE";
-	public final int fullCharge = 250;
+	public final int fullCharge = 100;
 	public int charge = 0;
 	private static final String CHARGE = "charge";
 	
@@ -65,7 +68,7 @@ public class Ankhshield extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (charge >= 120){
+		if (charge >= 30){
 			actions.add(AC_DEFENCE);
 		}
 		actions.remove(AC_DROP);
@@ -77,22 +80,27 @@ public class Ankhshield extends Item {
 	@Override
 	public void execute(final Hero hero, String action) {
 		if (action.equals(AC_DEFENCE)) {
-		    if (charge < 120)
+		    if (charge < 30)
 				GLog.i(Messages.get(this, "rest"));
             else {
 				
 			    curUser = hero;
-				GameScene.flash(0x009900);
+				//GameScene.flash(0x009900);
+				new Flare(6, 32).color(0x33FF33, true).show(curUser.sprite, 2f);
 			    Sample.INSTANCE.play(Assets.SND_TELEPORT);
 				
 			    for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			    if (Level.fieldOfView[mob.pos]) {
-				mob.damage(5, this);
-				Buff.prolong(mob, Shieldblock.class, 3);
+			        if (Level.fieldOfView[mob.pos]) {
+					    if (Level.distance(hero.pos,mob.pos) < 5) {
+							mob.damage(5, this);
+							Buff.prolong(mob, Shieldblock.class, 3);
+						} else {
+							Buff.affect(mob, WatchOut.class);
+						}
 			        }
 		        }
 				
-				charge -= 120;
+				charge -= 30;
 				updateQuickslot();
 		    }
 	    } else {
@@ -121,7 +129,7 @@ public class Ankhshield extends Item {
 
 	 @Override
 	 public String status() {
-		 return Messages.format("%d", charge /120);
+		 return Messages.format("%d", charge /30);
 	 }
 
 }

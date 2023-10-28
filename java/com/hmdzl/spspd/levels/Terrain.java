@@ -125,7 +125,7 @@ public class Terrain {
 		flags[TENT] = PASSABLE ;
 		flags[BED] = PASSABLE;
 		flags[WALL_DECO] = flags[WALL];
-		flags[BUY_WALL] = flags[WALL];
+		//flags[BUY_WALL] = flags[WALL];
 
 		flags[BARRICADE] = FLAMABLE | SOLID;
 		flags[EMPTY_SP] = flags[EMPTY] | UNSTITCHABLE;
@@ -148,7 +148,6 @@ public class Terrain {
 		flags[INACTIVE_TRAP]= flags[EMPTY];
 
 		flags[DEW_BLESS] = AVOID;
-
         flags[IRON_MAKER] = AVOID;
 
 		flags[EMPTY_DECO] = flags[EMPTY];

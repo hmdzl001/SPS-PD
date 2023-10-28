@@ -359,10 +359,10 @@ import java.util.HashMap;
 public class Generator {
 
 	public enum Category {
-		MELEEWEAPON( 150,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),SHOOTWEAPON(40,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),
+		MELEEWEAPON( 130,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),SHOOTWEAPON(40,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),WEAPON( 0,Weapon.class),
 		POTION(500, Potion.class), SCROLL(500, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
 		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),SEED4(0,	Plant.Seed.class),
-		FOOD(10, Food.class), GOLD(400, Gold.class), BERRY(50, Food.class), MUSHROOM(5, Pill.class), BOMBS(20, Bomb.class),
+		FOOD(10, Food.class), GOLD(300, Gold.class), BERRY(50, Food.class), MUSHROOM(5, Pill.class), BOMBS(20, Bomb.class),
 		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(5, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class)
 		,SHOES(0,Item.class),DEW(0,Item.class),BASEPET(0,Egg.class),EASTERWEAPON(0,Item.class),ROCKCODE(0,RockCode.class), ARROWS(0,Arrows.class);
 
@@ -435,6 +435,41 @@ public class Generator {
 		Category.RANGEWEAPON.probs = new float[] {
 				1,1,1,1,1,
 				1,1,
+		};
+
+		Category.WEAPON.classes = new Class<?>[] {
+				Dagger.class, Knuckles.class,  ShortSword.class, MageBook.class,
+				Handaxe.class, Spear.class, Dualknive.class, FightGloves.class,
+				Nunchakus.class, Scimitar.class,Whip.class, Rapier.class,
+				AssassinsBlade.class,BattleAxe.class,Glaive.class,Club.class,
+				Gsword.class, Halberd.class, WarHammer.class, Lance.class,
+				Triangolo.class, Flute.class, Wardrum.class, Trumpet.class, Harp.class,
+				WoodenStaff.class, Mace.class, HolyWater.class, PrayerWheel.class, StoneCross.class,
+				TrickSand.class, MirrorDoll.class, WindBottle.class, HandLight.class, CurseBox.class,
+				Kunai.class, SmallChakram.class,Javelin.class,HugeShuriken.class, Tamahawk.class,
+				WoodenBowN.class, WoodenBowS.class, WoodenBowR.class, GunA.class,
+				StoneBowN.class, StoneBowS.class, StoneBowR.class, GunB.class,
+				MetalBowN.class, MetalBowS.class, MetalBowR.class, GunC.class,
+				AlloyBowN.class, AlloyBowS.class, AlloyBowR.class, GunD.class,
+				PVCBowN.class, PVCBowS.class, PVCBowR.class, GunE.class
+
+		};
+		Category.WEAPON.probs = new float[] {
+				1,1,1,1,
+				1,1,1,1,
+				1,1,1,1,
+				1,1,1,1,
+				1,1,1,1,
+				1,1,1,1,1,
+				1,1,1,1,1,
+				1,1,1,1,1,
+				1,1,1,1,1,
+				1, 1, 1,1,
+				1, 1, 1,1,
+				1, 1, 1,1,
+				1, 1, 1,1,
+				1, 1, 1,1,
+
 		};
 
 		Category.MELEEWEAPON.classes = new Class<?>[] {

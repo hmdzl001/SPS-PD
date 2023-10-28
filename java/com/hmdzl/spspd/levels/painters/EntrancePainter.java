@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
@@ -38,13 +39,17 @@ public class EntrancePainter extends Painter {
 		set(level, level.entrance, Terrain.ENTRANCE);
 
         int dewbless = room.random();
-        while (level.map[dewbless] == Terrain.ENTRANCE ) {
+        while (level.map[dewbless] == Terrain.SIGN || level.map[dewbless] == Terrain.ENTRANCE ||
+				level.map[dewbless] == Terrain.TRAP || level.map[dewbless] == Terrain.SECRET_TRAP) {
             dewbless = room.random();
         }
 
+		if(Dungeon.depth > 1 && Dungeon.depth < 26){
+			set(level, dewbless, Terrain.DEW_BLESS);
+		}
+
 		Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
 		level.explant(seed, room.random());
-
 
         //if (depth<25 && depth >1 ) {
            // level.map[dewbless] = Terrain.DEW_BLESS;

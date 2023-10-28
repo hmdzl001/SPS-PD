@@ -27,6 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Wound;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.levels.Level;
@@ -107,7 +108,6 @@ public class Chasm {
 			@Override
 			public void onDeath() {
 				Badges.validateDeathFromFalling();
-
 				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n("You fell to death...");
 			}
@@ -117,10 +117,10 @@ public class Chasm {
 	public static void mobFall(Mob mob) {
 		int pos = mob.pos;
 		int damage = Random.NormalIntRange(Dungeon.depth, Dungeon.depth*2);
-		mob.damage(mob.HT/5,Item.class);
 	    Buff.affect( mob, Bleeding.class).set(damage);
 		Buff.affect( mob, Cripple.class,5f);
 		Wound.hit( mob );
+		mob.damage(mob.HT/5, Gold.class);
 		Dungeon.level.setTrap( new PitfallTrap().hide(), mob.pos );
 		Level.set( mob.pos, Terrain.SECRET_TRAP);
 		GameScene.updateMap( mob.pos);

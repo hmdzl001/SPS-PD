@@ -25,6 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MagicWeak;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
@@ -104,12 +105,13 @@ public class Abi extends PET {
 	}
 
 	private void superattack() {
-		GameScene.flash(0x009900);
+		new Flare(6, 32).color(0x33FF33, true).show(this.sprite, 2f);
 		Sample.INSTANCE.play(Assets.SND_TELEPORT);
 		int dmg = this.damageRoll();
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			if (mob.isAlive() && ! (mob instanceof PET))
-			mob.damage(dmg*3, ENERGY_DAMAGE);
+			if (mob.isAlive() && ! (mob instanceof PET)) {
+				mob.damage(dmg * 3, ENERGY_DAMAGE);
+			}
 			if (!enemy.isAlive() && enemy == Dungeon.hero) {
 				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 			}

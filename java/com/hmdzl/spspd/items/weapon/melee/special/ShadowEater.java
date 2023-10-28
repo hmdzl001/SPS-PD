@@ -86,14 +86,14 @@ public class ShadowEater extends MeleeWeapon {
 
 	@Override
 	public void execute(Hero hero, String action) {
-        if (action == AC_AWAKE) {
+        if (action.equals(AC_AWAKE)) {
 			curUser = hero;
 			this.cursed = true;
 			charge = 0 ;
 			GLog.i(Messages.get(this, "awake"));
             Buff.affect(hero, AttackUp.class,30f).level(300);
 			Buff.affect(hero, Bleeding.class).set(hero.HT/2);
-		} else if (action == AC_UNCURSE) {
+		} else if (action.equals(AC_UNCURSE)) {
             this.cursed = false;
 		} else {
 

@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.Shopkeeper;
 import com.hmdzl.spspd.items.ChallengeBook;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.EquipableItem;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
@@ -277,7 +278,8 @@ public class WndTradeItem extends Window {
 		Dungeon.gold -= price;
 
 		if (!item.doPickUp(hero)) {
-			Dungeon.level.drop(item, heap.pos).sprite.drop();
+			Dungeon.level.drop(item, hero.pos).sprite.drop();
 		}
+		Dungeon.level.drop(Generator.random(),heap.pos).type = Heap.Type.FOR_SALE;
 	}
 }

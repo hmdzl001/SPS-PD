@@ -34,6 +34,7 @@ import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.traps.BoundTrap;
 import com.hmdzl.spspd.levels.traps.CursingTrap;
+import com.hmdzl.spspd.levels.traps.DewTrap;
 import com.hmdzl.spspd.levels.traps.DisarmingTrap;
 import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
@@ -84,6 +85,11 @@ public class CityLevel extends RegularLevel {
 	protected boolean[] grass() {
 		return Patch.generate(feeling == Feeling.GRASS ? 0.60f : 0.40f, 3);
 	}
+
+	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(feeling == Feeling.CHASM ? 0.30f : 0.35f, 4);
+	}
 	
 	@Override
 	protected void setPar(){
@@ -93,8 +99,8 @@ public class CityLevel extends RegularLevel {
 	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{ SpearTrap.class, ExplosiveTrap.class, GrippingTrap.class,
-				RockfallTrap.class, WeakeningTrap.class, BoundTrap.class, Dewcharge.class,
-				CursingTrap.class, GuardianTrap.class, PitfallTrap.class,
+				RockfallTrap.class, WeakeningTrap.class, BoundTrap.class, DewTrap.class,
+				CursingTrap.class, GuardianTrap.class,
 				SummoningTrap.class, TeleportationTrap.class, DisarmingTrap.class, WarpingTrap.class,
 				FireDamage2Trap.class, IceDamage2Trap.class, ShockDamage2Trap.class, EarthDamage2Trap.class,
 				LightDamage2Trap.class, DarkDamage2Trap.class};
@@ -104,7 +110,7 @@ public class CityLevel extends RegularLevel {
 	protected float[] trapChances() {
 		return new float[]{ 6, 4, 3,
 				6, 3, 4, 2,
-				4, 4, 4,
+				4, 4,
 				4, 1, 2, 3,
 				3, 3, 3, 3,
 				3, 3};
@@ -149,20 +155,13 @@ public class CityLevel extends RegularLevel {
 				break;
 			}
 		}
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.DEW_BLESS;
-				break;
-			}
-		}
 			
 		setPar();
 	}
 
 	@Override
 	protected void createItems() {
-		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(1) == 0){addItemToSpawn(new DungeonBomb());}
+		if (Dungeon.hero.heroClass==HeroClass.PERFORMER){addItemToSpawn(new DungeonBomb());}
 		super.createItems();
 
 		Imp.Quest.spawn(this);
@@ -186,7 +185,7 @@ public class CityLevel extends RegularLevel {
     }
 
 	public static void spawnGoldThief(CityLevel level) {
-		if (Dungeon.depth == 19 && !Dungeon.goldthiefspawned){
+		if (Dungeon.depth == 19 ){
 
 			GoldThief thief = new GoldThief();
 			do {
@@ -195,7 +194,7 @@ public class CityLevel extends RegularLevel {
 			level.mobs.add(thief);
 			Actor.occupyCell(thief);
            
-			Dungeon.goldthiefspawned = true;
+			//Dungeon.goldthiefspawned = true;
 		}
 	}
 

@@ -90,7 +90,7 @@ public class TownReturnBeacon extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 		
-		if (action == AC_RETURNTOWN) {
+		if (action.equals(AC_RETURNTOWN)) {
 		
 		   if (Dungeon.bossLevel() || Dungeon.level.locked) {
 		     	hero.spend(TIME_TO_USE);
@@ -107,7 +107,7 @@ public class TownReturnBeacon extends Item {
 		
 		}
 		
-	     if (action == AC_RETURNTOWN) {
+	     if (action.equals(AC_RETURNTOWN)) {
 	    	 
 	    	 hero.spend(TIME_TO_USE);
 	    	 
@@ -124,7 +124,7 @@ public class TownReturnBeacon extends Item {
 				InterlevelScene.returnPos = 1925;
 				Game.switchScene(InterlevelScene.class);
 				
-	     } else if (action == AC_RETURN) {
+	     } else if (action.equals(AC_RETURN)) {
 	    	 
 	    	 hero.spend(TIME_TO_USE);
 	    	  

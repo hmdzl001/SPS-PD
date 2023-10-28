@@ -34,6 +34,7 @@ import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.messages.Messages;
 
@@ -42,8 +43,8 @@ public class WaterOfTransmutation extends WellWater {
 	@Override
 	protected Item affectItem(Item item) {
 
-		if (item instanceof MeleeWeapon) {
-			item = changeWeapon((MeleeWeapon) item);
+		if (item instanceof Weapon) {
+			item = changeWeapon((Weapon) item);
 		} else if (item instanceof Armor) {
 			item = changeArmor((Armor) item);
 		} else if (item instanceof Scroll) {
@@ -76,11 +77,11 @@ public class WaterOfTransmutation extends WellWater {
 		emitter.start(Speck.factory(Speck.CHANGE), 0.2f, 0);
 	}
 
-	private MeleeWeapon changeWeapon(MeleeWeapon w) {
+	private Weapon changeWeapon(Weapon w) {
 
-		MeleeWeapon n;
+		Weapon n;
 		do {
-			n = (MeleeWeapon) Generator.random(Category.MELEEWEAPON);
+			n = (Weapon) Generator.random(Category.MELEEWEAPON);
 		} while (n.getClass() == w.getClass());
 
 		n.level = 0;

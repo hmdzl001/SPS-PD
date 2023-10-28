@@ -98,20 +98,20 @@ public class LinkSword extends MeleeWeapon {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_POWER) {
+		if (action.equals(AC_POWER)) {
 			curUser = hero;
 			uptime++;
 			GLog.w(Messages.get(LinkSword.class,"power"));
 			curUser.sprite.operate(curUser.pos);
 			curUser.sprite.centerEmitter().start(PurpleParticle.BURST, 0.05f, 10);
 			curUser.spendAndNext(1f);
-		} else if (action == AC_WISDOM) {
+		} else if (action.equals(AC_WISDOM)) {
 			curUser = hero;
 			Buff.affect(hero, MirrorShield.class,2f);
 			curUser.sprite.operate(curUser.pos);
 			curUser.spendAndNext(1f);
 			charge-=20;
-		} else if (action == AC_COURAGE) {
+		} else if (action.equals(AC_COURAGE)) {
 			curUser = hero;
 			curItem = this;
 			GameScene.selectCell( zapper );

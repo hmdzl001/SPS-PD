@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.ui;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.scenes.PixelScene;
@@ -142,6 +143,7 @@ public class AttackIndicator extends Tag {
 			PixelScene.align(sprite);
 
 		} catch (Exception e) {
+			ShatteredPixelDungeon.reportException(e);
 		}
 	}
 

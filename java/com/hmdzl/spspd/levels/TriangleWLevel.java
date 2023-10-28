@@ -66,6 +66,11 @@ public class TriangleWLevel extends RegularLevel {
 	protected boolean[] grass() {
 		return Patch.generate(feeling == Feeling.GRASS ? 0.60f : 0.40f, 4);
 	}
+
+	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(0, 3);
+	}
 	
 	@Override
 	protected void createItems() {

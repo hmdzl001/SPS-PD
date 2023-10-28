@@ -132,13 +132,12 @@ public class SandMob extends Mob {
 			HP = HT = 45+(adj(0)*Random.NormalIntRange(2, 5));
 			evadeSkill = 25;
 
+			sumcopy = true;
 
 			EXP = 0;
 
 			state = WANDERING;
 		}
-		
-		int generation = 1;
 
 		@Override
 		public int damageRoll() {

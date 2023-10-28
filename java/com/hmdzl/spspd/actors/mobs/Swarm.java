@@ -63,22 +63,6 @@ public class Swarm extends Mob {
 
 	private static final float SPLIT_DELAY = 1f;
 
-	int generation = 0;
-
-	private static final String GENERATION = "generation";
-
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(GENERATION, generation);
-	}
-
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		generation = bundle.getInt(GENERATION);
-	}
-
 	@Override
 	public int damageRoll() {
 		return Random.NormalIntRange(4, 7);
@@ -105,6 +89,7 @@ public class Swarm extends Mob {
 				clone.HP = (HP - damage) / 2;
 				clone.pos = Random.element(candidates);
 				clone.state = clone.HUNTING;
+				clone.sumcopy = true;
 
 				if (Dungeon.level.map[clone.pos] == Terrain.DOOR) {
 					Door.enter(clone.pos);
@@ -127,7 +112,6 @@ public class Swarm extends Mob {
 
 	private Swarm split() {
 		Swarm clone = new Swarm();
-		clone.generation = generation + 1;
 		if (buff(Burning.class) != null) {
 			Buff.affect(clone, Burning.class).set(3f);
 		}
@@ -140,7 +124,7 @@ public class Swarm extends Mob {
 	@Override
 	public void die(Object cause) {
 		// sets drop chance
-		lootChance = 0.5f / (5 / (generation + 1));
+		lootChance = 0.3f;
 		super.die(cause);
 	}
 

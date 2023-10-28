@@ -52,18 +52,6 @@ public class ExBambooMob extends BambooMob {
 	@Override
 	public boolean act() {
 
-		if( 1 > 2 * HP / HT && !skilluse ) {
-            skilluse = true;
-            HP = HT;
-			sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
-			for (int i = 0; i < Level.NEIGHBOURS8DIST2.length; i++) {
-				Char ch = findChar(pos + Level.NEIGHBOURS8DIST2[i]);
-				if (ch != null && ch.isAlive()) {
-					Buff.affect(ch,Roots.class,10f);
-				}
-			}
-			return true;
-		}
 		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
 			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS8[i], 2, EarthEffectDamage.class));
 		}
@@ -116,13 +104,24 @@ public class ExBambooMob extends BambooMob {
 		if (dmg> HT/3) {
 			dmg =(int)Math.max(HT/3,1);
 		}
+		if( 1 > 2 * HP / HT && !skilluse ) {
+			skilluse = true;
+			this.HP = this.HT;
+			this.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
+			for (int i = 0; i < Level.NEIGHBOURS8DIST2.length; i++) {
+				Char ch = findChar(pos + Level.NEIGHBOURS8DIST2[i]);
+				if (ch != null && ch.isAlive()) {
+					Buff.affect(ch,Roots.class,10f);
+				}
+			}
+		}
 
 		super.damage(dmg,src);
 
 	}
 
 	
-	private static final HashSet<Class<?>> resistances = new HashSet<>();
+	//private static final HashSet<Class<?>> resistances = new HashSet<>();
 
 
 	{

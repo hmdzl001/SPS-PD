@@ -83,7 +83,7 @@ public class Pickaxe extends Weapon {
 	@Override
 	public void execute(final Hero hero, String action) {
 
-		if (action == AC_MINE) {
+		if (action.equals(AC_MINE)) {
 
 			if ((Dungeon.depth < 11 || Dungeon.depth > 15) && !(Dungeon.depth==32)) {
 				GLog.w(Messages.get(this,"no_vein"));

@@ -96,7 +96,7 @@ public class Blacksmith extends NPC {
 		if (checksan()){
             tell(Messages.get(this, "triforce"));	
             TriForce san = new TriForce();
-            Dungeon.triforce = true;	
+            //Dungeon.triforce = true;	
 			Dungeon.level.drop(san, Dungeon.hero.pos).sprite.drop();
            }
 

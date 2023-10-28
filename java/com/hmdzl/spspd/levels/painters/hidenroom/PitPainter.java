@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.levels.painters;
+package com.hmdzl.spspd.levels.painters.hidenroom;
 
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Generator;
@@ -25,6 +25,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.plants.Fadeleaf;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;

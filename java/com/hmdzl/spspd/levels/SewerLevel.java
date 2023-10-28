@@ -82,6 +82,11 @@ public class SewerLevel extends RegularLevel {
 	}
 
 	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(feeling == Feeling.CHASM ? 0.30f : 0.35f, 4);
+	}
+
+	@Override
 	protected Class<?>[] trapClasses() {
 		return Dungeon.depth == 1 ?
 				new Class<?>[]{WornTrap.class} :
@@ -151,15 +156,15 @@ public class SewerLevel extends RegularLevel {
 				break;	
 			}			
 		}
-		if (Dungeon.depth > 1) {
-			while (true) {
-				int pos = roomEntrance.random();
-				if (pos != entrance) {
-					map[pos] = Terrain.DEW_BLESS;
-					break;
-				}
-			}
-		}
+		//if (Dungeon.depth > 1) {
+		//	while (true) {
+		//		int pos = roomEntrance.random();
+		//		if (pos != entrance) {
+		//			map[pos] = Terrain.DEW_BLESS;
+		//			break;
+		//		}
+		//	}
+		//}
 		for (int i = 0; i < getLength(); i++) {
 
 			if (map[i] == Terrain.EXIT && Dungeon.depth == 1) {
@@ -202,12 +207,12 @@ public class SewerLevel extends RegularLevel {
 		Ghost.Quest.spawn(this);
 		spawnGnoll(this);
 
-		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(3) == 0){addItemToSpawn(new DungeonBomb());}
+		if (Dungeon.hero.heroClass==HeroClass.PERFORMER){addItemToSpawn(new DungeonBomb());}
 		super.createItems();
 	}
 	
 	public static void spawnGnoll(SewerLevel level) {
-		if (Dungeon.depth == 4 && !Dungeon.gnollspawned){
+		if (Dungeon.depth == 4){
 
 			GnollArcher gnoll = new GnollArcher();
 			do {
@@ -216,7 +221,7 @@ public class SewerLevel extends RegularLevel {
 			level.mobs.add(gnoll);
 			Actor.occupyCell(gnoll);
            
-			Dungeon.gnollspawned = true;
+			//Dungeon.gnollspawned = true;
 		}
 	}
 

@@ -108,7 +108,7 @@ public class Pylon extends Artifact {
 	@Override
 	public void execute( Hero hero, String action ) {
 
-		if (action == AC_SET || action == AC_RETURN) {
+		if (action.equals(AC_SET) || action.equals(AC_RETURN)){
 			
 			if (Dungeon.bossLevel() || Dungeon.depth > 25) {
 				hero.spend( 1f );
@@ -124,7 +124,7 @@ public class Pylon extends Artifact {
 			}
 		}
 
-		if (action == AC_ZAP ){
+		if (action.equals(AC_ZAP) ){
 
 			curUser = hero;
 			int chargesToUse =  1;
@@ -135,7 +135,7 @@ public class Pylon extends Artifact {
 				GameScene.selectCell(zapper);
 			}
 
-		} else if (action == AC_SET) {
+		} else if (action.equals(AC_SET)) {
 			
 			returnDepth = Dungeon.depth;
 			returnPos = hero.pos;
@@ -148,7 +148,7 @@ public class Pylon extends Artifact {
 			
 			GLog.i( Messages.get(this, "return") );
 			
-		} else if (action == AC_RETURN) {
+		} else if (action.equals(AC_RETURN)) {
 			
 			if (returnDepth == Dungeon.depth) {
 				ScrollOfTeleportation.appear( hero, returnPos );
@@ -169,7 +169,7 @@ public class Pylon extends Artifact {
 			}
 			
 			
-		} else if (action == AC_RANKUP) {
+		} else if (action.equals(AC_RANKUP)) {
 			hero.TRUE_HT +=5;
 			hero.hitSkill++;
 			hero.evadeSkill++;

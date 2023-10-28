@@ -81,6 +81,11 @@ public class PrisonLevel extends RegularLevel {
 	}
 
 	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(feeling == Feeling.CHASM ? 0.30f : 0.35f, 4);
+	}
+
+	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{ PoisonTrap.class, SpearTrap.class, ToxicTrap.class,
 				AlarmTrap.class, FlashingTrap.class, GrippingTrap.class,
@@ -120,7 +125,7 @@ public class PrisonLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
-		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(1) == 0){addItemToSpawn(new DungeonBomb());}
+		if (Dungeon.hero.heroClass==HeroClass.PERFORMER){addItemToSpawn(new DungeonBomb());}
 		
 		super.createItems();
 
@@ -129,7 +134,7 @@ public class PrisonLevel extends RegularLevel {
 	}
 
 	public static void spawnSkeleton(PrisonLevel level) {
-		if (Dungeon.depth == 9 && !Dungeon.skeletonspawned){
+		if (Dungeon.depth == 9 ){
 
 			MossySkeleton skeleton = new MossySkeleton();
 			do {
@@ -138,7 +143,7 @@ public class PrisonLevel extends RegularLevel {
 			level.mobs.add(skeleton);
 			Actor.occupyCell(skeleton);
            
-			Dungeon.skeletonspawned = true;
+			//Dungeon.skeletonspawned = true;
 		}
 	}
 
@@ -204,13 +209,6 @@ public class PrisonLevel extends RegularLevel {
 			int pos = roomEntrance.random();
 			if (pos != entrance) {
 				map[pos] = Terrain.SIGN;
-				break;
-			}
-		}
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.DEW_BLESS;
 				break;
 			}
 		}

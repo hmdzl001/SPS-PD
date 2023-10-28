@@ -74,15 +74,14 @@ public class RENnpc extends NPC {
 	public boolean interact() {
 		CursePhone phone = Dungeon.hero.belongings.getItem(CursePhone.class);
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		if(Dungeon.challengebookdrop == false) {
-			//Dungeon.limitedDrops.challengebook.dropped();
+		if(!Dungeon.limitedDrops.challengebook.dropped()) {
+			Dungeon.limitedDrops.challengebook.dropped();
 			Dungeon.level.drop(new ChallengeBook(), Dungeon.hero.pos).sprite.drop();
-			Dungeon.challengebookdrop = true;
 			yell(Messages.get(this, "yell3"));	
 			
-		} else if(Dungeon.goeidrop == false && (Statistics.archersKilled > 50 && Statistics.skeletonsKilled > 50 && Statistics.albinoPiranhasKilled > 50 && Statistics.goldThievesKilled > 50)){
+		} else if(!Dungeon.limitedDrops.goei.dropped() && (Statistics.archersKilled > 50 && Statistics.skeletonsKilled > 50 && Statistics.albinoPiranhasKilled > 50 && Statistics.goldThievesKilled > 50)){
+			Dungeon.limitedDrops.goei.dropped();
 			Dungeon.level.drop(new Goei(), Dungeon.hero.pos).sprite.drop();
-			Dungeon.goeidrop = true;
 			yell(Messages.get(this, "yell5"));
 		} else
 		switch (Random.Int (4)) {

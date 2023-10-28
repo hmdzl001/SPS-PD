@@ -117,12 +117,12 @@ public class HolyMace extends MeleeWeapon {
 		
 		if (action.equals( AC_CHOOSE )){
 			GameScene.show(new WndItem(null, this, true));
-		} else if (action == AC_ADD) {
+		} else if (action.equals(AC_ADD)) {
 			
 			curUser = hero;
 			GameScene.selectItem(itemSelector, WndBag.Mode.HOLY_MACE ,Messages.get(this, "prompt2"));
 			
-		} else if (action == AC_LIGHT) {
+		} else if (action.equals(AC_LIGHT)) {
 			curUser = hero;
 			Buff.affect(hero,Light.class,10f+uptime1);
 			curUser.spendAndNext(1f);
@@ -133,11 +133,11 @@ public class HolyMace extends MeleeWeapon {
 							.id();
 				}
 			}
-		} else if (action == AC_TRIAL) {
+		} else if (action.equals(AC_TRIAL)) {
 			curUser = hero;
 			curItem = this;
 			GameScene.selectCell( shooter );
-		} else if (action == AC_HEAL) {
+		} else if (action.equals(AC_HEAL)) {
 			curUser = hero;
 			Buff.prolong(hero, HTimprove.class,100f);
 			hero.updateHT(true);

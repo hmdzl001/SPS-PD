@@ -675,7 +675,7 @@ public class ItemSpriteSheet {
 	public static final int GIRL_ROSE = ROW33 + 11;
 	public static final int GRASSBOOK = ROW33 + 12;
 	public static final int PAPERFAN = ROW33 + 13;
-
+	public static final int CROWN = ROW33 + 14;
 	public static final int MIRROR_DOLL  = ROW34 + 0;
 	public static final int WIND_BOTTLE  = ROW34 + 1;
 	public static final int HAND_LIGHT  = ROW34 + 2;

@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
@@ -85,8 +86,6 @@ public abstract class Mob extends Char {
     {
 		name = Messages.get(this, "name");
 	}
-	
-	private static final String TXT_DIED = "You hear something died in the distance";
 
 	protected static final String TXT_NOTICE1 = "?!";
 	protected static final String TXT_RAGE = "#$%^";
@@ -115,6 +114,7 @@ public abstract class Mob extends Char {
 	protected boolean enemySeen;
 	protected boolean alerted = false;
 	protected boolean skilluse = false;
+	protected boolean sumcopy = false;
 
 	protected static final float TIME_TO_WAKE_UP = 1f;
 
@@ -189,6 +189,7 @@ public abstract class Mob extends Char {
 		try {
 			sprite = spriteClass.newInstance();
 		} catch (Exception e) {
+			ShatteredPixelDungeon.reportException(e);
 		}
 		return sprite;
 	}
@@ -429,7 +430,7 @@ public abstract class Mob extends Char {
 			enemy.damage( Statistics.deepestFloor/5 , DamageType.ENERGY_DAMAGE);
 		}
 
-		if (buff(Shocked.class)!=null && Shocked.first == false){
+		if (buff(Shocked.class)!=null && !Shocked.first){
 			Buff.detach(this,Shocked.class);
 			Buff.affect(this, Disarm.class,5f);
 			damage(this.HP/10,SHOCK_DAMAGE);
@@ -492,8 +493,9 @@ public abstract class Mob extends Char {
 			//Dungeon.hero.buff(Hunger.class).satisfy(restoration*0.5f);
 			Dungeon.hero.HP = (int)Math.ceil(Math.min(Dungeon.hero.HT, Dungeon.hero.HP+(restoration*0.15f)));
 			Dungeon.hero.sprite.emitter().burst( Speck.factory(Speck.HEALING), 1 );
-			if (Dungeon.hero.petHP < Dungeon.hero.HT)
-			Dungeon.hero.petHP += (int)Math.ceil(restoration*0.10f);
+			if (Dungeon.hero.petHP < Dungeon.hero.HT) {
+				Dungeon.hero.petHP += (int) Math.ceil(restoration * 0.10f);
+			}
 		}
 		
 		return damage;
@@ -622,19 +624,8 @@ public abstract class Mob extends Char {
 		
 		int generation=0;
 		
-		if(this instanceof Swarm){
-			Swarm swarm = (Swarm) this;
-			generation=swarm.generation;
-		}
-		
-		if(this instanceof Virus){
-			Virus virus = (Virus) this;
+		if(this.sumcopy){
 			generation=1;
-		}
-
-		if(this instanceof SandMob.MiniSand){
-			SandMob.MiniSand mnsand = (SandMob.MiniSand) this;
-			generation=mnsand.generation;
 		}
 
 		Dewcharge dewing = Dungeon.hero.buff(Dewcharge.class);

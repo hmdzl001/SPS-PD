@@ -50,7 +50,7 @@ public class KnowledgeBook extends Item {
 	public void execute(Hero hero, String action) {
 
 		
-		if (action == AC_READ) {
+		if (action.equals(AC_READ)) {
 			GameScene.show( new WndDocument() );
 		} else {
 			super.execute(hero, action);

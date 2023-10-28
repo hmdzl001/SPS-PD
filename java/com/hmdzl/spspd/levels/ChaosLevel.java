@@ -63,6 +63,11 @@ public class ChaosLevel extends RegularLevel {
 	protected boolean[] grass() {
 		return Patch.generate(feeling == Feeling.GRASS ? 0.55f : 0.30f, 3);
 	}
+
+	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(0, 3);
+	}
 	
 	@Override
 	protected Class<?>[] trapClasses() {

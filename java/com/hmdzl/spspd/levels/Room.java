@@ -30,7 +30,7 @@ import com.hmdzl.spspd.levels.painters.LibraryPainter;
 import com.hmdzl.spspd.levels.painters.MaterialPainter;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.painters.PassagePainter;
-import com.hmdzl.spspd.levels.painters.PitPainter;
+import com.hmdzl.spspd.levels.painters.hidenroom.PitPainter;
 import com.hmdzl.spspd.levels.painters.PoolPainter;
 import com.hmdzl.spspd.levels.painters.RatKingPainter;
 import com.hmdzl.spspd.levels.painters.RuinRoomPainter;
@@ -67,6 +67,7 @@ import java.util.HashSet;
 public class Room extends Rect implements Graph.Node, Bundlable {
 
 	public HashSet<Room> neigbours = new HashSet<Room>();
+	public static HashSet<Room> normal = new HashSet<Room>();
 	public HashMap<Room, Door> connected = new HashMap<Room, Door>();
 
 	public int distance;
@@ -90,14 +91,15 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		TRAPS(TrapsPainter.class), 
 		STORAGE(StoragePainter.class),
 		BARRICADED	(BarricadedPainter.class ),
+		
 		MAGIC_WELL(MagicWellPainter.class), 
-
 		GARDEN(GardenPainter.class), 
 		CRYPT(CryptPainter.class), 
 		STATUE(StatuePainter.class), 
 		POOL(PoolPainter.class), 
 		RAT_KING(RatKingPainter.class), 
 		RUIN_ROOM(RuinRoomPainter.class),
+		
 		PRISON_PIT(PitPainter.class),
 		TENGU_BOX(TenguBoxPainter.class),
 		MEMORY(MemoryPainter.class),
@@ -127,6 +129,10 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 			}
 		}
 	}
+	
+	public static final ArrayList<Type> NORMALS = new ArrayList<Type>(
+			Arrays.asList(Type.STANDARD, Type.PASSAGE,Type.RUIN_ROOM, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,
+					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.COOKING, Type.VAULT));
 
     public static final ArrayList<Type> SPECIALS = new ArrayList<Type>(
 			Arrays.asList(Type.RUIN_ROOM, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,

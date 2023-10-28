@@ -62,7 +62,7 @@ public class UpgradeBlobRed extends Item {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_INSCRIBE) {
+		if (action.equals(AC_INSCRIBE)) {
 
 			curUser = hero;
 			GameScene.selectItem(itemSelector, WndBag.Mode.UPGRADEABLE,

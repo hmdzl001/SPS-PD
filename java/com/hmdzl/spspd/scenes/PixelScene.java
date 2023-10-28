@@ -350,6 +350,7 @@ public class PixelScene extends Scene {
 				try {
 					super.draw();
 				} catch (Exception e) {
+
 				}
 			}
 		}

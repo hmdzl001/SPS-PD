@@ -54,7 +54,7 @@ public class UpgradeEatBall extends Item {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_USE) {
+		if (action.equals(AC_USE)) {
 			curUser = hero;
             GameScene.selectItem(itemSelector,
 			WndBag.Mode.EATABLE,

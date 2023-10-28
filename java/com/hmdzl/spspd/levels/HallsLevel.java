@@ -101,6 +101,11 @@ public class HallsLevel extends RegularLevel {
 	protected boolean[] grass() {
 		return Patch.generate(feeling == Feeling.GRASS ? 0.55f : 0.30f, 3);
 	}
+
+	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(feeling == Feeling.CHASM ? 0.30f : 0.35f, 4);
+	}
 	
 	@Override
 	protected Class<?>[] trapClasses() {
@@ -164,19 +169,12 @@ public class HallsLevel extends RegularLevel {
 				break;
 			}
 		}
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.DEW_BLESS;
-				break;
-			}
-		}
 		
          for (int i = 0; i < getLength(); i++) {
 			
 			if (map[i]==Terrain.EXIT){map[i] = Terrain.LOCKED_EXIT;
-			if (map[i]==Terrain.CHASM){map[i] = Terrain.OLD_HIGH_GRASS;}
-			}			
+			//if (map[i]==Terrain.CHASM){map[i] = Terrain.OLD_HIGH_GRASS;}
+			}
 			
 		}
          

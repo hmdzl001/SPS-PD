@@ -39,11 +39,10 @@ public class Virus extends Mob {
 		EXP = 0;
 		evadeSkill = Dungeon.hero.evadeSkill;
 
+		sumcopy = true;
 		properties.add(Property.UNKNOW);
 		properties.add(Property.BOSS);
 	}
-	
-	int generation = 0;
 	
 	@Override
 	public int damageRoll() {
@@ -71,17 +70,18 @@ public class Virus extends Mob {
         return 1f;
 	}
 
-	@Override
-	public void damage(int dmg, Object src) {
+	//@Override
+//	public void damage(int dmg, Object src) {
 	
-		if (dmg > HT/2){
-			GameScene.add(Blob.seed(pos, 50, CorruptGas.class));
-		}
-		super.damage(dmg, src);
-	}		
+	//	if (dmg > HT/2){
+	//
+	//	}
+	//	super.damage(dmg, src);
+	//}
 	
 	@Override
 	public void die(Object cause) {
+		GameScene.add(Blob.seed(pos, 20, CorruptGas.class));
 		super.die(cause);
 	}
 

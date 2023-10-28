@@ -112,12 +112,9 @@ public class TestMob2 extends Mob {
 	public void die(Object cause) {
 		super.die(cause);
 		
-		if (!Dungeon.limitedDrops.heartScarecrow.dropped()) {
-			Dungeon.limitedDrops.heartScarecrow.drop();
-			Dungeon.level.drop(new HeartOfScarecrow(), pos).sprite.drop();
-			explodeDew(pos);
-		}
-		
+		Dungeon.level.drop(new HeartOfScarecrow(), pos).sprite.drop();
+		explodeDew(pos);
+			
 	}
 
 	{

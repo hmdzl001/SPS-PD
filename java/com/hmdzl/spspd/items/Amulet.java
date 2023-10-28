@@ -19,6 +19,7 @@ package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.scenes.AmuletScene;
@@ -48,7 +49,7 @@ public class Amulet extends Item {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_END) {
+		if (action.equals(AC_END)) {
 
 			showAmuletScene();
 
@@ -78,6 +79,7 @@ public class Amulet extends Item {
 			Dungeon.saveAll();
 			Game.switchScene(AmuletScene.class);
 		} catch (IOException e) {
+			ShatteredPixelDungeon.reportException(e);
 		}
 	}
 

@@ -187,7 +187,7 @@ public class RankingsScene extends PixelScene {
 				position.text(Integer.toString(pos + 1));
 			} else
 				position.text(" ");
-			position.measure();
+			//position.measure();
 
 			desc.text(Messages.titleCase(Messages.get(ResultDescriptions.class,rec.info)));
 

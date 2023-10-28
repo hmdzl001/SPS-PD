@@ -101,9 +101,6 @@ public class BambooMob extends Mob {
 		protected boolean getFurther(int target) {
 			return true;
 		}
-		
-		private static final HashSet<Class<?>> resistances = new HashSet<>();
-
 
 	{
 		weakness.add(ToxicGas.class);

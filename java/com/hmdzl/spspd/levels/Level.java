@@ -96,7 +96,7 @@ import java.util.HashSet;
 
 public abstract class  Level implements Bundlable {
 
-	public enum Feeling {
+    public enum Feeling {
 		NONE, CHASM, WATER, GRASS, DARK, TRAP, SPECIAL_FLOOR
 	}
 
@@ -213,6 +213,7 @@ public abstract class  Level implements Bundlable {
 	public HashSet<CustomTileVisual> customTiles;
 
 	protected ArrayList<Item> itemsToSpawn = new ArrayList<Item>();
+	protected ArrayList<Item> itemsSpecialToSpawn = new ArrayList<Item>();
 
 	public int color1 = 0x004400;
 	public int color2 = 0x88CC44;
@@ -265,7 +266,7 @@ public abstract class  Level implements Bundlable {
 			addItemToSpawn(new ScrollOfUpgrade());
 			
 			if (Dungeon.posNeeded()) {
-				addItemToSpawn(new StrBottle());
+				addSpecialItemToSpawn(new StrBottle());
 				Dungeon.limitedDrops.strengthPotions.count++;
 			}
 			
@@ -278,12 +279,12 @@ public abstract class  Level implements Bundlable {
 			for (Buff buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
 				bonus += ((LuckyBadge.GreatLucky) buff).level;
 			}
-			if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
-			bonus += 5;
-		
-			if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR)
-			bonus += 3;
-		
+			if (Dungeon.hero.heroClass == HeroClass.SOLDIER) {
+				bonus += 5;
+			}
+			if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR) {
+				bonus += 3;
+			}
 			for (Buff buff : Dungeon.hero.buffs(AflyBless.class)) {
 			bonus += 3;
 		}	
@@ -865,6 +866,14 @@ public abstract class  Level implements Bundlable {
 				|| Actor.findChar(cell) != null);
 		return cell;
 	}
+	
+	public int randomFallRespawnCell() {
+		int cell;
+		do {
+			cell = Random.Int(getLength());
+		} while (!passable[cell]);
+		return cell;
+	}
 
 	public int randomRespawnCellMob() {
 		int cell;
@@ -947,8 +956,13 @@ public abstract class  Level implements Bundlable {
 			itemsToSpawn.add(item);
 		}
 	}
-	
-
+		
+	public void addSpecialItemToSpawn(Item item) {
+		if (item != null) {
+			itemsSpecialToSpawn.add(item);
+		}
+	}
+		
 	public Item findPrizeItem() {
 		return findPrizeItem(null);
 	}
@@ -1167,58 +1181,7 @@ public abstract class  Level implements Bundlable {
 
 		return heap;
 	}
-	
-	/*public Heap spdrop(Item item, int cell) {
 
-		if (item == null ){
-
-			//create a dummy heap, give it a dummy sprite, don't add it to the game, and return it.
-			//effectively nullifies whatever the logic calling this wants to do, including dropping items.
-			Heap heap = new Heap();
-			ItemSprite sprite = heap.sprite = new ItemSprite();
-			sprite.link(heap);
-			return heap;
-
-		}	
-	
-		Heap heap = heaps.get(cell);
-		if (heap == null) {
-
-			heap = new Heap();
-			heap.seen = Dungeon.visible[cell];
-			heap.pos = cell;
-			heap.spdrop(item);
-			if (map[cell] == Terrain.CHASM
-					|| (Dungeon.level != null && pit[cell])) {
-				Dungeon.dropToChasm(item);
-				GameScene.discard(heap);
-			} else {
-				heaps.put(cell, heap);
-				GameScene.add(heap);
-			}
-
-		} else if (heap.type == Heap.Type.LOCKED_CHEST
-				|| heap.type == Heap.Type.CRYSTAL_CHEST
-				//|| heap.type == Heap.Type.MONSTERBOX
-				) {
-
-			int n;
-			do {
-				n = cell + Level.NEIGHBOURS8[Random.Int(8)];
-			} while (!Level.passable[n] && !Level.avoid[n]);
-			return spdrop(item, n);
-
-		} else {
-			heap.spdrop(item);
-		}
-
-		if (Dungeon.level != null) {
-			press(cell, null);
-		}
-
-		return heap;
-	}	
-*/
 	public Plant plant(Plant.Seed seed, int pos) {
 
 		Plant plant = plants.get(pos);
@@ -1324,69 +1287,6 @@ public abstract class  Level implements Bundlable {
 
 		switch (map[cell]) {
 
-		/*case Terrain.SECRET_TOXIC_TRAP:
-			GLog.i(TXT_HIDDEN_PLATE_CLICKS);
-		case Terrain.TOXIC_TRAP:
-			trap = true;
-			if (!frozen)
-				ToxicTrap.trigger(cell, ch);
-			break;
-
-		case Terrain.SECRET_FIRE_TRAP:
-			GLog.i(TXT_HIDDEN_PLATE_CLICKS);
-		case Terrain.FIRE_TRAP:
-			trap = true;
-			if (!frozen)
-				FireTrap.trigger(cell, ch);
-			break;
-
-		case Terrain.SECRET_PARALYTIC_TRAP:
-			GLog.i(TXT_HIDDEN_PLATE_CLICKS);
-		case Terrain.PARALYTIC_TRAP:
-			trap = true;
-			if (!frozen)
-				ParalyticTrap.trigger(cell, ch);
-			break;
-
-		case Terrain.SECRET_POISON_TRAP:
-			GLog.i(TXT_HIDDEN_PLATE_CLICKS);
-		case Terrain.POISON_TRAP:
-			trap = true;
-			if (!frozen)
-				PoisonTrap.trigger(cell, ch);
-			break;
-
-		case Terrain.SECRET_ALARM_TRAP:
-			GLog.i(TXT_HIDDEN_PLATE_CLICKS);
-		case Terrain.ALARM_TRAP:
-			trap = true;
-			if (!frozen)
-				AlarmTrap.trigger(cell, ch);
-			break;
-
-		case Terrain.SECRET_LIGHTNING_TRAP:
-			GLog.i(TXT_HIDDEN_PLATE_CLICKS);
-		case Terrain.LIGHTNING_TRAP:
-			trap = true;
-			if (!frozen)
-				LightningTrap.trigger(cell, ch);
-			break;
-
-		case Terrain.SECRET_GRIPPING_TRAP:
-			GLog.i(TXT_HIDDEN_PLATE_CLICKS);
-		case Terrain.GRIPPING_TRAP:
-			trap = true;
-			if (!frozen)
-				GrippingTrap.trigger(cell, ch);
-			break;
-
-		case Terrain.SECRET_SUMMONING_TRAP:
-			GLog.i(TXT_HIDDEN_PLATE_CLICKS);
-		case Terrain.SUMMONING_TRAP:
-			trap = true;
-			if (!frozen)
-				SummoningTrap.trigger(cell, ch);
-			break;*/
 		case Terrain.SECRET_TRAP:
 			GLog.i( Messages.get(Level.class, "hidden_plate") );
 		case Terrain.TRAP:
@@ -1437,55 +1337,6 @@ public abstract class  Level implements Bundlable {
 			break;
 		}
 
-		/*if (trap!=null && !frozen && !fleece) {
-
-			if (ch == Dungeon.hero)
-				Dungeon.hero.interrupt();
-
-			//set(cell, Terrain.INACTIVE_TRAP);
-			//GameScene.updateMap(cell);
-			trap.trigger();
-
-		} else if (trap!=null && frozen && !fleece) {
-
-			Sample.INSTANCE.play(Assets.SND_TRAP);
-
-			//Level.set(cell, Terrain.discover(map[cell]));
-			//GameScene.updateMap(cell);
-            discover(cell);
-			timeFreeze.setDelayedPress(cell);
-
-		} else if (trap!=null && frozen && fleece) {
-
-			Sample.INSTANCE.play(Assets.SND_TRAP);
-
-			//Level.set(cell, Terrain.discover(map[cell]));
-			//GameScene.updateMap(cell);
-			discover(cell);
-			timeFreeze.setDelayedPress(cell);
-			
-		} else if (trap!=null && !frozen && fleece) {
-
-			if (ch == Dungeon.hero)
-				Dungeon.hero.interrupt();
-
-			//set(cell, Terrain.WOOL_RUG);
-			//GameScene.updateMap(cell);
-			//discover(cell);
-			trap.trigger();
-
-		} else if (trap!=null && sheep) {
-
-			if (Dungeon.visible[cell])
-				Sample.INSTANCE.play(Assets.SND_TRAP);
-
-			//set(cell, Terrain.INACTIVE_TRAP);
-			//GameScene.updateMap(cell);
-			//discover(cell);
-			trap.trigger();
-
-		}*/
-
 		if (trap != null && !frozen) {
 
 			if (ch == Dungeon.hero)
@@ -1522,18 +1373,6 @@ public abstract class  Level implements Bundlable {
 		boolean fleece = false;
 		boolean sheep = false;
 		switch (map[cell]) {
-
-		/*case Terrain.TOXIC_TRAP:
-			ToxicTrap.trigger(cell, mob);
-			break;
-
-		case Terrain.FIRE_TRAP:
-			FireTrap.trigger(cell, mob);
-			break;
-
-		case Terrain.PARALYTIC_TRAP:
-			ParalyticTrap.trigger(cell, mob);
-			break;*/
 			
 		case Terrain.FLEECING_TRAP:
 			if (mob instanceof SheepSokoban || mob instanceof SheepSokobanSwitch || mob instanceof SheepSokobanCorner){
@@ -1583,42 +1422,6 @@ public abstract class  Level implements Bundlable {
 			Door.enter(cell);
             break;
 		}
-
-		/*if (trap != null && !fleece) {
-			if (Dungeon.visible[cell]) {
-				Sample.INSTANCE.play(Assets.SND_TRAP);
-			}
-			//set(cell, Terrain.INACTIVE_TRAP);
-			//GameScene.updateMap(cell);
-			trap.trigger();
-		}
-		
-		if (trap != null && fleece) {
-			if (Dungeon.visible[cell]) {
-				Sample.INSTANCE.play(Assets.SND_TRAP);
-			}
-			//set(cell, Terrain.WOOL_RUG);
-			//GameScene.updateMap(cell);
-			trap.trigger();
-		} 	
-		
-		if (trap != null && sheep) {
-			if (Dungeon.visible[cell]) {
-				Sample.INSTANCE.play(Assets.SND_TRAP);
-			}
-			//set(cell, Terrain.INACTIVE_TRAP);
-			//GameScene.updateMap(cell);
-			trap.trigger();
-		}
-		
-		if (sheep) {
-			if (Dungeon.visible[cell]) {
-				Sample.INSTANCE.play(Assets.SND_TRAP);
-			}
-			//set(cell, Terrain.EMPTY);
-			//GameScene.updateMap(cell);
-			trap.trigger();
-		}*/
 
 		if (trap != null) {
 			trap.activate(mob);
@@ -1800,8 +1603,8 @@ public abstract class  Level implements Bundlable {
 				//left and right column
 				(tile % WIDTH == 0 || tile % WIDTH == 47));
 			
-	}	
-	
+	}
+
 	public String tileName(int tile) {
 
 		if (tile >= Terrain.WATER_TILES) {

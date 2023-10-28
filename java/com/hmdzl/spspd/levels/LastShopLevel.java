@@ -218,6 +218,11 @@ public class LastShopLevel extends RegularLevel {
 	}
 
 	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(0, 3);
+	}
+
+	@Override
 	public void addVisuals(Scene scene) {
 		super.addVisuals(scene);
 		CityLevel.addVisuals(this, scene);

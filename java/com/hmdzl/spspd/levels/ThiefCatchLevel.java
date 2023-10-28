@@ -196,6 +196,10 @@ public class ThiefCatchLevel extends RegularLevel {
 	protected boolean[] grass() {
 		return Patch.generate(0.40f, 4);
 	}
+	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(0, 3);
+	}
 
 	@Override
 	protected void decorate() {

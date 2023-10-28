@@ -20,6 +20,7 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.messages.Messages;
@@ -130,5 +131,6 @@ public class WndLifeTradeItem extends Window {
 		if (!item.doPickUp(hero)) {
 			Dungeon.level.drop(item, heap.pos).sprite.drop();
 		}
+		Dungeon.level.drop(Generator.random(),heap.pos).type = Heap.Type.FOR_SALE;
 	}
 }

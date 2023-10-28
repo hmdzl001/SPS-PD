@@ -41,7 +41,7 @@ public class GrippingTrap extends Trap {
 
 	@Override
 	public void activate(Char ch) {
-		//super.activate(ch);
+		super.activate(ch);
 		Char c = Actor.findChar( pos );
 
 		if (c != null) {
@@ -53,8 +53,5 @@ public class GrippingTrap extends Trap {
 		} else {
 			Wound.hit( pos );
 		}
-		Heap heap = Dungeon.level.heaps.get(pos);
-		if (heap != null) {heap.earthhit();}
-
 	}
 }

@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.scenes.Pudding_CupScene;
@@ -49,7 +50,7 @@ public class PuddingCup extends Item {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_SAVE) {
+		if (action.equals(AC_SAVE)) {
 			//showPudding_cupScene();
 			curUser = hero;
 			validateLearn();
@@ -86,6 +87,7 @@ public class PuddingCup extends Item {
 			Dungeon.saveAll();
 			Game.switchScene(Pudding_CupScene.class);
 		} catch (IOException e) {
+			ShatteredPixelDungeon.reportException(e);
 		}
 	}
 

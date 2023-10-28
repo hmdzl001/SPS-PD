@@ -21,6 +21,8 @@
 
 package com.hmdzl.spspd.items;
 
+import android.annotation.SuppressLint;
+
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
@@ -28,6 +30,7 @@ import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
 import com.hmdzl.spspd.messages.Messages;
@@ -55,9 +58,10 @@ public class TransmutationBall extends Item {
 		return actions;
 	}
 
+	@SuppressLint("SuspiciousIndentation")
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_USE) {
+		if (action.equals(AC_USE)) {
 
 			curUser = hero;
             GameScene.selectItem(itemSelector,
@@ -72,12 +76,10 @@ public class TransmutationBall extends Item {
 	}	
 		
 	private void use(Item item) {
-        if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
+        if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) && Random.Int(10)==1 )
 		detach(curUser.belongings.backpack);
-		
 		curUser.sprite.operate(curUser.pos);
 		//curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE), 0.2f, 0);
-
 		curUser.spend(1f);
 		curUser.busy();
 		
@@ -90,10 +92,8 @@ public class TransmutationBall extends Item {
 			curUser = Dungeon.hero;
 			Item result;
 			if (item != null) {
-				if (item instanceof MeleeWeapon) {
-					result = changeWeapon((MeleeWeapon) item);
-				} else if (item instanceof MeleeThrowWeapon) {
-					result = changeWeapon2((MeleeThrowWeapon) item);
+				if (item instanceof Weapon) {
+					result = changeWeapon((Weapon) item);
 				} else if (item instanceof Armor) {
 					result = changeArmor((Armor) item);
 				} else if (item instanceof Ring) {
@@ -115,10 +115,10 @@ public class TransmutationBall extends Item {
 	  };	
 
 	
-		private MeleeWeapon changeWeapon(MeleeWeapon w) {
-		MeleeWeapon n;
+		private Weapon changeWeapon(Weapon w) {
+		Weapon n;
 		do {
-			n = (MeleeWeapon) Generator.random(Generator.Category.MELEEWEAPON);
+			n = (Weapon) Generator.random(Generator.Category.MELEEWEAPON);
 		} while (n.getClass() == w.getClass());
 		n.level = 0;
 		int level = w.level;
@@ -135,25 +135,6 @@ public class TransmutationBall extends Item {
 		return n;
 	}
 
-	private MeleeThrowWeapon changeWeapon2(MeleeThrowWeapon w) {
-		MeleeThrowWeapon n;
-		do {
-			n = (MeleeThrowWeapon) Generator.random(Generator.Category.MELEEWEAPON);
-		} while (n.getClass() == w.getClass());
-		n.level = 0;
-		int level = w.level;
-		if (level > 0) {
-			n.upgrade(level);
-		} else if (level < 0) {
-			n.degrade(-level);
-		}
-		n.enchantment = w.enchantment;
-		n.reinforced = w.reinforced;
-		n.levelKnown = w.levelKnown;
-		n.cursedKnown = w.cursedKnown;
-		n.cursed = w.cursed;
-		return n;
-	}
 
 		private Armor changeArmor(Armor r) {
 			Armor n;

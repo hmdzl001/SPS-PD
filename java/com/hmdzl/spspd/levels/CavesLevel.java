@@ -92,6 +92,11 @@ public class CavesLevel extends RegularLevel {
 	}
 
 	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(feeling == Feeling.CHASM ? 0.30f : 0.35f, 4);
+	}
+
+	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{ VenomTrap.class, ExplosiveTrap.class, FlashingTrap.class,
 				            GrippingTrap.class, ParalyticTrap.class,RockfallTrap.class,
@@ -132,7 +137,7 @@ public class CavesLevel extends RegularLevel {
 			addItemToSpawn(new Mushroom());
 		}
 
-		if (Dungeon.hero.heroClass==HeroClass.PERFORMER && Random.Int(3) == 0){addItemToSpawn(new DungeonBomb());}
+		if (Dungeon.hero.heroClass==HeroClass.PERFORMER){addItemToSpawn(new DungeonBomb());}
 		super.createItems();
 	}
 
@@ -256,14 +261,7 @@ public class CavesLevel extends RegularLevel {
 				break;
 			}
 		}
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.DEW_BLESS;
-				break;
-			}
-		}
-			
+
 		setPar();		
 
 		if (Dungeon.bossLevel(Dungeon.depth + 1)) {

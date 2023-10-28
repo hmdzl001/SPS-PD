@@ -48,6 +48,7 @@ public class CrashReportScene extends PixelScene {
     private final ArrayList<CrashInfo> infos = new ArrayList<>();
 
     private static final int WIDTH		= 115;
+    private static final int HEIGHT		= 120;
 
     @Override
     public void create() {
@@ -71,7 +72,7 @@ public class CrashReportScene extends PixelScene {
         RedButton btnDelete = new RedButton( Messages.get(this, "clear") ) {
             @Override
             protected void onClick() {
-                FileUtils.deleteFile( "aaa" );
+                FileUtils.deleteFile( CrashHandler.CRASH_FILE );
                 onBackPressed();
             }
         };
@@ -120,8 +121,8 @@ public class CrashReportScene extends PixelScene {
         ArrayList<ExceptionStrings> exceptions = new ArrayList<>();
         Bundle bundle = new Bundle();
         try {
-            Bundle exceptionBundle = FileUtils.bundleFromFile("AAA");
-            for (Bundlable expt : exceptionBundle.getCollection("AAA")) {
+            Bundle exceptionBundle = FileUtils.bundleFromFile(CrashHandler.CRASH_FILE);
+            for (Bundlable expt : exceptionBundle.getCollection(CrashHandler.EXCEPTIONS)) {
                 if (expt != null) {
                     exceptions.add((ExceptionStrings) expt);
                 }
@@ -164,14 +165,14 @@ public class CrashReportScene extends PixelScene {
 
         fadeIn();
 
-
+        /*
         bundle.put(CrashHandler.EXCEPTIONS, exceptions);
         try {
             FileUtils.bundleToFile( CrashHandler.CRASH_FILE, bundle );
         } catch (IOException e) {
-            ShatteredPixelDungeon.reportException(e);
+            Fushiginopixeldungeon.reportException(e);
         }
-
+        */
     }
 
     @Override
@@ -246,7 +247,7 @@ public class CrashReportScene extends PixelScene {
         }
 
         protected void onClick() {
-            ShatteredPixelDungeon.scene().add(new CrashReportWindow(new Image(icon), "", es.exception + "\n" + es.result ));
+           ShatteredPixelDungeon.scene().add(new CrashReportWindow(new Image(icon), "", es.exception + "\n" + es.result ));
         }
 
         @Override

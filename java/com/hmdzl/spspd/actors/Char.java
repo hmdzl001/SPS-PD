@@ -344,6 +344,10 @@ public abstract class Char extends Actor {
 		return 0;
 	}
 
+	public int magicSkill() {
+		return 0;
+	}
+
 	public String defenseVerb() {
 		return Messages.get(this,"def_verb");
 	}

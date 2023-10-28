@@ -59,6 +59,11 @@ public class TrianglePLevel extends RegularLevel {
 	}
 
 	@Override
+	protected boolean[] chasm() {
+		return Patch.generate(0, 3);
+	}
+
+	@Override
 	protected void createItems() {
 		super.createItems();
 		addItemToSpawn(new Vialupdater());

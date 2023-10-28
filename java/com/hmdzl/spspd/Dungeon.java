@@ -111,10 +111,10 @@ public class Dungeon {
 		strengthPotions,
 
 		// doesn't use Generator, so we have to enforce one armband drop here
-		spork, dragoncave, goei,caveskey,
+		spork, goei, caveskey,
 
 		// containers
-		 shopcart, heartScarecrow, challengebook;
+		shopcart, challengebook;
 
 		public int count =  0;
 
@@ -132,10 +132,10 @@ public class Dungeon {
 	public static int[] pars;
 	
 	public static boolean earlygrass = false;
-	public static boolean gnollspawned = false;
-	public static boolean skeletonspawned = false;
-	public static boolean goldthiefspawned = false;
-	public static boolean triforce = false;
+	//public static boolean gnollspawned = false;
+	//public static boolean skeletonspawned = false;
+	//public static boolean goldthiefspawned = false;
+	//public static boolean triforce = false;
 	public static boolean triforceofcourage = false;
 	public static boolean triforceofpower = false;
 	public static boolean triforceofwisdom = false;
@@ -146,8 +146,10 @@ public class Dungeon {
 	public static boolean gnollkingkilled = false;
 	public static boolean tengudenkilled = false;
 	public static boolean zotkilled = false;
+
 	public static boolean dewDraw = false;
 	public static boolean dewWater = false;
+
 	public static boolean wings = false;
 	public static boolean dewNorn = false;
 	public static boolean canSave = false;
@@ -161,8 +163,9 @@ public class Dungeon {
 	public static int sacrifice = 0;
 	public static int saferoom = 0;
 	public static boolean sporkAvail = false;
-	public static boolean challengebookdrop = false;
-	public static boolean goeidrop = false;
+
+	//public static boolean challengebookdrop = false;
+	//public static boolean goeidrop = false;
 
 	public static Hero hero;
 	public static Level level;
@@ -231,10 +234,10 @@ public class Dungeon {
 		StartScene.curClass.initHero(hero);
 		
 		earlygrass = false;
-		gnollspawned = false;
-		skeletonspawned = false;
-		goldthiefspawned = false;
-		triforce = false;
+		//gnollspawned = false;
+		//skeletonspawned = false;
+		//goldthiefspawned = false;
+		//triforce = false;
 		triforceofcourage = false;
 		triforceofpower = false;
 		triforceofwisdom = false;
@@ -249,8 +252,8 @@ public class Dungeon {
 		sacrifice = 0 ;
 		saferoom = 0;
 		sporkAvail = false;
-		challengebookdrop = false;
-		goeidrop = false;
+		//challengebookdrop = false;
+		//goeidrop = false;
 		dewDraw = false;
 		dewWater = false;
 		wings = false;
@@ -311,10 +314,10 @@ public class Dungeon {
 		HeroClass.NEWPLAYER.initHero(hero);
 
 		earlygrass = false;
-		gnollspawned = false;
-		skeletonspawned = false;
-		goldthiefspawned = false;
-		triforce = false;
+		//gnollspawned = false;
+		//skeletonspawned = false;
+		//goldthiefspawned = false;
+		//triforce = false;
 		triforceofcourage = false;
 		triforceofpower = false;
 		triforceofwisdom = false;
@@ -329,8 +332,8 @@ public class Dungeon {
 		sacrifice = 0 ;
 		saferoom = 0;
 		sporkAvail = false;
-		challengebookdrop = false;
-		goeidrop = false;
+		//challengebookdrop = false;
+		//goeidrop = false;
 		dewDraw = false;
 		dewWater = false;
 		wings = false;
@@ -1153,9 +1156,57 @@ public static Level newChallengeLevel(int list, Boolean first){
 	
 	private static final String AS_GAME_FILE = "ascetic.dat";
 	private static final String AS_DEPTH_FILE = "ascetic%d.dat";
-
+	
 	private static final String NPLAYER_GAME_FILE = "newplayer.dat";
 	private static final String NPLAYER_DEPTH_FILE = "newplayer%d.dat";
+	
+	private static final String RG_GAME_FILE_0	= "0rogue.dat";
+	private static final String RG_DEPTH_FILE_0	= "0rogue%d.dat";
+
+	private static final String WR_GAME_FILE_0 = "0warrior.dat";
+	private static final String WR_DEPTH_FILE_0 = "0warrior%d.dat";
+
+	private static final String MG_GAME_FILE_0 = "0mage.dat";
+	private static final String MG_DEPTH_FILE_0 = "0mage%d.dat";
+
+	private static final String RN_GAME_FILE_0	= "0huntress.dat";
+	private static final String RN_DEPTH_FILE_0	= "0huntress%d.dat";
+	
+	private static final String PE_GAME_FILE_0	= "0performer.dat";
+	private static final String PE_DEPTH_FILE_0	= "0performer%d.dat";
+		
+	private static final String SO_GAME_FILE_0	= "0soldier.dat";
+	private static final String SO_DEPTH_FILE_0	= "0soldier%d.dat";
+	
+	private static final String FO_GAME_FILE_0	= "0follower.dat";
+	private static final String FO_DEPTH_FILE_0	= "0follower%d.dat";
+	
+	private static final String AS_GAME_FILE_0 = "0ascetic.dat";
+	private static final String AS_DEPTH_FILE_0 = "0ascetic%d.dat";
+	
+	private static final String RG_GAME_FILE_1	= "1rogue.dat";
+	private static final String RG_DEPTH_FILE_1	= "1rogue%d.dat";
+
+	private static final String WR_GAME_FILE_1 = "1warrior.dat";
+	private static final String WR_DEPTH_FILE_1 = "1warrior%d.dat";
+
+	private static final String MG_GAME_FILE_1 = "1mage.dat";
+	private static final String MG_DEPTH_FILE_1 = "1mage%d.dat";
+
+	private static final String RN_GAME_FILE_1	= "1huntress.dat";
+	private static final String RN_DEPTH_FILE_1	= "1huntress%d.dat";
+	
+	private static final String PE_GAME_FILE_1	= "1performer.dat";
+	private static final String PE_DEPTH_FILE_1	= "1performer%d.dat";
+		
+	private static final String SO_GAME_FILE_1	= "1soldier.dat";
+	private static final String SO_DEPTH_FILE_1	= "1soldier%d.dat";
+	
+	private static final String FO_GAME_FILE_1	= "1follower.dat";
+	private static final String FO_DEPTH_FILE_1	= "1follower%d.dat";
+	
+	private static final String AS_GAME_FILE_1 = "1ascetic.dat";
+	private static final String AS_DEPTH_FILE_1 = "1ascetic%d.dat";	
 
 	private static final String VERSION = "version";
 	private static final String SKINS	= "skins";
@@ -1224,7 +1275,7 @@ public static Level newChallengeLevel(int list, Boolean first){
         case NEWPLAYER:
 			return NPLAYER_GAME_FILE;			
 		default:
-			return RG_GAME_FILE;
+			return NPLAYER_GAME_FILE;
 		}
 	}
 
@@ -1249,7 +1300,7 @@ public static Level newChallengeLevel(int list, Boolean first){
         case NEWPLAYER:
 			return NPLAYER_DEPTH_FILE;				
 		default:
-			return RG_DEPTH_FILE;
+			return NPLAYER_DEPTH_FILE;
 		}
 	}
 
@@ -1270,10 +1321,10 @@ public static Level newChallengeLevel(int list, Boolean first){
 			bundle.put(SACRIFICE, sacrifice);
 
 			bundle.put(EARLYGRASS, earlygrass);
-			bundle.put(GNOLLSPAWN, gnollspawned);
-			bundle.put(SKELETONSPAWN, skeletonspawned);
-			bundle.put(THIEFSPAWN, goldthiefspawned);
-			bundle.put(STRI, triforce);
+			//bundle.put(GNOLLSPAWN, gnollspawned);
+			//bundle.put(SKELETONSPAWN, skeletonspawned);
+			//bundle.put(THIEFSPAWN, goldthiefspawned);
+			//bundle.put(STRI, triforce);
 			bundle.put(STRID, triforceofcourage);
 			bundle.put(STRIL, triforceofpower);
 			bundle.put(STRIT, triforceofwisdom);
@@ -1285,8 +1336,8 @@ public static Level newChallengeLevel(int list, Boolean first){
 			bundle.put(GNOLLKILL, gnollkingkilled);
 			bundle.put(ZOTKILL, zotkilled);
 			bundle.put(SPORK, sporkAvail);
-			bundle.put(CBDROP, challengebookdrop);
-			bundle.put(GOEIDROP, goeidrop);
+			//bundle.put(CBDROP, challengebookdrop);
+			//bundle.put(GOEIDROP, goeidrop);
 			bundle.put(DEWDRAW, dewDraw);
 			bundle.put(DEWWATER, dewWater);
 			bundle.put(WINGS, wings);
@@ -1462,10 +1513,10 @@ public static Level newChallengeLevel(int list, Boolean first){
 		sacrifice = bundle.getInt(SACRIFICE);
 
 		earlygrass = bundle.getBoolean(EARLYGRASS);
-		gnollspawned = bundle.getBoolean(GNOLLSPAWN);
-		skeletonspawned = bundle.getBoolean(SKELETONSPAWN);
-		goldthiefspawned = bundle.getBoolean(THIEFSPAWN);
-		triforce = bundle.getBoolean(STRI);
+		//gnollspawned = bundle.getBoolean(GNOLLSPAWN);
+		//skeletonspawned = bundle.getBoolean(SKELETONSPAWN);
+		//goldthiefspawned = bundle.getBoolean(THIEFSPAWN);
+		//triforce = bundle.getBoolean(STRI);
 		triforceofcourage = bundle.getBoolean(STRID);
 		triforceofpower = bundle.getBoolean(STRIL);
 		triforceofwisdom = bundle.getBoolean(STRIT);
@@ -1477,8 +1528,8 @@ public static Level newChallengeLevel(int list, Boolean first){
 		gnollkingkilled = bundle.getBoolean(GNOLLKILL);
 		zotkilled = bundle.getBoolean(ZOTKILL);
 		sporkAvail = bundle.getBoolean(SPORK);
-		challengebookdrop = bundle.getBoolean(CBDROP);
-		goeidrop = bundle.getBoolean(GOEIDROP);
+		//challengebookdrop = bundle.getBoolean(CBDROP);
+		//goeidrop = bundle.getBoolean(GOEIDROP);
 		dewDraw = bundle.getBoolean(DEWDRAW);
 		dewWater = bundle.getBoolean(DEWWATER);
 		wings = bundle.getBoolean(WINGS);

@@ -70,7 +70,7 @@ public class ThankList extends NPC {
 	public boolean interact() {
 		
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		switch (Random.Int (46)) {
+		switch (Random.Int (47)) {
             case 0:
 			yell("SuperSaiyan99");
 			break;
@@ -191,7 +191,13 @@ public class ThankList extends NPC {
 			case 43:
 				yell("BlankDriver");
 				break;
+			case 44:
+				yell("A神");
+				break;
 			case 45:
+				yell("和缺月拉钩丶");
+				break;
+			case 46:
 				yell(Messages.get(this, "yell1"));
 				break;
 		}

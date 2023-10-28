@@ -40,7 +40,7 @@ public class Mirror2 extends SellItem {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (action == AC_END) {
+		if (action.equals(AC_END) {
 
 			showAmuletScene(false);
 

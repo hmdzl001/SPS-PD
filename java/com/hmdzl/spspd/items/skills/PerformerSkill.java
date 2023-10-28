@@ -42,6 +42,7 @@ import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.messages.Messages;
@@ -148,8 +149,8 @@ public class PerformerSkill extends ClassSkill {
 			curUser = Dungeon.hero;
 			Item result;
 			if (item != null) {
-				if (item instanceof MeleeWeapon) {
-					result = changeWeapon((MeleeWeapon) item);
+				if (item instanceof Weapon) {
+					result = changeWeapon((Weapon) item);
 				} else if (item instanceof Armor) {
 					result = changeArmor((Armor) item);
 				} else if (item instanceof Ring) {
@@ -171,11 +172,11 @@ public class PerformerSkill extends ClassSkill {
 			}
 		}
 	  };
-		private MeleeWeapon changeWeapon(MeleeWeapon w) {
+		private Weapon changeWeapon(Weapon w) {
 
-			MeleeWeapon n;
+			Weapon n;
 			do {
-				n = (MeleeWeapon) Generator.random(Generator.Category.MELEEWEAPON);
+				n = (Weapon) Generator.random(Generator.Category.MELEEWEAPON);
 			} while (n.getClass() == w.getClass());
 
 			n.level = 0;

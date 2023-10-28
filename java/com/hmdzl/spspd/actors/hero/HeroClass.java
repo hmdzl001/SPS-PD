@@ -21,6 +21,8 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Elevator;
@@ -52,6 +54,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.VestArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
 import com.hmdzl.spspd.items.armor.specialarmor.PerformerArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.RogueArmor;
 import com.hmdzl.spspd.items.armor.specialarmor.TestArmor;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.Artifact;
@@ -218,6 +221,7 @@ import com.hmdzl.spspd.items.weapon.melee.Triangolo;
 import com.hmdzl.spspd.items.weapon.melee.TrickSand;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
 import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
+import com.hmdzl.spspd.items.weapon.melee.special.BunnyDagger;
 import com.hmdzl.spspd.items.weapon.melee.special.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.special.EleKatana;
 import com.hmdzl.spspd.items.weapon.melee.special.HolyMace;
@@ -1080,18 +1084,12 @@ public enum HeroClass {
 			new ShootGun().identify().collect();
 			new JumpS().collect();
 		} else if (Dungeon.skins == 7) {
-			//hero.STR += 6;
-			//hero.magicSkill+=5;
-			//hero.hitSkill-=10;
-			//hero.evadeSkill-=35;
-			//(hero.belongings.weapon = new TrickSand()).identify().upgrade(100);
-			//(hero.belongings.armor = new BaseArmor()).identify();
-			//Dungeon.limitedDrops.strengthPotions.count += 6;
-			//new ShootGun().identify().collect();
-			//new JumpS().collect();
+			(hero.belongings.weapon = new BunnyDagger()).identify();
+			(hero.belongings.armor = new RogueArmor()).identify();
+			new JumpR().collect();
 
-			RobotDMT robotDMT = new RobotDMT();
-			(hero.belongings.misc1 = robotDMT).identify();
+			AlienBag alienBag = new AlienBag();
+			(hero.belongings.misc1 = alienBag).identify();
 			hero.belongings.misc1.activate(hero);
 		} else {
 			(hero.belongings.weapon = new Sling()).identify();
@@ -1152,9 +1150,13 @@ public enum HeroClass {
 		} else if (Dungeon.skins == 6) {
 			(hero.belongings.weapon = new TrickSand()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
+
+			Dungeon.hero.spp = 100;
+
 			new Skull(5).collect();
-			new FaithSign().identify().collect();
-			new JumpA().collect();
+			new Ankh().collect();
+			new Ankh().collect();
+			new JumpF().collect();
 
 		} else {
 
@@ -1274,6 +1276,9 @@ public enum HeroClass {
 		new NutFruit(99).collect();
 		new ScrollOfUpgrade().collect();
 		new ScrollOfUpgrade().collect();
+
+		new TransmutationBall().collect();
+		new TransmutationBall().collect();
 
 		new ScrollOfIdentify().collect();
 		new ScrollOfIdentify().collect();

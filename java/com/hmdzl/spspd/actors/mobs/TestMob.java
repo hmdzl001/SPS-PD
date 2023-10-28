@@ -97,11 +97,10 @@ public class TestMob extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		if (!Dungeon.limitedDrops.heartScarecrow.dropped() && Dungeon.hero.heroClass != HeroClass.NEWPLAYER) {
-			Dungeon.limitedDrops.heartScarecrow.drop();
-			Dungeon.level.drop(new HeartOfScarecrow(), pos).sprite.drop();
-			explodeDew(pos);
-		}
+
+		Dungeon.level.drop(new HeartOfScarecrow(), pos).sprite.drop();
+		explodeDew(pos);
+
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 			if (mob instanceof TestMob && mob.isAlive())
 				mob.HP+=10;

@@ -155,7 +155,7 @@ public abstract class  RegularLevel extends Level {
 			}
 
 		}		
-		
+
 		specials = new ArrayList<Room.Type>(Room.SPECIALS);
 		secrets = new ArrayList<Room.Type>(Room.HIDE);
 		
@@ -191,6 +191,7 @@ public abstract class  RegularLevel extends Level {
 		paint();
 		paintWater();
 		paintGrass();
+		paintChasm();
 		placeTraps();
 
 		return true;
@@ -328,6 +329,19 @@ public abstract class  RegularLevel extends Level {
 		}
 	}
 
+	protected void paintChasm() {
+		boolean[] chasm = chasm();
+		for (int i = 0; i < getLength(); i++) {
+			if (map[i] == Terrain.WALL && chasm[i] &&  Level.insideMap(i)) {
+				map[i] = Terrain.CHASM;
+			}
+			if (map[i] == Terrain.GLASS_WALL && chasm[i] &&  Level.insideMap(i)) {
+				map[i] = Terrain.CHASM;
+			}
+		}
+
+	}
+
 	protected void paintGrass() {
 		boolean[] grass = grass();
 
@@ -365,6 +379,8 @@ public abstract class  RegularLevel extends Level {
 	protected abstract boolean[] water();
 
 	protected abstract boolean[] grass();
+	
+	protected abstract boolean[] chasm();
 
 	protected void placeTraps() {
 		
@@ -380,11 +396,15 @@ public abstract class  RegularLevel extends Level {
 				if(Dungeon.depth == 1){
 					//extra check to prevent annoying inactive traps in hallways on floor 1
 					Room r = room(i);
-					if (r != null && r.type != Type.TUNNEL){
+					if (r != null && r.type != Type.TUNNEL && r.type != Type.ENTRANCE && r.type != Type.EXIT){
 						validCells.add(i);
 					}
-				} else
-					validCells.add(i);
+				} else {
+					Room r = room(i);
+					if (r != null  && r.type != Type.ENTRANCE && r.type != Type.EXIT){
+						validCells.add(i);
+					}
+				}
 			}
 		}
 
@@ -398,10 +418,12 @@ public abstract class  RegularLevel extends Level {
 			int trapPos = validCells.removeFirst();
 
 			try {
-				Trap trap = ((Trap)trapClasses[Random.chances( trapChances )].newInstance()).hide();
+				Trap trap =
+						((Trap)trapClasses[Random.chances( trapChances )].newInstance()).hide();
 				setTrap( trap, trapPos );
 				//some traps will not be hidden
-				map[trapPos] = (trap.visible ||  Random.Int(2) == 0 ) ? Terrain.TRAP : Terrain.SECRET_TRAP;
+				map[trapPos] = (Random.Int(2) == 0) ? Terrain.TRAP : Terrain.SECRET_TRAP;
+
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
@@ -682,17 +704,18 @@ public abstract class  RegularLevel extends Level {
 
 		int nItems = 3;
 		int bonus = 0;
-		for (Buff buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
-			bonus += ((LuckyBadge.GreatLucky) buff).level;
+		for (LuckyBadge.GreatLucky buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
+			bonus += buff.level;
 		}
 		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
 			bonus += 5;
 		if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR) {
 			bonus += 3;
 		}
+
 		for (Buff buff : Dungeon.hero.buffs(AflyBless.class)) {
 			bonus += 3;
-		}	
+		}
 		// just incase someone gets a ridiculous ring, cap this at 80%
 		bonus = Math.min(bonus, 10);
 		while (Random.Float() < (0.3f + bonus * 0.05f)) {
@@ -780,7 +803,7 @@ public abstract class  RegularLevel extends Level {
 					drop(Generator.random(Generator.Category.NORNSTONE), randomDropCell()).type = type;
 					break;
 			    case 2:	
-					drop(Generator.random(Generator.Category.PILL), randomDropCell()).type = type;
+					drop(Generator.random(Generator.Category.WEAPON), randomDropCell()).type = type;
 					break;
 				case 3:	
 					drop(Generator.random(Generator.Category.SUMMONED), randomDropCell()).type = type;
@@ -804,14 +827,28 @@ public abstract class  RegularLevel extends Level {
 			}
 			drop(item, cell).type = HEAP;
 		}
-
-
+		
+		for (Item item : itemsSpecialToSpawn) {
+			int cell = randomSpecialDropCell();
+			drop(item, cell).type = HEAP;
+		}
 	}
 
 	protected Room randomRoom(Room.Type type, int tries) {
 		for (int i = 0; i < tries; i++) {
 			Room room = Random.element(rooms);
 			if (room.type == type) {
+				return room;
+			}
+		}
+		return null;
+	}
+
+
+	protected Room randomNormalRoom(Room.Type type, int tries) {
+		for (int i = 0; i < tries; i++) {
+			Room room = Random.element(rooms);
+			if (room.type == type && !Room.SPECIALS.contains(room.type)&& !Room.HIDE.contains(room.type)) {
 				return room;
 			}
 		}
@@ -831,6 +868,24 @@ public abstract class  RegularLevel extends Level {
 	protected int randomDropCell() {
 		while (true) {
 			Room room = randomRoom(Room.Type.STANDARD, 1);
+			if (room != null) {
+				int pos = room.random();
+				if (heaps.get(pos) != null) {
+					do {
+						pos = room.random();
+					} while (heaps.get(pos) != null);
+				}
+				if (passable[pos]) {
+					return pos;
+				}
+			}
+		}
+	}
+
+
+	protected int randomSpecialDropCell() {
+		while (true) {
+			Room room = randomNormalRoom(Room.Type.STANDARD, 1);
 			if (room != null) {
 				int pos = room.random();
 				if (heaps.get(pos) != null) {

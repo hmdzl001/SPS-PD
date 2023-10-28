@@ -147,7 +147,7 @@ public class WndRanking extends WndTabbed {
 		public StatsTab() {
 			super();
 
-			String heroClass = Dungeon.hero.className();
+			String heroClass = Dungeon.hero.heroClass.title();
 
 			IconTitle title = new IconTitle();
 			title.icon(HeroSprite.avatar(Dungeon.hero.heroClass,
