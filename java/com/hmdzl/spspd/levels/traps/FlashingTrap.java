@@ -47,16 +47,16 @@ public class FlashingTrap extends Trap {
 		super.activate(ch);
 		//Char ch = Actor.findChar(pos);
 
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {heap.lighthit();}
 
 		if (ch != null) {
-			int len = Random.Int(5, 10)+Dungeon.depth;
+			int len = Random.Int(5, 10)+Dungeon.dungeondepth;
 			Buff.prolong( ch, Blindness.class, len );
 			Buff.prolong( ch, Cripple.class, len );
 			if (ch instanceof Mob) {
 				if (((Mob)ch).state == ((Mob)ch).HUNTING) ((Mob)ch).state = ((Mob)ch).WANDERING;
-				((Mob)ch).beckon( Dungeon.level.randomDestination() );
+				((Mob)ch).beckon( Dungeon.depth.randomDestination() );
 			}
 			if (ch == Dungeon.hero){
 				Sample.INSTANCE.play( Assets.SND_BLAST );

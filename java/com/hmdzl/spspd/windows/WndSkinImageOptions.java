@@ -24,7 +24,7 @@ import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.Image;
 
-import static com.hmdzl.spspd.scenes.StartScene.curClass;
+import static com.hmdzl.spspd.scenes.HeroSelectScene.curClass;
 
 public class WndSkinImageOptions extends Window {
 

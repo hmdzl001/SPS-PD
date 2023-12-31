@@ -17,14 +17,14 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
 public class TunnelPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		int floor = level.tunnelTile();
 

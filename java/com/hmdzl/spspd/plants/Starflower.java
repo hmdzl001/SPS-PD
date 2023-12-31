@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.food.vegetable.BattleFlower;
 import com.hmdzl.spspd.items.potions.PotionOfExperience;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -40,7 +40,7 @@ public class Starflower extends Plant {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		Dungeon.level.drop(new BattleFlower(), pos).sprite.drop();
+		Dungeon.depth.drop(new BattleFlower(), pos).sprite.drop();
 		if (ch != null) {
 		  Buff.affect(ch, MoonFury.class);
 		}
@@ -65,15 +65,15 @@ public class Starflower extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 1 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(Generator.random(Generator.Category.NORNSTONE), c).sprite.drop(pos);
+				Dungeon.depth.drop(Generator.random(Generator.Category.NORNSTONE), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

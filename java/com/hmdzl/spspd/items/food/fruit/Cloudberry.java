@@ -50,13 +50,13 @@ public class Cloudberry extends Fruit {
 				break;
 			case 6: case 7: case 8: 
 				 Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
-				 if(Dungeon.depth<51){Buff.affect(hero, Levitation.class, duration);
+				 if(Dungeon.dungeondepth <51){Buff.affect(hero, Levitation.class, duration);
 				}
 				
 				break;
 			 case 9: case 10:
 				 Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
-				 if(Dungeon.depth<51){Buff.affect(hero, Levitation.class, duration*2);
+				 if(Dungeon.dungeondepth <51){Buff.affect(hero, Levitation.class, duration*2);
 				}
 				
 				Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/10,15));

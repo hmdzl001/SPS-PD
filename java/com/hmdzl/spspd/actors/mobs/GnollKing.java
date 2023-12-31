@@ -43,7 +43,7 @@ import com.hmdzl.spspd.items.misc.GnollMark;
 import com.hmdzl.spspd.items.quest.GnollClothes;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GnollKeeperSprite;
@@ -121,12 +121,12 @@ public class GnollKing extends Mob {
 		if (breaks > 0){
 			int newPos = -1;
 				for (int i = 0; i < 10; i++) {
-				newPos = Dungeon.level.randomRespawnCellMob();
+				newPos = Dungeon.depth.randomRespawnCellMob();
 				if (newPos != -1) {
 					break;
 				    }
 			    }
-		    if (Dungeon.level.mobs.size()<4){
+		    if (Dungeon.depth.mobs.size()<4){
 				GnollKeeper.spawnAroundChance(newPos);
 		    }  	
 		}
@@ -194,8 +194,8 @@ public class GnollKing extends Mob {
 	protected boolean canAttack(Char enemy) {
 		
 		if (breaks == 2){
-		return Level.distance( pos, enemy.pos ) <= 2 ;}
-		else return Level.distance( pos, enemy.pos ) <= 1;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;}
+		else return Floor.distance( pos, enemy.pos ) <= 1;
 	}
 
 	@Override
@@ -204,8 +204,8 @@ public class GnollKing extends Mob {
         super.die(cause);
 		
 		GameScene.bossSlain();
-		Dungeon.level.drop(new AdamantRing(), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(Random.Int(1000, 1500)), pos).sprite.drop();
+		Dungeon.depth.drop(new AdamantRing(), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(Random.Int(1000, 1500)), pos).sprite.drop();
 		
 		
 		Dungeon.gnollkingkilled=true;
@@ -297,18 +297,18 @@ public class GnollKing extends Mob {
 		}
 		
 		public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}	
 	
 	public static void spawnAroundChance(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
 				spawnAt(cell);
 			}
 		}

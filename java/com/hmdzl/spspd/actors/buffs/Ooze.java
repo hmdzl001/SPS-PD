@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -93,7 +93,7 @@ public class Ooze extends Buff {
 				detach();
 			}
 		}
-		if (Level.water[target.pos]) {
+		if (Floor.water[target.pos]) {
 			detach();
 		}
 		return true;

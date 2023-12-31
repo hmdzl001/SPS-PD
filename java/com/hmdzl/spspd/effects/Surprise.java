@@ -20,7 +20,7 @@ package com.hmdzl.spspd.effects;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
@@ -40,8 +40,8 @@ private static final float TIME_TO_FADE = 0.8f;
 	public void reset(int p) {
 		revive();
 
-		x = (p % Level.getWidth()) * DungeonTilemap.SIZE + (DungeonTilemap.SIZE - width) / 2;
-		y = (p / Level.getWidth()) * DungeonTilemap.SIZE + (DungeonTilemap.SIZE - height) / 2;
+		x = (p % Floor.getWidth()) * DungeonTilemap.SIZE + (DungeonTilemap.SIZE - width) / 2;
+		y = (p / Floor.getWidth()) * DungeonTilemap.SIZE + (DungeonTilemap.SIZE - height) / 2;
 
 		time = TIME_TO_FADE;
 	}

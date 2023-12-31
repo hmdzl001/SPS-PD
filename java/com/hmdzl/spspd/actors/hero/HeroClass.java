@@ -21,7 +21,6 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.DolyaSlate;
@@ -63,7 +62,6 @@ import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.Pylon;
-import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
 import com.hmdzl.spspd.items.bags.ArrowCollecter;
@@ -226,7 +224,6 @@ import com.hmdzl.spspd.items.weapon.melee.special.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.special.EleKatana;
 import com.hmdzl.spspd.items.weapon.melee.special.HolyMace;
 import com.hmdzl.spspd.items.weapon.melee.special.LinkSword;
-import com.hmdzl.spspd.items.weapon.melee.special.MeleePan;
 import com.hmdzl.spspd.items.weapon.melee.special.NinjaFan;
 import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
@@ -234,27 +231,21 @@ import com.hmdzl.spspd.items.weapon.melee.special.Whisk;
 import com.hmdzl.spspd.items.weapon.missiles.ElfBow;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
-import com.hmdzl.spspd.items.weapon.missiles.MiniGun;
 import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.BlindFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.HealFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.NutFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.RocketMissile;
-import com.hmdzl.spspd.items.weapon.missiles.arrows.RootFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.SmokeFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.ToxicFruit;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WallBlock;
-import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Javelin;
-import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MiniMoai;
-import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Tamahawk;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.EmpBola;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.PoisonDart;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Skull;
-import com.hmdzl.spspd.items.weapon.ranges.StoneBowN;
 import com.hmdzl.spspd.items.weapon.ranges.WoodenBowN;
 import com.hmdzl.spspd.items.weapon.spammo.BattleAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.GoldAmmo;
@@ -262,8 +253,6 @@ import com.hmdzl.spspd.items.weapon.spammo.HeavyAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.WoodenAmmo;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Dewcatcher;
-import com.hmdzl.spspd.plants.Firebloom;
-import com.hmdzl.spspd.plants.Rotberry;
 import com.hmdzl.spspd.plants.Seedpod;
 import com.hmdzl.spspd.sprites.HeroSkinSprite;
 import com.hmdzl.spspd.sprites.HeroSkinSpriteSheet;
@@ -272,23 +261,25 @@ import com.watabou.utils.Bundle;
 
 public enum HeroClass {
 
-	WARRIOR( "warrior" , "warrior_name"),
-	MAGE( "mage", "mage_name"),
-	ROGUE( "rogue","rogue_name" ),
-	HUNTRESS( "huntress", "huntress_name"),
-	PERFORMER( "performer", "performer_name"),
-	SOLDIER( "soldier", "soldier_name"),
-	FOLLOWER( "follower", "follower_name"),
-	ASCETIC( "ascetic", "ascetic_name"),
-	NEWPLAYER( "newplayer", "newplayer_name");
+	WARRIOR( "warrior" ,"warrior", HeroSubClass.BERSERKER, HeroSubClass.GLADIATOR),
+	MAGE( "mage","mage", HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK),
+	ROGUE( "rogue","rogue",HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
+	HUNTRESS( "huntress", "huntress",HeroSubClass.SNIPER, HeroSubClass.WARDEN),
+	PERFORMER( "performer","performer", HeroSubClass.SUPERSTAR, HeroSubClass.JOKER),
+	SOLDIER( "soldier","soldier", HeroSubClass.AGENT, HeroSubClass.LEADER),
+	FOLLOWER( "follower", "follower", HeroSubClass.ARTISAN, HeroSubClass.PASTOR),
+	ASCETIC( "ascetic", "ascetic", HeroSubClass.MONK, HeroSubClass.HACKER),
+	NEWPLAYER( "newplayer","newplayer", HeroSubClass.NONE);
 	
 
 	private String title;
 	private String title2;
+	private HeroSubClass[] subClasses;
 
-	HeroClass(String title, String title2) {
+	HeroClass(String title,String title2, HeroSubClass...subClasses) {
 		this.title = title;
 		this.title2 = title2;
+		this.subClasses = subClasses;
 	}
 
 
@@ -296,9 +287,10 @@ public enum HeroClass {
 
 		hero.heroClass = this;
 
-		if (hero.heroClass != HeroClass.NEWPLAYER)
+		if (hero.heroClass != HeroClass.NEWPLAYER){
 		   initCommon( hero );
-
+	    }
+		
 		switch (this) {
 		case WARRIOR:
 			initWarrior( hero );
@@ -343,10 +335,11 @@ public enum HeroClass {
 			//new WandOfTest().identify().collect();
 		}
 		
-		hero.updateAwareness();
+		//hero.updateAwareness();
 	}
 
 	private static void initCommon(Hero hero) {
+		new SaveYourLife().collect();
 		new KeyRing().collect();
 		new ArrowCollecter().collect();
 		new Pasty().identify().collect();
@@ -358,10 +351,10 @@ public enum HeroClass {
 		new DewVial(0,0).identify().collect();
 		new RocketMissile(2).collect();
 		//new Vialupdater().collect();
-		if (Dungeon.skins != 3 && Dungeon.skins != 6) {
+		if (Hero.skins != 3 && Hero.skins != 6) {
 			new Ankhshield().collect();
 		}
-		if (Dungeon.skins == 3) {
+		if (Hero.skins == 3) {
 			EtherealChains chains = new EtherealChains();
 			(hero.belongings.misc3 = chains).identify().upgrade(3);
 			hero.belongings.misc3.activate(hero);
@@ -375,13 +368,13 @@ public enum HeroClass {
             new ScrollOfMagicMapping().identify().collect();
 		}
 
-		if (Dungeon.skins == 0) {
+		if (Hero.skins == 0) {
 			new RandomEgg().collect();
 			new PetFood().collect();
 			new PocketBall().collect();
 		}
 		
-		if (Dungeon.skins == 5) {
+		if (Hero.skins == 5) {
 
 			Weapon weapon = (Weapon) Generator.random(Generator.Category.MELEEWEAPON);
 			Armor armor = new BaseArmor();
@@ -396,7 +389,7 @@ public enum HeroClass {
 			hero.belongings.misc3.activate(hero);
 
 			hero.STR += 10;
-            Dungeon.limitedDrops.strengthPotions.count+=10;
+            Dungeon.LimitedDrops.strengthPotions.count+=10;
 			Item shoes = Generator.random(Generator.Category.SHOES);
 			shoes.identify().collect();
 			new KnowledgeBook().collect();
@@ -543,7 +536,7 @@ public enum HeroClass {
 			new RingOfTenacity().upgrade(10).identify().collect();
 
 			//new SewerReward().collect();
-		new SaveYourLife().collect();
+
 		new IceChallenge().collect();
 
 		//new UnBlessAnkh().collect();
@@ -560,7 +553,7 @@ public enum HeroClass {
 		hero.TRUE_HT=hero.HP=10000;
 		Dungeon.hero.updateHT(false);
 		//hero.STR = hero.STR + 20;
-		Dungeon.depth = 1;
+		Dungeon.dungeondepth = 1;
 
 		}
 	}
@@ -594,7 +587,7 @@ public enum HeroClass {
 	
 	private static void initWarrior(Hero hero) {
 
-		if (Dungeon.skins == 1) {
+		if (Hero.skins == 1) {
 			(hero.belongings.armor = new VestArmor()).identify().upgrade(1);
 			RingOfForce force = new RingOfForce();
 			(hero.belongings.misc1 = force).identify().upgrade(1);
@@ -607,7 +600,7 @@ public enum HeroClass {
 			new AttackShield().collect();
 			new JumpW().collect();
 
-		} else if (Dungeon.skins == 2) {
+		} else if (Hero.skins == 2) {
 				hero.TRUE_HT+=36;
 			    hero.HP+=36;
 			    Dungeon.hero.updateHT(false);
@@ -625,7 +618,7 @@ public enum HeroClass {
 				Dungeon.gold+=666;
 			new JumpW().collect();
 
-		}  else if (Dungeon.skins == 3) {
+		}  else if (Hero.skins == 3) {
 
 			(hero.belongings.weapon = new Spear()).identify();
 			(hero.belongings.armor = new DiscArmor()).identify();
@@ -633,11 +626,11 @@ public enum HeroClass {
             new SavageHelmet().collect();
 
             hero.STR += 2;
-            Dungeon.limitedDrops.strengthPotions.count+=2;
+            Dungeon.LimitedDrops.strengthPotions.count+=2;
 
-		} else if (Dungeon.skins == 4) {
+		} else if (Hero.skins == 4) {
             hero.STR += 3;
-            Dungeon.limitedDrops.strengthPotions.count+=3;
+            Dungeon.LimitedDrops.strengthPotions.count+=3;
 
             (hero.belongings.weapon = new GunB()).identify();
             (hero.belongings.armor = new StyrofoamArmor()).identify();
@@ -650,9 +643,9 @@ public enum HeroClass {
 
 			new JumpW().collect();
 
-		} else if (Dungeon.skins == 5) {
+		} else if (Hero.skins == 5) {
 
-        } else if (Dungeon.skins == 6) {
+        } else if (Hero.skins == 6) {
                 (hero.belongings.armor = new VestArmor()).identify().upgrade(1);
                 RingOfForce force = new RingOfForce();
                 (hero.belongings.misc1 = force).identify().upgrade(1);
@@ -683,16 +676,16 @@ public enum HeroClass {
 
 	private static void initMage(Hero hero) {
 
-		if (Dungeon.skins == 1) {
+		if (Hero.skins == 1) {
 			hero.STR+=4;
 
 			(hero.belongings.weapon = new Whip()).identify().upgrade(2);
 			(hero.belongings.armor = new LeatherArmor()).identify().upgrade(1);
 
-			Dungeon.limitedDrops.strengthPotions.count+=4;
+			Dungeon.LimitedDrops.strengthPotions.count+=4;
 			new CannonOfMage().identify().collect();
 			new JumpM().collect();
-		} else if (Dungeon.skins == 2) {
+		} else if (Hero.skins == 2) {
 			hero.TRUE_HT-=10;
 			Dungeon.hero.updateHT(false);
 			hero.hitSkill-=5;
@@ -705,7 +698,7 @@ public enum HeroClass {
 			new WandOfLightning().upgrade(1).identify().collect();
 			new GnollMark().collect();
 			new JumpM().collect();
-		}  else if (Dungeon.skins == 3) {
+		}  else if (Hero.skins == 3) {
 
 			(hero.belongings.weapon = new WoodenStaff()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -715,7 +708,7 @@ public enum HeroClass {
 			new GnollMark().collect();
 			new PotionOfMage().identify().collect();
 
-		} else if (Dungeon.skins == 4) {
+		} else if (Hero.skins == 4) {
 
 			(hero.belongings.weapon = new ElfBow()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -723,9 +716,9 @@ public enum HeroClass {
 			new JumpM().collect();
 			new ScrollOfRegrowth().identify().collect();
 
-		} else if (Dungeon.skins == 5) {
+		} else if (Hero.skins == 5) {
 
-        } else if (Dungeon.skins == 6) {
+        } else if (Hero.skins == 6) {
             (hero.belongings.weapon = new ShortSword()).identify();
             (hero.belongings.armor = new ClothArmor()).identify();
 
@@ -753,17 +746,17 @@ public enum HeroClass {
 	}
 
 	private static void initRogue(Hero hero) {
-		if (Dungeon.skins == 1) {
+		if (Hero.skins == 1) {
 			(hero.belongings.weapon = new LinkSword()).identify();
 			hero.belongings.weapon.activate(hero);
 			(hero.belongings.armor = new WoodenArmor()).identify();
 			hero.STR += 1;
-			Dungeon.limitedDrops.strengthPotions.count++;
+			Dungeon.LimitedDrops.strengthPotions.count++;
 			EtherealChains ec = new EtherealChains();
 			(hero.belongings.misc1 = ec).identify();
 			hero.belongings.misc1.activate(hero);
 			new JumpR().collect();
-		}  else if (Dungeon.skins == 2) {
+		}  else if (Hero.skins == 2) {
 				hero.TRUE_HT-=20;
 			Dungeon.hero.updateHT(false);
 				hero.evadeSkill+=3;
@@ -773,7 +766,7 @@ public enum HeroClass {
 				new UndeadBook().collect();
 				new Skull(5).collect();
 			new JumpR().collect();
-		} else if (Dungeon.skins == 3) {
+		} else if (Hero.skins == 3) {
 
 			(hero.belongings.weapon = new Glaive()).identify();
 			(hero.belongings.armor = new DiscArmor()).identify();
@@ -785,18 +778,18 @@ public enum HeroClass {
 			new HorseTotem().identify().collect();
 
 			hero.STR += 4;
-			Dungeon.limitedDrops.strengthPotions.count+=4;
+			Dungeon.LimitedDrops.strengthPotions.count+=4;
 
-		} else if (Dungeon.skins == 4) {
+		} else if (Hero.skins == 4) {
 			(hero.belongings.weapon = new Dagger()).identify();
 			(hero.belongings.armor = new ClothArmor()).identify();
 
 			new JumpR().collect();
             new NeedPaper().identify().collect();
 
-		} else if (Dungeon.skins == 5) {
+		} else if (Hero.skins == 5) {
 
-		} else if (Dungeon.skins == 6) {
+		} else if (Hero.skins == 6) {
 
             (hero.belongings.weapon = new EleKatana()).identify();
             (hero.belongings.armor = new ClothArmor()).identify();
@@ -818,8 +811,8 @@ public enum HeroClass {
            new WandOfLightning().upgrade(3).identify().collect();
 
             hero.STR += 2;
-            Dungeon.limitedDrops.strengthPotions.count+=2;
-		} else if (Dungeon.skins == 7) {
+            Dungeon.LimitedDrops.strengthPotions.count+=2;
+		} else if (Hero.skins == 7) {
 			(hero.belongings.weapon = new Dagger()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
 			new JumpR().collect();
@@ -830,7 +823,7 @@ public enum HeroClass {
 			new AflyEgg().collect();
 			new AflyEgg().collect();
 			hero.STR += 10;
-			Dungeon.limitedDrops.strengthPotions.count+=10;
+			Dungeon.LimitedDrops.strengthPotions.count+=10;
 
         }else {
 
@@ -851,11 +844,11 @@ public enum HeroClass {
 	}
 
 	private static void initHuntress(Hero hero) {
-		if (Dungeon.skins == 1) {
+		if (Hero.skins == 1) {
 			hero.STR+=1;
 			(hero.belongings.weapon = new Dagger()).identify().upgrade(1);
 			(hero.belongings.armor = new RubberArmor()).identify().upgrade(1);
-			Dungeon.limitedDrops.strengthPotions.count++;
+			Dungeon.LimitedDrops.strengthPotions.count++;
 			TimekeepersHourglass th = new TimekeepersHourglass();
 			(hero.belongings.misc1 = th).identify().upgrade(5);
 			hero.belongings.misc1.activate(hero);
@@ -865,7 +858,7 @@ public enum HeroClass {
 			EscapeKnive knife = new EscapeKnive(5);
 			knife.identify().collect();
 			new JumpH().collect();
-		} else if (Dungeon.skins == 2) {
+		} else if (Hero.skins == 2) {
 			hero.TRUE_HT-=10;
 			Dungeon.hero.updateHT(false);
 			hero.hitSkill+=5;
@@ -874,7 +867,7 @@ public enum HeroClass {
 			(hero.belongings.armor = new ClothArmor()).identify();
 			new TaurcenBow().identify().collect();
 			new JumpH().collect();
-		} else if (Dungeon.skins == 3) {
+		} else if (Hero.skins == 3) {
 
 			(hero.belongings.weapon = new Knuckles()).identify();
 			(hero.belongings.armor = new ClothArmor()).identify();
@@ -882,7 +875,7 @@ public enum HeroClass {
 			new TaurcenBow().identify().collect();
             new RangeBag().identify().collect();
 
-		} else if (Dungeon.skins == 4) {
+		} else if (Hero.skins == 4) {
 
 			(hero.belongings.weapon = new WoodenStaff()).identify();
 			(hero.belongings.armor = new ClothArmor()).identify();
@@ -890,9 +883,9 @@ public enum HeroClass {
 			new PPC().identify().collect();
 			new JumpH().collect();
 
-		} else if (Dungeon.skins == 5) {
+		} else if (Hero.skins == 5) {
 
-		} else if (Dungeon.skins == 6) {
+		} else if (Hero.skins == 6) {
             (hero.belongings.weapon = new Sling()).identify();
             (hero.belongings.armor = new VestArmor()).identify();
 
@@ -920,7 +913,7 @@ public enum HeroClass {
 
 	private static void initPerformer(Hero hero) {
 
-        if (Dungeon.skins == 1) {
+        if (Hero.skins == 1) {
             (hero.belongings.weapon = new GunA()).identify().upgrade(2);
             (hero.belongings.armor = new VestArmor()).identify().upgrade(1);
             new GoldAmmo().collect();
@@ -931,14 +924,14 @@ public enum HeroClass {
             hero.belongings.misc1.activate(hero);
             new BShovel().collect();
 			new JumpP().collect();
-        } else if (Dungeon.skins == 2) {
+        } else if (Hero.skins == 2) {
 			hero.TRUE_HT-=10;
 			Dungeon.hero.updateHT(false);
 			hero.magicSkill+=3;
 			hero.evadeSkill+=5;
 
 			hero.STR += 4;
-			Dungeon.limitedDrops.strengthPotions.count+=4;
+			Dungeon.LimitedDrops.strengthPotions.count+=4;
 
 			(hero.belongings.weapon = new HolyWater()).identify();
 			(hero.belongings.armor = new BaseArmor()).identify();
@@ -946,7 +939,7 @@ public enum HeroClass {
             new PotionOfMending().identify().collect();
 			new PotionOfHealing().identify().collect();
 			new JumpP().collect();
-		} else if (Dungeon.skins == 3) {
+		} else if (Hero.skins == 3) {
 
 			(hero.belongings.weapon = new Triangolo()).identify();
 			(hero.belongings.armor = new ClothArmor()).identify();
@@ -954,10 +947,10 @@ public enum HeroClass {
 			new Shovel().identify().collect();
 			new DanceLion().identify().collect();
 
-		} else if (Dungeon.skins == 4) {
+		} else if (Hero.skins == 4) {
 
 			hero.STR += 2;
-			Dungeon.limitedDrops.strengthPotions.count+=2;
+			Dungeon.LimitedDrops.strengthPotions.count+=2;
 
 			(hero.belongings.weapon = new Mace()).identify();
 			(hero.belongings.armor = new LeatherArmor()).identify();
@@ -967,11 +960,11 @@ public enum HeroClass {
 
 			Dungeon.gold += 1000;
 
-		} else if (Dungeon.skins == 5) {
+		} else if (Hero.skins == 5) {
 
-        } else if (Dungeon.skins == 6) {
+        } else if (Hero.skins == 6) {
             hero.STR += 2;
-            Dungeon.limitedDrops.strengthPotions.count+=2;
+            Dungeon.LimitedDrops.strengthPotions.count+=2;
 
             (hero.belongings.weapon = new Mace()).identify();
             (hero.belongings.armor = new LeatherArmor()).identify();
@@ -979,10 +972,10 @@ public enum HeroClass {
             new PPC2().collect();
             new JumpP().collect();
 
-		}   else if (Dungeon.skins == 7) {
+		}   else if (Hero.skins == 7) {
 
             hero.STR += 2;
-            Dungeon.limitedDrops.strengthPotions.count+=2;
+            Dungeon.LimitedDrops.strengthPotions.count+=2;
 
             (hero.belongings.weapon = new MegaCannon()).identify();
              hero.belongings.weapon.activate(hero);
@@ -1028,15 +1021,15 @@ public enum HeroClass {
 	}
 	
 	private static void initSoldier(Hero hero) {
-		if (Dungeon.skins == 1) {
+		if (Hero.skins == 1) {
 			hero.STR += 2;
 			(hero.belongings.armor = new LeatherArmor()).identify().upgrade(3);
-			Dungeon.limitedDrops.strengthPotions.count += 2;
+			Dungeon.LimitedDrops.strengthPotions.count += 2;
 
 			new AttackShoes().collect();
 			new MKbox().collect();
 
-		}else if (Dungeon.skins == 2) {
+		}else if (Hero.skins == 2) {
 				hero.TRUE_HT+=5;
 			hero.HP+=5;
 			Dungeon.hero.updateHT(false);
@@ -1046,11 +1039,11 @@ public enum HeroClass {
 				hero.evadeSkill-=35;
 				(hero.belongings.weapon = new GunC()).identify();
 				(hero.belongings.armor = new BaseArmor()).identify();
-			    Dungeon.limitedDrops.strengthPotions.count += 6;
+			    Dungeon.LimitedDrops.strengthPotions.count += 6;
 				new MechPocket().collect();
 			    new JumpS().collect();
 
-		} else if (Dungeon.skins == 3) {
+		} else if (Hero.skins == 3) {
 
 			(hero.belongings.weapon = new GunA()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -1059,7 +1052,7 @@ public enum HeroClass {
 			new GunOfSoldier().identify().collect();
 			new HealBag().identify().collect();
 
-		} else if (Dungeon.skins == 4) {
+		} else if (Hero.skins == 4) {
 
 			(hero.belongings.weapon = new GunA()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -1068,9 +1061,9 @@ public enum HeroClass {
 			new NmHealBag().identify().collect();
 			new EscapeKnive(10).collect();
 
-		} else if (Dungeon.skins == 5) {
+		} else if (Hero.skins == 5) {
 
-		} else if (Dungeon.skins == 6) {
+		} else if (Hero.skins == 6) {
 			hero.TRUE_HT+=5;
 			hero.HP+=5;
 			Dungeon.hero.updateHT(false);
@@ -1080,10 +1073,10 @@ public enum HeroClass {
 			hero.evadeSkill-=35;
 			(hero.belongings.weapon = new WoodenStaff()).identify();
 			(hero.belongings.armor = new BaseArmor()).identify();
-			Dungeon.limitedDrops.strengthPotions.count += 6;
+			Dungeon.LimitedDrops.strengthPotions.count += 6;
 			new ShootGun().identify().collect();
 			new JumpS().collect();
-		} else if (Dungeon.skins == 7) {
+		} else if (Hero.skins == 7) {
 			(hero.belongings.weapon = new BunnyDagger()).identify();
 			(hero.belongings.armor = new RogueArmor()).identify();
 			new JumpR().collect();
@@ -1110,13 +1103,13 @@ public enum HeroClass {
 	}	
 
 	private static void initFollower(Hero hero) {
-		if (Dungeon.skins == 1) {
+		if (Hero.skins == 1) {
 			(hero.belongings.weapon = new DiamondPickaxe()).identify();
 			(hero.belongings.armor = new LeatherArmor()).identify();
 			hero.STR += 4;
-			Dungeon.limitedDrops.strengthPotions.count += 4;
+			Dungeon.LimitedDrops.strengthPotions.count += 4;
 			new JumpF().collect();
-		}else if (Dungeon.skins == 2) {
+		}else if (Hero.skins == 2) {
 			(hero.belongings.weapon = new Dagger()).upgrade(2).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
 			Pylon pylon = new Pylon();
@@ -1124,7 +1117,7 @@ public enum HeroClass {
 			hero.belongings.misc1.activate(hero);
 			new JumpF().collect();
 
-		} else if (Dungeon.skins == 3) {
+		} else if (Hero.skins == 3) {
 
 			(hero.belongings.weapon = new Rapier()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -1135,9 +1128,9 @@ public enum HeroClass {
 			hero.belongings.misc1.activate(hero);
 
 			hero.STR += 4;
-			Dungeon.limitedDrops.strengthPotions.count+=4;
+			Dungeon.LimitedDrops.strengthPotions.count+=4;
 
-		}  else if (Dungeon.skins == 4) {
+		}  else if (Hero.skins == 4) {
 
 			(hero.belongings.weapon = new Knuckles()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -1145,9 +1138,9 @@ public enum HeroClass {
 			new JumpF().collect();
 			Dungeon.gold += 1000;
 
-		} else if (Dungeon.skins == 5) {
+		} else if (Hero.skins == 5) {
 
-		} else if (Dungeon.skins == 6) {
+		} else if (Hero.skins == 6) {
 			(hero.belongings.weapon = new TrickSand()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
 
@@ -1175,14 +1168,14 @@ public enum HeroClass {
 	
 	private static void initAscetic(Hero hero) {
 
-		if (Dungeon.skins == 1) {
+		if (Hero.skins == 1) {
 			hero.STR+=4;
 			(hero.belongings.weapon = new HolyMace()).identify().upgrade(1);
 			(hero.belongings.armor = new LeatherArmor()).identify().upgrade(1);
-			Dungeon.limitedDrops.strengthPotions.count+=4;
+			Dungeon.LimitedDrops.strengthPotions.count+=4;
 			//new CannonOfMage().identify().collect();
 			new JumpA().collect();
-		} else if (Dungeon.skins == 2) {
+		} else if (Hero.skins == 2) {
 			hero.TRUE_HT+=10;
 			Dungeon.hero.updateHT(false);
 			hero.hitSkill+=4;
@@ -1192,7 +1185,7 @@ public enum HeroClass {
 			(hero.belongings.armor = new LifeArmor()).identify();
 			new GrassBook().collect();
 			new JumpA().collect();
-		}  else if (Dungeon.skins == 3) {
+		}  else if (Hero.skins == 3) {
 
             (hero.belongings.weapon = new Whisk()).identify();
             (hero.belongings.armor = new LeatherArmor()).identify();
@@ -1203,9 +1196,9 @@ public enum HeroClass {
             hero.belongings.misc1.activate(hero);
 
             hero.STR += 4;
-            Dungeon.limitedDrops.strengthPotions.count+=4;
+            Dungeon.LimitedDrops.strengthPotions.count+=4;
 
-		} else if (Dungeon.skins == 4) {
+		} else if (Hero.skins == 4) {
 
 			//(hero.belongings.weapon = new ElfBow()).identify();
 			//(hero.belongings.armor = new VestArmor()).identify();
@@ -1213,9 +1206,9 @@ public enum HeroClass {
 			//new JumpM().collect();
 			//new ScrollOfRegrowth().identify().collect();
 
-		} else if (Dungeon.skins == 5) {
+		} else if (Hero.skins == 5) {
 
-        } else if (Dungeon.skins == 6) {
+        } else if (Hero.skins == 6) {
            // (hero.belongings.weapon = new ShortSword()).identify();
           //  (hero.belongings.armor = new ClothArmor()).identify();
 
@@ -1226,7 +1219,7 @@ public enum HeroClass {
           //  new Hardpill().collect();
           //  new JumpW().collect();
 
-		} else if (Dungeon.skins == 7) {
+		} else if (Hero.skins == 7) {
 			 (hero.belongings.weapon = new NinjaFan()).identify();
 			  (hero.belongings.armor = new VestArmor()).identify();
 
@@ -1263,17 +1256,14 @@ public enum HeroClass {
 		hero.HP = 10;
 		new WoodenBowN().identify().collect();
 
-		new StoneBowN().identify().collect();
-
 		new SmokeFruit(99).collect();
-
-		new GunA().identify().collect();
 
 		new Torch().collect();
 
 		new HealFruit(99).collect();
 		new ToxicFruit(99).collect();
 		new NutFruit(99).collect();
+		
 		new ScrollOfUpgrade().collect();
 		new ScrollOfUpgrade().collect();
 
@@ -1284,33 +1274,16 @@ public enum HeroClass {
 		new ScrollOfIdentify().collect();
 		//new ScrollOfIdentify().collect();
 
-        new ShortSword().collect();
-
-		new MiniMoai().collect();
-		new MiniMoai().collect();
-
-		new Tamahawk().collect();
-		new Javelin().collect();
-
 		new ScrollOfMagicalInfusion().collect();
 		new ScrollOfMagicalInfusion().collect();
 		new ScrollOfMagicalInfusion().collect();
 
-		new Firebloom.Seed().collect();
-		new Firebloom.Seed().collect();
-		new Firebloom.Seed().collect();
-
-		new Rotberry.Seed().collect();
-
-		new RootFruit().collect();
-		new RootFruit().collect();
-		new RootFruit().collect();
+		//new Firebloom.Seed().collect();
+		//new Firebloom.Seed().collect();
+		//new Firebloom.Seed().collect();
 
 		new RocketMissile().collect();
-		new RocketMissile().collect();
-		new RocketMissile().collect();
-
-		new PlantPotBlock().collect();
+		
         new WallBlock().collect();
 
 	}
@@ -1320,14 +1293,17 @@ public enum HeroClass {
 	}
 
 	public String title2() {
-		return Messages.get(HeroClass.class, title2);
+		return title2;
 	}
 
+	public HeroSubClass[] subClasses() {
+		return subClasses;
+	}
 
 	public String spritesheet() {
 		
 		switch (this) {
-		case WARRIOR:
+		case WARRIOR: default:
 			return Assets.WARRIOR;
 		case MAGE:
 			return Assets.MAGE;
@@ -1347,7 +1323,6 @@ public enum HeroClass {
 			return Assets.WARRIOR;				
 		}
 		
-		return null;
 	}
 
 	public Image skinsheet(int skins) {
@@ -1378,7 +1353,7 @@ public enum HeroClass {
 	public String[] perks() {
 		
 		switch (this) {
-		case WARRIOR:
+		case WARRIOR: default:
 			return new String[]{
 					Messages.get(HeroClass.class, "warrior_desc_item"),
 					Messages.get(HeroClass.class, "warrior_desc_loadout"),
@@ -1427,7 +1402,7 @@ public enum HeroClass {
 					Messages.get(HeroClass.class, "ascetic_desc_misc"),
 			};				
 		}
-		return null;
+		//return null;
 	}
 
 	private static final String CLASS	= "class";

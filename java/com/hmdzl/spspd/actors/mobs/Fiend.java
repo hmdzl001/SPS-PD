@@ -31,7 +31,7 @@ import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.wands.WandOfBlood;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -52,7 +52,7 @@ public class Fiend extends Mob implements Callback {
 		spriteClass = FiendSprite.class;
 		baseSpeed = 1.5f;
 		viewDistance = 4;
-		HP = HT = 80+(Dungeon.depth*Random.NormalIntRange(2, 5));
+		HP = HT = 80+(Dungeon.dungeondepth *Random.NormalIntRange(2, 5));
 		evadeSkill = 2;
 		
 		EXP = 20;
@@ -68,7 +68,7 @@ public class Fiend extends Mob implements Callback {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(Dungeon.depth/2, Dungeon.depth);
+		return Random.NormalIntRange(Dungeon.dungeondepth /2, Dungeon.dungeondepth);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class Fiend extends Mob implements Callback {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
@@ -91,14 +91,14 @@ public class Fiend extends Mob implements Callback {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.adjacent(pos, enemy.pos)) {
+		if (Floor.adjacent(pos, enemy.pos)) {
 
 			return super.doAttack(enemy);
 
 		} else {
 
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			} else {
@@ -140,18 +140,18 @@ public class Fiend extends Mob implements Callback {
 	}
 	
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 	
 	public static void spawnAroundChance(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
 				spawnAt(cell);
 			}
 		}

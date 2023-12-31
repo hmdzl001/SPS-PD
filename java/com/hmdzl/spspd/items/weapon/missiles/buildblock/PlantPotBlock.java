@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -47,13 +47,13 @@ public class PlantPotBlock extends BuildBlock {
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
 		if ((enemy == null) &&
-				!(Dungeon.level.map[cell] == Terrain.WELL ||
-						Dungeon.level.map[cell] == Terrain.EMPTY_WELL ||
-						Dungeon.level.map[cell] == Terrain.ENTRANCE ||
-						Dungeon.level.map[cell] == Terrain.EXIT || 
-						Dungeon.level.map[cell] == Terrain.ALCHEMY ||
-						Dungeon.level.map[cell] == Terrain.IRON_MAKER )){
-			Level.set(cell, Terrain.FLOWER_POT);
+				!(Dungeon.depth.map[cell] == Terrain.WELL ||
+						Dungeon.depth.map[cell] == Terrain.EMPTY_WELL ||
+						Dungeon.depth.map[cell] == Terrain.ENTRANCE ||
+						Dungeon.depth.map[cell] == Terrain.EXIT ||
+						Dungeon.depth.map[cell] == Terrain.ALCHEMY ||
+						Dungeon.depth.map[cell] == Terrain.IRON_MAKER )){
+			Floor.set(cell, Terrain.FLOWER_POT);
 			GameScene.updateMap(cell);
 		}
 		else

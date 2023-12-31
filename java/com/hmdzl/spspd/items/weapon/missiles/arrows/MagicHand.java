@@ -45,7 +45,7 @@ public class MagicHand extends Arrows {
 		     enchant.proc(this, attacker, defender, damage);
 		super.proc(attacker, defender, damage);
 			Item loot = ((Mob) defender).SupercreateLoot();
-			Dungeon.level.drop(loot, attacker.pos).sprite.drop();
+			Dungeon.depth.drop(loot, attacker.pos).sprite.drop();
 			((Mob) defender).firstitem = false;
 
 	}	

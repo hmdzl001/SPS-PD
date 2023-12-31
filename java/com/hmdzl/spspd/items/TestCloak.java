@@ -17,15 +17,12 @@
  */
 package com.hmdzl.spspd.items;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -65,7 +62,6 @@ public class TestCloak extends Item {
              Buff.affect(hero,HasteBuff.class,100f);
 			Buff.affect(hero,Levitation.class,100f);
 			Buff.affect(hero,Invisibility.class,100f);
-			if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 			detach(curUser.belongings.backpack);
 		} else {
 			super.execute(hero, action);

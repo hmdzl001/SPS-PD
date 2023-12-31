@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.effects.BlobEmitter;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.utils.Bundle;
 
@@ -29,9 +29,9 @@ import java.util.Arrays;
 
 public class Blob extends Actor {
 
-	public static final int WIDTH = Level.getWidth();
-	public static final int HEIGHT = Level.HEIGHT;
-	public static final int LENGTH = Level.getLength();
+	public static final int WIDTH = Floor.getWidth();
+	public static final int HEIGHT = Floor.HEIGHT;
+	public static final int LENGTH = Floor.getLength();
 
 	public int volume = 0;
 
@@ -97,14 +97,14 @@ public class Blob extends Actor {
 			}
 		}
 
-		if (Level.resizingNeeded) {
-			int[] cur = new int[Level.getLength()];
+		if (Floor.resizingNeeded) {
+			int[] cur = new int[Floor.getLength()];
 			Arrays.fill(cur, 0);
 
-			int loadedMapSize = Level.loadedMapSize;
+			int loadedMapSize = Floor.loadedMapSize;
 			for (int i = 0; i < loadedMapSize; i++) {
 				System.arraycopy(this.cur, i * loadedMapSize, cur, i
-						* Level.getWidth(), loadedMapSize);
+						* Floor.getWidth(), loadedMapSize);
 			}
 
 			this.cur = cur;
@@ -136,7 +136,7 @@ public class Blob extends Actor {
 
 	protected void evolve() {
 
-		boolean[] notBlocking = BArray.not(Level.solid, null);
+		boolean[] notBlocking = BArray.not(Floor.solid, null);
 
 		for (int i = 1; i < HEIGHT - 1; i++) {
 
@@ -195,10 +195,10 @@ public class Blob extends Actor {
 	public static <T extends Blob> T seed(int cell, int amount, Class<T> type) {
 		try {
 
-			T gas = (T) Dungeon.level.blobs.get(type);
+			T gas = (T) Dungeon.depth.blobs.get(type);
 			if (gas == null) {
 				gas = type.newInstance();
-				Dungeon.level.blobs.put(type, gas);
+				Dungeon.depth.blobs.put(type, gas);
 			}
 
 			gas.seed(cell, amount);

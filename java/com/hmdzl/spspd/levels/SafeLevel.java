@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
 
-public class SafeLevel extends Level {
+public class SafeLevel extends Floor {
 
 
 	{

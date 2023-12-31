@@ -35,6 +35,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.mobs.npcs.RatKing;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -48,7 +49,7 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.MissileShield;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.weapon.rockcode.Gleaf;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Rotberry;
@@ -95,7 +96,7 @@ public class SewerHeart extends Mob {
 	public void notice() {
 		super.notice();
 		//yell("GLURP-GLURP!");
-		Dungeon.level.seal();
+		Dungeon.depth.seal();
 		if (!spawnedLasher){
 			Buff.affect(hero, LasherSpawner.class);
             spawnedLasher = true;
@@ -133,9 +134,9 @@ public class SewerHeart extends Mob {
 		if( (5 - breaks) > 6 * HP / HT ) {
 			int newPos;
 			do {
-				newPos = Random.Int(Level.getLength());
-			} while (!Level.fieldOfView[newPos] || !Level.passable[newPos]
-					|| Level.adjacent(newPos, enemy.pos)
+				newPos = Random.Int(Floor.getLength());
+			} while (!Floor.fieldOfView[newPos] || !Floor.passable[newPos]
+					|| Floor.adjacent(newPos, enemy.pos)
 					|| Actor.findChar(newPos) != null);
 
 			sprite.move(pos, newPos);
@@ -148,7 +149,7 @@ public class SewerHeart extends Mob {
 
 			GLog.n(Messages.get(this, "blink"));
 
-			if (Dungeon.level.mobs.size()< hero.lvl*2){
+			if (Dungeon.depth.mobs.size()< hero.lvl*2){
 				SewerLasher.spawnAroundChance(newPos);
 				}
 			}
@@ -172,7 +173,7 @@ public class SewerHeart extends Mob {
 	@Override
 	public void destroy() {
 		super.destroy();
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[Dungeon.level.mobs.size()])){
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[Dungeon.depth.mobs.size()])){
 			if (mob instanceof SewerLasher){
 				mob.die(null);
 			}
@@ -184,7 +185,7 @@ public class SewerHeart extends Mob {
 		if (beamCooldown == 0) {
 			Ballistica aim = new Ballistica(pos, enemy.pos, Ballistica.STOP_TERRAIN);
 
-			if (enemy.invisible == 0 && !isCharmedBy(enemy) && Level.fieldOfView[enemy.pos] && aim.subPath(1, aim.dist).contains(enemy.pos)){
+			if (enemy.invisible == 0 && !isCharmedBy(enemy) && Floor.fieldOfView[enemy.pos] && aim.subPath(1, aim.dist).contains(enemy.pos)){
 				beam = aim;
 				beamTarget = aim.collisionPos;
 				return true;
@@ -209,7 +210,7 @@ public class SewerHeart extends Mob {
 			spend( attackDelay() );
 
 			beam = new Ballistica(pos, beamTarget, Ballistica.STOP_TERRAIN);
-			if (Level.fieldOfView[pos] || Level.fieldOfView[beam.collisionPos] ) {
+			if (Floor.fieldOfView[pos] || Floor.fieldOfView[beam.collisionPos] ) {
 				sprite.zap( beam.collisionPos );
 				return false;
 			} else {
@@ -229,9 +230,9 @@ public class SewerHeart extends Mob {
 
 		for (int pos : beam.subPath(1, beam.dist)) {
 
-			if (Level.flamable[pos]) {
+			if (Floor.flamable[pos]) {
 
-				Dungeon.level.destroy( pos );
+				Dungeon.depth.destroy( pos );
 				GameScene.updateMap( pos );
 				terrainAffected = true;
 
@@ -245,7 +246,7 @@ public class SewerHeart extends Mob {
 			if (hit( this, ch, true )) {
 				ch.damage( Random.NormalIntRange( 20, 35 ), this );
 
-				if (Level.fieldOfView[pos]) {
+				if (Floor.fieldOfView[pos]) {
 					ch.sprite.flash();
 					CellEmitter.center( pos ).burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
 				}
@@ -274,10 +275,10 @@ public class SewerHeart extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		Dungeon.level.unseal();
+		Dungeon.depth.unseal();
 
 		GameScene.bossSlain();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 		Badges.validateBossSlain();
 
 		Buff.detach(hero, LasherSpawner.class);
@@ -309,8 +310,8 @@ public class SewerHeart extends Mob {
 					badgeToCheck = Badge.MASTERY_ASCETIC;
 					break;
 					}		
-		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+		Dungeon.depth.drop(new Sokoban1(), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(1500), pos).sprite.drop();
 
 		ArrayList<Mob> mobs = new ArrayList<>();
 
@@ -322,8 +323,8 @@ public class SewerHeart extends Mob {
 		ScrollOfTeleportation.appear(mob, mob.pos);
 		//important to process the visuals and pressing of cells last, so spawned mobs have a chance to occupy cells first
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Gleaf(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Gleaf(), Dungeon.hero.pos).sprite.drop();
 	}
 
 	@Override
@@ -383,7 +384,7 @@ public class SewerHeart extends Mob {
 		public boolean act() {
 			spawnLasher++;
 			int lasher = 1; //we include the wraith we're trying to spawn
-			for (Mob mob : Dungeon.level.mobs){
+			for (Mob mob : Dungeon.depth.mobs){
 				if (mob instanceof SewerLasher){
 					lasher++;
 				}
@@ -395,8 +396,8 @@ public class SewerHeart extends Mob {
 				spawnLasher -= powerNeeded;
 				int pos = 0;
 				do{
-					pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-				} while (!Level.passable[pos] || Actor.findChar( pos ) != null);
+					pos = Random.Int(Dungeon.depth.randomRespawnCellMob());
+				} while (!Floor.passable[pos] || Actor.findChar( pos ) != null);
 				SewerLasher.spawnAt(pos);
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 			}
@@ -407,7 +408,7 @@ public class SewerHeart extends Mob {
 
 		public void dispel(){
 			detach();
-			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
+			for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])){
 				if (mob instanceof SewerLasher){
 					mob.die(null);
 				}
@@ -452,7 +453,7 @@ public class SewerHeart extends Mob {
 
 		@Override
 		protected boolean act() {
-			if (enemy == null || !Level.adjacent(pos, enemy.pos)) {
+			if (enemy == null || !Floor.adjacent(pos, enemy.pos)) {
 				HP = Math.min(HT, HP + 3);
 			}
 			return super.act();
@@ -514,18 +515,18 @@ public class SewerHeart extends Mob {
 		}
 
 		public static void spawnAround(int pos) {
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 					spawnAt(cell);
 				}
 			}
 		}
 
 		public static void spawnAroundChance(int pos) {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
 					spawnAt(cell);
 				}
 			}

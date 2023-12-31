@@ -65,7 +65,7 @@ public class Towel extends Item {
 	}
 
 	private PET checkpet(){
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if(mob instanceof PET) {
 				return (PET) mob;
 			}

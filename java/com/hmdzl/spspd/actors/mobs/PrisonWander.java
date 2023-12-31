@@ -32,6 +32,7 @@ import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Chains;
@@ -50,7 +51,7 @@ import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.items.weapon.rockcode.Ichain;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Blindweed;
@@ -102,9 +103,9 @@ public class PrisonWander extends Mob {
 	public void spawnBomb() {
 		int newPos2;
 		do {
-			newPos2 = Random.Int(Level.getLength());
-		} while (!Level.fieldOfView[newPos2] || !Level.passable[newPos2]
-				|| Level.adjacent(newPos2, hero.pos)
+			newPos2 = Random.Int(Floor.getLength());
+		} while (!Floor.fieldOfView[newPos2] || !Floor.passable[newPos2]
+				|| Floor.adjacent(newPos2, hero.pos)
 				|| Actor.findChar(newPos2) != null);
 		SeekBombP bomb1 = new SeekBombP();
 		bomb1.pos = newPos2;
@@ -128,19 +129,19 @@ public class PrisonWander extends Mob {
 			}
 			return true;
 		}
-		Dungeon.level.updateFieldOfView( this );
+		Dungeon.depth.updateFieldOfView( this );
 		if (!chainsUsed && state == HUNTING &&
 				paralysed <= 0 &&
 				enemy != null &&
 				enemy.invisible == 0 &&
-				Level.fieldOfView[enemy.pos] &&
-				Level.distance( pos, enemy.pos ) < 5 && !Level.adjacent( pos, enemy.pos ) &&
+				Floor.fieldOfView[enemy.pos] &&
+				Floor.distance( pos, enemy.pos ) < 5 && !Floor.adjacent( pos, enemy.pos ) &&
 				Random.Int(3) == 0 &&
 				chain(enemy.pos) && HP > 0) {
 			return false;
 		} else	if(Random.Int(10)<1 && breaks < 4 ){
 				Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED2);
-				Dungeon.level.plant(seed, this.pos);
+				Dungeon.depth.plant(seed, this.pos);
 				return true;
 		} else {
 			return super.act();
@@ -152,12 +153,12 @@ public class PrisonWander extends Mob {
 			//return false;
 		Ballistica chain = new Ballistica(pos, target, Ballistica.PROJECTILE);
 
-		if (chain.collisionPos != enemy.pos || Level.pit[chain.path.get(1)])
+		if (chain.collisionPos != enemy.pos || Floor.pit[chain.path.get(1)])
 			return false;
 		else {
 			int newPos = -1;
 			for (int i : chain.subPath(1, chain.dist)){
-				if (!Level.solid[i] && Actor.findChar(i) == null){
+				if (!Floor.solid[i] && Actor.findChar(i) == null){
 					newPos = i;
 					break;
 				}
@@ -172,7 +173,7 @@ public class PrisonWander extends Mob {
 					public void call() {
 						Actor.addDelayed(new Pushing(enemy, enemy.pos, newPosFinal), -1);
 						enemy.pos = newPosFinal;
-						Dungeon.level.press(newPosFinal, enemy);
+						Dungeon.depth.press(newPosFinal, enemy);
 						Cripple.prolong(enemy, Cripple.class, 4f);
 						Vertigo.prolong(enemy, Vertigo.class, 8f);
 						if (enemy == hero) {
@@ -209,9 +210,9 @@ public class PrisonWander extends Mob {
 		} else if ((Random.Int(10)<2)) {
 			int newPos;
 			do {
-				newPos = Random.Int(Level.getLength());
-			} while (!Level.fieldOfView[newPos] || !Level.passable[newPos]
-					|| Level.adjacent(newPos, hero.pos)
+				newPos = Random.Int(Floor.getLength());
+			} while (!Floor.fieldOfView[newPos] || !Floor.passable[newPos]
+					|| Floor.adjacent(newPos, hero.pos)
 					|| Actor.findChar(newPos) != null);
 
 			Buff.affect(hero, STRdown.class,5f);
@@ -250,16 +251,16 @@ public class PrisonWander extends Mob {
 		
 		Badges.validateBossSlain();
 	    
-	    Dungeon.level.unseal();
+	    Dungeon.depth.unseal();
 
-		Dungeon.level.drop(new SkillBook(), pos).sprite.drop();
+		Dungeon.depth.drop(new SkillBook(), pos).sprite.drop();
 
-		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		
-		Dungeon.level.drop(new TenguKey(), pos).sprite.drop();
+		Dungeon.depth.drop(new Sokoban2(), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
+		Dungeon.depth.drop(new TenguKey(), pos).sprite.drop();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Ichain(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Ichain(), Dungeon.hero.pos).sprite.drop();
 		
 	    super.die(cause);
 	}

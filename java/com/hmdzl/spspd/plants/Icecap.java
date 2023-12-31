@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.blobs.Freezing;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.items.potions.PotionOfFrost;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.IceFruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.utils.PathFinder;
@@ -42,13 +42,13 @@ public class Icecap extends Plant {
 		super.activate(ch);
 
 		PathFinder
-				.buildDistanceMap(pos, BArray.not(Level.losBlockLow, null), 1);
+				.buildDistanceMap(pos, BArray.not(Floor.losBlockLow, null), 1);
 
-		Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
+		Fire fire = (Fire) Dungeon.depth.blobs.get(Fire.class);
 
 		//GameScene.add(Blob.seed(pos, 5, FrostCloud.class));
 
-		for (int i = 0; i < Level.getLength(); i++) {
+		for (int i = 0; i < Floor.getLength(); i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				Freezing.affect(i, fire);
 			}
@@ -74,15 +74,15 @@ public class Icecap extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(new IceFruit(), c).sprite.drop(pos);
+				Dungeon.depth.drop(new IceFruit(), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

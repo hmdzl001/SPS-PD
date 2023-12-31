@@ -1,7 +1,6 @@
 package com.hmdzl.spspd.actors.buffs.armorbuff;
 
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfDead;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.CountDown;
 import com.hmdzl.spspd.actors.buffs.DeadRaise;
 import com.hmdzl.spspd.actors.buffs.STRdown;
@@ -14,7 +13,7 @@ import com.hmdzl.spspd.items.armor.glyphs.Darkglyph;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
 
-public class GlyphDark extends Buff {
+public class GlyphDark extends ArmorGlyphBuff {
 
         {
             immunities.add( STRdown.class );

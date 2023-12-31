@@ -29,7 +29,7 @@ import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SpinnerSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
@@ -110,16 +110,16 @@ public class Spinner extends Mob {
 	}
 
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static Spinner spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
 
 			Spinner w = new Spinner();
 			w.pos = pos;

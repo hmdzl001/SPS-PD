@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -46,8 +46,8 @@ public class MiniBomb extends Bomb {
 				CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 			}
 
-			if (Level.flamable[c]) {
-				Level.set(c, Terrain.EMBERS);
+			if (Floor.flamable[c]) {
+				Floor.set(c, Terrain.EMBERS);
 				GameScene.updateMap(c);
 				terrainAffected = true;
 			}

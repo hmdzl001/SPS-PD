@@ -22,7 +22,7 @@ import android.graphics.Bitmap;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
@@ -72,8 +72,8 @@ public class HeroSkinSprite extends MovieClip {
 	public PointF worldToCamera(int cell) {
 		final int csize = DungeonTilemap.SIZE;
 
-		return new PointF(cell % Level.getWidth() * csize + (csize - SIZE) * 0.5f,
-				cell / Level.getWidth() * csize + (csize - SIZE) * 0.5f);
+		return new PointF(cell % Floor.getWidth() * csize + (csize - SIZE) * 0.5f,
+				cell / Floor.getWidth() * csize + (csize - SIZE) * 0.5f);
 	}
 
 	public void place(int p) {

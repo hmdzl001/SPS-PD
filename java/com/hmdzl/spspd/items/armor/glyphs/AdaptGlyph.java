@@ -26,12 +26,7 @@ import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Recharging;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
+import com.hmdzl.spspd.actors.buffs.armorbuff.ArmorGlyphBuff;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.Armor.Glyph;
 import com.hmdzl.spspd.items.misc.FourClover;
@@ -47,49 +42,40 @@ public class AdaptGlyph extends Glyph {
 	@Override
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
 
-		GlyphDark gdark = defender.buff(GlyphDark.class);
-		GlyphIce gice = defender.buff(GlyphIce.class);
-		GlyphLight glight = defender.buff(GlyphLight.class);
-		GlyphFire gfire = defender.buff(GlyphFire.class);
-		GlyphEarth gearth = defender.buff(GlyphEarth.class);
-		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		ArmorGlyphBuff armorGlyphBuff = defender.buff(ArmorGlyphBuff.class);
+
 		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
 
-		if (defender.isAlive() && (gdark != null || gice != null || glight != null || gfire != null || gearth != null || gelect != null ))
+		if (defender.isAlive() && (armorGlyphBuff!= null))
 		{
-			Buff.detach(defender,GlyphIce.class);
-			Buff.detach(defender,GlyphLight.class);
-			Buff.detach(defender,GlyphFire.class);
-			Buff.detach(defender,GlyphEarth.class);
-			Buff.detach(defender,GlyphElectricity.class);
-			Buff.detach(defender,GlyphDark.class);
+			Buff.detach(defender,ArmorGlyphBuff.class);
 		}			
 		
 		int level = Math.max(0, armor.level);
 			
 		if (Random.Int(level + 5) >= 4 || (fcb != null && Random.Int(level + 5) >= 2)) {
 
-		if (Dungeon.level.map[defender.pos] == Terrain.GRASS) {
+		if (Dungeon.depth.map[defender.pos] == Terrain.GRASS) {
 			Buff.prolong(defender, EarthImbue.class,5f);
 		}
 
-		if (Dungeon.level.map[defender.pos] == Terrain.WATER) {
+		if (Dungeon.depth.map[defender.pos] == Terrain.WATER) {
 			Buff.prolong(defender, HasteBuff.class,5f);
 		}
 
-		if (Dungeon.level.map[defender.pos] == Terrain.HIGH_GRASS) {
+		if (Dungeon.depth.map[defender.pos] == Terrain.HIGH_GRASS) {
 			Buff.prolong(defender, Invisibility.class,5f);
 		}
 
-		if (Dungeon.level.map[defender.pos] == Terrain.CHASM) {
+		if (Dungeon.depth.map[defender.pos] == Terrain.CHASM) {
 			Buff.affect(defender, Levitation.class,10f);
 		}
 
-		if (Dungeon.level.map[defender.pos] == Terrain.INACTIVE_TRAP) {
+		if (Dungeon.depth.map[defender.pos] == Terrain.INACTIVE_TRAP) {
 			Buff.prolong(defender, Recharging.class,5f);
 		}
 
-		if (Dungeon.level.map[defender.pos] == Terrain.EMBERS) {
+		if (Dungeon.depth.map[defender.pos] == Terrain.EMBERS) {
 				Buff.affect(defender, FireImbue.class).set(5f);
 			}
 		}

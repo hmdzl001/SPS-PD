@@ -109,7 +109,7 @@ public class DolyaSlate extends Item {
 	@Override
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
-            Dungeon.level.drop(new SafeSpotPage().identify(),hero.pos);
+            Dungeon.depth.drop(new SafeSpotPage().identify(),hero.pos);
 			return true;
 		} else {
 			return false;
@@ -124,11 +124,11 @@ public class DolyaSlate extends Item {
 		actions.remove(AC_THROW);
 		actions.add(AC_ADD);
 		
-		if (returnDepth > 0 && (Dungeon.depth<56 || Dungeon.depth==66 || Dungeon.depth==67 || Dungeon.depth==68) && Dungeon.depth>49 ){
+		if (returnDepth > 0 && (Dungeon.dungeondepth <56 || Dungeon.dungeondepth ==66 || Dungeon.dungeondepth ==67 || Dungeon.dungeondepth ==68) && Dungeon.dungeondepth >49 ){
 		actions.add(AC_RETURN);
 		}
 
-		if ((charge >= 500 || Badges.checkOtilukeRescued() )&& Dungeon.depth<26){
+		if ((charge >= 500 || Badges.checkOtilukeRescued() )&& Dungeon.dungeondepth <26){
 		actions.add(AC_PORT);
 		}
 				
@@ -153,11 +153,11 @@ public class DolyaSlate extends Item {
 		}
               
        if (action.equals(AC_RETURN)) {
-		   if (Dungeon.depth != 50){
+		   if (Dungeon.dungeondepth != 50){
 		   PocketBallFull.removePet(hero);
 		   }
     	   hero.spend(TIME_TO_USE);
-    	       IronKey key = hero.belongings.getKey(IronKey.class, Dungeon.depth);
+    	       IronKey key = hero.belongings.getKey(IronKey.class, Dungeon.dungeondepth);
 			   if (key!=null){key.detachAll(Dungeon.hero.belongings.backpack);}
 			   updateQuickslot();
 			   

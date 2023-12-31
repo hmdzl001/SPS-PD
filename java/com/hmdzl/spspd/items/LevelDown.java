@@ -19,10 +19,8 @@ package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -61,7 +59,6 @@ public class LevelDown extends Item {
 		if (action.equals(AC_USE)) {
 			curUser = hero;
             Dungeon.hero.lvl--;
-			if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 			detach(curUser.belongings.backpack);
 		   curUser.sprite.centerEmitter().start(Speck.factory(Speck.KIT), 0.05f,10);
 		   curUser.spendAndNext(1f);

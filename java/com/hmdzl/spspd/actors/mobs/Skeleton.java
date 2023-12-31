@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.StoneCross;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SkeletonSprite;
@@ -75,8 +75,8 @@ public class Skeleton extends Mob {
 		super.die(cause);
 
 		boolean heroKilled = false;
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
 			if (ch != null && ch.isAlive()) {
 				int damage = Math.max(0,
 						Random.NormalIntRange(3, 8) - Random.IntRange(0, ch.drRoll() / 2));
@@ -138,16 +138,16 @@ public class Skeleton extends Mob {
 	//}
 	
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static Skeleton spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			Skeleton w = new Skeleton();
 			w.pos = pos;

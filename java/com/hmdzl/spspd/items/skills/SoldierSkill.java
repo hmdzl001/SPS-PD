@@ -44,8 +44,7 @@ import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BMirrorSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -68,10 +67,10 @@ public class SoldierSkill extends ClassSkill {
 
 		ArrayList<Integer> respawnPoints = new ArrayList<Integer>();
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			int p = curUser.pos + Level.NEIGHBOURS8[i];
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			int p = curUser.pos + Floor.NEIGHBOURS8[i];
 			if (Actor.findChar(p) == null
-					&& (Level.passable[p] || Level.avoid[p])) {
+					&& (Floor.passable[p] || Floor.avoid[p])) {
 				respawnPoints.add(p);
 			}
 		}
@@ -137,11 +136,11 @@ public class SoldierSkill extends ClassSkill {
 	@Override
 	public void doSpecial3() {
 		if (Dungeon.hero.lvl > 55 ) {
-			Dungeon.level.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 		} else if (Random.Int(2) == 0) {
-			Dungeon.level.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 		} else {
-			Dungeon.level.drop(Generator.random(),Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(),Dungeon.hero.pos);
 		}
 		SoldierSkill.charge += 15;
 		curUser.spend(SKILL_TIME);
@@ -155,14 +154,14 @@ public class SoldierSkill extends ClassSkill {
 	public void doSpecial4() {
 		SoldierSkill.charge += 20;
 
-		for (int n : Level.NEIGHBOURS4OUT) {
+		for (int n : Floor.NEIGHBOURS4OUT) {
 			int cell = curUser.pos + n;
 			if (Dungeon.hero.lvl > 55) {
-				Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), cell);
-				Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), cell);
+				Dungeon.depth.drop(Generator.random(Generator.Category.RANGEWEAPON), cell);
+				Dungeon.depth.drop(Generator.random(Generator.Category.HIGHFOOD), cell);
 			} else {
-				Dungeon.level.drop(Generator.random(Generator.Category.RANGEWEAPON), cell);
-				Dungeon.level.drop(Generator.random(Generator.Category.FOOD), cell);
+				Dungeon.depth.drop(Generator.random(Generator.Category.RANGEWEAPON), cell);
+				Dungeon.depth.drop(Generator.random(Generator.Category.FOOD), cell);
 			}
 		}
         Buff.affect( curUser, Awareness.class, 5f);
@@ -219,7 +218,7 @@ public class SoldierSkill extends ClassSkill {
 
 
 		public boolean interact() {
-			if (!Level.passable[pos]){
+			if (!Floor.passable[pos]){
 				return true;
 			}
 			if (this.buff(MagicalSleep.class) != null) {
@@ -258,8 +257,8 @@ public class SoldierSkill extends ClassSkill {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}
@@ -314,8 +313,8 @@ public class SoldierSkill extends ClassSkill {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}

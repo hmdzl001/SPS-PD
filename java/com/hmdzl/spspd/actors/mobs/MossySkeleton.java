@@ -86,28 +86,28 @@ public class MossySkeleton extends Mob {
 		Statistics.skeletonsKilled++;
 		GLog.w(Messages.get(Mob.class,"killcount", Statistics.skeletonsKilled));
 		
-		if ( Dungeon.depth<27) {
-			Dungeon.level.drop(new PrisonChallenge(), pos).sprite.drop();
+		if ( Dungeon.dungeondepth <27) {
+			Dungeon.depth.drop(new PrisonChallenge(), pos).sprite.drop();
 			explodeDew(pos);				
 		} else {
 			explodeDew(pos);
 		}
 		
 		if(Statistics.skeletonsKilled == 25) {
-			Dungeon.level.drop(new Bone(), pos).sprite.drop();
+			Dungeon.depth.drop(new Bone(), pos).sprite.drop();
 		}
 		
 	if(Statistics.skeletonsKilled == 50) {
-		Dungeon.level.drop(new SacrificeBook(), pos).sprite.drop();
+		Dungeon.depth.drop(new SacrificeBook(), pos).sprite.drop();
 	}	
 	
 	if(Statistics.skeletonsKilled == 100) {
-		Dungeon.level.drop(new PrisonReward(), pos).sprite.drop();
+		Dungeon.depth.drop(new PrisonReward(), pos).sprite.drop();
 	}		
 	
 	if (Statistics.goldThievesKilled>99 && Statistics.skeletonsKilled == 100 
 			&& Statistics.albinoPiranhasKilled>99 && Statistics.archersKilled>99){
-	    Dungeon.level.drop(new GoldenNut(), pos).sprite.drop();
+	    Dungeon.depth.drop(new GoldenNut(), pos).sprite.drop();
 	}	
 	
 		if (Dungeon.visible[pos]) {

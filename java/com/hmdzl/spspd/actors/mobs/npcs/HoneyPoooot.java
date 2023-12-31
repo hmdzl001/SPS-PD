@@ -86,7 +86,7 @@ public class HoneyPoooot extends NPC {
 			break;
 			case 2:
 				if (Badges.checkOtilukeRescued())
-					Dungeon.level.drop(new PotKey(), Dungeon.hero.pos).sprite.drop();
+					Dungeon.depth.drop(new PotKey(), Dungeon.hero.pos).sprite.drop();
 				break;
 		}
 		return true;

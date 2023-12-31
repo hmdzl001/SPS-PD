@@ -45,7 +45,7 @@ public class GuardianTrap extends Trap {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			mob.beckon( pos );
 		}
 
@@ -56,14 +56,14 @@ public class GuardianTrap extends Trap {
 
 		Sample.INSTANCE.play( Assets.SND_ALERT );
 
-		for (int i = 0; i < (Dungeon.depth - 5)/5; i++){
+		for (int i = 0; i < (Dungeon.dungeondepth - 5)/5; i++){
 			Guardian guardian = new Guardian();
 			guardian.state = guardian.WANDERING;
-			guardian.pos = Dungeon.level.randomRespawnCell();
+			guardian.pos = Dungeon.depth.randomRespawnCell();
 			GameScene.add(guardian);
 			guardian.beckon(Dungeon.hero.pos );
 		}
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {heap.darkhit();}
 
 	}

@@ -60,9 +60,9 @@ public class Brick extends  MeleeThrowWeapon {
 			    Dungeon.hero.belongings.weapon = null;
 			}
 			GLog.n(Messages.get(KindOfWeapon.class,"destory"));
-			Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
-			Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
-			Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(), defender.pos).sprite.drop();
 		}		
 	}
     		

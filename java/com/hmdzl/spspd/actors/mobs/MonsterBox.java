@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.KindofMisc;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.MonsterBoxSprite;
 import com.watabou.noosa.audio.Sample;
@@ -77,31 +77,31 @@ public class MonsterBox extends Mob {
 			case 0:
 				if (hero.belongings.weapon != null) {
 					Class<? extends KindOfWeapon> weapon = hero.belongings.weapon.getClass();
-					Dungeon.level.drop(Item.copy(weapon), pos);
+					Dungeon.depth.drop(Item.copy(weapon), pos);
 				}else break;
 			break;
 			case 1:
 				if (hero.belongings.armor != null) {
 					Class<? extends KindOfArmor> armor = hero.belongings.armor.getClass();
-					Dungeon.level.drop(Item.copy(armor), pos);
+					Dungeon.depth.drop(Item.copy(armor), pos);
 				} else break;
 			break;
 			case 2:
 				if (hero.belongings.misc1 != null) {
 					Class<? extends KindofMisc> misc1 = hero.belongings.misc1.getClass();
-					Dungeon.level.drop(Item.copy(misc1), pos);
+					Dungeon.depth.drop(Item.copy(misc1), pos);
 				}else break;
 			break;
 			case 3:
 				if (hero.belongings.misc2 != null) {
 					Class<? extends KindofMisc> misc2 = hero.belongings.misc2.getClass();
-					Dungeon.level.drop(Item.copy(misc2), pos);
+					Dungeon.depth.drop(Item.copy(misc2), pos);
 				}else break;
 			break;
 			case 4:
 				if (hero.belongings.misc3 != null) {
 					Class<? extends KindofMisc> misc3 = hero.belongings.misc3.getClass();
-					Dungeon.level.drop(Item.copy(misc3), pos);
+					Dungeon.depth.drop(Item.copy(misc3), pos);
 				}else break;
 			break;
 		}
@@ -111,9 +111,9 @@ public class MonsterBox extends Mob {
 		Char ch = Actor.findChar(pos);
 		if (ch != null) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int cell = pos + n;
-				if ((Level.passable[cell] || Level.avoid[cell])
+				if ((Floor.passable[cell] || Floor.avoid[cell])
 						&& Actor.findChar(cell) == null) {
 					candidates.add(cell);
 				}
@@ -125,9 +125,9 @@ public class MonsterBox extends Mob {
 				ch.pos = newPos;
 				// FIXME
 				if (ch instanceof Mob) {
-					Dungeon.level.mobPress((Mob) ch);
+					Dungeon.depth.mobPress((Mob) ch);
 				} else {
-					Dungeon.level.press(newPos, ch);
+					Dungeon.depth.press(newPos, ch);
 				}
 			} else {
 				return null;

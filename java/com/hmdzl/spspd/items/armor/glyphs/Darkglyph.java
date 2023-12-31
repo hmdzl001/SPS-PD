@@ -19,12 +19,8 @@ package com.hmdzl.spspd.items.armor.glyphs;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.armorbuff.ArmorGlyphBuff;
 import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.Armor.Glyph;
@@ -43,20 +39,12 @@ public class Darkglyph extends Glyph {
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
 
 	    GlyphDark gdark = defender.buff(GlyphDark.class);
-		GlyphIce gice = defender.buff(GlyphIce.class);
-	    GlyphLight glight = defender.buff(GlyphLight.class);
-	    GlyphFire gfire = defender.buff(GlyphFire.class);
-		GlyphEarth gearth = defender.buff(GlyphEarth.class);
-		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		ArmorGlyphBuff armorGlyphBuff = defender.buff(ArmorGlyphBuff.class);
 		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
-		
+
 		if (defender.isAlive() && gdark == null)
 		{
-			Buff.detach(defender,GlyphIce.class);
-			Buff.detach(defender,GlyphLight.class);
-			Buff.detach(defender,GlyphFire.class);
-			Buff.detach(defender,GlyphEarth.class);
-			Buff.detach(defender,GlyphElectricity.class);
+			Buff.detach(defender,ArmorGlyphBuff.class);
 			Buff.affect(defender,GlyphDark.class);
 		}
 	

@@ -36,7 +36,7 @@ import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class SkeletonBossLevel extends Level {
+public class SkeletonBossLevel extends Floor {
 
 	{
 		color1 = 0x6a723d;

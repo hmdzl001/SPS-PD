@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
@@ -45,7 +46,7 @@ import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.items.weapon.rockcode.Trush;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -112,17 +113,17 @@ public class Tank extends Mob {
 		
 		Badges.validateBossSlain();
 	    
-	    Dungeon.level.unseal();
+	    Dungeon.depth.unseal();
 
 	   
-		Dungeon.level.drop(new SkillBook(), pos).sprite.drop();
+		Dungeon.depth.drop(new SkillBook(), pos).sprite.drop();
 
-		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		
-		Dungeon.level.drop(new TenguKey(), pos).sprite.drop();
+		Dungeon.depth.drop(new Sokoban2(), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
+		Dungeon.depth.drop(new TenguKey(), pos).sprite.drop();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Trush(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Trush(), Dungeon.hero.pos).sprite.drop();
 
 	    super.die(cause);
 	}
@@ -134,7 +135,7 @@ public class Tank extends Mob {
 	
 	@Override
 	public boolean act() {
-		Dungeon.level.updateFieldOfView( this );
+		Dungeon.depth.updateFieldOfView( this );
 		timeToJump--;
         if (timeToJump == 0 ) {
 			jump();
@@ -144,8 +145,8 @@ public class Tank extends Mob {
 				paralysed <= 0 &&
 				enemy != null &&
 				enemy.invisible == 0 &&
-				Level.fieldOfView[enemy.pos] &&
-				Level.distance( pos, enemy.pos ) < 5 && !Level.adjacent( pos, enemy.pos ) &&
+				Floor.fieldOfView[enemy.pos] &&
+				Floor.distance( pos, enemy.pos ) < 5 && !Floor.adjacent( pos, enemy.pos ) &&
 				Random.Int(3) == 0 &&  HP > 0 ) {
 			rockattack();
 		}
@@ -159,10 +160,10 @@ public class Tank extends Mob {
 
 		GameScene.add(Blob.seed(pos, Random.Int(5, 7), DarkEffectDamage.class));
 
-		int[] cells = { step - 1, step + 1, step - Level.getWidth(),
-				step + Level.getWidth(), step - 1 - Level.getWidth(),
-				step - 1 + Level.getWidth(), step + 1 - Level.getWidth(),
-				step + 1 + Level.getWidth() };
+		int[] cells = { step - 1, step + 1, step - Floor.getWidth(),
+				step + Floor.getWidth(), step - 1 - Floor.getWidth(),
+				step - 1 + Floor.getWidth(), step + 1 - Floor.getWidth(),
+				step + 1 + Floor.getWidth() };
 		int cell = cells[Random.Int(cells.length)];
 
 		if (Dungeon.visible[cell]) {
@@ -190,11 +191,11 @@ public class Tank extends Mob {
 		timeToJump = JUMP_DELAY;
 		int heropos = Dungeon.hero.pos;
 		ArrayList<Integer> candidates = new ArrayList<Integer>();
-		boolean[] passable = Level.passable;
-		int[] heroneighbours = {heropos - 1, heropos + 1, heropos - Level.getWidth(),
-				heropos + Level.getWidth(), heropos - 1 - Level.getWidth(),
-				heropos - 1 + Level.getWidth(), heropos + 1 - Level.getWidth(),
-				heropos + 1 + Level.getWidth()};
+		boolean[] passable = Floor.passable;
+		int[] heroneighbours = {heropos - 1, heropos + 1, heropos - Floor.getWidth(),
+				heropos + Floor.getWidth(), heropos - 1 - Floor.getWidth(),
+				heropos - 1 + Floor.getWidth(), heropos + 1 - Floor.getWidth(),
+				heropos + 1 + Floor.getWidth()};
 		for (int n : heroneighbours) {
 			if (passable[n] && Actor.findChar(n) == null) {
 				candidates.add(n);
@@ -207,10 +208,10 @@ public class Tank extends Mob {
 				move(newPos);
 
 
-				for (int n2 : Level.NEIGHBOURS8) {
+				for (int n2 : Floor.NEIGHBOURS8) {
 					int blockpos = newPos + n2;
-					if (blockpos > 0 && Dungeon.level.map[blockpos] == Terrain.WALL) {
-						Level.set(blockpos, Terrain.EMBERS);
+					if (blockpos > 0 && Dungeon.depth.map[blockpos] == Terrain.WALL) {
+						Floor.set(blockpos, Terrain.EMBERS);
 						GameScene.updateMap(blockpos);
 					}
 				}
@@ -224,10 +225,10 @@ public class Tank extends Mob {
 		rock = true;
 		int heropos = Dungeon.hero.pos;
 		ArrayList<Integer> candidates = new ArrayList<Integer>();
-		boolean[] passable = Level.passable;
+		boolean[] passable = Floor.passable;
 
-			int[] heroneighbours2 = { heropos + 1, heropos - 1, heropos + Level.getWidth(),
-                    heropos - Level.getWidth() };
+			int[] heroneighbours2 = { heropos + 1, heropos - 1, heropos + Floor.getWidth(),
+                    heropos - Floor.getWidth() };
 			for (int n : heroneighbours2) {
 				if (passable[n] && Actor.findChar(n) == null) {
 					candidates.add(n);
@@ -237,10 +238,10 @@ public class Tank extends Mob {
 			    int rockpos;
 			rockpos = Random.element(candidates);
 			
-			Level.set(rockpos, Terrain.WALL);
+			Floor.set(rockpos, Terrain.WALL);
 		     GameScene.updateMap(rockpos);
 
-                for (int n : Level.NEIGHBOURS8) {
+                for (int n : Floor.NEIGHBOURS8) {
                     Char ch = Actor.findChar(n+rockpos);
                     if (ch != null && ch.isAlive()) {
                         ch.damage(15,this);

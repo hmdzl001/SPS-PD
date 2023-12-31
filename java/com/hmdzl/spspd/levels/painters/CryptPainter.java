@@ -25,7 +25,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Heap.Type;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.IronKey;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Point;
@@ -33,7 +33,7 @@ import com.watabou.utils.Random;
 
 public class CryptPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -45,7 +45,7 @@ public class CryptPainter extends Painter {
 		Room.Door entrance = room.entrance();
 
 		entrance.set(Room.Door.Type.LOCKED);
-		level.addItemToSpawn(new IronKey(Dungeon.depth));
+		level.addItemToSpawn(new IronKey(Dungeon.dungeondepth));
 
 		if (entrance.x == room.left) {
 			set(level, new Point(room.right - 1, room.top + 1), Terrain.STATUE);
@@ -69,7 +69,7 @@ public class CryptPainter extends Painter {
 			cy = room.top + 2;
 		}
 
-		level.drop(prize(level), cx + cy * Level.getWidth()).type = Type.TOMB;
+		level.drop(prize(level), cx + cy * Floor.getWidth()).type = Type.TOMB;
 
 		if (Random.Int(10) > 5) {
 			WeatherOfDead light = (WeatherOfDead) level.blobs.get(WeatherOfDead.class);
@@ -78,7 +78,7 @@ public class CryptPainter extends Painter {
 			}
 			for (int i = room.top + 1; i < room.bottom; i++) {
 				for (int j = room.left + 1; j < room.right; j++) {
-					light.seed(j + Level.getWidth() * i, 1);
+					light.seed(j + Floor.getWidth() * i, 1);
 				}
 			}
 			level.blobs.put(WeatherOfDead.class, light);
@@ -110,7 +110,7 @@ public class CryptPainter extends Painter {
 		}
 	}
 
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
 
 		Item prize = Generator.random(Generator.Category.ARMOR);
 

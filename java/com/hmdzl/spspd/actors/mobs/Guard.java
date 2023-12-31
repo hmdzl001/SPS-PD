@@ -30,7 +30,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.GuardSprite;
@@ -73,14 +73,14 @@ public class Guard extends Mob {
 
 	@Override
 	protected boolean act() {
-		Dungeon.level.updateFieldOfView( this );
+		Dungeon.depth.updateFieldOfView( this );
 
 		if (state == HUNTING &&
 				paralysed <= 0 &&
 				enemy != null &&
 				enemy.invisible == 0 &&
-				Level.fieldOfView[enemy.pos] &&
-				Level.distance( pos, enemy.pos ) < 5 && !Level.adjacent( pos, enemy.pos ) &&
+				Floor.fieldOfView[enemy.pos] &&
+				Floor.distance( pos, enemy.pos ) < 5 && !Floor.adjacent( pos, enemy.pos ) &&
 				Random.Int(3) == 0 && (buff(Silent.class) == null) &&
 
 				chain(enemy.pos)) {
@@ -97,12 +97,12 @@ public class Guard extends Mob {
 
 		Ballistica chain = new Ballistica(pos, target, Ballistica.PROJECTILE);
 
-		if (chain.collisionPos != enemy.pos || Level.pit[chain.path.get(1)])
+		if (chain.collisionPos != enemy.pos || Floor.pit[chain.path.get(1)])
 			return false;
 		else {
 			int newPos = -1;
 			for (int i : chain.subPath(1, chain.dist)){
-				if (!Level.solid[i] && Actor.findChar(i) == null){
+				if (!Floor.solid[i] && Actor.findChar(i) == null){
 					newPos = i;
 					break;
 				}
@@ -117,7 +117,7 @@ public class Guard extends Mob {
 					public void call() {
 						Actor.addDelayed(new Pushing(enemy, enemy.pos, newPosFinal), -1);
 						enemy.pos = newPosFinal;
-						Dungeon.level.press(newPosFinal, enemy);
+						Dungeon.depth.press(newPosFinal, enemy);
 						Cripple.prolong(enemy, Cripple.class, 4f);
 						if (enemy == Dungeon.hero) {
 							Dungeon.hero.interrupt();
@@ -139,8 +139,8 @@ public class Guard extends Mob {
 		super.die(cause);
 
 		boolean heroKilled = false;
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
 			if (ch != null && ch.isAlive()) {
 				int damage = Math.max(0,
 						Random.NormalIntRange(3, 8) - Random.IntRange(0, ch.drRoll() / 2));

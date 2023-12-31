@@ -43,7 +43,7 @@ public class BanditKing extends Mob {
 		// 1 in 30 chance to be a crazy bandit, equates to overall 1/90 chance.
 		lootChance = 0.2f;
 		evadeSkill = 20; //20
-		if (Dungeon.depth<25){Dungeon.sporkAvail = false;}
+		if (Dungeon.dungeondepth <25){Dungeon.sporkAvail = false;}
 
 		properties.add(Property.ELF);
 		properties.add(Property.MINIBOSS);
@@ -77,12 +77,12 @@ public class BanditKing extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		if (Dungeon.depth<25){
+		if (Dungeon.dungeondepth <25){
 		yell(Messages.get(this, "die"));
 		GLog.n(Messages.get(this, "dis"));
-		if (!Dungeon.limitedDrops.spork.dropped()) {
-			Dungeon.level.drop(new Spork(), pos).sprite.drop();
-			Dungeon.limitedDrops.spork.drop();
+		if (!Dungeon.LimitedDrops.spork.dropped()) {
+			Dungeon.depth.drop(new Spork(), pos).sprite.drop();
+			Dungeon.LimitedDrops.spork.drop();
 			Dungeon.sporkAvail = false;
 		yell(Messages.get(this, "spork"));	
 		}

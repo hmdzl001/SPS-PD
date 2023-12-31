@@ -35,7 +35,7 @@ import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.misc.BigBattery;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -93,14 +93,14 @@ public class TenguDen extends Mob {
 	    Dungeon.tengudenkilled=true;	
 	    yell(Messages.get(this,"die"));
 	   	
-	    Dungeon.level.drop(new AdamantRing(), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(Random.Int(1900, 4000)), pos).sprite.drop();
+	    Dungeon.depth.drop(new AdamantRing(), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(Random.Int(1900, 4000)), pos).sprite.drop();
 
 	}
 
 	@Override
 	protected boolean getCloser(int target) {
-		if (Level.fieldOfView[target]) {
+		if (Floor.fieldOfView[target]) {
 			jump();
 			return true;
 		} else {
@@ -111,7 +111,7 @@ public class TenguDen extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 				if (buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
@@ -150,9 +150,9 @@ public class TenguDen extends Mob {
 
 		int newPos;
 		do {
-			newPos = Random.Int(Level.getLength());
-		} while (!Level.passable[newPos]
-				|| Level.adjacent(newPos, Dungeon.hero.pos)
+			newPos = Random.Int(Floor.getLength());
+		} while (!Floor.passable[newPos]
+				|| Floor.adjacent(newPos, Dungeon.hero.pos)
 				|| Actor.findChar(newPos) != null);
 
 		sprite.move(pos, newPos);
@@ -165,7 +165,7 @@ public class TenguDen extends Mob {
 
 		spend(1 / speed());
 		
-		if (Dungeon.level.mobs.size()<7){
+		if (Dungeon.depth.mobs.size()<7){
 		 Assassin.spawnAt(pos);
 		}
 		
@@ -173,7 +173,7 @@ public class TenguDen extends Mob {
 	}
 
 	public static TenguDen spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			TenguDen w = new TenguDen();
 			w.pos = pos;

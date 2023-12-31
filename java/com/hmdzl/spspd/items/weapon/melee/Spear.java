@@ -37,6 +37,8 @@ public class Spear extends MeleeWeapon {
 
 	public Spear() {
 		super(2, 1f, 1.5f, 2);
+		MIN = 14;
+		MAX = 30;
 	}
 	
 	@Override

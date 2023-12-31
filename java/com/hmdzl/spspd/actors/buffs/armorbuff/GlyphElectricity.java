@@ -1,7 +1,6 @@
 package com.hmdzl.spspd.actors.buffs.armorbuff;
 
 import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Shocked2;
@@ -13,7 +12,7 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock2;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 
-public class GlyphElectricity extends Buff {
+public class GlyphElectricity extends ArmorGlyphBuff {
 
 		{
 			resistances.add( Shell.class );

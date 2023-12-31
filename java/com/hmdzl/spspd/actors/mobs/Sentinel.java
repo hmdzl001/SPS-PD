@@ -21,8 +21,6 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Journal;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.weapon.Weapon;
@@ -59,8 +57,8 @@ public class Sentinel extends Mob {
 		weapon.upgrade();
 		weapon.upgrade();
 
-		HP = HT = 15 + Dungeon.depth * 8;
-		evadeSkill = 4 + Dungeon.depth * 2;
+		HP = HT = 15 + Dungeon.dungeondepth * 8;
+		evadeSkill = 4 + Dungeon.dungeondepth * 2;
 	}
 
 	private static final String WEAPON = "weapon";
@@ -92,7 +90,7 @@ public class Sentinel extends Mob {
 
 	@Override
 	public int hitSkill(Char target) {
-		return (int) ((9 + Dungeon.depth) * weapon.ACU);
+		return (int) ((9 + Dungeon.dungeondepth) * weapon.ACU);
 	}
 
 	@Override
@@ -102,7 +100,7 @@ public class Sentinel extends Mob {
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0,  Dungeon.depth);
+		return Random.NormalIntRange(0,  Dungeon.dungeondepth);
 	}
 
 	@Override
@@ -114,7 +112,7 @@ public class Sentinel extends Mob {
 
 		super.damage(dmg, src);
 
-		Buff.prolong(this,Levitation.class,10f);
+		//Buff.prolong(this,Levitation.class,10f);
 	}
 
 	@Override
@@ -130,7 +128,7 @@ public class Sentinel extends Mob {
 
 	@Override
 	public void die(Object cause) {
-		Dungeon.level.drop(weapon, pos).sprite.drop();
+		Dungeon.depth.drop(weapon, pos).sprite.drop();
 		explodeDew(pos);
 		/*if (!Dungeon.limitedDrops.hallskey.dropped() && Dungeon.depth==24) {
 			Dungeon.limitedDrops.hallskey.drop();
@@ -140,14 +138,8 @@ public class Sentinel extends Mob {
 		super.die(cause);
 	}
 
-	@Override
-	public void destroy() {
-		Journal.remove(Journal.Feature.STATUE);
-		super.destroy();
-	}
-	
 
-		@Override
+	@Override
 	public boolean reset() {
 		state = PASSIVE;
 		return true;

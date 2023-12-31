@@ -147,7 +147,7 @@ public class Boomerang extends TossWeapon {
 				.reset(from, curUser.pos, curItem, null);
 				
 		if (!collect(curUser.belongings.backpack)) {
-			Dungeon.level.drop(this, owner.pos).sprite.drop();
+			Dungeon.depth.drop(this, owner.pos).sprite.drop();
 		}
 	}
 

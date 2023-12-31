@@ -32,7 +32,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Skull;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.messages.Messages;
@@ -80,10 +80,10 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
 	protected boolean act() {
 		boolean result = super.act();
 		
-		if (Level.water[pos] && HP < HT) {
+		if (Floor.water[pos] && HP < HT) {
 			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 			HP++;
-		} else if(Level.water[pos] && HP == HT && HT < 200){
+		} else if(Floor.water[pos] && HP == HT && HT < 200){
 			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 			HT=HT+5;
 			HP=HT;
@@ -125,10 +125,10 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
 		
 		if (HP >= damage + 2) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			int[] neighbours = { pos + 1, pos - 1, pos + Level.getWidth(),
-					pos - Level.getWidth() };
+			int[] neighbours = { pos + 1, pos - 1, pos + Floor.getWidth(),
+					pos - Floor.getWidth() };
 			for (int n : neighbours) {
 				if (passable[n] && Actor.findChar(n) == null) {
 					candidates.add(n);
@@ -142,7 +142,7 @@ private static final String DEMONGOOGENERATION = "demonGooGeneration";
 				clone.pos = Random.element(candidates);
 				clone.state = clone.HUNTING;
 
-				if (Dungeon.level.map[clone.pos] == Terrain.DOOR) {
+				if (Dungeon.depth.map[clone.pos] == Terrain.DOOR) {
 					Door.enter(clone.pos);
 				}
 

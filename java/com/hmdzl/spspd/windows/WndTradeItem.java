@@ -264,8 +264,8 @@ public class WndTradeItem extends Window {
 
 	private int price(Item item) {
 		int price = Dungeon.hero.heroClass == HeroClass.FOLLOWER ?
-				Math.min(item.price() * 4 * (Dungeon.depth / 5 + 1), item.price() * 20) :
-				Math.min(item.price() * 5 * (Dungeon.depth / 5 + 1), item.price() * 25);
+				Math.min(item.price() * 4 * (Dungeon.dungeondepth / 5 + 1), item.price() * 20) :
+				Math.min(item.price() * 5 * (Dungeon.dungeondepth / 5 + 1), item.price() * 25);
 		return price;
 	}
 
@@ -278,8 +278,8 @@ public class WndTradeItem extends Window {
 		Dungeon.gold -= price;
 
 		if (!item.doPickUp(hero)) {
-			Dungeon.level.drop(item, hero.pos).sprite.drop();
+			Dungeon.depth.drop(item, hero.pos).sprite.drop();
 		}
-		Dungeon.level.drop(Generator.random(),heap.pos).type = Heap.Type.FOR_SALE;
+		Dungeon.depth.drop(Generator.random(),heap.pos).type = Heap.Type.FOR_SALE;
 	}
 }

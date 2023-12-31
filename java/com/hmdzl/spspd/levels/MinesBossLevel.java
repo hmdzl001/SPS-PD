@@ -47,7 +47,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class MinesBossLevel extends Level {
+public class MinesBossLevel extends Floor {
 
 
 	{
@@ -311,7 +311,7 @@ public class MinesBossLevel extends Level {
 	@Override
 	protected void createItems() {
 		 			
-				drop(new IronKey(Dungeon.depth), 30 + WIDTH * 44).type = Heap.Type.CHEST;	
+				drop(new IronKey(Dungeon.dungeondepth), 30 + WIDTH * 44).type = Heap.Type.CHEST;
 				drop(new Palantir(), 14 + WIDTH * 10);
 		 
 	}

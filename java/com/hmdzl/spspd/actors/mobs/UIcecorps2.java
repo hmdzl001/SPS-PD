@@ -44,7 +44,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -82,7 +82,7 @@ public class UIcecorps2 extends Mob {
 	public void spawnfires() {
 		FireRabbit fr1 = new FireRabbit();
 
-		fr1.pos = Dungeon.level.randomRespawnCellMob();
+		fr1.pos = Dungeon.depth.randomRespawnCellMob();
 	
 		GameScene.add(fr1);
 
@@ -105,7 +105,7 @@ public class UIcecorps2 extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}		
 	
 
@@ -169,10 +169,10 @@ public class UIcecorps2 extends Mob {
 	public void move(int step) {
 		super.move(step);
         if ( timeToIce > 0 ){
-		int[] cells = { step - 1, step + 1, step - Level.getWidth(),
-				step + Level.getWidth(), step - 1 - Level.getWidth(),
-				step - 1 + Level.getWidth(), step + 1 - Level.getWidth(),
-				step + 1 + Level.getWidth() };
+		int[] cells = { step - 1, step + 1, step - Floor.getWidth(),
+				step + Floor.getWidth(), step - 1 - Floor.getWidth(),
+				step - 1 + Floor.getWidth(), step + 1 - Floor.getWidth(),
+				step + 1 + Floor.getWidth() };
 		int cell = cells[Random.Int(cells.length)];
 
 		if (Dungeon.visible[cell]) {
@@ -180,13 +180,13 @@ public class UIcecorps2 extends Mob {
 			Camera.main.shake(3, 0.7f);
 			Sample.INSTANCE.play(Assets.SND_ROCKS);
 
-			if (Level.water[cell]) {
-				Dungeon.level.setTrap( new SpearTrap().reveal(), cell );
-				Level.set(cell, Terrain.TRAP);
+			if (Floor.water[cell]) {
+				Dungeon.depth.setTrap( new SpearTrap().reveal(), cell );
+				Floor.set(cell, Terrain.TRAP);
 				GameScene.updateMap(cell);
 				ScrollOfMagicMapping.discover(cell);
-			} else if (Dungeon.level.map[cell] == Terrain.EMPTY) {
-				Level.set(cell, Terrain.WATER);
+			} else if (Dungeon.depth.map[cell] == Terrain.EMPTY) {
+				Floor.set(cell, Terrain.WATER);
 				GameScene.updateMap(cell);
 			}
 		}
@@ -206,7 +206,7 @@ public class UIcecorps2 extends Mob {
 	}	
 	
 	public static UIcecorps2 spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			UIcecorps2 w = new UIcecorps2();
 			w.pos = pos;

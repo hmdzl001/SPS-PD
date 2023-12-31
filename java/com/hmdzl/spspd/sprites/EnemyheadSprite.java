@@ -20,7 +20,7 @@ package com.hmdzl.spspd.sprites;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.PointF;
@@ -86,8 +86,8 @@ public class EnemyheadSprite extends MovieClip {
 	public PointF worldToCamera(int cell) {
 		final int csize = DungeonTilemap.SIZE;
 
-		return new PointF(cell % Level.getWidth() * csize + (csize - SIZE) * 0.5f,
-				cell / Level.getWidth() * csize + (csize - SIZE) * 0.5f);
+		return new PointF(cell % Floor.getWidth() * csize + (csize - SIZE) * 0.5f,
+				cell / Floor.getWidth() * csize + (csize - SIZE) * 0.5f);
 	}
 
 	public void place(int p) {

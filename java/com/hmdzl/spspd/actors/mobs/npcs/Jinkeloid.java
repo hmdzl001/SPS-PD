@@ -85,7 +85,7 @@ public class Jinkeloid extends NPC {
 		}
 		if (Statistics.archersKilled > 99 && Statistics.skeletonsKilled > 99 && Statistics.albinoPiranhasKilled > 99 && Statistics.goldThievesKilled > 99){
 			yell(Messages.get(this, "yell3"));
-			Dungeon.level.drop(new IceChallenge(), Dungeon.hero.pos).sprite.drop();
+			Dungeon.depth.drop(new IceChallenge(), Dungeon.hero.pos).sprite.drop();
 		}
 		return true;
 	}

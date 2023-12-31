@@ -91,14 +91,14 @@ public class AshWolf extends NPC {
 			if (first){
 				yell(Messages.get(this, "yell1"));
                 //Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED4);
-				Dungeon.level.plant((Plant.Seed)(Generator.random(Generator.Category.SEED4)),Dungeon.hero.pos);
+				Dungeon.depth.plant((Plant.Seed)(Generator.random(Generator.Category.SEED4)),Dungeon.hero.pos);
 				first=false;
 			} else {
 				yell(Messages.get(this, "yell2"));
 			}
 		if (pumpkin!=null){
 			yell(Messages.get(this, "yell3"));
-			Dungeon.level.drop(new Honey() , Dungeon.hero.pos);
+			Dungeon.depth.drop(new Honey() , Dungeon.hero.pos);
 			if (pumpkin.isEquipped(Dungeon.hero) && Random.Int(3) == 1) {
 				Dungeon.hero.belongings.weapon = null;
 			}
@@ -106,7 +106,7 @@ public class AshWolf extends NPC {
 		}
 		if (Statistics.deepestFloor> 24 || Dungeon.isChallenged(Challenges.TEST_TIME)){
 			yell(Messages.get(this, "yell4"));
-			Dungeon.level.drop(new NewHome(), Dungeon.hero.pos);
+			Dungeon.depth.drop(new NewHome(), Dungeon.hero.pos);
 
 		}
 

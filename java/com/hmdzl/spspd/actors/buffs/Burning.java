@@ -33,7 +33,7 @@ import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -100,7 +100,7 @@ public class Burning extends Buff implements Hero.Doom {
 					item = item.detach(hero.belongings.backpack);
 					FireMeat steak = new FireMeat();
 					if (!steak.collect(hero.belongings.backpack)) {
-						Dungeon.level.drop(steak, hero.pos).sprite.drop();
+						Dungeon.depth.drop(steak, hero.pos).sprite.drop();
 					}
 					GLog.w(Messages.get(this, "burnsup", item.toString()));
 
@@ -124,14 +124,14 @@ public class Burning extends Buff implements Hero.Doom {
 			detach();
 		}
 
-		if (Level.flamable[target.pos]) {
+		if (Floor.flamable[target.pos]) {
 			GameScene.add(Blob.seed(target.pos, 4, Fire.class));
 		}
 
 		spend(TICK);
 		left -= TICK;
 
-		if (left <= 0 || (Level.water[target.pos] && !target.flying)) {
+		if (left <= 0 || (Floor.water[target.pos] && !target.flying)) {
 
 			detach();
 		}

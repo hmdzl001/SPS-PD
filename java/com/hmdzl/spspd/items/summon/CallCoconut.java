@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CoconutSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -73,21 +73,21 @@ public class CallCoconut extends Item {
 
 		if (Actor.findChar(cell) != null) {
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : Level.NEIGHBOURS8)
-				if (Level.passable[cell + i])
+			for (int i : Floor.NEIGHBOURS8)
+				if (Floor.passable[cell + i])
 					candidates.add(cell + i);
 			int newCell = candidates.isEmpty() ? cell : Random
 					.element(candidates);
 
-			if (!Level.pit[newCell] && activate) {
+			if (!Floor.pit[newCell] && activate) {
 				if (Dungeon.hero.subClass == HeroSubClass.LEADER) {
 					EXcococat.spawnAt(newCell);
 				} else Scococat.spawnAt(newCell);
 			} else {
-				Dungeon.level.drop(this, newCell).sprite.drop(cell);
+				Dungeon.depth.drop(this, newCell).sprite.drop(cell);
 			}
 
-		} else if (!Level.pit[cell] && activate) {
+		} else if (!Floor.pit[cell] && activate) {
 			if (Dungeon.hero.subClass == HeroSubClass.LEADER) {
 				EXcococat.spawnAt(cell);
 			} else
@@ -146,8 +146,8 @@ public class CallCoconut extends Item {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}
@@ -174,18 +174,18 @@ public class CallCoconut extends Item {
 		@Override
 		protected boolean canAttack(Char enemy) {
 
-			return Level.distance(pos, enemy.pos) <= 4;
+			return Floor.distance(pos, enemy.pos) <= 4;
 
 		}
 
 		@Override
 		public int hitSkill(Char target) {
-			return 40 + (Dungeon.depth);
+			return 40 + (Dungeon.dungeondepth);
 		}
 
 		@Override
 		public int damageRoll() {
-			return Random.NormalIntRange(Dungeon.depth + 10, Dungeon.depth + 16);
+			return Random.NormalIntRange(Dungeon.dungeondepth + 10, Dungeon.dungeondepth + 16);
 		}
 
 		@Override
@@ -237,8 +237,8 @@ public class CallCoconut extends Item {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}
@@ -265,18 +265,18 @@ public class CallCoconut extends Item {
 		@Override
 		protected boolean canAttack(Char enemy) {
 
-			return Level.distance(pos, enemy.pos) <= 4;
+			return Floor.distance(pos, enemy.pos) <= 4;
 
 		}
 
 		@Override
 		public int hitSkill(Char target) {
-			return 60 + (Dungeon.depth);
+			return 60 + (Dungeon.dungeondepth);
 		}
 
 		@Override
 		public int damageRoll() {
-			return Random.NormalIntRange(Dungeon.depth + 20, Dungeon.depth + 32);
+			return Random.NormalIntRange(Dungeon.dungeondepth + 20, Dungeon.dungeondepth + 32);
 		}
 
 

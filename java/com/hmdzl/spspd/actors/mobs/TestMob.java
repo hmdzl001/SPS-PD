@@ -26,7 +26,6 @@ import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
 import com.hmdzl.spspd.sprites.ScarecrowSprite;
 import com.watabou.utils.Bundle;
@@ -98,10 +97,10 @@ public class TestMob extends Mob {
 	public void die(Object cause) {
 		super.die(cause);
 
-		Dungeon.level.drop(new HeartOfScarecrow(), pos).sprite.drop();
+		Dungeon.depth.drop(new HeartOfScarecrow(), pos).sprite.drop();
 		explodeDew(pos);
 
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			if (mob instanceof TestMob && mob.isAlive())
 				mob.HP+=10;
 				Buff.affect(mob, ShieldArmor.class).level(1000);

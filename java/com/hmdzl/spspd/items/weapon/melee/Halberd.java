@@ -37,6 +37,8 @@ public class Halberd extends MeleeWeapon {
 
 	public Halberd() {
 		super(5, 1f, 2f ,2);
+		MIN = 62;
+		MAX = 82;
 	}
 
 	@Override

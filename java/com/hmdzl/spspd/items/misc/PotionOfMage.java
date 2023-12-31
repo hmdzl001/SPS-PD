@@ -141,7 +141,7 @@ public class PotionOfMage extends Item {
 					  Buff.affect(hero, Recharging.class, 10f);
 					  break;
 				  case 4:
-					  Buff.affect(hero, Arcane.class, 10f);
+					  Buff.affect(hero, Arcane.class, 5f);
 					  break;
 				  case 5:
 					  Buff.affect(hero, BerryRegeneration.class).level(hero.HP / 2);
@@ -191,7 +191,7 @@ public class PotionOfMage extends Item {
 	private CellSelector.Listener Shattered = new CellSelector.Listener(){
 		@Override
 		public void onSelect(Integer target) {
-			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
+			if (target != null && (Dungeon.depth.visited[target] || Dungeon.depth.mapped[target])){
 					GameScene.add(Blob.seed(target, 15, ToxicGas.class));
 					GameScene.add(Blob.seed(target, 15, ConfusionGas.class));
 					GameScene.add(Blob.seed(target, 15, ParalyticGas.class));

@@ -83,13 +83,13 @@ public class TreasureMap extends Item {
 
 		if (action.equals(AC_PORT)) {
             PocketBallFull.removePet(hero);
-			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 ) && Dungeon.depth!=specialLevel) {
+			if ((Dungeon.bossLevel() || Dungeon.dungeondepth ==1 || Dungeon.dungeondepth >25 ) && Dungeon.dungeondepth !=specialLevel) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
 				return;
 			}
 			
-			if (Dungeon.depth==specialLevel && !Dungeon.gnollkingkilled && !Dungeon.level.reset) {
+			if (Dungeon.dungeondepth ==specialLevel && !Dungeon.gnollkingkilled && !Dungeon.depth.reset) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "boss_first"));
 				return;
@@ -103,9 +103,9 @@ public class TreasureMap extends Item {
 				if (buff != null)
 					buff.detach();
 
-              if (Dungeon.depth<25 && !Dungeon.bossLevel()){
+              if (Dungeon.dungeondepth <25 && !Dungeon.bossLevel()){
             	
-            	returnDepth = Dungeon.depth;
+            	returnDepth = Dungeon.dungeondepth;
        			returnPos = hero.pos;
 				InterlevelScene.mode = InterlevelScene.Mode.PORTMAP;
 			} else {
@@ -125,7 +125,7 @@ public class TreasureMap extends Item {
 	
 
 	private PET checkpet(){
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if(mob instanceof PET) {
 				return (PET) mob;
 			}

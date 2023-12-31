@@ -37,6 +37,8 @@ public class Nunchakus extends MeleeWeapon {
 
 	public Nunchakus() {
 		super(3, 1f, 1f, 1);
+		MIN = 18;
+		MAX = 27;
 	}
 	
 	@Override

@@ -59,9 +59,6 @@ public class CannonOfMage extends DamageWand {
 
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
-
-
-
 			if (ch.isAlive()){
 			switch (Random.Int(7)) {
 				case 0:

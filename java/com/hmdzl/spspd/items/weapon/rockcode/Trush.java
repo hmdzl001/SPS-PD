@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.watabou.noosa.audio.Sample;
@@ -48,13 +48,13 @@ public class Trush extends RockCode {
 			ch.damage( 4 * damageRoll,Dungeon.hero );
 		}
 		
-		if (!(Dungeon.level.map[bolt.collisionPos] == Terrain.WELL ||
-				Dungeon.level.map[bolt.collisionPos] == Terrain.EMPTY_WELL ||
-				Dungeon.level.map[bolt.collisionPos] == Terrain.ENTRANCE ||
-				Dungeon.level.map[bolt.collisionPos] == Terrain.EXIT ||
-				Dungeon.level.map[bolt.collisionPos] == Terrain.ALCHEMY ||
-				Dungeon.level.map[bolt.collisionPos] == Terrain.IRON_MAKER)) {
-			Level.set(bolt.collisionPos, Terrain.EMPTY_DECO);
+		if (!(Dungeon.depth.map[bolt.collisionPos] == Terrain.WELL ||
+				Dungeon.depth.map[bolt.collisionPos] == Terrain.EMPTY_WELL ||
+				Dungeon.depth.map[bolt.collisionPos] == Terrain.ENTRANCE ||
+				Dungeon.depth.map[bolt.collisionPos] == Terrain.EXIT ||
+				Dungeon.depth.map[bolt.collisionPos] == Terrain.ALCHEMY ||
+				Dungeon.depth.map[bolt.collisionPos] == Terrain.IRON_MAKER)) {
+			Floor.set(bolt.collisionPos, Terrain.EMPTY_DECO);
 		}		
 		
 	}

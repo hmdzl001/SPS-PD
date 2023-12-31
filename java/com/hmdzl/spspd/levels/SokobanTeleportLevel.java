@@ -61,7 +61,7 @@ import com.watabou.utils.Random;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class SokobanTeleportLevel extends Level {
+public class SokobanTeleportLevel extends Floor {
 
 
 	{
@@ -113,21 +113,21 @@ public class SokobanTeleportLevel extends Level {
 			case Terrain.SWITCH_SOKOBAN_SHEEP:
 			case Terrain.CORNER_SOKOBAN_SHEEP:
 			case Terrain.BLACK_SOKOBAN_SHEEP:
-				return Messages.get(Level.class, "floor_name");
+				return Messages.get(Floor.class, "floor_name");
 			case Terrain.WATER:
-				return Messages.get(Level.class, "water_name");
+				return Messages.get(Floor.class, "water_name");
 			case Terrain.WOOL_RUG:
-				return Messages.get(Level.class, "wool_rug_name");
+				return Messages.get(Floor.class, "wool_rug_name");
 			case Terrain.FLEECING_TRAP:
-				return Messages.get(Level.class, "fleecing_trap_name");
+				return Messages.get(Floor.class, "fleecing_trap_name");
 			case Terrain.CHANGE_SHEEP_TRAP:
-				return Messages.get(Level.class, "change_sheep_trap_name");
+				return Messages.get(Floor.class, "change_sheep_trap_name");
 			case Terrain.SOKOBAN_ITEM_REVEAL:
-				return Messages.get(Level.class, "sokoban_item_reveal_name");
+				return Messages.get(Floor.class, "sokoban_item_reveal_name");
 			case Terrain.SOKOBAN_PORT_SWITCH:
-				return Messages.get(Level.class, "sokoban_port_switch_name");
+				return Messages.get(Floor.class, "sokoban_port_switch_name");
 			case Terrain.PORT_WELL:
-				return Messages.get(Level.class, "port_well_name");
+				return Messages.get(Floor.class, "port_well_name");
 			default:
 				return super.tileName(tile);
 		}
@@ -141,23 +141,23 @@ public class SokobanTeleportLevel extends Level {
 			case Terrain.SWITCH_SOKOBAN_SHEEP:
 			case Terrain.CORNER_SOKOBAN_SHEEP:
 			case Terrain.BLACK_SOKOBAN_SHEEP:
-				return Messages.get(Level.class, "default_desc");
+				return Messages.get(Floor.class, "default_desc");
 			case Terrain.EMPTY_DECO:
 				return Messages.get(PrisonLevel.class, "empty_deco_desc");
 			case Terrain.BOOKSHELF:
 				return Messages.get(PrisonLevel.class, "bookshelf_desc");
 			case Terrain.WOOL_RUG:
-				return Messages.get(Level.class, "wool_rug_desc");
+				return Messages.get(Floor.class, "wool_rug_desc");
 			case Terrain.FLEECING_TRAP:
-				return Messages.get(Level.class, "fleecing_trap_desc");
+				return Messages.get(Floor.class, "fleecing_trap_desc");
 			case Terrain.CHANGE_SHEEP_TRAP:
-				return Messages.get(Level.class, "change_sheep_trap_desc");
+				return Messages.get(Floor.class, "change_sheep_trap_desc");
 			case Terrain.SOKOBAN_ITEM_REVEAL:
-				return Messages.get(Level.class, "sokoban_item_reveal_desc");
+				return Messages.get(Floor.class, "sokoban_item_reveal_desc");
 			case Terrain.SOKOBAN_PORT_SWITCH:
-				return Messages.get(Level.class, "sokoban_port_switch_desc");
+				return Messages.get(Floor.class, "sokoban_port_switch_desc");
 			case Terrain.PORT_WELL:
-				return Messages.get(Level.class, "port_well_desc");
+				return Messages.get(Floor.class, "port_well_desc");
 			default:
 				return super.tileDesc(tile);
 		}
@@ -688,12 +688,12 @@ public class SokobanTeleportLevel extends Level {
 				}
 			}	
 		 
-		 addItemToGen(new IronKey(Dungeon.depth) , 0, 8 + WIDTH * 18);
-		 addItemToGen(new IronKey(Dungeon.depth) , 1, 8 + WIDTH * 18);
-		 addItemToGen(new IronKey(Dungeon.depth) , 2, 8 + WIDTH * 18);
-		 addItemToGen(new IronKey(Dungeon.depth) , 3, 8 + WIDTH * 18);
-		 addItemToGen(new IronKey(Dungeon.depth) , 4, 8 + WIDTH * 18);
-		 addItemToGen(new IronKey(Dungeon.depth) , 5, 8 + WIDTH * 18);
+		 addItemToGen(new IronKey(Dungeon.dungeondepth) , 0, 8 + WIDTH * 18);
+		 addItemToGen(new IronKey(Dungeon.dungeondepth) , 1, 8 + WIDTH * 18);
+		 addItemToGen(new IronKey(Dungeon.dungeondepth) , 2, 8 + WIDTH * 18);
+		 addItemToGen(new IronKey(Dungeon.dungeondepth) , 3, 8 + WIDTH * 18);
+		 addItemToGen(new IronKey(Dungeon.dungeondepth) , 4, 8 + WIDTH * 18);
+		 addItemToGen(new IronKey(Dungeon.dungeondepth) , 5, 8 + WIDTH * 18);
 		 addItemToGen(new AutoPotion(), 6, 36 + WIDTH * 28);
 
 		 if (first){

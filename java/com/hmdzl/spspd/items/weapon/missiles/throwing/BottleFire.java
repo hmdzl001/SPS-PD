@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.FireFollower;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -55,10 +55,10 @@ public class BottleFire extends TossWeapon {
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null) {
-			for (int offset : Level.NEIGHBOURS9) {
-				if (Level.flamable[cell + offset]
+			for (int offset : Floor.NEIGHBOURS9) {
+				if (Floor.flamable[cell + offset]
 						|| Actor.findChar(cell + offset) != null
-						|| Dungeon.level.heaps.get(cell + offset) != null) {
+						|| Dungeon.depth.heaps.get(cell + offset) != null) {
 					GameScene.add(Blob.seed(cell + offset, 5, Fire.class));
 				}
 			}

@@ -41,6 +41,7 @@ import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.SpeedUp;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.mobs.npcs.RatKing;
 import com.hmdzl.spspd.effects.Speck;
@@ -55,7 +56,7 @@ import com.hmdzl.spspd.items.misc.PotionOfMage;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.rockcode.Dpotion;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.PlagueDoctorSprite;
@@ -99,7 +100,7 @@ public class PlagueDoctor extends Mob {
 	public void notice() {
 		super.notice();
 		yell(Messages.get(this, "notice"));
-		Dungeon.level.seal();
+		Dungeon.depth.seal();
 		if (!spawnedshadow) {
 			Buff.affect(hero, ShadowRatSummon.class);
 			spawnedshadow = true;
@@ -207,7 +208,7 @@ public class PlagueDoctor extends Mob {
 	@Override
 	public void destroy() {
 		super.destroy();
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[Dungeon.level.mobs.size()])) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[Dungeon.depth.mobs.size()])) {
 			if (mob instanceof ShadowRat) {
 				mob.die(null);
 			}
@@ -222,10 +223,10 @@ public class PlagueDoctor extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		Dungeon.level.unseal();
+		Dungeon.depth.unseal();
 
 		GameScene.bossSlain();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 		Badges.validateBossSlain();
 
 		Buff.detach(hero, ShadowRatSummon.class);
@@ -257,8 +258,8 @@ public class PlagueDoctor extends Mob {
 					badgeToCheck = Badge.MASTERY_ASCETIC;
 					break;					
 		}
-		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+		Dungeon.depth.drop(new Sokoban1(), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(1500), pos).sprite.drop();
 
 		ArrayList<Mob> mobs = new ArrayList<>();
 
@@ -269,8 +270,8 @@ public class PlagueDoctor extends Mob {
 		mobs.add( mob );
 		ScrollOfTeleportation.appear(mob, mob.pos);
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Dpotion(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Dpotion(), Dungeon.hero.pos).sprite.drop();
 	}
 
 	@Override
@@ -327,7 +328,7 @@ public class PlagueDoctor extends Mob {
 		public boolean act() {
 			shadowRat++;
 			int srat = 1; //we include the wraith we're trying to spawn
-			for (Mob mob : Dungeon.level.mobs) {
+			for (Mob mob : Dungeon.depth.mobs) {
 				if (mob instanceof ShadowRat) {
 					srat++;
 				}
@@ -339,8 +340,8 @@ public class PlagueDoctor extends Mob {
 				shadowRat -= powerNeeded;
 				int pos = 0;
 				do {
-					pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-				} while (!Level.passable[pos] || Actor.findChar(pos) != null);
+					pos = Random.Int(Dungeon.depth.randomRespawnCellMob());
+				} while (!Floor.passable[pos] || Actor.findChar(pos) != null);
 				ShadowRat.spawnAt(pos);
 				Sample.INSTANCE.play(Assets.SND_BURNING);
 			}
@@ -351,7 +352,7 @@ public class PlagueDoctor extends Mob {
 
 		public void dispel() {
 			detach();
-			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+			for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 				if (mob instanceof ShadowRat) {
 					mob.die(null);
 				}
@@ -439,18 +440,18 @@ public class PlagueDoctor extends Mob {
 
 
 		public static void spawnAround(int pos) {
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 					spawnAt(cell);
 				}
 			}
 		}
 
 		public static void spawnAroundChance(int pos) {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null && Random.Float() < 0.75f) {
 					spawnAt(cell);
 				}
 			}

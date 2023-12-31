@@ -32,7 +32,7 @@ import com.hmdzl.spspd.items.weapon.missiles.buildblock.StoneBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WallBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WaterBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WoodenBlock;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -111,69 +111,69 @@ public class LeaderFlag extends Item {
 		  GLog.i(Messages.get(LeaderFlag.class, "need_charge"));
 		  return;
       	} else {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int c = hero.pos + n;
 
-				if (c >= 0 && c < Level.getLength() && !(Dungeon.level.map[c] == Terrain.ENTRANCE) && !(Dungeon.level.map[c] == Terrain.EXIT)
-                        && !(Dungeon.level.map[c] == Terrain.LOCKED_DOOR) && !(Dungeon.level.map[c] == Terrain.LOCKED_EXIT) && !(Dungeon.level.map[c] == Terrain.ALCHEMY)
-                        && !(Dungeon.level.map[c] == Terrain.WELL)) {
+				if (c >= 0 && c < Floor.getLength() && !(Dungeon.depth.map[c] == Terrain.ENTRANCE) && !(Dungeon.depth.map[c] == Terrain.EXIT)
+                        && !(Dungeon.depth.map[c] == Terrain.LOCKED_DOOR) && !(Dungeon.depth.map[c] == Terrain.LOCKED_EXIT) && !(Dungeon.depth.map[c] == Terrain.ALCHEMY)
+                        && !(Dungeon.depth.map[c] == Terrain.WELL)) {
 
-					if (Dungeon.level.map[c] == Terrain.WALL && Level.insideMap(c)) {
+					if (Dungeon.depth.map[c] == Terrain.WALL && Floor.insideMap(c)) {
 						WallBlock wall = new WallBlock();
-						Dungeon.level.drop(wall, hero.pos).sprite.drop();
-						Level.set(c, Terrain.EMPTY);
+						Dungeon.depth.drop(wall, hero.pos).sprite.drop();
+						Floor.set(c, Terrain.EMPTY);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}
 
-					if (Dungeon.level.map[c] == Terrain.WATER && Level.insideMap(c)) {
+					if (Dungeon.depth.map[c] == Terrain.WATER && Floor.insideMap(c)) {
 						WaterBlock water = new WaterBlock();
-						Dungeon.level.drop(water, hero.pos).sprite.drop();
-						Level.set(c, Terrain.EMPTY);
+						Dungeon.depth.drop(water, hero.pos).sprite.drop();
+						Floor.set(c, Terrain.EMPTY);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 
 					}
 
-					if (Dungeon.level.map[c] == Terrain.DOOR && Level.insideMap(c)) {
+					if (Dungeon.depth.map[c] == Terrain.DOOR && Floor.insideMap(c)) {
 						DoorBlock door = new DoorBlock();
-						Dungeon.level.drop(door, hero.pos).sprite.drop();
-						Level.set(c, Terrain.EMPTY);
+						Dungeon.depth.drop(door, hero.pos).sprite.drop();
+						Floor.set(c, Terrain.EMPTY);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}
 
-					if (Dungeon.level.map[c] == Terrain.BOOKSHELF && Level.insideMap(c)) {
+					if (Dungeon.depth.map[c] == Terrain.BOOKSHELF && Floor.insideMap(c)) {
 						BookBlock book = new BookBlock();
-						Dungeon.level.drop(book, hero.pos).sprite.drop();
-						Level.set(c, Terrain.EMPTY);
+						Dungeon.depth.drop(book, hero.pos).sprite.drop();
+						Floor.set(c, Terrain.EMPTY);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}
 
-					if (Dungeon.level.map[c] == Terrain.BARRICADE && Level.insideMap(c)) {
+					if (Dungeon.depth.map[c] == Terrain.BARRICADE && Floor.insideMap(c)) {
 						WoodenBlock wooden = new WoodenBlock();
-						Dungeon.level.drop(wooden, hero.pos).sprite.drop();
-						Level.set(c, Terrain.EMPTY);
+						Dungeon.depth.drop(wooden, hero.pos).sprite.drop();
+						Floor.set(c, Terrain.EMPTY);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}
 
-					if (Dungeon.level.map[c] == Terrain.STATUE && Level.insideMap(c)) {
+					if (Dungeon.depth.map[c] == Terrain.STATUE && Floor.insideMap(c)) {
 						StoneBlock stone = new StoneBlock();
-						Dungeon.level.drop(stone, hero.pos).sprite.drop();
-						Level.set(c, Terrain.EMPTY);
+						Dungeon.depth.drop(stone, hero.pos).sprite.drop();
+						Floor.set(c, Terrain.EMPTY);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}
 
-					if (Dungeon.level.map[c] == Terrain.GLASS_WALL && Level.insideMap(c)) {
-						Level.set(c, Terrain.EMPTY);
+					if (Dungeon.depth.map[c] == Terrain.GLASS_WALL && Floor.insideMap(c)) {
+						Floor.set(c, Terrain.EMPTY);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}
 
-					Level.set(c, Terrain.EMPTY);
+					Floor.set(c, Terrain.EMPTY);
 					GameScene.updateMap(c);
 					Dungeon.observe();
 					hero.onOperateComplete();
@@ -211,7 +211,7 @@ public class LeaderFlag extends Item {
 		    int c = Math.max((int)(hero.spp/50),1);
 		    if (c > 0) {
 				for (int i = 0; i < c; i++) {
-					Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
+					Dungeon.depth.drop(Generator.random(), hero.pos).sprite.drop();
 				}
 			}
 		  curUser = hero;

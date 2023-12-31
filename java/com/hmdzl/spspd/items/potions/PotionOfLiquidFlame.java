@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 
@@ -45,10 +45,10 @@ public class PotionOfLiquidFlame extends Potion {
 			Sample.INSTANCE.play(Assets.SND_SHATTER);
 		}
 
-		for (int offset : Level.NEIGHBOURS9) {
-			if (Level.flamable[cell + offset]
+		for (int offset : Floor.NEIGHBOURS9) {
+			if (Floor.flamable[cell + offset]
 					|| Actor.findChar(cell + offset) != null
-					|| Dungeon.level.heaps.get(cell + offset) != null) {
+					|| Dungeon.depth.heaps.get(cell + offset) != null) {
 
 				GameScene.add(Blob.seed(cell + offset, 2, Fire.class));
 

@@ -29,7 +29,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AlbinoSprite;
 import com.watabou.utils.Random;
@@ -39,7 +39,7 @@ public class Albino extends Rat {
 	{
 		spriteClass = AlbinoSprite.class;
 
-		HP = HT = 10+(Dungeon.depth*Random.NormalIntRange(1, 3));
+		HP = HT = 10+(Dungeon.dungeondepth *Random.NormalIntRange(1, 3));
 
 		loot = new Meat();
 		lootChance = 1f;
@@ -61,8 +61,8 @@ public class Albino extends Rat {
 
 	@Override
 	public boolean act() {
-		for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2, SandStorm.class));
+		for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+			GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 2, SandStorm.class));
 		}
 		return super.act();
 	}

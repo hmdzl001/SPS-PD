@@ -35,7 +35,7 @@ import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class FishingBossLevel extends Level {
+public class FishingBossLevel extends Floor {
 
 	{
 		color1 = 0x4b6636;

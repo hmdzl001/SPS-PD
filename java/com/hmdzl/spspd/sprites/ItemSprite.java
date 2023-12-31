@@ -27,7 +27,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.gltextures.TextureCache;
@@ -100,8 +100,8 @@ public class ItemSprite extends MovieClip {
 	public PointF worldToCamera(int cell) {
 		final int csize = DungeonTilemap.SIZE;
 
-		return new PointF(cell % Level.getWidth() * csize + (csize - SIZE) * 0.5f,
-				cell / Level.getWidth() * csize + (csize - SIZE) * 0.5f);
+		return new PointF(cell % Floor.getWidth() * csize + (csize - SIZE) * 0.5f,
+				cell / Floor.getWidth() * csize + (csize - SIZE) * 0.5f);
 	}
 
 	public void place(int p) {
@@ -163,12 +163,12 @@ public class ItemSprite extends MovieClip {
 			place(heap.pos);
 
 			if (visible) {
-				boolean water = Level.water[heap.pos];
+				boolean water = Floor.water[heap.pos];
 
 				if (water) {
 					GameScene.ripple(heap.pos);
 				} else {
-					int cell = Dungeon.level.map[heap.pos];
+					int cell = Dungeon.depth.map[heap.pos];
 					water = (cell == Terrain.WELL || cell == Terrain.ALCHEMY);
 				}
 

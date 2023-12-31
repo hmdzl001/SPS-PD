@@ -19,20 +19,21 @@ package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ExProtect;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 
+import static com.hmdzl.spspd.Dungeon.shopOnLevel;
+
 public class ExitPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -45,20 +46,21 @@ public class ExitPainter extends Painter {
 		//	LevelChecker lc = new LevelChecker();
 		//	lc.pos = room.random();
 		//	level.mobs.add(lc);
-		//	Actor.occupyCell(lc);
+		//	//Actor.occupyCell(lc);
 		//}
 
 
-			Mob mob = Bestiary.exmob(Dungeon.depth);
+		if(!shopOnLevel()) {
+			Mob mob = Bestiary.exmob(Dungeon.dungeondepth);
 		    mob.pos = room.random();
 		   // mob.state = mob.HUNTING;
 		    mob.originalgen=true;
 		    Buff.affect(mob,ExProtect.class);
-		    Buff.affect(mob,ShieldArmor.class).level(Dungeon.depth*5);
-		    Buff.affect(mob,MagicArmor.class).level(Dungeon.depth*5);
+		    Buff.affect(mob,ShieldArmor.class).level(Dungeon.dungeondepth *5);
+		    Buff.affect(mob,MagicArmor.class).level(Dungeon.dungeondepth *5);
 			level.mobs.add(mob);
-			Actor.occupyCell(mob);
-
+			//Actor.occupyCell(mob);
+		}
 
 
 		level.exit = room.random(1);
@@ -67,10 +69,10 @@ public class ExitPainter extends Painter {
 		} else {
 			set(level, level.exit, Terrain.EXIT);
 		}
-		int tent;
-		do{tent = room.random();}
-		while (level.map[tent] == Terrain.EXIT || level.map[tent] == Terrain.STATUE );
-		level.map[tent] = Terrain.TENT;
+		//int tent;
+	//	do{tent = room.random();}
+		//while (level.map[tent] == Terrain.EXIT || level.map[tent] == Terrain.STATUE );
+		//level.map[tent] = Terrain.TENT;
 
 		//level.tent=tent;
 	}

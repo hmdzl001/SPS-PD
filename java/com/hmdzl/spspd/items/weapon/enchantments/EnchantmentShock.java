@@ -24,7 +24,7 @@ import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -88,7 +88,7 @@ public class EnchantmentShock extends Weapon.Enchantment {
 		}
 
 		affected.add(ch);
-		ch.damage(Level.water[ch.pos] && !ch.flying ? damage * 2
+		ch.damage(Floor.water[ch.pos] && !ch.flying ? damage * 2
 				: damage, SHOCK_DAMAGE);
 
 		ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
@@ -97,8 +97,8 @@ public class EnchantmentShock extends Weapon.Enchantment {
 		points[nPoints++] = ch.pos;
 
 		HashSet<Char> ns = new HashSet<Char>();
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			Char n = Actor.findChar(ch.pos + Level.NEIGHBOURS8[i]);
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			Char n = Actor.findChar(ch.pos + Floor.NEIGHBOURS8[i]);
 			if (n != null && !affected.contains(n)) {
 				ns.add(n);
 			}

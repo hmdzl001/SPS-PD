@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.noosa.Camera;
@@ -81,10 +81,10 @@ public class JupitersWraith extends RelicMeleeWeapon {
 	
 	private void explode(int distance, Hero hero) {
         charge = 0;
-		int length = Level.getLength();
-		int width = Level.getWidth();
+		int length = Floor.getLength();
+		int width = Floor.getWidth();
 		for (int i = width; i < length - width; i++){
-			int	 dist = Level.distance(hero.pos, i);
+			int	 dist = Floor.distance(hero.pos, i);
 			  if (dist<distance){
 				  doExplode(i);			    
 			     }
@@ -96,7 +96,7 @@ public class JupitersWraith extends RelicMeleeWeapon {
 		
 		Camera.main.shake(3, 0.7f);
 		
-				if (Dungeon.visible[cell] && Level.passable[cell]) {
+				if (Dungeon.visible[cell] && Floor.passable[cell]) {
 					CellEmitter.center(cell).start(Speck.factory(Speck.ROCK), 0.07f, 10);
 				}
 				

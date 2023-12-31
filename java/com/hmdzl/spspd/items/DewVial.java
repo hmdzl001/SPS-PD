@@ -43,7 +43,7 @@ import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.food.WaterItem;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
@@ -240,34 +240,34 @@ public class DewVial extends Item {
 				distance = 1;
 			}
 
-			int cx = hero.pos % Level.getWidth();
-			int cy = hero.pos / Level.getWidth();
+			int cx = hero.pos % Floor.getWidth();
+			int cy = hero.pos / Floor.getWidth();
 			int ax = cx - distance;
 			if (ax < 0) {
 				ax = 0;
 			}
 			int bx = cx + distance;
-			if (bx >= Level.getWidth()) {
-				bx = Level.getWidth() - 1;
+			if (bx >= Floor.getWidth()) {
+				bx = Floor.getWidth() - 1;
 			}
 			int ay = cy - distance;
 			if (ay < 0) {
 				ay = 0;
 			}
 			int by = cy + distance;
-			if (by >= Level.HEIGHT) {
-				by = Level.HEIGHT - 1;
+			if (by >= Floor.HEIGHT) {
+				by = Floor.HEIGHT - 1;
 			}
 
 			
 			for (int y = ay; y <= by; y++) {
-				for (int x = ax, p = ax + y * Level.getWidth(); x <= bx; x++, p++) {
+				for (int x = ax, p = ax + y * Floor.getWidth(); x <= bx; x++, p++) {
 
 					if (Dungeon.visible[p]) {
-						int c = Dungeon.level.map[p];
+						int c = Dungeon.depth.map[p];
 						GameScene.add(Blob.seed(p, (2) * 20, Water.class));
 						if (c == Terrain.FLOWER_POT) {
-							Dungeon.level.plant((Plant.Seed)(Generator.random(Generator.Category.SEED4)),p);
+							Dungeon.depth.plant((Plant.Seed)(Generator.random(Generator.Category.SEED4)),p);
 						}
 					}
 				}
@@ -293,7 +293,7 @@ public class DewVial extends Item {
 		} else if (action.equals(AC_SPLASH)) {
 			Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
 
-			if(Dungeon.wings && Dungeon.depth<51 ){
+			if(Dungeon.wings && Dungeon.dungeondepth <51 ){
 				Buff.affect(hero, Levitation.class, Levitation.DURATION);
 			    GLog.i(Messages.get(this, "fly"));
 			}
@@ -362,9 +362,9 @@ public class DewVial extends Item {
 
 		} else if (action.equals(AC_PEEK)) {
 			Buff.affect(hero, MindVision.class, 2f);
-			if(Dungeon.depth < 25 && !Dungeon.bossLevel()) {
-				GameScene.add(Blob.seed(Dungeon.level.exit, 1, TorchLight.class));
-				GameScene.add(Blob.seed(Dungeon.level.entrance, 1, TorchLight.class));
+			if(Dungeon.dungeondepth < 25 && !Dungeon.bossLevel()) {
+				GameScene.add(Blob.seed(Dungeon.depth.exit, 1, TorchLight.class));
+				GameScene.add(Blob.seed(Dungeon.depth.entrance, 1, TorchLight.class));
 			}
 			if (dewpointex > 0){
 				if (dewpointex > 5 + rejection){
@@ -403,7 +403,7 @@ public class DewVial extends Item {
 			 if (wateritem.doPickUp(Dungeon.hero)) {
 				 GLog.i( Messages.get(Dungeon.hero, "you_now_have", wateritem.name()));
 			 } else {
-				 Dungeon.level.drop(wateritem, hero.pos).sprite
+				 Dungeon.depth.drop(wateritem, hero.pos).sprite
 						 .drop();
 			 }
 			 updateQuickslot();
@@ -414,7 +414,7 @@ public class DewVial extends Item {
 
 	public static boolean uncurse(Hero hero, Item... items) {
 		
-        int levelLimit = Math.max(2, 2+Math.round(Statistics.deepestFloor/3));
+        int levelLimit = Math.max(3, 3+Math.round((Statistics.deepestFloor-2)/2));
         if (hero.heroClass == HeroClass.MAGE){levelLimit++;}
         
         float lvlchance = 0.33f;
@@ -644,8 +644,8 @@ public class DewVial extends Item {
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target)) {
-			if (Dungeon.level != null) {
-				target.viewDistance = Math.max(Dungeon.level.viewDistance,
+			if (Dungeon.depth != null) {
+				target.viewDistance = Math.max(Dungeon.depth.viewDistance,
 						6);
 				Dungeon.observe();
 			}
@@ -657,7 +657,7 @@ public class DewVial extends Item {
 
 	@Override
 	public void detach() {
-		target.viewDistance = Dungeon.level.viewDistance;
+		target.viewDistance = Dungeon.depth.viewDistance;
 		Dungeon.observe();
 		super.detach();
 	}		

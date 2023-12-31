@@ -53,14 +53,14 @@ public class WarpingTrap extends Trap {
 		CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT), 0.2f, 3);
 		Sample.INSTANCE.play( Assets.SND_TELEPORT );
 
-		if (Dungeon.depth > 1 && !Dungeon.bossLevel()) {
+		if (Dungeon.dungeondepth > 1 && !Dungeon.bossLevel()) {
 
 			//each depth has 1 more weight than the previous depth.
-			float[] depths = new float[Dungeon.depth-1];
-			for (int i = 1; i < Dungeon.depth; i++) depths[i-1] = i;
+			float[] depths = new float[Dungeon.dungeondepth -1];
+			for (int i = 1; i < Dungeon.dungeondepth; i++) depths[i-1] = i;
 			int depth = 1+Random.chances(depths);
 
-			Heap heap = Dungeon.level.heaps.get(pos);
+			Heap heap = Dungeon.depth.heaps.get(pos);
 			if (heap != null) {
 				ArrayList<Item> dropped = Dungeon.droppedItems.get( depth );
 				if (dropped == null) {
@@ -78,14 +78,14 @@ public class WarpingTrap extends Trap {
 				if (buff != null) buff.detach();
 
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;
-				InterlevelScene.returnDepth = Dungeon.depth - 1;
+				InterlevelScene.returnDepth = Dungeon.dungeondepth - 1;
 				InterlevelScene.returnPos = -1;
 				Game.switchScene(InterlevelScene.class);
 			} else if (ch != null) {
 			int count = 10;
 			int pos;
 			do {
-				pos = Dungeon.level.randomRespawnCell();
+				pos = Dungeon.depth.randomRespawnCell();
 				if (count-- <= 0) {
 					break;
 				}

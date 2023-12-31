@@ -27,7 +27,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -256,7 +256,7 @@ public class ShootGun extends Weapon {
 		@Override
 		public void proc(Char attacker, Char defender, int damage) {
             int p = defender.pos;
-		    for (int n : Level.NEIGHBOURS8) {
+		    for (int n : Floor.NEIGHBOURS8) {
 			Char ch = Actor.findChar(n+p);
 			if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
 

@@ -37,6 +37,8 @@ public class Knuckles extends MeleeWeapon {
 
 	public Knuckles() {
 		super(1, 1f, 1f, 1);
+		MIN = 1;
+		MAX = 10;
 	}
 	
 	@Override

@@ -42,7 +42,7 @@ import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -206,9 +206,9 @@ public class CopyBall extends Item {
 		int newPos = pos;
 		if (Actor.findChar(pos) != null) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int c = pos + n;
 				if (passable[c] && Actor.findChar(c) == null) {
 					candidates.add(c);
@@ -269,7 +269,7 @@ public class CopyBall extends Item {
 
 		@Override
 		protected boolean canAttack(Char enemy) {
-			return Level.distance( pos, enemy.pos ) <= 2 ;
+			return Floor.distance( pos, enemy.pos ) <= 2 ;
 		}
 
 		@Override
@@ -293,7 +293,7 @@ public class CopyBall extends Item {
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, Dungeon.hero.pos) > 6)
+					|| Floor.distance(target, Dungeon.hero.pos) > 6)
 				this.target = target = Dungeon.hero.pos;
 			return super.getCloser(target);
 		}
@@ -302,8 +302,8 @@ public class CopyBall extends Item {
 			if (enemy == null || !enemy.isAlive() || state == WANDERING) {
 
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]
 							&& mob.state != mob.PASSIVE) {
 						enemies.add(mob);
 					}
@@ -315,7 +315,7 @@ public class CopyBall extends Item {
 
 		@Override
 		public boolean interact() {
-			if (Level.passable[pos] || Dungeon.hero.flying) {
+			if (Floor.passable[pos] || Dungeon.hero.flying) {
 				int curPos = pos;
 
 				moveSprite(pos, Dungeon.hero.pos);

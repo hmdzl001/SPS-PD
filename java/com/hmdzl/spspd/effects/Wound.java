@@ -20,7 +20,7 @@ package com.hmdzl.spspd.effects;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
@@ -39,9 +39,9 @@ public class Wound extends Image {
 	public void reset(int p) {
 		revive();
 
-		x = (p % Level.getWidth()) * DungeonTilemap.SIZE
+		x = (p % Floor.getWidth()) * DungeonTilemap.SIZE
 				+ (DungeonTilemap.SIZE - width) / 2;
-		y = (p / Level.getWidth()) * DungeonTilemap.SIZE
+		y = (p / Floor.getWidth()) * DungeonTilemap.SIZE
 				+ (DungeonTilemap.SIZE - height) / 2;
 
 		time = TIME_TO_FADE;

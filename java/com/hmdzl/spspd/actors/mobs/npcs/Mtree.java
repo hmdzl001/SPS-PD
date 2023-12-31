@@ -7,7 +7,7 @@
     import com.hmdzl.spspd.actors.buffs.Poison;
     import com.hmdzl.spspd.actors.buffs.Roots;
     import com.hmdzl.spspd.actors.mobs.Mob;
-    import com.hmdzl.spspd.levels.Level;
+    import com.hmdzl.spspd.levels.Floor;
     import com.hmdzl.spspd.sprites.WarTreeSprite;
     import com.watabou.utils.Random;
 
@@ -57,7 +57,7 @@
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, Dungeon.hero.pos) > 6)
+					|| Floor.distance(target, Dungeon.hero.pos) > 6)
 				this.target = target = Dungeon.hero.pos;
 			return super.getCloser(target);
 		}
@@ -66,8 +66,8 @@
 			if (enemy == null || !enemy.isAlive() || state == WANDERING) {
 
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]
 							&& mob.state != mob.PASSIVE) {
 						enemies.add(mob);
 					}
@@ -79,7 +79,7 @@
 
 		@Override
 		public boolean interact() {
-			if (Level.passable[pos] || Dungeon.hero.flying) {
+			if (Floor.passable[pos] || Dungeon.hero.flying) {
 			int curPos = pos;
 
 			moveSprite(pos, Dungeon.hero.pos);

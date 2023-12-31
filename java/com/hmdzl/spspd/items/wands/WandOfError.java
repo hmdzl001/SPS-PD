@@ -39,7 +39,7 @@ import com.hmdzl.spspd.effects.SpellSprite;
 import com.hmdzl.spspd.items.bombs.Bomb;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -70,7 +70,7 @@ public class WandOfError extends Wand {
 			int count = 10;
 			int pos;
 			do {
-				pos = Dungeon.level.randomRespawnCell();
+				pos = Dungeon.depth.randomRespawnCell();
 				if (count-- <= 0) {
 					break;
 				}
@@ -113,15 +113,15 @@ public class WandOfError extends Wand {
 			case 4:
 				for (int i = 1; i < Ballistica.distance - 1; i++) {
 					int p = Ballistica.trace[i];
-					int c = Dungeon.level.map[p];
+					int c = Dungeon.depth.map[p];
 					if (c == Terrain.EMPTY || c == Terrain.EMBERS
 							|| c == Terrain.EMPTY_DECO) {
 
-						Level.set(p, Terrain.GRASS);
+						Floor.set(p, Terrain.GRASS);
 
 					}
 				}
-				int c = Dungeon.level.map[bolt.collisionPos];
+				int c = Dungeon.depth.map[bolt.collisionPos];
 				if (c == Terrain.EMPTY || c == Terrain.EMBERS
 						|| c == Terrain.EMPTY_DECO || c == Terrain.GRASS
 						|| c == Terrain.HIGH_GRASS) {

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -87,19 +87,19 @@ public class GrassBook extends Item {
 			   hero.sprite.operate(hero.pos);		
 			if (Random.Int(5) == 1) { 
 			
-			   Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			   Dungeon.depth.drop(Generator.random(Generator.Category.MUSHROOM), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				
 			} else if (Random.Int(4) == 1) {
 			
-			  Dungeon.level.drop(Generator.random(Generator.Category.BERRY), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			  Dungeon.depth.drop(Generator.random(Generator.Category.BERRY), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			} else if (Random.Int(3) == 1) {
 			
-			  Dungeon.level.drop(new ScrollOfRegrowth(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			  Dungeon.depth.drop(new ScrollOfRegrowth(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			} else {
 			
-			  Dungeon.level.drop(Generator.random(Generator.Category.SEED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			  Dungeon.depth.drop(Generator.random(Generator.Category.SEED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			}
 
@@ -112,14 +112,14 @@ public class GrassBook extends Item {
 			   hero.sprite.operate(hero.pos);
 			Buff.affect(hero,Levitation.class,30f);
 			Buff.affect(hero,ShieldArmor.class).level(hero.lvl+10);
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int c = hero.pos + n;
-				if (c >= 0 && c < Level.getLength()) {
-					if ((Dungeon.level.map[c] == Terrain.EMPTY ||
-					Dungeon.level.map[c] == Terrain.EMPTY_DECO ||
-					Dungeon.level.map[c] == Terrain.EMPTY_SP ||
-					Dungeon.level.map[c] == Terrain.GRASS )&& Level.insideMap(c)) {
-						Level.set(c, Terrain.OLD_HIGH_GRASS);
+				if (c >= 0 && c < Floor.getLength()) {
+					if ((Dungeon.depth.map[c] == Terrain.EMPTY ||
+					Dungeon.depth.map[c] == Terrain.EMPTY_DECO ||
+					Dungeon.depth.map[c] == Terrain.EMPTY_SP ||
+					Dungeon.depth.map[c] == Terrain.GRASS )&& Floor.insideMap(c)) {
+						Floor.set(c, Terrain.OLD_HIGH_GRASS);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}

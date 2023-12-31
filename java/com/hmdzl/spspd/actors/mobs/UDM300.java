@@ -42,7 +42,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SeekingBombSprite;
 import com.hmdzl.spspd.sprites.UDM300Sprite;
@@ -96,10 +96,10 @@ public class UDM300 extends Mob {
 		SeekBomb bomb3 = new SeekBomb();
 		SeekBomb bomb4 = new SeekBomb();	
 		
-			bomb1.pos = Dungeon.level.randomRespawnCellMob();
-			bomb2.pos = Dungeon.level.randomRespawnCellMob();
-			bomb3.pos = Dungeon.level.randomRespawnCellMob();
-			bomb4.pos = Dungeon.level.randomRespawnCellMob();
+			bomb1.pos = Dungeon.depth.randomRespawnCellMob();
+			bomb2.pos = Dungeon.depth.randomRespawnCellMob();
+			bomb3.pos = Dungeon.depth.randomRespawnCellMob();
+			bomb4.pos = Dungeon.depth.randomRespawnCellMob();
 	
 		GameScene.add(bomb1);
 		GameScene.add(bomb2);
@@ -202,7 +202,7 @@ public class UDM300 extends Mob {
 	}	
 	
 	public static UDM300 spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			UDM300 w = new UDM300();
 			w.pos = pos;

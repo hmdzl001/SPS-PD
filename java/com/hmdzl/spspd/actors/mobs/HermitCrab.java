@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.keys.GoldenSkeletonKey;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -78,7 +78,7 @@ public class HermitCrab extends Mob implements Callback {
 	public void damage(int dmg, Object src) {
 		
 		if (dmg>HT/4 && src != this){
-            for (Mob mob : Dungeon.level.mobs) {
+            for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof Shell && mob.isAlive()){
 				GLog.n(Messages.get(this, "absorb"));
 				dmg=1;
@@ -91,7 +91,7 @@ public class HermitCrab extends Mob implements Callback {
 
 	@Override
 	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
@@ -99,14 +99,14 @@ public class HermitCrab extends Mob implements Callback {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.distance(pos, enemy.pos) <= 1) {
+		if (Floor.distance(pos, enemy.pos) <= 1) {
 
 			return super.doAttack(enemy);
 
 		} else {
 
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			}
@@ -115,7 +115,7 @@ public class HermitCrab extends Mob implements Callback {
 
 			if (hit(this, enemy, true)) {
 				int dmg = Random.Int(15, 30);
-				if (Level.water[enemy.pos] && !enemy.flying) {
+				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, this);
@@ -150,7 +150,7 @@ public class HermitCrab extends Mob implements Callback {
 	public void die(Object cause) {
 		super.die(cause);  
 		if(Random.Int(1)==0){
-		Dungeon.level.drop(new GoldenSkeletonKey(0), pos).sprite.drop();	
+		Dungeon.depth.drop(new GoldenSkeletonKey(0), pos).sprite.drop();
 		}
 	}
 

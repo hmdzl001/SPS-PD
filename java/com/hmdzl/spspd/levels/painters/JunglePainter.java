@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.plants.BlandfruitBush;
@@ -32,13 +32,13 @@ import com.hmdzl.spspd.plants.Seedpod;
 
 public class JunglePainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.GRASS);
 
 		room.entrance().set(Room.Door.Type.LOCKED);
-		level.addItemToSpawn(new IronKey(Dungeon.depth));
+		level.addItemToSpawn(new IronKey(Dungeon.dungeondepth));
 
 		level.plant(new Seedpod.Seed(), room.random());
 		level.plant(new BlandfruitBush.Seed(), room.random());
@@ -59,12 +59,12 @@ public class JunglePainter extends Painter {
 		}
 	}
 
-	private static boolean validPlantPos(Level level, int pos){
+	private static boolean validPlantPos(Floor level, int pos){
 		if (level.map[pos] != Terrain.GRASS){
 			return false;
 		}
 
-		for (int i : Level.NEIGHBOURS9){
+		for (int i : Floor.NEIGHBOURS9){
 			if (level.findMob(pos+i) != null){
 				return false;
 			}
@@ -73,11 +73,11 @@ public class JunglePainter extends Painter {
 		return true;
 	}
 
-	private static void placePlant(Level level, int pos, Mob plant){
+	private static void placePlant(Floor level, int pos, Mob plant){
 		plant.pos = pos;
 		level.mobs.add( plant );
 
-		for(int i : Level.NEIGHBOURS8) {
+		for(int i : Floor.NEIGHBOURS8) {
 			if (level.map[pos + i] == Terrain.GRASS){
 				set(level, pos + i, Terrain.HIGH_GRASS);
 			}

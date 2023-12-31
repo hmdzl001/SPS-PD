@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -85,7 +85,7 @@ import java.util.ArrayList;
 
 				Ballistica route = new Ballistica(curUser.pos, target, Ballistica.PROJECTILE);
 				int cell = route.collisionPos;
-				int dist = Level.distance(curUser.pos, cell);
+				int dist = Floor.distance(curUser.pos, cell);
 				int range = 3;
 				if (Actor.findChar( cell ) != null && cell != curUser.pos)
 					cell = route.path.get(route.dist-1);
@@ -106,12 +106,12 @@ import java.util.ArrayList;
 					@Override
 					public void call() {
 						curUser.move(dest);
-						Dungeon.level.press(dest, curUser);
+						Dungeon.depth.press(dest, curUser);
 						Dungeon.observe();
 
-						for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
+						for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
 							Char mob = Actor.findChar(curUser.pos
-									+ Level.NEIGHBOURS8[i]);
+									+ Floor.NEIGHBOURS8[i]);
 						}
 						
 						CellEmitter.center(dest).burst(

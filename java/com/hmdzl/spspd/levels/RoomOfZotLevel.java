@@ -51,7 +51,7 @@ import com.watabou.utils.Random;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class RoomOfZotLevel extends Level {
+public class RoomOfZotLevel extends Floor {
 
 
 	{

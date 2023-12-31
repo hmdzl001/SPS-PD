@@ -38,6 +38,8 @@ public class Gsword extends MeleeWeapon {
 
 	public Gsword() {
 		super(5, 1f, 1f ,1);
+		MIN = 50;
+		MAX = 64;
 	}
 
 	@Override

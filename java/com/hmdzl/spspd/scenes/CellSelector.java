@@ -20,6 +20,7 @@ package com.hmdzl.spspd.scenes;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.watabou.input.Touchscreen.Touch;
+import com.watabou.noosa.Camera;
 import com.watabou.noosa.TouchArea;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
@@ -46,9 +47,8 @@ public class CellSelector extends TouchArea {
 			dragging = false;
 
 		} else {
-
-			select(((DungeonTilemap) target).screenToTile(
-					(int) touch.current.x, (int) touch.current.y));
+			//PointF p = Camera.main.screenToCamera( (int) touch.current.x, (int) touch.current.y );
+			select(((DungeonTilemap) target).screenToTile((int) touch.current.x, (int) touch.current.y));
 		}
 	}
 
@@ -118,13 +118,19 @@ public class CellSelector extends TouchArea {
 	@Override
 	protected void onDrag(Touch t) {
 
-		camera.target = null;
+		//camera.target = null;
 
 		if (pinching) {
 
-			float curSpan = PointF.distance(touch.current, another.current);
-			camera.zoom(GameMath.gate(PixelScene.minZoom, startZoom * curSpan
-					/ startSpan, PixelScene.maxZoom));
+			//float curSpan = PointF.distance(touch.current, another.current);
+			//camera.zoom(GameMath.gate(PixelScene.minZoom, startZoom * curSpan
+			//		/ startSpan, PixelScene.maxZoom));
+			float curSpan = PointF.distance( t.current, another.current );
+			float zoom = (startZoom * curSpan / startSpan);
+			camera.zoom( GameMath.gate(
+				PixelScene.minZoom,
+					zoom - (zoom % 0.1f),
+				PixelScene.maxZoom ) );
 
 		} else {
 
@@ -135,8 +141,8 @@ public class CellSelector extends TouchArea {
 				lastPos.set(t.current);
 
 			} else if (dragging) {
-				camera.scroll.offset(PointF.diff(lastPos, t.current).invScale(
-						camera.zoom));
+				//camera.scroll.offset(PointF.diff(lastPos, t.current).invScale(camera.zoom));
+				camera.shift( PointF.diff( lastPos, t.current ).invScale( camera.zoom ) );
 				lastPos.set(t.current);
 			}
 		}

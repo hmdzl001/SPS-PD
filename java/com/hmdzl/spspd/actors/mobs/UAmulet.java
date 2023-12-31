@@ -36,7 +36,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.Playericon;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.MirrorSprite;
@@ -129,7 +129,7 @@ public class UAmulet extends Mob {
 	}	
 	
 	public static UAmulet spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			UAmulet w = new UAmulet();
 			w.pos = pos;
@@ -193,9 +193,9 @@ public class UAmulet extends Mob {
 		}
 
 		public static void spawnAround(int pos) {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 					spawnAt(cell);
 				}
 			}

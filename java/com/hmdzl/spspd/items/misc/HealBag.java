@@ -30,7 +30,7 @@ import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -94,7 +94,7 @@ public class HealBag extends Item {
 			if (charge < 15) {
 				GLog.p(Messages.get(this, "need_charge"));
 			} else {
-				for (int n : Level.NEIGHBOURS9) {
+				for (int n : Floor.NEIGHBOURS9) {
 					int c = curUser.pos + n;
 					Char mob = Actor.findChar(c);
 					if (mob != null && mob.HP < mob.HT * 0.75) {
@@ -115,13 +115,13 @@ public class HealBag extends Item {
 		} else if (action.equals(AC_COOK)) {
 
 			if (Random.Int(3) > 1) {
-		    Dungeon.level.drop(Generator.random(Generator.Category.POTION), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		    Dungeon.depth.drop(Generator.random(Generator.Category.POTION), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			} else if (Random.Int(5) == 0) {
-				Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				Dungeon.depth.drop(Generator.random(Generator.Category.HIGHFOOD), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			} else if (Random.Int(2) == 0) {
-				Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				Dungeon.depth.drop(Generator.random(Generator.Category.MUSHROOM), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			} else {
-				Dungeon.level.drop(Generator.random(Generator.Category.PILL), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				Dungeon.depth.drop(Generator.random(Generator.Category.PILL), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			}
 			charge -= 40;
 			hero.spendAndNext(1f);

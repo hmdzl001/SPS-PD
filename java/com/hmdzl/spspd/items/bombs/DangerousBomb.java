@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -42,27 +42,27 @@ public class DangerousBomb extends Bomb {
 	public void explode(int cell) {
 		super.explode(cell);
 		boolean terrainAffected = false;
-		for (int n : Level.NEIGHBOURS9DIST2) {
+		for (int n : Floor.NEIGHBOURS9DIST2) {
 			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}
 
-				if (Level.flamable[c]) {
-					Level.set(c, Terrain.EMBERS);
+				if (Floor.flamable[c]) {
+					Floor.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 					terrainAffected = true;
 				}
 
-				if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL ) && Level.insideMap(c)){
-					Level.set(c, Terrain.EMPTY);
+				if ((Dungeon.depth.map[c] == Terrain.WALL || Dungeon.depth.map[c] == Terrain.GLASS_WALL ) && Floor.insideMap(c)){
+					Floor.set(c, Terrain.EMPTY);
 					GameScene.updateMap(c);
 					terrainAffected = true;
 				}
 
 				// destroys items / triggers bombs caught in the blast.
-				Heap heap = Dungeon.level.heaps.get(c);
+				Heap heap = Dungeon.depth.heaps.get(c);
 				if (heap != null)
 					heap.explode();
 

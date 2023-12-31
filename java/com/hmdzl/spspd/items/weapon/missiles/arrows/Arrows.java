@@ -20,11 +20,7 @@ package com.hmdzl.spspd.items.weapon.missiles.arrows;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DamageUp;
-import com.hmdzl.spspd.actors.buffs.HasteBuff;
-import com.hmdzl.spspd.actors.buffs.Levitation;
-import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSprite;
 
 public class Arrows extends MissileWeapon {

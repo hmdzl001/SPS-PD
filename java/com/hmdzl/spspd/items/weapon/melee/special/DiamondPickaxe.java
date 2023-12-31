@@ -34,7 +34,7 @@ import com.hmdzl.spspd.items.weapon.missiles.buildblock.DoorBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.StoneBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WallBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WoodenBlock;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -83,15 +83,15 @@ public class DiamondPickaxe extends MeleeWeapon {
 				return;
 			}
             if (Random.Int(3) == 0) {
-                for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+                for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
                     mob.beckon(hero.pos);
                 }
 				GLog.n(Messages.get(this,"noise"));
 			}
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
 
-				final int pos = hero.pos + Level.NEIGHBOURS8[i];
-				if (Dungeon.level.map[pos] == Terrain.WALL && Level.insideMap(pos)) {
+				final int pos = hero.pos + Floor.NEIGHBOURS8[i];
+				if (Dungeon.depth.map[pos] == Terrain.WALL && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -105,15 +105,15 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							WallBlock wall = new WallBlock();
 
 
                             if (Random.Int(60)==1){
-								Dungeon.level.drop(new Gold(50), hero.pos).sprite.drop();
-							} else Dungeon.level.drop(wall, hero.pos).sprite.drop();
+								Dungeon.depth.drop(new Gold(50), hero.pos).sprite.drop();
+							} else Dungeon.depth.drop(wall, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -126,7 +126,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.DOOR && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.DOOR && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -140,14 +140,14 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							DoorBlock door = new DoorBlock();
 
 							if (Random.Int(60)==1){
-								Dungeon.level.drop(Generator.random(Generator.Category.SEED), hero.pos).sprite.drop();
-							} else Dungeon.level.drop(door, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(Generator.Category.SEED), hero.pos).sprite.drop();
+							} else Dungeon.depth.drop(door, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -160,7 +160,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.BOOKSHELF && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.BOOKSHELF && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -174,14 +174,14 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							BookBlock book = new BookBlock();
 
 							if (Random.Int(60)==1){
-								Dungeon.level.drop(Generator.random(Generator.Category.SCROLL), hero.pos).sprite.drop();
-							} else Dungeon.level.drop(book, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(Generator.Category.SCROLL), hero.pos).sprite.drop();
+							} else Dungeon.depth.drop(book, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -194,7 +194,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.GLASS_WALL && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.GLASS_WALL && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -208,7 +208,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							Hunger hunger = hero.buff(Hunger.class);
@@ -222,7 +222,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.BARRICADE && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.BARRICADE && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -236,48 +236,14 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
-							GameScene.updateMap(pos);
-
-							WoodenBlock wooden = new WoodenBlock();
-
-							if (Random.Int(60)==1){
-								Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), hero.pos).sprite.drop();
-							} else Dungeon.level.drop(wooden, hero.pos).sprite.drop();
-
-							Hunger hunger = hero.buff(Hunger.class);
-							if (hunger != null && !hunger.isStarving()) {
-								hunger.satisfy(-10);
-								BuffIndicator.refreshHero();
-							}
-
-							hero.onOperateComplete();
-						}
-					});
-
-					return;
-				}  else if(Dungeon.level.map[pos] == Terrain.BARRICADE && Level.insideMap(pos)) {
-
-					hero.spend(TIME_TO_MINE);
-					hero.busy();
-
-					hero.sprite.attack(pos, new Callback() {
-
-						@Override
-						public void call() {
-
-							CellEmitter.center(pos).burst(
-									Speck.factory(Speck.STAR), 7);
-							Sample.INSTANCE.play(Assets.SND_EVOKE);
-
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							WoodenBlock wooden = new WoodenBlock();
 
 							if (Random.Int(60)==1){
-								Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), hero.pos).sprite.drop();
-							} else Dungeon.level.drop(wooden, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(Generator.Category.MUSHROOM), hero.pos).sprite.drop();
+							} else Dungeon.depth.drop(wooden, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -290,7 +256,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.STATUE && Level.insideMap(pos)) {
+				}  else if(Dungeon.depth.map[pos] == Terrain.BARRICADE && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -304,14 +270,48 @@ public class DiamondPickaxe extends MeleeWeapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
+							GameScene.updateMap(pos);
+
+							WoodenBlock wooden = new WoodenBlock();
+
+							if (Random.Int(60)==1){
+								Dungeon.depth.drop(Generator.random(Generator.Category.MUSHROOM), hero.pos).sprite.drop();
+							} else Dungeon.depth.drop(wooden, hero.pos).sprite.drop();
+
+							Hunger hunger = hero.buff(Hunger.class);
+							if (hunger != null && !hunger.isStarving()) {
+								hunger.satisfy(-10);
+								BuffIndicator.refreshHero();
+							}
+
+							hero.onOperateComplete();
+						}
+					});
+
+					return;
+				}  else if (Dungeon.depth.map[pos] == Terrain.STATUE && Floor.insideMap(pos)) {
+
+					hero.spend(TIME_TO_MINE);
+					hero.busy();
+
+					hero.sprite.attack(pos, new Callback() {
+
+						@Override
+						public void call() {
+
+							CellEmitter.center(pos).burst(
+									Speck.factory(Speck.STAR), 7);
+							Sample.INSTANCE.play(Assets.SND_EVOKE);
+
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							StoneBlock stone = new StoneBlock();
 
 							if (Random.Int(60)==1){
-								Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
-							} else Dungeon.level.drop(stone, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(), hero.pos).sprite.drop();
+							} else Dungeon.depth.drop(stone, hero.pos).sprite.drop();
 
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -355,7 +355,7 @@ public class DiamondPickaxe extends MeleeWeapon {
 		if ( defender.HP <= damage && ((Mob) defender).firstitem) {
 			((Mob) defender).firstitem = false;
 			if (Random.Int(6) == 0) {
-				Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
+				Dungeon.depth.drop(Generator.random(), defender.pos).sprite.drop();
 			}
 		}
 	}

@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -40,6 +40,8 @@ public class Rapier extends MeleeWeapon {
 
 	public Rapier() {
 		super(3, 1f, 1f, 2);
+		MIN = 18;
+		MAX = 25;
 	}
 	
     @Override
@@ -54,15 +56,15 @@ public class Rapier extends MeleeWeapon {
 		    int exdmg = Dungeon.hero.damageRoll();
 			Ballistica route = new Ballistica(attacker.pos, defender.pos, Ballistica.PROJECTILE);
 			int cell = route.collisionPos;
-			int dist = Level.distance(attacker.pos, cell);
+			int dist = Floor.distance(attacker.pos, cell);
 			if (dist == 2) {
 				cell = route.path.get(route.dist - 1);
 				Actor.addDelayed(new Pushing(attacker, attacker.pos, cell), -1);
 				attacker.pos = cell;
 				if (attacker instanceof Mob) {
-					Dungeon.level.mobPress((Mob) attacker);
+					Dungeon.depth.mobPress((Mob) attacker);
 				} else {
-					Dungeon.level.press(cell, attacker);
+					Dungeon.depth.press(cell, attacker);
 				}
 				defender.damage(exdmg,this);
 			}

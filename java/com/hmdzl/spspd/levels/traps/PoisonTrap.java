@@ -43,11 +43,11 @@ public class PoisonTrap extends Trap{
 		//Char ch = Actor.findChar( pos );
 
 		if (ch != null) {
-			Buff.affect( ch, Poison.class ).set(4 + Dungeon.depth / 2 );
+			Buff.affect( ch, Poison.class ).set(4 + Dungeon.dungeondepth / 2 );
 		}
 
 		CellEmitter.center( pos ).burst( PoisonParticle.SPLASH, 3 );
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {heap.earthhit();}
 
 	}

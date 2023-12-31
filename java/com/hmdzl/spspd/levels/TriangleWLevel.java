@@ -20,7 +20,7 @@ package com.hmdzl.spspd.levels;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.actors.mobs.Sentinel;
+import com.hmdzl.spspd.actors.mobs.Eye;
 import com.hmdzl.spspd.items.TriforceOfWisdom;
 import com.hmdzl.spspd.items.potions.PotionOfLevitation;
 import com.hmdzl.spspd.levels.Room.Type;
@@ -49,12 +49,12 @@ public class TriangleWLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.TILES_PRISON;
+		return Assets.TILES_BEACH;
 	}
 
 	@Override
 	public String waterTex() {
-		return Assets.WATER_PRISON;
+		return Assets.WATER_SNOW;
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public class TriangleWLevel extends RegularLevel {
 		}
 		
 			
-		int length = Level.getLength();
+		int length = Floor.getLength();
 		
 		for (int i = 0; i < length; i++) {
 			
@@ -198,9 +198,12 @@ public class TriangleWLevel extends RegularLevel {
 			if (map[i]==Terrain.EXIT){map[i] = Terrain.PEDESTAL;  if (!Dungeon.triforceofwisdom){drop(new TriforceOfWisdom(), i);}}
 			if (map[i]==Terrain.EMPTY_SP && heaps.get(i) == null && Random.Float()<.25){map[i] = Terrain.CHASM;}
 			if (map[i]==Terrain.EMPTY_SP && heaps.get(i) == null && Random.Float()<.05){
-				Sentinel sentinel = new Sentinel();
-				sentinel.pos = i;
-				mobs.add(sentinel);	
+				Eye eye = new Eye();
+				eye.pos = i;
+				mobs.add(eye);
+			}
+			if (map[i]==Terrain.CHASM && heaps.get(i) == null && Random.Float()<.05){
+				map[i] = Terrain.EMPTY_DECO;
 			}
 			//if (map[i]==Terrain.EMPTY && heaps.get(i) == null && Random.Float()<.02){
 				//drop(new ReNepenth.Seed(), i);
@@ -217,7 +220,7 @@ public class TriangleWLevel extends RegularLevel {
 		addVisuals(this, scene);
 	}
 
-	public static void addVisuals(Level level, Scene scene) {
+	public static void addVisuals(Floor level, Scene scene) {
 		for (int i = 0; i < getLength(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
 				scene.add(new Sink(i));

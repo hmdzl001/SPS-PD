@@ -30,7 +30,7 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.DemonflowerSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -86,7 +86,7 @@ public class DemonFlower extends Mob {
 	@Override
 	protected boolean doAttack(Char enemy) {
 		addDebuff--;
-		if (addDebuff <= 0 && Level.adjacent(pos, enemy.pos) && (buff(Silent.class) == null)) {
+		if (addDebuff <= 0 && Floor.adjacent(pos, enemy.pos) && (buff(Silent.class) == null)) {
 			debuffadd();
 			return true;
 		} else {

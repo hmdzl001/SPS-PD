@@ -39,6 +39,8 @@ public class Mace extends MeleeWeapon {
 
 	public Mace() {
 		super(2, 0.8f, 1.2f, 1);
+		MIN = 11;
+		MAX = 21;
 	}
 	
 	public static int charge = 0;

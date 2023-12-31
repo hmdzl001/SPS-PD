@@ -36,6 +36,8 @@ public class MirrorDoll extends MeleeWeapon {
 
 	public MirrorDoll() {
 		super(2, 1f, 1f, 2);
+		MIN = 12;
+		MAX = 17;
 	}
 
 	public Item upgrade(boolean enchant) {

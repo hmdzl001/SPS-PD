@@ -30,15 +30,13 @@ import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.sprites.MissileSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
 
@@ -103,7 +101,7 @@ public class BigBattery extends Item {
 				GLog.p(Messages.get(this, "break"));
 			} else {	 
 		        Buff.prolong(hero,Recharging.class,25f);
-				Buff.affect(hero, Arcane.class, 25f);
+				Buff.affect(hero, Arcane.class, 5f);
 			    Buff.affect(hero, HighLight.class, 25f);
 			    Buff.affect(hero, AttackUp.class, 25f).level(30);
 			    Buff.affect(hero, DefenceUp.class, 25f).level(30);
@@ -117,8 +115,8 @@ public class BigBattery extends Item {
 			 if (charge < 15) {
 				 GLog.p(Messages.get(this, "break"));
 			 } else {
-				 for (Mob mob : Dungeon.level.mobs) {
-					 if (Level.fieldOfView[mob.pos] && mob.isAlive()) {
+				 for (Mob mob : Dungeon.depth.mobs) {
+					 if (Floor.fieldOfView[mob.pos] && mob.isAlive()) {
 						 Buff.affect(mob, BeTired.class).set(30);
 					 }
 				 }

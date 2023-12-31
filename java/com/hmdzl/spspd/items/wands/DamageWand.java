@@ -21,6 +21,7 @@
 
 package com.hmdzl.spspd.items.wands;
 
+import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
 
@@ -54,7 +55,10 @@ public abstract class DamageWand extends Wand{
 	public abstract int max(int lvl);
 
 	public int damageRoll(){
-		return Random.NormalIntRange(min(), max());
+		Arcane arcane = curUser.buff(Arcane.class);
+		if (arcane != null) {
+			return 2 * Random.NormalIntRange(min(), max());
+		} else return Random.NormalIntRange(min(), max());
 	}
 
 	public int damageRoll(int lvl){

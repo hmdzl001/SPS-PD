@@ -30,7 +30,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -94,7 +94,7 @@ public class FireRabbit extends Mob {
 			Buff.affect(enemy, Burning.class).set(4f);
 			yell( Messages.get(this, "yell") );
 		}
-        if (Level.distance( pos, enemy.pos ) == 3){
+        if (Floor.distance( pos, enemy.pos ) == 3){
 			damage = 0;
 			Buff.affect(enemy, ArmorBreak.class,5f).level(20);
 		}
@@ -104,7 +104,7 @@ public class FireRabbit extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		beam = new Ballistica( pos, enemy.pos, Ballistica.STOP_TARGET);
-		return beam.subPath(1, beam.dist).contains(enemy.pos) && Level.distance( pos, enemy.pos ) <= 3 ;
+		return beam.subPath(1, beam.dist).contains(enemy.pos) && Floor.distance( pos, enemy.pos ) <= 3 ;
 	}		
 
 

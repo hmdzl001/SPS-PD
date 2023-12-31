@@ -46,7 +46,7 @@ import com.hmdzl.spspd.items.PuddingCup;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -84,8 +84,8 @@ public class Yog extends Mob {
 	public boolean checkYear() {
 
 		int yearAlive = 0;
-		if (Dungeon.level.mobs != null) {
-			for (Mob mob : Dungeon.level.mobs) {
+		if (Dungeon.depth.mobs != null) {
+			for (Mob mob : Dungeon.depth.mobs) {
 				if (mob instanceof YearBeast) {
 					yearAlive++;
 				}
@@ -101,7 +101,7 @@ public class Yog extends Mob {
 			breaks++;
 				int newPos = -1;
 				for (int i = 0; i < 20; i++) {
-					newPos = Dungeon.level.randomRespawnCellMob();
+					newPos = Dungeon.depth.randomRespawnCellMob();
 					if (newPos != -1) {
 						break;
 					}
@@ -118,9 +118,9 @@ public class Yog extends Mob {
 			if (breaks == 4 && !checkYear()){
 				int newPos2;
 				do {
-					newPos2 = Random.Int(Level.getLength());
-				} while (!Level.passable[newPos2]
-						|| Level.adjacent(newPos2, Dungeon.hero.pos)
+					newPos2 = Random.Int(Floor.getLength());
+				} while (!Floor.passable[newPos2]
+						|| Floor.adjacent(newPos2, Dungeon.hero.pos)
 						|| Actor.findChar(newPos2) != null);
 				YearBeast.spawnAt(newPos2);
 			}
@@ -157,10 +157,10 @@ public class Yog extends Mob {
 		InfectingFist fist4 = new InfectingFist();
 
 		
-			fist1.pos = Dungeon.level.randomRespawnCellMob();
-			fist2.pos = Dungeon.level.randomRespawnCellMob();
-			fist3.pos = Dungeon.level.randomRespawnCellMob();
-			fist4.pos = Dungeon.level.randomRespawnCellMob();
+			fist1.pos = Dungeon.depth.randomRespawnCellMob();
+			fist2.pos = Dungeon.depth.randomRespawnCellMob();
+			fist3.pos = Dungeon.depth.randomRespawnCellMob();
+			fist4.pos = Dungeon.depth.randomRespawnCellMob();
 	
 		GameScene.add(fist1);
 		GameScene.add(fist2);
@@ -173,7 +173,7 @@ public class Yog extends Mob {
 		
 		int checkFists = 0;
 		
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof BurningFist || mob instanceof RottingFist || mob instanceof PinningFist || mob instanceof InfectingFist) {
 			checkFists++;	
 			}
@@ -200,10 +200,10 @@ public class Yog extends Mob {
 
 		ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			int p = pos + Level.NEIGHBOURS8[i];
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			int p = pos + Floor.NEIGHBOURS8[i];
 			if (Actor.findChar(p) == null
-					&& (Level.passable[p] || Level.avoid[p])) {
+					&& (Floor.passable[p] || Floor.avoid[p])) {
 				spawnPoints.add(p);
 			}
 		}
@@ -216,7 +216,7 @@ public class Yog extends Mob {
 			Actor.addDelayed(new Pushing(larva, pos, larva.pos), -1);
 		}
 
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof BurningFist || mob instanceof RottingFist || mob instanceof InfectingFist || mob instanceof PinningFist
 					|| mob instanceof Larva) {
 				mob.aggro(enemy);
@@ -243,17 +243,17 @@ public class Yog extends Mob {
 	@Override
 	public void die(Object cause) {
 
-	    Dungeon.level.unseal();
+	    Dungeon.depth.unseal();
 	
-		for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
+		for (Mob mob : (Iterable<Mob>) Dungeon.depth.mobs.clone()) {
 			if (mob instanceof BurningFist || mob instanceof RottingFist || mob instanceof Eye || mob instanceof PinningFist || mob instanceof InfectingFist) {
 				mob.die(cause);
 			}
 		}
-		Dungeon.level.drop(new Elevator(), pos).sprite.drop();
+		Dungeon.depth.drop(new Elevator(), pos).sprite.drop();
 		//Dungeon.level.drop(new Vault(), pos).sprite.drop();
 		GameScene.bossSlain();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 		//Dungeon.level.drop(new Gold(Random.Int(6000, 8000)), pos).sprite.drop();
 		super.die(cause);
 
@@ -336,7 +336,7 @@ public class Yog extends Mob {
 		@Override
 		public boolean act() {
 
-			if (Level.water[pos] && HP < HT) {
+			if (Floor.water[pos] && HP < HT) {
 				sprite.emitter().burst(ShadowParticle.UP, 2);
 				HP += REGENERATION;
 			}
@@ -399,7 +399,7 @@ public class Yog extends Mob {
 
 		@Override
 		protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}
@@ -407,7 +407,7 @@ public class Yog extends Mob {
 		@Override
 		public boolean attack(Char enemy) {
 
-			if (!Level.adjacent(pos, enemy.pos)) {
+			if (!Floor.adjacent(pos, enemy.pos)) {
 				spend(attackDelay());
 
 				if (hit(this, enemy, true)) {
@@ -438,8 +438,8 @@ public class Yog extends Mob {
 		@Override
 		public boolean act() {
 
-			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-				GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2,
+			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+				GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 2,
 						Fire.class));
 			}
 
@@ -575,7 +575,7 @@ public class Yog extends Mob {
 
 		@Override
 		protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}
@@ -592,7 +592,7 @@ public class Yog extends Mob {
 		@Override
 		public boolean attack(Char enemy) {
 
-			if (!Level.adjacent(pos, enemy.pos)) {
+			if (!Floor.adjacent(pos, enemy.pos)) {
 				spend(attackDelay());
 
 				if (hit(this, enemy, true)) {

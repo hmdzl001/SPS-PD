@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
 
@@ -36,7 +36,7 @@ public class EnergyEffectDamage extends Blob {
 	protected void evolve() {
 
 		int from = WIDTH + 1;
-		int to = Level.getLength() - WIDTH - 1;
+		int to = Floor.getLength() - WIDTH - 1;
 
 
 		for (int pos = from; pos < to; pos++) {

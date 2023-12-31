@@ -83,8 +83,8 @@ public class AlienBag extends Artifact {
 		} else if (action.equals(AC_BOMB)) {
 
 			 for(int i=0; i<level/4; i++) {
-				Dungeon.level.drop(Generator.random(Generator.Category.BOMBS), hero.pos).sprite.drop();
-				Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), hero.pos).sprite.drop();
+				Dungeon.depth.drop(Generator.random(Generator.Category.BOMBS), hero.pos).sprite.drop();
+				Dungeon.depth.drop(Generator.random(Generator.Category.HIGHFOOD), hero.pos).sprite.drop();
 			 }
 			 level-=2;
 				hero.spend(1f);

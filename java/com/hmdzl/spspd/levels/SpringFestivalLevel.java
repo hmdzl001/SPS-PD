@@ -61,9 +61,9 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-import static com.hmdzl.spspd.Dungeon.level;
+import static com.hmdzl.spspd.Dungeon.depth;
 
-public class SpringFestivalLevel extends Level {
+public class SpringFestivalLevel extends Floor {
 
 
 	{
@@ -376,7 +376,7 @@ public class SpringFestivalLevel extends Level {
 
 			case Terrain.ALCHEMY:
 				Alchemy alchemy = new Alchemy();
-				level.blobs.put( Alchemy.class, alchemy );
+				depth.blobs.put( Alchemy.class, alchemy );
 				break;
 
 			case Terrain.PEDESTAL:

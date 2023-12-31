@@ -31,7 +31,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -110,14 +110,14 @@ public class Pylon extends Artifact {
 
 		if (action.equals(AC_SET) || action.equals(AC_RETURN)){
 			
-			if (Dungeon.bossLevel() || Dungeon.depth > 25) {
+			if (Dungeon.bossLevel() || Dungeon.dungeondepth > 25) {
 				hero.spend( 1f );
 				GLog.w( Messages.get(this, "preventing") );
 				return;
 			}
 			
-			for (int i=0; i < Level.NEIGHBOURS8.length; i++) {
-				if (Actor.findChar( hero.pos + Level.NEIGHBOURS8[i] ) != null) {
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				if (Actor.findChar( hero.pos + Floor.NEIGHBOURS8[i] ) != null) {
 					GLog.w( Messages.get(this, "creatures") );
 					return;
 				}
@@ -137,7 +137,7 @@ public class Pylon extends Artifact {
 
 		} else if (action.equals(AC_SET)) {
 			
-			returnDepth = Dungeon.depth;
+			returnDepth = Dungeon.dungeondepth;
 			returnPos = hero.pos;
 			
 			hero.spend( 1f );
@@ -150,9 +150,9 @@ public class Pylon extends Artifact {
 			
 		} else if (action.equals(AC_RETURN)) {
 			
-			if (returnDepth == Dungeon.depth) {
+			if (returnDepth == Dungeon.dungeondepth) {
 				ScrollOfTeleportation.appear( hero, returnPos );
-				Dungeon.level.press( returnPos, hero );
+				Dungeon.depth.press( returnPos, hero );
 				Dungeon.observe();
 			} else {
 
@@ -218,7 +218,7 @@ public class Pylon extends Artifact {
 								int count = 10;
 								int pos;
 								do {
-									pos = Dungeon.level.randomRespawnCell();
+									pos = Dungeon.depth.randomRespawnCell();
 									if (count-- <= 0) {
 										break;
 									}

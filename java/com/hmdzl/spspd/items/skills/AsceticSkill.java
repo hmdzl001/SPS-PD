@@ -33,7 +33,7 @@ import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -71,9 +71,9 @@ public class AsceticSkill extends ClassSkill {
 	@Override
 	public void doSpecial2() {
 		curUser.spend(SKILL_TIME);
-		Dungeon.level.drop(new GreatRune(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		Dungeon.depth.drop(new GreatRune(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 		if (Dungeon.hero.lvl > 55) {
-			Dungeon.level.drop(Generator.random(), Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(), Dungeon.hero.pos);
 		}
 		AsceticSkill.charge += 20;
 		curUser.sprite.operate(curUser.pos);
@@ -115,42 +115,43 @@ public class AsceticSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial4() {
-		for (int n : Level.NEIGHBOURS8DIST2) {
+		for (int n : Floor.NEIGHBOURS8DIST2) {
 			int c = curUser.pos + n;
 
-			if (c >= 0 && c < Level.getLength()) {
-				if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL || Dungeon.level.map[c] == Terrain.WALL_DECO)&& Level.insideMap(c)) {
-					Level.set(c, Terrain.EMBERS);
+			if (c >= 0 && c < Floor.getLength()) {
+				if ((Dungeon.depth.map[c] == Terrain.WALL || Dungeon.depth.map[c] == Terrain.GLASS_WALL || Dungeon.depth.map[c] == Terrain.WALL_DECO)&& Floor.insideMap(c)) {
+					Floor.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 					Dungeon.observe();
 				}
 			}
 		}
 
-		for (int n : Level.NEIGHBOURS8OUT) {
+		for (int n : Floor.NEIGHBOURS8OUT) {
 			int d = curUser.pos + n;
 
-			if (d >= 0 && d < Level.getLength()) {
-				if (Dungeon.level.map[d] != Terrain.ENTRANCE && Dungeon.level.map[d] != Terrain.EXIT
-						&& Dungeon.level.map[d] != Terrain.LOCKED_EXIT
-						&& Dungeon.level.map[d] != Terrain.UNLOCKED_EXIT && Level.insideMap(d)) {
-					Level.set(d, Terrain.DOOR);
+			if (d >= 0 && d < Floor.getLength()) {
+				if (Dungeon.depth.map[d] != Terrain.ENTRANCE && Dungeon.depth.map[d] != Terrain.EXIT
+						&& Dungeon.depth.map[d] != Terrain.LOCKED_EXIT
+						&& Dungeon.depth.map[d] != Terrain.UNLOCKED_EXIT && Floor.insideMap(d)) {
+					Floor.set(d, Terrain.DOOR);
 					GameScene.updateMap(d);
 					Dungeon.observe();
 				}
 			}
 		}
 
-		for (int m : Level.NEIGHBOURS8DIST2) {
+		for (int m : Floor.NEIGHBOURS8DIST2) {
 			int c = curUser.pos + m;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 
 				Char ch2 = Actor.findChar(c);
 				if (ch2 != null) {
-					int dmg = (int) (Dungeon.depth * (1 + 0.1 * Dungeon.hero.magicSkill()));
-					if (Dungeon.hero.lvl > 55)
+					int dmg = (int) (Dungeon.dungeondepth * (1 + 0.1 * Dungeon.hero.magicSkill()));
+					if (Dungeon.hero.lvl > 55) {
 						Buff.affect(ch2, Vertigo.class, 10f);
-					    Buff.affect(ch2, Blindness.class, 10f);
+						Buff.affect(ch2, Blindness.class, 10f);
+					}
 					if (dmg > 0) {
 						ch2.damage(dmg, this);
 					}

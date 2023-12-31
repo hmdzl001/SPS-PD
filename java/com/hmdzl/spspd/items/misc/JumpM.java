@@ -27,7 +27,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -88,7 +88,7 @@ public class JumpM extends Item {
 			if (target != null && target != curUser.pos) {
 				Ballistica route = new Ballistica(curUser.pos, target, (Ballistica.STOP_TARGET | Ballistica.STOP_TERRAIN));
 				int cell = route.collisionPos;
-				int dist = Level.distance(curUser.pos, cell);
+				int dist = Floor.distance(curUser.pos, cell);
 				int range = 3;
 				//if (Actor.findChar( cell ) != null && cell != curUser.pos)
 					//cell = route.path.get(route.dist-1);
@@ -102,11 +102,11 @@ public class JumpM extends Item {
 				ScrollOfTeleportation.appear( curUser, dest );
 				CellEmitter.get(dest).burst(Speck.factory(Speck.WOOL), 10);
 				Sample.INSTANCE.play(Assets.SND_PUFF);
-				Dungeon.level.press( dest, curUser );
+				Dungeon.depth.press( dest, curUser );
 				Dungeon.observe();
 				curUser.spendAndNext(JUMP_TIME);
 				if (Random.Int(10) > 3 ){
-					Buff.affect(curUser, Arcane.class, 10f);}
+					Buff.affect(curUser, Arcane.class, 3f);}
 				if(curUser.buff(InfJump.class) == null){
 						charge -= 15;
 				}		

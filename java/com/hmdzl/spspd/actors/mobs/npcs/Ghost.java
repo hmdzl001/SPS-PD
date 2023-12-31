@@ -149,7 +149,7 @@ public class Ghost extends NPC {
 
 					int newPos = -1;
 					for (int i = 0; i < 10; i++) {
-						newPos = Dungeon.level.randomRespawnCell();
+						newPos = Dungeon.depth.randomRespawnCell();
 						if (newPos != -1) {
 							break;
 						}
@@ -182,7 +182,7 @@ public class Ghost extends NPC {
 					txt_quest = Messages.get(this, "crab_1", Dungeon.hero.givenName()); break;
 			}
 
-			questBoss.pos = Dungeon.level.randomRespawnCell();
+			questBoss.pos = Dungeon.depth.randomRespawnCell();
 
 			if (questBoss.pos != -1) {
 				GameScene.add(questBoss);
@@ -278,24 +278,24 @@ public class Ghost extends NPC {
 		}
 
 		public static void spawn(SewerLevel level) {
-			if (!spawned && Dungeon.depth > 1
-					&& Random.Int(5 - Dungeon.depth) == 0) {
+			if (!spawned && Dungeon.dungeondepth > 1
+					&& Random.Int(5 - Dungeon.dungeondepth) == 0) {
 
 				Ghost ghost = new Ghost();
 				do {
 					ghost.pos = level.randomRespawnCell();
 				} while (ghost.pos == -1);
 				level.mobs.add(ghost);
-				//Actor.occupyCell(ghost);
+				////Actor.occupyCell(ghost);
 
 				spawned = true;
 				// dungeon depth determines type of quest.
 				// depth2=fetid rat, 3=gnoll trickster, 4=great crab
-				type = Dungeon.depth - 1;
+				type = Dungeon.dungeondepth - 1;
 
 				given = false;
 				processed = false;
-				depth = Dungeon.depth;
+				depth = Dungeon.dungeondepth;
 
 				do {
 					artifact = Generator.randomArtifact();
@@ -311,9 +311,9 @@ public class Ghost extends NPC {
 		}
 
 		public static void process() {
-			if (spawned && given && !processed && (depth == Dungeon.depth)) {
+			if (spawned && given && !processed && (depth == Dungeon.dungeondepth)) {
 				GLog.n(Messages.get(Ghost.class, "find_me"));
-				for (Mob m : Dungeon.level.mobs){
+				for (Mob m : Dungeon.depth.mobs){
 					if (m instanceof Ghost)
 						m.beckon(Dungeon.hero.pos);
 				}

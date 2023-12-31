@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -39,6 +39,8 @@ public class Trumpet extends MeleeWeapon {
 
 	public Trumpet() {
 		super(4, 1f, 1f, 2);
+		MIN = 32;
+		MAX = 42;
 	}
 	
 
@@ -52,7 +54,7 @@ public class Trumpet extends MeleeWeapon {
     public void proc(Char attacker, Char defender, int damage) {
 
 		int p = defender.pos;
-		for (int n : Level.NEIGHBOURS8) {
+		for (int n : Floor.NEIGHBOURS8) {
 			Char ch = Actor.findChar(n+p);
 			if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
 

@@ -42,7 +42,7 @@ public class AlarmTrap extends Trap {
 	public void activate(Char ch) {
 		super.activate(ch);
 
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 				mob.beckon( pos );
 		}
 

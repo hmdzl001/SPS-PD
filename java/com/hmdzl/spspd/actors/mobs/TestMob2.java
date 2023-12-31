@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentShock2;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ScarecrowSprite;
 import com.watabou.utils.Bundle;
@@ -103,7 +103,7 @@ public class TestMob2 extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 				if (buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
@@ -112,7 +112,7 @@ public class TestMob2 extends Mob {
 	public void die(Object cause) {
 		super.die(cause);
 		
-		Dungeon.level.drop(new HeartOfScarecrow(), pos).sprite.drop();
+		Dungeon.depth.drop(new HeartOfScarecrow(), pos).sprite.drop();
 		explodeDew(pos);
 			
 	}

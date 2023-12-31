@@ -21,7 +21,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.npcs.Blacksmith;
 import com.hmdzl.spspd.actors.mobs.npcs.Blacksmith2;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.damagetrap.FireDamageTrap;
@@ -29,7 +29,7 @@ import com.watabou.utils.Random;
 
 public class BlacksmithPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.TRAP);
@@ -56,7 +56,7 @@ public class BlacksmithPainter extends Painter {
 			npc.pos = room.random(1);
 		} while (level.heaps.get(npc.pos) != null);
 		level.mobs.add(npc);
-		Actor.occupyCell(npc);
+		//Actor.occupyCell(npc);
 		
 		
 		Blacksmith2 npc2 = new Blacksmith2();
@@ -64,7 +64,7 @@ public class BlacksmithPainter extends Painter {
 			npc2.pos = room.random(1);
 		} while (level.heaps.get(npc2.pos) != null || Actor.findChar(npc2.pos) != null);
 		level.mobs.add(npc2);
-		Actor.occupyCell(npc2);
+		//Actor.occupyCell(npc2);
 
 		for(int cell : room.getCells()) {
 			if (level.map[cell] == Terrain.TRAP){

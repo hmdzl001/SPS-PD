@@ -64,8 +64,8 @@ public class Shielded extends Brute {
 
 		if( 2 - breaks > 3 * HP / HT ) {
 			breaks++;
-			Buff.affect(this,ShieldArmor.class).level(Dungeon.depth*3);
-			Buff.affect(this,MagicArmor.class).level(Dungeon.depth*3);
+			Buff.affect(this,ShieldArmor.class).level(Dungeon.dungeondepth *3);
+			Buff.affect(this,MagicArmor.class).level(Dungeon.dungeondepth *3);
 			return true;
 		}
 

@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.watabou.utils.Point;
 
@@ -29,7 +29,7 @@ public class PassagePainter extends Painter {
 	private static int pasWidth;
 	private static int pasHeight;
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		pasWidth = room.width() - 2;
 		pasHeight = room.height() - 2;

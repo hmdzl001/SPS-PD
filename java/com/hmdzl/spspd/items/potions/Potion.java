@@ -32,7 +32,7 @@ import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.ItemStatusHandler;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -189,9 +189,9 @@ public class Potion extends Item {
 	}
 
 	protected void drink(Hero hero) {
-    if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
+    if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER) || Random.Int(10)>=1 ){
 		detach(hero.belongings.backpack);
-
+	}
 		hero.spend(TIME_TO_DRINK);
 		hero.busy();
 		apply(hero);
@@ -203,7 +203,7 @@ public class Potion extends Item {
 
 	@Override
 	protected void onThrow(int cell) {
-		if (Dungeon.level.map[cell] == Terrain.WELL || Level.pit[cell] ) {
+		if (Dungeon.depth.map[cell] == Terrain.WELL || Floor.pit[cell] ) {
 
 			super.onThrow(cell);
 
@@ -297,7 +297,7 @@ public class Potion extends Item {
 		final int color = ItemSprite.pick(image, 8, 10);
 		Splash.at(cell, color, 5);
 
-		Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
+		Fire fire = (Fire) Dungeon.depth.blobs.get(Fire.class);
 		if (fire != null)
 			fire.clear(cell);
 

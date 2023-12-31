@@ -29,7 +29,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.challengelists.CaveChallenge;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.HugeShuriken;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.PiranhaSprite;
 import com.watabou.utils.Random;
 
@@ -51,8 +51,8 @@ public class Piranha extends Mob {
 	public Piranha() {
 		super();
 
-		HP = HT = 40 + Dungeon.depth * 5;
-		evadeSkill = 10 + Dungeon.depth * 2;
+		HP = HT = 40 + Dungeon.dungeondepth * 5;
+		evadeSkill = 10 + Dungeon.dungeondepth * 2;
 	}
 
 	@Override
@@ -62,21 +62,21 @@ public class Piranha extends Mob {
 
 	@Override
 	protected boolean act() {
-		if (!Level.water[pos]) {
+		if (!Floor.water[pos]) {
 			die(null);
 			return true;
 		} else {
 			// this causes pirahna to move away when a door is closed on them.
-			Dungeon.level.updateFieldOfView(this);
+			Dungeon.depth.updateFieldOfView(this);
 			enemy = chooseEnemy();
 			if (state == this.HUNTING
-					&& !(enemy.isAlive() && Level.fieldOfView[enemy.pos] && enemy.invisible <= 0)) {
+					&& !(enemy.isAlive() && Floor.fieldOfView[enemy.pos] && enemy.invisible <= 0)) {
 				state = this.WANDERING;
 				int oldPos = pos;
 				int i = 0;
 				do {
 					i++;
-					target = Dungeon.level.randomDestination();
+					target = Dungeon.depth.randomDestination();
 					if (i == 100)
 						return true;
 				} while (!getCloser(target));
@@ -90,26 +90,26 @@ public class Piranha extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(Dungeon.depth, 4 + Dungeon.depth * 2);
+		return Random.NormalIntRange(Dungeon.dungeondepth, 4 + Dungeon.dungeondepth * 2);
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return 20 + Dungeon.depth * 2;
+		return 20 + Dungeon.dungeondepth * 2;
 	}
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, Dungeon.depth);
+		return Random.NormalIntRange(0, Dungeon.dungeondepth);
 	}
 
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
 		
-		if (!Dungeon.limitedDrops.caveskey.dropped() && Statistics.deepestFloor > 10) {
-			Dungeon.limitedDrops.caveskey.drop();
-			Dungeon.level.drop(new CaveChallenge(), pos).sprite.drop();			
+		if (!Dungeon.LimitedDrops.caveskey.dropped() && Statistics.deepestFloor > 10) {
+			Dungeon.LimitedDrops.caveskey.drop();
+			Dungeon.depth.drop(new CaveChallenge(), pos).sprite.drop();
 		}
 
 	}
@@ -126,8 +126,8 @@ public class Piranha extends Mob {
 			return false;
 		}
 
-		int step = Dungeon.findPath(this, pos, target, Level.water,
-				Level.fieldOfView);
+		int step = Dungeon.findPath(this, pos, target, Floor.water,
+				Floor.fieldOfView);
 		if (step != -1) {
 			move(step);
 			return true;
@@ -138,8 +138,8 @@ public class Piranha extends Mob {
 
 	@Override
 	protected boolean getFurther(int target) {
-		int step = Dungeon.flee(this, pos, target, Level.water,
-				Level.fieldOfView);
+		int step = Dungeon.flee(this, pos, target, Floor.water,
+				Floor.fieldOfView);
 		if (step != -1) {
 			move(step);
 			return true;

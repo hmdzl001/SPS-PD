@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Disarm;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -64,9 +64,9 @@ public class BlindFruit extends Arrows {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
 			GameScene.add(Blob.seed(cell, 10, ConfusionGas.class));
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int c = cell + n;
-				if (c >= 0 && c < Level.getLength()) {
+				if (c >= 0 && c < Floor.getLength()) {
 					GameScene.add(Blob.seed(c, 4, LightEffectDamage.class));
 				}
 			}

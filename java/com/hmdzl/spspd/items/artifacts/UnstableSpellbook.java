@@ -160,14 +160,14 @@ public class UnstableSpellbook extends Artifact {
 				case 7:
 					Buff.affect(hero, AttackUp.class,level*10f).level(25);
 					Buff.affect(hero, DefenceUp.class,level*10f).level(25);
-					Buff.affect(hero, Arcane.class,level*10f);
+					Buff.affect(hero, Arcane.class,level*2f);
 					Buff.affect(hero, TargetShoot.class,level*10f);
 					break;
 				case 8:
 				case 9:
 					Buff.affect(hero, AttackUp.class,level*10f).level(25);
 					Buff.affect(hero, DefenceUp.class,level*10f).level(25);
-					Buff.affect(hero, Arcane.class,level*10f);
+					Buff.affect(hero, Arcane.class,level*2f);
 					Buff.affect(hero, TargetShoot.class,level*10f);
 					Dungeon.hero.hitSkill++;
 					Dungeon.hero.evadeSkill++;
@@ -177,7 +177,7 @@ public class UnstableSpellbook extends Artifact {
 				case 10:
 					Buff.affect(hero, AttackUp.class,level*10f).level(25);
 					Buff.affect(hero, DefenceUp.class,level*10f).level(25);
-					Buff.affect(hero, Arcane.class,level*10f);
+					Buff.affect(hero, Arcane.class,level*2f);
 					Buff.affect(hero, TargetShoot.class,level*10f);
 					Dungeon.hero.hitSkill++;
 					Dungeon.hero.evadeSkill++;
@@ -191,7 +191,7 @@ public class UnstableSpellbook extends Artifact {
 			}
 			curUser.spendAndNext(1f);
 			detach(curUser.belongings.backpack);
-			Dungeon.level.drop(new UnstableSpellbook(),hero.pos);
+			Dungeon.depth.drop(new UnstableSpellbook(),hero.pos);
 			updateQuickslot();
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);

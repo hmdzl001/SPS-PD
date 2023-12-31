@@ -30,7 +30,7 @@ import com.hmdzl.spspd.items.AdamantArmor;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Tree;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -98,8 +98,8 @@ public class CrabKing extends Mob {
 		
 		GameScene.bossSlain();
 		
-		Dungeon.level.drop(new Gold(Random.Int(1900, 4000)), pos).sprite.drop();
-		Dungeon.level.drop(new AdamantArmor(), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(Random.Int(1900, 4000)), pos).sprite.drop();
+		Dungeon.depth.drop(new AdamantArmor(), pos).sprite.drop();
 		Dungeon.crabkingkilled=true;
 		
 		yell(Messages.get(this,"die"));
@@ -108,7 +108,7 @@ public class CrabKing extends Mob {
 
 	@Override
 	protected boolean getCloser(int target) {
-		if (Level.fieldOfView[target]) {
+		if (Floor.fieldOfView[target]) {
 			jump();
 			return true;
 		} else {
@@ -119,7 +119,7 @@ public class CrabKing extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 				if (buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
@@ -127,7 +127,7 @@ public class CrabKing extends Mob {
 	@Override
 	protected boolean doAttack(Char enemy) {
 		timeToJump--;
-		if (timeToJump <= 0 && Level.adjacent(pos, enemy.pos)) {
+		if (timeToJump <= 0 && Floor.adjacent(pos, enemy.pos)) {
 			jump();
 			return true;
 		} else {
@@ -140,9 +140,9 @@ public class CrabKing extends Mob {
 		
 		int newPos;
 		do {
-			newPos = Random.Int(Level.getLength());
-		} while (!Level.fieldOfView[newPos] || !Level.passable[newPos]
-				|| Level.adjacent(newPos, enemy.pos)
+			newPos = Random.Int(Floor.getLength());
+		} while (!Floor.fieldOfView[newPos] || !Floor.passable[newPos]
+				|| Floor.adjacent(newPos, enemy.pos)
 				|| Actor.findChar(newPos) != null);
 
 		sprite.move(pos, newPos);

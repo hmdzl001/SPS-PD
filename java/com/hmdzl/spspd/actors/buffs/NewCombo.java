@@ -29,7 +29,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -220,20 +220,20 @@ public class NewCombo extends Buff implements ActionIndicator.Action {
 					case CLOBBER:
 						if (enemy.isAlive()){
 							if (!enemy.properties().contains(Char.Property.IMMOVABLE)){
-								for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-									int ofs = Level.NEIGHBOURS8[i];
+								for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+									int ofs = Floor.NEIGHBOURS8[i];
 									if (enemy.pos - target.pos == ofs) {
 										int newPos = enemy.pos + ofs;
-										if ((Level.passable[newPos] || Level.avoid[newPos]) && Actor.findChar( newPos ) == null) {
+										if ((Floor.passable[newPos] || Floor.avoid[newPos]) && Actor.findChar( newPos ) == null) {
 
 											Actor.addDelayed( new Pushing( enemy, enemy.pos, newPos ), -1 );
 
 											enemy.pos = newPos;
 											// FIXME
 											if (enemy instanceof Mob) {
-												Dungeon.level.mobPress( (Mob)enemy );
+												Dungeon.depth.mobPress( (Mob)enemy );
 											} else {
-												Dungeon.level.press( newPos, enemy );
+												Dungeon.depth.press( newPos, enemy );
 											}
 
 										}

@@ -19,16 +19,19 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ShadowRatSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.depth;
+import static com.hmdzl.spspd.Dungeon.observe;
+import static com.hmdzl.spspd.Dungeon.shopOnLevel;
 
 
 public class DarkFallen extends Buff {
@@ -36,21 +39,24 @@ public class DarkFallen extends Buff {
 		@Override
 		public boolean act() {
 			int liver = 0;
-			for (Mob mob : Dungeon.level.mobs){
+			for (Mob mob : depth.mobs){
 				if (mob instanceof DarkLiver){
 					liver++;
 				}
 			}
 
-			if (liver < 1){
+			if (liver < 1 && !shopOnLevel()){
 
 				int pos = 0;
 				do{
-					pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-				} while (!Level.passable[pos] || Actor.findChar( pos ) != null);
+					pos = Random.Int(depth.randomRespawnCellMob());
+				} while (!Floor.passable[pos] || Actor.findChar( pos ) != null);
 				DarkLiver.spawnAt(pos);
 				Sample.INSTANCE.play(Assets.SND_BURNING);
+			} else {
+
 			}
+
 
 			spend(TICK);
 			return true;
@@ -77,7 +83,7 @@ public class DarkFallen extends Buff {
 		@Override
 		protected boolean canAttack(Char enemy) {
 			if (Statistics.time > 1080 || Statistics.time < 361){
-				return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+				return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 			} else
 				return false;
 		}
@@ -104,7 +110,7 @@ public class DarkFallen extends Buff {
 		
 		@Override
 		protected boolean act() {
-			if (enemy == null || !Level.adjacent(pos, enemy.pos)) {
+			if (enemy == null || !Floor.adjacent(pos, enemy.pos)) {
 				HP = Math.min(HT, HP + 5);
 			}
 			return super.act();
@@ -139,16 +145,16 @@ public class DarkFallen extends Buff {
 		@Override
 		public void die(Object cause) {
 
-			for (int i : Level.NEIGHBOURS9DIST2) {
+			for (int i : Floor.NEIGHBOURS9DIST2) {
 				int c = pos + i;
-				if ( Level.insideMap(c)) {
-					if (Dungeon.level.discoverable[c]) {
-						Dungeon.level.mapped[c] = true;
+				if ( Floor.insideMap(c)) {
+					if (depth.discoverable[c]) {
+						depth.mapped[c] = true;
 					}
 
-					Dungeon.level.discover(c);
+					depth.discover(c);
 					//GameScene.discoverTile( cell, terr );
-					Dungeon.observe();
+					observe();
 				}
 			}
 

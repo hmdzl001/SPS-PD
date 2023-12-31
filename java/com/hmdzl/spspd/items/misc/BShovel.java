@@ -29,7 +29,7 @@ import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -92,12 +92,12 @@ public class BShovel extends Item {
 		  GLog.i(Messages.get(BShovel.class, "break"));
 		  return;
       	} else {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int c = hero.pos + n;
 
-				if (c >= 0 && c < Level.getLength()) {
-					if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL) && Level.insideMap(c)) {
-						Level.set(c, Terrain.DOOR);
+				if (c >= 0 && c < Floor.getLength()) {
+					if ((Dungeon.depth.map[c] == Terrain.WALL || Dungeon.depth.map[c] == Terrain.GLASS_WALL) && Floor.insideMap(c)) {
+						Floor.set(c, Terrain.DOOR);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}

@@ -31,7 +31,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -47,16 +47,16 @@ public class DisarmingTrap extends Trap{
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		Heap heap = Dungeon.level.heaps.get( pos );
+		Heap heap = Dungeon.depth.heaps.get( pos );
 
 		if (heap != null){
-			int cell = Dungeon.level.randomRespawnCell();
+			int cell = Dungeon.depth.randomRespawnCell();
 
 			if (cell != -1) {
 				Item item = heap.pickUp();
-				Dungeon.level.drop( item, cell ).seen = true;
-				for (int i : Level.NEIGHBOURS9)
-					Dungeon.level.visited[cell+i] = true;
+				Dungeon.depth.drop( item, cell ).seen = true;
+				for (int i : Floor.NEIGHBOURS9)
+					Dungeon.depth.visited[cell+i] = true;
 				Dungeon.observe();
 
 				Sample.INSTANCE.play(Assets.SND_TELEPORT);
@@ -70,14 +70,14 @@ public class DisarmingTrap extends Trap{
 
 			if (weapon != null && !(weapon instanceof Knuckles || weapon instanceof FightGloves) && !weapon.cursed) {
 
-				int cell = Dungeon.level.randomRespawnCell();
+				int cell = Dungeon.depth.randomRespawnCell();
 				if (cell != -1) {
 					hero.belongings.weapon = null;
 					Dungeon.quickslot.clearItem(weapon);
 					weapon.updateQuickslot();
-					Dungeon.level.drop(weapon, cell).seen = true;
-					for (int i : Level.NEIGHBOURS9)
-						Dungeon.level.visited[cell+i] = true;
+					Dungeon.depth.drop(weapon, cell).seen = true;
+					for (int i : Floor.NEIGHBOURS9)
+						Dungeon.depth.visited[cell+i] = true;
 					Dungeon.observe();
 
 					GLog.w( Messages.get(this, "disarm") );

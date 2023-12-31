@@ -31,7 +31,7 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.effects.MagicMissile;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -77,8 +77,8 @@ public class WandOfShatteredFireblast extends DamageWand {
 			}
 
 			//only ignite cells directly near caster if they are flammable
-			if (!Dungeon.level.adjacent(bolt.sourcePos, cell)
-					|| Level.flamable[cell]){
+			if (!Dungeon.depth.adjacent(bolt.sourcePos, cell)
+					|| Floor.flamable[cell]){
 				GameScene.add( Blob.seed( cell, 1+chargesPerCast(), Fire.class ) );
 			}
 
@@ -102,7 +102,7 @@ public class WandOfShatteredFireblast extends DamageWand {
 
 	//firehit... BURNNNNN!.....
 	private void spreadFlames(int cell, float strength){
-		if (strength >= 0 && (Level.passable[cell] || Level.flamable[cell])){
+		if (strength >= 0 && (Floor.passable[cell] || Floor.flamable[cell])){
 			affectedCells.add(cell);
 			if (strength >= 1.5f) {
 				visualCells.remove(cell);
@@ -112,7 +112,7 @@ public class WandOfShatteredFireblast extends DamageWand {
 			} else {
 				visualCells.add(cell);
 			}
-		} else if (!Level.passable[cell])
+		} else if (!Floor.passable[cell])
 			visualCells.add(cell);
 	}
 

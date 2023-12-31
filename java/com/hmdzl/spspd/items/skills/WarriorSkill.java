@@ -43,7 +43,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -72,13 +72,13 @@ public class WarriorSkill extends ClassSkill {
         Buff.affect(curUser,Muscle.class,160f);
 
 		if (Dungeon.hero.lvl > 55) {
-			Dungeon.level.drop(Generator.random(Generator.Category.MELEEWEAPON).upgrade(5).uncurse().identify().reinforce(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-			Dungeon.level.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify().reinforce(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(Generator.Category.MELEEWEAPON).upgrade(5).uncurse().identify().reinforce(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify().reinforce(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 		} else {
 			if (Random.Int(2) == 0) {
-				Dungeon.level.drop(Generator.random(Generator.Category.MELEEWEAPON).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				Dungeon.depth.drop(Generator.random(Generator.Category.MELEEWEAPON).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			} else {
-				Dungeon.level.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				Dungeon.depth.drop(Generator.random(Generator.Category.ARMOR).upgrade(5).uncurse().identify(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			}
 		}
 		WarriorSkill.charge += 20;
@@ -87,9 +87,9 @@ public class WarriorSkill extends ClassSkill {
 	@Override
 	public void doSpecial2() {
 
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos]) {
-				if (Level.distance(curUser.pos, mob.pos) <= 3){
+		for (Mob mob : Dungeon.depth.mobs) {
+			if (Floor.fieldOfView[mob.pos]) {
+				if (Floor.distance(curUser.pos, mob.pos) <= 3){
 					Buff.affect(mob, AttackDown.class,20f).level(10);
 				} else {
 				Buff.affect(mob, Disarm.class, curUser.STR);
@@ -113,7 +113,7 @@ public class WarriorSkill extends ClassSkill {
 	@Override
 	public void doSpecial3() {
 
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof PET) {
 				mob.HP += mob.HT /2;
 			}
@@ -121,7 +121,7 @@ public class WarriorSkill extends ClassSkill {
 		Buff.affect(curUser,ShieldArmor.class).level(curUser.HT/2);
 		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 			Char mob = Actor.findChar(curUser.pos
-					+ Level.NEIGHBOURS8[i]);
+					+ Floor.NEIGHBOURS8[i]);
 			if (mob != null && mob != curUser && !(mob instanceof PET ) ) {
 				mob.damage(curUser.HT /2, Hero.class);
 			}

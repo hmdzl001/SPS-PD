@@ -79,7 +79,7 @@ public class WndAflyInfo extends Window {
 					super.onClick();
 					if (item != null){
 						if (!item.collect()){
-							Dungeon.level.drop(item, hero.pos);
+							Dungeon.depth.drop(item, hero.pos);
 						}
 						item = null;
 						slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
@@ -233,7 +233,7 @@ public class WndAflyInfo extends Window {
 
 			output.item(result);
 			if (!result.collect()){
-				Dungeon.level.drop(result, hero.pos);
+				Dungeon.depth.drop(result, hero.pos);
 			}
 			for (int i = 0; i < (inputs.length ); i++){
 				inputs[i].slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
@@ -250,7 +250,7 @@ public class WndAflyInfo extends Window {
 		for (int i = 0; i < (inputs.length ); i++) {
 			if (inputs[i].item != null){
 				if (!inputs[i].item.collect()){
-					Dungeon.level.drop(inputs[i].item, hero.pos);
+					Dungeon.depth.drop(inputs[i].item, hero.pos);
 				}
 			}
 		}

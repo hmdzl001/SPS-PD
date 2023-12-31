@@ -31,7 +31,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.WaterItem;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SandmobSprite;
 import com.watabou.utils.Random;
@@ -103,7 +103,7 @@ public class SandMob extends Mob {
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 		} else if (buff instanceof Vertigo) {
-			if (Level.water[this.pos])
+			if (Floor.water[this.pos])
 				damage(Random.NormalIntRange(HT / 2, HT), buff);
 			else
 				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
@@ -168,16 +168,16 @@ public class SandMob extends Mob {
 		}
 		
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static MiniSand spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			MiniSand w = new MiniSand();
 			w.pos = pos;
@@ -193,7 +193,7 @@ public class SandMob extends Mob {
 		@Override
 		public void add(Buff buff) {
 			 if (buff instanceof Vertigo) {
-				if (Level.water[this.pos])
+				if (Floor.water[this.pos])
 					damage(Random.NormalIntRange(HT / 2, HT), buff);
 				else
 					damage(Random.NormalIntRange(1, HT * 2 / 3), buff);

@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.MemoryParticle;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.LoadSaveScene;
+import com.hmdzl.spspd.scenes.SaveScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -53,7 +53,7 @@ public class MemoryFire extends Blob {
 	protected void evolve() {
 		volume = off[pos] = cur[pos];
 		Char ch = Actor.findChar( pos );
-		MemoryFire fire = (MemoryFire)Dungeon.level.blobs.get( MemoryFire.class );
+		MemoryFire fire = (MemoryFire)Dungeon.depth.blobs.get( MemoryFire.class );
 		if (ch != null && ch == Dungeon.hero) {
 			if (Dungeon.visible[pos]) {
 				Sample.INSTANCE.play( Assets.SND_BURNING );
@@ -61,12 +61,10 @@ public class MemoryFire extends Blob {
 				Journal.remove( Feature.MEMORY_FIRE );
 				try {
 					Dungeon.saveAll();
+					Game.switchScene(SaveScene.class);
 				} catch (IOException e) {
 					//
 				}
-				Dungeon.canSave=true;
-				Game.switchScene(LoadSaveScene.class);
-		
 			}			
 		}
 		if (Dungeon.visible[pos]) {

@@ -31,7 +31,7 @@ import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -90,8 +90,12 @@ public class Eye extends Mob {
 
 		return beam.subPath(1, beam.dist).contains(enemy.pos);
 	}
-	
-	
+
+	@Override
+	public int damageRoll() {
+		return Random.NormalIntRange(5, 25);
+	}
+
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
@@ -166,16 +170,16 @@ public class Eye extends Mob {
 	
 
 	public static void spawnAroundChance(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null && Random.Float()<0.50f) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null && Random.Float()<0.50f) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static Eye spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			Eye e = new Eye();
 			e.pos = pos;

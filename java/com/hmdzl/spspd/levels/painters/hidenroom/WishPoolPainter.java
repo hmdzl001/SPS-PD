@@ -21,7 +21,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.Hmdzl001;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -29,7 +29,7 @@ import com.watabou.utils.Point;
 
 public class WishPoolPainter extends Painter {
 
-	public static void paint( Level level, Room room ) {
+	public static void paint(Floor level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1, Terrain.EMPTY );
@@ -37,7 +37,7 @@ public class WishPoolPainter extends Painter {
 
 		Point c = room.center();
 		Room.Door door = room.entrance();
-        int pos = c.x + c.y * Level.getWidth();
+        int pos = c.x + c.y * Floor.getWidth();
 		set( level, pos, Terrain.STATUE);
 
 		placeHMDZL(level, room);
@@ -63,25 +63,25 @@ public class WishPoolPainter extends Painter {
 		door.set( Room.Door.Type.HIDDEN );
 	}
 
-    private static Item prize(Level level) {
+    private static Item prize(Floor level) {
         return  Generator.random(Generator.Category.DEW);
     }
 
-    private static Item prize2(Level level) {
+    private static Item prize2(Floor level) {
         return  Generator.random();
     }
 
 
-    private static void placeHMDZL(Level level, Room room) {
+    private static void placeHMDZL(Floor level, Room room) {
         Point center = room.center();
-        int pos = room.center().x + center.y * Level.getWidth();
+        int pos = room.center().x + center.y * Floor.getWidth();
 
         Mob hmdzl = new Hmdzl001();
         hmdzl.pos = pos;
         level.mobs.add(hmdzl);
 
-        for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-            int p = hmdzl.pos + Level.NEIGHBOURS8[i];
+        for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+            int p = hmdzl.pos + Floor.NEIGHBOURS8[i];
             if ( level.map[p] != Terrain.WALL_DECO &&
                     level.map[p] != Terrain.WALL &&
                     level.map[p] != Terrain.DOOR &&
@@ -91,13 +91,13 @@ public class WishPoolPainter extends Painter {
             }
         }
 
-        for (int i = 0; i < Level.NEIGHBOURS8OUT2.length; i++) {
-            int p = hmdzl.pos + Level.NEIGHBOURS8OUT2[i];
+        for (int i = 0; i < Floor.NEIGHBOURS8OUT2.length; i++) {
+            int p = hmdzl.pos + Floor.NEIGHBOURS8OUT2[i];
             if ( level.map[p] != Terrain.WALL_DECO &&
                     level.map[p] != Terrain.WALL &&
                     level.map[p] != Terrain.DOOR &&
                     level.map[p] != Terrain.SECRET_DOOR &&
-                    level.map[p] != Terrain.GLASS_WALL && Level.insideMap(p)) {
+                    level.map[p] != Terrain.GLASS_WALL && Floor.insideMap(p)) {
                 level.map[p] = Terrain.EMPTY_SP;
             }
         }

@@ -51,7 +51,7 @@ public class BlueMilk extends Pill {
 		}
 		
 	   if (action.equals(AC_EAT)) {
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+				for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 					Buff.affect(mob, Slow.class, 50f);
 					Buff.affect(mob, AttackDown.class, 50f).level(50);
 				}

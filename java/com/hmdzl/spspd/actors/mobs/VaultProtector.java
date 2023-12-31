@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.VioletDewdrop;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.VaultProtectorSprite;
 import com.watabou.utils.Random;
@@ -67,7 +67,7 @@ public class VaultProtector extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) { if (buff(Silent.class) != null || !skilluse){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}

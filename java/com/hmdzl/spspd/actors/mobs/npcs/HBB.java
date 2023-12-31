@@ -86,7 +86,7 @@ public class HBB extends NPC {
 			break;
 			case 3:
 				if (Badges.checkOtilukeRescued())
-				Dungeon.level.drop(new Flag(), Dungeon.hero.pos).sprite.drop();
+				Dungeon.depth.drop(new Flag(), Dungeon.hero.pos).sprite.drop();
 			break;
 		}
 		return false;

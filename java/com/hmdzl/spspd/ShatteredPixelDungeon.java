@@ -315,6 +315,15 @@ public class ShatteredPixelDungeon extends Game {
 		return Preferences.INSTANCE.getInt(Preferences.KEY_BASETOOL, 0);
 	}
 
+
+	public static void cameratypes(int value) {
+		Preferences.INSTANCE.put(Preferences.KEY_CAMERA, value);
+	}
+
+	public static int cameratypes() {
+		return Preferences.INSTANCE.getInt(Preferences.KEY_CAMERA, 1);
+	}
+
 	public static void intro(boolean value) {
 		Preferences.INSTANCE.put(Preferences.KEY_INTRO, value);
 	}

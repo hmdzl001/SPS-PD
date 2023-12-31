@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.HugeShuriken;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -59,7 +59,7 @@ public class AssassinSprite extends MobSprite {
 	
 	@Override
 	public void attack(int cell) {
-		if (!Level.adjacent(cell, ch.pos)) {
+		if (!Floor.adjacent(cell, ch.pos)) {
 			Char enemy = Actor.findChar(cell);
 				  ((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
 					cell, new HugeShuriken(), new Callback() {

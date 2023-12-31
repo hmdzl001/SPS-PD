@@ -19,7 +19,7 @@ package com.hmdzl.spspd.levels.features;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
@@ -27,7 +27,7 @@ import com.watabou.noosa.audio.Sample;
 public class Door {
 
 	public static void enter(int pos) {
-		Level.set(pos, Terrain.OPEN_DOOR);
+		Floor.set(pos, Terrain.OPEN_DOOR);
 		GameScene.updateMap(pos);
 		Dungeon.observe();
 
@@ -37,8 +37,8 @@ public class Door {
 	}
 
 	public static void leave(int pos) {
-		if (Dungeon.level.heaps.get(pos) == null) {
-			Level.set(pos, Terrain.DOOR);
+		if (Dungeon.depth.heaps.get(pos) == null) {
+			Floor.set(pos, Terrain.DOOR);
 			GameScene.updateMap(pos);
 			Dungeon.observe();
 		}

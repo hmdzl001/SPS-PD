@@ -34,7 +34,7 @@ import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class FieldBossLevel extends Level {
+public class FieldBossLevel extends Floor {
 
 	{
 		color1 = 0x48763c;

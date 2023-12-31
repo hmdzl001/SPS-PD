@@ -63,49 +63,49 @@ public class RandomEgg extends Item {
 		if (action.equals(AC_USE)) {
 			curUser = hero;
 			if (Random.Int(10) == 0) {
-				Dungeon.level.drop(new VIPcard(), hero.pos).sprite.drop();
+				Dungeon.depth.drop(new VIPcard(), hero.pos).sprite.drop();
 			}
 			if (Random.Int(10) == 0){
-				Dungeon.level.drop(new RandomEasterEgg(), hero.pos).sprite.drop();
+				Dungeon.depth.drop(new RandomEasterEgg(), hero.pos).sprite.drop();
 			} else {
 				final Calendar calendar = Calendar.getInstance();
 				switch (calendar.get(Calendar.MONTH)) {
 
 					case Calendar.JANUARY:
-						Dungeon.level.drop(new RandomEgg1(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg1(), hero.pos).sprite.drop();
 						break;
 					case Calendar.FEBRUARY:
-						Dungeon.level.drop(new RandomEgg2(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg2(), hero.pos).sprite.drop();
 						break;
 					case Calendar.MARCH:
-						Dungeon.level.drop(new RandomEgg3(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg3(), hero.pos).sprite.drop();
 						break;
 					case Calendar.APRIL:
-						Dungeon.level.drop(new RandomEgg4(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg4(), hero.pos).sprite.drop();
 						break;
 					case Calendar.MAY:
-						Dungeon.level.drop(new RandomEgg5(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg5(), hero.pos).sprite.drop();
 						break;
 					case Calendar.JUNE:
-						Dungeon.level.drop(new RandomEgg6(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg6(), hero.pos).sprite.drop();
 						break;
 					case Calendar.JULY:
-						Dungeon.level.drop(new RandomEgg7(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg7(), hero.pos).sprite.drop();
 						break;
 					case Calendar.AUGUST:
-						Dungeon.level.drop(new RandomEgg8(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg8(), hero.pos).sprite.drop();
 						break;
 					case Calendar.SEPTEMBER:
-						Dungeon.level.drop(new RandomEgg9(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg9(), hero.pos).sprite.drop();
 						break;
 					case Calendar.OCTOBER:
-						Dungeon.level.drop(new RandomEgg10(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg10(), hero.pos).sprite.drop();
 						break;
 					case Calendar.NOVEMBER:
-						Dungeon.level.drop(new RandomEgg11(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg11(), hero.pos).sprite.drop();
 						break;
 					case Calendar.DECEMBER:
-						Dungeon.level.drop(new RandomEgg12(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg12(), hero.pos).sprite.drop();
 						break;
 				}
 			}

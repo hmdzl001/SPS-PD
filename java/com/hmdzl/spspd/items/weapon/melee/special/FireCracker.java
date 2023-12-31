@@ -28,7 +28,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -62,15 +62,15 @@ public class FireCracker extends MeleeWeapon {
 		}
 
 		if (Random.Int(100)> 75) {
-            for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+            for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
                 mob.beckon(attacker.pos);
             }
 		}
 
 		if (Random.Int(100)> 50 ){
-			for (int n : Level.NEIGHBOURS9) {
+			for (int n : Floor.NEIGHBOURS9) {
 				int c = defender.pos + n;
-				if (c >= 0 && c < Level.getLength()) {
+				if (c >= 0 && c < Floor.getLength()) {
 					if (Dungeon.visible[c]) {
 						CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 					}

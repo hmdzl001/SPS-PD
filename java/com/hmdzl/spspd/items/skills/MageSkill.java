@@ -36,7 +36,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -44,6 +44,8 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class MageSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
@@ -55,9 +57,9 @@ public class MageSkill extends ClassSkill {
 	@Override
 	public void doSpecial() {
 
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
-				int dmg = (int) (Dungeon.hero.lvl * (1 + 0.1 * Dungeon.hero.magicSkill())) ;
+		for (Mob mob : Dungeon.depth.mobs) {
+			if (Floor.fieldOfView[mob.pos] && (Floor.distance(hero.pos, mob.pos) <= 10)) {
+				int dmg = (int) (hero.lvl * (1 + 0.1 * hero.magicSkill())) ;
 				switch (Random.Int(7)) {
 					case 0:
 						mob.damage(Math.min(mob.HP-10,mob.HT/10 + dmg), DamageType.ENERGY_DAMAGE);
@@ -109,12 +111,12 @@ public class MageSkill extends ClassSkill {
 			}
 		}
 
-		if (Dungeon.hero.lvl > 55) {
-			for (int n : Level.NEIGHBOURS4OUT) {
+		if (hero.lvl > 55) {
+			for (int n : Floor.NEIGHBOURS4OUT) {
 				int c = curUser.pos + n;
-				if (c >= 0 && c < Level.getLength()) {
-					if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL || Dungeon.level.map[c] == Terrain.WALL_DECO) && Level.insideMap(c)) {
-						Level.set(c, Terrain.EMBERS);
+				if (c >= 0 && c < Floor.getLength()) {
+					if ((Dungeon.depth.map[c] == Terrain.WALL || Dungeon.depth.map[c] == Terrain.GLASS_WALL || Dungeon.depth.map[c] == Terrain.WALL_DECO) && Floor.insideMap(c)) {
+						Floor.set(c, Terrain.EMBERS);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}
@@ -140,7 +142,7 @@ public class MageSkill extends ClassSkill {
 		Buff.affect(curUser, Feed.class, 50f);
 		Buff.affect(curUser, HTimprove.class, 100f);
 
-		if (Dungeon.hero.lvl < 56) {
+		if (hero.lvl < 56) {
 			MageSkill.charge += 20;
 		} else {
 			MageSkill.charge += 10;
@@ -158,15 +160,15 @@ public class MageSkill extends ClassSkill {
 	public void doSpecial3() {
 
 		ScrollOfTeleportation.teleportHero(curUser);
-		Dungeon.hero.lvl--;
-		if (Dungeon.hero.lvl < 56) {
-			Dungeon.hero.TRUE_HT -= 10;
+		hero.lvl--;
+		if (hero.lvl < 56) {
+			hero.TRUE_HT -= 10;
 		}
-		if (Dungeon.hero.TRUE_HT<0){
-			Dungeon.hero.die(Messages.format(ResultDescriptions.LOSE));
+		if (hero.TRUE_HT<0){
+			hero.die(Messages.format(ResultDescriptions.LOSE));
 			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		}
-		Dungeon.hero.updateHT(true);
+		hero.updateHT(true);
 
 		MageSkill.charge += 15;
 
@@ -181,10 +183,10 @@ public class MageSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial4() {
-		if (Dungeon.hero.lvl < 56) {
-			Dungeon.level.drop(Generator.random(Generator.Category.WAND).upgrade(5).identify().uncurse(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+		if (hero.lvl < 56) {
+			Dungeon.depth.drop(Generator.random(Generator.Category.WAND).upgrade(5).identify().uncurse(), hero.pos).sprite.drop(hero.pos);
 		} else {
-			Dungeon.level.drop(Generator.random(Generator.Category.WAND).upgrade(5).identify().reinforce().uncurse(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(Generator.Category.WAND).upgrade(5).identify().reinforce().uncurse(), hero.pos).sprite.drop(hero.pos);
 		}
 		Buff.affect(curUser, Recharging.class, 30);
 		MageSkill.charge += 20;

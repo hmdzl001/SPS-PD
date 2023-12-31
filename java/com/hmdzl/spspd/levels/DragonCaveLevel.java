@@ -52,7 +52,7 @@ import com.watabou.utils.Random;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class DragonCaveLevel extends Level {
+public class DragonCaveLevel extends Floor {
 
 
 	{

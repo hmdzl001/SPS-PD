@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.sellitem.Mirror2;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.MirrorSprite;
 import com.watabou.utils.Bundle;
@@ -103,8 +103,8 @@ public class MirrorImage extends NPC {
 
 		if (enemy == null || !enemy.isAlive()) {
 			HashSet<Mob> enemies = new HashSet<Mob>();
-			for (Mob mob : Dungeon.level.mobs) {
-				if (mob.hostile && Level.fieldOfView[mob.pos]) {
+			for (Mob mob : Dungeon.depth.mobs) {
+				if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 					enemies.add(mob);
 				}
 			}
@@ -125,7 +125,7 @@ public class MirrorImage extends NPC {
 
 	@Override
 	public boolean interact() {
-		if (!Level.passable[pos]){
+		if (!Floor.passable[pos]){
 			return true;
 		}
 		if (this.buff(MagicalSleep.class) != null) {

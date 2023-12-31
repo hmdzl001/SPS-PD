@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd;
 
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.Tilemap;
@@ -32,9 +32,9 @@ public class DungeonTilemap extends Tilemap {
 	private static DungeonTilemap instance;
 
 	public DungeonTilemap() {
-		super(Dungeon.level.tilesTex(), new TextureFilm(
-				Dungeon.level.tilesTex(), SIZE, SIZE));
-		map(Dungeon.level.map, Level.getWidth());
+		super(Dungeon.depth.tilesTex(), new TextureFilm(
+				Dungeon.depth.tilesTex(), SIZE, SIZE));
+		map(Dungeon.depth.map, Floor.getWidth());
 
 		instance = this;
 	}
@@ -42,8 +42,8 @@ public class DungeonTilemap extends Tilemap {
 	public int screenToTile(int x, int y) {
 		Point p = camera().screenToCamera(x, y).offset(this.point().negate())
 				.invScale(SIZE).floor();
-		return p.x >= 0 && p.x < Level.getWidth() && p.y >= 0 && p.y < Level.HEIGHT ? p.x
-				+ p.y * Level.getWidth()
+		return p.x >= 0 && p.x < Floor.getWidth() && p.y >= 0 && p.y < Floor.HEIGHT ? p.x
+				+ p.y * Floor.getWidth()
 				: -1;
 	}
 
@@ -72,12 +72,12 @@ public class DungeonTilemap extends Tilemap {
 	}
 
 	public static PointF tileToWorld(int pos) {
-		return new PointF(pos % Level.getWidth(), pos / Level.getWidth()).scale(SIZE);
+		return new PointF(pos % Floor.getWidth(), pos / Floor.getWidth()).scale(SIZE);
 	}
 
 	public static PointF tileCenterToWorld(int pos) {
-		return new PointF((pos % Level.getWidth() + 0.5f) * SIZE,
-				(pos / Level.getWidth() + 0.5f) * SIZE);
+		return new PointF((pos % Floor.getWidth() + 0.5f) * SIZE,
+				(pos / Floor.getWidth() + 0.5f) * SIZE);
 	}
 
 	public static Image tile(int index) {
@@ -88,8 +88,8 @@ public class DungeonTilemap extends Tilemap {
 	
 	public static PointF raisedTileCenterToWorld( int pos ) {
 		return new PointF(
-				(pos % Level.WIDTH + 0.5f) * SIZE,
-				(pos / Level.WIDTH + 0.1f) * SIZE );
+				(pos % Floor.WIDTH + 0.5f) * SIZE,
+				(pos / Floor.WIDTH + 0.1f) * SIZE );
 	}	
 
 	@Override

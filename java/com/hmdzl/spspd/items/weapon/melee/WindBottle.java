@@ -38,6 +38,8 @@ public class WindBottle extends MeleeWeapon {
 
 	public WindBottle() {
 		super(3, 1f, 1f, 2);
+		MIN = 20;
+		MAX = 27;
 	}
 
 	public Item upgrade(boolean enchant) {

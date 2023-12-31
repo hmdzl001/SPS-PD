@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.RedDewdrop;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -121,7 +121,7 @@ public class Shell extends Mob implements Callback {
 
 	@Override
 	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
@@ -129,14 +129,14 @@ public class Shell extends Mob implements Callback {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.distance(pos, enemy.pos) <= 1) {
+		if (Floor.distance(pos, enemy.pos) <= 1) {
 
 			return super.doAttack(enemy);
 
 		} else {
 
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			}			
@@ -147,7 +147,7 @@ public class Shell extends Mob implements Callback {
 				int dmg = Random.Int(Math.round(shellCharge/4), Math.round(shellCharge/2));
 				shellCharge-=dmg;
 				
-				if (Level.water[enemy.pos] && !enemy.flying) {
+				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, this);
@@ -181,12 +181,12 @@ public class Shell extends Mob implements Callback {
 		int heroDmg=0;
 		int mobDmg=Random.Int(1, 2+Math.round(dmg/4));
 		
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 				
 			
-		  if (Level.distance(pos, mob.pos) > 1 && mob.isAlive()){
-			  boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[mob.pos];
+		  if (Floor.distance(pos, mob.pos) > 1 && mob.isAlive()){
+			  boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[mob.pos];
 			
 			
 			  if (visible) {
@@ -206,10 +206,10 @@ public class Shell extends Mob implements Callback {
 			
 		       Char hero=Dungeon.hero;
 		
-		if (Level.distance(pos, hero.pos) > 1){
+		if (Floor.distance(pos, hero.pos) > 1){
 		
-		boolean visibleHero = Level.fieldOfView[pos]
-				|| Level.fieldOfView[hero.pos];
+		boolean visibleHero = Floor.fieldOfView[pos]
+				|| Floor.fieldOfView[hero.pos];
 		if (visibleHero && Random.Int(4) > 2 ) {
 			sprite.zap(hero.pos);
 		}
@@ -235,20 +235,20 @@ public void zapAround(int dmg){
 		int heroDmg=0;
 		int mobDmg=Random.Int(1, 2+Math.round(dmg/4));
 		
-		for (int n : Level.NEIGHBOURS8) {
+		for (int n : Floor.NEIGHBOURS8) {
 			int c = pos + n;
 			
 			Char ch = Actor.findChar(c);
 			if (ch != null && ch != Dungeon.hero && ch.isAlive()) {
 				
-					 boolean visible = Level.fieldOfView[pos]
-							|| Level.fieldOfView[ch.pos];
+					 boolean visible = Floor.fieldOfView[pos]
+							|| Floor.fieldOfView[ch.pos];
 					  
 					  if (visible) {
 						sprite.zap(ch.pos);
 					  }
 					
-			  if (Level.water[ch.pos] && !ch.flying) {
+			  if (Floor.water[ch.pos] && !ch.flying) {
 				  mobDmg *= 1.5f;
 			  }
 			  ch.damage(mobDmg, this);
@@ -268,8 +268,8 @@ public void zapAround(int dmg){
 				}
 				
 				
-				boolean visible = Level.fieldOfView[pos]
-						|| Level.fieldOfView[ch.pos];
+				boolean visible = Floor.fieldOfView[pos]
+						|| Floor.fieldOfView[ch.pos];
 				  
 				  if (visible) {
 					sprite.zap(ch.pos);

@@ -36,6 +36,7 @@ import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Tar;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Generator;
@@ -47,7 +48,7 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.MKbox;
 import com.hmdzl.spspd.items.potions.PotionOfExperience;
 import com.hmdzl.spspd.items.weapon.rockcode.Mlaser;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.messages.Messages;
@@ -106,7 +107,7 @@ public class Hybrid extends Mob {
 	public void move(int step) {
 		super.move(step);
 
-		if (Dungeon.level.map[step] == Terrain.INACTIVE_TRAP) {
+		if (Dungeon.depth.map[step] == Terrain.INACTIVE_TRAP) {
 	       if (state == FLEEING){
 			   Buff.affect(this,EnergyArmor.class).level(200);
 			   yell(Messages.get(this, "shield"));
@@ -148,10 +149,10 @@ public class Hybrid extends Mob {
 	public void damage(int dmg, Object src) {
 		if ( breaks > 2 && dmg > 5){
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			int[] neighbours = { pos + 1, pos - 1, pos + Level.getWidth(),
-					pos - Level.getWidth() };
+			int[] neighbours = { pos + 1, pos - 1, pos + Floor.getWidth(),
+					pos - Floor.getWidth() };
 			for (int n : neighbours) {
 				if (passable[n] && Actor.findChar(n) == null) {
 					candidates.add(n);
@@ -166,7 +167,7 @@ public class Hybrid extends Mob {
 				clone.pos = Random.element(candidates);
 				clone.state = clone.HUNTING;
 
-				if (Dungeon.level.map[clone.pos] == Terrain.DOOR) {
+				if (Dungeon.depth.map[clone.pos] == Terrain.DOOR) {
 					Door.enter(clone.pos);
 				}
 
@@ -185,7 +186,7 @@ public class Hybrid extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override
@@ -197,8 +198,8 @@ public class Hybrid extends Mob {
 	public void die(Object cause) {
 		super.die(cause);
 		GameScene.bossSlain();
-		Dungeon.level.unseal();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+		Dungeon.depth.unseal();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 		Badges.validateBossSlain();
 
 			Badges.Badge badgeToCheck = null;
@@ -229,11 +230,11 @@ public class Hybrid extends Mob {
 					break;			
 		}
 		
-		Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
-	    Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
+		Dungeon.depth.drop(new TomeOfMastery(), pos).sprite.drop();
+	    Dungeon.depth.drop(new Sokoban3(), pos).sprite.drop();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Mlaser(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Mlaser(), Dungeon.hero.pos).sprite.drop();
 		yell(Messages.get(this,"die"));
 		
 	}

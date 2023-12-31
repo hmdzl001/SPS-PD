@@ -33,7 +33,7 @@ import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.reward.CaveReward;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.AlbinoPiranhaSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -64,30 +64,30 @@ public class AlbinoPiranha extends Mob {
 	}
 
 	protected boolean checkwater(int cell){
-		return Level.water[cell];		
+		return Floor.water[cell];
 	}
 	
 		
 	@Override
 	protected boolean act() {
 		
-		if (!Level.water[pos]) {
+		if (!Floor.water[pos]) {
 			die(null);
 			return true;
 					
 				
 		} else {
 			// this causes pirahna to move away when a door is closed on them.
-			Dungeon.level.updateFieldOfView(this);
+			Dungeon.depth.updateFieldOfView(this);
 			enemy = chooseEnemy();
 			if (state == this.HUNTING
-					&& !(enemy.isAlive() && Level.fieldOfView[enemy.pos] && enemy.invisible <= 0)) {
+					&& !(enemy.isAlive() && Floor.fieldOfView[enemy.pos] && enemy.invisible <= 0)) {
 				state = this.WANDERING;
 				int oldPos = pos;
 				int i = 0;
 				do {
 					i++;
-					target = Dungeon.level.randomDestination();
+					target = Dungeon.depth.randomDestination();
 					if (i == 100)
 						return true;
 				} while (!getCloser(target));
@@ -130,24 +130,24 @@ public class AlbinoPiranha extends Mob {
 		
 		explodeDew(pos);
 		if(Random.Int(105-Math.min(Statistics.albinoPiranhasKilled,100))==0){
-		  Dungeon.level.drop(new NutVegetable(), pos).sprite.drop();
+		  Dungeon.depth.drop(new NutVegetable(), pos).sprite.drop();
 		}
 		
 	if(Statistics.albinoPiranhasKilled == 25) {
-			Dungeon.level.drop(new ConchShell(), pos).sprite.drop();
+			Dungeon.depth.drop(new ConchShell(), pos).sprite.drop();
 	}
 		
 	if(Statistics.albinoPiranhasKilled == 50) {
-		Dungeon.level.drop(new SacrificeBook(), pos).sprite.drop();
+		Dungeon.depth.drop(new SacrificeBook(), pos).sprite.drop();
 	}	
 	
 	if(Statistics.albinoPiranhasKilled == 100) {
-		Dungeon.level.drop(new CaveReward(), pos).sprite.drop();
+		Dungeon.depth.drop(new CaveReward(), pos).sprite.drop();
 	}		
 	
 	if (Statistics.goldThievesKilled>99 && Statistics.skeletonsKilled>99 
 			&& Statistics.albinoPiranhasKilled == 100 && Statistics.archersKilled>99){
-	    Dungeon.level.drop(new GoldenNut(), pos).sprite.drop();
+	    Dungeon.depth.drop(new GoldenNut(), pos).sprite.drop();
 	}	
 		
 		
@@ -167,8 +167,8 @@ public class AlbinoPiranha extends Mob {
 			return false;
 		}
 
-		int step = Dungeon.findPath(this, pos, target, Level.water,
-				Level.fieldOfView);
+		int step = Dungeon.findPath(this, pos, target, Floor.water,
+				Floor.fieldOfView);
 		if (step != -1) {
 			move(step);
 			return true;
@@ -179,8 +179,8 @@ public class AlbinoPiranha extends Mob {
 
 	@Override
 	protected boolean getFurther(int target) {
-		int step = Dungeon.flee(this, pos, target, Level.water,
-				Level.fieldOfView);
+		int step = Dungeon.flee(this, pos, target, Floor.water,
+				Floor.fieldOfView);
 		if (step != -1) {
 			move(step);
 			return true;

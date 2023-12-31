@@ -25,13 +25,15 @@
 		android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 		android:allowBackup="false"
 		android:largeHeap="true"
-			android:fullBackupOnly="true"
+		android:fullBackupOnly="true"
 		android:backupAgent="com.hmdzl.spspd.BackupHandler">
 		>
 		<activity
 			android:label="@string/app_name"
 			android:name="com.hmdzl.spspd.ShatteredPixelDungeon"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+			android:exported="true"
+			>
 			<!--android:persistent="true" -->
         <intent-filter >
             <action android:name="android.intent.action.MAIN" />

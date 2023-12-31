@@ -25,7 +25,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.Weapon.Enchantment;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.SentinelSprite;
 import com.watabou.utils.Bundle;
@@ -98,7 +98,7 @@ public class SokobanSentinel extends Mob {
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, Dungeon.depth);
+		return Random.NormalIntRange(0, Dungeon.dungeondepth);
 	}
 
 	@Override
@@ -118,9 +118,9 @@ public class SokobanSentinel extends Mob {
 			return false;
 		}
 
-		int step = Dungeon.findPath(this, pos, target, Level.passable,
-				Level.fieldOfView);
-		if (step != -1 && !Level.avoid[step]) {
+		int step = Dungeon.findPath(this, pos, target, Floor.passable,
+				Floor.fieldOfView);
+		if (step != -1 && !Floor.avoid[step]) {
 			move(step);
 			return true;
 		} else {
@@ -133,23 +133,23 @@ public class SokobanSentinel extends Mob {
 		
 				
 			// this causes pirahna to move away when a door is closed on them.
-			Dungeon.level.updateFieldOfView(this);
+			Dungeon.depth.updateFieldOfView(this);
 			enemy = chooseEnemy();
 			if (state == this.HUNTING
-					&& !(enemy.isAlive() && Level.fieldOfView[enemy.pos] && enemy.invisible <= 0)) {
+					&& !(enemy.isAlive() && Floor.fieldOfView[enemy.pos] && enemy.invisible <= 0)) {
 				state = this.WANDERING;
 				int oldPos = pos;
 				int i = 0;
 				do {
 					i++;
-					target = Dungeon.level.randomDestination();
+					target = Dungeon.depth.randomDestination();
 					if (i == 100)
 						return true;
 				} while (!getCloser(target));
 				moveSprite(oldPos, pos);
 				return true;
 			} else if (state == this.PASSIVE
-					&& !(enemy.isAlive() && Level.fieldOfView[enemy.pos] && enemy.invisible <= 0)){
+					&& !(enemy.isAlive() && Floor.fieldOfView[enemy.pos] && enemy.invisible <= 0)){
 				    state = this.HUNTING;				
 			}
 

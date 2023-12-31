@@ -277,7 +277,7 @@ public class ManyKnive extends Weapon {
 				enchantment.proc(ManyKnive.this, attacker, defender, damage);
 			}
 			if (Random.Int(50)== 0){
-				Dungeon.level.drop(new EscapeKnive(1), defender.pos).sprite.drop();
+				Dungeon.depth.drop(new EscapeKnive(1), defender.pos).sprite.drop();
 			}
 			super.proc(attacker, defender, damage);
 		}

@@ -25,8 +25,10 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.effects.particles.AcidPoolParticle;
+import com.hmdzl.spspd.effects.particles.WoolParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 
 public class AcidWater extends Blob {
@@ -35,7 +37,7 @@ public class AcidWater extends Blob {
 	protected void evolve() {
 
 		int from = WIDTH + 1;
-		int to = Level.getLength() - WIDTH - 1;
+		int to = Floor.getLength() - WIDTH - 1;
 
 		for (int pos = from; pos < to; pos++) {
 
@@ -61,7 +63,7 @@ public class AcidWater extends Blob {
 				Buff.affect(ch, Ooze.class);
 			//}
 
-			Heap heap = Dungeon.level.heaps.get(pos);
+			Heap heap = Dungeon.depth.heaps.get(pos);
 			if (heap != null) heap.earthhit();
 		}
 
@@ -81,7 +83,8 @@ public class AcidWater extends Blob {
 	@Override
 	public void use(BlobEmitter emitter) {
 		super.use(emitter);
-		emitter.pour(Speck.factory(Speck.STENCH), 0.6f);
+		//emitter.pour(Speck.factory(Speck.STENCH), 0.6f);
+		emitter.pour(AcidPoolParticle.FACTORY, 0.1f);
 	}
 	@Override
 	public String tileDesc() {

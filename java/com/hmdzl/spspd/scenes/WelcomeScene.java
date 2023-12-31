@@ -1,6 +1,7 @@
 package com.hmdzl.spspd.scenes;
 
 import com.hmdzl.spspd.Chrome;
+import com.hmdzl.spspd.SPSSettings;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.Archs;
@@ -24,6 +25,8 @@ public class WelcomeScene extends PixelScene {
 
 		int w = Camera.main.width;
 		int h = Camera.main.height;
+
+		final int previousVersion = SPSSettings.version();
 
 		RenderedText title = PixelScene.renderText( Messages.get(this, "title"), 9 );
 		title.hardlight(Window.TITLE_COLOR);
@@ -79,7 +82,6 @@ public class WelcomeScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				super.onClick();
-				//updateVersion(previousVersion);
 				ShatteredPixelDungeon.switchScene(TitleScene.class);
 			}
 		};	

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -41,9 +41,9 @@ public class FishingBomb extends Bomb {
 	public void explode(int cell) {
 		super.explode(cell);
 
-	     	for (int n: Level.NEIGHBOURS9DIST2) {
+	     	for (int n: Floor.NEIGHBOURS9DIST2) {
 			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}
@@ -55,7 +55,7 @@ public class FishingBomb extends Bomb {
 						int count = 20;
 						int pos;
 						do {
-							pos = Dungeon.level.randomRespawnCellFish();
+							pos = Dungeon.depth.randomRespawnCellFish();
 							if (count-- <= 0) {
 								break;
 							}

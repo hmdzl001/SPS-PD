@@ -34,7 +34,7 @@ import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -78,8 +78,8 @@ public class RogueSkill extends ClassSkill {
 			break;
 		    }
 		}
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
+		for (Mob mob : Dungeon.depth.mobs) {
+			if (Floor.fieldOfView[mob.pos] && (Floor.distance(curUser.pos, mob.pos) <= 10)) {
 				Buff.affect(mob, Silent.class,9999f);
 				Buff.affect(mob, Disarm.class,5f);
 				Buff.affect(mob, ArmorBreak.class, 10f).level(50);
@@ -112,9 +112,9 @@ public class RogueSkill extends ClassSkill {
 	@Override
 	public void doSpecial3() {
 		if (Dungeon.hero.lvl > 55) {
-			Dungeon.level.drop(Generator.random(Generator.Category.RING).identify().uncurse().reinforce().upgrade(5), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(Generator.Category.RING).identify().uncurse().reinforce().upgrade(5), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 		} else {
-			Dungeon.level.drop(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(5), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(5), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 		}
 		RogueSkill.charge += 20;
 

@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
@@ -57,9 +57,9 @@ public class Sweb extends RockCode {
 			ch.damage( damageRoll,Dungeon.hero);
 		}
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			int p = bolt.collisionPos + Level.NEIGHBOURS8[i];
-			if ( Level.insideMap(p) && Level.passable[p])
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			int p = bolt.collisionPos + Floor.NEIGHBOURS8[i];
+			if ( Floor.insideMap(p) && Floor.passable[p])
 			GameScene.add(Blob.seed( p , 4, Web.class));
 		}
 	}

@@ -65,13 +65,13 @@ public class CaveReward extends Item {
 			hero.sprite.operate(hero.pos);
 
 			Moonberry berry1 = new Moonberry(10);
-			Dungeon.level.drop(berry1, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(berry1, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			Cloudberry berry2 = new Cloudberry(10);
-			Dungeon.level.drop(berry2, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(berry2, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			Blueberry berry3 = new Blueberry(10);
-			Dungeon.level.drop(berry3, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(berry3, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			Blackberry berry4 = new Blackberry(10);
-			Dungeon.level.drop(berry4, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(berry4, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			detach(hero.belongings.backpack);
 

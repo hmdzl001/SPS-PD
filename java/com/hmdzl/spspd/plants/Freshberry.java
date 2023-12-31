@@ -25,7 +25,7 @@ import com.hmdzl.spspd.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.items.food.fruit.Cloudberry;
 import com.hmdzl.spspd.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -41,19 +41,19 @@ public class Freshberry extends Plant {
 	public void activate(Char ch) {
 		super.activate(ch);
 
-		Dungeon.level.drop(Generator.random(Generator.Category.SEED), pos).sprite.drop(pos);
+		Dungeon.depth.drop(Generator.random(Generator.Category.SEED), pos).sprite.drop(pos);
 	    switch (Random.Int(4)){
 			case 0:
-				Dungeon.level.drop(new Blackberry(), pos).sprite.drop();
+				Dungeon.depth.drop(new Blackberry(), pos).sprite.drop();
 				break;
 			case 1:
-				Dungeon.level.drop(new Blueberry(), pos).sprite.drop();
+				Dungeon.depth.drop(new Blueberry(), pos).sprite.drop();
 				break;
 			case 2:
-				Dungeon.level.drop(new Cloudberry(), pos).sprite.drop();
+				Dungeon.depth.drop(new Cloudberry(), pos).sprite.drop();
 				break;
 			case 3:
-				Dungeon.level.drop(new Moonberry(), pos).sprite.drop();
+				Dungeon.depth.drop(new Moonberry(), pos).sprite.drop();
 				break;
 		}
 
@@ -78,15 +78,15 @@ public class Freshberry extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(Generator.random(Generator.Category.BERRY), c).sprite.drop(pos);
+				Dungeon.depth.drop(Generator.random(Generator.Category.BERRY), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

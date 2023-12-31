@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Roots;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.utils.PathFinder;
@@ -42,7 +42,7 @@ public class EarthBomb extends Bomb {
 		super.explode(cell);
 		ArrayList<Integer> plantCandidates = new ArrayList<>();
 
-		PathFinder.buildDistanceMap( cell, BArray.not(Level.solid, null ), 2 );
+		PathFinder.buildDistanceMap( cell, BArray.not(Floor.solid, null ), 2 );
 		for (int i = 0; i < PathFinder.distance.length; i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				Char ch = Actor.findChar(i);

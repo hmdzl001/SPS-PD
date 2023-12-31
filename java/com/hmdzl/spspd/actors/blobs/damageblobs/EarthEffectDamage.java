@@ -23,9 +23,10 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.effects.BlobEmitter;
+import com.hmdzl.spspd.effects.particles.AcidPoolParticle;
 import com.hmdzl.spspd.effects.particles.LeafParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
 
@@ -37,7 +38,7 @@ public class EarthEffectDamage extends Blob {
 	protected void evolve() {
 
 		int from = WIDTH + 1;
-		int to = Level.getLength() - WIDTH - 1;
+		int to = Floor.getLength() - WIDTH - 1;
 
 
 		for (int pos = from; pos < to; pos++) {
@@ -63,7 +64,7 @@ public class EarthEffectDamage extends Blob {
 		if (ch != null && !ch.isImmune(this.getClass())) {
 			ch.damage(Math.max(1, Random.Int(ch.HP / 100, ch.HP / 50)), EARTH_DAMAGE);
 		}
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {
 			heap.earthhit();
 		}
@@ -83,7 +84,8 @@ public class EarthEffectDamage extends Blob {
 	@Override
 	public void use(BlobEmitter emitter) {
 		super.use(emitter);
-		emitter.start(LeafParticle.LEVEL_SPECIFIC, 0.2f, 0);
+		//emitter.start(LeafParticle.LEVEL_SPECIFIC, 0.2f, 0);
+		emitter.pour(AcidPoolParticle.FACTORY, 0.1f);
 	}
 	@Override
 	public String tileDesc() {

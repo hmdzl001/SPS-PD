@@ -38,7 +38,7 @@ public class ConfusionTrap extends Trap {
 	public void activate(Char ch) {
 		super.activate(ch);
 
-		GameScene.add(Blob.seed(pos, 300 + 20 * Dungeon.depth, ConfusionGas.class));
+		GameScene.add(Blob.seed(pos, 300 + 20 * Dungeon.dungeondepth, ConfusionGas.class));
 
 	}
 }

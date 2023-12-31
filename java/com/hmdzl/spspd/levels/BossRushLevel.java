@@ -34,7 +34,7 @@ import com.watabou.noosa.Scene;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class BossRushLevel extends Level {
+public class BossRushLevel extends Floor {
 
 	{
 		color1 = 0x801500;

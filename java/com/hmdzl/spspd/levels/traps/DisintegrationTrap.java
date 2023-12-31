@@ -30,7 +30,7 @@ import com.hmdzl.spspd.effects.Beam;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -51,12 +51,12 @@ public class DisintegrationTrap extends Trap {
 		if (Dungeon.visible[ pos ]) {
 			sprite.parent.add( new Beam.DeathRay( DungeonTilemap.tileCenterToWorld(pos-1),
 					DungeonTilemap.tileCenterToWorld(pos+1)));
-			sprite.parent.add(new Beam.DeathRay(DungeonTilemap.tileCenterToWorld(pos - Level.WIDTH),
-					DungeonTilemap.tileCenterToWorld(pos + Level.WIDTH)));
+			sprite.parent.add(new Beam.DeathRay(DungeonTilemap.tileCenterToWorld(pos - Floor.WIDTH),
+					DungeonTilemap.tileCenterToWorld(pos + Floor.WIDTH)));
 			Sample.INSTANCE.play( Assets.SND_RAY );
 		}
 
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) heap.explode();
 
 		//Char ch = Actor.findChar(pos);

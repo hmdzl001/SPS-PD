@@ -113,7 +113,7 @@ public class WndTinkerer2 extends Window {
 		
 		ActiveMrDestructo mrd = new ActiveMrDestructo();	
 
-		Dungeon.level.drop(mrd, Dungeon.hero.pos).sprite.drop();
+		Dungeon.depth.drop(mrd, Dungeon.hero.pos).sprite.drop();
 	
 		tinkerer.yell( Messages.get(this, "farewell", Dungeon.hero.givenName()));
 		tinkerer.destroy();
@@ -133,7 +133,7 @@ public class WndTinkerer2 extends Window {
 
 		FairyCard fc = new FairyCard();
 
-		Dungeon.level.drop(fc, Dungeon.hero.pos).sprite.drop();
+		Dungeon.depth.drop(fc, Dungeon.hero.pos).sprite.drop();
 
 		tinkerer.yell( Messages.get(this, "farewell", Dungeon.hero.givenName()));
 		tinkerer.destroy();
@@ -153,7 +153,7 @@ public class WndTinkerer2 extends Window {
 
 		Mobile mob = new Mobile();
 
-		Dungeon.level.drop(mob, Dungeon.hero.pos).sprite.drop();
+		Dungeon.depth.drop(mob, Dungeon.hero.pos).sprite.drop();
 
 		tinkerer.yell( Messages.get(this, "farewell", Dungeon.hero.givenName()));
 		tinkerer.destroy();

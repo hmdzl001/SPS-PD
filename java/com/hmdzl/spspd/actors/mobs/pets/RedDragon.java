@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRage;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.wands.WandOfMeteorite;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.RedDragonSprite;
 import com.watabou.utils.Random;
 
@@ -86,7 +86,7 @@ public class RedDragon extends PET {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override

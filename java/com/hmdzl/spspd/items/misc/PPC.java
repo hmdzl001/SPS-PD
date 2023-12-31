@@ -123,7 +123,7 @@ public class PPC extends Item {
 				hero.sprite.operate(hero.pos);
 				hero.busy();
 				charge -= 2;
-                Dungeon.level.drop(new MindArrow(5), hero.pos).sprite.drop();
+                Dungeon.depth.drop(new MindArrow(5), hero.pos).sprite.drop();
 			} else {
 				super.execute(hero, action);
 

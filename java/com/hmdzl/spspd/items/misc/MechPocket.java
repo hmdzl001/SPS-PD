@@ -58,7 +58,7 @@ public class MechPocket extends Item {
 			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 			curUser.spendAndNext(1f);
 			for(int i=0; i<20; i++) {
-            Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
+            Dungeon.depth.drop(Generator.random(), hero.pos).sprite.drop();
 			}
 			detach(curUser.belongings.backpack);
 		} else {

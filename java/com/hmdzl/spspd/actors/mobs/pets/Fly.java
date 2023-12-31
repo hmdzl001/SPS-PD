@@ -31,7 +31,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.items.potions.PotionOfMending;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.FlySprite;
 import com.watabou.noosa.audio.Sample;
@@ -101,9 +101,9 @@ public class Fly extends PET {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
        
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = enemy.pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null && cooldown == 0) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null && cooldown == 0) {
 				shatter(null, cell);
 				cooldown = Math.max(10,30 - hero.petLevel);
 			}
@@ -119,9 +119,9 @@ public class Fly extends PET {
 		int newPos = pos;
 		if (Actor.findChar(pos) != null) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int c = pos + n;
 				if (passable[c] && Actor.findChar(c) == null) {
 					candidates.add(c);
@@ -197,7 +197,7 @@ public class Fly extends PET {
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, hero.pos) > 6)
+					|| Floor.distance(target, hero.pos) > 6)
 				this.target = target = hero.pos;
 			return super.getCloser(target);
 		}
@@ -206,8 +206,8 @@ public class Fly extends PET {
 			if (enemy == null || !enemy.isAlive() || state == WANDERING) {
 
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]
 							&& mob.state != mob.PASSIVE) {
 						enemies.add(mob);
 					}
@@ -219,7 +219,7 @@ public class Fly extends PET {
 
 		@Override
 		public boolean interact() {
-			if (Level.passable[pos] || hero.flying) {
+			if (Floor.passable[pos] || hero.flying) {
 			int curPos = pos;
 
 			moveSprite(pos, hero.pos);

@@ -22,7 +22,7 @@ import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -49,8 +49,8 @@ public class FlyingProtector extends Mob implements Callback {
 		state = HUNTING;
 		flying = true;
 		
-		HP = HT = 50 + Dungeon.depth * 4;
-		evadeSkill = 4 + Dungeon.depth * 1;
+		HP = HT = 50 + Dungeon.dungeondepth * 4;
+		evadeSkill = 4 + Dungeon.dungeondepth * 1;
 
 		properties.add(Property.ELEMENT);
 	}
@@ -62,17 +62,17 @@ public class FlyingProtector extends Mob implements Callback {
 
 	@Override
 	public int hitSkill(Char target) {
-		return (9 + Dungeon.depth);
+		return (9 + Dungeon.dungeondepth);
 	}
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, Dungeon.depth);
+		return Random.NormalIntRange(0, Dungeon.dungeondepth);
 	}
 
 	@Override
 	protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
@@ -80,14 +80,14 @@ public class FlyingProtector extends Mob implements Callback {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.distance(pos, enemy.pos) <= 1) {
+		if (Floor.distance(pos, enemy.pos) <= 1) {
 
 			return super.doAttack(enemy);
 
 		} else {
 
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			}
@@ -96,7 +96,7 @@ public class FlyingProtector extends Mob implements Callback {
 
 			if (hit(this, enemy, true)) {
 				int dmg = Random.Int(25, 40);
-				if (Level.water[enemy.pos] && !enemy.flying) {
+				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, this);

@@ -24,7 +24,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.levels.ChaosLevel;
 import com.hmdzl.spspd.levels.DeadEndLevel;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.NewRoomLevel;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
@@ -50,28 +50,28 @@ public class Sign {
 
 	public static void read(int pos) {
 
-		if (Dungeon.level instanceof DeadEndLevel) {
+		if (Dungeon.depth instanceof DeadEndLevel) {
 
 			GameScene.show(new WndMessage(Messages.get(Sign.class, "dead_end")));
 
-		} else if (Dungeon.level instanceof ChaosLevel) {
+		} else if (Dungeon.depth instanceof ChaosLevel) {
 
 			GameScene.show(new WndMessage(Messages.get(Sign.class, "chaos")));
 
-		} else if (Dungeon.level instanceof NewRoomLevel) {
+		} else if (Dungeon.depth instanceof NewRoomLevel) {
 
 			GameScene.show(new WndMessage(Messages.get(Sign.class, "new_room_"+ Statistics.roomType)));
 
 		} else {
 
-			int index = Dungeon.depth - 1;
+			int index = Dungeon.dungeondepth - 1;
 
 			if (index < TIPS.length) {
-				GameScene.show(new WndMessage(Messages.get(Sign.class, "tip_"+Dungeon.depth)));
+				GameScene.show(new WndMessage(Messages.get(Sign.class, "tip_"+Dungeon.dungeondepth)));
 
 				if (index >= 21) {
 
-					Level.set(pos, Terrain.EMBERS);
+					Floor.set(pos, Terrain.EMBERS);
 					GameScene.updateMap(pos);
 					GameScene.discoverTile(pos, Terrain.SIGN);
 

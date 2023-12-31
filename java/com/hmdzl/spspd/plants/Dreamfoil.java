@@ -33,7 +33,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.food.vegetable.DreamLeaf;
 import com.hmdzl.spspd.items.potions.PotionOfPurity;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.CharmFruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -48,7 +48,7 @@ public class Dreamfoil extends Plant {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-        Dungeon.level.drop(new DreamLeaf(), pos).sprite.drop();
+        Dungeon.depth.drop(new DreamLeaf(), pos).sprite.drop();
 		if (ch != null) {
 			if (ch instanceof Mob)
 				Buff.affect(ch, MagicalSleep.class);
@@ -85,15 +85,15 @@ public class Dreamfoil extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(new CharmFruit(), c).sprite.drop(pos);
+				Dungeon.depth.drop(new CharmFruit(), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

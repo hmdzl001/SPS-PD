@@ -20,7 +20,6 @@ package com.hmdzl.spspd.items;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
@@ -30,7 +29,6 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -82,7 +80,7 @@ public class Stylus extends Item {
 	}
 
 	private void inscribe(Armor armor) {
-        if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
+
 		detach(curUser.belongings.backpack);
 
 		GLog.w(Messages.get(this,"inscribed"));

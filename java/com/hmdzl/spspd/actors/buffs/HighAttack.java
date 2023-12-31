@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -67,17 +67,17 @@ public class HighAttack extends Buff {
 	public boolean act() {
 
 		if (target.isAlive()) {
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-				final int pos = target.pos + Level.NEIGHBOURS8[i];
-				if (Dungeon.level.map[pos] == Terrain.WALL ||
-						Dungeon.level.map[pos] == Terrain.WALL_DECO ||
-						Dungeon.level.map[pos] == Terrain.WALL_SP ||
-						Dungeon.level.map[pos] == Terrain.CHASM_WALL ||
-						Dungeon.level.map[pos] == Terrain.DOOR ||
-						Dungeon.level.map[pos] == Terrain.OPEN_DOOR||
-						Dungeon.level.map[pos] == Terrain.SECRET_DOOR||
-						Dungeon.level.map[pos] == Terrain.BARRICADE ||
-						Dungeon.level.map[pos] == Terrain.BOOKSHELF
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				final int pos = target.pos + Floor.NEIGHBOURS8[i];
+				if (Dungeon.depth.map[pos] == Terrain.WALL ||
+						Dungeon.depth.map[pos] == Terrain.WALL_DECO ||
+						Dungeon.depth.map[pos] == Terrain.WALL_SP ||
+						Dungeon.depth.map[pos] == Terrain.CHASM_WALL ||
+						Dungeon.depth.map[pos] == Terrain.DOOR ||
+						Dungeon.depth.map[pos] == Terrain.OPEN_DOOR||
+						Dungeon.depth.map[pos] == Terrain.SECRET_DOOR||
+						Dungeon.depth.map[pos] == Terrain.BARRICADE ||
+						Dungeon.depth.map[pos] == Terrain.BOOKSHELF
 						) {
 					nearwall = true;
 				}

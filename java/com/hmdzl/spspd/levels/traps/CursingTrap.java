@@ -52,7 +52,7 @@ public class CursingTrap extends Trap {
 			Sample.INSTANCE.play(Assets.SND_CURSED);
 		}
 
-		Heap heap = Dungeon.level.heaps.get( pos );
+		Heap heap = Dungeon.depth.heaps.get( pos );
 		if (heap != null){
 			for (Item item : heap.items){
 				if (item.isUpgradable())

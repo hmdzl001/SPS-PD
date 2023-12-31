@@ -83,7 +83,7 @@ public class Orc extends Mob {
 		GLog.w(Messages.get(Mob.class,"killcount", Statistics.orcsKilled));
 
 		if (Statistics.orcsKilled %10 == 0){
-			Dungeon.level.drop(new Ankh(), pos).sprite.drop();
+			Dungeon.depth.drop(new Ankh(), pos).sprite.drop();
 		}
 	}
 

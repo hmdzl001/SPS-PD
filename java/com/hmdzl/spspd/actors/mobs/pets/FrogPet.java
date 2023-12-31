@@ -25,7 +25,7 @@ import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.sprites.FrogPetSprite;
 import com.watabou.utils.Random;
@@ -62,7 +62,7 @@ public class FrogPet extends PET {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class FrogPet extends PET {
 	public int attackProc(Char enemy, int damage) {
 		cooldown--;
 		if (damage>enemy.HP && cooldown == 0){
-			Dungeon.level.drop(Generator.random(), pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(), pos).sprite.drop();
 			cooldown = Math.max(15,45 - hero.petLevel);
 		}
 

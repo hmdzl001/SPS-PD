@@ -44,7 +44,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -85,10 +85,10 @@ public class UGoo extends Mob {
 		IceGoo goo4 = new IceGoo();
 
 		
-			goo1.pos = Dungeon.level.randomRespawnCellMob();
-			goo2.pos = Dungeon.level.randomRespawnCellMob();
-			goo3.pos = Dungeon.level.randomRespawnCellMob();
-			goo4.pos = Dungeon.level.randomRespawnCellMob();
+			goo1.pos = Dungeon.depth.randomRespawnCellMob();
+			goo2.pos = Dungeon.depth.randomRespawnCellMob();
+			goo3.pos = Dungeon.depth.randomRespawnCellMob();
+			goo4.pos = Dungeon.depth.randomRespawnCellMob();
 	
 		GameScene.add(goo1);
 		GameScene.add(goo2);
@@ -173,7 +173,7 @@ public class UGoo extends Mob {
 	
 	@Override
 	public void die(Object cause) {
-		for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
+		for (Mob mob : (Iterable<Mob>) Dungeon.depth.mobs.clone()) {
 			if (mob instanceof FireGoo || mob instanceof EarthGoo || mob instanceof Eye || mob instanceof ShockGoo || mob instanceof IceGoo) {
 				mob.die(cause);
 			}
@@ -185,7 +185,7 @@ public class UGoo extends Mob {
 	}	
 	
 	public static UGoo spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			UGoo w = new UGoo();
 			w.pos = pos;
@@ -336,7 +336,7 @@ public class UGoo extends Mob {
 
 		@Override
 		protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}
@@ -344,7 +344,7 @@ public class UGoo extends Mob {
 		@Override
 		public boolean attack(Char enemy) {
 
-			if (!Level.adjacent(pos, enemy.pos)) {
+			if (!Floor.adjacent(pos, enemy.pos)) {
 				spend(attackDelay());
 
 				if (hit(this, enemy, true)) {
@@ -375,8 +375,8 @@ public class UGoo extends Mob {
 		@Override
 		public boolean act() {
 
-			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-				GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2,
+			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+				GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 2,
 						Fire.class));
 			}
 
@@ -449,8 +449,8 @@ public class UGoo extends Mob {
 		@Override
 		public boolean act() {
 
-			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-					GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2,
+			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+					GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 2,
 							SlowGas.class));
 				}
 
@@ -519,7 +519,7 @@ public class UGoo extends Mob {
 
 		@Override
 		protected boolean canAttack(Char enemy) {		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 			return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}

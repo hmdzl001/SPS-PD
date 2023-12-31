@@ -24,7 +24,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.potions.Potion;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Point;
@@ -32,7 +32,7 @@ import com.watabou.utils.Random;
 
 public class CookingPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -45,15 +45,15 @@ public class CookingPainter extends Painter {
 		set(level, pot, Terrain.ALCHEMY);
 
 		Alchemy alchemy = new Alchemy();
-		alchemy.seed(pot.x + Level.getWidth() * pot.y, 1);
+		alchemy.seed(pot.x + Floor.getWidth() * pot.y, 1);
 		level.blobs.put(Alchemy.class, alchemy);
 
-		if (!Dungeon.limitedDrops.shopcart.dropped()){
+		if (!Dungeon.LimitedDrops.shopcart.dropped()){
 			int pos;
 			do {pos = room.random();}
 			while (level.heaps.get(pos) != null);
 			level.drop(new ShoppingCart(), pos);
-			Dungeon.limitedDrops.shopcart.drop();
+			Dungeon.LimitedDrops.shopcart.drop();
 		}
 
 		int n = Random.IntRange(1, 2);
@@ -77,10 +77,10 @@ public class CookingPainter extends Painter {
 		}
 
 		entrance.set(Room.Door.Type.LOCKED);
-		level.addItemToSpawn(new IronKey(Dungeon.depth));
+		level.addItemToSpawn(new IronKey(Dungeon.dungeondepth));
 	}
 
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
 
 		Item prize = level.findPrizeItem(Potion.class);
 		if (prize == null)
@@ -89,7 +89,7 @@ public class CookingPainter extends Painter {
 		return prize;
 	}
 	
-	private static Item prize2(Level level) {
+	private static Item prize2(Floor level) {
 
 		Item prize = level.findPrizeItem(Potion.class);
 		if (prize == null)

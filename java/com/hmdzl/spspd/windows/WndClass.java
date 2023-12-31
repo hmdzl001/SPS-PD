@@ -30,7 +30,7 @@ import com.watabou.noosa.Group;
 
 public class WndClass extends WndTabbed {
 
-	private static final int WIDTH			= 110;
+	private static final int WIDTH	= 110;
 
 	private static final int TAB_WIDTH	= 50;
 
@@ -38,6 +38,8 @@ public class WndClass extends WndTabbed {
 
 	private PerksTab tabPerks;
 	private MasteryTab tabMastery;
+
+	private SkinTab tabSkin;
 
 	public WndClass( HeroClass cl ) {
 
@@ -52,15 +54,21 @@ public class WndClass extends WndTabbed {
 		tab.setSize( TAB_WIDTH, tabHeight() );
 		add( tab );
 
-			tabMastery = new MasteryTab();
-			add( tabMastery );
+		tabMastery = new MasteryTab();
+		add( tabMastery );
 
-			tab = new RankingTab( Messages.get(this, "mastery"), tabMastery );
-			add( tab );
+		tab = new RankingTab( Messages.get(this, "mastery"), tabMastery );
+		add( tab );
 
-			resize(
-					(int)Math.max( tabPerks.width, tabMastery.width ),
-					(int)Math.max( tabPerks.height, tabMastery.height ) );
+		tabSkin = new SkinTab();
+		add( tabSkin );
+
+		tab = new RankingTab( Messages.get(this, "skin"), tabSkin );
+		add( tab );
+
+		resize(
+					(int)Math.max( tabPerks.width, Math.max(tabMastery.width, tabSkin.width)  ),
+					(int)Math.max( tabPerks.height, Math.max(tabMastery.height,tabSkin.height)) );
 
 
 		layoutTabs();
@@ -163,13 +171,109 @@ public class WndClass extends WndTabbed {
 					break;
 				case SOLDIER:
 					message = HeroSubClass.AGENT.desc() + "\n\n" + HeroSubClass.LEADER.desc();
-					break;	
+					break;
 				case FOLLOWER:
 					message = HeroSubClass.PASTOR.desc() + "\n\n" + HeroSubClass.ARTISAN.desc();
 					break;
-			    case ASCETIC:
+				case ASCETIC:
 					message = HeroSubClass.MONK.desc() + "\n\n" + HeroSubClass.HACKER.desc();
-					break;						
+					break;
+
+			}
+
+			RenderedTextMultiline text = PixelScene.renderMultiline( 6 );
+			text.text( message, WIDTH - MARGIN * 2 );
+			text.setPos( MARGIN, MARGIN );
+			add( text );
+
+			height = text.bottom() + MARGIN;
+			width = text.right() + MARGIN;
+		}
+	}
+
+	private class SkinTab extends Group {
+
+		private static final int MARGIN	= 4;
+
+		public float height;
+		public float width;
+
+		public SkinTab() {
+			super();
+			String message = null;
+			switch (cl) {
+				case WARRIOR:
+					message = Messages.get(WndClass.class, "warrior_skin1") + "\n\n" +
+							Messages.get(WndClass.class, "warrior_skin2") + "\n\n" +
+							Messages.get(WndClass.class, "warrior_skin3") + "\n\n" +
+							Messages.get(WndClass.class, "warrior_skin4") + "\n\n" +
+
+							Messages.get(WndClass.class, "warrior_skin6") + "\n\n" +
+							Messages.get(WndClass.class, "warrior_skin7");
+					break;
+				case MAGE:
+					message = Messages.get(WndClass.class, "mage_skin1") + "\n\n" +
+							Messages.get(WndClass.class, "mage_skin2") + "\n\n" +
+							Messages.get(WndClass.class, "mage_skin3") + "\n\n" +
+							Messages.get(WndClass.class, "mage_skin4") + "\n\n" +
+
+							Messages.get(WndClass.class, "mage_skin6") + "\n\n" +
+							Messages.get(WndClass.class, "mage_skin7");
+					break;
+				case ROGUE:
+					message = Messages.get(WndClass.class, "rogue_skin1") + "\n\n" +
+							Messages.get(WndClass.class, "rogue_skin2") + "\n\n" +
+							Messages.get(WndClass.class, "rogue_skin3") + "\n\n" +
+							Messages.get(WndClass.class, "rogue_skin4") + "\n\n" +
+
+							Messages.get(WndClass.class, "rogue_skin6") + "\n\n" +
+							Messages.get(WndClass.class, "rogue_skin7");
+					break;
+				case HUNTRESS:
+					message = Messages.get(WndClass.class, "huntress_skin1") + "\n\n" +
+							Messages.get(WndClass.class, "huntress_skin2") + "\n\n" +
+							Messages.get(WndClass.class, "huntress_skin3") + "\n\n" +
+							Messages.get(WndClass.class, "huntress_skin4") + "\n\n" +
+
+							Messages.get(WndClass.class, "huntress_skin6") + "\n\n" +
+							Messages.get(WndClass.class, "huntress_skin7");
+					break;
+				case PERFORMER:
+					message = Messages.get(WndClass.class, "performer_skin1") + "\n\n" +
+							Messages.get(WndClass.class, "performer_skin2") + "\n\n" +
+							Messages.get(WndClass.class, "performer_skin3") + "\n\n" +
+							Messages.get(WndClass.class, "performer_skin4") + "\n\n" +
+
+							Messages.get(WndClass.class, "performer_skin6") + "\n\n" +
+							Messages.get(WndClass.class, "performer_skin7");
+					break;
+				case SOLDIER:
+					message = Messages.get(WndClass.class, "soldier_skin1") + "\n\n" +
+							Messages.get(WndClass.class, "soldier_skin2") + "\n\n" +
+							Messages.get(WndClass.class, "soldier_skin3") + "\n\n" +
+							Messages.get(WndClass.class, "soldier_skin4") + "\n\n" +
+
+							Messages.get(WndClass.class, "soldier_skin6") + "\n\n" +
+							Messages.get(WndClass.class, "soldier_skin7");
+					break;
+				case FOLLOWER:
+					message = Messages.get(WndClass.class, "follower_skin1") + "\n\n" +
+							Messages.get(WndClass.class, "follower_skin2") + "\n\n" +
+							Messages.get(WndClass.class, "follower_skin3") + "\n\n" +
+							Messages.get(WndClass.class, "follower_skin4") + "\n\n" +
+
+							Messages.get(WndClass.class, "follower_skin6") + "\n\n" +
+							Messages.get(WndClass.class, "follower_skin7");
+					break;
+				case ASCETIC:
+					message = Messages.get(WndClass.class, "ascetic_skin1") + "\n\n" +
+							Messages.get(WndClass.class, "ascetic_skin2") + "\n\n" +
+							Messages.get(WndClass.class, "ascetic_skin3") + "\n\n" +
+							Messages.get(WndClass.class, "ascetic_skin4") + "\n\n" +
+
+							Messages.get(WndClass.class, "ascetic_skin6") + "\n\n" +
+							Messages.get(WndClass.class, "ascetic_skin7");
+					break;
 			}
 
 			RenderedTextMultiline text = PixelScene.renderMultiline( 6 );

@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Shadows;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.ShaftParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -35,9 +35,9 @@ public class Foliage extends Blob {
 	protected void evolve() {
 
 		int from = WIDTH + 1;
-		int to = Level.getLength() - WIDTH - 1;
+		int to = Floor.getLength() - WIDTH - 1;
 
-		int[] map = Dungeon.level.map;
+		int[] map = Dungeon.depth.map;
 		boolean regrowth = false;
 
 		boolean visible = false;

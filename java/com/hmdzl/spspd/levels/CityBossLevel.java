@@ -35,7 +35,7 @@ import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class CityBossLevel extends Level {
+public class CityBossLevel extends Floor {
 
 	{
 		color1 = 0x4b6636;
@@ -178,7 +178,7 @@ public class CityBossLevel extends Level {
 			enteredArena = true;
 			seal();
 
-			Mob boss = Bestiary.mob(Dungeon.depth);
+			Mob boss = Bestiary.mob(Dungeon.dungeondepth);
 			//Mob tomb = new DwarfKingTomb();
 			boss.state = boss.HUNTING;
 			int count = 0;

@@ -51,11 +51,11 @@ public class DeathCap extends Pill {
 		}
 		
 	   if (action.equals(AC_EAT)) {
-		   for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+		   for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			   Buff.affect(mob, BeOld.class).set(50);
 			   Buff.affect(mob, BeCorrupt.class).level(50);
 		   }
-		   int damage = Math.max(0,(Dungeon.depth) - Random.IntRange(0, hero.drRoll()));
+		   int damage = Math.max(0,(Dungeon.dungeondepth) - Random.IntRange(0, hero.drRoll()));
 		   hero.damage(Math.max(1,Math.round(hero.HP/2)), this);
 		   Buff.prolong(hero, Cripple.class, Cripple.DURATION);
 

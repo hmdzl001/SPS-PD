@@ -36,7 +36,7 @@ import com.watabou.utils.Random;
 
 import java.util.HashSet;
 
-public class NewRoomLevel extends Level {
+public class NewRoomLevel extends Floor {
 
 
 	{

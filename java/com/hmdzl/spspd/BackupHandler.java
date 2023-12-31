@@ -52,6 +52,7 @@ public class BackupHandler extends BackupAgent {
 		
 		//store game data
 		fullBackupFile(FileUtils.getFile( getFilesDir(), Rankings.RANKINGS_FILE ), data);
+
 	}
 	
 }

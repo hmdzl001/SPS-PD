@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.blobs.damageblobs.ShockEffectDamage;
 import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Shocked;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -61,9 +61,9 @@ public class ShockFruit extends Arrows {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
 			GameScene.add(Blob.seed(cell, 4, ElectriShock.class));
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int c = cell + n;
-				if (c >= 0 && c < Level.getLength()) {
+				if (c >= 0 && c < Floor.getLength()) {
 					GameScene.add(Blob.seed(c, 4, ShockEffectDamage.class));
 				}
 			}

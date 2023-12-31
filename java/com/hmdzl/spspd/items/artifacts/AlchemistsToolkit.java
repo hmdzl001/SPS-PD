@@ -96,7 +96,7 @@ public class AlchemistsToolkit extends Artifact {
 			curUser.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 			curUser.spendAndNext(1f);
 			for(int i=0; i<level; i++) {
-            Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
+            Dungeon.depth.drop(Generator.random(), hero.pos).sprite.drop();
 			}
 			detach(curUser.belongings.backpack);
 			} else {

@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Flare;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -50,8 +50,8 @@ public class ScrollOfTerror extends Scroll {
 
 		int count = 0;
 		Mob affected = null;
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff.affect(mob, Terror.class, Terror.DURATION).object = curUser
 						.id();
 				Buff.affect(mob, HasteBuff.class, Terror.DURATION*.5f);
@@ -67,8 +67,8 @@ public class ScrollOfTerror extends Scroll {
 	@Override
 	public void empoweredRead() {
 		doRead();
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Terror t = mob.buff(Terror.class);
 				if (t != null){
 					Buff.prolong(mob, Terror.class, Terror.DURATION*1.5f).object = curUser

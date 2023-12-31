@@ -46,7 +46,7 @@ import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
 import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.MoneyPack;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BeastYearSprite;
@@ -103,7 +103,7 @@ public class YearBeast2 extends Mob {
 	}
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 	@Override
 	public int attackProc(Char enemy, int damage) {
@@ -136,14 +136,14 @@ public class YearBeast2 extends Mob {
 						hero.belongings.weapon = null;
 						Dungeon.quickslot.clearItem(weapon);
 					    weapon.updateQuickslot();
-						Dungeon.level.drop(weapon, hero.pos).sprite.drop();
+						Dungeon.depth.drop(weapon, hero.pos).sprite.drop();
 						GLog.w(Messages.get(this, "disarm"));
 					}
 				} else {
 					if (armor != null && !(armor instanceof WoodenArmor || armor instanceof RubberArmor || armor instanceof BaseArmor)
 							&& !armor.cursed) {
 						hero.belongings.armor = null;
-						Dungeon.level.drop(armor, hero.pos).sprite.drop();
+						Dungeon.depth.drop(armor, hero.pos).sprite.drop();
 						GLog.w(Messages.get(this, "disarm"));
 					}
 				}
@@ -186,7 +186,7 @@ public class YearBeast2 extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		Dungeon.level.drop(new YearPetEgg(), pos).sprite.drop();
+		Dungeon.depth.drop(new YearPetEgg(), pos).sprite.drop();
 	}
 
 	@Override

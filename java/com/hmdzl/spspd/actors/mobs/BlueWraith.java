@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BlueWraithSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
@@ -82,13 +82,13 @@ public class BlueWraith extends Wraith  {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}		
 	
 	public static BlueWraith spawnAt(int pos) {
 		
         BlueWraith b = new BlueWraith();  
-        b.adjustStats(Dungeon.depth);
+        b.adjustStats(Dungeon.dungeondepth);
  		b.pos = pos;
  		b.state = b.HUNTING;
  		GameScene.add(b, SPAWN_DELAY);

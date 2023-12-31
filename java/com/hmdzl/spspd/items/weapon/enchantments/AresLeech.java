@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
@@ -48,9 +48,9 @@ public class AresLeech extends Weapon.Enchantment {
 		int maxValue = damage * (level + 2) / (level + 6);
 		int effValue = Math.min(Random.IntRange(0, maxValue), attacker.HT - attacker.HP);
 		
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 
-		if (Level.distance(attacker.pos, mob.pos) < distance && mob.isAlive() ){
+		if (Floor.distance(attacker.pos, mob.pos) < distance && mob.isAlive() ){
 			  if(effValue<mob.HP){
 				   weapon.charge++;
 				}	

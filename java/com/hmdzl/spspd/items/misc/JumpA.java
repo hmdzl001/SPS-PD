@@ -19,15 +19,15 @@ package com.hmdzl.spspd.items.misc;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.InfJump;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -87,7 +87,7 @@ public class JumpA extends Item {
 			if (target != null && target != curUser.pos) {
 				Ballistica route = new Ballistica(curUser.pos, target, (Ballistica.STOP_TARGET | Ballistica.STOP_TERRAIN));
 				int cell = route.collisionPos;
-				int dist = Level.distance(curUser.pos, cell);
+				int dist = Floor.distance(curUser.pos, cell);
 				int range = 4;
 				//if (Actor.findChar( cell ) != null && cell != curUser.pos)
 					//cell = route.path.get(route.dist-1);
@@ -101,10 +101,10 @@ public class JumpA extends Item {
 				ScrollOfTeleportation.appear( curUser, dest );
 				CellEmitter.get(dest).burst(Speck.factory(Speck.WOOL), 10);
 				Sample.INSTANCE.play(Assets.SND_PUFF);
-				Dungeon.level.press( dest, curUser );
+				Dungeon.depth.press( dest, curUser );
 				Dungeon.observe();
 				if (Random.Int(10) < 4 ){
-					Buff.affect(curUser, Arcane.class, 10f);
+					Buff.affect(curUser, HasteBuff.class, 4f);
 				}
 				if(curUser.buff(InfJump.class) == null){
 				    charge -= 20;

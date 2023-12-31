@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
@@ -43,7 +44,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.rockcode.Lbox;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -90,8 +91,8 @@ public class LichDancer extends Mob {
 		BatteryTomb a = new BatteryTomb();
 		a.pos = Terrain.PEDESTAL;
 			do {
-				a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-			} while (Dungeon.level.map[a.pos] != Terrain.PEDESTAL
+				a.pos = Random.Int(Dungeon.depth.randomRespawnCellMob());
+			} while (Dungeon.depth.map[a.pos] != Terrain.PEDESTAL
 					|| Actor.findChar(a.pos) != null);
 			GameScene.add(a);
 	}
@@ -125,7 +126,7 @@ public class LichDancer extends Mob {
 
 			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 				int p = enemy.pos + PathFinder.NEIGHBOURS8[i];
-				if (Actor.findChar( p ) == null && (Level.passable[p] || Level.avoid[p])) {
+				if (Actor.findChar( p ) == null && (Floor.passable[p] || Floor.avoid[p])) {
 					spawnPoints.add( p );
 				}
 			}
@@ -150,8 +151,8 @@ public class LichDancer extends Mob {
 	private void jump() {
 		int newPos;
 		do {
-			newPos = Random.Int(Level.getLength());
-		} while (Dungeon.level.map[newPos] != Terrain.WELL && Dungeon.level.map[newPos] != Terrain.STATUE_SP);
+			newPos = Random.Int(Floor.getLength());
+		} while (Dungeon.depth.map[newPos] != Terrain.WELL && Dungeon.depth.map[newPos] != Terrain.STATUE_SP);
 		sprite.move(pos, newPos);
 		move(newPos);
 
@@ -198,17 +199,17 @@ public class LichDancer extends Mob {
 	@Override
 	public void die(Object cause) {
 
-		 Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
+		 Dungeon.depth.drop(new Sokoban4(), pos).sprite.drop();
 		 
 		 GameScene.bossSlain();
-		Dungeon.level.unseal();
+		Dungeon.depth.unseal();
 
-		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();
+		Dungeon.depth.drop(new ArmorKit(), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Lbox(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Lbox(), Dungeon.hero.pos).sprite.drop();
 
 		Badges.validateBossSlain();
 		//summonLiches(findTomb);
@@ -225,8 +226,8 @@ public class LichDancer extends Mob {
     public boolean checkBattery() {
 
         int batteryAlive = 0;
-        if (Dungeon.level.mobs != null) {
-            for (Mob mob : Dungeon.level.mobs) {
+        if (Dungeon.depth.mobs != null) {
+            for (Mob mob : Dungeon.depth.mobs) {
                 if (mob instanceof BatteryTomb) {
                     batteryAlive++;
                 }
@@ -284,7 +285,7 @@ public class LichDancer extends Mob {
 	@Override
     public boolean act() {
 
-        if( Random.Int(20) == 0 && Dungeon.level.mobs.size()< 6) {
+        if( Random.Int(20) == 0 && Dungeon.depth.mobs.size()< 6) {
 			ManySkeleton.spawnAround(pos);
         } 
         return super.act();

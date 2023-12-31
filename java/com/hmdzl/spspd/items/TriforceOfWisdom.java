@@ -54,7 +54,7 @@ public class TriforceOfWisdom extends Item {
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
 
-			if (Dungeon.level != null && Dungeon.depth==33) {
+			if (Dungeon.depth != null && Dungeon.dungeondepth ==33) {
 				Dungeon.triforceofwisdom= true;							
 			}
 
@@ -67,7 +67,7 @@ public class TriforceOfWisdom extends Item {
 	@Override
 	public void doDrop(Hero hero) {
 		
-			if (Dungeon.level != null && Dungeon.depth==33) {
+			if (Dungeon.depth != null && Dungeon.dungeondepth ==33) {
 				Dungeon.triforceofwisdom= false;							
 			}
 		

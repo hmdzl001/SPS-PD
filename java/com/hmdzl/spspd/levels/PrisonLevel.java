@@ -35,6 +35,7 @@ import com.hmdzl.spspd.levels.traps.DewTrap;
 import com.hmdzl.spspd.levels.traps.FlashingTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
+import com.hmdzl.spspd.levels.traps.KnowledgeTrap;
 import com.hmdzl.spspd.levels.traps.ParalyticTrap;
 import com.hmdzl.spspd.levels.traps.PoisonTrap;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
@@ -90,7 +91,7 @@ public class PrisonLevel extends RegularLevel {
 		return new Class[]{ PoisonTrap.class, SpearTrap.class, ToxicTrap.class,
 				AlarmTrap.class, FlashingTrap.class, GrippingTrap.class,
 				ParalyticTrap.class, ConfusionTrap.class, FlockTrap.class,
-				SummoningTrap.class, TeleportationTrap.class, BoundTrap.class, DewTrap.class,
+				SummoningTrap.class, TeleportationTrap.class, BoundTrap.class, DewTrap.class,  KnowledgeTrap.class,
 				FireDamageTrap.class, IceDamageTrap.class, ShockDamageTrap.class, EarthDamageTrap.class,
 				LightDamageTrap.class, DarkDamageTrap.class};
 	}
@@ -100,7 +101,7 @@ public class PrisonLevel extends RegularLevel {
 		return new float[]{ 4, 4, 4,
 				3, 4, 3,
 				2, 2, 1,
-				2, 1, 5, 3,
+				2, 1, 5, 3, 1,
 				3, 3, 3, 3,
 		        3, 3};
 	}	
@@ -120,7 +121,7 @@ public class PrisonLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 400+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.dungeondepth] = 400+(Dungeon.dungeondepth *50)+(secretDoors*20);
 	}
 
 	@Override
@@ -134,7 +135,7 @@ public class PrisonLevel extends RegularLevel {
 	}
 
 	public static void spawnSkeleton(PrisonLevel level) {
-		if (Dungeon.depth == 9 ){
+		if (Dungeon.dungeondepth == 9){
 
 			MossySkeleton skeleton = new MossySkeleton();
 			do {
@@ -198,7 +199,7 @@ public class PrisonLevel extends RegularLevel {
 		}
 
 		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
-			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Floor.insideMap(i)) {
 
 				map[i] = Terrain.GLASS_WALL;
 			}
@@ -244,7 +245,7 @@ public class PrisonLevel extends RegularLevel {
 		addVisuals(this, scene);
 	}
 
-	public static void addVisuals(Level level, Scene scene) {
+	public static void addVisuals(Floor level, Scene scene) {
 		for (int i = 0; i < getLength(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
 				scene.add(new Torch(i));

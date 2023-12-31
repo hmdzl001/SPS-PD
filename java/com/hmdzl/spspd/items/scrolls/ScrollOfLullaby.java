@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Drowsy;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -47,8 +47,8 @@ public class ScrollOfLullaby extends Scroll {
 		Sample.INSTANCE.play(Assets.SND_LULLABY);
 		Invisibility.dispel();
 
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff.affect(mob, Drowsy.class);
 				Buff.affect(mob, AttackDown.class,10f).level(50);
 				Buff.affect(mob, ArmorBreak.class,10f).level(50);
@@ -71,8 +71,8 @@ public class ScrollOfLullaby extends Scroll {
 	@Override
 	public void empoweredRead() {
 		doRead();
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff drowsy = mob.buff(Drowsy.class);
 				if (drowsy != null) drowsy.act();
 			}

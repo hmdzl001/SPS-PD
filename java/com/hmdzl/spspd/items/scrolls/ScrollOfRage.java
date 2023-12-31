@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.mobs.Mimic;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -43,15 +43,15 @@ public class ScrollOfRage extends Scroll {
 	@Override
 	public void doRead() {
 
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			mob.beckon(curUser.pos);
-			if (Level.fieldOfView[mob.pos]) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff.prolong(mob, Amok.class, 5f);
 				Buff.affect(mob, Silent.class, 20f);
 			}
 		}
 
-		for (Heap heap : Dungeon.level.heaps.values()) {
+		for (Heap heap : Dungeon.depth.heaps.values()) {
 			if (heap.type == Heap.Type.MIMIC) {
 				Mimic m = Mimic.spawnAt(heap.pos, heap.items);
 				if (m != null) {
@@ -74,8 +74,8 @@ public class ScrollOfRage extends Scroll {
 	
 	@Override
 	public void empoweredRead() {
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff.prolong(mob, Amok.class, 10f);
 				Buff.affect(mob, Silent.class, 40f);
 			}

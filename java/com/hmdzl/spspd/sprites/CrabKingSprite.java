@@ -19,7 +19,7 @@ package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Wave;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;
@@ -63,7 +63,7 @@ public class CrabKingSprite extends MobSprite {
 
 		isMoving = true;
 
-		if (Level.water[to]) {
+		if (Floor.water[to]) {
 			GameScene.ripple(to);
 		}
 
@@ -72,7 +72,7 @@ public class CrabKingSprite extends MobSprite {
 
 	@Override
 	public void attack(int cell) {
-		if (!Level.adjacent(cell, ch.pos)) {
+		if (!Floor.adjacent(cell, ch.pos)) {
 			//Char enemy = Actor.findChar(cell);
 				  ((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
 					cell, new Wave(), new Callback() {

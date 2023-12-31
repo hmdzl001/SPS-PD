@@ -47,7 +47,7 @@ public class Regeneration extends Buff {
 				} else {
 					spend(Math.max(REGENERATION_DELAY - 2*regenBuff.level(), 5f));
 				}
-			} else if (Dungeon.hero.heroClass== HeroClass.PERFORMER && Dungeon.skins == 2) {
+			} else if (Dungeon.hero.heroClass== HeroClass.PERFORMER && Hero.skins == 2) {
 				spend(REGENERATION_DELAY*0.6f);
 			} else	{ spend(REGENERATION_DELAY);}
 

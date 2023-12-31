@@ -30,7 +30,7 @@ import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Identification;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -48,14 +48,14 @@ public class WaterOfAwareness extends WellWater {
 
 		hero.belongings.observe();
 
-		for (int i = 0; i < Level.getLength(); i++) {
+		for (int i = 0; i < Floor.getLength(); i++) {
 
-			int terr = Dungeon.level.map[i];
+			int terr = Dungeon.depth.map[i];
 			if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
 
 				//Level.set(i, Terrain.discover(terr));
 				//GameScene.updateMap(i);
-                Dungeon.level.discover( i );
+                Dungeon.depth.discover( i );
 				
 				if (Dungeon.visible[i]) {
 					GameScene.discoverTile(i, terr);

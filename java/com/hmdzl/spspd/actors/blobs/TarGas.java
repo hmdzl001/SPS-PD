@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.utils.Random;
@@ -51,7 +51,7 @@ public class TarGas extends Blob {
 			}				
         }
 		
-        Blob blob = Dungeon.level.blobs.get( Fire.class );
+        Blob blob = Dungeon.depth.blobs.get( Fire.class );
         if (blob != null) {
 
             for (int pos=0; pos < LENGTH; pos++) {
@@ -60,7 +60,7 @@ public class TarGas extends Blob {
 
                     int flammability = 0;
 
-                    for (int n : Level.NEIGHBOURS8) {
+                    for (int n : Floor.NEIGHBOURS8) {
                         if ( blob.cur[ pos + n ] > 0 ) {
                             flammability++;
                         }

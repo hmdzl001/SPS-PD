@@ -22,7 +22,7 @@ package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
@@ -83,8 +83,8 @@ public class TrapSprite extends Image {
 		alpha( 1f );
 
 		pos = trap.pos;
-		x = (pos % Level.WIDTH) * DungeonTilemap.SIZE;
-		y = (pos / Level.WIDTH) * DungeonTilemap.SIZE;
+		x = (pos % Floor.WIDTH) * DungeonTilemap.SIZE;
+		y = (pos / Floor.WIDTH) * DungeonTilemap.SIZE;
 
 	}
 

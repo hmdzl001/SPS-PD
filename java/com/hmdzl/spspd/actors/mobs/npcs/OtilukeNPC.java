@@ -71,7 +71,7 @@ public class OtilukeNPC extends NPC {
 
 		sprite.turnTo(pos, Dungeon.hero.pos);
 		if (!seenBefore) {
-			Dungeon.level.drop(new Amulet(), Dungeon.hero.pos).sprite.drop();
+			Dungeon.depth.drop(new Amulet(), Dungeon.hero.pos).sprite.drop();
 		} seenBefore = true;
 		switch (Random.Int (3)) {
             case 0:

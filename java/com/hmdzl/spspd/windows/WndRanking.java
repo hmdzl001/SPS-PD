@@ -20,6 +20,7 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.Rankings;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.hero.Belongings;
 import com.hmdzl.spspd.items.Item;
@@ -60,7 +61,7 @@ public class WndRanking extends WndTabbed {
 
 	private Image busy;
 
-	public WndRanking(final String gameFile) {
+	public WndRanking(final Rankings.Record rec) {
 
 		super();
 		resize(WIDTH, HEIGHT);
@@ -70,7 +71,7 @@ public class WndRanking extends WndTabbed {
 			public void run() {
 				try {
 					Badges.loadGlobal();
-					Dungeon.loadGame(gameFile);
+					Rankings.INSTANCE.loadGameData( rec );
 				} catch (Exception e) {
 					error = Messages.get(WndRanking.class, "error");
 				}

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.damageblobs.EarthEffectDamage;
 import com.hmdzl.spspd.effects.Splash;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;
@@ -41,8 +41,8 @@ public class EarthDamageTrap extends Trap {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		for (int i : Level.NEIGHBOURS9) {
-			if (Level.insideMap(pos + i) && !Level.solid[pos + i]) {
+		for (int i : Floor.NEIGHBOURS9) {
+			if (Floor.insideMap(pos + i) && !Floor.solid[pos + i]) {
 				GameScene.add(Blob.seed(pos + i, 10, EarthEffectDamage.class));
 				Splash.at(pos + i, 0x000000, 5);
 			}

@@ -129,8 +129,8 @@ public class WndLifeTradeItem extends Window {
 		Dungeon.hero.updateHT(true);
 
 		if (!item.doPickUp(hero)) {
-			Dungeon.level.drop(item, heap.pos).sprite.drop();
+			Dungeon.depth.drop(item, heap.pos).sprite.drop();
 		}
-		Dungeon.level.drop(Generator.random(),heap.pos).type = Heap.Type.FOR_SALE;
+		Dungeon.depth.drop(Generator.random(),heap.pos).type = Heap.Type.FOR_SALE;
 	}
 }

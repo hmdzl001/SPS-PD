@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Brick;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.RatSprite;
 import com.watabou.utils.Random;
@@ -36,8 +36,8 @@ public class Rat extends Mob {
 	{
 		spriteClass = RatSprite.class;
 
-		HP = HT = 40+(Dungeon.depth*Random.NormalIntRange(1, 3));
-		evadeSkill = 3+(Math.round((Dungeon.depth)/2));
+		HP = HT = 40+(Dungeon.dungeondepth *Random.NormalIntRange(1, 3));
+		evadeSkill = 3+(Math.round((Dungeon.dungeondepth)/2));
 		
 		EXP = 1;
 		maxLvl = 4;
@@ -55,12 +55,12 @@ public class Rat extends Mob {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(1, 5+Dungeon.depth);
+		return Random.NormalIntRange(1, 5+Dungeon.dungeondepth);
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return 5+Dungeon.depth;
+		return 5+Dungeon.dungeondepth;
 	}
 
 	@Override
@@ -69,9 +69,9 @@ public class Rat extends Mob {
 	}
 
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}

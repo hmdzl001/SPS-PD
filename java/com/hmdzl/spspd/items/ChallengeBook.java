@@ -58,6 +58,7 @@ public class   ChallengeBook extends Item {
 		image = ItemSpriteSheet.CHALLENGE_BOOK;
 
 		unique = true;
+		stackable = true;
 		
 		//rooms[0] = true;
 		//firsts[0] = true;
@@ -95,11 +96,11 @@ public class   ChallengeBook extends Item {
 		actions.remove(AC_THROW);
 		actions.add(AC_ADD);
 		
-		if (returnDepth > 0 && (( Dungeon.depth<35 && Dungeon.depth > 26) || Dungeon.depth == 90)){
+		if (returnDepth > 0 && (( Dungeon.dungeondepth <35 && Dungeon.dungeondepth > 26) || Dungeon.dungeondepth == 90)){
 		actions.add(AC_RETURN);
 		}
 		//charge >= reqCharges() &&		
-		if (Dungeon.depth<26){
+		if (Dungeon.dungeondepth <26){
 		actions.add(AC_PORT);
 		}
 				

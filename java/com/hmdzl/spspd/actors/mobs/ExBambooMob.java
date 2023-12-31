@@ -33,12 +33,10 @@ import com.hmdzl.spspd.effects.Wound;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ExBambooSprite;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 public class ExBambooMob extends BambooMob {
 
@@ -52,8 +50,20 @@ public class ExBambooMob extends BambooMob {
 	@Override
 	public boolean act() {
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS8[i], 2, EarthEffectDamage.class));
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS8[i], 2, EarthEffectDamage.class));
+		}
+
+		if( 1 > 2 * HP / HT && !skilluse ) {
+			skilluse = true;
+			this.HP = this.HT;
+			for (int i = 0; i < Floor.NEIGHBOURS8DIST2.length; i++) {
+				Char ch = findChar(pos + Floor.NEIGHBOURS8DIST2[i]);
+				if (ch != null && ch.isAlive()) {
+					Buff.affect(ch,Roots.class,10f);
+				}
+			}
+			this.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 		}
 
 		return super.act();
@@ -101,23 +111,12 @@ public class ExBambooMob extends BambooMob {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		if (dmg> HT/3) {
+		 if(  1 > 2 * HP / HT && !skilluse ) {
+			dmg = 0;
+		} else if (dmg> HT/3) {
 			dmg =(int)Math.max(HT/3,1);
 		}
-		if( 1 > 2 * HP / HT && !skilluse ) {
-			skilluse = true;
-			this.HP = this.HT;
-			this.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
-			for (int i = 0; i < Level.NEIGHBOURS8DIST2.length; i++) {
-				Char ch = findChar(pos + Level.NEIGHBOURS8DIST2[i]);
-				if (ch != null && ch.isAlive()) {
-					Buff.affect(ch,Roots.class,10f);
-				}
-			}
-		}
-
 		super.damage(dmg,src);
-
 	}
 
 	

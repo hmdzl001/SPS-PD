@@ -27,12 +27,11 @@ import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SwarmSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -73,10 +72,10 @@ public class Swarm extends Mob {
 
 		if (HP >= damage + 2) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			int[] neighbours = { pos + 1, pos - 1, pos + Level.getWidth(),
-					pos - Level.getWidth() };
+			int[] neighbours = { pos + 1, pos - 1, pos + Floor.getWidth(),
+					pos - Floor.getWidth() };
 			for (int n : neighbours) {
 				if (passable[n] && Actor.findChar(n) == null) {
 					candidates.add(n);
@@ -91,7 +90,7 @@ public class Swarm extends Mob {
 				clone.state = clone.HUNTING;
 				clone.sumcopy = true;
 
-				if (Dungeon.level.map[clone.pos] == Terrain.DOOR) {
+				if (Dungeon.depth.map[clone.pos] == Terrain.DOOR) {
 					Door.enter(clone.pos);
 				}
 

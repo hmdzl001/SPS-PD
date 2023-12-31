@@ -18,9 +18,7 @@
 package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.messages.Messages;
@@ -28,7 +26,6 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -86,7 +83,7 @@ public class UpgradeBlobRed extends Item {
 	}
 
 	private void upgrade(Item item) {
-        if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
+  
 		detach(curUser.belongings.backpack);
 
 		GLog.w(Messages.get(ScrollOfUpgrade.class,"looks_better", item.name()));

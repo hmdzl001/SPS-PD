@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.FairySprite;
@@ -75,21 +75,21 @@ public class FairyCard extends Item {
 
 		if (Actor.findChar(cell) != null) {
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : Level.NEIGHBOURS8)
-				if (Level.passable[cell + i])
+			for (int i : Floor.NEIGHBOURS8)
+				if (Floor.passable[cell + i])
 					candidates.add(cell + i);
 			int newCell = candidates.isEmpty() ? cell : Random
 					.element(candidates);
 
-			if (!Level.pit[newCell] && activate) {
+			if (!Floor.pit[newCell] && activate) {
 				if (Dungeon.hero.subClass == HeroSubClass.LEADER) {
 					SugarplumFairy.spawnAt(newCell);
 				} else Fairy.spawnAt(newCell);
 			} else {
-				Dungeon.level.drop(this, newCell).sprite.drop(cell);
+				Dungeon.depth.drop(this, newCell).sprite.drop(cell);
 			}
 
-		} else if (!Level.pit[cell] && activate) {
+		} else if (!Floor.pit[cell] && activate) {
 			if (Dungeon.hero.subClass == HeroSubClass.LEADER) {
 				SugarplumFairy.spawnAt(cell);
 			} else
@@ -140,7 +140,7 @@ public class FairyCard extends Item {
 		protected boolean act() {
 			damage(1, this);
 			
-		    if (Level.adjacent(pos, Dungeon.hero.pos)){
+		    if (Floor.adjacent(pos, Dungeon.hero.pos)){
 			
 			int bless = 5;
 			
@@ -206,7 +206,7 @@ public class FairyCard extends Item {
 		@Override
 		protected boolean act() {
 			damage(1, this);
-		if (Level.adjacent(pos, Dungeon.hero.pos)){
+		if (Floor.adjacent(pos, Dungeon.hero.pos)){
 			
 			int bless = 5;
 			
@@ -221,7 +221,7 @@ public class FairyCard extends Item {
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, Dungeon.hero.pos) > 6)
+					|| Floor.distance(target, Dungeon.hero.pos) > 6)
 				this.target = target = Dungeon.hero.pos;
 			return super.getCloser(target);
 		}
@@ -231,8 +231,8 @@ public class FairyCard extends Item {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}
@@ -259,18 +259,18 @@ public class FairyCard extends Item {
 		@Override
 		protected boolean canAttack(Char enemy) {
 
-			return Level.distance(pos, enemy.pos) <= 4;
+			return Floor.distance(pos, enemy.pos) <= 4;
 
 		}
 
 		@Override
 		public int hitSkill(Char target) {
-			return 60 + (Dungeon.depth);
+			return 60 + (Dungeon.dungeondepth);
 		}
 
 		@Override
 		public int damageRoll() {
-			return Random.NormalIntRange(Dungeon.depth + 12, Dungeon.depth + 25);
+			return Random.NormalIntRange(Dungeon.dungeondepth + 12, Dungeon.dungeondepth + 25);
 		}
 		
 		@Override

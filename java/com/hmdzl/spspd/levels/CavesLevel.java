@@ -41,6 +41,7 @@ import com.hmdzl.spspd.levels.traps.FlashingTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
 import com.hmdzl.spspd.levels.traps.GuardianTrap;
+import com.hmdzl.spspd.levels.traps.KnowledgeTrap;
 import com.hmdzl.spspd.levels.traps.ParalyticTrap;
 import com.hmdzl.spspd.levels.traps.RockfallTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
@@ -98,7 +99,7 @@ public class CavesLevel extends RegularLevel {
 
 	@Override
 	protected Class<?>[] trapClasses() {
-		return new Class[]{ VenomTrap.class, ExplosiveTrap.class, FlashingTrap.class,
+		return new Class[]{ VenomTrap.class, ExplosiveTrap.class, FlashingTrap.class,  KnowledgeTrap.class,
 				            GrippingTrap.class, ParalyticTrap.class,RockfallTrap.class,
 						    ConfusionTrap.class, FlockTrap.class, GuardianTrap.class, SummoningTrap.class,
 				            TeleportationTrap.class, WarpingTrap.class, BoundTrap.class, DewTrap.class,
@@ -108,7 +109,7 @@ public class CavesLevel extends RegularLevel {
 
 	@Override
 	protected float[] trapChances() {
-		return new float[]{ 4, 4, 4,
+		return new float[]{ 4, 4, 4, 1,
 				      2, 3, 4,
 				1, 1, 2, 2,
 				1, 1, 4, 3,
@@ -118,13 +119,13 @@ public class CavesLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 300+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.dungeondepth] = 300+(Dungeon.dungeondepth *50)+(secretDoors*20);
 	}
 
 	@Override
 	protected void createItems() {
 		
-		if (Dungeon.depth == 12){
+		if (Dungeon.dungeondepth == 12){
 			Tinkerer2 npc = new Tinkerer2();
 			do {
 				npc.pos = randomRespawnCell();
@@ -133,7 +134,7 @@ public class CavesLevel extends RegularLevel {
 			Actor.occupyCell(npc);
 		}
 		
-		if (Dungeon.depth == 11){
+		if (Dungeon.dungeondepth == 12){
 			addItemToSpawn(new Mushroom());
 		}
 
@@ -145,12 +146,12 @@ public class CavesLevel extends RegularLevel {
 	protected void createMobs() {
 		int nMobs = nMobs();
 		for (int i = 0; i < nMobs; i++) {
-			Mob mob = Bestiary.mob(Dungeon.depth);
+			Mob mob = Bestiary.mob(Dungeon.dungeondepth);
 			do {
 				mob.pos = randomRespawnCell();
 				mob.originalgen=true;
-				Buff.affect(mob,ShieldArmor.class).level(Dungeon.depth*5);
-				Buff.affect(mob,MagicArmor.class).level(Dungeon.depth*5);
+				Buff.affect(mob,ShieldArmor.class).level(Dungeon.dungeondepth *5);
+				Buff.affect(mob,MagicArmor.class).level(Dungeon.dungeondepth *5);
 			} while (mob.pos == -1);
 			mobs.add(mob);
 			Actor.occupyCell(mob);
@@ -162,7 +163,7 @@ public class CavesLevel extends RegularLevel {
 	protected boolean assignRoomType() {
 		super.assignRoomType();
 
-        return Blacksmith.Quest.spawn(rooms) || Dungeon.depth != 14;
+        return Blacksmith.Quest.spawn(rooms) || Dungeon.dungeondepth != 14;
     }
 
 	@Override
@@ -247,7 +248,7 @@ public class CavesLevel extends RegularLevel {
 		}
 
 		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
-			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Floor.insideMap(i)) {
 
 				map[i] = Terrain.GLASS_WALL;
 			}
@@ -264,7 +265,7 @@ public class CavesLevel extends RegularLevel {
 
 		setPar();		
 
-		if (Dungeon.bossLevel(Dungeon.depth + 1)) {
+		if (Dungeon.bossLevel(Dungeon.dungeondepth + 1)) {
 			return;
 		}
 
@@ -339,7 +340,7 @@ public class CavesLevel extends RegularLevel {
 		addVisuals(this, scene);
 	}
 
-	public static void addVisuals(Level level, Scene scene) {
+	public static void addVisuals(Floor level, Scene scene) {
 		for (int i = 0; i < getLength(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
 				scene.add(new Vein(i));

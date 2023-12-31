@@ -34,7 +34,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -224,7 +224,7 @@ public class LinkSword extends MeleeWeapon {
 					break;
 				case 4:
 					int p = attacker.pos;
-					for (int n : Level.NEIGHBOURS8) {
+					for (int n : Floor.NEIGHBOURS8) {
 						Char ch = Actor.findChar(n + p);
 						if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
 
@@ -256,7 +256,7 @@ public class LinkSword extends MeleeWeapon {
 				enchantment.proc(this, attacker, defender, damage);
 			}
 			if ( defender.HP <= damage && Random.Int(10) == 0) {
-				Dungeon.level.drop(Generator.random(Generator.Category.LINKDROP), defender.pos).sprite.drop();
+				Dungeon.depth.drop(Generator.random(Generator.Category.LINKDROP), defender.pos).sprite.drop();
 			}
 		}
 	}

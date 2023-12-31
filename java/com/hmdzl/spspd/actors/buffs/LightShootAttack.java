@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -65,7 +65,7 @@ public class LightShootAttack extends Buff {
 	public boolean act() {
 
 		if (target.isAlive()) {
-			int dist = Level.distance(target.pos, pos);
+			int dist = Floor.distance(target.pos, pos);
 			if (dist < 3) {
 				target.damage(Math.min(500,(int)(target.HT/30)),LIGHT_DAMAGE);
 			} else detach();
@@ -114,7 +114,7 @@ public class LightShootAttack extends Buff {
 	}
 
 	public static float duration(Char ch) {
-		if (ch.isAlive() && (Level.water[ch.pos] && !ch.flying)){
+		if (ch.isAlive() && (Floor.water[ch.pos] && !ch.flying)){
 		return DURATION;
 		} else return DURATION;
 		

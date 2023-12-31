@@ -26,7 +26,7 @@ import com.hmdzl.spspd.effects.particles.ShaftParticle;
 import com.hmdzl.spspd.items.food.vegetable.HealGrass;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.HealFruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -45,7 +45,7 @@ public class Sungrass extends Plant {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-        Dungeon.level.drop(new HealGrass(), pos).sprite.drop();
+        Dungeon.depth.drop(new HealGrass(), pos).sprite.drop();
 		if (ch != null) {
 			Buff.affect(ch, Health.class).level = ch.HT;
 		}
@@ -77,15 +77,15 @@ public class Sungrass extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 2 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(new HealFruit(), c).sprite.drop(pos);
+				Dungeon.depth.drop(new HealFruit(), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

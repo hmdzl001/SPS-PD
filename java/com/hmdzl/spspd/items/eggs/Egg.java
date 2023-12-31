@@ -37,7 +37,7 @@ import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.sellitem.VIPcard;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -142,7 +142,7 @@ public class Egg extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (Dungeon.hero.haspet == false ||  Dungeon.depth == 50) actions.add(AC_BREAK);
+		if (Dungeon.hero.haspet == false ||  Dungeon.dungeondepth == 50) actions.add(AC_BREAK);
 		return actions;
 	}
 
@@ -151,7 +151,7 @@ public class Egg extends Item {
 
 		if (action.equals(AC_BREAK)) {
 			if (Random.Int(10) == 0) {
-				Dungeon.level.drop(new VIPcard(), hero.pos).sprite.drop();
+				Dungeon.depth.drop(new VIPcard(), hero.pos).sprite.drop();
 			}
 			boolean hatch = false;
 			if (checkFreezes()>=20 && checkPoisons()>=20 && checkBurns()>=20 && checkLits()>=20
@@ -210,7 +210,7 @@ public class Egg extends Item {
 				  eggHatch(pet);
 				  hatch=true;
 			  }	else if (checkMoves()>=100) {
-              	Dungeon.level.drop(new RandomEgg(),hero.pos).sprite.drop();
+              	Dungeon.depth.drop(new RandomEgg(),hero.pos).sprite.drop();
 
 			}
 		  if (!hatch)	{
@@ -236,9 +236,9 @@ public class Egg extends Item {
 		int newPos = -1;
 		int pos = Dungeon.hero.pos;
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int c = pos + n;
 				if (passable[c] && Actor.findChar(c) == null) {
 					candidates.add(c);
@@ -271,7 +271,7 @@ public class Egg extends Item {
 				GLog.w(Messages.get(Egg.class,"hatch"));
 			  assignPet(pet);
 
-		  } else if (Dungeon.depth == 50) {
+		  } else if (Dungeon.dungeondepth == 50) {
 
 			  pet.spawn();
 			  pet.HP = pet.HT;

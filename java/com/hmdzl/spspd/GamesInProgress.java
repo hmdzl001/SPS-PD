@@ -1,6 +1,9 @@
 /*
  * Pixel Dungeon
- * Copyright (C) 2012-2014  Oleg Dolya
+ * Copyright (C) 2012-2015 Oleg Dolya
+ *
+ * Shattered Pixel Dungeon
+ * Copyright (C) 2014-2023 Evan Debenham
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,65 +18,172 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 package com.hmdzl.spspd;
 
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class GamesInProgress {
 
-	//private static HashMap<HeroClass, Info> state = new HashMap<HeroClass, Info>();
-	private static HashMap<HeroClass, Info> state = new HashMap<>();
+	public static final int MAX_SLOTS = 64;
 
-	public static Info check(HeroClass cl) {
+	//null means we have loaded info and it is empty, no entry means unknown.
+	private static HashMap<Integer, Info> slotStates = new HashMap<>();
+	public static int curSlot;
 
-		if (state.containsKey(cl)) {
+	public static HeroClass selectedClass;
 
-			return state.get(cl);
+	private static final String GAME_FOLDER = "game%d";
+	private static final String GAME_FILE	= "game.dat";
+	private static final String DEPTH_FILE	= "depth%d.dat";
+
+	//protected static final String ALL_DEPTH_FILE	= "gamedepth%d%d.dat";
+
+	public static boolean gameExists( int slot ){
+		return FileUtils.dirExists(Messages.format(GAME_FOLDER, slot));
+	}
+
+	public static File gameFolder(int slot ){
+		return FileUtils.getDir(Messages.format(GAME_FOLDER, slot));
+	}
+
+	public static File gameFile( int slot ){
+		return FileUtils.getFile(gameFolder( slot ), GAME_FILE);
+	}
+
+	public static File depthFile( int slot, int depth ) {
+		return FileUtils.getFile( gameFolder(slot), Messages.format(DEPTH_FILE, depth));
+	}
+
+	public static int firstEmpty(){
+		for (int i = 1; i <= MAX_SLOTS; i++){
+			if (check(i) == null) return i;
+		}
+		return -1;
+	}
+
+
+	public static ArrayList<Info> checkAll(){
+		ArrayList<Info> result = new ArrayList<>();
+		for (int i = 0; i <= MAX_SLOTS; i++){
+			Info curr = check(i);
+			if (curr != null) result.add(curr);
+		}
+		Collections.sort(result,scoreComparator);
+		return result;
+	}
+
+	public static Info check( int slot ) {
+
+		if (slotStates.containsKey( slot )) {
+
+			return slotStates.get( slot );
+
+		} else if (!gameExists( slot )) {
+
+			slotStates.put(slot, null);
+			return null;
 
 		} else {
 
 			Info info;
 			try {
-
-				Bundle bundle = Dungeon.gameBundle(Dungeon.gameFile(cl));
+				Bundle bundle = FileUtils.bundleFromFile(gameFile(slot));
 				info = new Info();
+				info.slot = slot;
 				Dungeon.preview(info, bundle);
-
-			} catch (Exception e) {
+			} catch (IOException e) {
+				info = null;
+			} catch (Exception e){
+				ShatteredPixelDungeon.reportException( e );
 				info = null;
 			}
 
-			state.put(cl, info);
+			slotStates.put( slot, info );
 			return info;
 
 		}
 	}
 
-	public static void set(HeroClass cl, int depth, int level, int skins,
-			boolean challenges) {
+	public static void set(int slot, int depth, int challenges, Hero hero, int oldSlot) {
 		Info info = new Info();
+
+		info.slot = slot;
+
+		info.oldslot = oldSlot;
+
 		info.depth = depth;
-		info.level = level;
-		info.skins = skins;
 		info.challenges = challenges;
-		state.put(cl, info);
+
+		info.level = hero.lvl;
+		info.str = hero.STR;
+		info.exp = hero.exp;
+		info.hp = hero.HP;
+		info.ht = hero.HT;
+		info.heroClass = hero.heroClass;
+		info.subClass = hero.subClass;
+		info.skins = hero.skins;
+
+		info.goldCollected = Statistics.goldCollected;
+		info.maxDepth = Statistics.deepestFloor;
+
+		//info.slotnumber = Statistics.slotnumber;
+
+		slotStates.put( slot, info );
 	}
 
-	public static void setUnknown(HeroClass cl) {
-		state.remove(cl);
+	public static void setUnknown( int slot ) {
+		slotStates.remove( slot );
 	}
 
-	public static void delete(HeroClass cl) {
-		state.put(cl, null);
+	public static void delete( int slot ) {
+		slotStates.put( slot, null );
 	}
 
 	public static class Info {
+		public int slot;
+
+		public int oldslot;
+
 		public int depth;
+		public int version;
+		public int challenges;
+
 		public int level;
-		public int skins;
-		public boolean challenges;
+		public int str;
+		public int exp;
+		public int hp;
+		public int ht;
+		
+		public HeroClass heroClass;
+		public HeroSubClass subClass;
+        public int skins;
+		
+		public int goldCollected;
+		public int maxDepth;
+		//public int slotnumber;
 	}
+
+	public static final Comparator<GamesInProgress.Info> scoreComparator = new Comparator<Info>() {
+		@Override
+		public int compare(GamesInProgress.Info lhs, GamesInProgress.Info rhs ) {
+			int lScore = lhs.slot;
+			int rScore = rhs.slot;
+			float dif = Math.signum( rScore - lScore );
+			return (int)(-dif);
+		}
+	};
 }
+

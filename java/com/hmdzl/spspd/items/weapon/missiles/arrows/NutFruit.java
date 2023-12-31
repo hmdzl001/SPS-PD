@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items.weapon.missiles.arrows;
 
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -59,7 +59,7 @@ public class NutFruit extends Arrows {
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
-            Level.set(cell, Terrain.HIGH_GRASS);
+            Floor.set(cell, Terrain.HIGH_GRASS);
             GameScene.updateMap(cell);
         } else
 			super.onThrow(cell);

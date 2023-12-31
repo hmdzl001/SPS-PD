@@ -38,7 +38,7 @@ import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.weapon.melee.ShortSword;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -179,9 +179,9 @@ public class BrokenRobot extends Mob {
 	}
 
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
@@ -210,21 +210,21 @@ public class BrokenRobot extends Mob {
 		}
 
 		boolean terrainAffected = false;
-		for (int n : Level.NEIGHBOURS9) {
+		for (int n : Floor.NEIGHBOURS9) {
 			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}
 
-				if (Level.flamable[c]) {
-					Level.set(c, Terrain.EMBERS);
+				if (Floor.flamable[c]) {
+					Floor.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 					terrainAffected = true;
 				}
 
 				// destroys items / triggers bombs caught in the blast.
-				Heap heap = Dungeon.level.heaps.get(c);
+				Heap heap = Dungeon.depth.heaps.get(c);
 				if (heap != null)
 					heap.explode();
 
@@ -232,8 +232,8 @@ public class BrokenRobot extends Mob {
 				if (ch != null) {
 					// those not at the center of the blast take damage less
 					// consistently.
-					int minDamage = c == cell ? Dungeon.depth + 5 : 1;
-					int maxDamage = 10 + Dungeon.depth * 2;
+					int minDamage = c == cell ? Dungeon.dungeondepth + 5 : 1;
+					int maxDamage = 10 + Dungeon.dungeondepth * 2;
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
 							- Math.max(ch.drRoll(),0);

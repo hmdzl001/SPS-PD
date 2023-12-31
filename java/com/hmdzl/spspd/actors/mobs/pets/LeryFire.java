@@ -33,7 +33,7 @@ import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.BottleFire;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -106,7 +106,7 @@ public class LeryFire extends PET implements Callback{
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (cooldown>0){
-		  return Level.adjacent(pos, enemy.pos);
+		  return Floor.adjacent(pos, enemy.pos);
 		} else {
 		  return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 		}
@@ -115,14 +115,14 @@ public class LeryFire extends PET implements Callback{
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.adjacent(pos, enemy.pos)) {
+		if (Floor.adjacent(pos, enemy.pos)) {
 
 			return super.doAttack(enemy);
 
 		} else {
 
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			} else {
@@ -187,7 +187,7 @@ public class LeryFire extends PET implements Callback{
 			case 4:
 			if (hit(this, enemy, true)) {
 				int dmg = damageRoll()*2;
-				if (Level.water[enemy.pos] && !enemy.flying) {
+				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, this);

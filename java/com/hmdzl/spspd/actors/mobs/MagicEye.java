@@ -28,7 +28,7 @@ import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -151,16 +151,16 @@ public class MagicEye extends Mob {
 	}
 
 	public static void spawnAroundChance(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null && Random.Float()<0.50f) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null && Random.Float()<0.50f) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static MagicEye spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			MagicEye e = new MagicEye();
 			e.pos = pos;

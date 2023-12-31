@@ -79,7 +79,7 @@ public class Whisk extends MeleeWeapon {
 		
 		if (chargeex > 4){
 			Item loot = ((Mob) defender).SupercreateLoot();
-			Dungeon.level.drop(loot, defender.pos).sprite.drop();
+			Dungeon.depth.drop(loot, defender.pos).sprite.drop();
 			((Mob) defender).firstitem = false;
 			chargeex = 0;
 		}

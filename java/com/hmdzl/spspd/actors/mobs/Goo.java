@@ -35,6 +35,7 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.mobs.npcs.RatKing;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -56,7 +57,7 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark2;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
 import com.hmdzl.spspd.items.weapon.rockcode.Obubble;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.messages.Messages;
@@ -96,9 +97,9 @@ public class Goo extends Mob {
 	public int damageRoll() {
 		if (pumpedUp > 0) {
 			pumpedUp = 0;
-			for (int i = 0; i < Level.NEIGHBOURS9DIST2.length; i++) {
-				int j = pos + Level.NEIGHBOURS9DIST2[i];
-				if (j >= 0 && j <= 1023 && Level.passable[j])
+			for (int i = 0; i < Floor.NEIGHBOURS9DIST2.length; i++) {
+				int j = pos + Floor.NEIGHBOURS9DIST2[i];
+				if (j >= 0 && j <= 1023 && Floor.passable[j])
 					CellEmitter.get(j).burst(ElmoParticle.FACTORY, 10);
 			}
 			Sample.INSTANCE.play(Assets.SND_BURNING);
@@ -121,7 +122,7 @@ public class Goo extends Mob {
 	@Override
 	public boolean act() {
 
-		if (Level.water[pos] && HP < HT) {
+		if (Floor.water[pos] && HP < HT) {
 			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 			HP+=3;
 		}
@@ -157,9 +158,9 @@ public class Goo extends Mob {
 	protected boolean doAttack(Char enemy) {
 		if (pumpedUp == 1) {
 			((GooSprite) sprite).pumpUp();
-			for (int i = 0; i < Level.NEIGHBOURS9DIST2.length; i++) {
-				int j = pos + Level.NEIGHBOURS9DIST2[i];
-				if (j >= 0 && j <= 1023 && Level.passable[j])
+			for (int i = 0; i < Floor.NEIGHBOURS9DIST2.length; i++) {
+				int j = pos + Floor.NEIGHBOURS9DIST2[i];
+				if (j >= 0 && j <= 1023 && Floor.passable[j])
 					GameScene.add(Blob.seed(j, 2, GooWarn.class));
 			}
 			pumpedUp++;
@@ -190,8 +191,8 @@ public class Goo extends Mob {
 
 			((GooSprite) sprite).pumpUp();
 
-			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-				int j = pos + Level.NEIGHBOURS9[i];
+			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+				int j = pos + Floor.NEIGHBOURS9[i];
 				GameScene.add(Blob.seed(j, 2, GooWarn.class));
 
 			}
@@ -225,7 +226,7 @@ public class Goo extends Mob {
 
 		super.die(cause);
 
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			
 			if (mob instanceof Goo || mob instanceof PoisonGoo){
 				   goosAlive++;
@@ -235,10 +236,10 @@ public class Goo extends Mob {
 			
 			 if(goosAlive==0){
 			
-			Dungeon.level.unseal();
+			Dungeon.depth.unseal();
 
 			GameScene.bossSlain();
-			Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();	
+			Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 			Badges.validateBossSlain();
 		}
 			 
@@ -271,8 +272,8 @@ public class Goo extends Mob {
 				}
 				
 	
-		Dungeon.level.drop(new Sokoban1(), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(1500), pos).sprite.drop();
+		Dungeon.depth.drop(new Sokoban1(), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(1500), pos).sprite.drop();
 
 		ArrayList<Mob> mobs = new ArrayList<>();
 
@@ -283,8 +284,8 @@ public class Goo extends Mob {
 		mobs.add( mob );
 		ScrollOfTeleportation.appear(mob, mob.pos);
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Obubble(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Obubble(), Dungeon.hero.pos).sprite.drop();
 
 		yell("glurp... glurp...");
 	}
@@ -295,7 +296,7 @@ public class Goo extends Mob {
 	public void notice() {
 		super.notice();
 		yell("GLURP-GLURP!");
-		Dungeon.level.seal();
+		Dungeon.depth.seal();
 		if (!spawnedMini){
 	    PoisonGoo.spawnAround(pos);
 	    spawnedMini = true;
@@ -371,10 +372,10 @@ public class Goo extends Mob {
 					&& enemySeen && enemy.buff(Poison.class) == null) {
 				state = HUNTING;
 			}
-			if (Level.water[pos] && HP < HT) {
+			if (Floor.water[pos] && HP < HT) {
 				sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 				HP++;
-			} else if(Level.water[pos] && HP == HT && HT < 100){
+			} else if(Floor.water[pos] && HP == HT && HT < 100){
 				sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 				HT=HT+5;
 				HP=HT;
@@ -431,17 +432,17 @@ public class Goo extends Mob {
 		@Override
 		public int defenseProc(Char enemy, int damage) {
 			gooSplit = false;
-			for (Mob mob : Dungeon.level.mobs) {
+			for (Mob mob : Dungeon.depth.mobs) {
 				if (mob instanceof Goo) {
 					gooSplit = true;
 				}
 			}
 			if (HP >= damage + 2 && gooSplit) {
 				ArrayList<Integer> candidates = new ArrayList<Integer>();
-				boolean[] passable = Level.passable;
+				boolean[] passable = Floor.passable;
 
-				int[] neighbours = { pos + 1, pos - 1, pos + Level.getWidth(),
-						pos - Level.getWidth() };
+				int[] neighbours = { pos + 1, pos - 1, pos + Floor.getWidth(),
+						pos - Floor.getWidth() };
 				for (int n : neighbours) {
 					if (passable[n] && Actor.findChar(n) == null) {
 						candidates.add(n);
@@ -454,7 +455,7 @@ public class Goo extends Mob {
 					clone.pos = Random.element(candidates);
 					clone.state = clone.HUNTING;
 
-					if (Dungeon.level.map[clone.pos] == Terrain.DOOR) {
+					if (Dungeon.depth.map[clone.pos] == Terrain.DOOR) {
 						Door.enter(clone.pos);
 					}
 
@@ -493,7 +494,7 @@ public class Goo extends Mob {
 
 			super.die(cause);
 
-			for (Mob mob : Dungeon.level.mobs) {
+			for (Mob mob : Dungeon.depth.mobs) {
 
 				if (mob instanceof Goo || mob instanceof PoisonGoo){
 					goosAlive++;
@@ -502,10 +503,10 @@ public class Goo extends Mob {
 			}
 
 			if(goosAlive==0){
-				Dungeon.level.unseal();
+				Dungeon.depth.unseal();
 
 				GameScene.bossSlain();
-				Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+				Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 
 				//Dungeon.level.drop(new Gold(Random.Int(900, 2000)), pos).sprite.drop();
 
@@ -532,7 +533,7 @@ public class Goo extends Mob {
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 		} else if (buff instanceof Hot) {
-			if (Level.water[this.pos])
+			if (Floor.water[this.pos])
 				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
 			else
 				damage(Random.NormalIntRange(HT / 2, HT), buff);
@@ -560,9 +561,9 @@ public class Goo extends Mob {
 
 
 		public static void spawnAround(int pos) {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 					spawnAt(cell);
 				}
 			}

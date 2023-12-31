@@ -31,7 +31,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GreyRatSprite;
 import com.watabou.utils.Random;
@@ -74,7 +74,7 @@ public class GreyRat extends Mob {
 
 	@Override
 	public int hitSkill(Char target) {
-		return 6 + Dungeon.depth;
+		return 6 + Dungeon.dungeondepth;
 	}
 
 	@Override
@@ -83,9 +83,9 @@ public class GreyRat extends Mob {
 	}
 	
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}

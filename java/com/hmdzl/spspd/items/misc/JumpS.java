@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.buffs.InfJump;
 import com.hmdzl.spspd.actors.buffs.TargetShoot;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -83,7 +83,7 @@ public class JumpS extends Item {
 			if (target != null && target != curUser.pos) {
 				Ballistica route = new Ballistica(curUser.pos, target, (Ballistica.STOP_TARGET | Ballistica.STOP_TERRAIN));
 				int cell = route.collisionPos;
-				int dist = Level.distance(curUser.pos, cell);
+				int dist = Floor.distance(curUser.pos, cell);
 				int range = 3;
 				//if (Actor.findChar( cell ) != null && cell != curUser.pos)
 					//cell = route.path.get(route.dist-1);

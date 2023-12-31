@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.items.VioletDewdrop;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.GraveProtectorSprite;
 import com.watabou.utils.Random;
@@ -64,14 +64,14 @@ public class GraveProtector extends Mob{
 
 	@Override
 	protected boolean canAttack(Char enemy) {		if (buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		if (Level.adjacent(pos, enemy.pos)) {
+		if (Floor.adjacent(pos, enemy.pos)) {
 			damage = damage / 2;
 		} else {
 			Buff.prolong(enemy,Slow.class,5f);

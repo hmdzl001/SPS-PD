@@ -91,31 +91,31 @@ public class GoldThief extends Mob {
 		
 
 		if (item != null) {
-			Dungeon.level.drop(item, pos).sprite.drop();
+			Dungeon.depth.drop(item, pos).sprite.drop();
 		}		
 		
-		if ( Dungeon.depth<27) {
-			Dungeon.level.drop(new CityChallenge(), pos).sprite.drop();
+		if ( Dungeon.dungeondepth <27) {
+			Dungeon.depth.drop(new CityChallenge(), pos).sprite.drop();
 			explodeDew(pos);				
 		} else {
 			explodeDew(pos);
 		}
 		
 	if(Statistics.goldThievesKilled == 25) {
-		Dungeon.level.drop(new AncientCoin(), pos).sprite.drop();
+		Dungeon.depth.drop(new AncientCoin(), pos).sprite.drop();
 	}
 
 	if(Statistics.goldThievesKilled == 50) {
-		Dungeon.level.drop(new SacrificeBook(), pos).sprite.drop();
+		Dungeon.depth.drop(new SacrificeBook(), pos).sprite.drop();
 	}	
 	
 	if(Statistics.goldThievesKilled == 100) {
-		Dungeon.level.drop(new CityReward(), pos).sprite.drop();
+		Dungeon.depth.drop(new CityReward(), pos).sprite.drop();
 	}		
 	
 	if (Statistics.goldThievesKilled == 100 && Statistics.skeletonsKilled>99 
 			&& Statistics.albinoPiranhasKilled>99 && Statistics.archersKilled>99){
-	    Dungeon.level.drop(new GoldenNut(), pos).sprite.drop();
+	    Dungeon.depth.drop(new GoldenNut(), pos).sprite.drop();
 	}
 
 	}
@@ -147,7 +147,7 @@ public class GoldThief extends Mob {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 		if (state == FLEEING) {
-			Dungeon.level.drop(new Gold(), pos).sprite.drop();
+			Dungeon.depth.drop(new Gold(), pos).sprite.drop();
 		}
 
 		return damage;

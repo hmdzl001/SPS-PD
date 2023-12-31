@@ -3,16 +3,14 @@ package com.hmdzl.spspd.actors.buffs.armorbuff;
 import com.hmdzl.spspd.actors.blobs.SwampGas;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSand;
 import com.hmdzl.spspd.actors.buffs.AcidOoze;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
-import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEarth2;
 
-public class GlyphEarth extends Buff {
+public class GlyphEarth extends ArmorGlyphBuff {
 
 		{
 			immunities.add( Roots.class );

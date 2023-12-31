@@ -25,7 +25,7 @@ import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.WraithBreath;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Languages;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -122,7 +122,7 @@ public class DriedRose extends Artifact {
 				ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 				for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 					int p = hero.pos + PathFinder.NEIGHBOURS8[i];
-					if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+					if (Actor.findChar(p) == null && (Floor.passable[p] || Floor.avoid[p])) {
 						spawnPoints.add(p);
 					}
 				}
@@ -173,7 +173,7 @@ public class DriedRose extends Artifact {
 	}
 
 	private PET checkpet(){
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if(mob instanceof PET) {
 				return (PET) mob;
 			}
@@ -325,7 +325,7 @@ public class DriedRose extends Artifact {
 
 				for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 					int p = target.pos + PathFinder.NEIGHBOURS8[i];
-					if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+					if (Actor.findChar(p) == null && (Floor.passable[p] || Floor.avoid[p])) {
 						spawnPoints.add(p);
 					}
 				}
@@ -423,7 +423,7 @@ public class DriedRose extends Artifact {
 
 		public void saySpawned(){
 			if (Messages.lang() != Languages.ENGLISH) return; //don't say anything if not on english
-			int i = (Dungeon.depth - 1) / 5;
+			int i = (Dungeon.dungeondepth - 1) / 5;
 			if (chooseEnemy() == null)
 				yell( Random.element( VOICE_AMBIENT[i] ) );
 			else
@@ -449,7 +449,7 @@ public class DriedRose extends Artifact {
 		}
 
 		public void sayBossBeaten(){
-			yell( Random.element( VOICE_BOSSBEATEN[ Dungeon.depth==25 ? 1 : 0 ] ) );
+			yell( Random.element( VOICE_BOSSBEATEN[ Dungeon.dungeondepth ==25 ? 1 : 0 ] ) );
 			Sample.INSTANCE.play( Assets.SND_GHOST );
 		}
 
@@ -494,7 +494,7 @@ public class DriedRose extends Artifact {
 		@Override
 		protected boolean canAttack(Char enemy) {
 			if (rose != null && rose.weapon != null) {
-				return Level.distance(pos, enemy.pos) <= rose.weapon.RCH;
+				return Floor.distance(pos, enemy.pos) <= rose.weapon.RCH;
 			} else {
 				return super.canAttack(enemy);
 			}
@@ -563,7 +563,7 @@ public class DriedRose extends Artifact {
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, Dungeon.hero.pos) > 6)
+					|| Floor.distance(target, Dungeon.hero.pos) > 6)
 				this.target = target = Dungeon.hero.pos;
 			return super.getCloser(target);
 		}
@@ -573,8 +573,8 @@ public class DriedRose extends Artifact {
 			if (enemy == null || !enemy.isAlive() || state == WANDERING) {
 
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]
 							&& mob.state != mob.PASSIVE) {
 						enemies.add(mob);
 					}
@@ -596,7 +596,7 @@ public class DriedRose extends Artifact {
 				//GameScene.show(new WndQuest(this, Messages.get(this, "introduce") ));
 			   // return false;
 			//} else 
-				if (Level.passable[pos] || Dungeon.hero.flying) {
+				if (Floor.passable[pos] || Dungeon.hero.flying) {
 				int curPos = pos;
 
 				moveSprite( pos, Dungeon.hero.pos );
@@ -813,7 +813,7 @@ public class DriedRose extends Artifact {
 		@Override
 		protected boolean canAttack(Char enemy) {
 			if (rose != null && rose.weapon != null) {
-				return Level.distance(pos, enemy.pos) <= rose.weapon.RCH;
+				return Floor.distance(pos, enemy.pos) <= rose.weapon.RCH;
 			} else {
 				return super.canAttack(enemy);
 			}
@@ -882,7 +882,7 @@ public class DriedRose extends Artifact {
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, Dungeon.hero.pos) > 6)
+					|| Floor.distance(target, Dungeon.hero.pos) > 6)
 				this.target = target = Dungeon.hero.pos;
 			return super.getCloser(target);
 		}
@@ -892,8 +892,8 @@ public class DriedRose extends Artifact {
 			if (enemy == null || !enemy.isAlive() || state == WANDERING) {
 
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]
 							&& mob.state != mob.PASSIVE) {
 						enemies.add(mob);
 					}
@@ -915,7 +915,7 @@ public class DriedRose extends Artifact {
 				//GameScene.show(new WndQuest(this, Messages.get(this, "introduce") ));
 			   // return false;
 			//} else 
-				if (Level.passable[pos] || Dungeon.hero.flying) {
+				if (Floor.passable[pos] || Dungeon.hero.flying) {
 				int curPos = pos;
 
 				moveSprite( pos, Dungeon.hero.pos );
@@ -975,7 +975,7 @@ public class DriedRose extends Artifact {
 					if (rose.weapon != null){
 						item(new WndBag.Placeholder(ItemSpriteSheet.WEAPON_HOLDER));
 						if (!rose.weapon.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop( rose.weapon, Dungeon.hero.pos);
+							Dungeon.depth.drop( rose.weapon, Dungeon.hero.pos);
 						}
 						rose.weapon = null;
 					} else {
@@ -1025,7 +1025,7 @@ public class DriedRose extends Artifact {
 					if (rose.armor != null){
 						item(new WndBag.Placeholder(ItemSpriteSheet.ARMOR_HOLDER));
 						if (!rose.armor.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop( rose.armor, Dungeon.hero.pos);
+							Dungeon.depth.drop( rose.armor, Dungeon.hero.pos);
 						}
 						rose.armor = null;
 					} else {

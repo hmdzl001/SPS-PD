@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
@@ -74,7 +74,7 @@ public class BlacksmithSprite extends MobSprite {
 
 		if (visible && emitter != null && anim == idle) {
 			emitter.burst(Speck.factory(Speck.FORGE), 3);
-			float volume = 0.2f / (Level.distance(ch.pos, Dungeon.hero.pos));
+			float volume = 0.2f / (Floor.distance(ch.pos, Dungeon.hero.pos));
 			Sample.INSTANCE.play(Assets.SND_EVOKE, volume, volume, 0.8f);
 		}
 	}

@@ -35,6 +35,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.levels.BetweenLevel;
 import com.hmdzl.spspd.levels.BossRushLevel;
 import com.hmdzl.spspd.levels.CaveChallengeLevel;
 import com.hmdzl.spspd.levels.CavesBossLevel;
@@ -46,13 +47,13 @@ import com.hmdzl.spspd.levels.CityLevel;
 import com.hmdzl.spspd.levels.CrabBossLevel;
 import com.hmdzl.spspd.levels.DeadEndLevel;
 import com.hmdzl.spspd.levels.FieldBossLevel;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.HallsBossLevel;
 import com.hmdzl.spspd.levels.HallsLevel;
 import com.hmdzl.spspd.levels.IceChallengeLevel;
 import com.hmdzl.spspd.levels.InfestBossLevel;
 import com.hmdzl.spspd.levels.LastLevel;
 import com.hmdzl.spspd.levels.LearnLevel;
-import com.hmdzl.spspd.levels.Level;
 import com.hmdzl.spspd.levels.MinesBossLevel;
 import com.hmdzl.spspd.levels.NewRoomLevel;
 import com.hmdzl.spspd.levels.PotLevel;
@@ -81,21 +82,18 @@ import com.hmdzl.spspd.levels.TriangleWLevel;
 import com.hmdzl.spspd.levels.ZotBossLevel;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.scenes.StartScene;
 import com.hmdzl.spspd.ui.QuickSlotButton;
 import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
-import com.hmdzl.spspd.windows.WndResurrect;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.FileUtils;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 import com.watabou.utils.SparseArray;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -106,17 +104,14 @@ public class Dungeon {
 	// enum of items which have limited spawns, records how many have spawned
 	// could all be their own separate numbers, but this allows iterating, much
 	// nicer for bundling/initializing.
-	public enum limitedDrops {
+	public enum LimitedDrops {
 		// limited world drops
 		strengthPotions,
-
 		// doesn't use Generator, so we have to enforce one armband drop here
 		spork, goei, caveskey,
-
 		// containers
-		shopcart, challengebook;
-
-		public int count =  0;
+		shopcart;
+		public int count = 0;
 
 		// for items which can only be dropped once, should directly access
 		// count otherwise.
@@ -127,11 +122,33 @@ public class Dungeon {
 		public void drop() {
 			count = 1;
 		}
+		
+		public static void reset(){
+			for (LimitedDrops lim : values()){
+				lim.count = 0;
+			}
+		}
+
+		public static void store( Bundle bundle ){
+			for (LimitedDrops lim : values()){
+				bundle.put(lim.name(), lim.count);
+			}
+		}
+
+		public static void restore( Bundle bundle ){
+			for (LimitedDrops lim : values()){
+				if (bundle.contains(lim.name())){
+					lim.count = bundle.getInt(lim.name());
+				} else {
+					lim.count = 0;
+				}
+				
+			}
+		}
 	}
-	
+
 	public static int[] pars;
-	
-	public static boolean earlygrass = false;
+
 	//public static boolean gnollspawned = false;
 	//public static boolean skeletonspawned = false;
 	//public static boolean goldthiefspawned = false;
@@ -152,35 +169,36 @@ public class Dungeon {
 
 	public static boolean wings = false;
 	public static boolean dewNorn = false;
-	public static boolean canSave = false;
+
 	public static boolean gnollmission = false;
 	public static boolean picktype = false;
 	//public static boolean secondQuest = false;
 
-	public static int challenges;
-	public static int skins;
 
 	public static int sacrifice = 0;
 	public static int saferoom = 0;
+	public static int oldslot;
 	public static boolean sporkAvail = false;
 
 	//public static boolean challengebookdrop = false;
 	//public static boolean goeidrop = false;
-
+	
+	public static int challenges;
+	
 	public static Hero hero;
-	public static Level level;
+	public static Floor depth;
 
 	public static QuickSlot quickslot = new QuickSlot();
 
-	public static int depth = 1;
-	public static int gold = 0;
+	public static int dungeondepth;
+	public static int gold;
 
 	public static String resultDescription;
 
 	public static HashSet<Integer> chapters;
 
 	// Hero's field of view
-	public static boolean[] visible = new boolean[Level.getLength()];
+	public static boolean[] visible = new boolean[Floor.getLength()];
 
 	public static SparseArray<ArrayList<Item>> droppedItems;
 
@@ -188,15 +206,13 @@ public class Dungeon {
 
 	public static void init() {
 
-	    version = Game.versionCode;
+		version = Game.versionCode;
 		challenges = ShatteredPixelDungeon.challenges();
-
-		//Generator.initArtifacts();
 
 		Actor.clear();
 		Actor.resetNextID();
 
-		PathFinder.setMapSize(Level.getWidth(), Level.HEIGHT);
+		PathFinder.setMapSize(Floor.getWidth(), Floor.HEIGHT);
 
 		Scroll.initLabels();
 		Potion.initColors();
@@ -208,12 +224,12 @@ public class Dungeon {
 		quickslot.reset();
 		QuickSlotButton.reset();
 
-		depth = 0;
+		dungeondepth = 0;
 		gold = 0;
-		
+
 		droppedItems = new SparseArray<ArrayList<Item>>();
 
-		for (limitedDrops a : limitedDrops.values())
+		for (LimitedDrops a : LimitedDrops.values())
 			a.count = 0;
 
 		chapters = new HashSet<Integer>();
@@ -226,14 +242,14 @@ public class Dungeon {
 		Room.shuffleTypes();
 
 		//Generator.initArtifacts();
+		
+		Generator.reset();
+		//Generator.initArtifacts();
 		hero = new Hero();
 		hero.live();
 
 		Badges.reset();
 
-		StartScene.curClass.initHero(hero);
-		
-		earlygrass = false;
 		//gnollspawned = false;
 		//skeletonspawned = false;
 		//goldthiefspawned = false;
@@ -249,8 +265,9 @@ public class Dungeon {
 		skeletonkingkilled = false;
 		zotkilled = false;
 
-		sacrifice = 0 ;
+		sacrifice = 0;
 		saferoom = 0;
+		oldslot = 0;
 		sporkAvail = false;
 		//challengebookdrop = false;
 		//goeidrop = false;
@@ -258,12 +275,14 @@ public class Dungeon {
 		dewWater = false;
 		wings = false;
 		dewNorn = false;
-		canSave = false;
+
 		gnollmission = false;
 		picktype = false;
-	    
+
 		pars = new int[100];
 		
+		GamesInProgress.selectedClass.initHero(hero);
+
 	}
 
 	public static void initlearn() {
@@ -276,7 +295,7 @@ public class Dungeon {
 		Actor.clear();
 		Actor.resetNextID();
 
-		PathFinder.setMapSize(Level.getWidth(), Level.HEIGHT);
+		PathFinder.setMapSize(Floor.getWidth(), Floor.HEIGHT);
 
 		Scroll.initLabels();
 		Potion.initColors();
@@ -288,12 +307,12 @@ public class Dungeon {
 		quickslot.reset();
 		QuickSlotButton.reset();
 
-		depth = 0;
+		dungeondepth = 0;
 		gold = 0;
 
 		droppedItems = new SparseArray<ArrayList<Item>>();
 
-		for (limitedDrops a : limitedDrops.values())
+		for (LimitedDrops a : LimitedDrops.values())
 			a.count = 0;
 
 		chapters = new HashSet<Integer>();
@@ -313,7 +332,6 @@ public class Dungeon {
 
 		HeroClass.NEWPLAYER.initHero(hero);
 
-		earlygrass = false;
 		//gnollspawned = false;
 		//skeletonspawned = false;
 		//goldthiefspawned = false;
@@ -329,8 +347,9 @@ public class Dungeon {
 		skeletonkingkilled = false;
 		zotkilled = false;
 
-		sacrifice = 0 ;
+		sacrifice = 0;
 		saferoom = 0;
+		oldslot = 0;
 		sporkAvail = false;
 		//challengebookdrop = false;
 		//goeidrop = false;
@@ -338,7 +357,7 @@ public class Dungeon {
 		dewWater = false;
 		wings = false;
 		dewNorn = false;
-		canSave = false;
+
 		gnollmission = false;
 		picktype = false;
 
@@ -350,17 +369,18 @@ public class Dungeon {
 		return (challenges & mask) != 0;
 	}
 
-	public static Level newFieldLevel(){
+	public static Floor newFieldLevel() {
 
-		Dungeon.level = null;
+		Dungeon.depth = null;
 		Actor.clear();
-		depth = 27;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
-		
+		dungeondepth = 27;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
 		Arrays.fill(visible, false);
 
-		Level level;
+		Floor level;
 		level = new SewerChallengeLevel();
 
 		level.create();
@@ -369,17 +389,19 @@ public class Dungeon {
 
 		return level;
 	}
-	public static Level newBattleLevel(){
 
-		Dungeon.level = null;
+	public static Floor newBattleLevel() {
+
+		Dungeon.depth = null;
 		Actor.clear();
-		depth = 28;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
-		
+		dungeondepth = 28;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
 		Arrays.fill(visible, false);
 
-		Level level;
+		Floor level;
 		level = new PrisonChallengeLevel();
 
 		level.create();
@@ -388,17 +410,19 @@ public class Dungeon {
 
 		return level;
 	}
-	public static Level newFishLevel(){
 
-		Dungeon.level = null;
+	public static Floor newFishLevel() {
+
+		Dungeon.depth = null;
 		Actor.clear();
-		depth = 29;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
-		
+		dungeondepth = 29;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
 		Arrays.fill(visible, false);
 
-		Level level;
+		Floor level;
 		level = new CaveChallengeLevel();
 
 		level.create();
@@ -407,17 +431,19 @@ public class Dungeon {
 
 		return level;
 	}
-	public static Level newVLevel(){
 
-		Dungeon.level = null;
+	public static Floor newVLevel() {
+
+		Dungeon.depth = null;
 		Actor.clear();
-		depth = 30;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
-		
+		dungeondepth = 30;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
 		Arrays.fill(visible, false);
 
-		Level level;
+		Floor level;
 		level = new CityChallengeLevel();
 
 		level.create();
@@ -426,41 +452,43 @@ public class Dungeon {
 
 		return level;
 	}
-	
-	public static Level newCatacombLevel(){
 
-		
-		Dungeon.level = null;
+	public static Floor newCatacombLevel() {
+
+
+		Dungeon.depth = null;
 		Actor.clear();
-		depth = 31;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
-		
+		dungeondepth = 31;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
 		Arrays.fill(visible, false);
 
-		Level level;
+		Floor level;
 		level = new TriangleCLevel();
-	
+
 		level.create();
 
 		Statistics.qualifiedForNoKilling = !bossLevel();
 
 		return level;
 	}
-	
-public static Level newFortressLevel(){
-		
-		Dungeon.level = null;
+
+	public static Floor newFortressLevel() {
+
+		Dungeon.depth = null;
 		Actor.clear();
-		depth = 32;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
-		
+		dungeondepth = 32;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
 		Arrays.fill(visible, false);
 
-		Level level;
+		Floor level;
 		level = new TrianglePLevel();
-	
+
 		level.create();
 
 		Statistics.qualifiedForNoKilling = !bossLevel();
@@ -468,220 +496,232 @@ public static Level newFortressLevel(){
 		return level;
 	}
 
-public static Level newChasmLevel(){
+	public static Floor newChasmLevel() {
 
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 33;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new TriangleWLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newInfestLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-    depth = 35;
-    if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new InfestBossLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-	if (Statistics.deepestFloor>24){Statistics.deepestFloor = depth;}
-
-	return level;
-}
-
-
-
-public static Level newTenguHideoutLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 36;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new TenguDenLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newSkeletonBossLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 37;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new SkeletonBossLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newCrabBossLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 38;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new CrabBossLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newThiefBossLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 40;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new ThiefBossLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newFieldBossLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 43;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new FieldBossLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newPotLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 45;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new PotLevel();
-
-	level.create();
-
-	return level;
-}
-
-public static Level newShadowEaterLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 47;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new ShadowEaterLevel();
-
-	level.create();
-
-	return level;
-}
-
-public static Level newMineBossLevel(){
-
-	Dungeon.level = null;
-	Actor.clear();
-	//depth = 67;
-	depth++;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	level = new MinesBossLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newBossRushLevel(){
-
-		
-		Dungeon.level = null;
+		Dungeon.depth = null;
 		Actor.clear();
-		depth = 71;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
-		
+		dungeondepth = 33;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
 		Arrays.fill(visible, false);
 
-		Level level;
+		Floor level;
+		level = new TriangleWLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newInfestLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 35;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new InfestBossLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+		if (Statistics.realdeepestFloor > 24) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		return level;
+	}
+
+
+	public static Floor newTenguHideoutLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 36;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new TenguDenLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newSkeletonBossLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 37;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new SkeletonBossLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newCrabBossLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 38;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new CrabBossLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newThiefBossLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 40;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new ThiefBossLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newFieldBossLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 43;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new FieldBossLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newPotLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 45;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new PotLevel();
+
+		level.create();
+
+		return level;
+	}
+
+	public static Floor newShadowEaterLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 47;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new ShadowEaterLevel();
+
+		level.create();
+
+		return level;
+	}
+
+	public static Floor newMineBossLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+		//depth = 67;
+		dungeondepth++;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		level = new MinesBossLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newBossRushLevel() {
+
+
+		Dungeon.depth = null;
+		Actor.clear();
+		dungeondepth = 71;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
 		level = new BossRushLevel();
-	
+
 		level.create();
 
 		Statistics.qualifiedForNoKilling = !bossLevel();
@@ -689,17 +729,18 @@ public static Level newBossRushLevel(){
 		return level;
 	}
 
-	public static Level newChaosLevel(){
+	public static Floor newChaosLevel() {
 
-		Dungeon.level = null;
+		Dungeon.depth = null;
 		Actor.clear();
-		depth = 85;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
+		dungeondepth = 85;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
 
 		Arrays.fill(visible, false);
 
-		Level level;
+		Floor level;
 		level = new ChaosLevel();
 
 		level.create();
@@ -708,276 +749,291 @@ public static Level newBossRushLevel(){
 
 		return level;
 	}
-	
-public static Level newZotBossLevel(){
 
-	Dungeon.level = null;
-	Actor.clear();
-	depth = 99;
-	if (depth > Statistics.realdeepestFloor) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
+	public static Floor newZotBossLevel() {
 
-	Level level;
-	level = new ZotBossLevel();
-
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newJournalLevel(int page, Boolean first){
-
-	Dungeon.level = null;
-	Actor.clear();
-	
-    depth = 50+page;
-	
-	if (page==6){
-		depth = 66;
-	}
-	
-	if (page==7){
-		depth = 67;
-	}
-	
-	if (page==8){
-		depth = 68;
-	}
-	
-	if (depth > Statistics.realdeepestFloor && depth < 68) {
-		Statistics.realdeepestFloor = depth;}
-	
-	Arrays.fill(visible, false);
-
-	Level level;
-	switch(page){
-	case 0:
-	    level = new SafeLevel();
-	    break;
-	case 1:
-		level = new SokobanIntroLevel();
-		break;
-	case 2:
-		level = new SokobanCastle();
-		break;
-	case 3:
-		level = new SokobanTeleportLevel();
-		break;
-	case 4:
-		level = new SokobanPuzzlesLevel();
-		break;
-	case 5:
-		level = new TownLevel();
-		break;
-	case 6:
-		level = new SpringFestivalLevel();
-		break;
-	case 7:
-		level = new MinesBossLevel();
-		break;
-	case 8:
-		level = new NewRoomLevel();
-		break;
-	default:
-		level = Dungeon.newLevel();
-	}
-
-	Level.first = first;
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-public static Level newChallengeLevel(int list, Boolean first){
-
-	Dungeon.level = null;
-	Actor.clear();
-	
-    depth = 26+list;
-	if (list==0){
-		depth = 90;
-	}
-	if (list==1 ){
-		depth = 27;
-	}
-	if (list==2){
-		depth = 28;
-	}
-	if (list==3){
-		depth = 29;
-	}
-	if (list==4){
-		depth = 30;
-	}
-	if (list==5){
-		depth = 31;
-	}
-	if (list==6){
-		depth = 32;
-	}
-	if (list==7){
-		depth = 33;
-	}
-
-	if (depth > Statistics.realdeepestFloor && depth < 34) {
-		Statistics.realdeepestFloor = depth;}
-
-	Arrays.fill(visible, false);
-
-	Level level;
-	switch(list){
-	case 0:
-		level = new IceChallengeLevel();
-		break;
-	case 1:
-	    level = new SewerChallengeLevel();
-	    break;
-	case 2:
-		level = new PrisonChallengeLevel();
-		break;
-	case 3:
-		level = new CaveChallengeLevel();
-		break;
-	case 4:
-		level = new CityChallengeLevel();
-		break;
-	case 5:
-		level = new TriangleCLevel();
-		break;
-	case 6:
-		level = new TrianglePLevel();
-		break;
-	case 7:
-		level = new TriangleWLevel();
-		break;
-	default:
-		level = Dungeon.newLevel();
-	}
-
-	Level.first = first;
-	level.create();
-
-	Statistics.qualifiedForNoKilling = !bossLevel();
-
-	return level;
-}
-
-	
-	public static Level newLevel() {
-
-		Dungeon.level = null;
+		Dungeon.depth = null;
 		Actor.clear();
-
-		depth++;
-		if (depth > Statistics.realdeepestFloor) {
-			Statistics.realdeepestFloor = depth;}
-		
-		if (depth > Statistics.deepestFloor && depth < 27) {
-			Statistics.deepestFloor = depth;
-
-            Statistics.completedWithNoKilling = Statistics.qualifiedForNoKilling;
+		dungeondepth = 99;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
 		}
 
 		Arrays.fill(visible, false);
 
-		Level level;
-		switch (depth) {
-		case 1:
-			//level = new PrisonBossLevel();
-			//level = new SewerLevel();
-			//hero.TRUE_HT=999;
-			//hero.HP=hero.TRUE_HT;
-			//break;
-		case 2:
-			//level = new HallsLevel();
-			//hero.TRUE_HT=999;
-			//hero.HP=hero.TRUE_HT;
-			//break;
-		case 3:
-		case 4:
-			//level = new CavesLevel();
-			level = new SewerLevel();
-			//hero.TRUE_HT=999;
-			//hero.HP=hero.TRUE_HT;
-			break;
-		case 5:
-			level = new SewerBossLevel();
-			break;
-		case 6:
-			//level = new HallsLevel();
-			//hero.TRUE_HT=999;
-			//hero.HP=hero.TRUE_HT;
-			//break;
-		case 7:
-		case 8:
-		case 9:
-			level = new PrisonLevel();
-			break;
-		case 10:
-			level = new PrisonBossLevel();
-			break;
-		case 11:
-		case 12:
-		case 13:
-		case 14:
-			level = new CavesLevel();
-			break;
-		case 15:
-			level = new CavesBossLevel();
-			break;
-		case 16:
-		case 17:
-		case 18:
-		case 19:
-			level = new CityLevel();
-			break;
-		case 20:
-			level = new CityBossLevel();
-			break;
-		case 21:
-		case 22:
-		case 23:
-		case 24:
-			level = new HallsLevel();
-			break;
-		case 25:
-			level = new HallsBossLevel();
-			break;
-		case 26:
-			level = new LastLevel();
-			break;
-		case 41:
-			level = new ThiefCatchLevel();
-			break;
-		case 67:
-		    level = new MinesBossLevel();
-			break;			
-		case 71:
-		    level = new BossRushLevel();
-			break;
-		case 85:
-			level = new ChaosLevel();
-		default:
-			level = new DeadEndLevel();
-			if (depth<27){Statistics.deepestFloor--;}
+		Floor level;
+		level = new ZotBossLevel();
+
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newJournalLevel(int page, Boolean first) {
+
+		Dungeon.depth = null;
+		Actor.clear();
+
+		dungeondepth = 50 + page;
+
+		if (page == 6) {
+			dungeondepth = 66;
+		}
+
+		if (page == 7) {
+			dungeondepth = 67;
+		}
+
+		if (page == 8) {
+			dungeondepth = 68;
+		}
+
+		if (dungeondepth > Statistics.realdeepestFloor && dungeondepth < 68) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		switch (page) {
+			case 0:
+				level = new SafeLevel();
+				break;
+			case 1:
+				level = new SokobanIntroLevel();
+				break;
+			case 2:
+				level = new SokobanCastle();
+				break;
+			case 3:
+				level = new SokobanTeleportLevel();
+				break;
+			case 4:
+				level = new SokobanPuzzlesLevel();
+				break;
+			case 5:
+				level = new TownLevel();
+				break;
+			case 6:
+				level = new SpringFestivalLevel();
+				break;
+			case 7:
+				level = new MinesBossLevel();
+				break;
+			case 8:
+				level = new NewRoomLevel();
+				break;
+			default:
+				level = Dungeon.newLevel();
+		}
+
+		Floor.first = first;
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+	public static Floor newChallengeLevel(int list, Boolean first) {
+
+		Dungeon.depth = null;
+		Actor.clear();
+
+		dungeondepth = 26 + list;
+		if (list == 0) {
+			dungeondepth = 90;
+		}
+		if (list == 1) {
+			dungeondepth = 27;
+		}
+		if (list == 2) {
+			dungeondepth = 28;
+		}
+		if (list == 3) {
+			dungeondepth = 29;
+		}
+		if (list == 4) {
+			dungeondepth = 30;
+		}
+		if (list == 5) {
+			dungeondepth = 31;
+		}
+		if (list == 6) {
+			dungeondepth = 32;
+		}
+		if (list == 7) {
+			dungeondepth = 33;
+		}
+
+		if (dungeondepth > Statistics.realdeepestFloor && dungeondepth < 34) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		switch (list) {
+			case 0:
+				level = new IceChallengeLevel();
+				break;
+			case 1:
+				level = new SewerChallengeLevel();
+				break;
+			case 2:
+				level = new PrisonChallengeLevel();
+				break;
+			case 3:
+				level = new CaveChallengeLevel();
+				break;
+			case 4:
+				level = new CityChallengeLevel();
+				break;
+			case 5:
+				level = new TriangleCLevel();
+				break;
+			case 6:
+				level = new TrianglePLevel();
+				break;
+			case 7:
+				level = new TriangleWLevel();
+				break;
+			default:
+				level = Dungeon.newLevel();
+		}
+
+		Floor.first = first;
+		level.create();
+
+		Statistics.qualifiedForNoKilling = !bossLevel();
+
+		return level;
+	}
+
+
+	public static Floor newLevel() {
+
+		Dungeon.depth = null;
+		Actor.clear();
+
+		dungeondepth++;
+		if (dungeondepth > Statistics.realdeepestFloor) {
+			Statistics.realdeepestFloor = dungeondepth;
+		}
+
+		if (dungeondepth > Statistics.deepestFloor && dungeondepth < 27) {
+			Statistics.deepestFloor = dungeondepth;
+
+			Statistics.completedWithNoKilling = Statistics.qualifiedForNoKilling;
+		}
+
+		Arrays.fill(visible, false);
+
+		Floor level;
+		switch (dungeondepth) {
+			case 1:
+				//level = new PrisonBossLevel();
+				//level = new SewerLevel();
+				//hero.TRUE_HT=999;
+				//hero.HP=hero.TRUE_HT;
+				level = new BetweenLevel();
+				break;
+			case 2:
+				//level = new HallsLevel();
+				//hero.TRUE_HT=999;
+				//hero.HP=hero.TRUE_HT;
+				//break;
+			case 3:
+			case 4:
+				//level = new CavesLevel();
+				level = new SewerLevel();
+				//hero.TRUE_HT=999;
+				//hero.HP=hero.TRUE_HT;
+				break;
+			case 5:
+				level = new SewerBossLevel();
+				break;
+			case 6:
+				//level = new HallsLevel();
+				//hero.TRUE_HT=999;
+				//hero.HP=hero.TRUE_HT;
+				//break;
+				level = new BetweenLevel();
+				break;
+			case 7:
+			case 8:
+			case 9:
+				level = new PrisonLevel();
+				break;
+			case 10:
+				level = new PrisonBossLevel();
+				break;
+			case 11:
+				level = new BetweenLevel();
+				break;
+			case 12:
+			case 13:
+			case 14:
+				level = new CavesLevel();
+				break;
+			case 15:
+				level = new CavesBossLevel();
+				break;
+			case 16:
+				level = new BetweenLevel();
+				break;
+			case 17:
+			case 18:
+			case 19:
+				level = new CityLevel();
+				break;
+			case 20:
+				level = new CityBossLevel();
+				break;
+			case 21:
+				level = new BetweenLevel();
+				break;
+			case 22:
+			case 23:
+			case 24:
+				level = new HallsLevel();
+				break;
+			case 25:
+				level = new HallsBossLevel();
+				break;
+			case 26:
+				level = new LastLevel();
+				break;
+			case 41:
+				level = new ThiefCatchLevel();
+				break;
+			case 67:
+				level = new MinesBossLevel();
+				break;
+			case 71:
+				level = new BossRushLevel();
+				break;
+			case 85:
+				level = new ChaosLevel();
+			default:
+				level = new DeadEndLevel();
+				if (dungeondepth < 27) {
+					Statistics.deepestFloor--;
+				}
 		}
 
 		level.create();
 
 		Statistics.qualifiedForNoKilling = !bossLevel();
 		//if (depth<25 && !Dungeon.bossLevel(depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
-			
-		    //GLog.p("You feel the dungeon charge with dew!");
+
+		//GLog.p("You feel the dungeon charge with dew!");
 		//}
 		NmImbue nm = Dungeon.hero.buff(NmImbue.class);
-        if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.skins == 4 && nm == null ){
-			Buff.affect(Dungeon.hero,NmImbue.class);
+		if (Dungeon.hero.heroClass == HeroClass.SOLDIER && Dungeon.hero.skins == 4 && nm == null) {
+			Buff.affect(Dungeon.hero, NmImbue.class);
 		}
 		
 		/*if(Dungeon.hero.heroClass == HeroClass.PERFORMER){
@@ -992,13 +1048,13 @@ public static Level newChallengeLevel(int list, Boolean first){
 		return level;
 	}
 
-	public static Level newLearnLevel() {
+	public static Floor newLearnLevel() {
 
-		Dungeon.level = null;
+		Dungeon.depth = null;
 		Actor.clear();
-		depth++;
+		dungeondepth++;
 		Arrays.fill(visible, false);
-		Level level;
+		Floor level;
 		level = new LearnLevel();
 		level.create();
 		return level;
@@ -1010,32 +1066,32 @@ public static Level newChallengeLevel(int list, Boolean first){
 
 		Arrays.fill(visible, false);
 
-		level.reset();
-		switchLevel(level, level.entrance);
+		depth.reset();
+		switchLevel(depth, depth.entrance);
 	}
 
 	public static boolean shopOnLevel() {
-		return depth==1 || depth == 6 || depth == 11 || depth == 16 || depth == 21;
+		return dungeondepth == 1 || dungeondepth == 6 || dungeondepth == 11 || dungeondepth == 16 || dungeondepth == 21;
 	}
 
 	public static boolean bossLevel() {
-		return bossLevel(depth);
+		return bossLevel(dungeondepth);
 	}
 
 	public static boolean bossLevel(int depth) {
 		return depth == 5 || depth == 10 || depth == 15 || depth == 20
-				|| depth == 25 ||  depth ==  36 ||  depth ==  41 || depth == 71 ;
+				|| depth == 25 || depth == 36 || depth == 41 || depth == 71;
 	}
 
 	public static boolean notClearableLevel(int depth) {
-		return depth == 1 ||depth == 5 || depth == 10 || depth == 15 || depth == 20
-				|| depth == 25 || depth>25;
+		return depth == 1 || depth == 5 || depth == 10 || depth == 15 || depth == 20
+				|| depth == 25 || depth > 25;
 	}
 
 	//public static boolean townCheck(int depth) {
-		//return depth > 54 && depth < 66;
+	//return depth > 54 && depth < 66;
 	//}	
-	
+
 	public static boolean growLevel(int depth) {
 		return depth == 27 || depth == 28 || depth == 30 || depth == 55;
 	}
@@ -1045,18 +1101,20 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static boolean sokobanLevel(int depth) {
-		return  depth == 51 || depth == 52 || depth == 53 || depth == 54;
+		return depth == 51 || depth == 52 || depth == 53 || depth == 54;
 	}
 
 	//public static boolean dropLevel(int depth) {
-		//return depth == 40;
+	//return depth == 40;
 	//}
 
 
 	@SuppressWarnings("deprecation")
-	public static void switchLevel(final Level level, int pos) {
+	public static void switchLevel(final Floor level, int pos) {
 
-		Dungeon.level = level;
+	    PathFinder.setMapSize(Floor.getWidth(), Floor.HEIGHT);
+	
+		Dungeon.depth = level;
 		//DriedRose.restoreGhostHero( level, pos );
 		Actor.init();
 
@@ -1064,14 +1122,14 @@ public static Level newChallengeLevel(int list, Boolean first){
 		if (respawner != null) {
 			Actor.add(level.respawner());
 		}
-		
+
 		Actor regrower = level.regrower();
-		if (regrower != null && growLevel(depth)) {
+		if (regrower != null && growLevel(dungeondepth)) {
 			Actor.add(level.regrower());
 		}
-		
+
 		Actor waterer = level.waterer();
-		if (waterer != null && waterLevel(depth)) {
+		if (waterer != null && waterLevel(dungeondepth)) {
 			Actor.add(level.waterer());
 		}		
 		
@@ -1079,19 +1137,20 @@ public static Level newChallengeLevel(int list, Boolean first){
 		if (floordropper != null && dropLevel(depth)) {
 			Actor.add(level.floordropper());
 		}*/
-		
+
 		hero.pos = pos != -1 ? pos : level.exit;
 
 		Light light = hero.buff(Light.class);
 		hero.viewDistance = light == null ? level.viewDistance : Math.max(
 				Light.DISTANCE, level.viewDistance);
-		
+
 		Actor respawnerPet = level.respawnerPet();
-		if (respawnerPet != null && Dungeon.depth != 50 ) {
+		if (respawnerPet != null && Dungeon.dungeondepth != 50) {
 			Actor.add(level.respawnerPet());
 		}
 
 		observe();
+		
 		try {
 			saveAll();
 		} catch (IOException e) {
@@ -1105,7 +1164,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static void dropToChasm(Item item) {
-		int depth = Dungeon.depth > 26 ? Dungeon.depth : Dungeon.depth + 1;
+		int depth = Dungeon.dungeondepth > 26 ? Dungeon.dungeondepth : Dungeon.dungeondepth + 1;
 		ArrayList<Item> dropped = Dungeon.droppedItems
 				.get(depth);
 		if (dropped == null) {
@@ -1115,121 +1174,42 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 
 	public static boolean posNeeded() {
-		int[] quota = { 2,1,  4,2,  7,3,  9,4,  12,5,  14,6,  17,7,   19,8,  22,9,  24,10 };
-		return chance(quota, limitedDrops.strengthPotions.count);
+		int[] quota = {2, 1, 4, 2, 7, 3, 9, 4, 12, 5, 14, 6, 17, 7, 19, 8, 22, 9, 24, 10};
+		return chance(quota, LimitedDrops.strengthPotions.count);
 	}
 
 	private static boolean chance(int[] quota, int number) {
 
 		for (int i = 0; i < quota.length; i += 2) {
 			int qDepth = quota[i];
-			if (depth <= qDepth) {
+			if (dungeondepth <= qDepth) {
 				int qNumber = quota[i + 1];
 				return Random.Float() < (float) (qNumber - number)
-						/ (qDepth - depth + 1);
+						/ (qDepth - dungeondepth + 1);
 			}
 		}
 
 		return false;
 	}
 
-	private static final String RG_GAME_FILE	= "rogue.dat";
-	private static final String RG_DEPTH_FILE	= "rogue%d.dat";
-
-	private static final String WR_GAME_FILE = "warrior.dat";
-	private static final String WR_DEPTH_FILE = "warrior%d.dat";
-
-	private static final String MG_GAME_FILE = "mage.dat";
-	private static final String MG_DEPTH_FILE = "mage%d.dat";
-
-	private static final String RN_GAME_FILE	= "huntress.dat";
-	private static final String RN_DEPTH_FILE	= "huntress%d.dat";
-	
-	private static final String PE_GAME_FILE	= "performer.dat";
-	private static final String PE_DEPTH_FILE	= "performer%d.dat";
-		
-	private static final String SO_GAME_FILE	= "soldier.dat";
-	private static final String SO_DEPTH_FILE	= "soldier%d.dat";
-	
-	private static final String FO_GAME_FILE	= "follower.dat";
-	private static final String FO_DEPTH_FILE	= "follower%d.dat";
-	
-	private static final String AS_GAME_FILE = "ascetic.dat";
-	private static final String AS_DEPTH_FILE = "ascetic%d.dat";
-	
-	private static final String NPLAYER_GAME_FILE = "newplayer.dat";
-	private static final String NPLAYER_DEPTH_FILE = "newplayer%d.dat";
-	
-	private static final String RG_GAME_FILE_0	= "0rogue.dat";
-	private static final String RG_DEPTH_FILE_0	= "0rogue%d.dat";
-
-	private static final String WR_GAME_FILE_0 = "0warrior.dat";
-	private static final String WR_DEPTH_FILE_0 = "0warrior%d.dat";
-
-	private static final String MG_GAME_FILE_0 = "0mage.dat";
-	private static final String MG_DEPTH_FILE_0 = "0mage%d.dat";
-
-	private static final String RN_GAME_FILE_0	= "0huntress.dat";
-	private static final String RN_DEPTH_FILE_0	= "0huntress%d.dat";
-	
-	private static final String PE_GAME_FILE_0	= "0performer.dat";
-	private static final String PE_DEPTH_FILE_0	= "0performer%d.dat";
-		
-	private static final String SO_GAME_FILE_0	= "0soldier.dat";
-	private static final String SO_DEPTH_FILE_0	= "0soldier%d.dat";
-	
-	private static final String FO_GAME_FILE_0	= "0follower.dat";
-	private static final String FO_DEPTH_FILE_0	= "0follower%d.dat";
-	
-	private static final String AS_GAME_FILE_0 = "0ascetic.dat";
-	private static final String AS_DEPTH_FILE_0 = "0ascetic%d.dat";
-	
-	private static final String RG_GAME_FILE_1	= "1rogue.dat";
-	private static final String RG_DEPTH_FILE_1	= "1rogue%d.dat";
-
-	private static final String WR_GAME_FILE_1 = "1warrior.dat";
-	private static final String WR_DEPTH_FILE_1 = "1warrior%d.dat";
-
-	private static final String MG_GAME_FILE_1 = "1mage.dat";
-	private static final String MG_DEPTH_FILE_1 = "1mage%d.dat";
-
-	private static final String RN_GAME_FILE_1	= "1huntress.dat";
-	private static final String RN_DEPTH_FILE_1	= "1huntress%d.dat";
-	
-	private static final String PE_GAME_FILE_1	= "1performer.dat";
-	private static final String PE_DEPTH_FILE_1	= "1performer%d.dat";
-		
-	private static final String SO_GAME_FILE_1	= "1soldier.dat";
-	private static final String SO_DEPTH_FILE_1	= "1soldier%d.dat";
-	
-	private static final String FO_GAME_FILE_1	= "1follower.dat";
-	private static final String FO_DEPTH_FILE_1	= "1follower%d.dat";
-	
-	private static final String AS_GAME_FILE_1 = "1ascetic.dat";
-	private static final String AS_DEPTH_FILE_1 = "1ascetic%d.dat";	
-
 	private static final String VERSION = "version";
-	private static final String SKINS	= "skins";
 	private static final String CHALLENGES = "challenges";
 	private static final String HERO = "hero";
 	private static final String GOLD = "gold";
-	private static final String SAFEROOM = "saferoom";
+	//private static final String SAFEROOM = "saferoom";
 	private static final String DEPTH = "depth";
 	private static final String DROPPED = "dropped%d";
-	private static final String LEVEL = "level";
+	private static final String Depth = "level";
 	private static final String LIMDROPS = "limiteddrops";
 
 	private static final String CHAPTERS = "chapters";
 	private static final String QUESTS = "quests";
 	private static final String BADGES = "badges";
-	
+
 	private static final String SACRIFICE = "sacrifice";
 
-	private static final String EARLYGRASS = "earlygrass";
-	private static final String GNOLLSPAWN = "gnollspawned";
-	private static final String SKELETONSPAWN = "skeletonspawned";
-	private static final String THIEFSPAWN = "goldthiefspawned";
-	private static final String STRI = "triforce";
+	private static final String OLDSLOT = "oldslot";
+
 	private static final String STRID = "triforceofcourage";
 	private static final String STRIL = "triforceofpower";
 	private static final String STRIT = "triforceofwisdom";
@@ -1241,90 +1221,32 @@ public static Level newChallengeLevel(int list, Boolean first){
 	private static final String BANDITKILL = "banditkingkilled";
 	private static final String ZOTKILL = "zotkilled";
 	private static final String SPORK = "sporkAvail";
-	private static final String CBDROP = "challengebookdrop";
-	private static final String GOEIDROP = "goeidrop";
 	private static final String DEWDRAW = "dewDraw";
 	private static final String DEWWATER = "dewWater";
 	private static final String DEWNORN = "dewNorn";
-	private static final String CANSAVE = "canSave";
 	private static final String GNOLLMISSION = "gnollmission";
-    private static final String PICKTYPE = "error";
+	private static final String PICKTYPE = "error";
 	private static final String WINGS = "wings";
 	private static final String PARS = "pars";
-	
+
 	//private static final String SECONDQUEST = "secondQuest";
 
-	public static String gameFile(HeroClass cl) {
-		switch (cl) {
-		case WARRIOR:
-			return WR_GAME_FILE;
-		case MAGE:
-			return MG_GAME_FILE;
-		case ROGUE:
-			return RG_GAME_FILE;
-		case HUNTRESS:
-			return RN_GAME_FILE;		
-		case PERFORMER:
-			return PE_GAME_FILE;
-		case SOLDIER:
-			return SO_GAME_FILE;
-		case FOLLOWER:
-			return FO_GAME_FILE;	
-	    case ASCETIC:
-			return AS_GAME_FILE;	
-        case NEWPLAYER:
-			return NPLAYER_GAME_FILE;			
-		default:
-			return NPLAYER_GAME_FILE;
-		}
-	}
-
-	private static String depthFile(HeroClass cl) {
-		switch (cl) {
-		case WARRIOR:
-			return WR_DEPTH_FILE;
-		case MAGE:
-			return MG_DEPTH_FILE;
-		case ROGUE:
-            return RG_DEPTH_FILE;
-		case HUNTRESS:
-			return RN_DEPTH_FILE;
-		case PERFORMER:
-			return PE_DEPTH_FILE;
-		case SOLDIER:
-			return SO_DEPTH_FILE;
-		case FOLLOWER:
-			return FO_DEPTH_FILE;
-		case ASCETIC:
-			return AS_DEPTH_FILE;	
-        case NEWPLAYER:
-			return NPLAYER_DEPTH_FILE;				
-		default:
-			return NPLAYER_DEPTH_FILE;
-		}
-	}
-
-	public static void saveGame(String fileName) {
+	public static void saveGame(int save) throws IOException {
 		try {
 			Bundle bundle = new Bundle();
 
 			version = Game.versionCode;
 			bundle.put(VERSION, Game.versionCode);
-			bundle.put( SKINS, skins );
-			bundle.put(SAFEROOM ,saferoom  );
+
 			bundle.put(CHALLENGES, challenges);
 			bundle.put(HERO, hero);
 			bundle.put(GOLD, gold);
-			bundle.put(DEPTH, depth);
-			
-			//bundle.put(SECONDQUEST, secondQuest);
+			bundle.put(DEPTH, dungeondepth);
+
 			bundle.put(SACRIFICE, sacrifice);
 
-			bundle.put(EARLYGRASS, earlygrass);
-			//bundle.put(GNOLLSPAWN, gnollspawned);
-			//bundle.put(SKELETONSPAWN, skeletonspawned);
-			//bundle.put(THIEFSPAWN, goldthiefspawned);
-			//bundle.put(STRI, triforce);
+			bundle.put(OLDSLOT, oldslot);
+
 			bundle.put(STRID, triforceofcourage);
 			bundle.put(STRIL, triforceofpower);
 			bundle.put(STRIT, triforceofwisdom);
@@ -1336,28 +1258,27 @@ public static Level newChallengeLevel(int list, Boolean first){
 			bundle.put(GNOLLKILL, gnollkingkilled);
 			bundle.put(ZOTKILL, zotkilled);
 			bundle.put(SPORK, sporkAvail);
-			//bundle.put(CBDROP, challengebookdrop);
-			//bundle.put(GOEIDROP, goeidrop);
+
 			bundle.put(DEWDRAW, dewDraw);
 			bundle.put(DEWWATER, dewWater);
 			bundle.put(WINGS, wings);
 			bundle.put(DEWNORN, dewNorn);
-			bundle.put(CANSAVE, canSave);
+
 			bundle.put(GNOLLMISSION, gnollmission);
 			bundle.put(PICKTYPE, picktype);
 			bundle.put(PARS, pars);
-	
-			for (int d : droppedItems.keyArray()) {
-				bundle.put(String.format(DROPPED, d), droppedItems.get(d));
-			}
+
+			Bundle limDrops = new Bundle();
+			LimitedDrops.store( limDrops );
+			bundle.put ( LIMDROPS, limDrops );
 
 			quickslot.storePlaceholders(bundle);
 
-			int[] dropValues = new int[limitedDrops.values().length];
-			for (limitedDrops value : limitedDrops.values())
-				dropValues[value.ordinal()] = value.count;
-			bundle.put(LIMDROPS, dropValues);
-
+				for (int d : droppedItems.keyArray()) {
+				bundle.put(Messages.format(DROPPED, d), droppedItems.get(d));
+			}
+					
+			
 			int count = 0;
 			int ids[] = new int[chapters.size()];
 			for (Integer id : chapters) {
@@ -1373,7 +1294,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 			bundle.put(QUESTS, quests);
 
 			Room.storeRoomsInBundle(bundle);
-			
+
 			Statistics.storeInBundle(bundle);
 			Journal.storeInBundle(bundle);
 			//Generator.storeInBundle(bundle);
@@ -1388,61 +1309,152 @@ public static Level newChallengeLevel(int list, Boolean first){
 			Badges.saveLocal(badges);
 			bundle.put(BADGES, badges);
 
-			OutputStream output = Game.instance.openFileOutput(fileName,
-					Game.MODE_PRIVATE);
-			Bundle.write(bundle, output);
-			output.close();
+			FileUtils.bundleToFile( GamesInProgress.gameFile(save), bundle);
 
 		} catch (IOException e) {
-
-			GamesInProgress.setUnknown(hero.heroClass);
+			GamesInProgress.setUnknown(save);
+			ShatteredPixelDungeon.reportException(e);
 		}
 	}
 
-	public static void saveLevel() throws IOException {
+	public static void saveLevel( int save ) throws IOException {
 		Bundle bundle = new Bundle();
-		bundle.put(LEVEL, level);
+		bundle.put(Depth, depth);
+		FileUtils.bundleToFile(GamesInProgress.depthFile(save, dungeondepth), bundle);
 
-		OutputStream output = Game.instance.openFileOutput(
-				Messages.format(depthFile(hero.heroClass), depth),
-				Game.MODE_PRIVATE);
-		Bundle.write(bundle, output);
-		output.close();
 	}
 
 	public static void saveAll() throws IOException {
-		if (hero.isAlive()) {
-
-			Actor.fixTime();
-			saveGame(gameFile(hero.heroClass));
-			saveLevel();
-
-			GamesInProgress.set(hero.heroClass, depth, hero.lvl,skins,
-					challenges != 0);
-
-		} else if (WndResurrect.instance != null) {
-
-			WndResurrect.instance.hide();
-			Hero.reallyDie(WndResurrect.causeOfDeath);
-
+		if (hero != null && hero.isAlive()) {
+			if (hero.heroClass == HeroClass.NEWPLAYER) {
+				Actor.fixTime();
+			} else {
+				Actor.fixTime();
+				saveGame(GamesInProgress.curSlot);
+				saveLevel(GamesInProgress.curSlot);
+				GamesInProgress.set(GamesInProgress.curSlot, dungeondepth, challenges, hero , oldslot);
+			}
 		}
 	}
 
-	public static void loadGame(HeroClass cl) {
-		loadGame(gameFile(cl), true);
+	public static void saveNew() {
+		int slot = GamesInProgress.curSlot;
+		ArrayList<GamesInProgress.Info> games = GamesInProgress.checkAll();
+		int slot1 = games.size() + 1;
+
+		try {
+			Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.gameFile(slot));
+			FileUtils.bundleToFile(GamesInProgress.gameFile(slot1), bundle);
+			GLog.b("saveslot" + ":" + slot1);
+		} catch (Exception e) {
+
+		}
+
+		for (int i = 1; i < 100; i++) {
+			//Dungeon.depth = null;
+			//Actor.clear();
+			//Bundle bundle1 = FileUtils.bundleFromFile( GamesInProgress.depthFile( slot, depth)) ;
+			//Floor level = loadLevel(slot,depth);
+			try {
+				Bundle bundle1 = FileUtils.bundleFromFile(GamesInProgress.depthFile(slot, i));
+				Floor level = (Floor) bundle1.get(Depth);
+				if (level != null) {
+					Bundle bundle2 = new Bundle();
+					bundle2.put(Depth, level);
+					FileUtils.bundleToFile(GamesInProgress.depthFile(slot1, i), bundle2);
+					GLog.b("savedepth" + ":" + i);
+				}
+			} catch (Exception e) {
+
+			}
+		}
+		GamesInProgress.set(slot1, dungeondepth, challenges, hero, 0);
 	}
 
-	public static void loadGame(String fileName) {
-		loadGame(fileName, false);
+	public static void saveNewSlot(int slot1) {
+		//if (slot1 == 0) {return;}
+
+		int slot = GamesInProgress.curSlot;
+
+		Dungeon.deleteGame(slot1, true);
+		//FileUtils.deleteDir(GamesInProgress.gameFolder(slot1));
+
+		try {
+			Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.gameFile(slot));
+			FileUtils.bundleToFile(GamesInProgress.gameFile(slot1), bundle);
+			GLog.b("saveslot" + ":" + slot1);
+		} catch (Exception e) {
+
+		}
+
+		for (int i = 1; i < 100; i++) {
+			try {
+				Bundle bundle1 = FileUtils.bundleFromFile(GamesInProgress.depthFile(slot, i));
+				Floor level = (Floor) bundle1.get(Depth);
+				if (level != null) {
+					Bundle bundle2 = new Bundle();
+					bundle2.put(Depth, level);
+					FileUtils.bundleToFile(GamesInProgress.depthFile(slot1, i), bundle2);
+					GLog.b("savedepth" + ":" + i);
+				}
+			} catch (Exception e) {
+
+			}
+		}
+		GamesInProgress.set(slot1, dungeondepth, challenges, hero, slot);
 	}
 
-	public static void loadGame(String fileName, boolean fullLoad) {
-        try{
-		Bundle bundle = gameBundle(fileName);
+	public static void autosaveNew() {
+		int slot0 = GamesInProgress.curSlot;
+		int slot1 = 0;
+
+		Dungeon.oldslot = slot0;
+
+
+		Dungeon.deleteGame(0, true);
+		//FileUtils.deleteDir(GamesInProgress.gameFolder(slot1));
+
+		try {
+			Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.gameFile(slot0));
+			FileUtils.bundleToFile(GamesInProgress.gameFile(slot1), bundle);
+			GLog.b("saveslot" + ":" + slot1);
+		} catch (Exception e) {
+
+		}
+
+		for (int i = 1; i < 100; i++) {
+			//Dungeon.depth = null;
+			//Actor.clear();
+			//Bundle bundle1 = FileUtils.bundleFromFile( GamesInProgress.depthFile( slot, depth)) ;
+			//Floor level = loadLevel(slot,depth);
+			try {
+				Bundle bundle1 = FileUtils.bundleFromFile(GamesInProgress.depthFile(slot0, i));
+				Floor level = (Floor) bundle1.get(Depth);
+				if (level != null) {
+					Bundle bundle2 = new Bundle();
+					bundle2.put(Depth, level);
+					FileUtils.bundleToFile(GamesInProgress.depthFile(slot1, i), bundle2);
+					GLog.b("savedepth" + ":" + i);
+				}
+			} catch (Exception e) {
+
+			}
+		}
+		GamesInProgress.set(slot1, dungeondepth, challenges, hero, slot0);
+	}
+
+	public static void loadGame(int save) throws IOException {
+		loadGame(save, true);
+	}
+
+
+	public static void loadGame(int save, boolean fullLoad) throws IOException {
+
+		Bundle bundle = FileUtils.bundleFromFile(GamesInProgress.gameFile(save));
 
 		version = bundle.getInt(VERSION);
 
-		Generator.reset();
+		//Generator.reset();
 
 		Actor.restoreNextID(bundle);
 
@@ -1450,29 +1462,21 @@ public static Level newChallengeLevel(int list, Boolean first){
 		QuickSlotButton.reset();
 
 		Dungeon.challenges = bundle.getInt(CHALLENGES);
-		Dungeon.skins = bundle.getInt(SKINS);
 
-		Dungeon.saferoom = bundle.getInt(SAFEROOM);
+		//Dungeon.saferoom = bundle.getInt(SAFEROOM);
 
-		Dungeon.level = null;
-		Dungeon.depth = -1;
-
-		if (fullLoad) {
-			PathFinder.setMapSize(Level.getWidth(), Level.HEIGHT);
-		}
+		Dungeon.depth = null;
+		Dungeon.dungeondepth = -1;
 
 		Scroll.restore(bundle);
 		Potion.restore(bundle);
 		Ring.restore(bundle);
 
 		quickslot.restorePlaceholders(bundle);
-			// TODO: adjust this when dropping support for pre-0.2.3 saves
-			if (bundle.contains(LIMDROPS)) {
-				int[] dropValues = bundle.getIntArray(LIMDROPS);
-				for (limitedDrops value : limitedDrops.values())
-					value.count = value.ordinal() < dropValues.length ? dropValues[value
-							.ordinal()] : 0;
-
+		if (fullLoad) {
+			
+			LimitedDrops.restore(bundle.getBundle(LIMDROPS));
+            
 			chapters = new HashSet<Integer>();
 			int ids[] = bundle.getIntArray(CHAPTERS);
 			if (ids != null) {
@@ -1493,9 +1497,8 @@ public static Level newChallengeLevel(int list, Boolean first){
 				Blacksmith.Quest.reset();
 				Imp.Quest.reset();
 			}
-
-			Room.restoreRoomsFromBundle(bundle);
 		}
+
 
 		Bundle badges = bundle.getBundle(BADGES);
 		if (!badges.isNull()) {
@@ -1508,11 +1511,12 @@ public static Level newChallengeLevel(int list, Boolean first){
 		hero = (Hero) bundle.get(HERO);
 
 		gold = bundle.getInt(GOLD);
-		depth = bundle.getInt(DEPTH);
-		
+		dungeondepth = bundle.getInt(DEPTH);
+
 		sacrifice = bundle.getInt(SACRIFICE);
 
-		earlygrass = bundle.getBoolean(EARLYGRASS);
+		oldslot = bundle.getInt(OLDSLOT);
+
 		//gnollspawned = bundle.getBoolean(GNOLLSPAWN);
 		//skeletonspawned = bundle.getBoolean(SKELETONSPAWN);
 		//goldthiefspawned = bundle.getBoolean(THIEFSPAWN);
@@ -1528,17 +1532,15 @@ public static Level newChallengeLevel(int list, Boolean first){
 		gnollkingkilled = bundle.getBoolean(GNOLLKILL);
 		zotkilled = bundle.getBoolean(ZOTKILL);
 		sporkAvail = bundle.getBoolean(SPORK);
-		//challengebookdrop = bundle.getBoolean(CBDROP);
-		//goeidrop = bundle.getBoolean(GOEIDROP);
 		dewDraw = bundle.getBoolean(DEWDRAW);
 		dewWater = bundle.getBoolean(DEWWATER);
 		wings = bundle.getBoolean(WINGS);
 		dewNorn = bundle.getBoolean(DEWNORN);
-		canSave = bundle.getBoolean(CANSAVE);
+
 		gnollmission = bundle.getBoolean(GNOLLMISSION);
 		picktype = bundle.getBoolean(PICKTYPE);
 		pars = bundle.getIntArray(PARS);
-		
+
 		Statistics.restoreFromBundle(bundle);
 		Journal.restoreFromBundle(bundle);
 		//Generator.restoreFromBundle(bundle);
@@ -1553,62 +1555,50 @@ public static Level newChallengeLevel(int list, Boolean first){
 				droppedItems.put(i, dropped);
 			}
 		}
-        }
-		catch (IOException ex) {
-			GLog.i("Save File corrupt...\n\nthe gremlins have won this round!");
-		}		
-	}
 
-	public static Level loadLevel(HeroClass cl) throws IOException {
+}
 
-		Dungeon.level = null;
+	public static Floor loadLevel(int save ) throws IOException {
+		
+		Dungeon.depth = null;
 		Actor.clear();
 
-		InputStream input = Game.instance.openFileInput(Messages.format(
-				depthFile(cl), depth));
-		Bundle bundle = Bundle.read(input);
-		input.close();
+		Bundle bundle = FileUtils.bundleFromFile( GamesInProgress.depthFile( save, dungeondepth)) ;
+		
+		Floor level = (Floor)bundle.get(Depth);
+		
+		if (level == null){
+			throw new IOException();
+		} else {
+			return level;
+		}
 
-		return (Level) bundle.get("level");
 	}
 
-	public static void deleteGame(HeroClass cl, boolean deleteLevels) {
+	public static void deleteGame( int save, boolean deleteLevels) {
 
-	    if (cl == HeroClass.NEWPLAYER){
-		Game.instance.deleteFile(gameFile(cl));
+	    //if (Dungeon.hero.heroClass == HeroClass.NEWPLAYER) {
+		//	FileUtils.deleteFile(GamesInProgress.gameFile(save));
+		//}
+
+	    FileUtils.deleteFile(GamesInProgress.gameFile(save));
 
 		if (deleteLevels) {
-			int depth = 1;
-			while (Game.instance.deleteFile(Messages.format(depthFile(cl), depth))) {
-				depth++;
-			}
-			for(int i=1; i<200; i++){
-	            Game.instance.deleteFile(Messages.format(depthFile(cl), i));
-	        }
+			FileUtils.deleteDir(GamesInProgress.gameFolder(save));
 		}
 
-		GamesInProgress.delete(cl);
-		}
+		GamesInProgress.delete( save );
+
 	}
-
-	public static Bundle gameBundle(String fileName) throws IOException {
-
-		InputStream input = Game.instance.openFileInput(fileName);
-		Bundle bundle = Bundle.read(input);
-		input.close();
-
-		return bundle;
-	}
-
-	public static void preview(GamesInProgress.Info info, Bundle bundle) {
-		info.depth = bundle.getInt(DEPTH);
-		info.challenges = (bundle.getInt(CHALLENGES) != 0);
-		if (info.depth == -1) {
-			info.depth = bundle.getInt("maxDepth"); // FIXME
-		}
-		Hero.preview(info, bundle.getBundle(HERO));
-	}
-
+	
+	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
+		info.depth = bundle.getInt( DEPTH );
+		info.version = bundle.getInt( VERSION );
+		info.challenges = bundle.getInt( CHALLENGES );
+		Hero.preview( info, bundle.getBundle( HERO ) );
+		Statistics.preview( info, bundle );
+	}	
+	
 	public static void fail(String desc) {
 		resultDescription = desc;
 		if (hero.belongings.getItem(Ankh.class) == null && hero.heroClass != HeroClass.NEWPLAYER) {
@@ -1628,43 +1618,44 @@ public static Level newChallengeLevel(int list, Boolean first){
 		Rankings.INSTANCE.submit( true );
 	}
 
+
 	public static void observe() {
 
-		if (level == null) {
+		if (depth == null) {
 			return;
 		}
 
-	    if (level.darkness()){
-			level.visited = visible;
-			level.updateFieldOfView(hero);
-			System.arraycopy(Level.fieldOfView, 0, visible, 0, visible.length);
-			BArray.or(level.visited, visible, level.visited);
+	    if (depth.darkness()){
+			depth.visited = visible;
+			depth.updateFieldOfView(hero);
+			System.arraycopy(Floor.fieldOfView, 0, visible, 0, visible.length);
+			BArray.or(depth.visited, visible, depth.visited);
 		} else {
 
-		level.updateFieldOfView(hero);
-		System.arraycopy(Level.fieldOfView, 0, visible, 0, visible.length);
+		depth.updateFieldOfView(hero);
+		System.arraycopy(Floor.fieldOfView, 0, visible, 0, visible.length);
 
-		BArray.or(level.visited, visible, level.visited);
+		BArray.or(depth.visited, visible, depth.visited);
 		}
 
 		GameScene.afterObserve();
 	}
 
-	private static boolean[] passable = new boolean[Level.getLength()];
+	private static boolean[] passable = new boolean[Floor.getLength()];
 	
 
 	public static int findPath(Char ch, int from, int to, boolean pass[],
-			boolean[] visible) {
+							   boolean[] visible) {
 
-		if (Level.adjacent(from, to)) {
-			return Actor.findChar(to) == null && (pass[to] || Level.avoid[to]) ? to
+		if (Floor.adjacent(from, to)) {
+			return Actor.findChar(to) == null && (pass[to] || Floor.avoid[to]) ? to
 					: -1;
 		}
 
 		if (ch.flying || ch.buff(Amok.class) != null) {
-			BArray.or(pass, Level.avoid, passable);
+			BArray.or(pass, Floor.avoid, passable);
 		} else {
-			System.arraycopy(pass, 0, passable, 0, Level.getLength());
+			System.arraycopy(pass, 0, passable, 0, Floor.getLength());
 		}
 
 		for (Actor actor : Actor.all()) {
@@ -1684,9 +1675,9 @@ public static Level newChallengeLevel(int list, Boolean first){
 			boolean[] visible) {
 
 		if (ch.flying) {
-			BArray.or(pass, Level.avoid, passable);
+			BArray.or(pass, Floor.avoid, passable);
 		} else {
-			System.arraycopy(pass, 0, passable, 0, Level.getLength());
+			System.arraycopy(pass, 0, passable, 0, Floor.getLength());
 		}
 
 		for (Actor actor : Actor.all()) {
@@ -1704,7 +1695,7 @@ public static Level newChallengeLevel(int list, Boolean first){
 	}
 	
     public static boolean checkNight(){
-	   int hour=Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+	   int hour= Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 	   return (hour > 19 || hour < 7);
     }
     

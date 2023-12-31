@@ -25,11 +25,11 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.LeafParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 
 public class OldHighGrass {
 
-	public static void trample(Level level, int pos, Char ch) {
+	public static void trample(Floor level, int pos, Char ch) {
 
 		// Barkskin
 		if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN) {	

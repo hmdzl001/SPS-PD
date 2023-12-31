@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.Sleep;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SuccubusSprite;
 import com.watabou.utils.Random;
@@ -48,8 +48,8 @@ public class FireSuccubus extends Succubus {
 
 	@Override
 	public boolean act() {
-		for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2,
+		for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+			GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 2,
 					FireEffectDamage.class));
 		}
 		return super.act();

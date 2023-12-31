@@ -37,6 +37,8 @@ public class Handaxe extends MeleeWeapon {
 
 	public Handaxe() {
 		super(2, 1f, 1f, 1);
+		MIN = 11;
+		MAX = 22;
 	}
 
     @Override

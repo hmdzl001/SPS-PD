@@ -42,7 +42,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -130,20 +130,20 @@ public abstract class PET extends NPC {
 	}
 	
 	protected void throwItem() {
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {
 			int n;
 			do {
-				n = pos + Level.NEIGHBOURS8[Random.Int(8)];
-			} while (!Level.passable[n] && !Level.avoid[n]);
-			Dungeon.level.drop(heap.pickUp(), n).sprite.drop(pos);
+				n = pos + Floor.NEIGHBOURS8[Random.Int(8)];
+			} while (!Floor.passable[n] && !Floor.avoid[n]);
+			Dungeon.depth.drop(heap.pickUp(), n).sprite.drop(pos);
 		}
 	}
 	
 	@Override
 	protected boolean act() {
 		
-		if (Dungeon.depth != 50)
+		if (Dungeon.dungeondepth != 50)
 		{ assignPet(this); }
 		
 		if ( HP<HT){HP+=Dungeon.hero.petLevel;}
@@ -184,7 +184,7 @@ public abstract class PET extends NPC {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		if (Dungeon.depth != 50) {
+		if (Dungeon.dungeondepth != 50) {
 			Dungeon.hero.haspet = false;
 			Dungeon.hero.petType = 1;
 
@@ -196,15 +196,15 @@ public abstract class PET extends NPC {
 	protected Char chooseEnemy() {
 			if (enemy == null
 					|| !enemy.isAlive()
-					|| !Dungeon.level.mobs.contains(enemy)
-					|| Level.distance(enemy.pos, Dungeon.hero.pos) > 8
+					|| !Dungeon.depth.mobs.contains(enemy)
+					|| Floor.distance(enemy.pos, Dungeon.hero.pos) > 8
 					|| state == WANDERING) {
 				
 				HashSet<Mob> enemies = new HashSet<>();
-				for (Mob mob : Dungeon.level.mobs) {
+				for (Mob mob : Dungeon.depth.mobs) {
 					if (mob.hostile
-							&& Level.fieldOfView[mob.pos]
-							&& Level.distance(mob.pos, Dungeon.hero.pos) <= 8
+							&& Floor.fieldOfView[mob.pos]
+							&& Floor.distance(mob.pos, Dungeon.hero.pos) <= 8
 							&& mob.state != mob.PASSIVE) {
 						enemies.add(mob);
 					}
@@ -214,7 +214,7 @@ public abstract class PET extends NPC {
 				Char closest = null;
 				for (Char curr : enemies){
 					if (closest == null
-							|| Level.distance(pos, curr.pos) < Level.distance(pos, closest.pos)){
+							|| Floor.distance(pos, curr.pos) < Floor.distance(pos, closest.pos)){
 						closest = curr;
 					}
 				}
@@ -228,7 +228,7 @@ public abstract class PET extends NPC {
 		if (stay) {
 			return false;
 		} else if (state == WANDERING
-			|| Level.distance(target, Dungeon.hero.pos) > 6)
+			|| Floor.distance(target, Dungeon.hero.pos) > 6)
 			this.target = target = Dungeon.hero.pos;
 		return super.getCloser(target);
 	}
@@ -279,7 +279,7 @@ public abstract class PET extends NPC {
 			//Dungeon.hero.move( curPos );
 			//Dungeon.hero.spend( 1 / Dungeon.hero.speed() );
 		 //Dungeon.hero.busy();
-		if (!Level.passable[pos]){
+		if (!Floor.passable[pos]){
 			return true;
 		}
 		if (state == SLEEPING) {
@@ -317,7 +317,7 @@ public abstract class PET extends NPC {
 	public void dropreward(){
 		if (cooldown < 4) {
 			Item loot = this.SupercreateLoot();
-			Dungeon.level.drop(loot,pos).sprite.drop();
+			Dungeon.depth.drop(loot,pos).sprite.drop();
 			cooldown = this.oldcooldown;
 		} else GLog.n(Messages.get(this,"pet_not_ready"));;
 	}

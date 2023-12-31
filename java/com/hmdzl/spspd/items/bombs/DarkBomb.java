@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -42,9 +42,9 @@ public class DarkBomb extends Bomb {
 	public void explode(int cell) {
 		super.explode(cell);
 		curUser = Dungeon.hero;
-		 for (int n: Level.NEIGHBOURS9) {
+		 for (int n: Floor.NEIGHBOURS9) {
 			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}

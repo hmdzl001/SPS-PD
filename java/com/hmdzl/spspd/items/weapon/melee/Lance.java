@@ -35,6 +35,9 @@ public class Lance extends MeleeWeapon {
 
 	public Lance() {
 		super(5, 1f, 1f, 1);
+		MIN = 35;
+		MAX = 44;
+
 	}
 	
     @Override

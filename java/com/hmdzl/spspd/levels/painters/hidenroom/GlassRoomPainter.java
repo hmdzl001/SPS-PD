@@ -21,7 +21,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -29,7 +29,7 @@ import com.watabou.utils.Random;
 
 public class GlassRoomPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 
@@ -38,7 +38,7 @@ public class GlassRoomPainter extends Painter {
 
 		int cx = (room.left + room.right) / 2;
 		int cy = (room.top + room.bottom) / 2;
-		int c = cx + cy * Level.getWidth();
+		int c = cx + cy * Floor.getWidth();
 		level.drop(prize(level), c);
 		set(level, c, Terrain.PEDESTAL);
 
@@ -56,7 +56,7 @@ public class GlassRoomPainter extends Painter {
 
 		level.addItemToSpawn( new DungeonBomb.DoubleBomb() );
 	}	
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
         Item prize = Generator.random(Generator.Category.NORNSTONE);
 
         if (prize != null) {
@@ -65,7 +65,7 @@ public class GlassRoomPainter extends Painter {
         return prize;
     }
 
-	private static Item prize2(Level level) {
+	private static Item prize2(Floor level) {
 		Item prize = new StoneOre();
 
 		if (prize != null) {

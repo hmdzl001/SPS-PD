@@ -26,7 +26,7 @@ import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.summon.Honeypot;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
@@ -69,9 +69,9 @@ public class HoneyArrow extends TossWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = defender.pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				shatter(null, cell);
 			}
 		}
@@ -101,9 +101,9 @@ public class HoneyArrow extends TossWeapon {
 		int newPos = pos;
 		if (Actor.findChar(pos) != null) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int c = pos + n;
 				if (passable[c] && Actor.findChar(c) == null) {
 					candidates.add(c);
@@ -116,7 +116,7 @@ public class HoneyArrow extends TossWeapon {
 		if (newPos != -1) {
 			if (Dungeon.hero.subClass == HeroSubClass.LEADER) {
 				Honeypot.SteelBee bee = new Honeypot.SteelBee();
-				bee.spawn(Dungeon.depth);
+				bee.spawn(Dungeon.dungeondepth);
 				bee.HP = bee.HT;
 				bee.pos = newPos;
 
@@ -130,7 +130,7 @@ public class HoneyArrow extends TossWeapon {
 
 			} else {
 				Honeypot.Bee bee = new Honeypot.Bee();
-				bee.spawn(Dungeon.depth);
+				bee.spawn(Dungeon.dungeondepth);
 				bee.setPotInfo(pos, owner);
 				bee.HP = bee.HT;
 				bee.pos = newPos;

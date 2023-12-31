@@ -30,10 +30,8 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.WandOfAcid;
 import com.hmdzl.spspd.items.wands.WandOfSwamp;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.DustElementSprite;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.actors.damagetype.DamageType.EARTH_DAMAGE;
@@ -43,8 +41,8 @@ public class DustElement extends Mob {
 	{
 		spriteClass = DustElementSprite.class;
 
-		HP = HT = 35 + (Dungeon.depth * Random.NormalIntRange(1, 3));
-		evadeSkill = 4 + (Math.round((Dungeon.depth) / 2));
+		HP = HT = 35 + (Dungeon.dungeondepth * Random.NormalIntRange(1, 3));
+		evadeSkill = 4 + (Math.round((Dungeon.dungeondepth) / 2));
 
 		EXP = 2;
 		maxLvl = 8;
@@ -64,20 +62,20 @@ public class DustElement extends Mob {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(2, 5 + (Dungeon.depth));
+		return Random.NormalIntRange(2, 5 + (Dungeon.dungeondepth));
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return 11 + (Dungeon.depth);
+		return 11 + (Dungeon.dungeondepth);
 	}
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (Random.Int(10) == 0) {
 			Buff.prolong(enemy, Blindness.class, Random.Int(3, 10));
-			GLog.w(Messages.get(this, "blind"));
-			Dungeon.observe();
+			//GLog.w(Messages.get(this, "blind"));
+			//Dungeon.observe();
 		}
 
 		enemy.damage(damageRoll(), EARTH_DAMAGE);
@@ -98,7 +96,7 @@ public class DustElement extends Mob {
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 		} else if (buff instanceof Wet) {
-			if (Level.water[this.pos])
+			if (Floor.water[this.pos])
 				damage(Random.NormalIntRange(HT / 2, HT), buff);
 			else
 				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);

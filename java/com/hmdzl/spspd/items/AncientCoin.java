@@ -83,13 +83,13 @@ public class AncientCoin extends Item {
 			
 			PocketBallFull.removePet(hero);
 
-			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 ) && Dungeon.depth!=specialLevel) {
+			if ((Dungeon.bossLevel() || Dungeon.dungeondepth ==1 || Dungeon.dungeondepth >25 ) && Dungeon.dungeondepth !=specialLevel) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
 				return;
 			}
 			
-			if (Dungeon.depth==specialLevel && !Dungeon.banditkingkilled && !Dungeon.level.reset) {
+			if (Dungeon.dungeondepth ==specialLevel && !Dungeon.banditkingkilled && !Dungeon.depth.reset) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "boss_first"));
 				return;
@@ -107,9 +107,9 @@ public class AncientCoin extends Item {
 				if (buff != null)
 					buff.detach();
 
-              if (Dungeon.depth<25 && !Dungeon.bossLevel()){
+              if (Dungeon.dungeondepth <25 && !Dungeon.bossLevel()){
             	
-            	returnDepth = Dungeon.depth;
+            	returnDepth = Dungeon.dungeondepth;
        			returnPos = hero.pos;
 				InterlevelScene.mode = InterlevelScene.Mode.PORTCOIN;
 			} else {						 		

@@ -33,7 +33,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfDummy;
 import com.hmdzl.spspd.items.scrolls.ScrollOfLullaby;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfCharm;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.SuccubusSprite;
 import com.watabou.noosa.audio.Sample;
@@ -98,7 +98,7 @@ public class Succubus extends Mob {
 
 	@Override
 	protected boolean getCloser(int target) {
-		if (Level.fieldOfView[target] && Level.distance(pos, target) > 2
+		if (Floor.fieldOfView[target] && Floor.distance(pos, target) > 2
 				&& delay <= 0 &&(buff(Silent.class) == null) ) {
 
 			blink(target);
@@ -122,11 +122,11 @@ public class Succubus extends Mob {
 		if (Actor.findChar( cell ) != null && cell != this.pos)
 			cell = route.path.get(route.dist-1);
 
-		if (Level.avoid[ cell ]){
+		if (Floor.avoid[ cell ]){
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				cell = route.collisionPos + n;
-				if (Level.passable[cell] && Actor.findChar( cell ) == null) {
+				if (Floor.passable[cell] && Actor.findChar( cell ) == null) {
 					candidates.add( cell );
 				}
 			}

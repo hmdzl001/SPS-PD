@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSand;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSnow;
 import com.hmdzl.spspd.actors.blobs.weather.WeatherOfSun;
 import com.hmdzl.spspd.actors.mobs.Greatmoss;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -32,7 +32,7 @@ import com.watabou.utils.Random;
 
 public class PowerRoomPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 
@@ -66,7 +66,7 @@ public class PowerRoomPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							rain.seed(j + Level.getWidth() * i, 1);
+							rain.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfRain.class, rain);
@@ -78,7 +78,7 @@ public class PowerRoomPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sand.seed(j + Level.getWidth() * i, 1);
+							sand.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSand.class, sand);
@@ -90,7 +90,7 @@ public class PowerRoomPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							snow.seed(j + Level.getWidth() * i, 1);
+							snow.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSnow.class, snow);
@@ -102,7 +102,7 @@ public class PowerRoomPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sun.seed(j + Level.getWidth() * i, 1);
+							sun.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSun.class, sun);

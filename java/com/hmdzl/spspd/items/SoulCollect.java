@@ -39,7 +39,7 @@ public class SoulCollect extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (Dungeon.depth<26) {
+		if (Dungeon.dungeondepth <26) {
 			actions.add(AC_BREAK);
 		}
 		return actions;

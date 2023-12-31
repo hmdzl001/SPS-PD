@@ -45,7 +45,7 @@ public class RedDewdrop extends Item {
 
 		//if (vial == null || vial.isFull()) {
 		if (vial == null ) {
-			int value = 10 + (Dungeon.depth - 1) / 5;
+			int value = 10 + (Dungeon.dungeondepth - 1) / 5;
 			if (hero.heroClass == HeroClass.HUNTRESS) {
 				value++;
 			}

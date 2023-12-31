@@ -38,6 +38,8 @@ public class Scimitar extends MeleeWeapon {
 
 	public Scimitar() {
 		super(3, 1f, 1f, 1);
+		MIN = 23;
+		MAX = 35;
 	}
 
 	@Override

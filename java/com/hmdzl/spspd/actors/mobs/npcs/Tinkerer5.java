@@ -86,7 +86,7 @@ public class Tinkerer5 extends NPC {
 	      if(first) {
 		       first=false;
 		       tell(Messages.get(this, "tell3"));		
-		       Dungeon.level.drop(new FireMeat(), Dungeon.hero.pos).sprite.drop();
+		       Dungeon.depth.drop(new FireMeat(), Dungeon.hero.pos).sprite.drop();
 	        } else if (Random.Int(2)==0) {
 				tell(Messages.get(this, "tell1"));
 			} else {

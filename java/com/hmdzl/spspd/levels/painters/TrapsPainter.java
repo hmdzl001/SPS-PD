@@ -23,7 +23,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfLevitation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.ConfusionTrap;
@@ -46,7 +46,7 @@ import com.watabou.utils.Random;
 
 public class TrapsPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill( level, room, Terrain.WALL );
 
@@ -56,7 +56,7 @@ public class TrapsPainter extends Painter {
                 trapClass = SpearTrap.class;
                 break;
             case 1:
-                trapClass = !Dungeon.bossLevel(Dungeon.depth + 1)? null : SummoningTrap.class;
+                trapClass = !Dungeon.bossLevel(Dungeon.dungeondepth + 1)? null : SummoningTrap.class;
                 break;
             case 2: case 3: case 4:
                 trapClass = Random.oneOf(trapType);
@@ -72,7 +72,7 @@ public class TrapsPainter extends Painter {
 		Room.Door door = room.entrance();
 		door.set(Room.Door.Type.REGULAR);
 
-		int lastRow = level.map[room.left + 1 + (room.top + 1) * Level.getWidth()] == Terrain.CHASM? Terrain.CHASM
+		int lastRow = level.map[room.left + 1 + (room.top + 1) * Floor.getWidth()] == Terrain.CHASM? Terrain.CHASM
 				: Terrain.EMPTY;
 
 		int x = -1;
@@ -105,7 +105,7 @@ public class TrapsPainter extends Painter {
 			}
 		}		
 		
-		int pos = x + y * Level.getWidth();
+		int pos = x + y * Floor.getWidth();
 		if (Random.Int(3) == 0) {
 			if (lastRow == Terrain.CHASM) {
 				set(level, pos, Terrain.EMPTY);
@@ -119,7 +119,7 @@ public class TrapsPainter extends Painter {
 		level.addItemToSpawn(new PotionOfLevitation());
 	}
 
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
 
 		Item prize;
 

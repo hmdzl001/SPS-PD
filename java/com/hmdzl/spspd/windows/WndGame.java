@@ -18,14 +18,14 @@
 package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.GamesInProgress;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.scenes.HeroSelectScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
-import com.hmdzl.spspd.scenes.LoadSaveScene;
 import com.hmdzl.spspd.scenes.RankingsScene;
 import com.hmdzl.spspd.scenes.TitleScene;
-import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.Game;
@@ -71,15 +71,12 @@ public class WndGame extends Window {
 			addButton(btnStart = new RedButton( Messages.get(this, "start") ) {
 				@Override
 				protected void onClick() {
-					//GameLog.wipe();
-					Dungeon.hero = null;
-					ShatteredPixelDungeon.challenges(Dungeon.challenges);
-					InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
-					InterlevelScene.noStory = true;
-					Game.switchScene(InterlevelScene.class);
+					GamesInProgress.selectedClass = Dungeon.hero.heroClass;
+                    GamesInProgress.curSlot = GamesInProgress.firstEmpty();
+					ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
 				}
 			});
-			btnStart.icon(Icons.get(Dungeon.hero.heroClass));
+			//btnStart.icon(Icons.get(Dungeon.hero.heroClass));
 
 			addButton(new RedButton(Messages.get(this, "rankings")) {
 				@Override
@@ -90,17 +87,17 @@ public class WndGame extends Window {
 			});
 		}
 		
-		addButton(new RedButton(Messages.get(this, "loadsave") ) {
-			@Override
-			protected void onClick() {
-				try {
-					Dungeon.saveAll();
-				} catch (IOException e) {
-					ShatteredPixelDungeon.reportException(e);
-				}
-				Game.switchScene( LoadSaveScene.class );
-			}
-		});		
+		//addButton(new RedButton(Messages.get(this, "loadsave") ) {
+		//	@Override
+		//	protected void onClick() {
+		//		try {
+		//			Dungeon.saveAll();
+		//		} catch (IOException e) {
+		//			ShatteredPixelDungeon.reportException(e);
+		//		}
+				//Game.switchScene( LoadSaveScene.class );
+		//	}
+		//});
 
 		addButtons(
 		// Main menu
@@ -110,7 +107,7 @@ public class WndGame extends Window {
 						try {
 							Dungeon.saveAll();
 						} catch (IOException e) {
-							//ShatteredPixelDungeon.reportException(e);
+							ShatteredPixelDungeon.reportException(e);
 						}
 						Game.switchScene(TitleScene.class);
 					}
@@ -119,6 +116,11 @@ public class WndGame extends Window {
 				new RedButton( Messages.get(this, "exit")) {
 					@Override
 					protected void onClick() {
+						try {
+							Dungeon.saveAll();
+						} catch (IOException e) {
+							ShatteredPixelDungeon.reportException(e);
+						}
 						Game.instance.finish();
 					}
 				});

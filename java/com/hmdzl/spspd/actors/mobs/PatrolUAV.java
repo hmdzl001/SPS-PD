@@ -33,7 +33,7 @@ import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfTCloud;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.PatrolUAVSprite;
 import com.watabou.utils.Random;
@@ -44,7 +44,7 @@ public class PatrolUAV extends Mob {
 	{
 		spriteClass = PatrolUAVSprite.class;
 
-		HP = HT = 50+(Dungeon.depth*Random.NormalIntRange(1, 3));
+		HP = HT = 50+(Dungeon.dungeondepth *Random.NormalIntRange(1, 3));
 		evadeSkill = adj(1);
 		
 		EXP = 5;
@@ -84,8 +84,8 @@ public class PatrolUAV extends Mob {
 	public void die(Object cause) {
 
 		super.die(cause);
-		for (int i : Level.NEIGHBOURS9) {
-			if (Level.insideMap(pos+i) && !Level.solid[pos+i]) {
+		for (int i : Floor.NEIGHBOURS9) {
+			if (Floor.insideMap(pos+i) && !Floor.solid[pos+i]) {
 				GameScene.add(Blob.seed(pos + i, 3, ElectriShock.class));
 				CellEmitter.get(pos + i).burst(EnergyParticle.FACTORY, 5);
 			}

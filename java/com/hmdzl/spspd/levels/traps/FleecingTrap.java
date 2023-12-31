@@ -76,7 +76,7 @@ public class FleecingTrap {
 			ch.sprite.emitter().burst(ShadowParticle.UP, 5);
 			
 			if (ch == Dungeon.hero && port) {
-				 IronKey key = ((Hero)ch).belongings.getKey(IronKey.class, Dungeon.depth);
+				 IronKey key = ((Hero)ch).belongings.getKey(IronKey.class, Dungeon.dungeondepth);
 				 if (key!=null){key.detachAll(Dungeon.hero.belongings.backpack);}				
 			  InterlevelScene.mode = InterlevelScene.Mode.SOKOBANFAIL;
 			  Game.switchScene(InterlevelScene.class);

@@ -136,18 +136,18 @@ public class WndTinkerer extends Window {
 			Dungeon.dewDraw=true;
 		}
 		
-		if (type==1){
-		    tinkerer.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
-			Statistics.prevfloormoves=500;
-			Buff.affect(Dungeon.hero, Dewcharge.class,350f);
-	        GLog.p(Messages.get(this,"dungeon"));
-		} else if (type==2){
+		//if (type==1){
+		//    tinkerer.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
+		//	Statistics.prevfloormoves=500;
+		//	Buff.affect(Dungeon.hero, Dewcharge.class,300f);
+	   //     GLog.p(Messages.get(this,"dungeon"));
+		//} else if (type==2){
 			tinkerer.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
 			Statistics.prevfloormoves=500;
-			Buff.affect(Dungeon.hero, Dewcharge.class,350f);
+			Buff.affect(Dungeon.hero, Dewcharge.class,300f);
 	        GLog.p(Messages.get(this,"dungeon"));
-		}
-		Dungeon.level.drop(new SkeletonKey(1), tinkerer.pos).sprite.drop();
+		//}
+		Dungeon.depth.drop(new SkeletonKey(1), tinkerer.pos).sprite.drop();
 
 		tinkerer.destroy();
 

@@ -30,7 +30,7 @@ import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.plants.Firebloom;
 import com.hmdzl.spspd.sprites.FireElementalSprite;
 import com.watabou.utils.Random;
@@ -91,7 +91,7 @@ public class FireElemental extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}		
 
 	@Override
@@ -102,7 +102,7 @@ public class FireElemental extends Mob {
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 		} else if (buff instanceof Frost || buff instanceof Chill) {
-			if (Level.water[this.pos])
+			if (Floor.water[this.pos])
 				damage(Random.NormalIntRange(HT / 2, HT), buff);
 			else
 				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);

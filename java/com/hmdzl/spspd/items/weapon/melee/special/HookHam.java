@@ -65,7 +65,7 @@ public class HookHam extends MeleeWeapon {
 		}		
 		
 		if (Random.Int(100)==98){
-			Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(), defender.pos).sprite.drop();
 		}
 
 		if (enchantment != null) {

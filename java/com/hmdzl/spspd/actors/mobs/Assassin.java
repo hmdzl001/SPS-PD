@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.weapon.melee.special.TekkoKagi;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -87,20 +87,20 @@ public class Assassin extends Mob {
 	GLog.w(Messages.get(Mob.class,"killcount", Statistics.assassinsKilled));
 	
 	if (Statistics.assassinsKilled == 100){
-		Dungeon.level.drop(new TekkoKagi(), pos).sprite.drop();
+		Dungeon.depth.drop(new TekkoKagi(), pos).sprite.drop();
 	}
 	}
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
 				if (buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
 	
 	public static Assassin spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			Assassin w = new Assassin();
 			w.pos = pos;

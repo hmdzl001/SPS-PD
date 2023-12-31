@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.Freezing;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.blobs.effectblobs.FrostCloud;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.audio.Sample;
@@ -41,20 +41,20 @@ public class PotionOfFrost extends Potion {
 	@Override
 	public void shatter(int cell) {
 
-		PathFinder.buildDistanceMap(cell, BArray.not(Level.losBlockLow, null),
+		PathFinder.buildDistanceMap(cell, BArray.not(Floor.losBlockLow, null),
 				DISTANCE);
 
-		Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
+		Fire fire = (Fire) Dungeon.depth.blobs.get(Fire.class);
 
 		boolean visible = false;
-		for (int i = 0; i < Level.getLength(); i++) {
+		for (int i = 0; i < Floor.getLength(); i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				visible = Freezing.affect(i, fire) || visible;
 			}
 		}
 
 		for (int offset : PathFinder.NEIGHBOURS9){
-			if (!Dungeon.level.solid[cell+offset]) {
+			if (!Dungeon.depth.solid[cell+offset]) {
 
 				GameScene.add(Blob.seed(cell + offset, 10, FrostCloud.class));
 

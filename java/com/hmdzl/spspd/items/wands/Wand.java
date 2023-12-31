@@ -94,7 +94,7 @@ public abstract class Wand extends Item {
 		if (action.equals( AC_ZAP )) {
 			if (hero.buff(Silent.class) != null) {
 				GLog.w(Messages.get(Wand.class, "silent"));
-			} else 	if (Dungeon.hero.heroClass == HeroClass.MAGE && Dungeon.skins == 4 && Dungeon.hero.spp < 1) {
+			} else 	if (Dungeon.hero.heroClass == HeroClass.MAGE && Hero.skins == 4 && Dungeon.hero.spp < 1) {
 				GLog.w(Messages.get(Wand.class, "needmana"));
 			} else{
 			curUser = hero;
@@ -239,7 +239,7 @@ public abstract class Wand extends Item {
 	
 	public void updateLevel() {
 		maxCharges =
-				Dungeon.isChallenged(Challenges.ENERGY_LOST)? Math.min( initialCharges() + level, 4 ) : Math.min( initialCharges() + level, 10 );
+				Dungeon.isChallenged(Challenges.ENERGY_LOST)? Math.min( (int)(initialCharges() + level/3), 4 ) : Math.min((int)(initialCharges() + level/3), 10 );
 		curCharges = Math.min( curCharges, maxCharges );
 	}
 	
@@ -275,7 +275,7 @@ public abstract class Wand extends Item {
 		GnollMark gnollmark = curUser.belongings.getItem(GnollMark.class);
 		if (gnollmark!=null && gnollmark.charge<gnollmark.fullCharge) {gnollmark.charge++;}
 
-		if (Dungeon.hero.heroClass == HeroClass.MAGE && Dungeon.skins == 4 ) {
+		if (Dungeon.hero.heroClass == HeroClass.MAGE && Hero.skins == 4 ) {
 			Dungeon.hero.spp -- ;
 		}
 		
@@ -436,7 +436,7 @@ public abstract class Wand extends Item {
 			int missingCharges = 0;
 			missingCharges += Math.min(0.75f, 0.25f * Ring.getBonus(target, RingOfEnergy.Energy.class)/10);
 			//missingCharges = Math.max(0, missingCharges);
-            if (Dungeon.hero.heroClass==HeroClass.MAGE && Dungeon.skins==2){
+            if (Dungeon.hero.heroClass==HeroClass.MAGE && Hero.skins==2){
 			missingCharges+=0.05f;
 			}
 			if (partialCharge < missingCharges)

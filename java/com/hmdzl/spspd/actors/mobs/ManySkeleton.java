@@ -21,12 +21,11 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Pushing;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ManySkeletonSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -60,10 +59,10 @@ public class ManySkeleton extends Mob {
 
 		if (HP >= damage + 2) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			int[] neighbours = { pos + 1, pos - 1, pos + Level.getWidth(),
-					pos - Level.getWidth() };
+			int[] neighbours = { pos + 1, pos - 1, pos + Floor.getWidth(),
+					pos - Floor.getWidth() };
 			for (int n : neighbours) {
 				if (passable[n] && Actor.findChar(n) == null) {
 					candidates.add(n);
@@ -78,7 +77,7 @@ public class ManySkeleton extends Mob {
 				clone.state = clone.HUNTING;
 				clone.sumcopy = true;
 
-				if (Dungeon.level.map[clone.pos] == Terrain.DOOR) {
+				if (Dungeon.depth.map[clone.pos] == Terrain.DOOR) {
 					Door.enter(clone.pos);
 				}
 
@@ -104,16 +103,16 @@ public class ManySkeleton extends Mob {
 	}
 
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static ManySkeleton spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			ManySkeleton w = new ManySkeleton();
 			w.pos = pos;

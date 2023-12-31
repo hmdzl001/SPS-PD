@@ -39,9 +39,9 @@ public class DistortionTrap extends Trap{
 	public void activate(Char ch) {
 		super.activate(ch);
 		if (ch != null && ch.isAlive()){
-		InterlevelScene.returnDepth = Dungeon.depth;
+		InterlevelScene.returnDepth = Dungeon.dungeondepth;
 		for (Item item : Dungeon.hero.belongings.backpack.items.toArray( new Item[0])){
-			if (item instanceof Key && ((Key)item).depth == Dungeon.depth){
+			if (item instanceof Key && ((Key)item).depth == Dungeon.dungeondepth){
 				item.detachAll(Dungeon.hero.belongings.backpack);
 			}
 		}

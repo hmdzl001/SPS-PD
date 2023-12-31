@@ -30,7 +30,6 @@ import com.hmdzl.spspd.levels.painters.LibraryPainter;
 import com.hmdzl.spspd.levels.painters.MaterialPainter;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.painters.PassagePainter;
-import com.hmdzl.spspd.levels.painters.hidenroom.PitPainter;
 import com.hmdzl.spspd.levels.painters.PoolPainter;
 import com.hmdzl.spspd.levels.painters.RatKingPainter;
 import com.hmdzl.spspd.levels.painters.RuinRoomPainter;
@@ -39,6 +38,7 @@ import com.hmdzl.spspd.levels.painters.StandardPainter;
 import com.hmdzl.spspd.levels.painters.StatuePainter;
 import com.hmdzl.spspd.levels.painters.StoragePainter;
 import com.hmdzl.spspd.levels.painters.TenguBoxPainter;
+import com.hmdzl.spspd.levels.painters.TentRoomPainter;
 import com.hmdzl.spspd.levels.painters.TrapsPainter;
 import com.hmdzl.spspd.levels.painters.TunnelPainter;
 import com.hmdzl.spspd.levels.painters.VaultPainter;
@@ -49,6 +49,7 @@ import com.hmdzl.spspd.levels.painters.hidenroom.GlassRoomPainter;
 import com.hmdzl.spspd.levels.painters.hidenroom.HidenShopPainter;
 import com.hmdzl.spspd.levels.painters.hidenroom.MagicWellPainter;
 import com.hmdzl.spspd.levels.painters.hidenroom.MemoryPainter;
+import com.hmdzl.spspd.levels.painters.hidenroom.PitPainter;
 import com.hmdzl.spspd.levels.painters.hidenroom.WishPoolPainter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -91,7 +92,8 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		TRAPS(TrapsPainter.class), 
 		STORAGE(StoragePainter.class),
 		BARRICADED	(BarricadedPainter.class ),
-		
+
+		TENTROOM	(TentRoomPainter.class ),
 		MAGIC_WELL(MagicWellPainter.class), 
 		GARDEN(GardenPainter.class), 
 		CRYPT(CryptPainter.class), 
@@ -115,13 +117,13 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 
 		Type(Class<? extends Painter> painter) {
 			try {
-				paint = painter.getMethod("paint", Level.class, Room.class);
+				paint = painter.getMethod("paint", Floor.class, Room.class);
 			} catch (Exception e) {
 				paint = null;
 			}
 		}
 
-		public void paint(Level level, Room room) {
+		public void paint(Floor level, Room room) {
 			try {
 				paint.invoke(null, level, room);
 			} catch (Exception e) {
@@ -132,11 +134,11 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	
 	public static final ArrayList<Type> NORMALS = new ArrayList<Type>(
 			Arrays.asList(Type.STANDARD, Type.PASSAGE,Type.RUIN_ROOM, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,
-					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.COOKING, Type.VAULT));
+					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.COOKING, Type.VAULT,Type.TENTROOM));
 
     public static final ArrayList<Type> SPECIALS = new ArrayList<Type>(
 			Arrays.asList(Type.RUIN_ROOM, Type.CRYPT, Type.POOL, Type.GARDEN, Type.LIBRARY, Type.MATERIAL,
-					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.COOKING, Type.VAULT));
+					Type.JUNGLE, Type.TRAPS, Type.STORAGE, Type.STATUE, Type.COOKING, Type.VAULT,Type.TENTROOM));
 
 	public static final ArrayList<Type> HIDE = new ArrayList<Type>(
 			Arrays.asList( Type.MAGIC_WELL, Type.MEMORY, Type.BARRICADED,Type.HIDE_SHOP,
@@ -152,7 +154,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	public int random(int m) {
 		int x = Random.Int(left + 1 + m, right - m);
 		int y = Random.Int(top + 1 + m, bottom - m);
-		return x + y * Level.getWidth();
+		return x + y * Floor.getWidth();
 	}
 
 	public void addNeigbour(Room other) {
@@ -178,8 +180,8 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 	}
 
 	public boolean inside(int p) {
-		int x = p % Level.getWidth();
-		int y = p / Level.getWidth();
+		int x = p % Floor.getWidth();
+		int y = p / Floor.getWidth();
 		return x > left && y > top && x < right && y < bottom;
 	}
 
@@ -194,7 +196,7 @@ public class Room extends Rect implements Graph.Node, Bundlable {
 		HashSet<Point> points = getPoints();
 		HashSet<Integer> cells = new HashSet<>();
 		for( Point point : points)
-			cells.add(point.x + point.y*Level.WIDTH);
+			cells.add(point.x + point.y* Floor.WIDTH);
 		return cells;
 	}	
 

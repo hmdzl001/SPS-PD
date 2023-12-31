@@ -63,7 +63,7 @@ public class PrisonReward extends Item {
 			hero.sprite.operate(hero.pos);
 
 			FullMoonberry berry = new FullMoonberry();
-			Dungeon.level.drop(berry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(berry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 
 			detach(hero.belongings.backpack);
 		} else {

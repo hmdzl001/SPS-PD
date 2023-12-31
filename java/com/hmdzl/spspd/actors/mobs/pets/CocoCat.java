@@ -24,7 +24,7 @@ import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.CoconutSprite;
 import com.watabou.utils.Random;
 
@@ -79,7 +79,7 @@ public class CocoCat extends PET {
 	@Override
 	protected boolean canAttack(Char enemy) {
 
-		return Level.distance( pos, enemy.pos ) <= 4 ;
+		return Floor.distance( pos, enemy.pos ) <= 4 ;
 	
 	}
 

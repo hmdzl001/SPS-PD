@@ -63,7 +63,7 @@ public class Chill extends FlavourBuff {
 					item = item.detach( hero.belongings.backpack );
 					IceMeat carpaccio = new IceMeat();
 					if (!carpaccio.collect( hero.belongings.backpack )) {
-						Dungeon.level.drop( carpaccio, target.pos ).sprite.drop();
+						Dungeon.depth.drop( carpaccio, target.pos ).sprite.drop();
 					}
 					GLog.w(Messages.get(this, "freezes", item.toString()));
 

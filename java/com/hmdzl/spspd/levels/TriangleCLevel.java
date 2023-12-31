@@ -45,12 +45,12 @@ public class TriangleCLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.TILES_SEWERS;
+		return Assets.TILES_SKELETON;
 	}
 
 	@Override
 	public String waterTex() {
-		return Assets.WATER_SEWERS;
+		return Assets.WATER_PRISON;
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class TriangleCLevel extends RegularLevel {
 		}
 		
 				
-		int length = Level.getLength();
+		int length = Floor.getLength();
 		
 		for (int i = 0; i < length; i++) {
 			
@@ -151,7 +151,7 @@ public class TriangleCLevel extends RegularLevel {
 		addVisuals(this, scene);
 	}
 
-	public static void addVisuals(Level level, Scene scene) {
+	public static void addVisuals(Floor level, Scene scene) {
 		for (int i = 0; i < getLength(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
 				scene.add(new Sink(i));

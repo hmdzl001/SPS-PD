@@ -23,7 +23,6 @@ package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.messages.Messages;
@@ -68,7 +67,6 @@ public class UpgradeEatBall extends Item {
 	}	
 		
 	private void use(Item item) {
-        if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
 		detach(curUser.belongings.backpack);
 		
 		curUser.sprite.operate(curUser.pos);
@@ -96,7 +94,7 @@ public class UpgradeEatBall extends Item {
 					result = null;
 				}
 				item.detach(Dungeon.hero.belongings.backpack);
-				Dungeon.level.drop(result, Dungeon.hero.pos).sprite.drop();
+				Dungeon.depth.drop(result, Dungeon.hero.pos).sprite.drop();
 				UpgradeEatBall.this.use(item);
 			}
 		}

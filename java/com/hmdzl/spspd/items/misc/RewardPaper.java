@@ -21,7 +21,6 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfMixing;
 import com.hmdzl.spspd.items.reward.BoundReward;
@@ -99,7 +98,7 @@ public class RewardPaper extends Item {
 
 		} else if (action.equals(AC_NEED)) {
 				Dungeon.gold -= 1000;
-				Dungeon.level.drop(new BoundReward(), hero.pos).sprite.drop();
+				Dungeon.depth.drop(new BoundReward(), hero.pos).sprite.drop();
 				hero.spendAndNext(1f);
 
 		} else if (action.equals(AC_RANKUP)) {

@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.WindParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -42,7 +42,7 @@ public class PitfallTrap extends Trap {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		Heap heap = Dungeon.level.heaps.get( pos );
+		Heap heap = Dungeon.depth.heaps.get( pos );
 
 		if (heap != null){
 			for (Item item : heap.items){
@@ -50,7 +50,7 @@ public class PitfallTrap extends Trap {
 			}
 			heap.sprite.kill();
 			GameScene.discard(heap);
-			Dungeon.level.heaps.remove( pos );
+			Dungeon.depth.heaps.remove( pos );
 		}
 
 		//Char ch = Actor.findChar( pos );
@@ -67,15 +67,15 @@ public class PitfallTrap extends Trap {
 		super.disarm();
 
 		//if making a pit here wouldn't block any paths, make a pit tile instead of a disarmed trap tile.
-		if (!(Dungeon.level.solid[pos - Level.WIDTH] && Dungeon.level.solid[pos + Level.WIDTH])
-				&& !(Dungeon.level.solid[pos - 1]&& Dungeon.level.solid[pos + 1])){
+		if (!(Dungeon.depth.solid[pos - Floor.WIDTH] && Dungeon.depth.solid[pos + Floor.WIDTH])
+				&& !(Dungeon.depth.solid[pos - 1]&& Dungeon.depth.solid[pos + 1])){
 
-			int c = Dungeon.level.map[pos - Level.WIDTH];
+			int c = Dungeon.depth.map[pos - Floor.WIDTH];
 
 			if (c == Terrain.WALL || c == Terrain.WALL_DECO) {
-				Level.set(pos, Terrain.CHASM_WALL);
+				Floor.set(pos, Terrain.CHASM_WALL);
 			} else {
-				Level.set( pos, Terrain.CHASM_FLOOR );
+				Floor.set( pos, Terrain.CHASM_FLOOR );
 			}
 
 			sprite.parent.add(new WindParticle.Wind(pos));

@@ -71,6 +71,7 @@ import com.hmdzl.spspd.items.artifacts.EyeOfSkadi;
 import com.hmdzl.spspd.items.artifacts.GlassTotem;
 import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
+import com.hmdzl.spspd.items.artifacts.NoomlinCrown;
 import com.hmdzl.spspd.items.artifacts.Pylon;
 import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
@@ -339,7 +340,12 @@ import com.hmdzl.spspd.items.weapon.missiles.arrows.SmokeFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.ToxicFruit;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Brick;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.DragonBoat;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.HugeShuriken;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Javelin;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Kunai;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MiniMoai;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.SmallChakram;
+import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Tamahawk;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.Tree;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.BottleFire;
@@ -356,6 +362,7 @@ import com.hmdzl.spspd.items.weapon.ranges.MetalBowS;
 import com.hmdzl.spspd.items.weapon.ranges.PVCBowN;
 import com.hmdzl.spspd.items.weapon.ranges.PVCBowR;
 import com.hmdzl.spspd.items.weapon.ranges.PVCBowS;
+import com.hmdzl.spspd.items.weapon.ranges.RangePan;
 import com.hmdzl.spspd.items.weapon.ranges.StoneBowN;
 import com.hmdzl.spspd.items.weapon.ranges.StoneBowR;
 import com.hmdzl.spspd.items.weapon.ranges.StoneBowS;
@@ -415,13 +422,6 @@ public enum NewCatalog {
 		WEAPONS.seen.put( Trumpet.class , true);
 		WEAPONS.seen.put( Harp.class , true);
 
-		WEAPONS.seen.put( Sling.class , true);
-		WEAPONS.seen.put( GunA.class , true);
-		WEAPONS.seen.put( GunB.class , true);
-		WEAPONS.seen.put( GunC.class , true);
-		WEAPONS.seen.put( GunD.class , true);
-		WEAPONS.seen.put( GunE.class , true);
-
 		WEAPONS.seen.put( WoodenStaff.class , true);
 		WEAPONS.seen.put( Mace.class , true);
 		WEAPONS.seen.put( HolyWater.class , true);
@@ -464,10 +464,14 @@ public enum NewCatalog {
 		WEAPONS.seen.put( SpKnuckles.class , true);
 		WEAPONS.seen.put( TenguSword.class , true);
 		WEAPONS.seen.put( HolyMace.class , true);
-		WEAPONS.seen.put( Weightstone.class , true);
+
+		WEAPONS.seen.put( Javelin.class , true);
+		WEAPONS.seen.put( Kunai.class , true);
+		WEAPONS.seen.put( SmallChakram.class , true);
+		WEAPONS.seen.put( HugeShuriken.class , true);
+		WEAPONS.seen.put( Tamahawk.class , true);
 		WEAPONS.seen.put( DewVial.class , true);
-
-
+		WEAPONS.seen.put( Weightstone.class , true);
 
 		ARMOR.seen.put( BaseArmor.class, true);
 		ARMOR.seen.put( VestArmor.class, true);
@@ -500,7 +504,7 @@ public enum NewCatalog {
 		ARMOR.seen.put( FollowerSkill.class, true);
 		ARMOR.seen.put( AsceticSkill.class, true);
 		ARMOR.seen.put( TestArmor.class, true);
-		ARMOR.seen.put(WarriorArmor.class, true);
+		ARMOR.seen.put( WarriorArmor.class, true);
 		ARMOR.seen.put( MageArmor.class, true);
 		ARMOR.seen.put( RogueArmor.class, true);
 		ARMOR.seen.put( HuntressArmor.class, true);
@@ -546,6 +550,14 @@ public enum NewCatalog {
 		WANDS.seen.put( AlloyBowR.class,               true);
 		WANDS.seen.put( PVCBowR.class,               true);
 
+		WANDS.seen.put( Sling.class , true);
+		WANDS.seen.put( GunA.class,               true);
+		WANDS.seen.put( GunB.class,               true);
+		WANDS.seen.put( GunC.class,               true);
+		WANDS.seen.put( GunD.class,               true);
+		WANDS.seen.put( GunE.class,               true);
+
+		WANDS.seen.put( RangePan.class,               true);
 
 		SPECIALS.seen.put(MissileShield.class,true);
 		SPECIALS.seen.put(AttackShield.class,true);
@@ -655,6 +667,7 @@ public enum NewCatalog {
 		ARTIFACTS.seen.put( EyeOfSkadi.class, true);
 		ARTIFACTS.seen.put( RobotDMT.class, true);
 		ARTIFACTS.seen.put( Pylon.class, true);
+		ARTIFACTS.seen.put( NoomlinCrown.class, true);
 
 		ARTIFACTS.seen.put( RingOfAccuracy.class, true);
 		ARTIFACTS.seen.put( RingOfEnergy.class,   true);
@@ -734,7 +747,6 @@ public enum NewCatalog {
 
 		FOODS.seen.put( Sishimi.class, true);
 		FOODS.seen.put( Mediummeat.class, true);
-
 
 		PILLS.seen.put( Powerpill.class, true);
 		PILLS.seen.put( Magicpill.class, true);

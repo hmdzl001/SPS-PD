@@ -66,7 +66,7 @@ public class WandOfLight extends DamageWand {
 		Buff.prolong( curUser, Light.class, 5f+level());
 		}
 		
-	    Heap heap = Dungeon.level.heaps.get(beam.collisionPos);
+	    Heap heap = Dungeon.depth.heaps.get(beam.collisionPos);
 		if (heap != null) {heap.lighthit();}
 	}
 	

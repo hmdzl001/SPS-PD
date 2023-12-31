@@ -30,7 +30,7 @@ import com.watabou.utils.Bundle;
 
 import static com.hmdzl.spspd.Dungeon.hero;
 
-public class PrisonBossLevel extends Level {
+public class PrisonBossLevel extends Floor {
 
 	{
 		color1 = 0x6a723d;
@@ -119,7 +119,7 @@ public class PrisonBossLevel extends Level {
 			enteredArena = true;
 			seal();
 
-			Mob boss = Bestiary.mob(Dungeon.depth);
+			Mob boss = Bestiary.mob(Dungeon.dungeondepth);
 			boss.state = boss.HUNTING;
 			boss.pos = 23 + WIDTH * 21;
 			GameScene.add(boss);

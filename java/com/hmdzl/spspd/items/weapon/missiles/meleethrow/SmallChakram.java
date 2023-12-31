@@ -30,6 +30,8 @@ public class SmallChakram extends MeleeThrowWeapon {
 
 	public SmallChakram() {
 		super(2);
+		MIN = 11;
+		MAX = 23;
 	}
 
 

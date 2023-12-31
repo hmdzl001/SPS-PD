@@ -38,7 +38,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.PlantKingSprite;
@@ -85,18 +85,18 @@ public class UKing extends Mob {
 	@Override
 	public boolean act() {
 
-		if (Level.flamable[pos] && HP < HT) {
+		if (Floor.flamable[pos] && HP < HT) {
 			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 			HP++;
 		}
 
 		if( 3 - breaks > 4 * HP / HT ) {
 			breaks++;
-			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
+			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
 				if (i == Terrain.EMPTY || i == Terrain.EMBERS
 						|| i == Terrain.EMPTY_DECO || i == Terrain.GRASS) {
 
-					Level.set(i, Terrain.HIGH_GRASS);
+					Floor.set(i, Terrain.HIGH_GRASS);
 
 				}
 			}
@@ -110,16 +110,16 @@ public class UKing extends Mob {
 	public void move(int step) {
 		super.move(step);
 
-		int[] cells = { step - 1, step + 1, step - Level.getWidth(),
-				step + Level.getWidth(), step - 1 - Level.getWidth(),
-				step - 1 + Level.getWidth(), step + 1 - Level.getWidth(),
-				step + 1 + Level.getWidth() };
+		int[] cells = { step - 1, step + 1, step - Floor.getWidth(),
+				step + Floor.getWidth(), step - 1 - Floor.getWidth(),
+				step - 1 + Floor.getWidth(), step + 1 - Floor.getWidth(),
+				step + 1 + Floor.getWidth() };
 		int cell = cells[Random.Int(cells.length)];
 
 		if (cell == Terrain.EMPTY || cell == Terrain.EMBERS
 				|| cell == Terrain.EMPTY_DECO) {
 
-			Level.set(cell, Terrain.GRASS);
+			Floor.set(cell, Terrain.GRASS);
 
 		}
 	}
@@ -133,8 +133,8 @@ public class UKing extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (breaks >2){
-			return Level.distance( pos, enemy.pos ) <= 3;}
-		else return Level.distance( pos, enemy.pos ) <= 1;
+			return Floor.distance( pos, enemy.pos ) <= 3;}
+		else return Floor.distance( pos, enemy.pos ) <= 1;
 	}
 
 	@Override
@@ -182,7 +182,7 @@ public class UKing extends Mob {
 	}	
 	
 	public static UKing spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			UKing w = new UKing();
 			w.pos = pos;

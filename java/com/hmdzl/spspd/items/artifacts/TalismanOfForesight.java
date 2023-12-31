@@ -7,7 +7,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Notice;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -44,7 +44,7 @@ public class TalismanOfForesight extends Artifact {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && charge == 100 && !cursed && !Dungeon.sokobanLevel(Dungeon.depth))
+		if (isEquipped(hero) && charge == 100 && !cursed && !Dungeon.sokobanLevel(Dungeon.dungeondepth))
 			actions.add(AC_SCRY);
 		if (isEquipped(hero) && level > 2 && !cursed)
 		actions.add(AC_NOTICE);		
@@ -65,9 +65,9 @@ public class TalismanOfForesight extends Artifact {
 				hero.busy();
 				Sample.INSTANCE.play(Assets.SND_BEACON);
 				charge = 0;
-				for (int i = 0; i < Level.getLength(); i++) {
+				for (int i = 0; i < Floor.getLength(); i++) {
 
-					int terr = Dungeon.level.map[i];
+					int terr = Dungeon.depth.map[i];
 					if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
 
 						GameScene.updateMap(i);
@@ -131,30 +131,30 @@ public class TalismanOfForesight extends Artifact {
 
 			int distance = 3;
 
-			int cx = target.pos % Level.getWidth();
-			int cy = target.pos / Level.getWidth();
+			int cx = target.pos % Floor.getWidth();
+			int cy = target.pos / Floor.getWidth();
 			int ax = cx - distance;
 			if (ax < 0) {
 				ax = 0;
 			}
 			int bx = cx + distance;
-			if (bx >= Level.getWidth()) {
-				bx = Level.getWidth() - 1;
+			if (bx >= Floor.getWidth()) {
+				bx = Floor.getWidth() - 1;
 			}
 			int ay = cy - distance;
 			if (ay < 0) {
 				ay = 0;
 			}
 			int by = cy + distance;
-			if (by >= Level.HEIGHT) {
-				by = Level.HEIGHT - 1;
+			if (by >= Floor.HEIGHT) {
+				by = Floor.HEIGHT - 1;
 			}
 
 			for (int y = ay; y <= by; y++) {
-				for (int x = ax, p = ax + y * Level.getWidth(); x <= bx; x++, p++) {
+				for (int x = ax, p = ax + y * Floor.getWidth(); x <= bx; x++, p++) {
 
-					if (Dungeon.visible[p] && Level.secret[p]
-							&& Dungeon.level.map[p] != Terrain.SECRET_DOOR)
+					if (Dungeon.visible[p] && Floor.secret[p]
+							&& Dungeon.depth.map[p] != Terrain.SECRET_DOOR)
 						smthFound = true;
 				}
 			}

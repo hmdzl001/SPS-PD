@@ -20,7 +20,7 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.blobs.Blob;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
@@ -40,31 +40,31 @@ public class WndInfoCell extends Window {
 
 		super();
 
-		int tile = Dungeon.level.map[cell];
-		if (Level.water[cell]) {
+		int tile = Dungeon.depth.map[cell];
+		if (Floor.water[cell]) {
 			tile = Terrain.WATER;
-		} else if (Level.pit[cell]) {
+		} else if (Floor.pit[cell]) {
 			tile = Terrain.CHASM;
 		}
 
 		IconTitle titlebar = new IconTitle();
 		if (tile == Terrain.WATER) {
-			Image water = new Image(Dungeon.level.waterTex());
+			Image water = new Image(Dungeon.depth.waterTex());
 			water.frame(0, 0, DungeonTilemap.SIZE, DungeonTilemap.SIZE);
 			titlebar.icon(water);
 		} else {
 			titlebar.icon(DungeonTilemap.tile(tile));
 		}
-		titlebar.label(Dungeon.level.tileName(tile));
+		titlebar.label(Dungeon.depth.tileName(tile));
 		titlebar.setRect(0, 0, WIDTH, 0);
 		add(titlebar);
 
 		RenderedTextMultiline info = PixelScene.renderMultiline(6);
 		add(info);
 
-		StringBuilder desc = new StringBuilder(Dungeon.level.tileDesc(tile));
+		StringBuilder desc = new StringBuilder(Dungeon.depth.tileDesc(tile));
 
-		for (Blob blob : Dungeon.level.blobs.values()) {
+		for (Blob blob : Dungeon.depth.blobs.values()) {
 			if (blob.cur[cell] > 0 && blob.tileDesc() != null) {
 				if (desc.length() > 0) {
 					desc.append("\n\n");

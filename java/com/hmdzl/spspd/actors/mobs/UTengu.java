@@ -39,7 +39,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.melee.block.TenguSword;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.UTenguSprite;
@@ -157,14 +157,14 @@ public class UTengu extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (breaks <2){
-		return Level.distance( pos, enemy.pos ) <= 4;}
-		else return Level.distance( pos, enemy.pos ) <= 1;
+		return Floor.distance( pos, enemy.pos ) <= 4;}
+		else return Floor.distance( pos, enemy.pos ) <= 1;
 	}	
 	
 	@Override
 	protected boolean doAttack(Char enemy) {
         timeToJump--;
-		if (timeToJump <= 0 && Level.adjacent(pos, enemy.pos)) {
+		if (timeToJump <= 0 && Floor.adjacent(pos, enemy.pos)) {
 			jump();
 			return true;
 		} else {
@@ -176,7 +176,7 @@ public class UTengu extends Mob {
 	public int attackProc(Char enemy, int damage) {
 		Char ch;
 
-		if (Random.Int( 5 ) >= 3 && Level.distance( pos, enemy.pos )<= 1){
+		if (Random.Int( 5 ) >= 3 && Floor.distance( pos, enemy.pos )<= 1){
 			int oppositeTengu = enemy.pos + (enemy.pos - pos);
 			Ballistica trajectory = new Ballistica(enemy.pos, oppositeTengu, Ballistica.MAGIC_BOLT);
 			WandOfFlow.throwChar(enemy, trajectory, 1);
@@ -209,7 +209,7 @@ public class UTengu extends Mob {
 	}	
 	
 	public static UTengu spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			UTengu w = new UTengu();
 			w.pos = pos;
@@ -228,9 +228,9 @@ public class UTengu extends Mob {
 
 		int newPos;
 		do {
-			newPos = Random.Int(Level.getLength());
-		} while (!Level.fieldOfView[newPos] || !Level.passable[newPos]
-				|| Level.adjacent(newPos, enemy.pos)
+			newPos = Random.Int(Floor.getLength());
+		} while (!Floor.fieldOfView[newPos] || !Floor.passable[newPos]
+				|| Floor.adjacent(newPos, enemy.pos)
 				|| Actor.findChar(newPos) != null);
 
 		sprite.move(pos, newPos);

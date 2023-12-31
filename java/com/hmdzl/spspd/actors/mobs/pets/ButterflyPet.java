@@ -25,7 +25,7 @@ import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ButterflyPetSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.watabou.utils.Random;
@@ -80,7 +80,7 @@ public class ButterflyPet extends PET {
 	@Override
 	protected boolean act() {		
 			
-		if (Level.adjacent(pos, hero.pos)){
+		if (Floor.adjacent(pos, hero.pos)){
 			cooldown --;
 			if (cooldown <= 0){
 			hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f,	1);

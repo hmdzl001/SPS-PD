@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.OrbOfZotMob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.journalpages.EnergyCore;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -92,7 +92,7 @@ public class OrbOfZot extends Item {
 		}
 		
 		if (action.equals(AC_BREAK)){
-			Dungeon.level.drop(new EnergyCore(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(new EnergyCore(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			this.detachAll(Dungeon.hero.belongings.backpack);
 			Sample.INSTANCE.play(Assets.SND_BLAST);
 			hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
@@ -106,19 +106,19 @@ public class OrbOfZot extends Item {
 		
 		if (Actor.findChar(cell) != null) {
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : Level.NEIGHBOURS8)
-				if (Level.passable[cell + i])
+			for (int i : Floor.NEIGHBOURS8)
+				if (Floor.passable[cell + i])
 					candidates.add(cell + i);
 			int newCell = candidates.isEmpty() ? cell : Random
 					.element(candidates);
 			
-			   if (!Level.pit[newCell] && activate) {
+			   if (!Floor.pit[newCell] && activate) {
 				   OrbOfZotMob.spawnAt(newCell);
 			   } else {
-			   Dungeon.level.drop(this, newCell).sprite.drop(cell);
+			   Dungeon.depth.drop(this, newCell).sprite.drop(cell);
 			   }
 			   
-		} else if (!Level.pit[cell] && activate) {
+		} else if (!Floor.pit[cell] && activate) {
 			  OrbOfZotMob.spawnAt(cell);
 		} else {
 			

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.medicine.GreenSpore;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -66,15 +66,15 @@ public class Dewcatcher extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(new GreenSpore(), c).sprite.drop(pos);
+				Dungeon.depth.drop(new GreenSpore(), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}
@@ -82,14 +82,14 @@ public class Dewcatcher extends Plant {
 	
     public void explodeDew(int cell) {
 		
-		 for (int n : Level.NEIGHBOURS8) {
+		 for (int n : Floor.NEIGHBOURS8) {
 			 int c = cell + n;
-			 if (c >= 0 && c < Level.getLength() && Level.passable[c]) {
+			 if (c >= 0 && c < Floor.getLength() && Floor.passable[c]) {
 				 
-				if (Random.Int(10)==1){Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();}		
-			    else if (Random.Int(5)==1){Dungeon.level.drop(new RedDewdrop(), c).sprite.drop();}
-				else if (Random.Int(3)==1){Dungeon.level.drop(new YellowDewdrop(), c).sprite.drop();}
-				else {Dungeon.level.drop(new Dewdrop(), c).sprite.drop();}
+				if (Random.Int(10)==1){Dungeon.depth.drop(new VioletDewdrop(), c).sprite.drop();}
+			    else if (Random.Int(5)==1){Dungeon.depth.drop(new RedDewdrop(), c).sprite.drop();}
+				else if (Random.Int(3)==1){Dungeon.depth.drop(new YellowDewdrop(), c).sprite.drop();}
+				else {Dungeon.depth.drop(new Dewdrop(), c).sprite.drop();}
 			}
 		  }	
 		

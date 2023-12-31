@@ -267,7 +267,7 @@ import com.watabou.utils.Random;
 		HallsLevel.addVisuals(this, scene);
 	}
 }*/
-public class HallsBossLevel extends Level {
+public class HallsBossLevel extends Floor {
 	
 	{
 		color1 = 0x801500;

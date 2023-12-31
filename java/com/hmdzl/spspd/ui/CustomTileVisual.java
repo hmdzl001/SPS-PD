@@ -20,7 +20,7 @@
  */
 package com.hmdzl.spspd.ui;
 
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundlable;
@@ -44,7 +44,7 @@ public abstract class CustomTileVisual extends Image implements Bundlable {
 	public int tileW = 1, tileH = 1; //width and height in tiles
 
 	public void pos(int pos) {
-		pos( pos%Level.WIDTH, pos/Level.WIDTH );
+		pos( pos% Floor.WIDTH, pos/ Floor.WIDTH );
 	}
 
 	public void pos(int tileX, int tileY){

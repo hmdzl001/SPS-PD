@@ -26,7 +26,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -88,7 +88,7 @@ unique = true;
 
 				Ballistica route = new Ballistica(curUser.pos, target, Ballistica.PROJECTILE);
 				int cell = route.collisionPos;
-				int dist = Level.distance(curUser.pos, cell);
+				int dist = Floor.distance(curUser.pos, cell);
 				int range = 3;
 				if (Actor.findChar( cell ) != null && cell != curUser.pos)
 					cell = route.path.get(route.dist-1);
@@ -104,7 +104,7 @@ unique = true;
 					@Override
 					public void call() {
 						curUser.move(dest);
-						Dungeon.level.press(dest, curUser);
+						Dungeon.depth.press(dest, curUser);
 						Dungeon.observe();
 
 						CellEmitter.center(dest).burst(
@@ -171,8 +171,8 @@ unique = true;
 		final HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();
 		 Item proto = new EscapeKnive();
 
-		 for (Mob mob : Dungeon.level.mobs) {
-			 if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 7) && mob.isAlive()) {
+		 for (Mob mob : Dungeon.depth.mobs) {
+			 if (Floor.fieldOfView[mob.pos] && (Floor.distance(curUser.pos, mob.pos) <= 7) && mob.isAlive()) {
 				 Callback callback = new Callback() {
 					 @Override
 					 public void call() {

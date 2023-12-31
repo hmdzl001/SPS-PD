@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -120,7 +120,7 @@ public class FrostIce extends Buff {
 	}
 
 	public static float duration(Char ch) {
-		if (ch.isAlive() && (Level.water[ch.pos] && !ch.flying)){
+		if (ch.isAlive() && (Floor.water[ch.pos] && !ch.flying)){
 		return DURATION;
 		} else return DURATION;
 		

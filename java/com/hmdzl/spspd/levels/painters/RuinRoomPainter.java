@@ -23,7 +23,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.ShoppingCart;
 import com.hmdzl.spspd.items.keys.IronKey;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Point;
@@ -31,18 +31,18 @@ import com.watabou.utils.Random;
 
 public class RuinRoomPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY_DECO);
 
 		int cx = (room.left + room.right) / 2;
 		int cy = (room.top + room.bottom) / 2;
-		int c = cx + cy * Level.getWidth();
+		int c = cx + cy * Floor.getWidth();
 
 		Room.Door door = room.entrance();
 		door.set(Room.Door.Type.LOCKED);
-		level.addItemToSpawn(new IronKey(Dungeon.depth));
+		level.addItemToSpawn(new IronKey(Dungeon.dungeondepth));
 
 		if (door.x == room.left) {
 			for (int i = room.top + 1; i < room.bottom; i++) {
@@ -66,12 +66,12 @@ public class RuinRoomPainter extends Painter {
 			}
 		}
 
-		if (!Dungeon.limitedDrops.shopcart.dropped()){
+		if (!Dungeon.LimitedDrops.shopcart.dropped()){
 			int pos;
 			do {pos = room.random();}
 			while (level.heaps.get(pos) != null);
 			level.drop(new ShoppingCart(), pos);
-			Dungeon.limitedDrops.shopcart.drop();
+			Dungeon.LimitedDrops.shopcart.drop();
 		}
 
 
@@ -84,7 +84,7 @@ public class RuinRoomPainter extends Painter {
 				i3 = prize3(level);
 				i4 = prize4(level);
 				level.drop(i1, c).type = Heap.Type.CHEST;
-				level.drop(i2, c + Level.NEIGHBOURS8[Random.Int(8)]).type = Heap.Type.M_WEB;
+				level.drop(i2, c + Floor.NEIGHBOURS8[Random.Int(8)]).type = Heap.Type.M_WEB;
 
 				int pos; int pos2;
 				do {
@@ -122,22 +122,22 @@ public class RuinRoomPainter extends Painter {
 
 	}
 
-    private static Item prize(Level level) {
+    private static Item prize(Floor level) {
         return Generator.random(Random.oneOf(Generator.Category.BASEPET,
                 Generator.Category.RING, Generator.Category.ARTIFACT));
     }
 
-    private static Item prize2(Level level) {
+    private static Item prize2(Floor level) {
         return Generator.random(Random.oneOf(Generator.Category.FOOD,
                 Generator.Category.HIGHFOOD, Generator.Category.PILL));
     }
 
-    private static Item prize3(Level level) {
+    private static Item prize3(Floor level) {
         return Generator.random(Random.oneOf(Generator.Category.MELEEWEAPON,
                 Generator.Category.ARMOR, Generator.Category.WAND));
     }
 
-	private static Item prize4(Level level) {
+	private static Item prize4(Floor level) {
 		return Generator.random(Random.oneOf(Generator.Category.DEW,
 				Generator.Category.SEED, Generator.Category.NORNSTONE));
 	}

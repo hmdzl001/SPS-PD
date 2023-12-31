@@ -25,19 +25,15 @@ import android.annotation.SuppressLint;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndBag;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -76,8 +72,9 @@ public class TransmutationBall extends Item {
 	}	
 		
 	private void use(Item item) {
-        if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) && Random.Int(10)==1 )
+  
 		detach(curUser.belongings.backpack);
+
 		curUser.sprite.operate(curUser.pos);
 		//curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE), 0.2f, 0);
 		curUser.spend(1f);
@@ -108,7 +105,7 @@ public class TransmutationBall extends Item {
 					result = null;
 				}
 				item.detach(Dungeon.hero.belongings.backpack);
-				Dungeon.level.drop(result, Dungeon.hero.pos).sprite.drop();
+				Dungeon.depth.drop(result, Dungeon.hero.pos).sprite.drop();
 				TransmutationBall.this.use(item);
 			}
 		}

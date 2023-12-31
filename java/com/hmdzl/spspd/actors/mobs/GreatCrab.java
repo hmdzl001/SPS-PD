@@ -82,8 +82,8 @@ public class GreatCrab extends Crab {
 
 			Ghost.Quest.process();
 
-			Dungeon.level.drop(new MysteryMeat(), pos);
-			Dungeon.level.drop(new MysteryMeat(), pos).sprite.drop();
+			Dungeon.depth.drop(new MysteryMeat(), pos);
+			Dungeon.depth.drop(new MysteryMeat(), pos).sprite.drop();
 		}
 
 	}

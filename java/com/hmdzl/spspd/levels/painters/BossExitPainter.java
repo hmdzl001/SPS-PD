@@ -17,13 +17,13 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 
 public class BossExitPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -32,7 +32,7 @@ public class BossExitPainter extends Painter {
 			door.set(Room.Door.Type.REGULAR);
 		}
 
-		level.exit = room.top * Level.getWidth() + (room.left + room.right) / 2;
+		level.exit = room.top * Floor.getWidth() + (room.left + room.right) / 2;
 		set(level, level.exit, Terrain.LOCKED_EXIT);
 	}
 

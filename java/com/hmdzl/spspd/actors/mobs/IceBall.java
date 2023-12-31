@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.mobs;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SnowballSprite;
 import com.watabou.utils.Callback;
@@ -72,9 +72,9 @@ public class IceBall extends Mob {
 	@Override
 	public void die(Object cause) {
 		final int spos = pos;
-		for (int n : Level.NEIGHBOURS4OUT) {
+		for (int n : Floor.NEIGHBOURS4OUT) {
 			final int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				Mob mob = Bestiary.mob(86);
 				mob.pos = cell;
 				mob.state = mob.HUNTING;

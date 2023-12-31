@@ -26,7 +26,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CatSheepSprite;
@@ -67,7 +67,7 @@ public class WandOfBlackMeow extends Wand {
 			bolt.sourcePos = Ballistica.trace[Ballistica.distance - 2];
 		}
 
-		boolean[] passable = BArray.or(Level.passable, Level.avoid, null);
+		boolean[] passable = BArray.or(Floor.passable, Floor.avoid, null);
 		for (Actor actor : Actor.all()) {
 			if (actor instanceof Char) {
 				passable[((Char) actor).pos] = false;
@@ -86,7 +86,7 @@ public class WandOfBlackMeow extends Wand {
 
 		sheepLabel: for (int i = 0; i < n; i++) {
 			do {
-				for (int j = 0; j < Level.getLength(); j++) {
+				for (int j = 0; j < Floor.getLength(); j++) {
 					if (PathFinder.distance[j] == dist) {
 
 						
@@ -95,7 +95,7 @@ public class WandOfBlackMeow extends Wand {
 						sheep.lifespan = lifespan;
 						sheep.pos = j;
 						GameScene.add(sheep);
-						Dungeon.level.mobPress(sheep);
+						Dungeon.depth.mobPress(sheep);
 						
 
 
@@ -110,7 +110,7 @@ public class WandOfBlackMeow extends Wand {
 			} while (dist < n);
 		}
 			
-	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+	    Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {heap.lighthit();}
 	}
 

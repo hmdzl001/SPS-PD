@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.sprites.FoxHelperSprite;
 import com.watabou.utils.Random;
@@ -73,10 +73,10 @@ public class FoxHelper extends PET {
 
 	@Override
 	protected boolean act() {
-		if (Level.adjacent(pos, hero.pos)){
+		if (Floor.adjacent(pos, hero.pos)){
 			if (cooldown <= 0){
 				this.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f,	1);
-				Dungeon.level.drop(new ScrollOfUpgrade(), pos).sprite.drop();
+				Dungeon.depth.drop(new ScrollOfUpgrade(), pos).sprite.drop();
 				cooldown = Math.max(45,65-hero.petLevel);
 			}
 

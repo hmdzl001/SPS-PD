@@ -30,7 +30,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Scene;
 import com.watabou.utils.Random;
 
-public class CaveChallengeLevel extends Level {
+public class CaveChallengeLevel extends Floor {
 
 	{
 		color1 = 0x534f3e;
@@ -218,7 +218,7 @@ public class CaveChallengeLevel extends Level {
 	protected void createMobs() {
 		int nMobs = nMobs();
 		for (int i = 0; i < nMobs; i++) {
-			Mob mob = Bestiary.mob(Dungeon.depth);
+			Mob mob = Bestiary.mob(Dungeon.dungeondepth);
 			do {
 				mob.pos = randomRespawnCellFishMob();
 			} while (mob.pos == -1);
@@ -244,14 +244,14 @@ public class CaveChallengeLevel extends Level {
 			protected boolean act() {
 				if (mobs.size() < nMobs()) {
 
-					Mob mob = Bestiary.mutable(Dungeon.depth);
+					Mob mob = Bestiary.mutable(Dungeon.dungeondepth);
 					mob.state = mob.WANDERING;
 					mob.pos = randomRespawnCellFishMob();
 					if (Dungeon.hero.isAlive() && mob.pos != -1) {
 						GameScene.add(mob);
 					}
 				}
-				spend(Dungeon.level.feeling == Feeling.DARK
+				spend(Dungeon.depth.feeling == Feeling.DARK
 						|| Statistics.amuletObtained ? TIME_TO_RESPAWN / 2
 						: TIME_TO_RESPAWN);
 				return true;

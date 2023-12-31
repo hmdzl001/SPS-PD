@@ -21,6 +21,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndDocument;
+import com.hmdzl.spspd.windows.WndJournal;
 
 import java.util.ArrayList;
 
@@ -51,7 +52,8 @@ public class KnowledgeBook extends Item {
 
 		
 		if (action.equals(AC_READ)) {
-			GameScene.show( new WndDocument() );
+
+			GameScene.show(new WndJournal());
 		} else {
 			super.execute(hero, action);
 		}

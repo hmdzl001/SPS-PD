@@ -26,7 +26,7 @@ import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -43,7 +43,7 @@ public class HidenShopPainter extends Painter {
 	private static ArrayList<Item> itemsToSpawn;
 	private static ArrayList<Item> itemsToSpawn2;
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY_SP);
@@ -59,7 +59,7 @@ public class HidenShopPainter extends Painter {
 		for (Item item : itemsToSpawn) {
 
 			Point xy = p2xy(room, (pos + per) % per);
-			int cell = xy.x + xy.y * Level.getWidth();
+			int cell = xy.x + xy.y * Floor.getWidth();
 
 			if (level.heaps.get(cell) != null) {
 				do {
@@ -73,7 +73,7 @@ public class HidenShopPainter extends Painter {
 		for (Item item : itemsToSpawn2) {
 
 			Point xy = p2xy(room, (pos + per) % per);
-			int cell = xy.x + xy.y * Level.getWidth();
+			int cell = xy.x + xy.y * Floor.getWidth();
 
 			if (level.heaps.get(cell) != null) {
 				do {
@@ -96,10 +96,10 @@ public class HidenShopPainter extends Painter {
 	private static void generateItems() {
 
 		itemsToSpawn = new ArrayList<Item>();
-		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON).identify().uncurse().upgrade(Dungeon.depth));
-		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR).identify().uncurse().upgrade(Dungeon.depth));
-		itemsToSpawn.add(Generator.random(Generator.Category.WAND).identify().uncurse().upgrade(Dungeon.depth));
-		itemsToSpawn.add(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(Dungeon.depth));
+		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON).identify().uncurse().upgrade(Dungeon.dungeondepth));
+		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR).identify().uncurse().upgrade(Dungeon.dungeondepth));
+		itemsToSpawn.add(Generator.random(Generator.Category.WAND).identify().uncurse().upgrade(Dungeon.dungeondepth));
+		itemsToSpawn.add(Generator.random(Generator.Category.RING).identify().uncurse().upgrade(Dungeon.dungeondepth));
 		itemsToSpawn.add(Generator.random(Generator.Category.ARTIFACT));
 		itemsToSpawn.add(new Ankh());
 
@@ -107,10 +107,10 @@ public class HidenShopPainter extends Painter {
 		itemsToSpawn2.add(Generator.random(Generator.Category.POTION));
 		itemsToSpawn2.add(Generator.random(Generator.Category.SCROLL));
 		itemsToSpawn2.add(Generator.random(Generator.Category.LINKDROP));
-		itemsToSpawn2.add(Generator.random(Generator.Category.MELEEWEAPON).uncurse().upgrade(Dungeon.depth));
-		itemsToSpawn2.add(Generator.random(Generator.Category.ARMOR).uncurse().upgrade(Dungeon.depth));
-		itemsToSpawn2.add(Generator.random(Generator.Category.WAND).uncurse().upgrade(Dungeon.depth));
-		itemsToSpawn2.add(Generator.random(Generator.Category.RING).uncurse().upgrade(Dungeon.depth));
+		itemsToSpawn2.add(Generator.random(Generator.Category.MELEEWEAPON).uncurse().upgrade(Dungeon.dungeondepth));
+		itemsToSpawn2.add(Generator.random(Generator.Category.ARMOR).uncurse().upgrade(Dungeon.dungeondepth));
+		itemsToSpawn2.add(Generator.random(Generator.Category.WAND).uncurse().upgrade(Dungeon.dungeondepth));
+		itemsToSpawn2.add(Generator.random(Generator.Category.RING).uncurse().upgrade(Dungeon.dungeondepth));
 		itemsToSpawn2.add(Generator.random(Generator.Category.ARTIFACT));
 
 		// this is a hard limit, level gen allows for at most an 8x5 room, can't
@@ -130,7 +130,7 @@ public class HidenShopPainter extends Painter {
 		return itemsToSpawn.size() + 1;
 	}
 
-	private static void placeShopkeeper(Level level, Room room) {
+	private static void placeShopkeeper(Floor level, Room room) {
 
 		int pos;
 		do {
@@ -143,8 +143,8 @@ public class HidenShopPainter extends Painter {
 				Mob shoper0 = new Ice13();
 				shoper0.pos = pos;
 				level.mobs.add(shoper0);
-				for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-					int p = shoper0.pos + Level.NEIGHBOURS9[i];
+				for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+					int p = shoper0.pos + Floor.NEIGHBOURS9[i];
 					if (level.map[p] == Terrain.EMPTY_SP) {
 						level.map[p] = Terrain.PEDESTAL;
 					}
@@ -154,8 +154,8 @@ public class HidenShopPainter extends Painter {
 				Mob shoper1 = new HoneyPoooot();
 				shoper1.pos = pos;
 				level.mobs.add(shoper1);
-				for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-					int p = shoper1.pos + Level.NEIGHBOURS9[i];
+				for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+					int p = shoper1.pos + Floor.NEIGHBOURS9[i];
 					if (level.map[p] == Terrain.EMPTY_SP) {
 						level.map[p] = Terrain.PEDESTAL;
 					}
@@ -165,8 +165,8 @@ public class HidenShopPainter extends Painter {
 				Mob shoper2 = new SaidbySun();
 				shoper2.pos = pos;
 				level.mobs.add(shoper2);
-				for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-					int p = shoper2.pos + Level.NEIGHBOURS9[i];
+				for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+					int p = shoper2.pos + Floor.NEIGHBOURS9[i];
 					if (level.map[p] == Terrain.EMPTY_SP) {
 						level.map[p] = Terrain.PEDESTAL;
 					}

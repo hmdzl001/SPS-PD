@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -69,7 +69,7 @@ public class ThiefKing extends Mob implements Callback {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
@@ -80,8 +80,8 @@ public class ThiefKing extends Mob implements Callback {
         super.die(cause);
 
 		GameScene.bossSlain();
-		Dungeon.level.drop(new AdamantRing(), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(Random.Int(1900, 4000)), pos).sprite.drop();
+		Dungeon.depth.drop(new AdamantRing(), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(Random.Int(1900, 4000)), pos).sprite.drop();
 		
 		
 		Dungeon.banditkingkilled=true;

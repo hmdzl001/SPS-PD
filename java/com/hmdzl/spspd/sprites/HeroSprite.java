@@ -21,14 +21,20 @@ import android.graphics.RectF;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
+import com.watabou.noosa.tweeners.ScaleTweener;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PointF;
+import com.watabou.utils.Random;
 
 public class HeroSprite extends CharSprite {
 
@@ -79,13 +85,17 @@ public class HeroSprite extends CharSprite {
 		fly.frames(film, 18);
 		
 		read = new Animation( 8, false );
-		read.frames(film, 16, 17, 16, 17);		
+		read.frames(film, 16, 17, 16, 17);
+
+		antidie = new Animation(20, false);
+		antidie.frames(film, 12,11,12,11, 12, 11, 10, 9, 8,0,0,0,0,1);
 	}
 
 	@Override
 	public void place(int p) {
 		super.place(p);
-		Camera.main.target = this;
+		//Camera.main.target = this;
+		if (Game.scene() instanceof GameScene) Camera.main.panFollow(this, 5f);
 	}
 
 	@Override
@@ -94,12 +104,19 @@ public class HeroSprite extends CharSprite {
 		if (ch.flying) {
 			play(fly);
 		}
-		Camera.main.target = this;
+		//Camera.main.target = this;
+		Camera.main.panFollow(this, 20f);
 	}
 
 	@Override
 	public void jump(int from, int to, Callback callback) {
 		super.jump(from, to, callback);
+		play(fly);
+	}
+
+	@Override
+	public void roll(int from, int to, Callback callback) {
+		super.roll(from, to, callback);
 		play(fly);
 	}
 	
@@ -113,7 +130,6 @@ public class HeroSprite extends CharSprite {
 		};
 		play( read );
 	}
-	
 
 	@Override
 	public void update() {
@@ -122,9 +138,13 @@ public class HeroSprite extends CharSprite {
 		super.update();
 	}
 
-	public boolean sprint(boolean on) {
-		run.delay = on ? 0.667f / RUN_FRAMERATE : 1f / RUN_FRAMERATE;
-		return on;
+	//public boolean sprint(boolean on) {
+//		run.delay = on ? 0.667f / RUN_FRAMERATE : 1f / RUN_FRAMERATE;
+	//	return on;
+	//}
+	
+	public void sprint( float speed ) {
+		run.delay = 1f / speed / RUN_FRAMERATE;
 	}
 
 	public static TextureFilm skins() {

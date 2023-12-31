@@ -26,7 +26,7 @@ import com.hmdzl.spspd.effects.particles.EarthParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.potions.PotionOfParalyticGas;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.RootFruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -55,7 +55,7 @@ public class Earthroot extends Plant {
 			Camera.main.shake(1, 0.4f);
 		}
 		
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {
 			heap.earthhit();
 		}
@@ -82,15 +82,15 @@ public class Earthroot extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(new RootFruit(), c).sprite.drop(pos);
+				Dungeon.depth.drop(new RootFruit(), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

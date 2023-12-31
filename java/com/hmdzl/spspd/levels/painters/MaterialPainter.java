@@ -22,7 +22,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.DoorBlock;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Point;
@@ -30,7 +30,7 @@ import com.watabou.utils.Random;
 
 public class MaterialPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -78,14 +78,14 @@ public class MaterialPainter extends Painter {
 		}
 
 		entrance.set(Room.Door.Type.LOCKED);
-		level.addItemToSpawn(new IronKey(Dungeon.depth));
+		level.addItemToSpawn(new IronKey(Dungeon.dungeondepth));
 	}
 
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
 		return  Generator.random(Generator.Category.BOMBS);
 	}
 
-	private static Item prize2(Level level) {
+	private static Item prize2(Floor level) {
 		return  new DoorBlock();
 	}
 }

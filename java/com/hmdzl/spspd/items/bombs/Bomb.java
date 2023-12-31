@@ -25,7 +25,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.BlastParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -86,7 +86,7 @@ public class Bomb extends Item {
 
 	@Override
 	protected void onThrow( int cell ) {
-		if (!Level.pit[ cell ] && lightingFuse) {
+		if (!Floor.pit[ cell ] && lightingFuse) {
 			Actor.addDelayed(fuse = new Fuse().ignite(this), 2);
 		}
 		if (Actor.findChar( cell ) != null && !(Actor.findChar( cell ) instanceof Hero) ){
@@ -96,7 +96,7 @@ public class Bomb extends Item {
 					//candidates.add(cell + i);
 			//int newCell = candidates.isEmpty() ? cell : Random.element(candidates);
 			int newCell = cell;
-			Dungeon.level.drop( this, newCell ).sprite.drop( cell );
+			Dungeon.depth.drop( this, newCell ).sprite.drop( cell );
 		} else
 			super.onThrow( cell );
 	}
@@ -227,7 +227,7 @@ public class Bomb extends Item {
 			}
 
 			// look for our bomb, remove it from its heap, and blow it up.
-			for (Heap heap : Dungeon.level.heaps.values()) {
+			for (Heap heap : Dungeon.depth.heaps.values()) {
 				if (heap.items.contains(bomb)) {
 					heap.items.remove(bomb);
 

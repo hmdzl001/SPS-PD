@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce2;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.plants.Icecap;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.IceBugSprite;
@@ -82,16 +82,16 @@ public class IceBug extends Mob {
 	}
 
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static IceBug spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
 
 			IceBug w = new IceBug();
 			w.pos = pos;

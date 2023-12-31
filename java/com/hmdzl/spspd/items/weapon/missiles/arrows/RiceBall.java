@@ -70,7 +70,7 @@ public class RiceBall extends Arrows {
 			int count = 20;
 			int pos;
 			do {
-				pos = Dungeon.level.randomRespawnCell();
+				pos = Dungeon.depth.randomRespawnCell();
 				if (count-- <= 0) {
 					break;
 				}

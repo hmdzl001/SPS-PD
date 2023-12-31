@@ -28,7 +28,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.relic.RelicMeleeWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.noosa.Camera;
@@ -72,7 +72,7 @@ public class JupitersHorror extends Weapon.Enchantment {
 			
 			Camera.main.shake(3, 0.7f);
 			
-					if (Dungeon.visible[cell] && Level.passable[cell]) {
+					if (Dungeon.visible[cell] && Floor.passable[cell]) {
 						CellEmitter.center(cell).start(Speck.factory(Speck.ROCK), 0.07f, 10);
 					}
 					
@@ -80,8 +80,8 @@ public class JupitersHorror extends Weapon.Enchantment {
 					if (ch != null && ch!=Dungeon.hero) {
 						// those not at the center of the blast take damage less
 						// consistently.
-						int minDamage = Dungeon.depth + 5;
-						int maxDamage = 10 + Dungeon.depth * 3;
+						int minDamage = Dungeon.dungeondepth + 5;
+						int maxDamage = 10 + Dungeon.dungeondepth * 3;
 						                    
 						
 						int dmg = Random.NormalIntRange(minDamage, maxDamage) - Math.max(ch.drRoll(),0);

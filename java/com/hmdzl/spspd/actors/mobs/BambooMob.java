@@ -33,8 +33,6 @@ import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.sprites.MobBambooSprite;
 import com.watabou.utils.Random;
 
-import java.util.HashSet;
-
 public class BambooMob extends Mob {
 
 	{

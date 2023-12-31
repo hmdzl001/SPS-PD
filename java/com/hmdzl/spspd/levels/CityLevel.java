@@ -22,7 +22,6 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.HeroClass;
@@ -39,7 +38,7 @@ import com.hmdzl.spspd.levels.traps.DisarmingTrap;
 import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
 import com.hmdzl.spspd.levels.traps.GuardianTrap;
-import com.hmdzl.spspd.levels.traps.PitfallTrap;
+import com.hmdzl.spspd.levels.traps.KnowledgeTrap;
 import com.hmdzl.spspd.levels.traps.RockfallTrap;
 import com.hmdzl.spspd.levels.traps.SpearTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
@@ -93,14 +92,14 @@ public class CityLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 250+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.dungeondepth] = 250+(Dungeon.dungeondepth *50)+(secretDoors*20);
 	}
 
 	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{ SpearTrap.class, ExplosiveTrap.class, GrippingTrap.class,
 				RockfallTrap.class, WeakeningTrap.class, BoundTrap.class, DewTrap.class,
-				CursingTrap.class, GuardianTrap.class,
+				CursingTrap.class, GuardianTrap.class,  KnowledgeTrap.class,
 				SummoningTrap.class, TeleportationTrap.class, DisarmingTrap.class, WarpingTrap.class,
 				FireDamage2Trap.class, IceDamage2Trap.class, ShockDamage2Trap.class, EarthDamage2Trap.class,
 				LightDamage2Trap.class, DarkDamage2Trap.class};
@@ -110,7 +109,7 @@ public class CityLevel extends RegularLevel {
 	protected float[] trapChances() {
 		return new float[]{ 6, 4, 3,
 				6, 3, 4, 2,
-				4, 4,
+				4, 4, 1,
 				4, 1, 2, 3,
 				3, 3, 3, 3,
 				3, 3};
@@ -141,7 +140,7 @@ public class CityLevel extends RegularLevel {
 		}
 
 		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
-			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Floor.insideMap(i)) {
 
 				map[i] = Terrain.GLASS_WALL;
 			}
@@ -172,12 +171,12 @@ public class CityLevel extends RegularLevel {
     protected void createMobs() {
         int nMobs = nMobs();
         for (int i = 0; i < nMobs; i++) {
-            Mob mob = Bestiary.mob(Dungeon.depth);
+            Mob mob = Bestiary.mob(Dungeon.dungeondepth);
             do {
                 mob.pos = randomRespawnCell();
                 mob.originalgen=true;
-                Buff.affect(mob,ShieldArmor.class).level(Dungeon.depth*10);
-                Buff.affect(mob,MagicArmor.class).level(Dungeon.depth*10);
+                Buff.affect(mob,ShieldArmor.class).level(Dungeon.dungeondepth *10);
+                Buff.affect(mob,MagicArmor.class).level(Dungeon.dungeondepth *10);
             } while (mob.pos == -1);
             mobs.add(mob);
             Actor.occupyCell(mob);
@@ -185,7 +184,7 @@ public class CityLevel extends RegularLevel {
     }
 
 	public static void spawnGoldThief(CityLevel level) {
-		if (Dungeon.depth == 19 ){
+		if (Dungeon.dungeondepth == 19 ){
 
 			GoldThief thief = new GoldThief();
 			do {
@@ -238,7 +237,7 @@ public class CityLevel extends RegularLevel {
 		addVisuals(this, scene);
 	}
 
-	public static void addVisuals(Level level, Scene scene) {
+	public static void addVisuals(Floor level, Scene scene) {
 		for (int i = 0; i < getLength(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
 				scene.add(new Smoke(i));

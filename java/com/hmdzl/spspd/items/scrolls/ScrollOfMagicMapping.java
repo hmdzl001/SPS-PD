@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.SpellSprite;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -41,10 +41,10 @@ public class ScrollOfMagicMapping extends Scroll {
 	@Override
 	public void doRead() {
 
-		int length = Level.LENGTH;
+		int length = Floor.LENGTH;
 		//int[] map = Dungeon.level.map;
-		boolean[] mapped = Dungeon.level.mapped;
-		boolean[] discoverable = Level.discoverable;
+		boolean[] mapped = Dungeon.depth.mapped;
+		boolean[] discoverable = Floor.discoverable;
 
 		//boolean noticed = false;
 
@@ -89,10 +89,10 @@ public class ScrollOfMagicMapping extends Scroll {
 	@Override
 	public void empoweredRead() {
 		doRead();
-		int length = Level.LENGTH;
-		int[] map = Dungeon.level.map;
-		boolean[] mapped = Dungeon.level.mapped;
-		boolean[] discoverable = Level.discoverable;
+		int length = Floor.LENGTH;
+		int[] map = Dungeon.depth.map;
+		boolean[] mapped = Dungeon.depth.mapped;
+		boolean[] discoverable = Floor.discoverable;
 
 		boolean noticed = false;
 
@@ -107,7 +107,7 @@ public class ScrollOfMagicMapping extends Scroll {
 
 					//Level.set(i, Terrain.discover(terr));
 					//GameScene.updateMap(i);
-					Dungeon.level.discover( i );
+					Dungeon.depth.discover( i );
 
 					if (Dungeon.visible[i]) {
 						GameScene.discoverTile(i, terr);

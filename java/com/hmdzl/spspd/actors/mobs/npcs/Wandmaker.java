@@ -183,7 +183,7 @@ public class Wandmaker extends NPC {
 		}
 
 		public static void spawn(PrisonLevel level, Room room) {
-			if (!spawned && Dungeon.depth==7) {
+			if (!spawned && Dungeon.dungeondepth ==7) {
 
 				Wandmaker npc = new Wandmaker();
 				do {
@@ -263,7 +263,7 @@ public class Wandmaker extends NPC {
 			if (alternative /*|| Dungeon.isChallenged(Challenges.NO_HERBALISM)*/) {
 
 				ArrayList<Heap> candidates = new ArrayList<Heap>();
-				for (Heap heap : Dungeon.level.heaps.values()) {
+				for (Heap heap : Dungeon.depth.heaps.values()) {
 					if (heap.type == Heap.Type.SKELETON
 							&& !Dungeon.visible[heap.pos]) {
 						candidates.add(heap);
@@ -274,13 +274,13 @@ public class Wandmaker extends NPC {
 					Random.element(candidates).drop(new CorpseDust());
 					given = true;
 				} else {
-					int pos = Dungeon.level.randomRespawnCell();
-					while (Dungeon.level.heaps.get(pos) != null) {
-						pos = Dungeon.level.randomRespawnCell();
+					int pos = Dungeon.depth.randomRespawnCell();
+					while (Dungeon.depth.heaps.get(pos) != null) {
+						pos = Dungeon.depth.randomRespawnCell();
 					}
 
 					if (pos != -1) {
-						Heap heap = Dungeon.level.drop(new CorpseDust(), pos);
+						Heap heap = Dungeon.depth.drop(new CorpseDust(), pos);
 						heap.type = Heap.Type.SKELETON;
 						heap.sprite.link();
 						given = true;
@@ -289,13 +289,13 @@ public class Wandmaker extends NPC {
 
 			} else {
 
-				int shrubPos = Dungeon.level.randomRespawnCell();
-				while (Dungeon.level.heaps.get(shrubPos) != null) {
-					shrubPos = Dungeon.level.randomRespawnCell();
+				int shrubPos = Dungeon.depth.randomRespawnCell();
+				while (Dungeon.depth.heaps.get(shrubPos) != null) {
+					shrubPos = Dungeon.depth.randomRespawnCell();
 				}
 
 				if (shrubPos != -1) {
-					Dungeon.level.plant(new Rotberry.Seed(), shrubPos);
+					Dungeon.depth.plant(new Rotberry.Seed(), shrubPos);
 					given = true;
 				}
 

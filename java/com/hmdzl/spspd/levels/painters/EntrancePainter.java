@@ -17,16 +17,17 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.plants.Plant;
 
+import static com.hmdzl.spspd.Dungeon.shopOnLevel;
+
 public class EntrancePainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -44,12 +45,13 @@ public class EntrancePainter extends Painter {
             dewbless = room.random();
         }
 
-		if(Dungeon.depth > 1 && Dungeon.depth < 26){
+		if(!shopOnLevel()){
 			set(level, dewbless, Terrain.DEW_BLESS);
+			Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
+			level.explant(seed, room.random());
 		}
 
-		Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
-		level.explant(seed, room.random());
+
 
         //if (depth<25 && depth >1 ) {
            // level.map[dewbless] = Terrain.DEW_BLESS;
@@ -58,7 +60,7 @@ public class EntrancePainter extends Painter {
 		//	GoldCollector gc = new GoldCollector();
 		//	gc.pos = room.random();
 		//	level.mobs.add(gc);
-		//	Actor.occupyCell(gc);
+		//	//Actor.occupyCell(gc);
 		//}
 
 	}

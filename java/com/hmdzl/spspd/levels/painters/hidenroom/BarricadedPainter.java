@@ -23,7 +23,7 @@ package com.hmdzl.spspd.levels.painters.hidenroom;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -31,7 +31,7 @@ import com.watabou.utils.Random;
 
 public class BarricadedPainter extends Painter {
 
-	public static void paint( Level level, Room room ) {
+	public static void paint(Floor level, Room room ) {
 		
 		final int floor = Terrain.EMPTY_SP;
 		
@@ -61,7 +61,7 @@ public class BarricadedPainter extends Painter {
 		//level.addItemToSpawn( new PotionOfLiquidFlame() );
 	}
 	
-	private static Item prize( Level level ) {
+	private static Item prize( Floor level ) {
 
 		Item prize = Generator.random();
 

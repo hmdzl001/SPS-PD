@@ -20,7 +20,6 @@ package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Speck;
 import com.watabou.noosa.TextureFilm;
 

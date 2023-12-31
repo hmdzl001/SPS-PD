@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.potions.PotionOfFrost;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BombBugSprite;
 import com.watabou.noosa.audio.Sample;
@@ -108,8 +108,8 @@ public class BombBug extends IceBug {
 		}
 
 		if (Random.Int(8) == 0) {
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-				Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
 				if (ch != null && ch.isAlive()) {
 					Buff.affect(ch, StoneIce.class).level(10);
 				}
@@ -126,8 +126,8 @@ public class BombBug extends IceBug {
 
 		super.die(cause);
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
 			if (ch != null && ch.isAlive()) {
 				Buff.affect(ch,StoneIce.class).level(10);
 			}
@@ -152,16 +152,16 @@ public class BombBug extends IceBug {
 	}
 
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static BombBug spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			BombBug w = new BombBug();
 			w.pos = pos;

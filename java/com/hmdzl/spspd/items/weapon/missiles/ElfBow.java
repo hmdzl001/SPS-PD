@@ -122,7 +122,7 @@ public class ElfBow extends Weapon {
             hero.spp += 10;
 			charge++;
 			if (charge > 10) {
-				Dungeon.level.drop(new DemonBlade().upgrade(3), Dungeon.hero.pos).sprite.drop();
+				Dungeon.depth.drop(new DemonBlade().upgrade(3), Dungeon.hero.pos).sprite.drop();
 				hero.belongings.weapon = null;
 			    updateQuickslot();
 			}

@@ -24,7 +24,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.watabou.noosa.audio.Sample;
@@ -40,9 +40,9 @@ public class BoundTrap extends Trap {
 	public void activate(Char ch) {
 		super.activate(ch);
 		if (Dungeon.visible[ pos ]) {
-			CellEmitter.get(pos).burst(ShadowParticle.UP, 5);
+			CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
 			Sample.INSTANCE.play(Assets.SND_GOLD);
 		}
-		Dungeon.level.drop(Generator.random(), pos).sprite.drop();
+		Dungeon.depth.drop(Generator.random(), pos).sprite.drop();
 	}
 }

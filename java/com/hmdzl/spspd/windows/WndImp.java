@@ -72,7 +72,7 @@ public class WndImp extends Window {
 
 		reward.identify();
 
-		Dungeon.level.drop(reward, imp.pos).sprite.drop();
+		Dungeon.depth.drop(reward, imp.pos).sprite.drop();
 
 		imp.flee();
 

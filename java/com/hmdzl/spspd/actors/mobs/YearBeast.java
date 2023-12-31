@@ -49,7 +49,7 @@ import com.hmdzl.spspd.items.weapon.melee.FightGloves;
 import com.hmdzl.spspd.items.weapon.melee.Knuckles;
 import com.hmdzl.spspd.items.weapon.melee.special.FireCracker;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.MoneyPack;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -103,18 +103,18 @@ public class YearBeast extends Mob {
 	@Override
 	public boolean act() {
 		times++;
-		for (Char ch : Dungeon.level.mobs) {
+		for (Char ch : Dungeon.depth.mobs) {
             Buff.affect(ch,Burning.class).set(3f);
 		}
-		for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 2,
+		for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+			GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 2,
 					Fire.class));
 		}
 		return super.act();
 	}
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 	@Override
 	public int attackProc(Char enemy, int damage) {
@@ -147,14 +147,14 @@ public class YearBeast extends Mob {
 						hero.belongings.weapon = null;
 						Dungeon.quickslot.clearItem(weapon);
 					    weapon.updateQuickslot();
-						Dungeon.level.drop(weapon, hero.pos).sprite.drop();
+						Dungeon.depth.drop(weapon, hero.pos).sprite.drop();
 						GLog.w(Messages.get(this, "disarm"));
 					}
 				} else {
 					if (armor != null && !(armor instanceof WoodenArmor || armor instanceof RubberArmor || armor instanceof BaseArmor)
 							&& !armor.cursed) {
 						hero.belongings.armor = null;
-						Dungeon.level.drop(armor, hero.pos).sprite.drop();
+						Dungeon.depth.drop(armor, hero.pos).sprite.drop();
 						GLog.w(Messages.get(this, "disarm"));
 					}
 				}
@@ -195,7 +195,7 @@ public class YearBeast extends Mob {
 	    	yell(Messages.get(this, "escape"));
 	    	     } else {
 		    yell(Messages.get(this, "die"));
-			Dungeon.level.drop(new Vault(), pos).sprite.drop();
+			Dungeon.depth.drop(new Vault(), pos).sprite.drop();
 		}
 		times=0;
 		destroy();
@@ -205,7 +205,7 @@ public class YearBeast extends Mob {
 	}
 
 	public static YearBeast spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			YearBeast w = new YearBeast();
 			w.pos = pos;

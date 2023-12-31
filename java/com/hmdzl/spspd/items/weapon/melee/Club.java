@@ -37,6 +37,8 @@ public class Club extends MeleeWeapon {
 
 	public Club() {
 		super(4, 1f, 1f, 1);
+		MIN = 28;
+		MAX = 40;
 	}
 	
 	@Override

@@ -28,6 +28,7 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Silent;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
@@ -44,7 +45,7 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.HugeShuriken;
 import com.hmdzl.spspd.items.weapon.rockcode.Nshuriken;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.PoisonTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -105,19 +106,19 @@ public class Tengu extends Mob {
 		yell(Messages.get(this,"die"));	
 		GameScene.bossSlain();	
 	    Badges.validateBossSlain();	
-	    Dungeon.level.unseal();
-	    Dungeon.level.drop(new SkillBook(), pos).sprite.drop();
-		Dungeon.level.drop(new Sokoban2(), pos).sprite.drop();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();		
-		Dungeon.level.drop(new TenguKey(), pos).sprite.drop();
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Nshuriken(), Dungeon.hero.pos).sprite.drop();
+	    Dungeon.depth.unseal();
+	    Dungeon.depth.drop(new SkillBook(), pos).sprite.drop();
+		Dungeon.depth.drop(new Sokoban2(), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
+		Dungeon.depth.drop(new TenguKey(), pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Nshuriken(), Dungeon.hero.pos).sprite.drop();
         super.die(cause);
 	}
 
 	@Override
 	protected boolean getCloser(int target) {
-		if (Level.fieldOfView[target]) {
+		if (Floor.fieldOfView[target]) {
 			jump();
 			return true;
 		} else {
@@ -128,14 +129,14 @@ public class Tengu extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (this.buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else return new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos;
 	}
 
 	@Override
 	protected boolean doAttack(Char enemy) {
 		timeToJump--;
-		if (timeToJump <= 0 && Level.adjacent(pos, enemy.pos)) {
+		if (timeToJump <= 0 && Floor.adjacent(pos, enemy.pos)) {
 			jump();
 			return true;
 		} else {
@@ -146,17 +147,17 @@ public class Tengu extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 
-		if (Level.distance(pos, enemy.pos) == 1 ) {
+		if (Floor.distance(pos, enemy.pos) == 1 ) {
 			Buff.affect(enemy,Silent.class,.5f);
 			timeToJump--;
 		}
 
-		if (Level.distance(pos, enemy.pos) > 1 && Random.Int(10) > 7){
+		if (Floor.distance(pos, enemy.pos) > 1 && Random.Int(10) > 7){
 			Buff.affect(enemy, Locked.class,5f);
 			timeToJump++;
 		}
 
-		if (Level.distance(pos, enemy.pos) > 1 && Random.Int(10) > 9){
+		if (Floor.distance(pos, enemy.pos) > 1 && Random.Int(10) > 9){
 			Buff.affect(enemy, Burning.class).set(4f);
 			timeToJump++;
 		}
@@ -170,12 +171,12 @@ public class Tengu extends Mob {
 		for (int i = 0; i < 3; i++) {
 			int trapPos;
 			do {
-				trapPos = Random.Int(Level.getLength());
-			} while (!Level.fieldOfView[trapPos] || !Level.passable[trapPos]);
+				trapPos = Random.Int(Floor.getLength());
+			} while (!Floor.fieldOfView[trapPos] || !Floor.passable[trapPos]);
 
-			if (Dungeon.level.map[trapPos] == Terrain.INACTIVE_TRAP) {
-				Dungeon.level.setTrap( new PoisonTrap().reveal(), trapPos );
-				Level.set(trapPos, Terrain.TRAP);
+			if (Dungeon.depth.map[trapPos] == Terrain.INACTIVE_TRAP) {
+				Dungeon.depth.setTrap( new PoisonTrap().reveal(), trapPos );
+				Floor.set(trapPos, Terrain.TRAP);
 				GameScene.updateMap(trapPos);
 				ScrollOfMagicMapping.discover(trapPos);
 			}
@@ -183,9 +184,9 @@ public class Tengu extends Mob {
 
 		int newPos;
 		do {
-			newPos = Random.Int(Level.getLength());
-		} while (!Level.fieldOfView[newPos] || !Level.passable[newPos]
-				|| Level.adjacent(newPos, enemy.pos)
+			newPos = Random.Int(Floor.getLength());
+		} while (!Floor.fieldOfView[newPos] || !Floor.passable[newPos]
+				|| Floor.adjacent(newPos, enemy.pos)
 				|| Actor.findChar(newPos) != null);
 
 		sprite.move(pos, newPos);

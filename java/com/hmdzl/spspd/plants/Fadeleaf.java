@@ -26,7 +26,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.potions.PotionOfMindVision;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.SmokeFruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -52,7 +52,7 @@ public class Fadeleaf extends Plant {
 			int count = 10;
 			int newPos;
 			do {
-				newPos = Dungeon.level.randomRespawnCell();
+				newPos = Dungeon.depth.randomRespawnCell();
 				if (count-- <= 0) {
 					break;
 				}
@@ -93,15 +93,15 @@ public class Fadeleaf extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(new SmokeFruit(), c).sprite.drop(pos);
+				Dungeon.depth.drop(new SmokeFruit(), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

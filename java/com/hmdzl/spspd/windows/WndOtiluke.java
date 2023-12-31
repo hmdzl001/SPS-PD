@@ -78,7 +78,7 @@ public class WndOtiluke extends Window {
 		RedButton btn1 = new RedButton(roomNames[0]) {
 			@Override
 			protected void onClick() {
-				item.returnDepth = Dungeon.depth;
+				item.returnDepth = Dungeon.dungeondepth;
 				item.returnPos = Dungeon.hero.pos;
 				port(0, item.firsts[0]);
 				item.firsts[0]=false;
@@ -99,7 +99,7 @@ public class WndOtiluke extends Window {
 				RedButton btn = new RedButton(roomNames[i]) {
 					@Override
 					protected void onClick() {
-						item.returnDepth = Dungeon.depth;
+						item.returnDepth = Dungeon.dungeondepth;
 						item.returnPos = Dungeon.hero.pos;
 						port(portnum, item.firsts[portnum]);
 						item.firsts[portnum]=false;
@@ -128,7 +128,7 @@ public class WndOtiluke extends Window {
     
 		InterlevelScene.mode = InterlevelScene.Mode.JOURNAL;
 		
-		InterlevelScene.returnDepth = Dungeon.depth;
+		InterlevelScene.returnDepth = Dungeon.dungeondepth;
 		InterlevelScene.returnPos = Dungeon.hero.pos;
 		InterlevelScene.journalpage = room;
 		InterlevelScene.first = first;

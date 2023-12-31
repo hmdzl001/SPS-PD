@@ -32,6 +32,7 @@ import com.hmdzl.spspd.items.armor.glyphs.Crystalglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Darkglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Earthglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Electricityglyph;
+import com.hmdzl.spspd.items.armor.glyphs.Energyglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Fireglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Lightglyph;
@@ -279,19 +280,19 @@ public class Armor extends KindOfArmor {
 				Crystalglyph.class, Darkglyph.class, Earthglyph.class,
 				Electricityglyph.class, Fireglyph.class, Iceglyph.class,
 				Lightglyph.class, Revivalglyph.class, Testglyph.class,
-		        AdaptGlyph.class, RecoilGlyph.class};
+		        AdaptGlyph.class, RecoilGlyph.class, Energyglyph.class};
 				
 		private static final Class<?>[] randomA = new Class<?>[] { Changeglyph.class,
 				Crystalglyph.class, Darkglyph.class, Earthglyph.class,
 				Electricityglyph.class, Fireglyph.class, Iceglyph.class,
 				Lightglyph.class, Revivalglyph.class, Testglyph.class,
-		        AdaptGlyph.class, RecoilGlyph.class};				
+		        AdaptGlyph.class, RecoilGlyph.class,Energyglyph.class};
 
 		private static final float[] chances = new float[] { 1, 1, 1, 1, 1, 1,
-				1, 1, 1, 1,1,1 };
+				1, 1, 1, 1,1,1,1 };
 
 		private static final float[] chancesAdv = new float[] { 1, 1, 1, 1, 1, 1,
-			1, 1, 1, 1,1,1 };
+			1, 1, 1, 1,1,1,1 };
 		
 		public abstract int proc(Armor armor, Char attacker, Char defender,
 				int damage);
@@ -322,7 +323,6 @@ public class Armor extends KindOfArmor {
 
 		public boolean checkOwner(Char owner) {
 			if (!owner.isAlive() && owner instanceof Hero) {
-
 				Badges.validateDeathFromGlyph();
 				return true;
 

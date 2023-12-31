@@ -20,16 +20,14 @@ package com.hmdzl.spspd.items.misc;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Drowsy;
 import com.hmdzl.spspd.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -89,9 +87,9 @@ public class Ankhshield extends Item {
 				new Flare(6, 32).color(0x33FF33, true).show(curUser.sprite, 2f);
 			    Sample.INSTANCE.play(Assets.SND_TELEPORT);
 				
-			    for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			        if (Level.fieldOfView[mob.pos]) {
-					    if (Level.distance(hero.pos,mob.pos) < 5) {
+			    for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
+			        if (Floor.fieldOfView[mob.pos]) {
+					    if (Floor.distance(hero.pos,mob.pos) < 4) {
 							mob.damage(5, this);
 							Buff.prolong(mob, Shieldblock.class, 3);
 						} else {

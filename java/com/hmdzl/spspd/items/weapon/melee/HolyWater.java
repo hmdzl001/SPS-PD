@@ -39,6 +39,8 @@ public class  HolyWater extends MeleeWeapon {
 
 	public HolyWater() {
 		super(3, 0.8f, 1.2f, 1);
+		MIN = 22;
+		MAX = 34;
 	}
 	
 	public static int charge = 0;

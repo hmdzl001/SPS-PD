@@ -33,7 +33,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.OrbOfZot;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.messages.Messages;
@@ -103,7 +103,7 @@ public class ShadowYog extends Mob  {
 			breaks++;
 			int newPos = -1;
 			for (int i = 0; i < 20; i++) {
-				newPos = Dungeon.level.randomRespawnCellMob();
+				newPos = Dungeon.depth.randomRespawnCellMob();
 				if (newPos != -1) {
 					break;
 				}
@@ -131,16 +131,16 @@ public class ShadowYog extends Mob  {
 			for (int i = 0; i < 4; i++) {
 				int trapPos;
 				do {
-					trapPos = Random.Int(Level.getLength());
-				} while (!Level.fieldOfView[trapPos] || !Level.passable[trapPos]);
+					trapPos = Random.Int(Floor.getLength());
+				} while (!Floor.fieldOfView[trapPos] || !Floor.passable[trapPos]);
 
-				if (Dungeon.level.map[trapPos] == Terrain.INACTIVE_TRAP) {
-					Dungeon.level.setTrap( new SummoningTrap().reveal(), trapPos );
-					Level.set(trapPos,Terrain.TRAP);
+				if (Dungeon.depth.map[trapPos] == Terrain.INACTIVE_TRAP) {
+					Dungeon.depth.setTrap( new SummoningTrap().reveal(), trapPos );
+					Floor.set(trapPos,Terrain.TRAP);
 					GameScene.updateMap(trapPos);
 				}
 			}
-		if (Dungeon.level.mobs.size()<Dungeon.hero.lvl*2){
+		if (Dungeon.depth.mobs.size()<Dungeon.hero.lvl*2){
 			Fiend.spawnAroundChance(pos);
 		}
 			super.damage(dmg, src);
@@ -165,7 +165,7 @@ public class ShadowYog extends Mob  {
 		
 		//Statistics.shadowYogsKilled++;
 
-      for (Mob mob : Dungeon.level.mobs) {
+      for (Mob mob : Dungeon.depth.mobs) {
 			
 			if (mob instanceof ShadowYog){
 				   yogsAlive++;
@@ -176,9 +176,9 @@ public class ShadowYog extends Mob  {
 			GameScene.bossSlain();
 			Dungeon.shadowyogkilled=true;
 			
-			Dungeon.level.drop(new OrbOfZot(), pos).sprite.drop();
+			Dungeon.depth.drop(new OrbOfZot(), pos).sprite.drop();
 			
-			for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
+			for (Mob mob : (Iterable<Mob>) Dungeon.depth.mobs.clone()) {
 				if (mob instanceof Rat || mob instanceof GoldOrc || mob instanceof Fiend || mob instanceof Eye) {
 					mob.die(cause);
 				}

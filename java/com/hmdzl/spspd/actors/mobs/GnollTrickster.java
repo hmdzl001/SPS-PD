@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.PoisonDart;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.GnollTricksterSprite;
@@ -64,9 +64,9 @@ import com.watabou.utils.Random;
 		protected boolean canAttack(Char enemy) {
 		Ballistica attack = new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE);
 				if (buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
-		return !Level.adjacent( pos, enemy.pos ) && attack.collisionPos == enemy.pos;
+		return !Floor.adjacent( pos, enemy.pos ) && attack.collisionPos == enemy.pos;
 		}
 
 		@Override
@@ -80,7 +80,7 @@ import com.watabou.utils.Random;
 
 				if (effect >= 6 && enemy.buff(Burning.class) == null) {
 
-					if (Level.flamable[enemy.pos])
+					if (Floor.flamable[enemy.pos])
 						GameScene.add(Blob.seed(enemy.pos, 4, Fire.class));
 					Buff.affect(enemy, Burning.class).set(3f);
 
@@ -95,7 +95,7 @@ import com.watabou.utils.Random;
 		@Override
 		protected boolean getCloser(int target) {
 			combo = 0; // if he's moving, he isn't attacking, reset combo.
-			if (Level.adjacent(pos, enemy.pos)) {
+			if (Floor.adjacent(pos, enemy.pos)) {
 				return getFurther(target);
 			} else {
 				return super.getCloser(target);

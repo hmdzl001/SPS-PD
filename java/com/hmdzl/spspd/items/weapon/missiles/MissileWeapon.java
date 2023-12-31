@@ -99,7 +99,7 @@ public class MissileWeapon extends Weapon {
 				miss(cell);
 			} else if ( this instanceof TempestBoomerang || this instanceof MeleeThrowWeapon){
 				if (!isdestory){
-				   Dungeon.level.drop( this, enemy.pos).sprite.drop();
+				   Dungeon.depth.drop( this, enemy.pos).sprite.drop();
 				}
 			} else if (!(this instanceof Boomerang )) {
 

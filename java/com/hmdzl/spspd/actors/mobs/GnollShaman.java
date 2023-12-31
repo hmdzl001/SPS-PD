@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
 import com.hmdzl.spspd.items.potions.PotionOfLevitation;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -97,7 +97,7 @@ public class GnollShaman extends Mob implements Callback {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
@@ -105,14 +105,14 @@ public class GnollShaman extends Mob implements Callback {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.distance(pos, enemy.pos) <= 1) {
+		if (Floor.distance(pos, enemy.pos) <= 1) {
 
 			return super.doAttack(enemy);
 
 		} else {
 
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			}
@@ -121,7 +121,7 @@ public class GnollShaman extends Mob implements Callback {
 
 			if (hit(this, enemy, true)) {
 				int dmg = Random.Int(2+adj(0), 12+adj(3));
-				if (Level.water[enemy.pos] && !enemy.flying) {
+				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, SHOCK_DAMAGE);

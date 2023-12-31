@@ -38,7 +38,7 @@ public class ParalyticTrap extends Trap{
 	public void activate(Char ch) {
 		super.activate(ch);
 
-		GameScene.add( Blob.seed( pos, 80 + 5 * Dungeon.depth, ParalyticGas.class ) );
+		GameScene.add( Blob.seed( pos, 80 + 5 * Dungeon.dungeondepth, ParalyticGas.class ) );
 
 	}
 }

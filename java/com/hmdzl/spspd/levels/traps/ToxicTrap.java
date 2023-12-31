@@ -39,8 +39,8 @@ public class ToxicTrap extends Trap{
 	public void activate(Char ch) {
 		super.activate(ch);
 
-		GameScene.add( Blob.seed( pos, 300 + 20 * Dungeon.depth, ToxicGas.class ) );
-		Heap heap = Dungeon.level.heaps.get(pos);
+		GameScene.add( Blob.seed( pos, 300 + 20 * Dungeon.dungeondepth, ToxicGas.class ) );
+		Heap heap = Dungeon.depth.heaps.get(pos);
         if (heap != null) {heap.earthhit();}
 	}
 }

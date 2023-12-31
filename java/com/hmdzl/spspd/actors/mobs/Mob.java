@@ -65,7 +65,7 @@ import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.reward.BoundReward;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.messages.Messages;
@@ -222,9 +222,9 @@ public abstract class Mob extends Char {
 		if (!(this instanceof NPC)){
 			if (enemy != null) {
 				ArrayList<Integer> candidates = new ArrayList<Integer>();
-				for (int n : Level.NEIGHBOURS8) {
+				for (int n : Floor.NEIGHBOURS8) {
 					int cell = enemy.pos + n;
-					if ((Level.passable[cell] || Level.avoid[cell])) {
+					if ((Floor.passable[cell] || Floor.avoid[cell])) {
 						candidates.add(cell);
 					}
 				}
@@ -236,7 +236,7 @@ public abstract class Mob extends Char {
 			}
 		}
 		boolean enemyInFOV = enemy != null && enemy.isAlive()
-				&& Level.fieldOfView[enemy.pos] && enemy.invisible<=0 ;
+				&& Floor.fieldOfView[enemy.pos] && enemy.invisible<=0 ;
 
 		return state.act(enemyInFOV, justAlerted);
 
@@ -272,14 +272,14 @@ public abstract class Mob extends Char {
 			if ( buff(Amok.class) != null) {
 
 				//try to find an enemy mob to attack first.
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && mob.hostile)
+				for (Mob mob : Dungeon.depth.mobs)
+					if (mob != this && Floor.fieldOfView[mob.pos] && mob.hostile)
 						enemies.add(mob);
 				if (enemies.size() > 0) return Random.element(enemies);
 
 				//try to find ally mobs to attack second.
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && mob.ally)
+				for (Mob mob : Dungeon.depth.mobs)
+					if (mob != this && Floor.fieldOfView[mob.pos] && mob.ally)
 						enemies.add(mob);
 				if (enemies.size() > 0) return Random.element(enemies);
 
@@ -289,8 +289,8 @@ public abstract class Mob extends Char {
 			} else {
 
 				//try to find ally mobs to attack.
-				for (Mob mob : Dungeon.level.mobs)
-					if (mob != this && Level.fieldOfView[mob.pos] && (mob.ally || mob.buff(Amok.class) != null))
+				for (Mob mob : Dungeon.depth.mobs)
+					if (mob != this && Floor.fieldOfView[mob.pos] && (mob.ally || mob.buff(Amok.class) != null))
 						enemies.add(mob);
 
 				//and add the hero to the list of targets.
@@ -304,8 +304,8 @@ public abstract class Mob extends Char {
 					Char closest = null;
 					for (Char curr : enemies){
 						if (closest == null
-								|| Dungeon.level.distance(pos, curr.pos) < Dungeon.level.distance(pos, closest.pos)
-								|| Dungeon.level.distance(pos, curr.pos) == Dungeon.level.distance(pos, closest.pos) && curr == Dungeon.hero){
+								|| Dungeon.depth.distance(pos, curr.pos) < Dungeon.depth.distance(pos, closest.pos)
+								|| Dungeon.depth.distance(pos, curr.pos) == Dungeon.depth.distance(pos, closest.pos) && curr == Dungeon.hero){
 							closest = curr;
 						}
 					}
@@ -360,7 +360,7 @@ public abstract class Mob extends Char {
 	}
 
 	protected boolean canAttack(Char enemy) {
-        return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy) && (buff(Disarm.class) == null));
+        return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy) && (buff(Disarm.class) == null));
 	}
 
 	protected boolean getCloser(int target) {
@@ -369,8 +369,8 @@ public abstract class Mob extends Char {
 			return false;
 		}
 
-		int step = Dungeon.findPath(this, pos, target, Level.passable,
-				Level.fieldOfView);
+		int step = Dungeon.findPath(this, pos, target, Floor.passable,
+				Floor.fieldOfView);
 		if (step != -1) {
 			move(step);
 			return true;
@@ -380,8 +380,8 @@ public abstract class Mob extends Char {
 	}
 
 	protected boolean getFurther(int target) {
-		int step = Dungeon.flee(this, pos, target, Level.passable,
-				Level.fieldOfView);
+		int step = Dungeon.flee(this, pos, target, Floor.passable,
+				Floor.fieldOfView);
 		if (step != -1) {
 			move(step);
 			return true;
@@ -402,7 +402,7 @@ public abstract class Mob extends Char {
 		super.move(step);
 
 		if (!flying) {
-			Dungeon.level.mobPress(this);
+			Dungeon.depth.mobPress(this);
 		}
 	}
 
@@ -513,13 +513,13 @@ public abstract class Mob extends Char {
 		int adjustment;
 				
 	  if (type == 0){
-		adjustment = Dungeon.depth;
+		adjustment = Dungeon.dungeondepth;
 	  } else if (type == 1){
-		adjustment = Dungeon.depth /2;
+		adjustment = Dungeon.dungeondepth /2;
 	  } else if (type == 2){
-		 adjustment = Dungeon.depth /4;
+		 adjustment = Dungeon.dungeondepth /4;
 	  } else if (type == 3){
-		 adjustment = Dungeon.depth*2;
+		 adjustment = Dungeon.dungeondepth *2;
 	  } else adjustment = 1;
 
 		return adjustment;
@@ -556,7 +556,7 @@ public abstract class Mob extends Char {
 
 		super.destroy();
 
-		Dungeon.level.mobs.remove(this);
+		Dungeon.depth.mobs.remove(this);
 
 		if (Dungeon.hero.isAlive() && !(this instanceof NPC)) {
 
@@ -596,7 +596,7 @@ public abstract class Mob extends Char {
 		MasterThievesArmband.Thievery armband = Dungeon.hero.buff(MasterThievesArmband.Thievery.class);
 		if (armband != null) armband.gainCharge();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
 			Dungeon.hero.belongings.recode();
 	
 		if (Dungeon.hero.lvl <= maxLvl && EXP > 0) {
@@ -611,7 +611,7 @@ public abstract class Mob extends Char {
 	}
 	
 	public boolean checkOriginalGenMobs (){
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			if (mob.originalgen){return true;}
 		 }	
 		return false;
@@ -633,14 +633,14 @@ public abstract class Mob extends Char {
 			explodeDewHigh(pos);
 		}
 		
-		if (!Dungeon.level.cleared && originalgen && !checkOriginalGenMobs() && Dungeon.depth>1
-		&& Dungeon.depth<25 && !Dungeon.bossLevel(Dungeon.depth) && (Dungeon.dewDraw || Dungeon.dewWater)){
-			Dungeon.level.cleared=true;
+		if (!Dungeon.depth.cleared && originalgen && !checkOriginalGenMobs() && Dungeon.dungeondepth >1
+		&& Dungeon.dungeondepth <25 && !Dungeon.bossLevel(Dungeon.dungeondepth) && (Dungeon.dewDraw || Dungeon.dewWater)){
+			Dungeon.depth.cleared=true;
 			GameScene.levelCleared();		
-			if(Dungeon.depth>0){Statistics.prevfloormoves=Math.max(Dungeon.pars[Dungeon.depth]-Dungeon.level.currentmoves,0);
+			if(Dungeon.dungeondepth >0){Statistics.prevfloormoves=Math.max(Dungeon.pars[Dungeon.dungeondepth]-Dungeon.depth.currentmoves,0);
 			   if (Statistics.prevfloormoves>1){
 			     GLog.h(Messages.get(this, "clear1"), Statistics.prevfloormoves);
-				 Dungeon.level.drop(new BoundReward(), pos).sprite.drop();
+				 Dungeon.depth.drop(new BoundReward(), pos).sprite.drop();
 			   } else if (Statistics.prevfloormoves==0){
 				 GLog.h(Messages.get(this, "clear3"));
 			   }
@@ -668,13 +668,13 @@ public abstract class Mob extends Char {
 		if (Random.Float() < lootChance && Dungeon.hero.lvl <= maxLvl + 800) {
 			Item loot = createLoot();
 			if (loot != null)
-				Dungeon.level.drop(loot, pos).sprite.drop();
+				Dungeon.depth.drop(loot, pos).sprite.drop();
 
 		} else if (Random.Float() < lootChanceOther
 				&& Dungeon.hero.lvl <= maxLvl + 800) {
 			Item lootOther = createLootOther();
 			if (lootOther != null)
-				Dungeon.level.drop(lootOther, pos).sprite.drop();
+				Dungeon.depth.drop(lootOther, pos).sprite.drop();
 		}
 
 		if (Dungeon.hero.isAlive() && !Dungeon.visible[pos]) {
@@ -689,9 +689,9 @@ public abstract class Mob extends Char {
 		
 		if (Dungeon.isChallenged(Challenges.NIGHTMARE_VIRUS) && generation == 0) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
-			int[] neighbours = { pos + 1, pos - 1, pos + Level.getWidth(),
-					pos - Level.getWidth() };
+			boolean[] passable = Floor.passable;
+			int[] neighbours = { pos + 1, pos - 1, pos + Floor.getWidth(),
+					pos - Floor.getWidth() };
 			for (int n : neighbours) {
 				if (passable[n] && Actor.findChar(n) == null) {
 					candidates.add(n);
@@ -704,14 +704,14 @@ public abstract class Mob extends Char {
 				virus.pos = Random.element(candidates);
 				virus.state = virus.HUNTING;
 
-				if (Dungeon.level.map[virus.pos] == Terrain.DOOR) {
+				if (Dungeon.depth.map[virus.pos] == Terrain.DOOR) {
 					Door.enter(virus.pos);
 				}
 
 				GameScene.add(virus, 1f);
 				Actor.addDelayed(new Pushing(virus, pos, virus.pos), -1);
 			} else {
-				Dungeon.level.drop(new RedDewdrop(), pos).sprite.drop();
+				Dungeon.depth.drop(new RedDewdrop(), pos).sprite.drop();
 			}	
 			
 		}
@@ -767,26 +767,26 @@ public abstract class Mob extends Char {
 		  Sample.INSTANCE.play(Assets.SND_BLAST, 2);
 
 		  if (Dungeon.isChallenged(Challenges.DEW_REJECTION)) {
-			  for (int n : Level.NEIGHBOURS4) {
+			  for (int n : Floor.NEIGHBOURS4) {
 				  int c = cell + n;
-				  if (c >= 0 && c < Level.getLength() && Level.passable[c] && Dungeon.level.map[c] != Terrain.LOCKED_EXIT) {
+				  if (c >= 0 && c < Floor.getLength() && Floor.passable[c] && Dungeon.depth.map[c] != Terrain.LOCKED_EXIT) {
 
 					  if (Random.Int(20) == 1) {
-						  Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();
+						  Dungeon.depth.drop(new VioletDewdrop(), c).sprite.drop();
 					  } else if (Random.Int(8) == 1) {
-						  Dungeon.level.drop(new RedDewdrop(), c).sprite.drop();
+						  Dungeon.depth.drop(new RedDewdrop(), c).sprite.drop();
 					  }
 				  }
 			  }
 		  } else {
-			  for (int n : Level.NEIGHBOURS9) {
+			  for (int n : Floor.NEIGHBOURS9) {
 				  int c = cell + n;
-				  if (c >= 0 && c < Level.getLength() && Level.passable[c] && Dungeon.level.map[c] != Terrain.LOCKED_EXIT) {
+				  if (c >= 0 && c < Floor.getLength() && Floor.passable[c] && Dungeon.depth.map[c] != Terrain.LOCKED_EXIT) {
 
 					  if (Random.Int(20) == 1) {
-						  Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();
+						  Dungeon.depth.drop(new VioletDewdrop(), c).sprite.drop();
 					  } else if (Random.Int(8) == 1) {
-						  Dungeon.level.drop(new RedDewdrop(), c).sprite.drop();
+						  Dungeon.depth.drop(new RedDewdrop(), c).sprite.drop();
 					  }
 				  }
 			  }
@@ -800,27 +800,27 @@ public abstract class Mob extends Char {
 		  Sample.INSTANCE.play(Assets.SND_BLAST, 2);
 
 		  if (Dungeon.isChallenged(Challenges.DEW_REJECTION)) {
-			  for (int n : Level.NEIGHBOURS4) {
+			  for (int n : Floor.NEIGHBOURS4) {
 				  int c = cell + n;
-				  if (c >= 0 && c < Level.getLength() && Level.passable[c] && Dungeon.level.map[c] != Terrain.LOCKED_EXIT) {
+				  if (c >= 0 && c < Floor.getLength() && Floor.passable[c] && Dungeon.depth.map[c] != Terrain.LOCKED_EXIT) {
 
 					  if (Random.Int(80) == 1) {
-						  Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();
+						  Dungeon.depth.drop(new VioletDewdrop(), c).sprite.drop();
 					  } else if (Random.Int(10) == 1) {
-						  Dungeon.level.drop(new RedDewdrop(), c).sprite.drop();
+						  Dungeon.depth.drop(new RedDewdrop(), c).sprite.drop();
 					  } else if (Random.Int(2) == 0) {
-						  Dungeon.level.drop(new YellowDewdrop(), c).sprite.drop();
+						  Dungeon.depth.drop(new YellowDewdrop(), c).sprite.drop();
 					  }
 				  }
 			  }
 		  }else{
-			  for (int n : Level.NEIGHBOURS9) {
+			  for (int n : Floor.NEIGHBOURS9) {
 			 int c = cell + n;
-			 if (c >= 0 && c < Level.getLength() && Level.passable[c]) {
+			 if (c >= 0 && c < Floor.getLength() && Floor.passable[c]) {
 						
-				if (Random.Int(80)==1){Dungeon.level.drop(new VioletDewdrop(), c).sprite.drop();}
-				else if (Random.Int(10)==1){Dungeon.level.drop(new RedDewdrop(), c).sprite.drop();}
-				else if (Random.Int(2)==0){Dungeon.level.drop(new YellowDewdrop(), c).sprite.drop();}
+				if (Random.Int(80)==1){Dungeon.depth.drop(new VioletDewdrop(), c).sprite.drop();}
+				else if (Random.Int(10)==1){Dungeon.depth.drop(new RedDewdrop(), c).sprite.drop();}
+				else if (Random.Int(2)==0){Dungeon.depth.drop(new YellowDewdrop(), c).sprite.drop();}
 			}
 		  }
 		  }
@@ -856,7 +856,22 @@ public abstract class Mob extends Char {
 
 
 	public String description() {
-		return Messages.get(this, "desc");
+
+		String info = Messages.get(this, "desc");
+
+		if (originalgen) {
+			info += "\n" + Messages.get(Mob.class, "originalgen");
+		}
+
+		if (ally) {
+			info += "\n" + Messages.get(Mob.class, "ally");
+		}
+
+		if (sumcopy) {
+			info += "\n" + Messages.get(Mob.class, "sumcopy");
+		}
+
+		return info;
 	}
 
 	public void notice() {
@@ -938,7 +953,7 @@ public abstract class Mob extends Char {
 					spend(1 / speed());
 					return moveSprite(oldPos, pos);
 				} else {
-					target = Dungeon.level.randomDestination();
+					target = Dungeon.depth.randomDestination();
 					spend(TICK);
 				}
 
@@ -969,7 +984,7 @@ public abstract class Mob extends Char {
 					target = enemy.pos;
 				} else if (enemy == null) {
 					state = WANDERING;
-					target = Dungeon.level.randomDestination();
+					target = Dungeon.depth.randomDestination();
 					return true;
 				}
 
@@ -985,7 +1000,7 @@ public abstract class Mob extends Char {
 					if (!enemyInFOV) {
 					sprite.showLost();
 					state = WANDERING;
-					target = Dungeon.level.randomDestination();
+					target = Dungeon.depth.randomDestination();
 					}
 					return true;
 				}

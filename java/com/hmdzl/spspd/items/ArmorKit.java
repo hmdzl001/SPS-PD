@@ -64,7 +64,7 @@ public class ArmorKit extends Item {
 		//GLog.w(Messages.get(this,"upgraded", armor.name()));
 		NormalArmor classArmor = NormalArmor.upgrade(curUser);
 		//classArmor.collect(curUser.belongings.backpack);
-		Dungeon.level.drop(classArmor, Dungeon.hero.pos).sprite.drop();
+		Dungeon.depth.drop(classArmor, Dungeon.hero.pos).sprite.drop();
 		curUser.sprite.operate(curUser.pos);
 		Sample.INSTANCE.play(Assets.SND_EVOKE);
 

@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -63,16 +63,16 @@ public class NeptunusTrident extends RelicMeleeWeapon {
         charge = 0;
 		ArrayList<Integer> affected = new ArrayList<Integer>();
 		
-		int length = Level.getLength();
-		int width = Level.getWidth();
+		int length = Floor.getLength();
+		int width = Floor.getWidth();
 		for (int i = width; i < length - width; i++){
-			int	 dist = Level.distance(hero.pos, i);
+			int	 dist = Floor.distance(hero.pos, i);
 			  if (dist<distance){
 			    //GLog.i("TRI2 %s", dist);	
 			    if (checkFloodable(i)) {
 			    	affected.add(i);
-			    	Dungeon.level.map[i]=Terrain.WATER;
-					Level.water[i] = true;
+			    	Dungeon.depth.map[i]=Terrain.WATER;
+					Floor.water[i] = true;
 			     }
 			   }
 			  
@@ -80,8 +80,8 @@ public class NeptunusTrident extends RelicMeleeWeapon {
 		//GLog.i("TRI1 %s", length);
 		for (int n : affected){
 				int t = Terrain.WATER_TILES;
-				for (int j = 0; j < Level.NEIGHBOURS4.length; j++) {
-					if ((Terrain.flags[Dungeon.level.map[n + Level.NEIGHBOURS4[j]]] & Terrain.UNSTITCHABLE) != 0) {
+				for (int j = 0; j < Floor.NEIGHBOURS4.length; j++) {
+					if ((Terrain.flags[Dungeon.depth.map[n + Floor.NEIGHBOURS4[j]]] & Terrain.UNSTITCHABLE) != 0) {
 						t += 1 << j;	
 						
 					}
@@ -92,7 +92,7 @@ public class NeptunusTrident extends RelicMeleeWeapon {
 					Buff.affect(ch, Slow.class, level/10);
 				}
 				
-				Dungeon.level.map[n] = t;
+				Dungeon.depth.map[n] = t;
 				//Level.water[i] = true;
 				GameScene.updateMap(n);		  
 		}
@@ -104,27 +104,27 @@ public class NeptunusTrident extends RelicMeleeWeapon {
 		
 		boolean check=false;
 		
-		if ((Dungeon.level.map[cell]==Terrain.EMPTY ||
-			Dungeon.level.map[cell]==Terrain.GRASS ||	
-			Dungeon.level.map[cell]==Terrain.HIGH_GRASS ||	
-			Dungeon.level.map[cell]==Terrain.EMBERS ||
-			Dungeon.level.map[cell]==Terrain.EMPTY_DECO ||
-			Dungeon.level.map[cell]==Terrain.SIGN ||
-			Dungeon.level.map[cell]==Terrain.SHRUB ||
-			Dungeon.level.map[cell]==Terrain.STATUE ||
-			Dungeon.level.map[cell]==Terrain.SECRET ||
-			Dungeon.level.map[cell]==Terrain.AVOID)
+		if ((Dungeon.depth.map[cell]==Terrain.EMPTY ||
+			Dungeon.depth.map[cell]==Terrain.GRASS ||
+			Dungeon.depth.map[cell]==Terrain.HIGH_GRASS ||
+			Dungeon.depth.map[cell]==Terrain.EMBERS ||
+			Dungeon.depth.map[cell]==Terrain.EMPTY_DECO ||
+			Dungeon.depth.map[cell]==Terrain.SIGN ||
+			Dungeon.depth.map[cell]==Terrain.SHRUB ||
+			Dungeon.depth.map[cell]==Terrain.STATUE ||
+			Dungeon.depth.map[cell]==Terrain.SECRET ||
+			Dungeon.depth.map[cell]==Terrain.AVOID)
 			&& 
-			!(Dungeon.level.map[cell]==Terrain.UNSTITCHABLE||Dungeon.level.map[cell]==Terrain.WELL)
+			!(Dungeon.depth.map[cell]==Terrain.UNSTITCHABLE||Dungeon.depth.map[cell]==Terrain.WELL)
 				){
 			check=true;
 		} 
 		
-		if (Level.water[cell]){
+		if (Floor.water[cell]){
 			check=true;			
 		}
 		
-		if(Dungeon.level.map[cell]==Terrain.ENTRANCE || Dungeon.level.map[cell]==Terrain.EXIT){
+		if(Dungeon.depth.map[cell]==Terrain.ENTRANCE || Dungeon.depth.map[cell]==Terrain.EXIT){
 			check=false;
 		}
 		

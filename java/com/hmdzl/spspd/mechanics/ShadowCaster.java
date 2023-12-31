@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.mechanics;
 
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 
 import java.util.Arrays;
 
@@ -25,8 +25,8 @@ public final class ShadowCaster {
 
 	private static final int MAX_DISTANCE = 8;
 
-	private static final int WIDTH = Level.getWidth();
-	private static final int HEIGHT = Level.HEIGHT;
+	private static final int WIDTH = Floor.getWidth();
+	private static final int HEIGHT = Floor.HEIGHT;
 
 	private static int distance;
 	private static int limits[];
@@ -51,7 +51,7 @@ public final class ShadowCaster {
 	public static void castShadow(int x, int y, boolean[] fieldOfView,
 			int distance, boolean flying) {
 
-		losBlocking = flying ? Level.losBlockHigh.clone() : Level.losBlockLow.clone() ;
+		losBlocking = flying ? Floor.losBlockHigh.clone() : Floor.losBlockLow.clone() ;
 		
 		ShadowCaster.distance = distance;
 		limits = rounding[distance];

@@ -32,8 +32,8 @@ public class RatBoss extends Mob {
 	{
 		spriteClass = RatBossSprite.class;
 
-		HP = HT = 50+(Dungeon.depth*Random.NormalIntRange(2, 5));
-		evadeSkill = 5+(Dungeon.depth/4);
+		HP = HT = 50+(Dungeon.dungeondepth *Random.NormalIntRange(2, 5));
+		evadeSkill = 5+(Dungeon.dungeondepth /4);
 		
 		EXP = 10;
 		
@@ -56,17 +56,17 @@ public class RatBoss extends Mob {
 			
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(2+Dungeon.depth/2, 8+(Dungeon.depth));
+		return Random.NormalIntRange(2+Dungeon.dungeondepth /2, 8+(Dungeon.dungeondepth));
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return 11+Dungeon.depth;
+		return 11+Dungeon.dungeondepth;
 	}
 
 	@Override
 	public int drRoll() {
-		return Dungeon.depth/2;
+		return Dungeon.dungeondepth /2;
 	}
 
 	@Override

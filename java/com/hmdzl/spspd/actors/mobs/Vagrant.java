@@ -100,7 +100,7 @@ public class Vagrant extends Mob {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 		if (state == FLEEING) {
-			Dungeon.level.drop(new Dewdrop(), pos).sprite.drop();
+			Dungeon.depth.drop(new Dewdrop(), pos).sprite.drop();
 		}
 		return damage;
 	}

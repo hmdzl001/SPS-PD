@@ -51,7 +51,7 @@ public class Earthstar extends Pill {
 		
 	   if (action.equals(AC_EAT)) {
 
-		   for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+		   for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			   mob.HP = Math.max(1, (int)(mob.HP/2));
 			   Buff.affect(mob, Bleeding.class).set(Random.Int(mob.HP/8,mob.HP/4));
 

@@ -36,6 +36,8 @@ public class HandLight extends MeleeWeapon {
 
 	public HandLight() {
 		super(4, 1f, 1f, 2);
+		MIN = 29;
+		MAX = 38;
 	}
 
 	public Item upgrade(boolean enchant) {

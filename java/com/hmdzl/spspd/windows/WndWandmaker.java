@@ -81,9 +81,9 @@ public class WndWandmaker extends Window {
 		item.detach(Dungeon.hero.belongings.backpack);
 
 		reward.identify();
-		Dungeon.level.drop(reward, wandmaker.pos).sprite.drop();
+		Dungeon.depth.drop(reward, wandmaker.pos).sprite.drop();
 		wandmaker.yell(Messages.get(this, "farewell", Dungeon.hero.givenName()));
-		Dungeon.level.drop(new AdamantWand(), wandmaker.pos).sprite.drop();
+		Dungeon.depth.drop(new AdamantWand(), wandmaker.pos).sprite.drop();
 		wandmaker.destroy();
 		wandmaker.sprite.die();
 		Wandmaker.Quest.complete();

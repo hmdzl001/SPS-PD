@@ -38,7 +38,7 @@ public class Cherry extends Fruit {
 		super.execute(hero, action);
 
 		if (action.equals(AC_EAT)) {
-				Dungeon.level.drop(new DungeonBomb(), hero.pos).sprite.drop();
+				Dungeon.depth.drop(new DungeonBomb(), hero.pos).sprite.drop();
 		}
 	}	
 

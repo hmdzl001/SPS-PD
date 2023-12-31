@@ -45,7 +45,7 @@ public class VioletDewdrop extends Item {
 
 		//if (vial == null || vial.isFull()) {
 		if (vial == null ) {
-			int value = 50 + (Dungeon.depth - 1) / 5;
+			int value = 50 + (Dungeon.dungeondepth - 1) / 5;
 			if (hero.heroClass == HeroClass.HUNTRESS) {
 				value++;
 			}

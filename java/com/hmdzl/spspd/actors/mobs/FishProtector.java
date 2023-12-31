@@ -29,7 +29,7 @@ import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentIce2;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.FishProtectorSprite;
@@ -82,7 +82,7 @@ public class FishProtector extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		Level.set(pos, Terrain.WATER);
+		Floor.set(pos, Terrain.WATER);
 		GameScene.updateMap(pos);
 	}
 
@@ -95,7 +95,7 @@ public class FishProtector extends Mob {
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 		} else if (buff instanceof Tar) {
-			if (Level.water[this.pos])
+			if (Floor.water[this.pos])
 				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
 			else
 				damage(Random.NormalIntRange(HT / 2, HT), buff);

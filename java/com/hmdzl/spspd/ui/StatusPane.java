@@ -19,15 +19,21 @@ package com.hmdzl.spspd.ui;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.DungeonTilemap;
+import com.hmdzl.spspd.GamesInProgress;
 import com.hmdzl.spspd.Statistics;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.BloodParticle;
 import com.hmdzl.spspd.items.keys.IronKey;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.HeroSprite;
+import com.hmdzl.spspd.windows.WndCatalogus;
 import com.hmdzl.spspd.windows.WndGame;
 import com.hmdzl.spspd.windows.WndHero;
+import com.hmdzl.spspd.windows.WndJournal;
 import com.watabou.input.Touchscreen.Touch;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
@@ -39,6 +45,8 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Button;
 import com.watabou.noosa.ui.Component;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 public class StatusPane extends Component {
 
@@ -63,8 +71,13 @@ public class StatusPane extends Component {
 	private BuffIndicator buffs;
 	private Compass compass;
 
+	private Compass compass2;
+
 	private MenuButton btnMenu;
+
+	private DepthButton btnDepth;
 	private BitmapText version;
+	private BitmapText saveslot;
 	private BitmapText time;
 
 	@Override
@@ -76,9 +89,10 @@ public class StatusPane extends Component {
 		add(new TouchArea(0, 1, 30, 30) {
 			@Override
 			protected void onClick(Touch touch) {
-				Image sprite = Dungeon.hero.sprite;
+				Image sprite = hero.sprite;
 				if (!sprite.isVisible()) {
-					Camera.main.focusOn(sprite);
+					//Camera.main.focusOn(sprite);
+					Camera.main.panTo(hero.sprite.center(),5f);
 				}
 				GameScene.show(new WndHero());
 			}
@@ -87,7 +101,10 @@ public class StatusPane extends Component {
 		btnMenu = new MenuButton();
 		add(btnMenu);
 
-		avatar = HeroSprite.avatar(Dungeon.hero.heroClass, Dungeon.skins);
+		btnDepth = new DepthButton();
+		add(btnDepth);
+
+		avatar = HeroSprite.avatar(hero.heroClass, Hero.skins);
 		add(avatar);
 
 		blood = new Emitter();
@@ -97,8 +114,11 @@ public class StatusPane extends Component {
 		blood.on = false;
 		add(blood);
 
-		compass = new Compass(Dungeon.level.exit);
+		compass = new Compass(Dungeon.depth.exit);
 		add(compass);
+
+		compass2 = new Compass(Dungeon.depth.entrance);
+		add(compass2);
 
 		hp = new Image(Assets.HP_BAR);
 		add(hp);
@@ -114,13 +134,13 @@ public class StatusPane extends Component {
 		spp.hardlight(0xFFEBA4);
 		add(spp);
 
-		depth = new BitmapText(Integer.toString(Dungeon.depth),
+		depth = new BitmapText(Integer.toString(Dungeon.dungeondepth),
 				PixelScene.font1x);
 		depth.hardlight(0xCACFC2);
 		depth.measure();
 		add(depth);
 
-		Dungeon.hero.belongings.countIronKeys();
+		hero.belongings.countIronKeys();
 		keys = new BitmapText(PixelScene.font1x);
 		keys.hardlight(0xCACFC2);
 		add(keys);
@@ -128,12 +148,16 @@ public class StatusPane extends Component {
 		danger = new DangerIndicator();
 		add(danger);
 
-		buffs = new BuffIndicator(Dungeon.hero);
+		buffs = new BuffIndicator(hero);
 		add(buffs);
 		
-		version = new BitmapText( "v" + Game.version, /*PixelScene.pixelFont*/PixelScene.font1x);
+		version = new BitmapText( "v" + Game.version , /*PixelScene.pixelFont*/PixelScene.font1x);
 		version.alpha( 0.5f );
 		add(version);
+
+		saveslot = new BitmapText( "save" + GamesInProgress.curSlot, PixelScene.font1x);
+		saveslot.alpha( 0.5f );
+		add(saveslot);
 
 		time = new BitmapText(PixelScene.font1x);
 		time.alpha( 0.5f );
@@ -154,11 +178,16 @@ public class StatusPane extends Component {
 		compass.x = avatar.x + avatar.width / 2 - compass.origin.x;
 		compass.y = avatar.y + avatar.height / 2 - compass.origin.y;
 
+		compass2.x = avatar.x + avatar.width / 2 - compass2.origin.x;
+		compass2.y = avatar.y + avatar.height / 2 - compass2.origin.y;
+
 		hp.x = 30;
 		hp.y = 3;
 
 		depth.x = width - 24 - depth.width() - 18;
 		depth.y = 6;
+
+		btnDepth.setPos(depth.x, 1);
 
 		keys.y = 6;
 
@@ -173,13 +202,19 @@ public class StatusPane extends Component {
 		version.x = width - version.width();
 		version.y = btnMenu.bottom() + (4 - version.baseLine());
 		PixelScene.align(version);
+
+		saveslot.scale.set(PixelScene.align(0.5f));
+		saveslot.measure();
+		saveslot.x = width - saveslot.width();
+		saveslot.y = btnMenu.bottom() + (8 - saveslot.baseLine());
+		PixelScene.align(saveslot);
 	}
 
 	@Override
 	public void update() {
 		super.update();
 
-		float health = (float) Dungeon.hero.HP / Dungeon.hero.HT;
+		float health = (float) hero.HP / hero.HT;
 
 		if (health == 0) {
 			avatar.tint(0x000000, 0.6f);
@@ -193,10 +228,10 @@ public class StatusPane extends Component {
 		}
 
 		hp.scale.x = health;
-		exp.scale.x = (width / exp.width) * Dungeon.hero.exp
-				/ Dungeon.hero.maxExp();
+		exp.scale.x = (width / exp.width) * hero.exp
+				/ hero.maxExp();
 
-		if (Dungeon.hero.lvl != lastLvl) {
+		if (hero.lvl != lastLvl) {
 
 			if (lastLvl != -1) {
 				Emitter emitter = (Emitter) recycle(Emitter.class);
@@ -205,14 +240,14 @@ public class StatusPane extends Component {
 				emitter.burst(Speck.factory(Speck.STAR), 12);
 			}
 
-			lastLvl = Dungeon.hero.lvl;
+			lastLvl = hero.lvl;
 			level.text(Integer.toString(lastLvl));
 			level.measure();
 			level.x = PixelScene.align(27.0f - level.width() / 2);
 			level.y = PixelScene.align(27.5f - level.baseLine() / 2);
 		}
 		
-		spp.text( String.format( "%d", Dungeon.hero.spp));
+		spp.text( String.format( "%d", hero.spp));
 		//spp.text( String.format( "%d", Statistics.ashield));
         spp.measure();
 		spp.x = PixelScene.align(camera(), shield.x + 15 - avatar.width / 2);
@@ -282,4 +317,56 @@ public class StatusPane extends Component {
 			GameScene.show(new WndGame());
 		}
 	}
+
+	private static class DepthButton extends Button {
+
+		private Image image;
+
+		public DepthButton() {
+			super();
+
+			width = image.width + 4;
+			height = image.height + 4;
+		}
+
+		@Override
+		protected void createChildren() {
+			super.createChildren();
+
+			image = new Image(Icons.get(Icons.DEPTH));
+			add(image);
+		}
+
+		@Override
+		protected void layout() {
+			super.layout();
+
+			image.x = x + 2;
+			image.y = y + 2;
+		}
+
+		@Override
+		protected void onTouchDown() {
+			image.brightness(1.5f);
+			Sample.INSTANCE.play(Assets.SND_CLICK);
+		}
+
+		@Override
+		protected void onTouchUp() {
+			image.resetColor();
+		}
+
+		@Override
+		protected void onClick() {
+			if (Dungeon.depth.visited[Dungeon.depth.exit] || Dungeon.depth.mapped[Dungeon.depth.exit]) {
+				Camera.main.panTo(DungeonTilemap.tileCenterToWorld(Dungeon.depth.exit),5f);
+			} else Camera.main.panTo(hero.sprite.center(),5f);
+		}
+
+		protected boolean onLongClick() {
+			GameScene.show(new WndJournal());
+			return true;
+		}
+	}
+
 }

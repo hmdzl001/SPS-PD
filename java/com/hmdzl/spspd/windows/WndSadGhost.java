@@ -106,7 +106,7 @@ public class WndSadGhost extends Window {
 
 		hide();
 
-		Dungeon.level.drop(reward, ghost.pos).sprite.drop();
+		Dungeon.depth.drop(reward, ghost.pos).sprite.drop();
 
 		ghost.yell(Messages.get(this, "farewell"));
 		ghost.die(null);

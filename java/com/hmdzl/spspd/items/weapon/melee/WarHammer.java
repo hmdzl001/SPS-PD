@@ -37,6 +37,8 @@ public class WarHammer extends MeleeWeapon {
 
 	public WarHammer() {
 		super(5, 1f, 1f ,1);
+		MIN = 41;
+		MAX = 56;
 	}
 
 	@Override

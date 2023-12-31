@@ -78,7 +78,7 @@ public class FollowerSkill extends ClassSkill {
 		FollowerSkill.charge += 20;
 
 		int people = 0;
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			mob.beckon(curUser.pos);
 			if (mob instanceof Mob && !(mob instanceof NPC)){
 				people++;
@@ -92,7 +92,7 @@ public class FollowerSkill extends ClassSkill {
 
 		for(int i=0; i<people; i++) {
 			if (Random.Int(4) == 0)
-				Dungeon.level.drop(Generator.random(),curUser.pos);
+				Dungeon.depth.drop(Generator.random(),curUser.pos);
 		}
 	}
 

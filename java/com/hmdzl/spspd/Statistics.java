@@ -49,6 +49,8 @@ public class Statistics {
 	private static final String ORB = "orbObtained";
 	private static final String ROOMTYPE = "roomType";
 
+	private static final String SLOT_NUMBER = "slotnumber";
+
 	public static int goldCollected;
 	public static int deepestFloor;
 	public static int realdeepestFloor;
@@ -77,7 +79,7 @@ public class Statistics {
 	public static boolean orbObtained = false;
 	public static int roomType;
 
-	public static void reset() {
+    public static void reset() {
 
 		goldCollected = 0;
 		deepestFloor = 0;
@@ -141,6 +143,7 @@ public class Statistics {
 		bundle.put(ORB, orbObtained);
 
 		bundle.put(ROOMTYPE, roomType);
+
 	}
 
 	public static void restoreFromBundle(Bundle bundle) {
@@ -171,6 +174,12 @@ public class Statistics {
 		orbObtained = bundle.getBoolean(ORB);
 
 		roomType= bundle.getInt(ROOMTYPE);
-	}
 
+	}
+	
+	public static void preview( GamesInProgress.Info info, Bundle bundle ){
+		info.goldCollected  = bundle.getInt( GOLD );
+		info.maxDepth       = bundle.getInt( DEEPEST );
+
+	}
 }

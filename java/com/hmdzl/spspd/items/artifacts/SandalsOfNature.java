@@ -11,7 +11,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Plant;
@@ -86,7 +86,7 @@ public class SandalsOfNature extends Artifact {
 			}
 		} else if (action.equals(AC_SPROUT)) {
 			curUser = hero;
-			int length = Level.getLength();
+			int length = Floor.getLength();
 
 			for (int i = 0; i < length; i++) {
 

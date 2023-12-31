@@ -25,7 +25,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Lightning;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -58,7 +58,7 @@ public class WandOfLightning extends DamageWand {
 	protected void onZap( Ballistica bolt ) {
 
 		float multipler = 0.4f + (0.6f/affected.size());
-		if (Level.water[bolt.collisionPos]) multipler *= 1.5f;
+		if (Floor.water[bolt.collisionPos]) multipler *= 1.5f;
 
 		int min = 5+level();
 		int max = Math.round(10 + (level() * level() / 4f));
@@ -78,7 +78,7 @@ public class WandOfLightning extends DamageWand {
 		}
 
 
-		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+		Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {heap.shockhit();}
 	}
 
@@ -86,7 +86,7 @@ public class WandOfLightning extends DamageWand {
 		
 		affected.add( ch );
 
-		for (int i : Level.NEIGHBOURS4) {
+		for (int i : Floor.NEIGHBOURS4) {
 			int cell = ch.pos + i;
 
 			Char n = Actor.findChar( cell );
@@ -96,11 +96,11 @@ public class WandOfLightning extends DamageWand {
 			}
 		}
 
-		if (Level.water[ch.pos] && !ch.flying){
-			for (int i : Level.NEIGHBOURS8DIST2) {
+		if (Floor.water[ch.pos] && !ch.flying){
+			for (int i : Floor.NEIGHBOURS8DIST2) {
 				int cell = ch.pos + i;
 				//player can only be hit by lightning from an adjacent enemy.
-				if (!Level.insideMap(cell) || Actor.findChar(cell) == Dungeon.hero) continue;
+				if (!Floor.insideMap(cell) || Actor.findChar(cell) == Dungeon.hero) continue;
 
 				Char n = Actor.findChar( ch.pos + i );
 				if (n != null && !affected.contains( n )) {

@@ -29,7 +29,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.Weapon.Enchantment;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.StatueSprite;
 import com.watabou.utils.Bundle;
@@ -40,7 +40,7 @@ public class Statue extends Mob {
 	{
 		spriteClass = StatueSprite.class;
 
-		EXP = 50 + Dungeon.depth * 2;
+		EXP = 50 + Dungeon.dungeondepth * 2;
 		state = PASSIVE;
 		
 		properties.add(Property.ELEMENT);
@@ -58,8 +58,8 @@ public class Statue extends Mob {
 		weapon.identify();
 		weapon.enchant(Enchantment.random());
 
-		HP = HT = 15 + Dungeon.depth * 5;
-		evadeSkill = 4 + Dungeon.depth * 2;
+		HP = HT = 15 + Dungeon.dungeondepth * 5;
+		evadeSkill = 4 + Dungeon.dungeondepth * 2;
 	}
 
 	private static final String WEAPON = "weapon";
@@ -91,7 +91,7 @@ public class Statue extends Mob {
 
 	@Override
 	public int hitSkill(Char target) {
-		return (int) ((9 + Dungeon.depth) * weapon.ACU);
+		return (int) ((9 + Dungeon.dungeondepth) * weapon.ACU);
 	}
 
 	@Override
@@ -101,12 +101,12 @@ public class Statue extends Mob {
 
 	@Override
 	public int drRoll() {
-		return Random.NormalIntRange(0, Dungeon.depth);
+		return Random.NormalIntRange(0, Dungeon.dungeondepth);
 	}
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= weapon.RCH;
+		return Floor.distance( pos, enemy.pos ) <= weapon.RCH;
 	}
 	
 	@Override
@@ -132,7 +132,7 @@ public class Statue extends Mob {
 
 	@Override
 	public void die(Object cause) {
-		Dungeon.level.drop(weapon, pos).sprite.drop();
+		Dungeon.depth.drop(weapon, pos).sprite.drop();
 		super.die(cause);
 	}
 

@@ -40,6 +40,7 @@ import com.hmdzl.spspd.levels.traps.FlockTrap;
 import com.hmdzl.spspd.levels.traps.GrimTrap;
 import com.hmdzl.spspd.levels.traps.GrippingTrap;
 import com.hmdzl.spspd.levels.traps.GuardianTrap;
+import com.hmdzl.spspd.levels.traps.KnowledgeTrap;
 import com.hmdzl.spspd.levels.traps.SummoningTrap;
 import com.hmdzl.spspd.levels.traps.TeleportationTrap;
 import com.hmdzl.spspd.levels.traps.VenomTrap;
@@ -65,7 +66,7 @@ public class HallsLevel extends RegularLevel {
 	{
 		minRoomSize = 7;
 
-		viewDistance = Math.max(25 - Dungeon.depth, 1);
+		viewDistance = Math.max(25 - Dungeon.dungeondepth, 1);
 
 		color1 = 0x801500;
 		color2 = 0xa68521;
@@ -89,7 +90,7 @@ public class HallsLevel extends RegularLevel {
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 200 + (Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.dungeondepth] = 200 + (Dungeon.dungeondepth *50)+(secretDoors*20);
 	}
 
 	@Override
@@ -111,7 +112,7 @@ public class HallsLevel extends RegularLevel {
 	protected Class<?>[] trapClasses() {
 		return new Class[]{ DisintegrationTrap.class, VenomTrap.class, BoundTrap.class, DewTrap.class,
 				GrippingTrap.class,  WeakeningTrap.class, CursingTrap.class,
-				FlockTrap.class, GrimTrap.class, GuardianTrap.class,
+				FlockTrap.class, GrimTrap.class, GuardianTrap.class,  KnowledgeTrap.class,
 				SummoningTrap.class, TeleportationTrap.class, DisarmingTrap.class,
 				FireBuff3Trap.class, IceBuff3Trap.class, ShockBuff3Trap.class, EarthBuff3Trap.class,
 				LightBuff3Trap.class, DarkBuff3Trap.class};
@@ -121,7 +122,7 @@ public class HallsLevel extends RegularLevel {
 	protected float[] trapChances() {
 		return new float[]{ 4, 4, 3, 2,
 				4, 1, 1,
-				1, 4, 4,
+				1, 4, 4, 1,
 				4, 2, 3,
 				3, 3, 3, 3,
 				3, 2 };
@@ -155,7 +156,7 @@ public class HallsLevel extends RegularLevel {
 		}
 
 		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
-			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Floor.insideMap(i)) {
 
 				map[i] = Terrain.GLASS_WALL;
 			}
@@ -187,12 +188,12 @@ public class HallsLevel extends RegularLevel {
 	protected void createMobs() {
 		int nMobs = nMobs();
 		for (int i = 0; i < nMobs; i++) {
-			Mob mob = Bestiary.mob(Dungeon.depth);
+			Mob mob = Bestiary.mob(Dungeon.dungeondepth);
 			do {
 				mob.pos = randomRespawnCell();
 				mob.originalgen=true;
-				Buff.affect(mob,ShieldArmor.class).level(Dungeon.depth*15);
-				Buff.affect(mob,MagicArmor.class).level(Dungeon.depth*15);
+				Buff.affect(mob,ShieldArmor.class).level(Dungeon.dungeondepth *15);
+				Buff.affect(mob,MagicArmor.class).level(Dungeon.dungeondepth *15);
 				Buff.affect(mob,GlassShield.class).turns(1);
 			} while (mob.pos == -1);
 			mobs.add(mob);
@@ -202,7 +203,7 @@ public class HallsLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
-		if (Dungeon.depth!=25){addItemToSpawn(new SkeletonKey(Dungeon.depth));}
+		if (Dungeon.dungeondepth !=25){addItemToSpawn(new SkeletonKey(Dungeon.dungeondepth));}
 		super.createItems();
 	}
 
@@ -244,7 +245,7 @@ public class HallsLevel extends RegularLevel {
 		addVisuals(this, scene);
 	}
 
-	public static void addVisuals(Level level, Scene scene) {
+	public static void addVisuals(Floor level, Scene scene) {
 		for (int i = 0; i < getLength(); i++) {
 			if (level.map[i] == 63) {
 				scene.add(new Stream(i));

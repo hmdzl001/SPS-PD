@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.BlastParticle;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Skull;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.TextureFilm;
@@ -71,7 +71,7 @@ public class ZotSprite extends MobSprite {
 
 		isMoving = true;
 
-		if (Level.water[to]) {
+		if (Floor.water[to]) {
 			GameScene.ripple(to);
 		}
 
@@ -80,7 +80,7 @@ public class ZotSprite extends MobSprite {
 
 	@Override
 	public void attack(int cell) {
-		if (!Level.adjacent(cell, ch.pos)) {
+		if (!Floor.adjacent(cell, ch.pos)) {
 			//Char enemy = Actor.findChar(cell);
 				  ((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
 					cell, new Skull(), new Callback() {
@@ -111,12 +111,12 @@ public class ZotSprite extends MobSprite {
 		}
 
 		boolean terrainAffected = false;
-		for (int n : Level.NEIGHBOURS9) {
+		for (int n : Floor.NEIGHBOURS9) {
 			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				
-				if (Level.flamable[c]) {
-					Level.set(c, Terrain.EMBERS);
+				if (Floor.flamable[c]) {
+					Floor.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 					terrainAffected = true;
 				}
@@ -125,8 +125,8 @@ public class ZotSprite extends MobSprite {
 				if (ch != null && ch==Dungeon.hero) {
 					// those not at the center of the blast take damage less
 					// consistently.
-					int minDamage = c == cell ? Dungeon.depth + 5 : 1;
-					int maxDamage = 10 + Dungeon.depth;
+					int minDamage = c == cell ? Dungeon.dungeondepth + 5 : 1;
+					int maxDamage = 10 + Dungeon.dungeondepth;
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
 							- Math.max(ch.drRoll(),0);

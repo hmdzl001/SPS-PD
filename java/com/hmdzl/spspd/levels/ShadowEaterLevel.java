@@ -33,9 +33,9 @@ import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 
-import static com.hmdzl.spspd.Dungeon.level;
+import static com.hmdzl.spspd.Dungeon.depth;
 
-public class ShadowEaterLevel extends Level {
+public class ShadowEaterLevel extends Floor {
 
 
 	{
@@ -88,7 +88,7 @@ public class ShadowEaterLevel extends Level {
 
 		case Terrain.ALCHEMY:
 		         Alchemy alchemy = new Alchemy();
-                level.blobs.put( Alchemy.class, alchemy );
+                depth.blobs.put( Alchemy.class, alchemy );
 			break;
 			
 		case Terrain.PEDESTAL:

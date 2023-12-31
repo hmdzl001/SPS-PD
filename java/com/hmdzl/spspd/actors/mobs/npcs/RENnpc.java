@@ -28,6 +28,7 @@ import com.hmdzl.spspd.items.misc.CursePhone;
 import com.hmdzl.spspd.items.weapon.melee.special.Goei;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.RENSprite;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class RENnpc extends NPC {
@@ -37,6 +38,22 @@ public class RENnpc extends NPC {
 		spriteClass = RENSprite.class;
 		properties.add(Property.ELF);
     }
+
+	private boolean first = true;
+
+	private static final String FIRST = "first";
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(FIRST, first);
+	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		first = bundle.getBoolean(FIRST);
+	}
 
 	@Override
 	protected boolean act() {
@@ -74,14 +91,13 @@ public class RENnpc extends NPC {
 	public boolean interact() {
 		CursePhone phone = Dungeon.hero.belongings.getItem(CursePhone.class);
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		if(!Dungeon.limitedDrops.challengebook.dropped()) {
-			Dungeon.limitedDrops.challengebook.dropped();
-			Dungeon.level.drop(new ChallengeBook(), Dungeon.hero.pos).sprite.drop();
+		if(first) {
+			Dungeon.depth.drop(new ChallengeBook(), Dungeon.hero.pos).sprite.drop();
 			yell(Messages.get(this, "yell3"));	
-			
-		} else if(!Dungeon.limitedDrops.goei.dropped() && (Statistics.archersKilled > 50 && Statistics.skeletonsKilled > 50 && Statistics.albinoPiranhasKilled > 50 && Statistics.goldThievesKilled > 50)){
-			Dungeon.limitedDrops.goei.dropped();
-			Dungeon.level.drop(new Goei(), Dungeon.hero.pos).sprite.drop();
+			first = false;
+		} else if(!Dungeon.LimitedDrops.goei.dropped() && (Statistics.archersKilled > 50 && Statistics.skeletonsKilled > 50 && Statistics.albinoPiranhasKilled > 50 && Statistics.goldThievesKilled > 50)){
+			Dungeon.LimitedDrops.goei.dropped();
+			Dungeon.depth.drop(new Goei(), Dungeon.hero.pos).sprite.drop();
 			yell(Messages.get(this, "yell5"));
 		} else
 		switch (Random.Int (4)) {

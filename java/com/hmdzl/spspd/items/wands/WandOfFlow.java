@@ -75,7 +75,7 @@ public class WandOfFlow extends DamageWand {
 				throwChar(ch, trajectory, strength);
 			}
 		}	
-		Heap heap = Dungeon.level.heaps.get(beam.collisionPos);
+		Heap heap = Dungeon.depth.heaps.get(beam.collisionPos);
 		if (heap != null) {
 			heap.icehit();
 		}			
@@ -120,11 +120,11 @@ public class WandOfFlow extends DamageWand {
 						ch instanceof SheepSokobanStop ||
 						ch instanceof SheepSokobanSwitch ||
 						ch instanceof SheepSokobanBlack) {
-					Dungeon.level.mobPress((NPC) ch);
+					Dungeon.depth.mobPress((NPC) ch);
 				} else {if (ch.pos == trajectory.collisionPos ) {
 					ch.damage(Random.NormalIntRange((finalDist + 1) / 2, finalDist), this);
 					Paralysis.prolong(ch, Paralysis.class, Random.NormalIntRange((finalDist + 1) / 2, finalDist));
-				} Dungeon.level.press(ch.pos, ch);}
+				} Dungeon.depth.press(ch.pos, ch);}
 				if (ch == hero){
 					Dungeon.observe();
 				}
@@ -170,8 +170,8 @@ public class WandOfFlow extends DamageWand {
 						ch instanceof SheepSokobanStop ||
 						ch instanceof SheepSokobanSwitch ||
 						ch instanceof SheepSokobanBlack) {
-					Dungeon.level.mobPress((NPC) ch);
-				} else { Dungeon.level.press(ch.pos, ch);}
+					Dungeon.depth.mobPress((NPC) ch);
+				} else { Dungeon.depth.press(ch.pos, ch);}
 				if (ch == hero){
 					Dungeon.observe();
 				}

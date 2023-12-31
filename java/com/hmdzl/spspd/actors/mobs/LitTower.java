@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -92,7 +92,7 @@ public class LitTower extends Mob implements Callback {
 	
 	@Override
 	protected boolean act() {
-		if(Level.distance(pos, Dungeon.hero.pos)<5 && Dungeon.hero.isAlive() && checkOtiluke()){
+		if(Floor.distance(pos, Dungeon.hero.pos)<5 && Dungeon.hero.isAlive() && checkOtiluke()){
 			zapAll(Dungeon.hero.pos);
 		}
 		return super.act();
@@ -106,7 +106,7 @@ public class LitTower extends Mob implements Callback {
 	protected boolean checkOtiluke(){
       boolean check = false;
 		
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof Otiluke) {
 			check=true;	
 			}
@@ -117,7 +117,7 @@ public class LitTower extends Mob implements Callback {
 
 	protected boolean heroNear (){
 		boolean check=false;
-		for (int i : Level.NEIGHBOURS9DIST2){
+		for (int i : Floor.NEIGHBOURS9DIST2){
 			int cell=pos+i;
 			if (Actor.findChar(cell) != null	
 				&& (Actor.findChar(cell) instanceof Hero)
@@ -149,7 +149,7 @@ public class LitTower extends Mob implements Callback {
 	    int mobDmg=Random.Int(100, 200);
 		
 		
-		 boolean visible = Level.fieldOfView[pos] || Level.fieldOfView[loc];
+		 boolean visible = Floor.fieldOfView[pos] || Floor.fieldOfView[loc];
 			
 			
 			  if (visible) {

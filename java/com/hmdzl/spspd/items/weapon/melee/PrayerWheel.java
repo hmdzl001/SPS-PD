@@ -39,6 +39,8 @@ public class PrayerWheel extends MeleeWeapon {
 
 	public PrayerWheel() {
 		super(4, 0.8f, 1.2f, 1);
+		MIN = 35;
+		MAX = 49;
 	}
 	
 	public static int charge = 0;

@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.blobs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.LeafParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 
@@ -36,17 +36,17 @@ public class Water extends Blob {
 
 			for (int i = 0; i < LENGTH; i++) {
 				if (off[i] > 0) {
-					int c = Dungeon.level.map[i];
+					int c = Dungeon.depth.map[i];
 					if (c == Terrain.EMPTY || c == Terrain.EMBERS
 							|| c == Terrain.EMPTY_DECO || c == Terrain.OLD_HIGH_GRASS) {
 
-						Level.set(i, cur[i] > 9 ? Terrain.HIGH_GRASS
+						Floor.set(i, cur[i] > 9 ? Terrain.HIGH_GRASS
 								: Terrain.GRASS);
 						mapUpdated = true;
 
 					} else if (c == Terrain.GRASS && cur[i] > 9) {
 
-						Level.set(i, Terrain.HIGH_GRASS);
+						Floor.set(i, Terrain.HIGH_GRASS);
 						mapUpdated = true;
 
 					}

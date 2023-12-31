@@ -106,7 +106,7 @@ public class ChaosLevel extends RegularLevel {
 			}
 		}
 		
- 		int length = Level.getLength();
+ 		int length = Floor.getLength();
 
 		while (true) {
 			int pos = roomEntrance.random();
@@ -134,7 +134,7 @@ public class ChaosLevel extends RegularLevel {
 		addVisuals(this, scene);
 	}
 
-	public static void addVisuals(Level level, Scene scene) {
+	public static void addVisuals(Floor level, Scene scene) {
 		for (int i = 0; i < getLength(); i++) {
 			if (level.map[i] == 63) {
 				scene.add(new Stream(i));

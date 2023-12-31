@@ -179,7 +179,7 @@ public class Imp extends NPC {
 		}
 
 		public static void spawn(CityLevel level) {
-			if (!spawned && Dungeon.depth > 16
+			if (!spawned && Dungeon.dungeondepth > 16
 					) {
 
 				Imp npc = new Imp();
@@ -207,7 +207,7 @@ public class Imp extends NPC {
 				if ((alternative && mob instanceof Monk)
 						|| (!alternative && mob instanceof Golem)) {
 
-					Dungeon.level.drop(new DwarfToken(), mob.pos).sprite.drop();
+					Dungeon.depth.drop(new DwarfToken(), mob.pos).sprite.drop();
 				}
 			}
 		}

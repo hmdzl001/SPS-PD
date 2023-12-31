@@ -30,7 +30,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.SheepSokobanSwitch;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -90,7 +90,7 @@ public class ScrollOfTeleportation extends Scroll {
 		int count = 20;
 		int pos;
 		do {
-			pos = Dungeon.level.randomRespawnCell();
+			pos = Dungeon.depth.randomRespawnCell();
 			if (count-- <= 0) {
 				break;
 			}
@@ -103,7 +103,7 @@ public class ScrollOfTeleportation extends Scroll {
 		} else {
 
 			ScrollOfTeleportation.appear(hero, pos);
-			Dungeon.level.press(pos, hero);
+			Dungeon.depth.press(pos, hero);
 			Dungeon.observe();
 
 			GLog.i(Messages.get(ScrollOfTeleportation.class, "tele"));
@@ -120,7 +120,7 @@ public class ScrollOfTeleportation extends Scroll {
 			sheepchk = true;
 		}
 
-		if (Level.passable[spot] && (Actor.findChar(spot) == null || sheepchk)) {
+		if (Floor.passable[spot] && (Actor.findChar(spot) == null || sheepchk)) {
 			
 			//GLog.i("clear");
 			
@@ -129,12 +129,12 @@ public class ScrollOfTeleportation extends Scroll {
 				ch.destroy();
 				ch.sprite.killAndErase();
 				ch.sprite.emitter().burst(ShadowParticle.UP, 5);
-				Level.set(spot, Terrain.WOOL_RUG);
+				Floor.set(spot, Terrain.WOOL_RUG);
 				GameScene.updateMap(spot);
 			}
 			
 			ScrollOfTeleportation.appear(hero, spot);
-			Dungeon.level.press(spot, hero);
+			Dungeon.depth.press(spot, hero);
 			Dungeon.observe();
 
 			GLog.i(Messages.get(ScrollOfTeleportation.class, "tele"));
@@ -146,7 +146,7 @@ public class ScrollOfTeleportation extends Scroll {
 		int count = 10;
 		int pos;
 		do {
-			pos = Dungeon.level.randomRespawnCell();
+			pos = Dungeon.depth.randomRespawnCell();
 			if (count-- <= 0) {
 				break;
 			}
@@ -159,7 +159,7 @@ public class ScrollOfTeleportation extends Scroll {
 		} else {
 
 			ScrollOfTeleportation.appear(hero, pos);
-			Dungeon.level.press(pos, hero);
+			Dungeon.depth.press(pos, hero);
 			Dungeon.observe();
 
 			GLog.i(Messages.get(ScrollOfTeleportation.class, "tele"));

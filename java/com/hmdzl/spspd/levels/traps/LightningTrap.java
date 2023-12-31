@@ -29,7 +29,7 @@ import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -64,13 +64,13 @@ public class LightningTrap extends Trap {
 			}
 
 			ArrayList<Lightning.Arc> arcs = new ArrayList<>();
-			arcs.add(new Lightning.Arc(pos - Level.WIDTH, pos + Level.WIDTH));
+			arcs.add(new Lightning.Arc(pos - Floor.WIDTH, pos + Floor.WIDTH));
 			arcs.add(new Lightning.Arc(pos - 1, pos + 1));
 
 			ch.sprite.parent.add( new Lightning( arcs, null ) );
 		}
 
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null){
 			//TODO: this should probably charge staffs too
 			Item item = heap.items.peek();

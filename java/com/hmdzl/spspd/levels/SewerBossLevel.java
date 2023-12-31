@@ -24,11 +24,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.YellowDewdrop;
-import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
-import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.Scene;
@@ -37,7 +33,7 @@ import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.Dungeon.hero;
 
-public class SewerBossLevel extends Level {
+public class SewerBossLevel extends Floor {
 
 	{
 		color1 = 0x6a723d;
@@ -142,7 +138,7 @@ public class SewerBossLevel extends Level {
 			enteredArena = true;
 			seal();
 
-			Mob boss = Bestiary.mob(Dungeon.depth);
+			Mob boss = Bestiary.mob(Dungeon.dungeondepth);
 			boss.state = boss.HUNTING;
 			boss.pos = 23 + WIDTH * 21;
 			GameScene.add(boss);

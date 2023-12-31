@@ -59,7 +59,7 @@ public class RangeBag extends MiscEquippable {
 				hero.busy();
 
 				hero.sprite.operate(hero.pos);
-				Dungeon.level.drop(Generator.random(Generator.Category.LINKDROP), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				Dungeon.depth.drop(Generator.random(Generator.Category.LINKDROP), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 
 			}
 		} else {

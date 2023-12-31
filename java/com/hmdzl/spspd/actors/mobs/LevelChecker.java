@@ -90,7 +90,7 @@ public class LevelChecker extends Mob {
 	public void die(Object cause) {
 
 		if (Random.Int(2) == 0)
-			Dungeon.level.drop(new LevelDown(), pos).sprite.drop();
+			Dungeon.depth.drop(new LevelDown(), pos).sprite.drop();
 
 		super.die(cause);
 

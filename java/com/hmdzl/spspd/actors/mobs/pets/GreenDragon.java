@@ -27,7 +27,7 @@ import com.hmdzl.spspd.items.potions.PotionOfLevitation;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfTCloud;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.GreenDragonSprite;
 import com.watabou.utils.Random;
 
@@ -84,7 +84,7 @@ public class GreenDragon extends PET{
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override

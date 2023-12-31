@@ -82,7 +82,7 @@ public class Leadercn extends NPC {
 		switch (Dungeon.sacrifice) {
             case 0:
 			yell(Messages.get(this, "yell1"));
-				Dungeon.level.drop(new IronKey(Dungeon.depth), Dungeon.hero.pos).sprite.drop();
+				Dungeon.depth.drop(new IronKey(Dungeon.dungeondepth), Dungeon.hero.pos).sprite.drop();
 			break;
 			case 1:
 			yell(Messages.get(this, "yell2"));
@@ -95,19 +95,19 @@ public class Leadercn extends NPC {
 			break;			
             case 4:
 			yell(Messages.get(this, "yell5"));
-			Dungeon.level.drop(new StoneOre(), Dungeon.hero.pos).sprite.drop();
+			Dungeon.depth.drop(new StoneOre(), Dungeon.hero.pos).sprite.drop();
 			break;			
             case 5:
 			yell(Messages.get(this, "yell6"));
-			Dungeon.level.drop(new WandOfTest().identify(), Dungeon.hero.pos).sprite.drop();
+			Dungeon.depth.drop(new WandOfTest().identify(), Dungeon.hero.pos).sprite.drop();
 			break;			
             case 6:
 			yell(Messages.get(this, "yell7"));
-			Dungeon.level.drop(new DungeonBomb(), Dungeon.hero.pos).sprite.drop();
+			Dungeon.depth.drop(new DungeonBomb(), Dungeon.hero.pos).sprite.drop();
 			break;			
             case 7:
 			yell(Messages.get(this, "yell8"));
-				Dungeon.level.drop(new PuddingCup(), this.pos).sprite.drop();
+				Dungeon.depth.drop(new PuddingCup(), this.pos).sprite.drop();
 			break;						
 		}
 		Dungeon.sacrifice++;

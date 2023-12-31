@@ -130,9 +130,9 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-import static com.hmdzl.spspd.Dungeon.level;
+import static com.hmdzl.spspd.Dungeon.depth;
 
-public class TownLevel extends Level {
+public class TownLevel extends Floor {
 
 
 	{
@@ -795,9 +795,9 @@ public class TownLevel extends Level {
 	  mob3.pos = 5 + WIDTH * 43;
 	  mobs.add(mob3);
 
-	 //MonsterBox test = new MonsterBox();
+	 //DemonRabbit test = new DemonRabbit();
 	 // test.pos = 14 + WIDTH * 32;
-	  //mobs.add(test);
+	 // mobs.add(test);
 
 	  //FishProtector test2 = new FishProtector();
 	  //test2.pos = 14 + WIDTH * 31;
@@ -1025,7 +1025,7 @@ public class TownLevel extends Level {
 
 		case Terrain.ALCHEMY:
 		         Alchemy alchemy = new Alchemy();
-                level.blobs.put( Alchemy.class, alchemy );
+                depth.blobs.put( Alchemy.class, alchemy );
 			break;
 			
 		case Terrain.PEDESTAL:

@@ -23,14 +23,14 @@ import com.hmdzl.spspd.items.Heap.Type;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.GoldenKey;
 import com.hmdzl.spspd.items.keys.IronKey;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Random;
 
 public class VaultPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY_SP);
@@ -38,7 +38,7 @@ public class VaultPainter extends Painter {
 
 		int cx = (room.left + room.right) / 2;
 		int cy = (room.top + room.bottom) / 2;
-		int c = cx + cy * Level.getWidth();
+		int c = cx + cy * Floor.getWidth();
 
 		switch (Random.Int(3)) {
 
@@ -49,8 +49,8 @@ public class VaultPainter extends Painter {
 				i2 = prizeUncursed(level);
 			} while (i1.getClass() == i2.getClass());
 			level.drop(i1, c).type = Type.CRYSTAL_CHEST;
-			level.drop(i2, c + Level.NEIGHBOURS8[Random.Int(8)]).type = Type.CRYSTAL_CHEST;
-			level.addItemToSpawn(new GoldenKey(Dungeon.depth));
+			level.drop(i2, c + Floor.NEIGHBOURS8[Random.Int(8)]).type = Type.CRYSTAL_CHEST;
+			level.addItemToSpawn(new GoldenKey(Dungeon.dungeondepth));
 			
 			do {
 				i3 = prizeUncursed(level);
@@ -71,16 +71,16 @@ public class VaultPainter extends Painter {
 		}
 
 		room.entrance().set(Room.Door.Type.LOCKED);
-		level.addItemToSpawn(new IronKey(Dungeon.depth));
+		level.addItemToSpawn(new IronKey(Dungeon.dungeondepth));
 	}
 
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
 		return Generator.random(Random.oneOf(Generator.Category.WAND,
 				Generator.Category.RING, Generator.Category.ARTIFACT));
 	}
 	
 	
-	private static Item prizeUncursed(Level level) {
+	private static Item prizeUncursed(Floor level) {
 				
 	   Item item = Generator.random(Random.oneOf(Generator.Category.WAND, Generator.Category.RING, Generator.Category.ARTIFACT));
 			

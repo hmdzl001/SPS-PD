@@ -54,7 +54,7 @@ import java.util.List;
 
 import static com.hmdzl.spspd.items.Heap.Type.HEAP;
 
-public abstract class  RegularLevel extends Level {
+public abstract class  RegularLevel extends Floor {
 
 	protected HashSet<Room> rooms;
 
@@ -141,8 +141,7 @@ public abstract class  RegularLevel extends Level {
 			Room shop = null;
 			for (Room r : roomEntrance.connected.keySet()) {
 				if (r.connected.size() == 1
-						&& ((r.width() - 1) * (r.height() - 1) >= ShopPainter
-								.spaceNeeded())) {
+						&& ((r.width() - 1) * (r.height() - 1) >= ShopPainter.spaceNeeded())) {
 					shop = r;
 					break;
 				}
@@ -168,7 +167,7 @@ public abstract class  RegularLevel extends Level {
 			//specials.remove(Room.Type.GARDEN);
 		//}
 		
-		if (Dungeon.depth > 50 && Dungeon.depth < 100) {
+		if (Dungeon.dungeondepth > 50 && Dungeon.dungeondepth < 100) {
 			specials.remove(Room.Type.RUIN_ROOM);
 			specials.remove(Room.Type.MATERIAL);
 			specials.remove(Room.Type.CRYPT);
@@ -248,12 +247,13 @@ public abstract class  RegularLevel extends Level {
 					hideRooms++;
 
 				} else if (specials.size() > 0 && r.width() > 5 && r.height() > 5
-						&& Random.Int(specialRooms * specialRooms + 2) == 0) {
+						//&& Random.Int(specialRooms * specialRooms + 2) == 0) {
+					&& Random.Int(specialRooms) < 3) {
 
-					if (Dungeon.depth % 5 == 2 && specials.contains(Type.COOKING)) {
+					if (Dungeon.dungeondepth % 5 == 2 && specials.contains(Type.COOKING)) {
 						r.type = Type.COOKING;
 
-					} else if (Dungeon.depth % 5 == 3 && specials.contains(Type.RUIN_ROOM)) {
+					} else if (Dungeon.dungeondepth % 5 == 3 && specials.contains(Type.RUIN_ROOM)) {
 						r.type = Type.RUIN_ROOM;
 
 					} else {
@@ -332,10 +332,10 @@ public abstract class  RegularLevel extends Level {
 	protected void paintChasm() {
 		boolean[] chasm = chasm();
 		for (int i = 0; i < getLength(); i++) {
-			if (map[i] == Terrain.WALL && chasm[i] &&  Level.insideMap(i)) {
+			if (map[i] == Terrain.WALL && chasm[i] &&  Floor.insideMap(i)) {
 				map[i] = Terrain.CHASM;
 			}
-			if (map[i] == Terrain.GLASS_WALL && chasm[i] &&  Level.insideMap(i)) {
+			if (map[i] == Terrain.GLASS_WALL && chasm[i] &&  Floor.insideMap(i)) {
 				map[i] = Terrain.CHASM;
 			}
 		}
@@ -393,7 +393,7 @@ public abstract class  RegularLevel extends Level {
 		for (int i = 0; i < LENGTH; i ++) {
 			if (map[i] == Terrain.EMPTY || map[i] == Terrain.WATER || map[i] == Terrain.HIGH_GRASS ){
 
-				if(Dungeon.depth == 1){
+				if(Dungeon.dungeondepth == 1){
 					//extra check to prevent annoying inactive traps in hallways on floor 1
 					Room r = room(i);
 					if (r != null && r.type != Type.TUNNEL && r.type != Type.ENTRANCE && r.type != Type.EXIT){
@@ -401,7 +401,7 @@ public abstract class  RegularLevel extends Level {
 					}
 				} else {
 					Room r = room(i);
-					if (r != null  && r.type != Type.ENTRANCE && r.type != Type.EXIT){
+					if (r != null  && r.type != Type.ENTRANCE && r.type != Type.EXIT && r.type != Type.SHOP && r.type != Type.HIDE_SHOP){
 						validCells.add(i);
 					}
 				}
@@ -418,11 +418,15 @@ public abstract class  RegularLevel extends Level {
 			int trapPos = validCells.removeFirst();
 
 			try {
-				Trap trap =
-						((Trap)trapClasses[Random.chances( trapChances )].newInstance()).hide();
+				Trap trap = ((Trap)trapClasses[Random.chances( trapChances )].newInstance()).hide();
+
+				if (Random.Int(2) == 0){
+					trap.hide();
+				} else trap.reveal();
+
 				setTrap( trap, trapPos );
 				//some traps will not be hidden
-				map[trapPos] = (Random.Int(2) == 0) ? Terrain.TRAP : Terrain.SECRET_TRAP;
+				map[trapPos] = trap.visible? Terrain.TRAP : Terrain.SECRET_TRAP;
 
 			} catch (Exception e) {
 				throw new RuntimeException(e);
@@ -431,7 +435,7 @@ public abstract class  RegularLevel extends Level {
 	}
 
 	protected int nTraps() {
-		return Random.NormalIntRange( 13, 20+(Dungeon.depth/2) );
+		return Random.NormalIntRange( 13, 20+(Dungeon.dungeondepth /2) );
 	}
 	
 	protected Class<?>[] trapClasses(){
@@ -539,11 +543,11 @@ public abstract class  RegularLevel extends Level {
 				map[door] = tunnelTile();
 				break;
 			case REGULAR:
-				if (Dungeon.depth <= 1) {
+				if (Dungeon.dungeondepth <= 1) {
 					map[door] = Terrain.DOOR;
 				} else {
-					boolean secret = (Dungeon.depth < 6 ? Random
-							.Int(12 - Dungeon.depth) : Random.Int(6)) == 0;
+					boolean secret = (Dungeon.dungeondepth < 6 ? Random
+							.Int(12 - Dungeon.dungeondepth) : Random.Int(6)) == 0;
 					map[door] = secret ? Terrain.SECRET_DOOR : Terrain.DOOR;
 					if (secret) {
 						secretDoors++;
@@ -624,17 +628,17 @@ public abstract class  RegularLevel extends Level {
 	}
 	
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 800;
+		Dungeon.pars[Dungeon.dungeondepth] = 800;
 	}
 
 	@Override
 	public int nMobs() {
-		if (Dungeon.depth < 5 && !Statistics.amuletObtained){
-		 return 10 + Dungeon.depth + Random.Int(3);
+		if (Dungeon.dungeondepth < 5 && !Statistics.amuletObtained){
+		 return 10 + Dungeon.dungeondepth + Random.Int(3);
 		} else if(!Statistics.amuletObtained) {
-		 return 15 + Dungeon.depth % 3 + Random.Int(3);
+		 return 15 + Dungeon.dungeondepth % 3 + Random.Int(3);
 		} else {
-		 return 10 + (5 - Dungeon.depth % 5) + Random.Int(3);
+		 return 10 + (5 - Dungeon.dungeondepth % 5) + Random.Int(3);
 		}
 	}
 
@@ -642,7 +646,7 @@ public abstract class  RegularLevel extends Level {
 	protected void createMobs() {
 		int nMobs = nMobs();
 		for (int i = 0; i < nMobs; i++) {
-			Mob mob = Bestiary.mob(Dungeon.depth);
+			Mob mob = Bestiary.mob(Dungeon.dungeondepth);
 			do {
 				mob.pos = randomRespawnCell();
 				mob.originalgen=true;
@@ -671,7 +675,7 @@ public abstract class  RegularLevel extends Level {
 
 			cell = room.random();
 			if (!Dungeon.visible[cell] && Actor.findChar(cell) == null
-					&& Level.passable[cell]) {
+					&& Floor.passable[cell]) {
 				return cell;
 			}
 
@@ -692,7 +696,7 @@ public abstract class  RegularLevel extends Level {
 			}
 
 			cell = room.random();
-			if (Level.passable[cell]) {
+			if (Floor.passable[cell]) {
 				return cell;
 			}
 
@@ -735,7 +739,7 @@ public abstract class  RegularLevel extends Level {
 				type = Heap.Type.CHEST;
 				break;
 			case 5:
-				type = Dungeon.depth > 1 ? Heap.Type.MIMIC : Heap.Type.CHEST;
+				type = Dungeon.dungeondepth > 1 ? Heap.Type.MIMIC : Heap.Type.CHEST;
 				break;
 			default:
 				type = HEAP;
@@ -763,7 +767,7 @@ public abstract class  RegularLevel extends Level {
 //for (int x = 0; x < 20; x++) {
 		if (Random.Int(5)>0){
 			Heap.Type type = Heap.Type.LOCKED_CHEST;
-			drop(new GoldenKey(Dungeon.depth),randomDropCell()).type = HEAP;
+			drop(new GoldenKey(Dungeon.dungeondepth),randomDropCell()).type = HEAP;
 			switch (Random.Int(15)) {
 				case 0:
 				case 1:

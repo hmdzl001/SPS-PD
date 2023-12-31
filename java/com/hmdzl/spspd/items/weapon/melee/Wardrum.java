@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -42,6 +42,8 @@ public class Wardrum extends MeleeWeapon {
 
 	public Wardrum() {
 		super(3, 1f, 1f, 2);
+		MIN = 21;
+		MAX = 29;
 	}
 	
 
@@ -57,7 +59,7 @@ public class Wardrum extends MeleeWeapon {
 
 		
 		int p = defender.pos;
-		for (int n : Level.NEIGHBOURS8) {
+		for (int n : Floor.NEIGHBOURS8) {
 			Char ch = Actor.findChar(n+p);
 			if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
 

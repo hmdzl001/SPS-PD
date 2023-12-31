@@ -39,6 +39,8 @@ public class StoneCross extends MeleeWeapon {
 
 	public StoneCross() {
 		super(5, 0.8f, 1.2f, 1);
+		MIN = 50;
+		MAX = 66;
 	}
 	
 	public static int charge = 0;

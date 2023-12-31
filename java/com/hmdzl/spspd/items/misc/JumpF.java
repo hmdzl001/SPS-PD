@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.buffs.InfJump;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -85,7 +85,7 @@ public class JumpF extends Item {
 			if (target != null && target != curUser.pos) {
 				Ballistica route = new Ballistica(curUser.pos, target, (Ballistica.STOP_TARGET | Ballistica.STOP_TERRAIN));
 				int cell = route.collisionPos;
-				int dist = Level.distance(curUser.pos, cell);
+				int dist = Floor.distance(curUser.pos, cell);
 				int range = 3;
 				//if (Actor.findChar( cell ) != null && cell != curUser.pos)
 					//cell = route.path.get(route.dist-1);
@@ -100,12 +100,12 @@ public class JumpF extends Item {
 				curUser.sprite.jump(curUser.pos, cell, new Callback() {
 					@Override
 					public void call() {
-						if (Dungeon.level.map[curUser.pos] != Terrain.ENTRANCE &&
-								Dungeon.level.map[curUser.pos] != Terrain.EXIT &&
-								Dungeon.level.map[curUser.pos] != Terrain.ALCHEMY &&
-						Dungeon.level.map[curUser.pos] != Terrain.PEDESTAL &&
-						Level.insideMap(curUser.pos)) {
-							Level.set(curUser.pos, Terrain.HIGH_GRASS);
+						if (Dungeon.depth.map[curUser.pos] != Terrain.ENTRANCE &&
+								Dungeon.depth.map[curUser.pos] != Terrain.EXIT &&
+								Dungeon.depth.map[curUser.pos] != Terrain.ALCHEMY &&
+						Dungeon.depth.map[curUser.pos] != Terrain.PEDESTAL &&
+						Floor.insideMap(curUser.pos)) {
+							Floor.set(curUser.pos, Terrain.HIGH_GRASS);
 						GameScene.updateMap(curUser.pos);
 						}
 						curUser.move(dest);
@@ -123,7 +123,7 @@ public class JumpF extends Item {
 
 						if (Random.Int(10) > 8 ){
 							Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED3);
-							Dungeon.level.plant(seed, dest);
+							Dungeon.depth.plant(seed, dest);
 						}
 					    if(curUser.buff(InfJump.class) == null){
 						charge -= 8;

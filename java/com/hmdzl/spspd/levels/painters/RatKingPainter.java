@@ -17,14 +17,13 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.mobs.npcs.RatKing;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Random;
@@ -33,7 +32,7 @@ public class RatKingPainter extends Painter {
 
 	static boolean page = false;
 	
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY_SP);
@@ -41,17 +40,17 @@ public class RatKingPainter extends Painter {
 
 		Room.Door entrance = room.entrance();
 		entrance.set(Room.Door.Type.HIDDEN);
-		int door = entrance.x + entrance.y * Level.getWidth();
+		int door = entrance.x + entrance.y * Floor.getWidth();
 
 
 		for (int i = room.left + 1; i < room.right; i++) {
-			addChest(level, (room.top + 1) * Level.getWidth() + i, door);
-			addChest(level, (room.bottom - 1) * Level.getWidth() + i, door);
+			addChest(level, (room.top + 1) * Floor.getWidth() + i, door);
+			addChest(level, (room.bottom - 1) * Floor.getWidth() + i, door);
 		}
 
 		for (int i = room.top + 2; i < room.bottom - 1; i++) {
-			addChest(level, i * Level.getWidth() + room.left + 1, door);
-			addChest(level, i * Level.getWidth() + room.right - 1, door);
+			addChest(level, i * Floor.getWidth() + room.left + 1, door);
+			addChest(level, i * Floor.getWidth() + room.right - 1, door);
 		}
 
 		while (true) {
@@ -87,10 +86,10 @@ public class RatKingPainter extends Painter {
 		level.mobs.add(king);
 	}
 
-	private static void addChest(Level level, int pos, int door) {		
+	private static void addChest(Floor level, int pos, int door) {
 
-		if (pos == door - 1 || pos == door + 1 || pos == door - Level.getWidth()
-				|| pos == door + Level.getWidth()) {
+		if (pos == door - 1 || pos == door + 1 || pos == door - Floor.getWidth()
+				|| pos == door + Floor.getWidth()) {
 			return;
 		}
 

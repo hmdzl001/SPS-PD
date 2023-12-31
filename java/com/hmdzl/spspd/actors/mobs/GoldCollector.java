@@ -72,7 +72,7 @@ public class GoldCollector extends Mob {
 			} else {
 				Dungeon.gold -= 10;
 				enemy.sprite.showStatus(CharSprite.NEUTRAL, "-10" );
-				Dungeon.level.drop(new Gold(10),enemy.pos);
+				Dungeon.depth.drop(new Gold(10),enemy.pos);
 			}
 		}
 		return damage;
@@ -89,7 +89,7 @@ public class GoldCollector extends Mob {
        int n = Random.Int(5);
 
        for( int i = 0; i < n; i++ ) {
-		   Dungeon.level.drop(new DarkGold(), pos).sprite.drop();
+		   Dungeon.depth.drop(new DarkGold(), pos).sprite.drop();
 	   }
 		super.die(cause);
 

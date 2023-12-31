@@ -29,7 +29,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -104,10 +104,11 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 		public String desc() {
 			String desc = Messages.get(this, "desc");
 
-			 if (count >= 8)desc += "\n\n" + Messages.get(this, "crush_desc");
-			else if (count >= 6)desc += "\n\n" + Messages.get(this, "slam_desc");
-			else if (count >= 4)desc += "\n\n" + Messages.get(this, "cleave_desc");
-			else if (count >= 2)desc += "\n\n" + Messages.get(this, "clobber_desc");
+			if (count >= 10)desc += "\n\n" + Messages.get(this, "5_desc");
+			else if (count >= 8)desc += "\n\n" + Messages.get(this, "4_desc");
+			else if (count >= 6)desc += "\n\n" + Messages.get(this, "3_desc");
+			else if (count >= 4)desc += "\n\n" + Messages.get(this, "2_desc");
+			else if (count >= 2)desc += "\n\n" + Messages.get(this, "1_desc");
 
 			return desc;
 		}
@@ -137,12 +138,13 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 		public Image getIcon() {
 			Image icon;
 
-			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.ERROR_WEAPON; }});
+			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.BUNNY_DAGGER;}});
 
-            if (count >= 8)icon.tint(0xFFFFCC00);
+            if (count >= 10)icon.tint(0x00000000);
+			else if (count >= 8)icon.tint(0xFFFFCC00);
 			else if (count >= 6)icon.tint(0xFFFFFF00);
 			else if (count >= 4)icon.tint(0xFFCCFF00);
-			else                icon.tint(0xFF00FF00);
+			else icon.tint(0xFF00FF00);
 
 			return icon;
 		}
@@ -153,7 +155,7 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 		}
 
 		private enum finisherType{
-			CLOBBER, CLEAVE, SLAM, CRUSH
+			A, B, C, D, E
         }
 
 		private CellSelector.Listener finisher = new CellSelector.Listener() {
@@ -170,10 +172,11 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 					target.sprite.attack(cell, new Callback() {
 						@Override
 						public void call() {
-							if (count >= 8)type = finisherType.CRUSH;
-							else if (count >= 6)type = finisherType.SLAM;
-							else if (count >= 4)type = finisherType.CLEAVE;
-							else                type = finisherType.CLOBBER;
+							if (count >= 10)type = finisherType.E;
+							else if (count >= 8)type = finisherType.D;
+							else if (count >= 6)type = finisherType.C;
+							else if (count >= 4)type = finisherType.B;
+							else                type = finisherType.A;
 							doAttack(enemy);
 						}
 					});
@@ -188,25 +191,13 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 
 				//variance in damage dealt
 				switch(type){
-					case CLOBBER:
-						dmg = Math.round(dmg*1.6f);
+					case A:
+					case B:
+					case C:
+					case D:
 						break;
-					case CLEAVE:
-						dmg = Math.round(dmg*2.5f);
-						break;
-					case SLAM:
-						//rolls 2 times, takes the highest roll
-						int dmgReroll = target.damageRoll();
-						if (dmgReroll > dmg) dmg = dmgReroll;
-						dmg = Math.round(dmg*2.6f);
-						break;
-					case CRUSH:
-						//rolls 4 times, takes the highest roll
-						for (int i = 1; i < 4; i++) {
-							dmgReroll = target.damageRoll();
-							if (dmgReroll > dmg) dmg = dmgReroll;
-						}
-						dmg = Math.round(dmg*3.5f);
+					case E:
+						dmg = Math.round(dmg*(count/10 +1));
 						break;
 				}
 
@@ -217,49 +208,58 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 
 				//special effects
 				switch (type){
-					case CLOBBER:
-						if (enemy.isAlive()){
-							if (!enemy.properties().contains(Char.Property.IMMOVABLE)){
-								for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-									int ofs = Level.NEIGHBOURS8[i];
-									if (enemy.pos - target.pos == ofs) {
-										int newPos = enemy.pos + ofs;
-										if ((Level.passable[newPos] || Level.avoid[newPos]) && Actor.findChar( newPos ) == null) {
+					case A:
+						Buff.affect(enemy, Cripple.class,5f);
+						break;
+					case B:
+						Buff.affect(enemy,Blindness.class,5f);
+						break;
+					case C:
+						Buff.affect(enemy,Bleeding.class).set(dmg);
+						break;
+					case D:
+					if (enemy.isAlive()){
+						if (!enemy.properties().contains(Char.Property.IMMOVABLE)){
+							for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+								int ofs = Floor.NEIGHBOURS8[i];
+								if (enemy.pos - target.pos == ofs) {
+									int newPos = enemy.pos + ofs;
+									if ((Floor.passable[newPos] || Floor.avoid[newPos]) && Actor.findChar( newPos ) == null) {
 
-											Actor.addDelayed( new Pushing( enemy, enemy.pos, newPos ), -1 );
+										Actor.addDelayed( new Pushing( enemy, enemy.pos, newPos ), -1 );
 
-											enemy.pos = newPos;
-											// FIXME
-											if (enemy instanceof Mob) {
-												Dungeon.level.mobPress( (Mob)enemy );
-											} else {
-												Dungeon.level.press( newPos, enemy );
-											}
-
+										enemy.pos = newPos;
+										// FIXME
+										if (enemy instanceof Mob) {
+											Dungeon.depth.mobPress( (Mob)enemy );
+										} else {
+											Dungeon.depth.press( newPos, enemy );
 										}
-										break;
+
 									}
+									break;
 								}
 							}
-							Buff.prolong(enemy, Vertigo.class, Random.NormalIntRange(1, 4));
 						}
-						break;
-					case SLAM:
-						Buff.affect(target,ShieldArmor.class).level(dmg/5);
-						break;
+						Buff.prolong(enemy, Vertigo.class, Random.NormalIntRange(3, 5));
+					}
 					default:
 						//nothing
 						break;
 				}
 
-				if (target.buff(FireImbue.class) != null)
+				if (target.buff(FireImbue.class) != null) {
 					target.buff(FireImbue.class).proc(enemy);
-				if (target.buff(EarthImbue.class) != null)
+				}
+				if (target.buff(EarthImbue.class) != null) {
 					target.buff(EarthImbue.class).proc(enemy);
-                if (target.buff(FrostImbue.class) != null)
-                    target.buff(FrostImbue.class).proc(enemy);
-                if (target.buff(BloodImbue.class) != null)
-                    target.buff(BloodImbue.class).proc(enemy);
+				}
+                if (target.buff(FrostImbue.class) != null) {
+					target.buff(FrostImbue.class).proc(enemy);
+				}
+                if (target.buff(BloodImbue.class) != null) {
+					target.buff(BloodImbue.class).proc(enemy);
+				}
 
                 Sample.INSTANCE.play( Assets.SND_HIT, 1, 1, Random.Float( 0.8f, 1.25f ) );
 				enemy.sprite.bloodBurstA( target.sprite.center(), dmg );
@@ -273,21 +273,15 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 
 				//Post-attack behaviour
 				switch(type) {
-                    case CLEAVE:
-                        if (!enemy.isAlive()) {
-                            //combo isn't reset, but rather increments with a cleave kill, and grants more time.
-                            hit();
-                            comboTime = 10f;
-                        } else {
-                            detach();
-                            ActionIndicator.clearAction(BunnyCombo.this);
-                        }
-                        hero.spendAndNext(hero.attackDelay());
-                        break;
-
-					default:
+					case E:
 						detach();
 						ActionIndicator.clearAction(BunnyCombo.this);
+						hero.spendAndNext(hero.attackDelay());
+						break;
+					default:
+						//detach();
+						//ActionIndicator.clearAction(BunnyCombo.this);
+						count++;
 						hero.spendAndNext(hero.attackDelay());
 						break;
 				}
@@ -296,10 +290,11 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 
 			@Override
 			public String prompt() {
-				 if (count >= 8)return Messages.get(NewCombo.class, "crush_prompt");
-				else if (count >= 6)return Messages.get(NewCombo.class, "slam_prompt");
-				else if (count >= 4)return Messages.get(NewCombo.class, "cleave_prompt");
-				else                return Messages.get(NewCombo.class, "clobber_prompt");
+				if (count >= 10)return Messages.get(NewCombo.class, "e_prompt");
+				else if (count >= 8)return Messages.get(NewCombo.class, "d_prompt");
+				else if (count >= 6)return Messages.get(NewCombo.class, "c_prompt");
+				else if (count >= 4)return Messages.get(NewCombo.class, "b_prompt");
+				else  return Messages.get(NewCombo.class, "a_prompt");
 			}
 		};
 	}

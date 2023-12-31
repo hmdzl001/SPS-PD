@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ExMobileSprite;
@@ -75,21 +75,21 @@ public class Mobile extends Item {
 		
 		if (Actor.findChar(cell) != null) {
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : Level.NEIGHBOURS8)
-				if (Level.passable[cell + i])
+			for (int i : Floor.NEIGHBOURS8)
+				if (Floor.passable[cell + i])
 					candidates.add(cell + i);
 			int newCell = candidates.isEmpty() ? cell : Random
 					.element(candidates);
 			
-			   if (!Level.pit[newCell] && activate) {
+			   if (!Floor.pit[newCell] && activate) {
 			   	 if (Dungeon.hero.subClass == HeroSubClass.LEADER){
 					 EXMobileSatellite.spawnAt(newCell);
 				 } else MobileSatellite.spawnAt(newCell);
 			   } else {
-			   Dungeon.level.drop(this, newCell).sprite.drop(cell);
+			   Dungeon.depth.drop(this, newCell).sprite.drop(cell);
 			   }
 			   
-		} else if (!Level.pit[cell] && activate) {
+		} else if (!Floor.pit[cell] && activate) {
 			if (Dungeon.hero.subClass == HeroSubClass.LEADER){
 				EXMobileSatellite.spawnAt(cell);
 			} else MobileSatellite.spawnAt(cell);
@@ -151,7 +151,7 @@ public class Mobile extends Item {
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, Dungeon.hero.pos) > 6)
+					|| Floor.distance(target, Dungeon.hero.pos) > 6)
 				this.target = target = Dungeon.hero.pos;
 			return super.getCloser(target);
 		}		
@@ -162,8 +162,8 @@ public class Mobile extends Item {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}
@@ -191,12 +191,12 @@ public class Mobile extends Item {
 
 		@Override
 		protected boolean canAttack(Char enemy) {
-            return Level.distance( pos, enemy.pos ) <= 6 ;
+            return Floor.distance( pos, enemy.pos ) <= 6 ;
 		}
 
 		@Override
 		public int hitSkill(Char target) {
-			return 30+(Dungeon.depth);
+			return 30+(Dungeon.dungeondepth);
 		}
 
 		@Override
@@ -245,7 +245,7 @@ public class Mobile extends Item {
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, Dungeon.hero.pos) > 6)
+					|| Floor.distance(target, Dungeon.hero.pos) > 6)
 				this.target = target = Dungeon.hero.pos;
 			return super.getCloser(target);
 		}
@@ -255,8 +255,8 @@ public class Mobile extends Item {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}
@@ -282,12 +282,12 @@ public class Mobile extends Item {
 
 		@Override
 		protected boolean canAttack(Char enemy) {
-			return Level.distance(pos, enemy.pos) <= 6;
+			return Floor.distance(pos, enemy.pos) <= 6;
 		}
 
 		@Override
 		public int hitSkill(Char target) {
-			return 60 + (Dungeon.depth);
+			return 60 + (Dungeon.dungeondepth);
 		}
 
 		@Override

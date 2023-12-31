@@ -37,7 +37,7 @@ import com.hmdzl.spspd.items.medicine.Greaterpill;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -127,8 +127,8 @@ public class HolyMace extends MeleeWeapon {
 			Buff.affect(hero,Light.class,10f+uptime1);
 			curUser.spendAndNext(1f);
 			charge-=5;
-			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-				if (Level.fieldOfView[mob.pos]) {
+			for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
+				if (Floor.fieldOfView[mob.pos]) {
 					Buff.affect(mob, Terror.class, 10f+uptime1).object = curUser
 							.id();
 				}

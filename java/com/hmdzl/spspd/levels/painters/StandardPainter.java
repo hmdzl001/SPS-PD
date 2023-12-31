@@ -29,7 +29,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Maze;
@@ -53,7 +53,7 @@ import com.watabou.utils.Random;
 
 public class StandardPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL );
 
@@ -61,21 +61,21 @@ public class StandardPainter extends Painter {
 			door.set(Room.Door.Type.REGULAR);
 		}
 		
-		if (Dungeon.depth==31){
+		if (Dungeon.dungeondepth ==31){
 			if (Math.min(room.width(), room.height()) >= 4
 					&& Math.max(room.width(), room.height()) >= 4) {
 				paintTomb(level, room);
 				return;
 			}
 		}
-		if (Dungeon.depth==32){
+		if (Dungeon.dungeondepth ==32){
 			if (Math.min(room.width(), room.height()) >= 4
 					&& Math.max(room.width(), room.height()) >= 4) {
 				paintForce(level, room);
 				return;
 			}
 		}
-		if (Dungeon.depth==33){
+		if (Dungeon.dungeondepth ==33){
 			if (Math.min(room.width(), room.height()) >= 4
 					&& Math.max(room.width(), room.height()) >= 4) {
 				paintStudy(level, room);
@@ -86,7 +86,7 @@ public class StandardPainter extends Painter {
 		if (!Dungeon.bossLevel() && Random.Int(2) == 0) {
 			switch (Random.Int(8)) {
 				case 0:
-					if (level.feeling != Level.Feeling.GRASS) {
+					if (level.feeling != Floor.Feeling.GRASS) {
 						if (Math.min(room.width(), room.height()) >= 5
 								&& Math.max(room.width(), room.height()) >= 6) {
 							paintGraveyard(level, room);
@@ -97,7 +97,7 @@ public class StandardPainter extends Painter {
 						// Burned room
 					}
 				case 1:
-					if (level.feeling != Level.Feeling.SPECIAL_FLOOR) {
+					if (level.feeling != Floor.Feeling.SPECIAL_FLOOR) {
 						if (Math.min(room.width(), room.height()) >= 5
 								&& Math.max(room.width(), room.height()) >= 5) {
 							paintGlassN(level, room);
@@ -126,7 +126,7 @@ public class StandardPainter extends Painter {
 					}
 					break;
 				case 5:
-					if (level.feeling != Level.Feeling.WATER) {
+					if (level.feeling != Floor.Feeling.WATER) {
 						if (room.connected.size() == 2 && room.width() >= 4
 								&& room.height() >= 4) {
 							paintBridge(level, room);
@@ -138,15 +138,15 @@ public class StandardPainter extends Painter {
 					}
 				case 6:
 					if (!Dungeon.bossLevel()
-							&& !Dungeon.bossLevel(Dungeon.depth + 1)
-							&& (Dungeon.depth < 21 &&  Dungeon.depth > 1)
+							&& !Dungeon.bossLevel(Dungeon.dungeondepth + 1)
+							&& (Dungeon.dungeondepth < 21 &&  Dungeon.dungeondepth > 1)
 							&& Math.min(room.width(), room.height()) >= 5) {
 						paintFissure(level, room);
 						return;
 					}
 					break;
 				case 7:
-					if (Dungeon.depth > 1) {
+					if (Dungeon.dungeondepth > 1) {
 					paintBurned(level, room);
 					return;
 				}
@@ -166,7 +166,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							rain.seed(j + Level.getWidth() * i, 1);
+							rain.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfRain.class, rain);
@@ -178,7 +178,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sand.seed(j + Level.getWidth() * i, 1);
+							sand.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSand.class, sand);
@@ -190,7 +190,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							snow.seed(j + Level.getWidth() * i, 1);
+							snow.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSnow.class, snow);
@@ -202,7 +202,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sun.seed(j + Level.getWidth() * i, 1);
+							sun.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSun.class, sun);
@@ -212,13 +212,13 @@ public class StandardPainter extends Painter {
 		}
 	}
 
-	private static void paintBurned(Level level, Room room) {
+	private static void paintBurned(Floor level, Room room) {
 		Class<? extends Trap> trapClass;
 		trapClass = Random.oneOf(trapType);
 
 		for (int i = room.top + 1; i < room.bottom; i++) {
 			for (int j = room.left + 1; j < room.right; j++) {
-				int cell = i * Level.WIDTH + j;
+				int cell = i * Floor.WIDTH + j;
 				int t = Terrain.EMBERS;
 				switch (Random.Int(5)) {
 				case 0:
@@ -234,7 +234,7 @@ public class StandardPainter extends Painter {
 					t = Terrain.INACTIVE_TRAP;
 					break;
 				}
-				level.map[i * Level.getWidth() + j] = t;
+				level.map[i * Floor.getWidth() + j] = t;
 			}
 		}
 		for(int cell : room.getCells()) {
@@ -272,7 +272,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sand.seed(j + Level.getWidth() * i, 1);
+							sand.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSand.class, sand);
@@ -284,7 +284,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sun.seed(j + Level.getWidth() * i, 1);
+							sun.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSun.class, sun);
@@ -300,7 +300,7 @@ public class StandardPainter extends Painter {
 			FireBuff2Trap.class, IceBuff2Trap.class, EarthBuff2Trap.class, ShockBuff2Trap.class,
 			LightBuff2Trap.class, DarkBuff2Trap.class};
 
-	private static void paintGraveyard(Level level, Room room) {
+	private static void paintGraveyard(Floor level, Room room) {
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
 				room.height() - 1, Terrain.GRASS);
 
@@ -313,9 +313,9 @@ public class StandardPainter extends Painter {
 		int shift = Random.Int(2);
 		for (int i = 0; i < nGraves; i++) {
 			int pos = w > h ? room.left + 1 + shift + i * 2
-					+ (room.top + 2 + Random.Int(h - 2)) * Level.getWidth()
+					+ (room.top + 2 + Random.Int(h - 2)) * Floor.getWidth()
 					: (room.left + 2 + Random.Int(w - 2))
-							+ (room.top + 1 + shift + i * 2) * Level.getWidth();
+							+ (room.top + 1 + shift + i * 2) * Floor.getWidth();
 			level.drop(i == index ? Generator.random() : new Gold().random(),
 					pos).type = Heap.Type.TOMB;		
 		}
@@ -329,7 +329,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							rain.seed(j + Level.getWidth() * i, 1);
+							rain.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfRain.class, rain);
@@ -341,7 +341,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							light.seed(j + Level.getWidth() * i, 1);
+							light.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfDead.class, light);
@@ -353,7 +353,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							snow.seed(j + Level.getWidth() * i, 1);
+							snow.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSnow.class, snow);
@@ -365,7 +365,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sun.seed(j + Level.getWidth() * i, 1);
+							sun.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSun.class, sun);
@@ -375,7 +375,7 @@ public class StandardPainter extends Painter {
 		}
 	}
 
-	private static void paintStriped(Level level, Room room) {
+	private static void paintStriped(Floor level, Room room) {
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
 				room.height() - 1, Terrain.EMPTY_SP);
 
@@ -399,7 +399,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							rain.seed(j + Level.getWidth() * i, 1);
+							rain.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfRain.class, rain);
@@ -411,7 +411,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sun.seed(j + Level.getWidth() * i, 1);
+							sun.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSun.class, sun);
@@ -422,7 +422,7 @@ public class StandardPainter extends Painter {
 
 	// TODO: this is almost a special room type now, consider moving this into
 	// its own painter if/when you address room gen significantly.
-	private static void paintStudy(Level level, Room room) {
+	private static void paintStudy(Floor level, Room room) {
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
 				room.height() - 1, Terrain.BOOKSHELF);
 		fill(level, room.left + 2, room.top + 2, room.width() - 3,
@@ -444,14 +444,14 @@ public class StandardPainter extends Painter {
 		if (Random.Int(2) != 0) {
 			Item prize = level.findPrizeItem();
 			if (prize != null) {
-				level.drop(prize, (room.center().x + center.y * Level.getWidth()));
+				level.drop(prize, (room.center().x + center.y * Floor.getWidth()));
 				return;
 			}
 		}
 
 		level.drop(Generator.random(Random.oneOf(Generator.Category.POTION,
 				Generator.Category.SCROLL)), (room.center().x + center.y
-				* Level.getWidth()));
+				* Floor.getWidth()));
 				
 		if (Random.Int(5)==0){
 		WeatherOfQuite light = (WeatherOfQuite) level.blobs.get(WeatherOfQuite.class);
@@ -460,14 +460,14 @@ public class StandardPainter extends Painter {
 		}
 		for (int i = room.top + 1; i < room.bottom; i++) {
 			for (int j = room.left + 1; j < room.right; j++) {
-				light.seed(j + Level.getWidth() * i, 1);
+				light.seed(j + Floor.getWidth() * i, 1);
 			}
 		}
 		level.blobs.put(WeatherOfQuite.class, light);	}
 				
 	}
 	
-	private static void paintStudy2( Level level, Room room ) {
+	private static void paintStudy2(Floor level, Room room ) {
 
         fill( level, room.left + 1, room.top + 1, room.width() - 1, room.height() - 1 , Terrain.EMPTY_SP );
 
@@ -503,7 +503,7 @@ public class StandardPainter extends Painter {
 		}
 		for (int i = room.top + 1; i < room.bottom; i++) {
 			for (int j = room.left + 1; j < room.right; j++) {
-				light.seed(j + Level.getWidth() * i, 1);
+				light.seed(j + Floor.getWidth() * i, 1);
 			}
 		}
 		level.blobs.put(WeatherOfQuite.class, light);}
@@ -511,7 +511,7 @@ public class StandardPainter extends Painter {
 //		set( bonus, room.center(), Terrain.PEDESTAL );
 	}	
 	
-	private static void paintGlassN( Level level, Room room ) {
+	private static void paintGlassN(Floor level, Room room ) {
 		fill(level, room, 1, Terrain.EMPTY);
 
 		//true = space, false = wall
@@ -527,13 +527,13 @@ public class StandardPainter extends Painter {
 			}
 	}
 
-	private static void paintBridge(Level level, Room room) {
+	private static void paintBridge(Floor level, Room room) {
 
 	    if( room.connected.size() == 2 ) {
 	
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
 				room.height() - 1,
-				!Dungeon.bossLevel() && !Dungeon.bossLevel(Dungeon.depth + 1) && (Dungeon.depth < 22 || Dungeon.depth > 26)
+				!Dungeon.bossLevel() && !Dungeon.bossLevel(Dungeon.dungeondepth + 1) && (Dungeon.dungeondepth < 22 || Dungeon.dungeondepth > 26)
 						&& Random.Int(3) == 0 ? Terrain.CHASM : Terrain.WATER);
 
 		Point door1 = null;
@@ -597,7 +597,7 @@ public class StandardPainter extends Painter {
             fill( level, room.left + 1, room.top + 1, room.width() - 1, room.height() - 1, Terrain.EMPTY_SP );
 
             fill( level, room.left + 2, room.top + 2, room.width() - 3, room.height() - 3,
-                    level.feeling == Level.Feeling.WATER ?
+                    level.feeling == Floor.Feeling.WATER ?
                             Terrain.WATER : Terrain.CHASM );
         }
 
@@ -613,7 +613,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							rain.seed(j + Level.getWidth() * i, 1);
+							rain.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfRain.class, rain);
@@ -625,7 +625,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sand.seed(j + Level.getWidth() * i, 1);
+							sand.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSand.class, sand);
@@ -637,7 +637,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							snow.seed(j + Level.getWidth() * i, 1);
+							snow.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSnow.class, snow);
@@ -649,7 +649,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sun.seed(j + Level.getWidth() * i, 1);
+							sun.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSun.class, sun);
@@ -659,7 +659,7 @@ public class StandardPainter extends Painter {
 		}
 	}
 
-	private static void paintFissure(Level level, Room room) {
+	private static void paintFissure(Floor level, Room room) {
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
 				room.height() - 1, Terrain.EMPTY);
 
@@ -681,7 +681,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							rain.seed(j + Level.getWidth() * i, 1);
+							rain.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfRain.class, rain);
@@ -693,7 +693,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sand.seed(j + Level.getWidth() * i, 1);
+							sand.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSand.class, sand);
@@ -705,7 +705,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							snow.seed(j + Level.getWidth() * i, 1);
+							snow.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSnow.class, snow);
@@ -717,7 +717,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sun.seed(j + Level.getWidth() * i, 1);
+							sun.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSun.class, sun);
@@ -727,7 +727,7 @@ public class StandardPainter extends Painter {
 		}
 	}
 	
-	private static void paintTomb(Level level, Room room) {
+	private static void paintTomb(Floor level, Room room) {
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
 				room.height() - 1, Terrain.GRASS);
 
@@ -740,9 +740,9 @@ public class StandardPainter extends Painter {
 		int shift = Random.Int(2);
 		for (int i = 0; i < nGraves; i++) {
 			int pos = w > h ? room.left + 1 + shift + i * 2
-					+ (room.top + 2 + Random.Int(h - 2)) * Level.getWidth()
+					+ (room.top + 2 + Random.Int(h - 2)) * Floor.getWidth()
 					: (room.left + 2 + Random.Int(w - 2))
-							+ (room.top + 1 + shift + i * 2) * Level.getWidth();
+							+ (room.top + 1 + shift + i * 2) * Floor.getWidth();
 			level.drop(i == index ? Generator.random() : new Gold().random(),
 					pos).type = Heap.Type.REMAINS;
 		}
@@ -754,7 +754,7 @@ public class StandardPainter extends Painter {
 			}
 			for (int i = room.top + 1; i < room.bottom; i++) {
 				for (int j = room.left + 1; j < room.right; j++) {
-					light.seed(j + Level.getWidth() * i, 1);
+					light.seed(j + Floor.getWidth() * i, 1);
 				}
 			}
 			level.blobs.put(WeatherOfDead.class, light);
@@ -762,7 +762,7 @@ public class StandardPainter extends Painter {
 		
 	}
 
-	private static void paintForce(Level level, Room room) {
+	private static void paintForce(Floor level, Room room) {
 		fill(level, room.left + 1, room.top + 1, room.width() - 1,
 				room.height() - 1, Terrain.EMPTY);
 
@@ -786,7 +786,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							rain.seed(j + Level.getWidth() * i, 1);
+							rain.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfRain.class, rain);
@@ -798,7 +798,7 @@ public class StandardPainter extends Painter {
 					}
 					for (int i = room.top + 1; i < room.bottom; i++) {
 						for (int j = room.left + 1; j < room.right; j++) {
-							sun.seed(j + Level.getWidth() * i, 1);
+							sun.seed(j + Floor.getWidth() * i, 1);
 						}
 					}
 					level.blobs.put(WeatherOfSun.class, sun);

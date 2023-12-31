@@ -23,7 +23,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Random;
@@ -32,7 +32,7 @@ public class PoolPainter extends Painter {
 
 	private static final int NPIRANHAS = 4;
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.WATER);
@@ -64,7 +64,7 @@ public class PoolPainter extends Painter {
 
 		}
 
-		int pos = x + y * Level.getWidth();
+		int pos = x + y * Floor.getWidth();
 		level.drop(prize(level), pos).type = Random.Int(3) == 0 ? Heap.Type.CHEST
 				: Heap.Type.HEAP;
 		set(level, pos, Terrain.PEDESTAL);
@@ -78,11 +78,11 @@ public class PoolPainter extends Painter {
 			} while (level.map[piranha.pos] != Terrain.WATER
 					|| Actor.findChar(piranha.pos) != null);
 			level.mobs.add(piranha);
-			Actor.occupyCell(piranha);
+			//Actor.occupyCell(piranha);
 		}
 	}
 
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
 
 		Item prize;
 

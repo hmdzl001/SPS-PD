@@ -20,9 +20,7 @@
  */
 package com.hmdzl.spspd.levels.traps;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.sprites.TrapSprite;
 

@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.Speck;
@@ -43,7 +44,7 @@ import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Skull;
 import com.hmdzl.spspd.items.weapon.rockcode.Zshield;
 import com.hmdzl.spspd.levels.CityBossLevel;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -99,8 +100,8 @@ public class King extends Mob {
 
 		a.pos = Terrain.WELL;
 		do {
-			a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-		} while (Dungeon.level.map[a.pos] != Terrain.WELL
+			a.pos = Random.Int(Dungeon.depth.randomRespawnCellMob());
+		} while (Dungeon.depth.map[a.pos] != Terrain.WELL
 				|| Actor.findChar(a.pos) != null);
 		GameScene.add(a);
 	}		
@@ -143,7 +144,7 @@ public class King extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		return canTryToSummon() ? pos == CityBossLevel.pedestal(nextPedestal)
-				: Level.adjacent(pos, enemy.pos);
+				: Floor.adjacent(pos, enemy.pos);
 	}
 
 	private boolean canTryToSummon() {
@@ -195,14 +196,14 @@ public class King extends Mob {
 		            
 		int findTomb=Dungeon.hero.pos;
 		yell(Messages.get(this, "cannot"));
-		 for (Mob mob : Dungeon.level.mobs) {
+		 for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof DwarfKingTomb){findTomb=mob.pos;}
 		 }
-		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
-		 Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
+		Dungeon.depth.drop(new ArmorKit(), pos).sprite.drop();
+		 Dungeon.depth.drop(new Sokoban4(), pos).sprite.drop();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Zshield(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Zshield(), Dungeon.hero.pos).sprite.drop();
 		summonLiches(findTomb);
 		GLog.n(Messages.get(this, "liches"));
 
@@ -221,7 +222,7 @@ public class King extends Mob {
 		sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.4f, 2);
 		Sample.INSTANCE.play(Assets.SND_CHALLENGE);
 
-		boolean[] passable = Level.passable.clone();
+		boolean[] passable = Floor.passable.clone();
 		for (Actor actor : Actor.all()) {
 			if (actor instanceof Char) {
 				passable[((Char) actor).pos] = false;
@@ -236,7 +237,7 @@ public class King extends Mob {
 
 		undeadLabel: for (int i = 0; i < undeadsToSummon; i++) {
 			do {
-				for (int j = 0; j < Level.getLength(); j++) {
+				for (int j = 0; j < Floor.getLength(); j++) {
 					if (PathFinder.distance[j] == dist) {
 
 						Undead undead = new Undead();
@@ -407,8 +408,8 @@ public class King extends Mob {
 	public boolean checkKing(){
 
 		int kingAlive=0;
-		if(Dungeon.level.mobs!=null){
-       for (Mob mob : Dungeon.level.mobs) {
+		if(Dungeon.depth.mobs!=null){
+       for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof King){
 				kingAlive++;
 			   }
@@ -432,17 +433,17 @@ public class King extends Mob {
 		
         super.die(cause);
 		
-		for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
+		for (Mob mob : (Iterable<Mob>) Dungeon.depth.mobs.clone()) {
 			if (mob instanceof DwarfLich || mob instanceof King || mob instanceof King.Undead || mob instanceof Wraith) {
 				mob.die(cause);
 			}
 		}
 		
 		GameScene.bossSlain();
-		Dungeon.level.unseal();
+		Dungeon.depth.unseal();
 	
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(Random.Int(1000, 2000)), pos).sprite.drop();
 
 		Badges.validateBossSlain();
 	

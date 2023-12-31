@@ -24,7 +24,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.fruit.Blackberry;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.weapon.melee.TrickSand;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DwarfLichSprite;
@@ -79,7 +79,7 @@ public class DwarfLich extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		Ballistica attack = new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT);
-		return !Level.adjacent( pos, enemy.pos ) && attack.collisionPos == enemy.pos;	
+		return !Floor.adjacent( pos, enemy.pos ) && attack.collisionPos == enemy.pos;
 		}
 
 	@Override
@@ -106,9 +106,9 @@ public class DwarfLich extends Mob {
 	}		
 	
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}

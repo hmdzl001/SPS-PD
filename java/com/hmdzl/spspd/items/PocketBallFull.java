@@ -60,7 +60,7 @@ import com.hmdzl.spspd.actors.mobs.pets.Stone;
 import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.actors.mobs.pets.YearPet;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -123,7 +123,7 @@ public class PocketBallFull extends Item {
     @Override
     public ArrayList<String> actions(Hero hero) {
         ArrayList<String> actions = super.actions(hero);
-        if ((Dungeon.hero.haspet == false & Dungeon.depth < 26 )|| Dungeon.depth == 50){
+        if ((Dungeon.hero.haspet == false & Dungeon.dungeondepth < 26 )|| Dungeon.dungeondepth == 50){
         actions.add(AC_USE);}
         return actions;
     }
@@ -140,7 +140,7 @@ public class PocketBallFull extends Item {
                 hero.busy();
                 hero.sprite.operate(hero.pos);
                 hero.next();
-                if (Dungeon.depth!=50) {
+                if (Dungeon.dungeondepth !=50) {
                     Dungeon.hero.haspet = true;
                 }
                 detach(hero.belongings.backpack);
@@ -271,7 +271,7 @@ public class PocketBallFull extends Item {
         ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
         for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
             int p = hero.pos + PathFinder.NEIGHBOURS8[i];
-            if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+            if (Actor.findChar(p) == null && (Floor.passable[p] || Floor.avoid[p])) {
                 spawnPoints.add(p);
             }
         }
@@ -284,7 +284,7 @@ public class PocketBallFull extends Item {
     }
 
 	public static void teleportPet(Hero hero) {
-        if (Dungeon.depth == 50) {
+        if (Dungeon.dungeondepth == 50) {
             GLog.n(Messages.get(PocketBallFull.class, "no_place"));
             return;
         }
@@ -412,7 +412,7 @@ public class PocketBallFull extends Item {
         ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
         for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
             int p = hero.pos + PathFinder.NEIGHBOURS8[i];
-            if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+            if (Actor.findChar(p) == null && (Floor.passable[p] || Floor.avoid[p])) {
                 spawnPoints.add(p);
             }
         }
@@ -426,7 +426,7 @@ public class PocketBallFull extends Item {
 	}
 
     public static void removePet(Hero hero) {
-        for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+        for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
             if(mob instanceof PET) {
                 Dungeon.hero.petHP = mob.HP;
                 Dungeon.hero.petCooldown = ((PET) mob).cooldown;
@@ -457,7 +457,7 @@ public class PocketBallFull extends Item {
 
 
     private static PET checkpet(){
-        for (Mob mob : Dungeon.level.mobs) {
+        for (Mob mob : Dungeon.depth.mobs) {
             if(mob instanceof PET) {
                 return (PET) mob;
             }

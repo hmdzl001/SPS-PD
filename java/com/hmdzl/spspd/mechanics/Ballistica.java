@@ -19,7 +19,7 @@ package com.hmdzl.spspd.mechanics;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class Ballistica {
 
 	public static final int WONT_STOP =  0;
 
-	public static int[] trace = new int[Math.max(Level.getWidth(), Level.HEIGHT)];
+	public static int[] trace = new int[Math.max(Floor.getWidth(), Floor.HEIGHT)];
 	public static int distance;
 
 	public Ballistica( int from, int to, int params ){
@@ -59,7 +59,7 @@ public class Ballistica {
 	}
 	
 	private void build( int from, int to, boolean stopTarget, boolean stopChars, boolean stopTerrain, boolean passlight ) {
-		int w = Level.WIDTH;
+		int w = Floor.WIDTH;
 
 		int x0 = from % w;
 		int x1 = to % w;
@@ -99,20 +99,20 @@ public class Ballistica {
 		int cell = from;
 
 		int err = dA / 2;
-		while (Level.insideMap(cell)) {
+		while (Floor.insideMap(cell)) {
 
 			//if we're in a wall, collide with the previous cell along the path.
-			if (passlight && cell != sourcePos && !Level.passable[cell] && !( Level.avoid[cell] || Dungeon.level.map[cell] == Terrain.GLASS_WALL)) {
+			if (passlight && cell != sourcePos && !Floor.passable[cell] && !( Floor.avoid[cell] || Dungeon.depth.map[cell] == Terrain.GLASS_WALL)) {
 				collide(path.get(path.size() - 1));
 			}
 
-			if (stopTerrain && cell != sourcePos && !Level.passable[cell] && !Level.avoid[cell] ) {
+			if (stopTerrain && cell != sourcePos && !Floor.passable[cell] && !Floor.avoid[cell] ) {
 				collide(path.get(path.size() - 1));
 			}
 
 			path.add(cell);
 
-			if ((stopTerrain && cell != sourcePos && Level.losBlockHigh[cell])
+			if ((stopTerrain && cell != sourcePos && Floor.losBlockHigh[cell])
 					|| (cell != sourcePos && stopChars && Actor.findChar( cell ) != null)
 					|| (cell == to && stopTarget)
 

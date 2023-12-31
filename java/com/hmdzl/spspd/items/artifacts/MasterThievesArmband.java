@@ -65,8 +65,9 @@ public class MasterThievesArmband extends Artifact {
 		ArrayList<String> actions = super.actions(hero);
 			if (isEquipped(hero) && charge > 0 && !cursed) 
 				actions.add(AC_STEAL);
-		if (!isEquipped(hero) && level > 1 && !cursed )
-		actions.add(AC_GOLDTOUCH);		
+		if (!isEquipped(hero) && level > 1 && !cursed ) {
+			actions.add(AC_GOLDTOUCH);
+		}
 		return actions;
 	}	
 	
@@ -121,7 +122,7 @@ public class MasterThievesArmband extends Artifact {
 
 			if (target == null) {
 				return;
-			} else if (!Dungeon.level.adjacent(curUser.pos, target) || Actor.findChar(target) == null){
+			} else if (!Dungeon.depth.adjacent(curUser.pos, target) || Actor.findChar(target) == null){
 				GLog.w( Messages.get(MasterThievesArmband.class, "no_target") );
 			} else {
 				final Char ch = Actor.findChar(target);
@@ -138,9 +139,9 @@ public class MasterThievesArmband extends Artifact {
 									Sample.INSTANCE.play(Assets.SND_HIT);
 									if (((Mob) ch).firstitem == true) {
 										Item loot = ((Mob) ch).SupercreateLoot();
-										Dungeon.level.drop(loot, curUser.pos).sprite.drop();
+										Dungeon.depth.drop(loot, curUser.pos).sprite.drop();
 										((Mob) ch).firstitem = false;
-									} else Dungeon.level.drop(new StoneOre(), curUser.pos).sprite.drop();
+									} else Dungeon.depth.drop(new StoneOre(), curUser.pos).sprite.drop();
 									charge--;
 									exp++;
 									while (exp >= level && level < levelCap) {

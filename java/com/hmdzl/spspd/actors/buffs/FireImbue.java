@@ -21,7 +21,7 @@ package com.hmdzl.spspd.actors.buffs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -59,8 +59,8 @@ public class FireImbue extends Buff {
 
     @Override
 	public boolean act() {
-		if (Dungeon.level.map[target.pos] == Terrain.GRASS) {
-			Level.set(target.pos, Terrain.EMBERS);
+		if (Dungeon.depth.map[target.pos] == Terrain.GRASS) {
+			Floor.set(target.pos, Terrain.EMBERS);
 			GameScene.updateMap(target.pos);
 		}
 

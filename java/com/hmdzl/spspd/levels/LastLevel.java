@@ -27,7 +27,7 @@ import com.watabou.utils.Random;
 
 import java.util.Arrays;
 
-public class LastLevel extends Level {
+public class LastLevel extends Floor {
 
 	private static final int SIZE = 30;
 

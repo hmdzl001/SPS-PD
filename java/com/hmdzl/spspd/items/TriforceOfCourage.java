@@ -54,7 +54,7 @@ public class TriforceOfCourage extends Item {
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
 
-			if (Dungeon.level != null && Dungeon.depth==31) {
+			if (Dungeon.depth != null && Dungeon.dungeondepth ==31) {
 				Dungeon.triforceofcourage = true;							
 			}
 

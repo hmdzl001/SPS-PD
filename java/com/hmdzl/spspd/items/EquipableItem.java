@@ -98,7 +98,7 @@ public abstract class EquipableItem extends Item {
 			hero.spend(time2equip(hero));
 		}
 
-		if (Dungeon.hero.heroClass == HeroClass.WARRIOR && Dungeon.skins == 4){
+		if (Dungeon.hero.heroClass == HeroClass.WARRIOR && Hero.skins == 4){
 			if(!this.isunique()){
 				Dungeon.hero.spp += 5;
 				Dungeon.hero.spp += this.level;
@@ -107,7 +107,7 @@ public abstract class EquipableItem extends Item {
 		}
 
 		if (collect && !collect(hero.belongings.backpack)) {
-			Dungeon.level.drop(this, hero.pos);
+			Dungeon.depth.drop(this, hero.pos);
 		}
 
 		return true;

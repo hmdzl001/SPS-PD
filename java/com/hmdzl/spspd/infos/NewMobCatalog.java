@@ -37,6 +37,7 @@ import com.hmdzl.spspd.actors.mobs.Crab;
 import com.hmdzl.spspd.actors.mobs.DM300;
 import com.hmdzl.spspd.actors.mobs.DemonFlower;
 import com.hmdzl.spspd.actors.mobs.DemonGoo;
+import com.hmdzl.spspd.actors.mobs.DemonRabbit;
 import com.hmdzl.spspd.actors.mobs.DragonRider;
 import com.hmdzl.spspd.actors.mobs.DustElement;
 import com.hmdzl.spspd.actors.mobs.DwarfLich;
@@ -47,6 +48,7 @@ import com.hmdzl.spspd.actors.mobs.Eye;
 import com.hmdzl.spspd.actors.mobs.Fiend;
 import com.hmdzl.spspd.actors.mobs.FireElemental;
 import com.hmdzl.spspd.actors.mobs.FireRabbit;
+import com.hmdzl.spspd.actors.mobs.FireSuccubus;
 import com.hmdzl.spspd.actors.mobs.Gnoll;
 import com.hmdzl.spspd.actors.mobs.GnollArcher;
 import com.hmdzl.spspd.actors.mobs.GnollShaman;
@@ -221,8 +223,10 @@ public enum NewMobCatalog {
 		HALL.seen.put( DemonFlower.class , true);
 		HALL.seen.put( Sufferer.class , true);
 		HALL.seen.put( ThiefImp.class , true);
+		HALL.seen.put( DemonRabbit.class , true);
 		HALL.seen.put( Scorpio.class , true);
 		HALL.seen.put( Acidic.class , true);
+		HALL.seen.put( FireSuccubus.class , true);
 		HALL.seen.put( Yog.class , true);
 
 		EX.seen.put( GnollArcher.class , true);

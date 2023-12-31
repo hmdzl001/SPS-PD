@@ -91,9 +91,9 @@ public class NmHealBag extends Item {
 				 GLog.p(Messages.get(this, "need_charge"));
 			 } else {
 				 if (Random.Int(4) == 0) {
-					 Dungeon.level.drop(Generator.random(Generator.Category.HIGHFOOD), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+					 Dungeon.depth.drop(Generator.random(Generator.Category.HIGHFOOD), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				 } else {
-					 Dungeon.level.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+					 Dungeon.depth.drop(Generator.random(Generator.Category.SUMMONED), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				 }
 				 Dungeon.hero.spp -= 10;
 				 hero.spendAndNext(1f);

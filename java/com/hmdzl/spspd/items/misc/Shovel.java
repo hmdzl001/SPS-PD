@@ -29,7 +29,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -90,13 +90,13 @@ public class Shovel extends Item {
 	@Override
 	public void execute( final Hero hero, String action ) {		
       if( action.equals( AC_USE ) ){
-			for (int i = 0; i < Level.NEIGHBOURS4.length; i++) {
+			for (int i = 0; i < Floor.NEIGHBOURS4.length; i++) {
 
-				final int pos = hero.pos + Level.NEIGHBOURS4[i];
+				final int pos = hero.pos + Floor.NEIGHBOURS4[i];
 				if(charge < 40){
 					GLog.i(Messages.get(Shovel.class, "break"));
 					return;
-				} else if ((Dungeon.level.map[pos] == Terrain.WALL || Dungeon.level.map[pos] == Terrain.GLASS_WALL)&& Level.insideMap(pos)) {
+				} else if ((Dungeon.depth.map[pos] == Terrain.WALL || Dungeon.depth.map[pos] == Terrain.GLASS_WALL)&& Floor.insideMap(pos)) {
 					hero.spend(TIME_TO_DIG);
 					hero.busy();
 					hero.sprite.attack(pos, new Callback() {
@@ -105,7 +105,7 @@ public class Shovel extends Item {
 							CellEmitter.center(pos).burst(
 								Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							Hunger hunger = hero.buff(Hunger.class);
@@ -123,14 +123,14 @@ public class Shovel extends Item {
 				}
 			}
 		} else if ( action.equals( AC_BUILD )){
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int c = hero.pos + n;
-				if (c >= 0 && c < Level.getLength()) {
-					if ((Dungeon.level.map[c] == Terrain.EMPTY ||
-					Dungeon.level.map[c] == Terrain.EMPTY_DECO ||
-					Dungeon.level.map[c] == Terrain.EMPTY_SP ||
-					Dungeon.level.map[c] == Terrain.GRASS )&& Level.insideMap(c)) {
-						Level.set(c, Terrain.WALL);
+				if (c >= 0 && c < Floor.getLength()) {
+					if ((Dungeon.depth.map[c] == Terrain.EMPTY ||
+					Dungeon.depth.map[c] == Terrain.EMPTY_DECO ||
+					Dungeon.depth.map[c] == Terrain.EMPTY_SP ||
+					Dungeon.depth.map[c] == Terrain.GRASS )&& Floor.insideMap(c)) {
+						Floor.set(c, Terrain.WALL);
 						GameScene.updateMap(c);
 						Dungeon.observe();
 					}

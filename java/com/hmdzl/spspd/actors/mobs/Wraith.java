@@ -35,7 +35,7 @@ import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.WraithSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
@@ -51,7 +51,7 @@ public class Wraith extends Mob {
 	{
 		spriteClass = WraithSprite.class;
 
-		HP = HT = 1+Dungeon.depth;
+		HP = HT = 1+Dungeon.dungeondepth;
 		EXP = 1;
 
 		flying = true;
@@ -75,7 +75,7 @@ public class Wraith extends Mob {
 
     @Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 4 ;
+		return Floor.distance( pos, enemy.pos ) <= 4 ;
 	}
 	
 	
@@ -135,19 +135,19 @@ public class Wraith extends Mob {
 	}
 
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static Wraith spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			Wraith w = new Wraith();
-			w.adjustStats(Dungeon.depth);
+			w.adjustStats(Dungeon.dungeondepth);
 			w.pos = pos;
 			w.state = w.HUNTING;
 			GameScene.add(w, SPAWN_DELAY);

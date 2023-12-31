@@ -2,7 +2,6 @@ package com.hmdzl.spspd.actors.buffs.armorbuff;
 
 import com.hmdzl.spspd.actors.blobs.TarGas;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.DBurning;
 import com.hmdzl.spspd.actors.buffs.Hot;
@@ -13,7 +12,7 @@ import com.hmdzl.spspd.actors.mobs.Yog;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentFire2;
 
-public class GlyphFire extends Buff {
+public class GlyphFire extends ArmorGlyphBuff {
 
 		{
 			immunities.add( Burning.class );

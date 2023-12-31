@@ -23,7 +23,7 @@ import com.hmdzl.spspd.Journal.Feature;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.utils.Bundle;
@@ -70,7 +70,7 @@ public class WellWater extends Blob {
 			volume = off[pos] = cur[pos] = 0;
 			return true;
 
-		} else if ((heap = Dungeon.level.heaps.get(pos)) != null) {
+		} else if ((heap = Dungeon.depth.heaps.get(pos)) != null) {
 
 			Item oldItem = heap.peek();
 			Item newItem = affectItem(oldItem);
@@ -97,9 +97,9 @@ public class WellWater extends Blob {
 
 				int newPlace;
 				do {
-					newPlace = pos + Level.NEIGHBOURS8[Random.Int(8)];
-				} while (!Level.passable[newPlace] && !Level.avoid[newPlace]);
-				Dungeon.level.drop(heap.pickUp(), newPlace).sprite.drop(pos);
+					newPlace = pos + Floor.NEIGHBOURS8[Random.Int(8)];
+				} while (!Floor.passable[newPlace] && !Floor.avoid[newPlace]);
+				Dungeon.depth.drop(heap.pickUp(), newPlace).sprite.drop(pos);
 
 				return false;
 
@@ -133,11 +133,11 @@ public class WellWater extends Blob {
 				WaterOfTransmutation.class};
 
 		for (Class<?> waterClass : waters) {
-			WellWater water = (WellWater) Dungeon.level.blobs.get(waterClass);
+			WellWater water = (WellWater) Dungeon.depth.blobs.get(waterClass);
 			if (water != null && water.volume > 0 && water.pos == cell
 					&& water.affect()) {
 
-				Level.set(cell, Terrain.EMPTY_WELL);
+				Floor.set(cell, Terrain.EMPTY_WELL);
 				GameScene.updateMap(cell);
 
 				return;
@@ -153,7 +153,7 @@ public class WellWater extends Blob {
 				WaterOfTransmutation.class};
 
 		for (Class<?> waterClass : waters) {
-			WellWater water = (WellWater) Dungeon.level.blobs.get(waterClass);
+			WellWater water = (WellWater) Dungeon.depth.blobs.get(waterClass);
 			if (water != null && water.volume > 0 && water.pos == cell
 					&& water.affect()) {
 

@@ -35,7 +35,7 @@ import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.RedWraithSprite;
 import com.watabou.noosa.tweeners.AlphaTweener;
@@ -51,7 +51,7 @@ public class RedWraith extends Mob {
 	{
 		spriteClass = RedWraithSprite.class;
 
-		HP = HT = 10 + Dungeon.depth;
+		HP = HT = 10 + Dungeon.dungeondepth;
 		EXP = 1 ;
 
 		flying = true;
@@ -109,7 +109,7 @@ public class RedWraith extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}	
 	
 	@Override
@@ -144,19 +144,19 @@ public class RedWraith extends Mob {
 	}
 
 	public static void spawnAround(int pos) {
-		for (int n : Level.NEIGHBOURS4) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int cell = pos + n;
-			if (Level.passable[cell] && Actor.findChar(cell) == null) {
+			if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 				spawnAt(cell);
 			}
 		}
 	}
 
 	public static RedWraith spawnAt(int pos) {
-		if (Level.passable[pos] && Actor.findChar(pos) == null) {
+		if (Floor.passable[pos] && Actor.findChar(pos) == null) {
           
 			RedWraith w = new RedWraith();
-			w.adjustStats(Dungeon.depth);
+			w.adjustStats(Dungeon.dungeondepth);
 			w.pos = pos;
 			w.state = w.HUNTING;
 			GameScene.add(w, SPAWN_DELAY);

@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Notice;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -46,10 +46,10 @@ public class Blueberry extends Fruit {
 
 			if (Random.Float()<0.05f) {
 			
-				int length = Level.getLength();
+				int length = Floor.getLength();
 				//int[] map = Dungeon.level.map;
-				boolean[] mapped = Dungeon.level.mapped;
-				boolean[] discoverable = Level.discoverable;
+				boolean[] mapped = Dungeon.depth.mapped;
+				boolean[] discoverable = Floor.discoverable;
 				//boolean noticed = false;
 				for (int i = 0; i < length; i++) {
 					//int terr = map[i];

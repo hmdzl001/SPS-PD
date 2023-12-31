@@ -28,9 +28,8 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Wound;
 import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.PitfallTrap;
 import com.hmdzl.spspd.messages.Messages;
@@ -73,7 +72,7 @@ public class Chasm {
 		Buff buff = hero.buff(TimekeepersHourglass.timeFreeze.class);
 		if (buff != null)
 			buff.detach();
-            int damage = Random.NormalIntRange(Dungeon.depth, Dungeon.depth*2);
+            int damage = Random.NormalIntRange(Dungeon.dungeondepth, Dungeon.dungeondepth *2);
 			Buff.affect( hero, Bleeding.class).set(damage);
 			Buff.affect( hero, Cripple.class,5f);
 		    hero.damage(Random.IntRange(hero.HT/4, hero.HT/3), new Hero.Doom() {
@@ -116,13 +115,13 @@ public class Chasm {
 
 	public static void mobFall(Mob mob) {
 		int pos = mob.pos;
-		int damage = Random.NormalIntRange(Dungeon.depth, Dungeon.depth*2);
+		int damage = Random.NormalIntRange(Dungeon.dungeondepth, Dungeon.dungeondepth *2);
 	    Buff.affect( mob, Bleeding.class).set(damage);
 		Buff.affect( mob, Cripple.class,5f);
 		Wound.hit( mob );
 		mob.damage(mob.HT/5, Gold.class);
-		Dungeon.level.setTrap( new PitfallTrap().hide(), mob.pos );
-		Level.set( mob.pos, Terrain.SECRET_TRAP);
+		Dungeon.depth.setTrap( new PitfallTrap().hide(), mob.pos );
+		Floor.set( mob.pos, Terrain.SECRET_TRAP);
 		GameScene.updateMap( mob.pos);
 		((MobSprite) mob.sprite).fall();
 	}

@@ -79,10 +79,10 @@ public class XiXiBox extends MeleeWeapon {
 
 			Dungeon.hero.belongings.weapon = null;
 			GLog.n(Messages.get(KindOfWeapon.class,"destory"));
-			Dungeon.level.drop(Generator.random(Generator.Category.OLDWEAPON), defender.pos).sprite.drop();
-			Dungeon.level.drop(Generator.random(Generator.Category.ARMOR), defender.pos).sprite.drop();
-			Dungeon.level.drop(Generator.random(Generator.Category.ARTIFACT), defender.pos).sprite.drop();
-			Dungeon.level.drop(Generator.random(Generator.Category.RING), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(Generator.Category.OLDWEAPON), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(Generator.Category.ARMOR), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(Generator.Category.ARTIFACT), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(Generator.Category.RING), defender.pos).sprite.drop();
 
 		}		
 	}

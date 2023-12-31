@@ -36,6 +36,8 @@ public class Dualknive extends MeleeWeapon {
 
 	public Dualknive(){
 		super(2, 1f, 1f, 1);
+		MIN = 11;
+		MAX = 17;
 	}
 
 	@Override

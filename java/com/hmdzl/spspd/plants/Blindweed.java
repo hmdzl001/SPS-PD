@@ -29,7 +29,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.BlindFruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -52,11 +52,11 @@ public class Blindweed extends Plant {
 			Buff.affect(ch, LightShootAttack.class).level(len);
 			if (ch instanceof Mob) {
 				if (((Mob)ch).state == ((Mob)ch).HUNTING) ((Mob)ch).state = ((Mob)ch).WANDERING;
-				((Mob)ch).beckon( Dungeon.level.randomDestination() );
+				((Mob)ch).beckon( Dungeon.depth.randomDestination() );
 			}
 		}
 		
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {
 			heap.lighthit();
 		}
@@ -84,15 +84,15 @@ public class Blindweed extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 3 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(new BlindFruit(), c).sprite.drop(pos);
+				Dungeon.depth.drop(new BlindFruit(), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

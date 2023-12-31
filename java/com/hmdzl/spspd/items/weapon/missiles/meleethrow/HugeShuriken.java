@@ -30,6 +30,8 @@ public class HugeShuriken extends MeleeThrowWeapon {
 
 	public HugeShuriken() {
 		super(4);
+		MIN = 38;
+		MAX = 52;
 	}
 
 

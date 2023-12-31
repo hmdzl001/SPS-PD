@@ -21,23 +21,8 @@
 
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.effects.Beam;
-import com.hmdzl.spspd.effects.Pushing;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
-import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ErrorSprite;
-import com.hmdzl.spspd.sprites.SkeletonSprite;
-import com.hmdzl.spspd.utils.BArray;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class LotusSummoner extends Mob {

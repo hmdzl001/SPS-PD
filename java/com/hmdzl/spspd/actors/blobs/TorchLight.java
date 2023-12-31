@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.blobs;
 
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.ShaftParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 
 public class TorchLight extends Blob {
@@ -28,7 +28,7 @@ public class TorchLight extends Blob {
 	protected void evolve() {
 
 		int from = WIDTH + 1;
-		int to = Level.getLength() - WIDTH - 1;
+		int to = Floor.getLength() - WIDTH - 1;
 
 		for (int pos = from; pos < to; pos++) {
 			if (cur[pos] > 0) {

@@ -28,7 +28,7 @@ import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -39,10 +39,10 @@ public class Fire extends Blob {
 	@Override
 	protected void evolve() {
 
-		boolean[] flamable = Level.flamable;
+		boolean[] flamable = Floor.flamable;
 
 		int from = WIDTH + 1;
-		int to = Level.getLength() - WIDTH - 1;
+		int to = Floor.getLength() - WIDTH - 1;
 
 		boolean observe = false;
 
@@ -51,7 +51,7 @@ public class Fire extends Blob {
 			int fire;
 			boolean shelf = false;
 			
-        Blob blob = Dungeon.level.blobs.get( TarGas.class );
+        Blob blob = Dungeon.depth.blobs.get( TarGas.class );
 
         if (blob != null) {
 
@@ -73,15 +73,15 @@ public class Fire extends Blob {
 				fire = cur[pos] - 1;
 				if (fire <= 0 && flamable[pos]) {
 					
-					if(Dungeon.level.map[pos]==Terrain.BOOKSHELF){
+					if(Dungeon.depth.map[pos]==Terrain.BOOKSHELF){
 						shelf=true;
 					}
 
-					int oldTile = Dungeon.level.map[pos];					
-					Level.set(pos, Terrain.EMBERS);
+					int oldTile = Dungeon.depth.map[pos];
+					Floor.set(pos, Terrain.EMBERS);
 					
 					if (shelf && Random.Float()<.10){
-						Dungeon.level.drop(Generator.random(Generator.Category.SCROLL), pos);				
+						Dungeon.depth.drop(Generator.random(Generator.Category.SCROLL), pos);
 						}
 						
 					observe = true;
@@ -118,16 +118,16 @@ public class Fire extends Blob {
 		if (ch != null ) {
 			Buff.affect(ch, Burning.class).set(4f);
 		}
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {
 			heap.firehit();
 		}
 		
-		if( Dungeon.level.map[pos] == Terrain.SECRET_DOOR) {
+		if( Dungeon.depth.map[pos] == Terrain.SECRET_DOOR) {
 
-            GameScene.discoverTile( pos, Dungeon.level.map[pos] );
+            GameScene.discoverTile( pos, Dungeon.depth.map[pos] );
 
-            Level.set( pos, Terrain.DOOR);
+            Floor.set( pos, Terrain.DOOR);
 
             GameScene.updateMap( pos );
         }

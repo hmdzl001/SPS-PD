@@ -38,7 +38,7 @@ import com.hmdzl.spspd.items.SoulCollect;
 import com.hmdzl.spspd.items.misc.AutoPotion.AutoHealPotion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -96,9 +96,9 @@ public class Zot extends Mob {
 				ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 
 				for (int i = 0; /*i < Level.NEIGHBOURS4.length*/ i < 2; i++) {
-					int p = Dungeon.hero.pos + Level.NEIGHBOURS4[i];
+					int p = Dungeon.hero.pos + Floor.NEIGHBOURS4[i];
 					if (Actor.findChar(p) == null
-							&& (Level.passable[p] || Level.avoid[p])) {
+							&& (Floor.passable[p] || Floor.avoid[p])) {
 						spawnPoints.add(p);
 					}
 				}
@@ -142,8 +142,8 @@ public class Zot extends Mob {
 		GameScene.bossSlain();
 		//Dungeon.level.locked=false;
 		Dungeon.zotkilled=true;
-        Dungeon.level.drop(new SoulCollect(), pos).sprite.drop();
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[Dungeon.level.mobs.size()])) {
+        Dungeon.depth.drop(new SoulCollect(), pos).sprite.drop();
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[Dungeon.depth.mobs.size()])) {
 			if (mob instanceof ZotPhase || mob instanceof MagicEye) {
 				mob.die(null);
 			}
@@ -152,7 +152,7 @@ public class Zot extends Mob {
 
 	@Override
 	protected boolean getCloser(int target) {
-		if (Level.fieldOfView[target]) {
+		if (Floor.fieldOfView[target]) {
 			jump();
 			return true;
 		} else {
@@ -163,7 +163,7 @@ public class Zot extends Mob {
 	@Override
 	protected boolean canAttack(Char enemy) {
 		if (buff(Silent.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;
 	}
@@ -171,7 +171,7 @@ public class Zot extends Mob {
 	@Override
 	protected boolean doAttack(Char enemy) {
 		timeToJump--;
-		if (timeToJump <= 0 && Level.adjacent(pos, enemy.pos)) {
+		if (timeToJump <= 0 && Floor.adjacent(pos, enemy.pos)) {
 			jump();
 			return true;
 		} else {
@@ -185,10 +185,10 @@ public class Zot extends Mob {
 		if (!checkPhases()){
 			ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-				int p = pos + Level.NEIGHBOURS8[i];
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				int p = pos + Floor.NEIGHBOURS8[i];
 				if (Actor.findChar(p) == null
-						&& (Level.passable[p] || Level.avoid[p])) {
+						&& (Floor.passable[p] || Floor.avoid[p])) {
 					spawnPoints.add(p);
 				}
 			}
@@ -204,9 +204,9 @@ public class Zot extends Mob {
 		
 		int newPos;
 		do {
-			newPos = Random.Int(Level.getLength());
-		} while (!Level.fieldOfView[newPos] || !Level.passable[newPos]
-				|| Level.adjacent(newPos, enemy.pos)
+			newPos = Random.Int(Floor.getLength());
+		} while (!Floor.fieldOfView[newPos] || !Floor.passable[newPos]
+				|| Floor.adjacent(newPos, enemy.pos)
 				|| Actor.findChar(newPos) != null);
 
 		sprite.move(pos, newPos);
@@ -223,7 +223,7 @@ public class Zot extends Mob {
 	private boolean checkPhases(){
 		boolean check = false;
 		int phases = 0;
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if (mob != null && mob instanceof ZotPhase) {
 				phases++;
 				if (phases>6){
@@ -238,7 +238,7 @@ public class Zot extends Mob {
 	private boolean checkEyes(){
 		boolean check = false;
 		int phases = 0;
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if (mob != null && mob instanceof MagicEye) {
 				phases++;
 				if (phases>10){
@@ -255,10 +255,10 @@ public class Zot extends Mob {
 		if(!checkPhases()){
 			ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-				int p = Dungeon.hero.pos + Level.NEIGHBOURS8[i];
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				int p = Dungeon.hero.pos + Floor.NEIGHBOURS8[i];
 				if (Actor.findChar(p) == null
-						&& (Level.passable[p] || Level.avoid[p])) {
+						&& (Floor.passable[p] || Floor.avoid[p])) {
 					spawnPoints.add(p);
 				}
 			}

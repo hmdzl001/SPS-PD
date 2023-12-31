@@ -44,7 +44,7 @@ import com.hmdzl.spspd.items.weapon.missiles.buildblock.StoneBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WallBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WaterBlock;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.WoodenBlock;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -96,10 +96,10 @@ public class PPC2 extends Item {
 				return;
 			}
 
-			for (int i = 0; i < Level.NEIGHBOURS4.length; i++) {
+			for (int i = 0; i < Floor.NEIGHBOURS4.length; i++) {
 
-				final int pos = hero.pos + Level.NEIGHBOURS8[i];
-				if (Dungeon.level.map[pos] == Terrain.WALL && Level.insideMap(pos)) {
+				final int pos = hero.pos + Floor.NEIGHBOURS8[i];
+				if (Dungeon.depth.map[pos] == Terrain.WALL && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -113,15 +113,15 @@ public class PPC2 extends Item {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							WallBlock wall = new WallBlock();
 
 
                             if (Random.Int(30)==1){
-								Dungeon.level.drop(new Gold(50), hero.pos).sprite.drop();
-								Dungeon.level.drop(wall, hero.pos).sprite.drop();
+								Dungeon.depth.drop(new Gold(50), hero.pos).sprite.drop();
+								Dungeon.depth.drop(wall, hero.pos).sprite.drop();
 							}
 							Hunger hunger = hero.buff(Hunger.class);
 							if (hunger != null && !hunger.isStarving()) {
@@ -134,7 +134,7 @@ public class PPC2 extends Item {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.DOOR && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.DOOR && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -148,14 +148,14 @@ public class PPC2 extends Item {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							DoorBlock door = new DoorBlock();
 
 							if (Random.Int(30)==1){
-								Dungeon.level.drop(Generator.random(Generator.Category.SEED), hero.pos).sprite.drop();
-								Dungeon.level.drop(door, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(Generator.Category.SEED), hero.pos).sprite.drop();
+								Dungeon.depth.drop(door, hero.pos).sprite.drop();
 							}
 
 							Hunger hunger = hero.buff(Hunger.class);
@@ -169,7 +169,7 @@ public class PPC2 extends Item {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.BOOKSHELF && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.BOOKSHELF && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -183,14 +183,14 @@ public class PPC2 extends Item {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							BookBlock book = new BookBlock();
 
 							if (Random.Int(30)==1){
-								Dungeon.level.drop(Generator.random(Generator.Category.SCROLL), hero.pos).sprite.drop();
-								Dungeon.level.drop(book, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(Generator.Category.SCROLL), hero.pos).sprite.drop();
+								Dungeon.depth.drop(book, hero.pos).sprite.drop();
 							}
 
 							Hunger hunger = hero.buff(Hunger.class);
@@ -204,7 +204,7 @@ public class PPC2 extends Item {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.BARRICADE && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.BARRICADE && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -218,14 +218,14 @@ public class PPC2 extends Item {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							WoodenBlock wooden = new WoodenBlock();
 
 							if (Random.Int(15)==1){
-								Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), hero.pos).sprite.drop();
-								Dungeon.level.drop(wooden, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(Generator.Category.MUSHROOM), hero.pos).sprite.drop();
+								Dungeon.depth.drop(wooden, hero.pos).sprite.drop();
 							}
 
 							Hunger hunger = hero.buff(Hunger.class);
@@ -239,7 +239,7 @@ public class PPC2 extends Item {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.WATER && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.WATER && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -253,14 +253,14 @@ public class PPC2 extends Item {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							WaterBlock water = new WaterBlock();
 
 							if (Random.Int(30)==1){
-								Dungeon.level.drop(Generator.random(Generator.Category.SEED), hero.pos).sprite.drop();
-								Dungeon.level.drop(water, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(Generator.Category.SEED), hero.pos).sprite.drop();
+								Dungeon.depth.drop(water, hero.pos).sprite.drop();
 							}  
 
 							Hunger hunger = hero.buff(Hunger.class);
@@ -274,7 +274,7 @@ public class PPC2 extends Item {
 					});
 
 					return;
-				}  else if (Dungeon.level.map[pos] == Terrain.STATUE && Level.insideMap(pos)) {
+				}  else if (Dungeon.depth.map[pos] == Terrain.STATUE && Floor.insideMap(pos)) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -288,14 +288,14 @@ public class PPC2 extends Item {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.EMBERS);
+							Floor.set(pos, Terrain.EMBERS);
 							GameScene.updateMap(pos);
 
 							StoneBlock stone = new StoneBlock();
 
 							if (Random.Int(30)==1){
-								Dungeon.level.drop(Generator.random(), hero.pos).sprite.drop();
-								Dungeon.level.drop(stone, hero.pos).sprite.drop();
+								Dungeon.depth.drop(Generator.random(), hero.pos).sprite.drop();
+								Dungeon.depth.drop(stone, hero.pos).sprite.drop();
 							}
 
 							Hunger hunger = hero.buff(Hunger.class);

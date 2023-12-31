@@ -105,9 +105,9 @@ public class TimekeepersHourglass extends Artifact {
 
 			level=0;
 			curUser = hero;
-			InterlevelScene.returnDepth = Dungeon.depth;
+			InterlevelScene.returnDepth = Dungeon.dungeondepth;
 				for (Item item : Dungeon.hero.belongings.backpack.items.toArray( new Item[0])){
-					if (item instanceof Key && ((Key)item).depth == Dungeon.depth){
+					if (item instanceof Key && ((Key)item).depth == Dungeon.dungeondepth){
 						item.detachAll(Dungeon.hero.belongings.backpack);
 					}
 				}
@@ -299,15 +299,15 @@ public class TimekeepersHourglass extends Artifact {
 
 		public void triggerPresses() {
 			for (int cell : presses)
-				Dungeon.level.press(cell, null);
+				Dungeon.depth.press(cell, null);
 
 			presses = new ArrayList<Integer>();
 		}
 
 		@Override
 		public boolean attachTo(Char target) {
-			if (Dungeon.level != null)
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
+			if (Dungeon.depth != null)
+				for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0]))
 					mob.sprite.add(CharSprite.State.PARALYSED);
 			Group.freezeEmitters = true;
 			return super.attachTo(target);
@@ -316,7 +316,7 @@ public class TimekeepersHourglass extends Artifact {
 		@Override
 		public void detach() {
 			triggerPresses();
-			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0]))
+			for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0]))
 				mob.sprite.remove(CharSprite.State.PARALYSED);
 			Group.freezeEmitters = false;
 			charge--;

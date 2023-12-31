@@ -22,19 +22,15 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphDark;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphEarth;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphElectricity;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphFire;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphIce;
-import com.hmdzl.spspd.actors.buffs.armorbuff.GlyphLight;
+import com.hmdzl.spspd.actors.buffs.armorbuff.ArmorGlyphBuff;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.mobs.NormalCell;
 import com.hmdzl.spspd.actors.mobs.npcs.MirrorImage;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.armor.Armor.Glyph;
 import com.hmdzl.spspd.items.misc.FourClover;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
@@ -48,45 +44,42 @@ public class Changeglyph extends Glyph {
 
 	@Override
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
-		GlyphDark gdark = defender.buff(GlyphDark.class);
-		GlyphIce gice = defender.buff(GlyphIce.class);
-		GlyphLight glight = defender.buff(GlyphLight.class);
-		GlyphFire gfire = defender.buff(GlyphFire.class);
-		GlyphEarth gearth = defender.buff(GlyphEarth.class);
-		GlyphElectricity gelect = defender.buff(GlyphElectricity.class);
+		ArmorGlyphBuff armorGlyphBuff = defender.buff(ArmorGlyphBuff.class);
+
 		FourClover.FourCloverBless fcb = defender.buff(FourClover.FourCloverBless.class);
-		if (defender.isAlive() && (gdark != null || gice != null || glight != null || gfire != null || gearth != null || gelect != null ))
+
+		if (defender.isAlive() && (armorGlyphBuff!= null))
 		{
-			Buff.detach(defender,GlyphIce.class);
-			Buff.detach(defender,GlyphLight.class);
-			Buff.detach(defender,GlyphFire.class);
-			Buff.detach(defender,GlyphEarth.class);
-			Buff.detach(defender,GlyphElectricity.class);
-			Buff.detach(defender,GlyphDark.class);
-		}		
-	
+			Buff.detach(defender,ArmorGlyphBuff.class);
+		}
+
 		int level = Math.max(0, armor.level);
 
 		if (Random.Int(level / 2 + 6) >= 5 || (fcb != null && Random.Int(level / 2 + 6) >= 3)) {
 
 			ArrayList<Integer> respawnPoints = new ArrayList<Integer>();
 
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-				int p = defender.pos + Level.NEIGHBOURS8[i];
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				int p = defender.pos + Floor.NEIGHBOURS8[i];
 				if (Actor.findChar(p) == null
-						&& (Level.passable[p] || Level.avoid[p])) {
+						&& (Floor.passable[p] || Floor.avoid[p])) {
 					respawnPoints.add(p);
 				}
 			}
 
 			if (respawnPoints.size() > 0) {
-				MirrorImage mob = new MirrorImage();
-				mob.duplicate((Hero) defender);
-				GameScene.add(mob);
-				ScrollOfTeleportation.appear(mob, Random.element(respawnPoints));
-				checkOwner(defender);
+				if (defender == Dungeon.hero) {
+					MirrorImage mob = new MirrorImage();
+					mob.duplicate((Hero) defender);
+					GameScene.add(mob);
+					ScrollOfTeleportation.appear(mob, Random.element(respawnPoints));
+					checkOwner(defender);
+				} else {
+					NormalCell mob1 = new NormalCell();
+					GameScene.add(mob1);
+					ScrollOfTeleportation.appear(mob1, Random.element(respawnPoints));
+				}
 			}
-
 		}		
 		
 		if (Dungeon.bossLevel()) {
@@ -95,11 +88,11 @@ public class Changeglyph extends Glyph {
 		
 		int nTries = (armor.level < 0 ? 1 : armor.level + 1) * 5;
 		for (int i=0; i < nTries; i++) {
-			int pos = Random.Int( Level.LENGTH );
-			if (Dungeon.visible[pos] && Level.passable[pos] && Actor.findChar( pos ) == null) {
+			int pos = Random.Int( Floor.LENGTH );
+			if (Dungeon.visible[pos] && Floor.passable[pos] && Actor.findChar( pos ) == null) {
 				
 				ScrollOfTeleportation.appear( defender, pos );
-				Dungeon.level.press( pos, defender );
+				Dungeon.depth.press( pos, defender );
 				Buff.affect(defender, Invisibility.class, 5f);
 				Dungeon.observe();
 				break;

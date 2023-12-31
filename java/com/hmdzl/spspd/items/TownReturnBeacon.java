@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -78,10 +78,10 @@ public class TownReturnBeacon extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (Dungeon.depth==55 && returnDepth>55 && !Badges.checkOtilukeRescued()){
+		if (Dungeon.dungeondepth ==55 && returnDepth>55 && !Badges.checkOtilukeRescued()){
 		actions.add(AC_RETURN);
 		}
-		if(Dungeon.depth>55){
+		if(Dungeon.dungeondepth >55){
 		   actions.add(AC_RETURNTOWN);	
 		}
 		return actions;
@@ -92,14 +92,14 @@ public class TownReturnBeacon extends Item {
 		
 		if (action.equals(AC_RETURNTOWN)) {
 		
-		   if (Dungeon.bossLevel() || Dungeon.level.locked) {
+		   if (Dungeon.bossLevel() || Dungeon.depth.locked) {
 		     	hero.spend(TIME_TO_USE);
 			    GLog.w(FAIL);
 			    return;
 		    }
 
-		  for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			   if (Actor.findChar(hero.pos + Level.NEIGHBOURS8[i]) != null) {
+		  for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			   if (Actor.findChar(hero.pos + Floor.NEIGHBOURS8[i]) != null) {
 				GLog.w(TXT_CREATURES);
 				return;
 			   }
@@ -111,7 +111,7 @@ public class TownReturnBeacon extends Item {
 	    	 
 	    	 hero.spend(TIME_TO_USE);
 	    	 
-	    	    returnDepth = Dungeon.depth;
+	    	    returnDepth = Dungeon.dungeondepth;
 				returnPos = hero.pos;
 
 				Buff buff = Dungeon.hero

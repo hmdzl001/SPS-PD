@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BanditSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -71,8 +71,8 @@ public class Bandit extends Thief {
 			return true;
 		}
 
-		for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-			GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9[i], 10, DarkGas.class));
+		for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+			GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 10, DarkGas.class));
 		}
 
 		return super.act();
@@ -80,7 +80,7 @@ public class Bandit extends Thief {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 

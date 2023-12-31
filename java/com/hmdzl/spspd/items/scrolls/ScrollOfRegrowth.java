@@ -29,7 +29,7 @@ import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.plants.Earthroot;
 import com.hmdzl.spspd.plants.Plant;
@@ -56,16 +56,16 @@ public class ScrollOfRegrowth extends Scroll {
 
 		ArrayList<Integer> plantCandidates = new ArrayList<>();
 		
-		PathFinder.buildDistanceMap( Dungeon.hero.pos, BArray.not(Level.solid, null ), 2 );
+		PathFinder.buildDistanceMap( Dungeon.hero.pos, BArray.not(Floor.solid, null ), 2 );
 		for (int i = 0; i < PathFinder.distance.length; i++) {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				Char ch = Actor.findChar(i);
-                  if ( Dungeon.level.map[i] == Terrain.EMPTY ||
-							Dungeon.level.map[i] == Terrain.EMBERS ||
-							Dungeon.level.map[i] == Terrain.EMPTY_DECO ||
-							Dungeon.level.map[i] == Terrain.GRASS ||
-						    Dungeon.level.map[i] == Terrain.OLD_HIGH_GRASS ||
-							Dungeon.level.map[i] == Terrain.HIGH_GRASS){
+                  if ( Dungeon.depth.map[i] == Terrain.EMPTY ||
+							Dungeon.depth.map[i] == Terrain.EMBERS ||
+							Dungeon.depth.map[i] == Terrain.EMPTY_DECO ||
+							Dungeon.depth.map[i] == Terrain.GRASS ||
+						    Dungeon.depth.map[i] == Terrain.OLD_HIGH_GRASS ||
+							Dungeon.depth.map[i] == Terrain.HIGH_GRASS){
 					
 					plantCandidates.add(i);
 				}
@@ -78,7 +78,7 @@ public class ScrollOfRegrowth extends Scroll {
 		for (int i = 0; i < plants; i++) {
 			Integer plantPos = Random.element(plantCandidates);
 			if (plantPos != null) {
-				Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos);
+				Dungeon.depth.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos);
 				plantCandidates.remove(plantPos);
 			}
 		}
@@ -97,11 +97,11 @@ public class ScrollOfRegrowth extends Scroll {
 					plant = new Starflower.Seed();
 					break;
 			}
-			Dungeon.level.plant( plant, plantPos);
+			Dungeon.depth.plant( plant, plantPos);
 		}
 
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff.affect(mob,GrowSeed.class).set(6f);
 			}
 		}

@@ -96,12 +96,12 @@ public class DangerIndicator extends Tag {
 
 		Mob target = Dungeon.hero.visibleEnemy(enemyIndex++);
 
-		HealthIndicator.instance.target(target == HealthIndicator.instance
-				.target() ? null : target);
+		HealthIndicator.instance.target(target == HealthIndicator.instance.target() ? null : target);
 
 		if (Dungeon.hero.curAction == null) {
-			Camera.main.target = null;
-			Camera.main.focusOn(target.sprite);
+			//Camera.main.target = null;
+			//Camera.main.focusOn(target.sprite);
+			Camera.main.panTo(target.sprite.center(),5f);
 		}
 	}
 }

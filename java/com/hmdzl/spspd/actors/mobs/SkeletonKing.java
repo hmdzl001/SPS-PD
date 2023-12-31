@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.AdamantWeapon;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SkeletonKingSprite;
@@ -93,7 +93,7 @@ public class SkeletonKing extends Mob {
 	
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 3;
+		return Floor.distance( pos, enemy.pos ) <= 3;
 	}
 	
 	@Override
@@ -101,8 +101,8 @@ public class SkeletonKing extends Mob {
         super.die(cause);
 
 		GameScene.bossSlain();
-		Dungeon.level.drop(new Gold(Random.Int(1900, 4000)), pos).sprite.drop();
-		Dungeon.level.drop(new AdamantWeapon(), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(Random.Int(1900, 4000)), pos).sprite.drop();
+		Dungeon.depth.drop(new AdamantWeapon(), pos).sprite.drop();
 		Dungeon.skeletonkingkilled=true;
 			
 		

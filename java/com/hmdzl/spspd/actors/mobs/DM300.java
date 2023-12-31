@@ -46,7 +46,7 @@ import com.hmdzl.spspd.items.journalpages.Sokoban3;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.HorseTotem;
 import com.hmdzl.spspd.items.weapon.rockcode.Bmech;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.messages.Messages;
@@ -107,7 +107,7 @@ public class DM300 extends Mob implements Callback {
 		do {
 			a.pos = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
 			b.pos = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
-		} while (!Level.passable[a.pos] || !Level.passable[b.pos] || a.pos == b.pos);
+		} while (!Floor.passable[a.pos] || !Floor.passable[b.pos] || a.pos == b.pos);
 		
 		GameScene.add(a);
 		GameScene.add(b);	
@@ -130,7 +130,7 @@ public class DM300 extends Mob implements Callback {
 	public void move(int step) {
 		super.move(step);
 
-		if (Dungeon.level.map[step] == Terrain.INACTIVE_TRAP && HP < HT) {
+		if (Dungeon.depth.map[step] == Terrain.INACTIVE_TRAP && HP < HT) {
 
 			HP += Random.Int(1, HT - HP);
 			sprite.emitter().burst(ElmoParticle.FACTORY, 5);
@@ -140,10 +140,10 @@ public class DM300 extends Mob implements Callback {
 			}
 		}
 
-		int[] cells = { step - 1, step + 1, step - Level.getWidth(),
-				step + Level.getWidth(), step - 1 - Level.getWidth(),
-				step - 1 + Level.getWidth(), step + 1 - Level.getWidth(),
-				step + 1 + Level.getWidth() };
+		int[] cells = { step - 1, step + 1, step - Floor.getWidth(),
+				step + Floor.getWidth(), step - 1 - Floor.getWidth(),
+				step - 1 + Floor.getWidth(), step + 1 - Floor.getWidth(),
+				step + 1 + Floor.getWidth() };
 		int cell = cells[Random.Int(cells.length)];
 
 		if (Dungeon.visible[cell]) {
@@ -151,10 +151,10 @@ public class DM300 extends Mob implements Callback {
 			Camera.main.shake(3, 0.7f);
 			Sample.INSTANCE.play(Assets.SND_ROCKS);
 
-			if (Level.water[cell]) {
+			if (Floor.water[cell]) {
 				GameScene.ripple(cell);
-			} else if (Dungeon.level.map[cell] == Terrain.EMPTY) {
-				Level.set(cell, Terrain.EMPTY_DECO);
+			} else if (Dungeon.depth.map[cell] == Terrain.EMPTY) {
+				Floor.set(cell, Terrain.EMPTY_DECO);
 				GameScene.updateMap(cell);
 			}
 		}
@@ -175,7 +175,7 @@ public class DM300 extends Mob implements Callback {
 
 		super.die(cause);
 
-           for (Mob mob : Dungeon.level.mobs) {
+           for (Mob mob : Dungeon.depth.mobs) {
 			
 			  if (mob instanceof Tower){
 				   bossAlive++;
@@ -186,8 +186,8 @@ public class DM300 extends Mob implements Callback {
 			 if(bossAlive==0){
 				 
 					GameScene.bossSlain();
-					Dungeon.level.unseal();
-					Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+					Dungeon.depth.unseal();
+					Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 					Badges.validateBossSlain();
 			 }
 
@@ -220,11 +220,11 @@ public class DM300 extends Mob implements Callback {
 				}
 				
 				
-				Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
-		       Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
+				Dungeon.depth.drop(new Sokoban3(), pos).sprite.drop();
+		       Dungeon.depth.drop(new TomeOfMastery(), pos).sprite.drop();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Bmech(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.hero.skins == 7)
+			Dungeon.depth.drop(new Bmech(), Dungeon.hero.pos).sprite.drop();
 
 		yell(Messages.get(this,"die"));
 	}
@@ -251,7 +251,7 @@ public static class Tower extends Mob implements Callback {
 	{
 		spriteClass = TowerSprite.class;
 
-		HP = HT = 500+(Dungeon.depth*Random.NormalIntRange(2, 5));
+		HP = HT = 500+(Dungeon.dungeondepth *Random.NormalIntRange(2, 5));
 		evadeSkill = 0;
 
 		EXP = 25;
@@ -281,7 +281,7 @@ public static class Tower extends Mob implements Callback {
 	@Override
 	public void damage(int dmg, Object src) {
 
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			mob.beckon(Dungeon.hero.pos);
 		}
 
@@ -308,7 +308,7 @@ public static class Tower extends Mob implements Callback {
 		
 		switch (Random.Int(4)) {
 		case 1:
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof Tower && mob != this) {
 				mob.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				mob.sprite.flash();
@@ -316,7 +316,7 @@ public static class Tower extends Mob implements Callback {
 		}
 		break;
 		case 2:
-			if (Dungeon.level.mobs.size()<10){
+			if (Dungeon.depth.mobs.size()<10){
 		 BrokenRobot.spawnAround(pos);
 		 GLog.n(Messages.get(this,"robots"));
 			}
@@ -341,15 +341,15 @@ public static class Tower extends Mob implements Callback {
 		}
 
 		boolean terrainAffected = false;
-		for (int n : Level.NEIGHBOURS8) {
+		for (int n : Floor.NEIGHBOURS8) {
 			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}
 
-				if (Level.flamable[c]) {
-					Level.set(c, Terrain.EMBERS);
+				if (Floor.flamable[c]) {
+					Floor.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 					terrainAffected = true;
 				}
@@ -358,8 +358,8 @@ public static class Tower extends Mob implements Callback {
 				if (ch != null) {
 					// those not at the center of the blast take damage less
 					// consistently.
-					int minDamage = c == cell ? Dungeon.depth + 5 : 1;
-					int maxDamage = 10 + Dungeon.depth * 2;
+					int minDamage = c == cell ? Dungeon.dungeondepth + 5 : 1;
+					int maxDamage = 10 + Dungeon.dungeondepth * 2;
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
 							- Math.max(ch.drRoll(),0);
@@ -387,7 +387,7 @@ public static class Tower extends Mob implements Callback {
 		
 		explode(pos);
 
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			
 			if (mob instanceof Tower || mob instanceof DM300){
 				   bossAlive++;
@@ -398,9 +398,9 @@ public static class Tower extends Mob implements Callback {
 			 if(bossAlive==0){
 				 
 					GameScene.bossSlain();
-					Dungeon.level.unseal();
-					Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
-					Dungeon.level.drop(new Gold(Random.Int(3000, 6000)), pos).sprite.drop();
+					Dungeon.depth.unseal();
+					Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
+					Dungeon.depth.drop(new Gold(Random.Int(3000, 6000)), pos).sprite.drop();
 
 					Badges.validateBossSlain();
 			 }

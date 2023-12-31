@@ -60,7 +60,7 @@ public class MobSprite extends CharSprite {
 			@Override
 			protected void onComplete() {
 				//MobSprite.this.killAndErase();
-				//parent.erase(this);
+				parent.erase(this);
 			}
 
             @Override

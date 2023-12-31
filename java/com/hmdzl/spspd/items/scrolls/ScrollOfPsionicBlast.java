@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.SuperArcane;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 
@@ -47,7 +47,7 @@ public class ScrollOfPsionicBlast extends Scroll {
 		Invisibility.dispel();
 
 		int people = 0;
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			mob.beckon(curUser.pos);
 			if (mob instanceof Mob && !(mob instanceof NPC)){
 				people++;
@@ -76,8 +76,8 @@ public class ScrollOfPsionicBlast extends Scroll {
 		Sample.INSTANCE.play( Assets.SND_BLAST );
 		Invisibility.dispel();
 		
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
+			if (Floor.fieldOfView[mob.pos]) {
 				mob.damage(mob.HT, this );
 			}
 		}

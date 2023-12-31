@@ -62,7 +62,7 @@ public class SewerReward extends Item {
 			hero.sprite.operate(hero.pos);
 
 			StoneOre ore = new StoneOre(20);
-			Dungeon.level.drop(ore, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(ore, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			detach(hero.belongings.backpack);
 

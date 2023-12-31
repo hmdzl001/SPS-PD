@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Dry;
 import com.hmdzl.spspd.actors.buffs.Hot;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -63,11 +63,11 @@ public class Tree extends  MeleeThrowWeapon {
 		}
 
 		if (Random.Int(100)==98){
-			Dungeon.level.drop(Generator.random(), defender.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(), defender.pos).sprite.drop();
 		}
 
 		int p = defender.pos;
-		for (int n : Level.NEIGHBOURS8) {
+		for (int n : Floor.NEIGHBOURS8) {
 			Char ch = Actor.findChar(n+p);
 			if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
 

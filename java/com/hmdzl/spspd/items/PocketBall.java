@@ -58,11 +58,11 @@ public class PocketBall extends Item {
 					pet.type,
 				    pet.HP
 			);
-            Dungeon.level.drop( pbf, cell ).sprite.drop();
+            Dungeon.depth.drop( pbf, cell ).sprite.drop();
 			((PET) Actor.findChar(cell)).sprite.killAndErase();
 			Actor.findChar(cell).die(null);
 			//Actor.findChar(cell).destroy();
-            if (Dungeon.depth != 50) {
+            if (Dungeon.dungeondepth != 50) {
 				Dungeon.hero.haspet = false;
 				Dungeon.hero.petType = 1;
 			}

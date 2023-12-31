@@ -62,11 +62,11 @@ public class CityReward extends Item {
 			hero.sprite.operate(hero.pos);
 
 			Crystalnucleus cry = new Crystalnucleus();
-			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-			Dungeon.level.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(cry, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			detach(hero.belongings.backpack);
 

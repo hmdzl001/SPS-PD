@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.watabou.utils.Random;
@@ -61,9 +61,9 @@ public class SummoningTrap extends Trap {
 
 		ArrayList<Integer> candidates = new ArrayList<>();
 
-		for (int i=0; i < Level.NEIGHBOURS8.length; i++) {
-			int p = pos + Level.NEIGHBOURS8[i];
-			if (Actor.findChar( p ) == null && (Level.passable[p] || Level.avoid[p])) {
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			int p = pos + Floor.NEIGHBOURS8[i];
+			if (Actor.findChar( p ) == null && (Floor.passable[p] || Floor.avoid[p])) {
 				candidates.add( p );
 			}
 		}
@@ -80,7 +80,7 @@ public class SummoningTrap extends Trap {
 		ArrayList<Mob> mobs = new ArrayList<>();
 
 		for (Integer point : respawnPoints) {
-			Mob mob = Bestiary.mob( Dungeon.depth );
+			Mob mob = Bestiary.mob( Dungeon.dungeondepth);
 			mob.state = mob.WANDERING;
 			mob.pos = point;
 			GameScene.add( mob, DELAY );
@@ -92,7 +92,7 @@ public class SummoningTrap extends Trap {
 			ScrollOfTeleportation.appear(mob, mob.pos);
 		}
 		
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {heap.darkhit();}
 
 	}

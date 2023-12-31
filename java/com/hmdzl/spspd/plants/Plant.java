@@ -30,7 +30,7 @@ import com.hmdzl.spspd.items.Dewdrop;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.PlantSprite;
@@ -59,7 +59,7 @@ public class Plant implements Bundlable {
 	}
 	
 	public void wither() {
-		Dungeon.level.uproot(pos);
+		Dungeon.depth.uproot(pos);
 
 		sprite.kill();
 		if (Dungeon.visible[pos]) {
@@ -77,10 +77,10 @@ public class Plant implements Bundlable {
 
 			if (Random.Int(5 - (naturalismLevel / 2)) == 0) {
 				Item seed = Generator.random(Generator.Category.SEED);
-					Dungeon.level.drop(seed, pos).sprite.drop();
+					Dungeon.depth.drop(seed, pos).sprite.drop();
 			}
 			if (Random.Int(5 - naturalismLevel) == 0) {
-				Dungeon.level.drop(new Dewdrop(), pos).sprite.drop();
+				Dungeon.depth.drop(new Dewdrop(), pos).sprite.drop();
 			}
 		}
 	}
@@ -126,15 +126,15 @@ public class Plant implements Bundlable {
 
 		@Override
 		protected void onThrow(int cell) {
-			if (Dungeon.level.map[cell] == Terrain.ALCHEMY
-					|| Dungeon.level.map[cell] == Terrain.IRON_MAKER
-			        || Dungeon.level.map[cell] == Terrain.TENT
-					|| Level.pit[cell]) {
+			if (Dungeon.depth.map[cell] == Terrain.ALCHEMY
+					|| Dungeon.depth.map[cell] == Terrain.IRON_MAKER
+			        || Dungeon.depth.map[cell] == Terrain.TENT
+					|| Floor.pit[cell]) {
 				super.onThrow(cell);
-			} else if (Dungeon.level.map[cell] == Terrain.FLOWER_POT) {
-				Dungeon.level.explant(this, cell);
+			} else if (Dungeon.depth.map[cell] == Terrain.FLOWER_POT) {
+				Dungeon.depth.explant(this, cell);
 			} else {
-				Dungeon.level.plant(this, cell);
+				Dungeon.depth.plant(this, cell);
 			}
 		}
 

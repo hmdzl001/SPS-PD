@@ -37,7 +37,7 @@ import com.hmdzl.spspd.effects.particles.LeafParticle;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.ui.CharHealthIndicator;
@@ -92,6 +92,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected Animation operate;
 	protected Animation zap;
 	protected Animation die;
+	protected Animation antidie;
 	
 	protected Callback animCallback;
 	
@@ -114,7 +115,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected CharHealthIndicator health;
 
 	private Tweener jumpTweener;
+
+	private Tweener rollTweener;
 	private Callback jumpCallback;
+
+	private Callback rollCallback;
 
 	//private float flashTime = 0;
 	protected float flashTime = 0;
@@ -135,7 +140,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		ch.sprite = this;
 		
 		place( ch.pos );
-		turnTo( ch.pos, Random.Int( Level.LENGTH ) );
+		turnTo( ch.pos, Random.Int( Floor.LENGTH ) );
 
 		if (ch != Dungeon.hero) {
 			if (health == null) {
@@ -153,8 +158,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		final int csize = DungeonTilemap.SIZE;
 		
 		return new PointF(
-			((cell % Level.WIDTH) + 0.5f) * csize - width * 0.5f,
-			((cell / Level.WIDTH) + 1.0f) * csize - height
+			((cell % Floor.WIDTH) + 0.5f) * csize - width * 0.5f,
+			((cell / Floor.WIDTH) + 1.0f) * csize - height
 		);
 	}
 	
@@ -191,7 +196,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 		isMoving = true;
 		
-		if (visible && Level.water[from] && !ch.flying) {
+		if (visible && Floor.water[from] && !ch.flying) {
 			GameScene.ripple( from );
 		}
 
@@ -230,8 +235,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}	
 	
 	public void turnTo( int from, int to ) {
-		int fx = from % Level.WIDTH;
-		int tx = to % Level.WIDTH;
+		int fx = from % Floor.WIDTH;
+		int tx = to % Floor.WIDTH;
 		if (tx > fx) {
 			flipHorizontal = false;
 		} else if (tx < fx) {
@@ -242,10 +247,20 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void jump( int from, int to, Callback callback ) {
 		jumpCallback = callback;
 
-		int distance = Level.distance( from, to );
+		int distance = Floor.distance( from, to );
 		jumpTweener = new JumpTweener( this, worldToCamera( to ), distance * 4, distance * 0.1f );
 		jumpTweener.listener = this;
 		parent.add( jumpTweener );
+
+		turnTo( from, to );
+	}
+
+	public void roll( int from, int to, Callback callback ) {
+		rollCallback = callback;
+		int distance = Floor.distance( from, to );
+		rollTweener = new RollTweener( this, worldToCamera( to ), distance * 4, distance * 0.1f );
+		rollTweener.listener = this;
+		parent.add( rollTweener );
 
 		turnTo( from, to );
 	}
@@ -260,6 +275,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (health != null){
 			health.killAndErase();
 		}
+	}
+
+	public void antidie(int cell) {
+		turnTo( ch.pos, cell );
+		play( antidie );
 	}
 	
 	public Emitter emitter() {
@@ -551,7 +571,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void onComplete( Tweener tweener ) {
 		if (tweener == jumpTweener) {
 
-			if (visible && Level.water[ch.pos] && !ch.flying) {
+			if (visible && Floor.water[ch.pos] && !ch.flying) {
 				GameScene.ripple( ch.pos );
 			}
 			if (jumpCallback != null) {
@@ -613,6 +633,32 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		@Override
 		protected void updateValues( float progress ) {
 			visual.point( PointF.inter( start, end, progress ).offset( 0, -height * 4 * progress * (1 - progress) ) );
+		}
+	}
+
+
+	private static class RollTweener extends Tweener {
+
+		public Visual visual;
+
+		public PointF start;
+		public PointF end;
+
+		public float height;
+
+		public RollTweener( Visual visual, PointF pos, float height, float time ) {
+			super( visual, time );
+
+			this.visual = visual;
+			start = visual.point();
+			end = pos;
+
+			this.height = height;
+		}
+
+		@Override
+		protected void updateValues( float progress ) {
+			visual.point( PointF.inter( start, end, progress ).offset( -height * 4 * progress * (1 - progress), 0  ) );
 		}
 	}
 }

@@ -36,6 +36,8 @@ public class CurseBox extends MeleeWeapon {
 
 	public CurseBox() {
 		super(5, 1f, 1f, 2);
+		MIN = 40;
+		MAX = 50;
 	}
 
 	public Item upgrade(boolean enchant) {

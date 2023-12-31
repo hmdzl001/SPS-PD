@@ -27,7 +27,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.sprites.LynnSprite;
@@ -85,7 +85,7 @@ public class LynnDoll extends TossWeapon {
 			Sample.INSTANCE.play(Assets.SND_SHATTER);
 			Splash.at(pos, 0xffd500, 5);
 		}
-		int newPos =  Dungeon.level.randomCell();
+		int newPos =  Dungeon.depth.randomCell();
 		if (newPos != -1) {
 			LynnDoll.CurseDoll doll = new LynnDoll.CurseDoll();
 			    doll.spawn();
@@ -194,7 +194,7 @@ public class LynnDoll extends TossWeapon {
 			if (enemy != null && Actor.findById(potHolder) == enemy) {
 				target = enemy.pos;
 			} else if (potPos != -1
-					&& (state == WANDERING || Level.distance(target, potPos) > 3))
+					&& (state == WANDERING || Floor.distance(target, potPos) > 3))
 				this.target = target = potPos;
 			return super.getCloser(target);
 		}

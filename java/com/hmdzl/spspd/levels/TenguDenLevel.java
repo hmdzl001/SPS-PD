@@ -173,7 +173,7 @@ public class TenguDenLevel extends RegularLevel {
 		// TODO: not handling this through a painter is kinda iffy, separate
 		// into a painter if you use it again.
 		// sticks the exit in the room entrance.
-		exit = roomEntrance.top * Level.getWidth()
+		exit = roomEntrance.top * Floor.getWidth()
 				+ (roomEntrance.left + roomEntrance.right) / 2;
 		
 		
@@ -226,7 +226,7 @@ public class TenguDenLevel extends RegularLevel {
 		if (Dungeon.tengudenkilled){
 			return;
 		}
-		Mob mob = Bestiary.mob(Dungeon.depth);
+		Mob mob = Bestiary.mob(Dungeon.dungeondepth);
 		Room room;
 		do {
 			room = Random.element(rooms);

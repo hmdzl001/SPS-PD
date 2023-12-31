@@ -33,6 +33,8 @@ public class Javelin extends MeleeThrowWeapon {
 
 	public Javelin() {
 		super(3);
+		MIN = 24;
+		MAX = 37;
 	}
 
 	@Override

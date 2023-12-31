@@ -78,9 +78,9 @@ public class Food extends Item {
 			if (hero.buff(Locked.class) != null ) {
 				GLog.w(Messages.get(Food.class, "locked"));
 			} else {
-				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER ) || (Dungeon.hero.heroClass == HeroClass.FOLLOWER && Random.Int(10)>=1 ))
-				detach(hero.belongings.backpack);
-
+				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER) || Random.Int(10)>=1 ){
+				   detach(hero.belongings.backpack);
+				}
 				hero.buff(Hunger.class).satisfy(energy);
 				int healEnergy = Math.max(7, Math.round(energy / 40));
 				switch (hero.heroClass) {
@@ -100,7 +100,7 @@ public class Food extends Item {
 						Buff.affect(hero, Light.class, 5f);
 						break;
 					case HUNTRESS:
-						Dungeon.level.drop(new YellowDewdrop(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new YellowDewdrop(), hero.pos).sprite.drop();
 						break;
 					case PERFORMER:
 						Buff.affect(hero, WarGroove.class);

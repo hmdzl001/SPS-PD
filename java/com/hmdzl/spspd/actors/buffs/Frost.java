@@ -28,7 +28,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.IceMeat;
 import com.hmdzl.spspd.items.food.meatfood.MysteryMeat;
 import com.hmdzl.spspd.items.potions.Potion;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -64,7 +64,7 @@ public class Frost extends FlavourBuff {
 					item = item.detach(hero.belongings.backpack);
 					IceMeat carpaccio = new IceMeat();
 					if (!carpaccio.collect(hero.belongings.backpack)) {
-						Dungeon.level.drop(carpaccio, target.pos).sprite.drop();
+						Dungeon.depth.drop(carpaccio, target.pos).sprite.drop();
 					}
 					GLog.w( Messages.get(this, "freezes", item.toString()));
 
@@ -89,7 +89,7 @@ public class Frost extends FlavourBuff {
 		super.detach();
 		if (target.paralysed > 0)
 			target.paralysed--;
-		if (Level.water[target.pos])
+		if (Floor.water[target.pos])
 			Buff.prolong(target, Chill.class, 4f);
 	}
 

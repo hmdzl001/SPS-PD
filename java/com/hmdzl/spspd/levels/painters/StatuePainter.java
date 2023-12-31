@@ -18,12 +18,12 @@
 package com.hmdzl.spspd.levels.painters;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.mobs.ArmorStatue;
 import com.hmdzl.spspd.actors.mobs.Statue;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.keys.IronKey;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Point;
@@ -31,7 +31,7 @@ import com.watabou.utils.Random;
 
 public class StatuePainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -43,7 +43,7 @@ public class StatuePainter extends Painter {
 		Room.Door door = room.entrance();
 
 		door.set(Room.Door.Type.LOCKED);
-		level.addItemToSpawn(new IronKey(Dungeon.depth));
+		level.addItemToSpawn(new IronKey(Dungeon.dungeondepth));
 
 		if (door.x == room.left) {
 
@@ -82,12 +82,17 @@ public class StatuePainter extends Painter {
 		}
 
 		Statue statue = new Statue();
-		statue.pos = cx + cy * Level.getWidth();
+		statue.pos = cx + cy * Floor.getWidth();
 		level.mobs.add(statue);
-		Actor.occupyCell(statue);
+		//Actor.occupyCell(statue);
+
+		ArmorStatue astatue = new ArmorStatue();
+		astatue.pos = c.x + c.y * Floor.getWidth();
+		level.mobs.add(astatue);
+		//Actor.occupyCell(astatue);
 	}
 	
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
 		return  Generator.random(Random.oneOf(Generator.Category.ARMOR,
 						Generator.Category.MELEEWEAPON));
 	}

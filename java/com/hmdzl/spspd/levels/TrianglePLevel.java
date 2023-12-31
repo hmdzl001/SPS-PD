@@ -40,12 +40,12 @@ public class TrianglePLevel extends RegularLevel {
 	
 	@Override
 	public String tilesTex() {
-		return Assets.TILES_CITY;
+		return Assets.TILES_FOREST;
 	}
 
 	@Override
 	public String waterTex() {
-		return Assets.WATER_CITY;
+		return Assets.WATER_SEWERS;
 	}
 
 	@Override
@@ -65,8 +65,9 @@ public class TrianglePLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
-		super.createItems();
 		addItemToSpawn(new Vialupdater());
+		super.createItems();
+
 	}
 	
 	@Override
@@ -151,7 +152,7 @@ public class TrianglePLevel extends RegularLevel {
 		//}
 		
 				
-   int length = Level.getLength();
+   int length = Floor.getLength();
 		
 		for (int i = 0; i < length; i++) {
 			

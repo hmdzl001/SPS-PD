@@ -43,7 +43,7 @@ public class Elevator extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (Dungeon.depth < 26 && Dungeon.depth > 1 ){
+		if (Dungeon.dungeondepth < 26 && Dungeon.dungeondepth > 1 ){
 		actions.add(AC_UP);
 		actions.add(AC_DOWN);}
 		return actions;

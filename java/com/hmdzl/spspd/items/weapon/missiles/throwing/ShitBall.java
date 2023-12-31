@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -66,8 +66,8 @@ public class ShitBall extends TossWeapon {
 	protected void onThrow(int cell) {
         Char enemy = Actor.findChar(cell);
        if (enemy == null) {
-		   for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			   if (Level.fieldOfView[mob.pos] && (Level.distance(cell, mob.pos) <= 5)) {
+		   for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
+			   if (Floor.fieldOfView[mob.pos] && (Floor.distance(cell, mob.pos) <= 5)) {
 				   Buff.affect(mob, Blindness.class, 5f);
 				   mob.beckon(cell);
 			   }

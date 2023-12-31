@@ -43,8 +43,6 @@ import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.journalpages.Town;
-import com.hmdzl.spspd.items.potions.PotionOfHealing;
-import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.summon.FairyCard;
 import com.hmdzl.spspd.items.summon.Honeypot;
@@ -55,15 +53,14 @@ import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.melee.special.MeleePan;
-import com.hmdzl.spspd.items.weapon.melee.special.PaperFan;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.MagicHand;
+import com.hmdzl.spspd.items.weapon.missiles.arrows.RocketMissile;
 import com.hmdzl.spspd.items.weapon.ranges.AlloyBowN;
 import com.hmdzl.spspd.items.weapon.ranges.MetalBowN;
 import com.hmdzl.spspd.items.weapon.ranges.PVCBowN;
 import com.hmdzl.spspd.items.weapon.ranges.StoneBowN;
 import com.hmdzl.spspd.items.weapon.ranges.WoodenBowN;
-import com.hmdzl.spspd.levels.HallsLevel;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.watabou.utils.Point;
@@ -79,7 +76,7 @@ public class ShopPainter extends Painter {
 
 	private static ArrayList<Item> itemsToSpawn;
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY_SP);
@@ -95,7 +92,7 @@ public class ShopPainter extends Painter {
 		for (Item item : itemsToSpawn) {
 
 			Point xy = p2xy(room, (pos + per) % per);
-			int cell = xy.x + xy.y * Level.getWidth();
+			int cell = xy.x + xy.y * Floor.getWidth();
 
 			if (level.heaps.get(cell) != null) {
 				do {
@@ -121,7 +118,7 @@ public class ShopPainter extends Painter {
 	private static void generateItems() {
 
 		itemsToSpawn = new ArrayList<Item>();
-		switch (Dungeon.depth) {
+		switch (Dungeon.dungeondepth) {
 		case 1:
 			itemsToSpawn.add(new SeedPouch());
 			if(Random.Int(2) ==0) {
@@ -184,24 +181,25 @@ public class ShopPainter extends Painter {
 
 		//itemsToSpawn.add(new PotionOfHealing());
 		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
+		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
 		//itemsToSpawn.add(new ScrollOfMagicMapping());
 		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
-		//itemsToSpawn.add(new PocketBall());
-		itemsToSpawn.add(new MagicHand());
+		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
+		itemsToSpawn.add(new MagicHand(2));
 		itemsToSpawn.add(Generator.random(Generator.Category.BOMBS));
 		//for (int i = 0; i < 2; i++)
 		itemsToSpawn.add(Random.Int(2) == 0 ?
 				Generator.random(Generator.Category.POTION):
 		        Generator.random(Generator.Category.SCROLL));
 
-		//itemsToSpawn.add(Generator.random(Generator.Category.RANGEWEAPON));
+		itemsToSpawn.add(Generator.random(Generator.Category.RANGEWEAPON));
 		//itemsToSpawn.add(Generator.random(Generator.Category.SHOOTWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR));
 
 		if  (Random.Int(3) == 0)
 		itemsToSpawn.add(Random.Int(2) == 0 ? new RandomMonthEgg() : new Egg());
-		//itemsToSpawn.add(new DungeonBomb().random());
+		itemsToSpawn.add(new RocketMissile());
 		switch (Random.Int(6)) {
 		case 1:
 			itemsToSpawn.add(new ActiveMrDestructo());
@@ -236,7 +234,7 @@ public class ShopPainter extends Painter {
 			// dropped.
 			// this way players who get the hourglass late can still max it,
 			// usually.
-			switch (Dungeon.depth) {
+			switch (Dungeon.dungeondepth) {
 			case 6:
 				bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.20f);
 				break;
@@ -342,21 +340,23 @@ public class ShopPainter extends Painter {
 		return itemsToSpawn.size() + 1;
 	}
 
-	private static void placeShopkeeper(Level level, Room room) {
+	private static void placeShopkeeper(Floor level, Room room) {
 
 		int pos;
 		do {
 			pos = room.random();
 		} while (level.heaps.get(pos) != null);
 
-		Mob shopkeeper = level instanceof HallsLevel ? new ImpShopkeeper()
+		//Mob shopkeeper = level instanceof HallsLevel ?
+		Mob shopkeeper = Dungeon.dungeondepth > 20 ?
+				new ImpShopkeeper()
 				: new Shopkeeper();
 		shopkeeper.pos = pos;
 		level.mobs.add(shopkeeper);
 
-		if (level instanceof HallsLevel) {
-			for (int i = 0; i < Level.NEIGHBOURS9.length; i++) {
-				int p = shopkeeper.pos + Level.NEIGHBOURS9[i];
+		if (Dungeon.dungeondepth > 20) {
+			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+				int p = shopkeeper.pos + Floor.NEIGHBOURS9[i];
 				if (level.map[p] == Terrain.EMPTY_SP) {
 					level.map[p] = Terrain.WATER;
 				}

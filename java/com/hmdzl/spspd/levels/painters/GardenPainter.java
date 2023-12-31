@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.Foliage;
 import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.summon.Honeypot;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.plants.BlandfruitBush;
@@ -30,7 +30,7 @@ import com.watabou.utils.Random;
 
 public class GardenPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.HIGH_GRASS);
@@ -53,7 +53,7 @@ public class GardenPainter extends Painter {
 				level.plant(new BlandfruitBush.Seed(), room.random());
 			}
 		//}
-		if (Dungeon.depth<25){
+		if (Dungeon.dungeondepth <25){
 			int pos;
 			do {pos = room.random();}
 			while (level.heaps.get(pos) != null);
@@ -81,7 +81,7 @@ public class GardenPainter extends Painter {
 		}
 		for (int i = room.top + 1; i < room.bottom; i++) {
 			for (int j = room.left + 1; j < room.right; j++) {
-				light.seed(j + Level.getWidth() * i, 1);
+				light.seed(j + Floor.getWidth() * i, 1);
 			}
 		}
 		level.blobs.put(Foliage.class, light);

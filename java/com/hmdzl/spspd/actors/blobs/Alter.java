@@ -53,12 +53,12 @@ public class Alter extends Blob {
 	}
 
 	public static void transmute(int cell) {
-		Heap heap = Dungeon.level.heaps.get(cell);
+		Heap heap = Dungeon.depth.heaps.get(cell);
 		if (heap != null) {
 
 			Weapon result = heap.consecrate();
 			if (result != null) {
-				Dungeon.level.drop(result, cell).sprite.drop(cell);
+				Dungeon.depth.drop(result, cell).sprite.drop(cell);
 			}
 		}
 	}

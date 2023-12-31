@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.blobs.SlowGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
+import com.hmdzl.spspd.actors.buffs.AcidOoze;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
@@ -66,8 +67,6 @@ import com.hmdzl.spspd.actors.buffs.MagicWeak;
 import com.hmdzl.spspd.actors.buffs.MagicalSleep;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.Needling;
-import com.hmdzl.spspd.actors.buffs.Ooze;
-import com.hmdzl.spspd.actors.buffs.AcidOoze;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.ParyAttack;
 import com.hmdzl.spspd.actors.buffs.Poison;
@@ -110,8 +109,7 @@ import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMeteorite;
 import com.hmdzl.spspd.items.wands.WandOfSwamp;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.messages.Messages;
@@ -155,13 +153,13 @@ public abstract class Char extends Actor {
 
 	@Override
 	protected boolean act() {
-		Dungeon.level.updateFieldOfView(this);
+		Dungeon.depth.updateFieldOfView(this);
 		return false;
 	}
 
 	private static final String POS = "pos";
-	private static final String TAG_HP = "HP";
-	private static final String TAG_HT = "HT";
+	public static final String TAG_HP = "HP";
+	public static final String TAG_HT = "HT";
 	private static final String BUFFS = "buffs";
 	private static final String TRUEHT = "ture_HT";
 
@@ -213,7 +211,7 @@ public abstract class Char extends Actor {
 				Hero h = (Hero)this;
 				if ((h.rangedWeapon != null && h.subClass == HeroSubClass.SNIPER )){
 					dr = 0;
-			    } else if (h.heroClass == HeroClass.FOLLOWER && Dungeon.skins == 2){
+			    } else if (h.heroClass == HeroClass.FOLLOWER && h.skins == 2){
 					dr = 0;
 				} else if ( h.rangedWeapon != null && h.heroClass == HeroClass.HUNTRESS) {
 					dr = dr/2;
@@ -428,7 +426,7 @@ public abstract class Char extends Actor {
 			dmg = (int) Math.ceil(dmg * 1.2);
 		}
 
-        if (src instanceof Wand && Dungeon.hero.heroClass == HeroClass.MAGE && Dungeon.skins == 4) {
+        if (src instanceof Wand && Dungeon.hero.heroClass == HeroClass.MAGE && Hero.skins == 4) {
 			dmg = (int) Math.ceil(dmg * 1.5);
 		}
 
@@ -716,20 +714,20 @@ public abstract class Char extends Actor {
 	
 	public void move(int step) {
 
-		if (Level.adjacent(step, pos) && buff(Vertigo.class) != null) {
-			step = pos + Level.NEIGHBOURS8[Random.Int(8)];
-			if (!(Level.passable[step] || Level.avoid[step])
+		if (Floor.adjacent(step, pos) && buff(Vertigo.class) != null) {
+			step = pos + Floor.NEIGHBOURS8[Random.Int(8)];
+			if (!(Floor.passable[step] || Floor.avoid[step])
 					|| Actor.findChar(step) != null)
 				return;
 		}
 
-		if (Dungeon.level.map[pos] == Terrain.OPEN_DOOR) {
+		if (Dungeon.depth.map[pos] == Terrain.OPEN_DOOR) {
 			Door.leave(pos);
 		}
 
 		pos = step;
 
-		if (flying && Dungeon.level.map[pos] == Terrain.DOOR) {
+		if (flying && Dungeon.depth.map[pos] == Terrain.DOOR) {
 			Door.enter(pos);
 		}
 
@@ -739,7 +737,7 @@ public abstract class Char extends Actor {
 	}
 
 	public int distance(Char other) {
-		return Level.distance(pos, other.pos);
+		return Floor.distance(pos, other.pos);
 	}
 
 	public void onMotionComplete() {

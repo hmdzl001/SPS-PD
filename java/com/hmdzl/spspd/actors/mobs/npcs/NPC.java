@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.utils.Random;
 
 public abstract class NPC extends Mob {
@@ -35,13 +35,13 @@ public abstract class NPC extends Mob {
 	}
 
 	protected void throwItem() {
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null  && heap.type != Heap.Type.FOR_SALE  && heap.type != Heap.Type.FOR_LIFE) {
 			int n;
 			do {
-				n = pos + Level.NEIGHBOURS8[Random.Int(8)];
-			} while (!Level.passable[n] && !Level.avoid[n]);
-			Dungeon.level.drop(heap.pickUp(), n).sprite.drop(pos);
+				n = pos + Floor.NEIGHBOURS8[Random.Int(8)];
+			} while (!Floor.passable[n] && !Floor.avoid[n]);
+			Dungeon.depth.drop(heap.pickUp(), n).sprite.drop(pos);
 		}
 	}
 

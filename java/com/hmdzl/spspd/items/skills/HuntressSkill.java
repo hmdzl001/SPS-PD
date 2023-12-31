@@ -23,7 +23,6 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EarthImbue;
 import com.hmdzl.spspd.actors.buffs.FireImbue;
-import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.actors.buffs.FrostImbue;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Needling;
@@ -38,7 +37,7 @@ import com.hmdzl.spspd.items.KindOfArmor;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.reward.BoundReward;
 import com.hmdzl.spspd.items.summon.FairyCard;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -112,7 +111,7 @@ public class HuntressSkill extends ClassSkill {
 				item3.reinforced = true;
 			}
 		}
-		Dungeon.level.drop(new BoundReward(), hero.pos).sprite.drop(hero.pos);
+		Dungeon.depth.drop(new BoundReward(), hero.pos).sprite.drop(hero.pos);
 		HuntressSkill.charge +=10;
 
         curUser.spend(SKILL_TIME);
@@ -135,13 +134,13 @@ public class HuntressSkill extends ClassSkill {
 
 		curUser.sprite.centerEmitter().start(ElmoParticle.FACTORY, 0.15f, 4);
 		Sample.INSTANCE.play(Assets.SND_READ);
-		Dungeon.level.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
-		Dungeon.level.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
-		Dungeon.level.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
+		Dungeon.depth.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
+		Dungeon.depth.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
+		Dungeon.depth.drop(Generator.random(Generator.Category.ARROWS), hero.pos).sprite.drop(hero.pos);
 		ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 			int p = curUser.pos + PathFinder.NEIGHBOURS8[i];
-			if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+			if (Actor.findChar(p) == null && (Floor.passable[p] || Floor.avoid[p])) {
 				spawnPoints.add(p);
 			}
 		}
@@ -166,8 +165,8 @@ public class HuntressSkill extends ClassSkill {
 	@Override
 	public void doSpecial4() {
 
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos] && (Level.distance(curUser.pos, mob.pos) <= 10)) {
+		for (Mob mob : Dungeon.depth.mobs) {
+			if (Floor.fieldOfView[mob.pos] && (Floor.distance(curUser.pos, mob.pos) <= 10)) {
 				Buff.prolong(mob, Roots.class, 8);
 				Buff.affect(mob, GrowSeed.class).set(10f);
 			}

@@ -19,7 +19,7 @@ package com.hmdzl.spspd.levels.painters.hidenroom;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.blobs.MemoryFire;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -27,7 +27,7 @@ import com.watabou.utils.Point;
 
 public class MemoryPainter extends Painter {
 
-	public static void paint( Level level, Room room ) {
+	public static void paint(Floor level, Room room ) {
 
 		fill( level, room, Terrain.WALL );
 		fill( level, room, 1,  Terrain.HIGH_GRASS );
@@ -53,7 +53,7 @@ public class MemoryPainter extends Painter {
 		if (fire == null) {
 			fire = new MemoryFire();
 		}
-		fire.seed( c.x + c.y * Level.WIDTH, 5 + Dungeon.depth * 5 );
+		fire.seed( c.x + c.y * Floor.WIDTH, 5 + Dungeon.dungeondepth * 5 );
 		level.blobs.put(MemoryFire.class, fire );
 		
 		door.set( Room.Door.Type.HIDDEN );

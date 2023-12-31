@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
@@ -70,7 +70,7 @@ public class WandOfFreeze extends DamageWand {
 			ch.damage(damage, this);
 
 			if (ch.isAlive()){
-				if (Level.water[ch.pos]){
+				if (Floor.water[ch.pos]){
 					//20+(10*level)% chance
 					if (Random.Int(10) >= 8-level() )
 						Buff.affect(ch, Frost.class, Frost.duration(ch)*Random.Float(2f, 4f));
@@ -83,7 +83,7 @@ public class WandOfFreeze extends DamageWand {
 			
 		}
 		
-		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+		Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {
 			heap.icehit();
 		}	

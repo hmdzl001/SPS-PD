@@ -20,7 +20,7 @@ package com.hmdzl.spspd.sprites;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.plants.Plant;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -64,8 +64,8 @@ public class PlantSprite extends Image {
 		alpha(1f);
 
 		pos = plant.pos;
-		x = (pos % Level.getWidth()) * DungeonTilemap.SIZE;
-		y = (pos / Level.getWidth()) * DungeonTilemap.SIZE;
+		x = (pos % Floor.getWidth()) * DungeonTilemap.SIZE;
+		y = (pos / Floor.getWidth()) * DungeonTilemap.SIZE;
 
 		state = State.GROWING;
 		time = DELAY;

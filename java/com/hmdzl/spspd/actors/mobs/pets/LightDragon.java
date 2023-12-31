@@ -27,7 +27,7 @@ import com.hmdzl.spspd.items.potions.PotionOfMindVision;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.wands.WandOfCharm;
 import com.hmdzl.spspd.items.wands.WandOfLight;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.LightDragonSprite;
 import com.watabou.utils.Random;
 
@@ -85,7 +85,7 @@ public class LightDragon extends PET{
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override

@@ -90,7 +90,7 @@ public class Belongings implements Iterable<Item> {
 			weapon.activate(owner);
 		}
 
-	    armor = (KindOfArmor) bundle.get(ARMOR);
+		armor = (KindOfArmor) bundle.get(ARMOR);
 		if (armor != null) {
 			armor.activate(owner);
 		}
@@ -105,12 +105,12 @@ public class Belongings implements Iterable<Item> {
 		if (misc2 != null) {
 			misc2.activate(owner);
 		}
-		
+
 		misc3 = (KindofMisc) bundle.get(MISC3);
 		if (misc3 != null) {
 			misc3.activate(owner);
-		}		
-		
+		}
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -143,7 +143,7 @@ public class Belongings implements Iterable<Item> {
 
 		for (Item item : backpack) {
 			if (item instanceof IronKey
-					&& ((IronKey) item).depth == Dungeon.depth) {
+					&& ((IronKey) item).depth == Dungeon.dungeondepth) {
 				IronKey.curDepthQuantity += item.quantity();
 			}
 		}

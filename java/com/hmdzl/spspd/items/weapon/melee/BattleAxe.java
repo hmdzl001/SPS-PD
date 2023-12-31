@@ -38,6 +38,8 @@ public class BattleAxe extends MeleeWeapon {
 
 	public BattleAxe() {
 		super(4, 1f, 1f, 1);
+		MIN = 36;
+		MAX = 49;
 	}
 
     @Override

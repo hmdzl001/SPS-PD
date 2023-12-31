@@ -20,6 +20,7 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.CheckBox;
 import com.hmdzl.spspd.ui.RedButton;
@@ -217,10 +218,25 @@ public class WndSettings extends Window {
 			btnBaseTool.setRect(0, btnQuickSlot.bottom() + GAP, WIDTH,
 					BTN_HEIGHT);
 			add(btnBaseTool);
+
+			RedButton btnCamera = new RedButton(Messages.get(WndSettings.class, "camera_" + ShatteredPixelDungeon.cameratypes())) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					int val = ShatteredPixelDungeon.cameratypes();
+					val = val < 2 ? val + 1 : 0;
+					ShatteredPixelDungeon.cameratypes(val);
+					text.text( Messages.get(WndSettings.class, "camera_" + ShatteredPixelDungeon.cameratypes()) );
+
+				}
+			};
+			btnCamera.setRect(0, btnBaseTool.bottom() + GAP, WIDTH,
+					BTN_HEIGHT);
+			add(btnCamera);
 			
 			
 			
-			resize(WIDTH, (int) btnBaseTool.bottom());
+			resize(WIDTH, (int) btnCamera.bottom());
 		
 		}
 	}

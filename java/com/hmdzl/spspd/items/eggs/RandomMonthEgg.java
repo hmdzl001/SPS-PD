@@ -62,48 +62,48 @@ public class RandomMonthEgg extends Item {
 		if (action.equals(AC_USE)) {
 			curUser = hero;
 			if (Random.Int(10) == 0) {
-				Dungeon.level.drop(new VIPcard(), hero.pos).sprite.drop();
+				Dungeon.depth.drop(new VIPcard(), hero.pos).sprite.drop();
 			}
 			if (Random.Int(10) == 0){
-				Dungeon.level.drop(new RandomEasterEgg(), hero.pos).sprite.drop();
+				Dungeon.depth.drop(new RandomEasterEgg(), hero.pos).sprite.drop();
 			} else {
 				switch (Random.Int(12)) {
 
 					case 0:
-						Dungeon.level.drop(new RandomEgg1(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg1(), hero.pos).sprite.drop();
 						break;
 					case 1:
-						Dungeon.level.drop(new RandomEgg2(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg2(), hero.pos).sprite.drop();
 						break;
 					case 2:
-						Dungeon.level.drop(new RandomEgg3(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg3(), hero.pos).sprite.drop();
 						break;
 					case 3:
-						Dungeon.level.drop(new RandomEgg4(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg4(), hero.pos).sprite.drop();
 						break;
 					case 4:
-						Dungeon.level.drop(new RandomEgg5(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg5(), hero.pos).sprite.drop();
 						break;
 					case 5:
-						Dungeon.level.drop(new RandomEgg6(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg6(), hero.pos).sprite.drop();
 						break;
 					case 6:
-						Dungeon.level.drop(new RandomEgg7(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg7(), hero.pos).sprite.drop();
 						break;
 					case 7:
-						Dungeon.level.drop(new RandomEgg8(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg8(), hero.pos).sprite.drop();
 						break;
 					case 8:
-						Dungeon.level.drop(new RandomEgg9(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg9(), hero.pos).sprite.drop();
 						break;
 					case 9:
-						Dungeon.level.drop(new RandomEgg10(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg10(), hero.pos).sprite.drop();
 						break;
 					case 10:
-						Dungeon.level.drop(new RandomEgg11(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg11(), hero.pos).sprite.drop();
 						break;
 					case 11:
-						Dungeon.level.drop(new RandomEgg12(), hero.pos).sprite.drop();
+						Dungeon.depth.drop(new RandomEgg12(), hero.pos).sprite.drop();
 						break;
 				}
 			}

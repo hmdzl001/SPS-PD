@@ -28,7 +28,7 @@ import com.hmdzl.spspd.effects.Beam;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -87,9 +87,9 @@ public class WandOf13 extends DamageWand {
 				chars.add( ch );
 			}
 
-			if (Level.solid[c])
+			if (Floor.solid[c])
 				terrainPassed++;
-			Heap heap = Dungeon.level.heaps.get(c);
+			Heap heap = Dungeon.depth.heaps.get(c);
 			if (heap != null) {heap.darkhit();}
 			
 			CellEmitter.center( c ).burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );

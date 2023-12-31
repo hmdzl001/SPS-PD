@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.blobs.TarGas;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
@@ -44,9 +44,9 @@ public class FireBomb extends Bomb {
 	public void explode(int cell) {
 		super.explode(cell);
 		boolean terrainAffected = false;
-		for (int n : Level.NEIGHBOURS9) {
+		for (int n : Floor.NEIGHBOURS9) {
 			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}

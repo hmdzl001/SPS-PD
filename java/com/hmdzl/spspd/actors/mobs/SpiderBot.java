@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.meatfood.BugMeat;
 import com.hmdzl.spspd.items.food.meatfood.Meat;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.SpiderBotSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -97,14 +97,14 @@ public class SpiderBot extends Mob {
 
 		//Dungeon.level.drop( bugfood, pos ).sprite.drop();
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
 			if (ch != null && ch.isAlive()) {
 				Buff.affect(ch,BugSlow.class);
 			}
 			if (ch instanceof Hero){
 				if (!bugfood.collect(Dungeon.hero.belongings.backpack)) {
-					Dungeon.level.drop( bugfood, Dungeon.hero.pos ).sprite.drop();
+					Dungeon.depth.drop( bugfood, Dungeon.hero.pos ).sprite.drop();
 				} else {
 					GLog.n(Messages.get(this, "yell"));
 				}
@@ -125,14 +125,14 @@ public class SpiderBot extends Mob {
 	private void spanbug(int pos) {
 		Char ch = Dungeon.hero;
 		BugMeat bugfood = new BugMeat();
-		int dist = Level.distance(pos, Dungeon.hero.pos);
+		int dist = Floor.distance(pos, Dungeon.hero.pos);
 		if (dist < 2) {
 			if (!bugfood.collect(Dungeon.hero.belongings.backpack)) {
-				Dungeon.level.drop( bugfood, ch.pos ).sprite.drop();
+				Dungeon.depth.drop( bugfood, ch.pos ).sprite.drop();
 			} else {
 				GLog.n(Messages.get(this, "yell"));
 			}
-		} else Dungeon.level.drop( bugfood, pos ).sprite.drop();
+		} else Dungeon.depth.drop( bugfood, pos ).sprite.drop();
 	}
 
 

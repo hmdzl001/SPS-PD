@@ -30,7 +30,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -67,7 +67,7 @@ public class WandOfFlock extends Wand {
 			bolt.sourcePos = Ballistica.trace[Ballistica.distance - 2];
 		}
 
-		boolean[] passable = BArray.or(Level.passable, Level.avoid, null);
+		boolean[] passable = BArray.or(Floor.passable, Floor.avoid, null);
 		for (Actor actor : Actor.all()) {
 			if (actor instanceof Char) {
 				passable[((Char) actor).pos] = false;
@@ -86,10 +86,10 @@ public class WandOfFlock extends Wand {
 
 		sheepLabel: for (int i = 0; i < n; i++) {
 			do {
-				for (int j = 0; j < Level.getLength(); j++) {
+				for (int j = 0; j < Floor.getLength(); j++) {
 					if (PathFinder.distance[j] == dist) {
 
-						if (hero.subClass == HeroSubClass.LEADER && (Dungeon.depth < 51 || Dungeon.depth > 54)){
+						if (hero.subClass == HeroSubClass.LEADER && (Dungeon.dungeondepth < 51 || Dungeon.dungeondepth > 54)){
 							MagicBombSheep bsheep = new MagicBombSheep();
 							bsheep.pos = j;
 							bsheep.dewLvl = this.level ;
@@ -100,7 +100,7 @@ public class WandOfFlock extends Wand {
 							sheep.lifespan = lifespan;
 							sheep.pos = j;
 							GameScene.add(sheep);
-							Dungeon.level.mobPress(sheep);
+							Dungeon.depth.mobPress(sheep);
 						}
 
 
@@ -115,8 +115,8 @@ public class WandOfFlock extends Wand {
 			} while (dist < n);
 		}
 		
-		if (Dungeon.depth>50 && Dungeon.depth<55){
-			int spawnCell = Dungeon.level.randomRespawnCellMob();
+		if (Dungeon.dungeondepth >50 && Dungeon.dungeondepth <55){
+			int spawnCell = Dungeon.depth.randomRespawnCellMob();
 			if (spawnCell>0){
 			   FlyingProtector.spawnAt(spawnCell);
 			   //GLog.w("How dare you violate the magic of this place! ");
@@ -124,7 +124,7 @@ public class WandOfFlock extends Wand {
 			}
 		}
 		
-	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+	    Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {heap.darkhit();}
 	}
 
@@ -213,7 +213,7 @@ public class WandOfFlock extends Wand {
 		
 	@Override
 	public int damageRoll() {
-	    return Random.NormalIntRange(Dungeon.depth+10, Dungeon.depth+20);
+	    return Random.NormalIntRange(Dungeon.dungeondepth +10, Dungeon.dungeondepth +20);
 	}
 
 		@Override
@@ -232,8 +232,8 @@ public class WandOfFlock extends Wand {
 
 		if (enemy == null || !enemy.isAlive()) {
 			HashSet<Mob> enemies = new HashSet<Mob>();
-			for (Mob mob : Dungeon.level.mobs) {
-				if (mob.hostile && Level.fieldOfView[mob.pos]) {
+			for (Mob mob : Dungeon.depth.mobs) {
+				if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 					enemies.add(mob);
 				}
 			}

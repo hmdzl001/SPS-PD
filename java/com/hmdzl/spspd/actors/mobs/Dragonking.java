@@ -62,7 +62,7 @@ public class Dragonking extends Mob {
 
 		super.die(cause);
 		GameScene.bossSlain();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 		UGoo.spawnAt(pos);
 
 	}

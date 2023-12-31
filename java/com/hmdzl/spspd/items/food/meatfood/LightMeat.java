@@ -54,7 +54,7 @@ public class LightMeat extends MeatFood {
 	}
 
     public static void effect(Hero hero){
-		Dungeon.level.drop(new SmallMeat(), hero.pos).sprite.drop();
+		Dungeon.depth.drop(new SmallMeat(), hero.pos).sprite.drop();
 	}
 	
 	public static Food cook(MysteryMeat ingredient) {

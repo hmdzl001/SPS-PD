@@ -97,13 +97,13 @@ public class Blacksmith extends NPC {
             tell(Messages.get(this, "triforce"));	
             TriForce san = new TriForce();
             //Dungeon.triforce = true;	
-			Dungeon.level.drop(san, Dungeon.hero.pos).sprite.drop();
+			Dungeon.depth.drop(san, Dungeon.hero.pos).sprite.drop();
            }
 
 		if (checkeater()){
 			tell(Messages.get(this, "shadoweater"));
 			ShadowEater san = new ShadowEater();
-			Dungeon.level.drop(san, Dungeon.hero.pos).sprite.drop();
+			Dungeon.depth.drop(san, Dungeon.hero.pos).sprite.drop();
 		}
 
 
@@ -120,7 +120,7 @@ public class Blacksmith extends NPC {
 
 					Pickaxe pick = new Pickaxe();
 
-					Dungeon.level.drop(pick, Dungeon.hero.pos).sprite.drop();
+					Dungeon.depth.drop(pick, Dungeon.hero.pos).sprite.drop();
 	
 				}
             });

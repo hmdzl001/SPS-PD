@@ -8,7 +8,7 @@ import com.hmdzl.spspd.actors.buffs.Hot;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.DeadParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 
 public class WeatherOfDead extends Blob {
@@ -18,9 +18,9 @@ public class WeatherOfDead extends Blob {
 	@Override
 	protected void evolve() {
 		int from = WIDTH + 1;
-		int to = Level.LENGTH - WIDTH - 1;
+		int to = Floor.LENGTH - WIDTH - 1;
 		
-		int[] map = Dungeon.level.map;
+		int[] map = Dungeon.depth.map;
 		
 		for (int pos=from; pos < to; pos++) {
 			if (cur[pos] > 0) {

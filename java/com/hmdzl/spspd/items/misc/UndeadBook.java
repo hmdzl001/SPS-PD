@@ -32,7 +32,7 @@ import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.summon.FairyCard;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -105,8 +105,8 @@ public class UndeadBook extends Item {
 					Buff.affect(hero, EnergyArmor.class).level(hero.lvl*2);
 					break;
 				case 2:
-					for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-						if (Level.fieldOfView[mob.pos]) {
+					for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
+						if (Floor.fieldOfView[mob.pos]) {
 							mob.damage(mob.HT/2, this );
 						}
 					}
@@ -115,7 +115,7 @@ public class UndeadBook extends Item {
 					ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
 					for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 						int p = curUser.pos + PathFinder.NEIGHBOURS8[i];
-						if (Actor.findChar(p) == null && (Level.passable[p] || Level.avoid[p])) {
+						if (Actor.findChar(p) == null && (Floor.passable[p] || Floor.avoid[p])) {
 							spawnPoints.add(p);
 						}
 					}
@@ -149,7 +149,7 @@ public class UndeadBook extends Item {
 
 		if (action.equals(AC_BLESS)) {
 			    charge2++;
-                Dungeon.level.drop(new Ankh(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+                Dungeon.depth.drop(new Ankh(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				GLog.p(Messages.get(this, "1up"));
 		} else {
 			super.execute(hero, action);

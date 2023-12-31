@@ -57,7 +57,7 @@ public class WndHero extends WndTabbed {
 	
 	
 	private PET checkpet(){
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if(mob instanceof PET) {
 				return (PET) mob;
 			}
@@ -151,18 +151,18 @@ public class WndHero extends WndTabbed {
 					btnCatalogus.reqWidth() + 2, btnCatalogus.reqHeight() + 2);
 			add(btnCatalogus);
 
-			RedButton btnJournal = new RedButton(Messages.get(this, "journal")) {
+			RedButton btnDocument = new RedButton(Messages.get(this, "document")) {
 				@Override
 				protected void onClick() {
 					hide();
-					GameScene.show(new WndJournal());
+					GameScene.show( new WndDocument() );
 				}
 			};
-			btnJournal.setRect(btnCatalogus.right() + 1, btnCatalogus.top(),
-					btnJournal.reqWidth() + 2, btnJournal.reqHeight() + 2);
-			add(btnJournal);
+			btnDocument.setRect(0, title.height() + btnCatalogus.height(),
+					btnDocument.reqWidth() + 2, btnDocument.reqHeight() + 2);
+			add(btnDocument);
 
-			pos = btnJournal.bottom() + GAP;
+			pos = btnDocument.bottom() + GAP;
 
 			statSlot(Messages.get(this, "str"), hero.STR());
 			statSlot(Messages.get(this, "health"), hero.HP + "/" + hero.HT );
@@ -334,9 +334,9 @@ public class WndHero extends WndTabbed {
 
 			pos = btnDisTarget.bottom() + GAP;
 
-			if (Dungeon.depth<26 && (Dungeon.dewDraw || Dungeon.dewWater)) {
-				statSlot(Messages.get(this, "level_move"), Dungeon.level.currentmoves);
-				statSlot(Messages.get(this, "level_max"), Dungeon.pars[Dungeon.depth]);
+			if (Dungeon.dungeondepth <26 && (Dungeon.dewDraw || Dungeon.dewWater)) {
+				statSlot(Messages.get(this, "level_move"), Dungeon.depth.currentmoves);
+				statSlot(Messages.get(this, "level_max"), Dungeon.pars[Dungeon.dungeondepth]);
 				//statSlot(Messages.get(this, "level_prefect"), Statistics.prevfloormoves);
 			}
 

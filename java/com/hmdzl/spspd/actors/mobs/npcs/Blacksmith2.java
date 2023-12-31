@@ -33,6 +33,7 @@ import com.hmdzl.spspd.items.sellitem.BrokenHammer;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.items.weapon.ranges.RangeWeapon;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ElectricwelderSprite;
@@ -130,6 +131,10 @@ public class Blacksmith2 extends NPC {
 		}
 
 		if(item1 instanceof GunWeapon && item2 instanceof AdamantWeapon){
+			return null;
+		}
+
+		if(item1 instanceof RangeWeapon && item2 instanceof AdamantWeapon){
 			return null;
 		}
 		

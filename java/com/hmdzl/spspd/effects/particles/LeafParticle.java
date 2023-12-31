@@ -45,7 +45,7 @@ public class LeafParticle extends PixelParticle.Shrinking {
 			LeafParticle p = ((LeafParticle) emitter
 					.recycle(LeafParticle.class));
 			p.color(ColorMath
-					.random(Dungeon.level.color1, Dungeon.level.color2));
+					.random(Dungeon.depth.color1, Dungeon.depth.color2));
 			p.reset(x, y);
 		}
 	};

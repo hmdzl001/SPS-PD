@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;
@@ -84,7 +84,7 @@ public class ThiefKingSprite extends MobSprite {
 
 		isMoving = true;
 
-		if (Level.water[to]) {
+		if (Floor.water[to]) {
 			GameScene.ripple(to);
 		}
 		
@@ -96,7 +96,7 @@ public class ThiefKingSprite extends MobSprite {
 	
 	@Override
 	public void attack(int cell) {
-		if (!Level.adjacent(cell, ch.pos)) {
+		if (!Floor.adjacent(cell, ch.pos)) {
 			Char enemy = Actor.findChar(cell);
 				  ((MissileSprite) parent.recycle(MissileSprite.class)).reset(ch.pos,
 					cell, new EscapeKnive(), new Callback() {

@@ -75,14 +75,14 @@ public class MKbox extends Item {
 				   GLog.p(Messages.get(MKbox.class, "coin"));
 				   //GLog.p(Messages.get(MKbox.class,"mbox"));
 			   } else if (Random.Int(48) < 3) {
-				   Dungeon.level.drop(new Ankh(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				   Dungeon.depth.drop(new Ankh(), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				   GLog.p(Messages.get(MKbox.class, "1up"));
 			   } else if (Random.Int(45) < 20) {
 				   WarHammer wh = new WarHammer();
-				   Dungeon.level.drop(wh, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				   Dungeon.depth.drop(wh, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				   GLog.p(Messages.get(MKbox.class, "hammer"));
 			   } else if (Random.Int(25) < 20) {
-				   Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+				   Dungeon.depth.drop(Generator.random(Generator.Category.MUSHROOM), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 				   GLog.p(Messages.get(MKbox.class, "mushroom"));
 			   } else if (Random.Int(2) == 1) {
 			   	   Buff.affect(hero,FireImbue.class).set(FireImbue.DURATION);

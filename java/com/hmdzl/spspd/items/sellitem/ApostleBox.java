@@ -72,12 +72,12 @@ public class ApostleBox extends SellItem {
                     GLog.p(Messages.get(this,"green"));
                     break;
                 case 2:
-                    Buff.affect(hero, DefenceUp.class, 50).level(50);
+                    Buff.affect(hero, DefenceUp.class, 50f).level(50);
                     GLog.b(Messages.get(this,"blue"));
                     break;
                 case 3:
-                    Buff.affect(hero, Invisibility.class, 50);
-                    Buff.affect(hero, Arcane.class, 50);
+                    Buff.affect(hero, Invisibility.class, 50f);
+                    Buff.affect(hero, Arcane.class, 10f);
                     GLog.v(Messages.get(this,"violet"));
                     break;
             }

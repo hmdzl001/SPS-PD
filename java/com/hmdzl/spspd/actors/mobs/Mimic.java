@@ -26,7 +26,7 @@ import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.MimicSprite;
 import com.watabou.noosa.audio.Sample;
@@ -100,7 +100,7 @@ public class Mimic extends Mob {
 
 		if (items != null) {
 			for (Item item : items) {
-				Dungeon.level.drop(item, pos).sprite.drop();
+				Dungeon.depth.drop(item, pos).sprite.drop();
 			}
 		}
 	}
@@ -115,9 +115,9 @@ public class Mimic extends Mob {
 		Char ch = Actor.findChar(pos);
 		if (ch != null) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int cell = pos + n;
-				if ((Level.passable[cell] || Level.avoid[cell])
+				if ((Floor.passable[cell] || Floor.avoid[cell])
 						&& Actor.findChar(cell) == null) {
 					candidates.add(cell);
 				}
@@ -129,9 +129,9 @@ public class Mimic extends Mob {
 				ch.pos = newPos;
 				// FIXME
 				if (ch instanceof Mob) {
-					Dungeon.level.mobPress((Mob) ch);
+					Dungeon.depth.mobPress((Mob) ch);
 				} else {
-					Dungeon.level.press(newPos, ch);
+					Dungeon.depth.press(newPos, ch);
 				}
 			} else {
 				return null;
@@ -140,7 +140,7 @@ public class Mimic extends Mob {
 
 		Mimic m = new Mimic();
 		m.items = new ArrayList<Item>(items);
-		m.adjustStats(Dungeon.depth);
+		m.adjustStats(Dungeon.dungeondepth);
 		m.HP = m.HT;
 		m.pos = pos;
 		m.state = m.HUNTING;

@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.Shieldblock;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 import java.util.ArrayList;
@@ -74,9 +74,9 @@ public class MoneyBook extends TossWeapon {
 		 if (action.equals(AC_CAST)) {
 			curUser = hero;
 			Buff.affect(hero,Invisibility.class,10f);
-			for (int m : Level.NEIGHBOURS8DIST2) {
+			for (int m : Floor.NEIGHBOURS8DIST2) {
 			int c = hero.pos + m;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 
 				Char ch2 = Actor.findChar(c);
 				if (ch2 != null) {

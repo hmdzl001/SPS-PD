@@ -29,18 +29,13 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.MusketeerSprite;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 public class Musketeer extends Mob {
 
-
-    private boolean charged = false;
-
-    private static final String CHARGED = "charged";
 
 	{
 		spriteClass = MusketeerSprite.class;
@@ -69,7 +64,7 @@ public class Musketeer extends Mob {
     public boolean act() {
 
         if( !enemySeen )
-            charged = false;
+            skilluse = false;
 
         return super.act();
 
@@ -78,12 +73,12 @@ public class Musketeer extends Mob {
     @Override
     protected boolean doAttack( Char enemy ) {
         //Ballistica dis = new Ballistica(pos, enemy.pos, Ballistica.PROJECTILE);
-        int dist = Level.distance(pos, enemy.pos);
+        int dist = Floor.distance(pos, enemy.pos);
         if (dist == 1){
             return super.doAttack( enemy );
-        } else if( enemySeen && state != SLEEPING && paralysed == 0 && !charged ) {
+        } else if( enemySeen && state != SLEEPING && paralysed == 0 && !skilluse ) {
 
-            charged = true;
+            skilluse = true;
 
             if( Dungeon.visible[ pos ] ) {
                 sprite.centerEmitter().burst(EnergyParticle.FACTORY, 15);
@@ -95,7 +90,7 @@ public class Musketeer extends Mob {
 
         } else {
 
-            charged = false;
+            skilluse = false;
 
             return super.doAttack( enemy );
         }
@@ -123,7 +118,7 @@ public class Musketeer extends Mob {
 
     @Override
     public int attackProc(Char enemy, int damage) {
-        int dist = Level.distance(pos, enemy.pos);
+        int dist = Floor.distance(pos, enemy.pos);
         if (dist > 1 && Random.Int(4)< 1 ){
             Buff.affect(enemy, ArmorBreak.class,5f).level(25);
         }
@@ -137,16 +132,5 @@ public class Musketeer extends Mob {
 		immunities.add(Amok.class);
 		immunities.add(Terror.class);
 	}
-	
-	@Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle(bundle);
-        bundle.put( CHARGED, charged );
-    }
 
-    @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle(bundle);
-        charged = bundle.getBoolean( CHARGED );
-    }
 }

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 
@@ -101,7 +101,7 @@ public abstract class Actor implements Bundlable {
 
 	private static float now = 0;
 
-	private static Char[] chars = new Char[Level.getLength()];
+	private static Char[] chars = new Char[Floor.getLength()];
 
 	public static float now(){
 		return now;
@@ -139,11 +139,11 @@ public abstract class Actor implements Bundlable {
 
 		addDelayed(Dungeon.hero, -Float.MIN_VALUE);
 
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			add(mob);
 		}
 
-		for (Blob blob : Dungeon.level.blobs.values()) {
+		for (Blob blob : Dungeon.depth.blobs.values()) {
 			add(blob);
 		}
 
@@ -197,8 +197,7 @@ public abstract class Actor implements Bundlable {
 				// 1. Hero
 				// 2. Other Chars
 				// 3. Other Actors (e.g. blobs)
-				if (actor.time < now
-						|| (actor instanceof Hero && actor.time == now)
+				if (actor.time < now || (actor instanceof Hero && actor.time == now)
 						|| (actor instanceof Char && actor.time == now && !(current instanceof Hero))) {
 					now = actor.time;
 					current = actor;

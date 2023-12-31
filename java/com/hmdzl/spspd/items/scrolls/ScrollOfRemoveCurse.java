@@ -29,7 +29,7 @@ import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -90,8 +90,8 @@ public class ScrollOfRemoveCurse extends Scroll {
 			}
 		}
 
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff.affect(mob,LightShootAttack.class).level(6);
 			}
 		}

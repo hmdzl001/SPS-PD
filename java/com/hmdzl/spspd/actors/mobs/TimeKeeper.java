@@ -32,7 +32,7 @@ import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.medicine.Timepill;
 import com.hmdzl.spspd.items.potions.PotionOfMindVision;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TimeKeeperSprite;
 import com.watabou.noosa.audio.Sample;
@@ -92,7 +92,7 @@ public class TimeKeeper extends Mob {
 				int count = 10;
 				int pos;
 				do {
-					pos = Dungeon.level.randomRespawnCell();
+					pos = Dungeon.depth.randomRespawnCell();
 					if (count-- <= 0) {
 						break;
 					}
@@ -115,9 +115,9 @@ public class TimeKeeper extends Mob {
 			Buff.affect(this,WatchOut.class);
 			int newPos;
 			do {
-				newPos = Random.Int(Level.getLength());
-			} while (!Level.passable[newPos]
-					|| Level.adjacent(newPos, Dungeon.hero.pos)
+				newPos = Random.Int(Floor.getLength());
+			} while (!Floor.passable[newPos]
+					|| Floor.adjacent(newPos, Dungeon.hero.pos)
 					|| Actor.findChar(newPos) != null);
 
 			sprite.move(pos, newPos);

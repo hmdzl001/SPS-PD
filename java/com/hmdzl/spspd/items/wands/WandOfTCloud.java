@@ -36,7 +36,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.EnergyParticle;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -73,7 +73,7 @@ public class WandOfTCloud extends Wand {
 			bolt.sourcePos = Ballistica.trace[Ballistica.distance - 2];
 		}
 
-		boolean[] passable = BArray.or(Level.passable, Level.avoid, null);
+		boolean[] passable = BArray.or(Floor.passable, Floor.avoid, null);
 		for (Actor actor : Actor.all()) {
 			if (actor instanceof Char) {
 				passable[((Char) actor).pos] = false;
@@ -91,7 +91,7 @@ public class WandOfTCloud extends Wand {
 		if ( curCharges > 9 ){
 		cloudLabel: for (int i = 0; i < n; i++) {
 			do {
-				for (int j = 0; j < Level.getLength(); j++) {
+				for (int j = 0; j < Floor.getLength(); j++) {
 					if (PathFinder.distance[j] == dist) {
 
 						if (Dungeon.hero.subClass == HeroSubClass.LEADER ){
@@ -117,15 +117,15 @@ public class WandOfTCloud extends Wand {
 		}
 	} else {
 		GLog.w(Messages.get(this, "more_charge"));
-		for (int i : Level.NEIGHBOURS9) {
+		for (int i : Floor.NEIGHBOURS9) {
 			int c = bolt.collisionPos + i;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				GameScene.add(Blob.seed(c, curCharges, ElectriShock.class));
 				CellEmitter.get(c).burst(EnergyParticle.FACTORY, 5);
 			}
 		}
 		}
-	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+	    Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {heap.shockhit();}
 	}
 
@@ -202,8 +202,8 @@ public class WandOfTCloud extends Wand {
 
 		if (enemy == null || !enemy.isAlive()) {
 			HashSet<Mob> enemies = new HashSet<Mob>();
-			for (Mob mob : Dungeon.level.mobs) {
-				if (mob.hostile && Level.fieldOfView[mob.pos]) {
+			for (Mob mob : Dungeon.depth.mobs) {
+				if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 					enemies.add(mob);
 				}
 			}
@@ -237,14 +237,14 @@ public class WandOfTCloud extends Wand {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.distance(pos, enemy.pos) <= 1) {
+		if (Floor.distance(pos, enemy.pos) <= 1) {
 
 			return super.doAttack(enemy);
 
 		} else {
 
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			}
@@ -253,7 +253,7 @@ public class WandOfTCloud extends Wand {
 
 			if (hit(this, enemy, true)) {
 				int dmg = Random.Int(6 + lvl, 20 + 3*lvl);
-				if (Level.water[enemy.pos] && !enemy.flying) {
+				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, this);
@@ -388,8 +388,8 @@ public class WandOfTCloud extends Wand {
 
 		if (enemy == null || !enemy.isAlive()) {
 			HashSet<Mob> enemies = new HashSet<Mob>();
-			for (Mob mob : Dungeon.level.mobs) {
-				if (mob.hostile && Level.fieldOfView[mob.pos]) {
+			for (Mob mob : Dungeon.depth.mobs) {
+				if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 					enemies.add(mob);
 				}
 			}
@@ -423,14 +423,14 @@ public class WandOfTCloud extends Wand {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Level.distance(pos, enemy.pos) <= 1) {
+		if (Floor.distance(pos, enemy.pos) <= 1) {
 
 			return super.doAttack(enemy);
 
 		} else {
 
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			}
@@ -439,7 +439,7 @@ public class WandOfTCloud extends Wand {
 
 			if (hit(this, enemy, true)) {
 				int dmg = Random.Int(4 + lvl, 12 + 3*lvl);
-				if (Level.water[enemy.pos] && !enemy.flying) {
+				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
 				enemy.damage(dmg, this);

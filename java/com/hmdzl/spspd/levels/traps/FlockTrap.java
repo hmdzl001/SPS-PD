@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.Sheep;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.watabou.noosa.audio.Sample;
@@ -50,11 +50,11 @@ public class FlockTrap extends Trap {
 
 			protected boolean act() {
 				int cell;
-				for (int i : Level.NEIGHBOURS9DIST2) {
+				for (int i : Floor.NEIGHBOURS9DIST2) {
 					cell = pos + i;
-					if (Level.insideMap(cell) && Actor.findChar(cell) == null && !(Level.solid[cell] || Level.pit[cell])) {
+					if (Floor.insideMap(cell) && Actor.findChar(cell) == null && !(Floor.solid[cell] || Floor.pit[cell])) {
 						Sheep sheep = new Sheep();
-						sheep.lifespan = 2 + Random.Int(Dungeon.depth + 10);
+						sheep.lifespan = 2 + Random.Int(Dungeon.dungeondepth + 10);
 						sheep.pos = cell;
 						GameScene.add(sheep);
 					}
@@ -66,7 +66,7 @@ public class FlockTrap extends Trap {
 			}
 		});
 
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {heap.darkhit();}
 	}
 

@@ -35,16 +35,16 @@ import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
 import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.watabou.utils.Random;
 
 public class HighGrass {
 
-	public static void trample(Level level, int pos, Char ch) {
+	public static void trample(Floor level, int pos, Char ch) {
 
-		Level.set(pos, Terrain.GRASS);
+		Floor.set(pos, Terrain.GRASS);
 		GameScene.updateMap(pos);
 		Statistics.findseed ++;
 
@@ -133,7 +133,7 @@ public class HighGrass {
 			}
 		}
 
-		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.ASCETIC && Dungeon.skins == 2) {
+		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.ASCETIC && Hero.skins == 2) {
 			Dungeon.hero.HP++;
 			Dungeon.gold++;
 		}

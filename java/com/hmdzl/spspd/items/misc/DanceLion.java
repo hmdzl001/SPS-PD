@@ -118,7 +118,7 @@ public class DanceLion extends Item {
 		} else if (action.equals(AC_BACK)) {
 			Buff.affect(curUser, Recharging.class,10f);
 			if(hero.subClass == HeroSubClass.SUPERSTAR){	
-				Buff.affect(curUser,Arcane.class,20f);
+				Buff.affect(curUser,Arcane.class,4f);
 			}
 			charge -= 40;
 			hero.spendAndNext(1f);

@@ -63,7 +63,7 @@ public class BrownBat extends Mob {
 
 	@Override
 	public int hitSkill(Char target) {
-		return 5+Dungeon.depth;
+		return 5+Dungeon.dungeondepth;
 	}
 
 
@@ -77,7 +77,7 @@ public class BrownBat extends Mob {
 		super.die(cause);
 
 		if (Random.Int(5) == 0) {
-			  for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+			  for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 				  if (Random.Int(2) == 0 && enemy!=null){mob.beckon(enemy.pos);}
 			      }
 			GLog.w(Messages.get(this,"die"));

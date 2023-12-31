@@ -63,7 +63,7 @@ public class BoundReward extends Item {
 			Item item1 = Generator.random(Random.oneOf(Generator.Category.MELEEWEAPON,
 					Generator.Category.ARMOR, Generator.Category.RING,
 					Generator.Category.ARTIFACT, Generator.Category.WAND));
-			Dungeon.level.drop(item1, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(item1, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 			
 			detach(hero.belongings.backpack);
 
@@ -83,9 +83,9 @@ public class BoundReward extends Item {
 			Item item23 = Generator.random(Random.oneOf(Generator.Category.HIGHFOOD,
 					Generator.Category.FOOD, Generator.Category.SEED,
 					Generator.Category.SEED4,Generator.Category.GOLD));
-			Dungeon.level.drop(item21, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-			Dungeon.level.drop(item22, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-			Dungeon.level.drop(item23, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(item21, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(item22, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(item23, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 
 			detach(hero.belongings.backpack);
 
@@ -103,8 +103,8 @@ public class BoundReward extends Item {
 			Item item32 = Generator.random(Random.oneOf(Generator.Category.HIGHFOOD,
 					Generator.Category.FOOD, Generator.Category.SEED,
 					Generator.Category.SEED4, Generator.Category.BOMBS));
-			Dungeon.level.drop(item31, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
-			Dungeon.level.drop(item32, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(item31, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
+			Dungeon.depth.drop(item32, Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 
 			detach(hero.belongings.backpack);
 

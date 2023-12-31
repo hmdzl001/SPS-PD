@@ -53,7 +53,7 @@ public class PixieParasol extends Pill {
 		}
 		
 	   if (action.equals(AC_EAT)) {
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+				for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 					Buff.affect(mob, Drowsy.class);
 					Buff.prolong(mob, Paralysis.class, Random.IntRange(10, 16));
 					Buff.affect(mob,ArmorBreak.class,50f).level(30);

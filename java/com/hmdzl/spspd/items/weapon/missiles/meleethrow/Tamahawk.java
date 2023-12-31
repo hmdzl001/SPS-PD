@@ -28,6 +28,8 @@ public class Tamahawk extends MeleeThrowWeapon {
 
 	public Tamahawk() {
 		super(5);
+		MIN = 53;
+		MAX = 68;
 	}
 
 }

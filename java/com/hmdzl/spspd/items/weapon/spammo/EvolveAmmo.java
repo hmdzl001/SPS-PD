@@ -35,7 +35,7 @@ public class EvolveAmmo extends SpAmmo {
 				cell.pos = defender.pos;
 				defender.destroy();
 				defender.sprite.killAndErase();
-				Dungeon.level.mobs.remove(defender);
+				Dungeon.depth.mobs.remove(defender);
 				GameScene.add(cell);
 				CellEmitter.get(cell.pos).burst(Speck.factory(Speck.WOOL), 4);
 			}
@@ -55,7 +55,7 @@ public class EvolveAmmo extends SpAmmo {
 				cell.pos = defender.pos;
 				defender.destroy();
 				defender.sprite.killAndErase();
-				Dungeon.level.mobs.remove(defender);
+				Dungeon.depth.mobs.remove(defender);
 				GameScene.add(cell);
 				CellEmitter.get(cell.pos).burst(Speck.factory(Speck.WOOL), 4);
 			}
@@ -74,7 +74,7 @@ public class EvolveAmmo extends SpAmmo {
 				cell.pos = defender.pos;
 				defender.destroy();
 				defender.sprite.killAndErase();
-				Dungeon.level.mobs.remove(defender);
+				Dungeon.depth.mobs.remove(defender);
 				GameScene.add(cell);
 				CellEmitter.get(cell.pos).burst(Speck.factory(Speck.WOOL), 4);
 			}

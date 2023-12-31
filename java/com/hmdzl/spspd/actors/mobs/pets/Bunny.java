@@ -53,9 +53,9 @@ public class Bunny extends PET{
 	public void move(int step) {
 		super.move(step);
 
-		if (Dungeon.level.map[step] == Terrain.HIGH_GRASS ||
-				Dungeon.level.map[step] == Terrain.OLD_HIGH_GRASS ||
-				Dungeon.level.map[step] == Terrain.GRASS ) {
+		if (Dungeon.depth.map[step] == Terrain.HIGH_GRASS ||
+				Dungeon.depth.map[step] == Terrain.OLD_HIGH_GRASS ||
+				Dungeon.depth.map[step] == Terrain.GRASS ) {
 			if (cooldown > 0) {
 				cooldown--;
 			}
@@ -93,7 +93,7 @@ public class Bunny extends PET{
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		if (cooldown==0) {
-			Dungeon.level.drop(Generator.random(Random.oneOf(Generator.Category.SEED,
+			Dungeon.depth.drop(Generator.random(Random.oneOf(Generator.Category.SEED,
 					Generator.Category.BERRY,Generator.Category.MUSHROOM)),pos).sprite.drop();
 			cooldown=Math.max(4,40-Dungeon.hero.petLevel);
 		}

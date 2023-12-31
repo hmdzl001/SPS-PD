@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.scenes.LoadSaveScene;
+import com.hmdzl.spspd.scenes.SaveScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.Game;
 
@@ -55,12 +55,10 @@ public class SaveYourLife extends Item {
 			curUser = hero;
 			try {
 				Dungeon.saveAll();
+				Game.switchScene(SaveScene.class);
 			} catch (IOException e) {
 				//
 			}
-			Dungeon.canSave=true;
-			Game.switchScene(LoadSaveScene.class);
-
 		} else {
 
 			super.execute(hero, action);

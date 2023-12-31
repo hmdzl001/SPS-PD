@@ -38,7 +38,7 @@ import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
 
-public class LearnLevel extends Level {
+public class LearnLevel extends Floor {
 
 
 	{
@@ -200,7 +200,7 @@ public class LearnLevel extends Level {
 
 	private void addKey(int pos) {
 		Item prize;
-		 prize = new IronKey(Dungeon.depth);
+		 prize = new IronKey(Dungeon.dungeondepth);
 		drop(prize.identify(), pos).type = Heap.Type.E_DUST;
 	}
 

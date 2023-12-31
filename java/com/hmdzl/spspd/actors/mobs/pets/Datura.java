@@ -89,11 +89,11 @@ public class Datura extends PET {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 		if (Random.Int(5) == 0) {
-			Dungeon.level.drop(new YellowDewdrop(), pos).sprite.drop();
+			Dungeon.depth.drop(new YellowDewdrop(), pos).sprite.drop();
 		}
         cooldown--;
 		if (cooldown < 0) {
-			Dungeon.level.drop(new VioletDewdrop(), pos).sprite.drop();
+			Dungeon.depth.drop(new VioletDewdrop(), pos).sprite.drop();
 			cooldown = Math.max(25,50 - hero.petLevel);
 		}
 		return damage;

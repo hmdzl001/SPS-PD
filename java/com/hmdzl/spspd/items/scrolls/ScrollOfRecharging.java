@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.SpellSprite;
 import com.hmdzl.spspd.effects.particles.EnergyParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -46,7 +46,7 @@ public class ScrollOfRecharging extends Scroll {
 	public void doRead() {
 
 		Buff.affect(curUser, Recharging.class, BUFF_DURATION);
-		Buff.affect(curUser, Arcane.class, BUFF_DURATION);
+		Buff.affect(curUser, Arcane.class, 3f);
 		charge(curUser);
 		
 		Sample.INSTANCE.play( Assets.SND_READ );
@@ -56,8 +56,8 @@ public class ScrollOfRecharging extends Scroll {
 		SpellSprite.show( curUser, SpellSprite.CHARGE );
 		setKnown();
 
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff.affect(mob,Shocked.class).level(6);
 			}
 		}

@@ -24,19 +24,13 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.mobs.GnollArcher;
 import com.hmdzl.spspd.actors.mobs.npcs.Ghost;
-import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer1;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
-import com.hmdzl.spspd.items.food.fruit.Blackberry;
-import com.hmdzl.spspd.items.food.fruit.Blueberry;
-import com.hmdzl.spspd.items.food.fruit.Cloudberry;
-import com.hmdzl.spspd.items.food.fruit.Moonberry;
-import com.hmdzl.spspd.items.quest.Mushroom;
 import com.hmdzl.spspd.levels.traps.AlarmTrap;
 import com.hmdzl.spspd.levels.traps.BoundTrap;
 import com.hmdzl.spspd.levels.traps.DewTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
+import com.hmdzl.spspd.levels.traps.KnowledgeTrap;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
-import com.hmdzl.spspd.levels.traps.WornTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
@@ -88,25 +82,25 @@ public class SewerLevel extends RegularLevel {
 
 	@Override
 	protected Class<?>[] trapClasses() {
-		return Dungeon.depth == 1 ?
-				new Class<?>[]{WornTrap.class} :
-				new Class<?>[]{ToxicTrap.class, AlarmTrap.class, FlockTrap.class, BoundTrap.class, DewTrap.class,
+		return Dungeon.dungeondepth == 1 ?
+				new Class<?>[]{KnowledgeTrap.class} :
+				new Class<?>[]{ToxicTrap.class, AlarmTrap.class, FlockTrap.class, BoundTrap.class, DewTrap.class, KnowledgeTrap.class,
 				        FireBuffTrap.class, IceBuffTrap.class, ShockBuffTrap.class, EarthBuffTrap.class,
 						LightBuffTrap.class, DarkBuffTrap.class};
 }
 
 	@Override
 	protected float[] trapChances() {
-		return Dungeon.depth == 1 ?
+		return Dungeon.dungeondepth == 1 ?
 				new float[]{1} :
-				new float[]{3, 3, 3, 6, 3,
+				new float[]{3, 3, 3, 6, 3, 1,
 			            2, 2, 2,
 						2, 2, 2};
 	}
 	
 	@Override
 	protected void setPar(){
-		Dungeon.pars[Dungeon.depth] = 500+(Dungeon.depth*50)+(secretDoors*20);
+		Dungeon.pars[Dungeon.dungeondepth] = 500+(Dungeon.dungeondepth *50)+(secretDoors*20);
 	}
 
 	@Override
@@ -129,7 +123,7 @@ public class SewerLevel extends RegularLevel {
 		}
 
 		for (int i = getWidth(); i < getLength() - getWidth(); i++) {
-			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Level.insideMap(i)) {
+			if (map[i] == Terrain.WALL && feeling == Feeling.SPECIAL_FLOOR && Floor.insideMap(i)) {
 
 				map[i] = Terrain.GLASS_WALL;
 			}
@@ -165,13 +159,13 @@ public class SewerLevel extends RegularLevel {
 		//		}
 		//	}
 		//}
-		for (int i = 0; i < getLength(); i++) {
+		//for (int i = 0; i < getLength(); i++) {
 
-			if (map[i] == Terrain.EXIT && Dungeon.depth == 1) {
-				map[i] = Terrain.LOCKED_EXIT;
+			//if (map[i] == Terrain.EXIT && Dungeon.depth == 1) {
+			//	map[i] = Terrain.LOCKED_EXIT;
 				//sealedlevel = true;
-			}
-		}
+		//	}
+		//}
 			setPar();
 		
 		
@@ -179,26 +173,26 @@ public class SewerLevel extends RegularLevel {
 
 	@Override
 	protected void createItems() {
-		if (Dungeon.depth == 1) {
-			addItemToSpawn(new Moonberry());
-			addItemToSpawn(new Blueberry());
-			addItemToSpawn(new Cloudberry());
-			addItemToSpawn(new Blackberry());
-			addItemToSpawn(new Mushroom());
+		//if (Dungeon.depth == 1) {
+		//	addItemToSpawn(new Moonberry());
+		//	addItemToSpawn(new Blueberry());
+		//	addItemToSpawn(new Cloudberry());
+		//	addItemToSpawn(new Blackberry());
+		//	addItemToSpawn(new Mushroom());
 			//addItemToSpawn(new Spectacles());
 			//addItemToSpawn(new Towel());
 			
 			//addItemToSpawn(new Egg());
-		}
+		//}
 
-		if (Dungeon.depth == 1){
-			Tinkerer1 npc = new Tinkerer1();
-			do {
-				npc.pos = randomRespawnCell();
-			} while (npc.pos == -1 || heaps.get(npc.pos) != null);
-			mobs.add(npc);
-			Actor.occupyCell(npc);
-		}
+		//if (Dungeon.depth == 1){
+		//	Tinkerer1 npc = new Tinkerer1();
+		//	do {
+		//		npc.pos = randomRespawnCell();
+		//	} while (npc.pos == -1 || heaps.get(npc.pos) != null);
+		//	mobs.add(npc);
+		//	Actor.occupyCell(npc);
+		//}
 
 		//if (Dungeon.depth == 2){
 		//
@@ -212,7 +206,7 @@ public class SewerLevel extends RegularLevel {
 	}
 	
 	public static void spawnGnoll(SewerLevel level) {
-		if (Dungeon.depth == 4){
+		if (Dungeon.dungeondepth == 4){
 
 			GnollArcher gnoll = new GnollArcher();
 			do {
@@ -232,7 +226,7 @@ public class SewerLevel extends RegularLevel {
 		addVisuals(this, scene);
 	}
 
-	public static void addVisuals(Level level, Scene scene) {
+	public static void addVisuals(Floor level, Scene scene) {
 		for (int i = 0; i < getLength(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
 				scene.add(new Sink(i));

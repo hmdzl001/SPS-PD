@@ -769,7 +769,7 @@ public class Generator {
 
 	public static Armor randomArmor() {
 		int curStr = Hero.STARTING_STR
-				+ Dungeon.limitedDrops.strengthPotions.count;
+				+ Dungeon.LimitedDrops.strengthPotions.count;
 
 		return randomArmor(curStr);
 	}
@@ -796,7 +796,7 @@ public class Generator {
 
 	public static Weapon randomWeapon() {
 		int curStr = Hero.STARTING_STR
-				+ Dungeon.limitedDrops.strengthPotions.count;
+				+ Dungeon.LimitedDrops.strengthPotions.count;
 
 		return randomWeapon(curStr);
 	}

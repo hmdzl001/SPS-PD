@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Dry;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.SandParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 
 public class SandStorm extends Blob {
@@ -34,7 +34,7 @@ public class SandStorm extends Blob {
 	protected void evolve() {
 
 		int from = WIDTH + 1;
-		int to = Level.getLength() - WIDTH - 1;
+		int to = Floor.getLength() - WIDTH - 1;
 
 		boolean observe = false;
 
@@ -66,7 +66,7 @@ public class SandStorm extends Blob {
 		if (ch != null && !ch.isImmune(this.getClass() )) {
 			Buff.affect(ch, Dry.class,4f);
 		}
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {
 			heap.earthhit();
 		}

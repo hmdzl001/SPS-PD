@@ -19,20 +19,25 @@ package com.hmdzl.spspd.scenes;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.GamesInProgress;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.GameLog;
+import com.hmdzl.spspd.windows.WndAflyInfo;
 import com.hmdzl.spspd.windows.WndError;
+import com.hmdzl.spspd.windows.WndOverload;
 import com.hmdzl.spspd.windows.WndStory;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.FileUtils;
 import com.watabou.utils.Random;
 
 import java.io.FileNotFoundException;
@@ -43,9 +48,9 @@ public class InterlevelScene extends PixelScene {
 	private static final float TIME_TO_FADE = 0.3f;
 
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, PORT4,
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, PORT4,OVERLOAD,
 		PORTSHADOWEATER,PORTPOT, PORTCRAB, PORTTENGU, PORTCOIN, PORTBONE, RETURNSAVE,
-		JOURNAL, SOKOBANFAIL, PALANTIR, BOSSRUSH, PORTMAP, SAVE, SLEEP, CHALLENGEBOOK, RESET,CHAOS,
+		JOURNAL, SOKOBANFAIL, PALANTIR, BOSSRUSH, PORTMAP, SAVE, CHALLENGEBOOK, RESET, CHAOS,
 		LEARN
 	}
 
@@ -79,7 +84,7 @@ public class InterlevelScene extends PixelScene {
 		super.create();
 
 		String text = Messages.get(Mode.class, mode.name());
-		
+
 		message = PixelScene.renderText(text, 9);
 		message.x = (Camera.main.width - message.width()) / 2;
 		message.y = (Camera.main.height - message.height()) / 2;
@@ -92,9 +97,7 @@ public class InterlevelScene extends PixelScene {
 		thread = new Thread() {
 			@Override
 			public void run() {
-
 				try {
-
 					Generator.reset();
 					switch (mode) {
 					case DESCEND:
@@ -175,7 +178,7 @@ public class InterlevelScene extends PixelScene {
 					case SAVE:
 					    restore2();
 						break;
-					case SLEEP:
+					case OVERLOAD:
 						restore3();
 						break;
 					case CHALLENGEBOOK:
@@ -192,7 +195,7 @@ public class InterlevelScene extends PixelScene {
 						break;
 					}
 
-					if ((Dungeon.depth % 5) == 0) {
+					if ((Dungeon.dungeondepth % 5) == 0) {
 						Sample.INSTANCE.load(Assets.SND_BOSS);
 					}
 
@@ -235,7 +238,7 @@ public class InterlevelScene extends PixelScene {
 			message.alpha(p);
 
 			if (mode == Mode.CONTINUE
-					|| (mode == Mode.DESCEND && Dungeon.depth == 1)) {
+					|| (mode == Mode.DESCEND && Dungeon.dungeondepth == 1)) {
 				Music.INSTANCE.volume(p);
 			}
 			if ((timeLeft -= Game.elapsed) <= 0) {
@@ -271,6 +274,7 @@ public class InterlevelScene extends PixelScene {
 		if (Dungeon.hero == null) {
 			//DriedRose.clearHeldGhostHero();
 			Dungeon.init();
+
 			if (noStory) {
 				Dungeon.chapters.add(WndStory.ID_SEWERS);
 				noStory = false;
@@ -283,17 +287,17 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.saveAll();
 		}
 
-		Level level;
-		if ((Dungeon.depth>55) && (Dungeon.depth >= Statistics.realdeepestFloor) && ((Random.Int(100)<101) || Dungeon.depth==56) ){
+		Floor level;
+		if ((Dungeon.dungeondepth >55) && (Dungeon.dungeondepth >= Statistics.realdeepestFloor) && ((Random.Int(100)<101) || Dungeon.dungeondepth ==56) ){
 			level = Dungeon.newMineBossLevel();	
 		//}else if (Dungeon.townCheck(Dungeon.depth) && (Dungeon.depth >= Statistics.realdeepestFloor || Random.Int(10)<2)){
 			//	level = Dungeon.newLevel();	
-	    }else if (Dungeon.depth >= Statistics.deepestFloor){
+	    }else if (Dungeon.dungeondepth >= Statistics.deepestFloor){
 			level = Dungeon.newLevel();
 
 		} else {
-			Dungeon.depth++;
-			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+			Dungeon.dungeondepth++;
+			level = Dungeon.loadLevel(GamesInProgress.curSlot);
 		}
 		Dungeon.switchLevel(level, level.entrance);
 	}
@@ -306,12 +310,12 @@ public class InterlevelScene extends PixelScene {
 		//Dungeon.saveLevel();
 		Dungeon.saveAll();
 
-		Level level;
-		if (Dungeon.depth >= Statistics.deepestFloor) {
+		Floor level;
+		if (Dungeon.dungeondepth >= Statistics.deepestFloor) {
 			level = Dungeon.newLevel();
 		} else {
-			Dungeon.depth++;
-			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+			Dungeon.dungeondepth++;
+			level = Dungeon.loadLevel(GamesInProgress.curSlot);
 		}
 		Dungeon.switchLevel(level, level.randomRespawnCell());
 	}
@@ -322,22 +326,22 @@ public class InterlevelScene extends PixelScene {
        // DriedRose.clearHeldGhostHero();
 		Dungeon.saveAll();
 		//Dungeon.saveLevel();
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 6) {
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 6) {
 			if (Dungeon.hero.spp > Dungeon.hero.lvl){
 				Dungeon.hero.spp --;
 			} else Dungeon.hero.HT--;
 		}
-		if (Dungeon.depth == 41) {
-			  Dungeon.depth=40;
-			  Level level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+		if (Dungeon.dungeondepth == 41) {
+			  Dungeon.dungeondepth =40;
+			  Floor level = Dungeon.loadLevel(GamesInProgress.curSlot);
 			  Dungeon.switchLevel(level, level.entrance);
-		} else if (Dungeon.depth > 26) {
-		  Dungeon.depth=1;
-		  Level level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+		} else if (Dungeon.dungeondepth > 26) {
+		  Dungeon.dungeondepth =1;
+		  Floor level = Dungeon.loadLevel(GamesInProgress.curSlot);
 		  Dungeon.switchLevel(level, level.entrance);
 		} else {
-		  Dungeon.depth--;
-		  Level level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+		  Dungeon.dungeondepth--;
+		  Floor level = Dungeon.loadLevel(GamesInProgress.curSlot);
 		  Dungeon.switchLevel(level, level.exit);	
 		}
 	}
@@ -348,10 +352,10 @@ public class InterlevelScene extends PixelScene {
 		//DriedRose.holdGhostHero( Dungeon.level );
        //Dungeon.hero.invisible=0;
         Dungeon.saveAll();
-		Dungeon.depth = returnDepth;
-		Level level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+		Dungeon.dungeondepth = returnDepth;
+		Floor level = Dungeon.loadLevel(GamesInProgress.curSlot);
 		Dungeon.switchLevel(level,
-				Level.resizingNeeded ? level.adjustPos(returnPos) : returnPos);
+				Floor.resizingNeeded ? level.adjustPos(returnPos) : returnPos);
 	}
 	
 	private void returnToSave() throws IOException {
@@ -361,58 +365,68 @@ public class InterlevelScene extends PixelScene {
        // Dungeon.hero.invisible=0;
         Dungeon.saveAll();
 		if (Dungeon.bossLevel(Statistics.deepestFloor)){
-			Dungeon.depth = Statistics.deepestFloor-1;
+			Dungeon.dungeondepth = Statistics.deepestFloor-1;
 		} else {
-			Dungeon.depth = Statistics.deepestFloor;
+			Dungeon.dungeondepth = Statistics.deepestFloor;
 		}
-		Level level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+		Floor level = Dungeon.loadLevel(GamesInProgress.curSlot);
 		Dungeon.switchLevel(level, level.entrance);
 	}
 
 	private void restore() throws IOException {
 
-		Actor.fixTime();
-		GameLog.wipe();
+		//Actor.fixTime();
+		//GameLog.wipe();
         //DriedRose.clearHeldGhostHero();
-		Dungeon.loadGame(StartScene.curClass);
-		if (Dungeon.depth == -1) {
-			Dungeon.depth = Statistics.deepestFloor;
-			Dungeon.switchLevel(Dungeon.loadLevel(StartScene.curClass), -1);
+		//Dungeon.loadGame(GamesInProgress.curSlot);
+		//if (Dungeon.depth == -1) {
+		//	Dungeon.depth = Statistics.deepestFloor;
+		//	Dungeon.switchLevel(Dungeon.loadLevel(GamesInProgress.curSlot), -1);
+		//} else {
+		//	Level level = Dungeon.loadLevel(GamesInProgress.curSlot);
+		//	Dungeon.switchLevel(level, Level.resizingNeeded ? level.adjustPos(Dungeon.hero.pos) : Dungeon.hero.pos);
+		//}
+		GameLog.wipe();
+		Dungeon.loadGame( GamesInProgress.curSlot );
+		if (Dungeon.dungeondepth == -1) {
+			Dungeon.dungeondepth = Statistics.deepestFloor;
+			Dungeon.switchLevel( Dungeon.loadLevel( GamesInProgress.curSlot ), -1 );
 		} else {
-			Level level = Dungeon.loadLevel(StartScene.curClass);
-			Dungeon.switchLevel(level, Level.resizingNeeded ? level.adjustPos(Dungeon.hero.pos) : Dungeon.hero.pos);
+			Floor level = Dungeon.loadLevel( GamesInProgress.curSlot );
+			Dungeon.switchLevel( level, Dungeon.hero.pos );
 		}
 	}
 	
 	private void restore2() throws IOException {
-
 		Actor.fixTime();
        // DriedRose.clearHeldGhostHero();
-		Dungeon.loadGame(StartScene.curClass);
-		if (Dungeon.depth == -1) {
-			Dungeon.depth = Statistics.deepestFloor;
-			Dungeon.switchLevel(Dungeon.loadLevel(StartScene.curClass), -1);
+		Dungeon.loadGame(GamesInProgress.curSlot);
+		if (Dungeon.dungeondepth == -1) {
+			Dungeon.dungeondepth = Statistics.deepestFloor;
+			Dungeon.switchLevel(Dungeon.loadLevel(GamesInProgress.curSlot), -1);
 		} else {
-			Level level = Dungeon.loadLevel(StartScene.curClass);
+			Floor level = Dungeon.loadLevel(GamesInProgress.curSlot);
 			Dungeon.switchLevel( level, Dungeon.hero.pos );
-			//Dungeon.switchLevel(level,Level.resizingNeeded ? level.adjustPos(Dungeon.hero.pos): Dungeon.hero.pos);
 		}
 	}
 
 	private void restore3() throws IOException {
-
 		Actor.fixTime();
-		//DriedRose.clearHeldGhostHero();
-		Dungeon.loadGame(StartScene.curClass);
-		if (Dungeon.depth == -1) {
-			Dungeon.depth = Statistics.deepestFloor;
-			Dungeon.switchLevel(Dungeon.loadLevel(StartScene.curClass), -1);
+		// DriedRose.clearHeldGhostHero();
+		Dungeon.loadGame(GamesInProgress.curSlot);
+		if (Dungeon.dungeondepth == -1) {
+			Dungeon.dungeondepth = Statistics.deepestFloor;
+			Dungeon.switchLevel(Dungeon.loadLevel(GamesInProgress.curSlot), -1);
 		} else {
-			Level level = Dungeon.loadLevel(StartScene.curClass);
+			Floor level = Dungeon.loadLevel(GamesInProgress.curSlot);
 			Dungeon.switchLevel( level, Dungeon.hero.pos );
-			//Dungeon.switchLevel(level,Level.resizingNeeded ? level.adjustPos(Dungeon.hero.pos): Dungeon.hero.pos);
 		}
+		//FileUtils.deleteDir(GamesInProgress.gameFolder(Dungeon.oldslot));
+		Dungeon.saveNewSlot(Dungeon.oldslot);
+		Dungeon.oldslot = 0;
+		//GameScene.show(new WndOverload());
 	}
+
 
 	private void resurrect() {
 
@@ -420,10 +434,10 @@ public class InterlevelScene extends PixelScene {
 		//DriedRose.clearHeldGhostHero();
         //DriedRose.holdGhostHero( Dungeon.level );
 		
-		if (Dungeon.level.locked) {
-			Dungeon.hero.resurrect(Dungeon.depth);
-			Dungeon.depth--;
-			Level level = Dungeon.newLevel();
+		if (Dungeon.depth.locked) {
+			Dungeon.hero.resurrect(Dungeon.dungeondepth);
+			Dungeon.dungeondepth--;
+			Floor level = Dungeon.newLevel();
 			Dungeon.switchLevel(level, level.entrance);
 		} else {
 			Dungeon.hero.resurrect(-1);
@@ -434,11 +448,13 @@ public class InterlevelScene extends PixelScene {
 	private void reset() {
 
 		Actor.fixTime();
-		Dungeon.depth--;
-		if (Dungeon.depth > 50)
-		{Level level = Dungeon.newChaosLevel();
+		Dungeon.dungeondepth--;
+		if (Dungeon.dungeondepth > 50)
+		{
+            Floor level = Dungeon.newChaosLevel();
 		Dungeon.switchLevel( level, level.entrance );
-		} else {Level level = Dungeon.newLevel();
+		} else {
+            Floor level = Dungeon.newLevel();
 			Dungeon.switchLevel( level, level.entrance );}
 
 	}	
@@ -449,7 +465,7 @@ public class InterlevelScene extends PixelScene {
 		//DriedRose.clearHeldGhostHero();
 		Dungeon.saveAll();
 				
-		Level level;
+		Floor level;
 		switch(branch){
 		case 1:
 			level=Dungeon.newCatacombLevel();
@@ -514,19 +530,19 @@ public class InterlevelScene extends PixelScene {
 		//DriedRose.holdGhostHero( Dungeon.level );
 		Dungeon.saveAll();
 				
-		Level level;
+		Floor level;
 		
 		/*if (branch==5 && !first){
 		   Dungeon.depth=55;
 		   level = Dungeon.loadLevel(Dungeon.hero.heroClass);	
 		   
 		} else*/ if (branch==0 && !first){
-			   Dungeon.depth=50;
-			   level = Dungeon.loadLevel(Dungeon.hero.heroClass);	
+			   Dungeon.dungeondepth =50;
+			   level = Dungeon.loadLevel(GamesInProgress.curSlot);
 			   
 		} else if (branch==7 && !first){
-			   Dungeon.depth=67;
-			   level = Dungeon.loadLevel(Dungeon.hero.heroClass);				   
+			   Dungeon.dungeondepth =67;
+			   level = Dungeon.loadLevel(GamesInProgress.curSlot);
 		} else {
 		   level=Dungeon.newJournalLevel(branch, first);			
 		}
@@ -539,26 +555,26 @@ public class InterlevelScene extends PixelScene {
 		//DriedRose.clearHeldGhostHero();
 		//DriedRose.holdGhostHero( Dungeon.level );
 		Dungeon.saveAll();
-		Level level;
+		Floor level;
 		if (branch==0 && !first){
-			Dungeon.depth=90;
-			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+			Dungeon.dungeondepth =90;
+			level = Dungeon.loadLevel(GamesInProgress.curSlot);
 
 		} else if (branch==1 && !first){
-			Dungeon.depth=27;
-			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+			Dungeon.dungeondepth =27;
+			level = Dungeon.loadLevel(GamesInProgress.curSlot);
 
 		} else	if (branch==2 && !first){
-			Dungeon.depth=28;
-			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+			Dungeon.dungeondepth =28;
+			level = Dungeon.loadLevel(GamesInProgress.curSlot);
 
 		} else	if (branch==3 && !first){
-			Dungeon.depth=29;
-			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+			Dungeon.dungeondepth =29;
+			level = Dungeon.loadLevel(GamesInProgress.curSlot);
 
 		} else	if (branch==4 && !first){
-			Dungeon.depth=30;
-			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+			Dungeon.dungeondepth =30;
+			level = Dungeon.loadLevel(GamesInProgress.curSlot);
 
 		} /*else	if (branch==5 && !first){
 			Dungeon.depth=31;
@@ -592,12 +608,12 @@ public class InterlevelScene extends PixelScene {
 			Dungeon.saveAll();
 		}
 
-		Level level;
-		if (Dungeon.depth >= Statistics.deepestFloor){
+		Floor level;
+		if (Dungeon.dungeondepth >= Statistics.deepestFloor){
 			level = Dungeon.newLearnLevel();
 		} else {
-			Dungeon.depth++;
-			level = Dungeon.loadLevel(Dungeon.hero.heroClass);
+			Dungeon.dungeondepth++;
+			level = Dungeon.loadLevel(GamesInProgress.curSlot);
 		}
 		Dungeon.switchLevel(level, level.entrance);
 	}

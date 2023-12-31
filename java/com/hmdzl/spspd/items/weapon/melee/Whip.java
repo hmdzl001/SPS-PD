@@ -38,6 +38,8 @@ public class Whip extends MeleeWeapon {
 
 	public Whip() {
 		super(3, 1f, 1f, 2);
+		MIN = 24;
+		MAX = 35;
 	}
 	
 	@Override

@@ -120,7 +120,7 @@ public class GnollMark extends Item {
 	  } else if( action.equals( AC_DARK ) ) {
 		    curUser = hero;
 		  	Buff.affect(hero, Recharging.class, 40f);
-			Buff.affect(hero, Arcane.class, 40f);
+			Buff.affect(hero, Arcane.class, 5f);
 		    Buff.affect(hero, STRdown.class, 40f);
 			Buff.affect(hero, Disarm.class, 40f);
 

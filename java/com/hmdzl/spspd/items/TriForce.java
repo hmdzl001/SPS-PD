@@ -86,7 +86,7 @@ public class TriForce extends Item {
 				return;
 			}
 			
-			if (Dungeon.depth>26 && !Dungeon.shadowyogkilled) {
+			if (Dungeon.dungeondepth >26 && !Dungeon.shadowyogkilled) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "boss_first"));
 				return;
@@ -104,8 +104,8 @@ public class TriForce extends Item {
 				if (buff != null)
 					buff.detach();
 
-           if (Dungeon.depth<25 && !Dungeon.bossLevel()){
-            	returnDepth = Dungeon.depth;
+           if (Dungeon.dungeondepth <25 && !Dungeon.bossLevel()){
+            	returnDepth = Dungeon.dungeondepth;
        			returnPos = hero.pos;
 				InterlevelScene.mode = InterlevelScene.Mode.PORT4;
 			} else {

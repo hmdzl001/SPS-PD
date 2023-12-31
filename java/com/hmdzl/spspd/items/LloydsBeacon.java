@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
@@ -97,14 +97,14 @@ public class LloydsBeacon extends Item {
 
 		if (action.equals(AC_SET) || action.equals(AC_RETURN)) {
 
-			if (Dungeon.bossLevel() || Dungeon.depth>24) {
+			if (Dungeon.bossLevel() || Dungeon.dungeondepth >24) {
 				hero.spend(LloydsBeacon.TIME_TO_USE);
 				GLog.w(TXT_PREVENTING);
 				return;
 			}
 
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-				if (Actor.findChar(hero.pos + Level.NEIGHBOURS8[i]) != null) {
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				if (Actor.findChar(hero.pos + Floor.NEIGHBOURS8[i]) != null) {
 					GLog.w(TXT_CREATURES);
 					return;
 				}
@@ -113,7 +113,7 @@ public class LloydsBeacon extends Item {
 
 		if (action.equals(AC_SET)) {
 
-			returnDepth = Dungeon.depth;
+			returnDepth = Dungeon.dungeondepth;
 			returnPos = hero.pos;
 
 			hero.spend(LloydsBeacon.TIME_TO_USE);
@@ -126,9 +126,9 @@ public class LloydsBeacon extends Item {
 
 		} else if (action.equals(AC_RETURN))  {
 
-			if (returnDepth == Dungeon.depth) {
+			if (returnDepth == Dungeon.dungeondepth) {
 				ScrollOfTeleportation.appear(hero, returnPos);
-				Dungeon.level.press(returnPos, hero);
+				Dungeon.depth.press(returnPos, hero);
 				Dungeon.observe();
 			} else {
 

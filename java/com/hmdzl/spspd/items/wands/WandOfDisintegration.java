@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Beam;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Callback;
@@ -74,7 +74,7 @@ public class WandOfDisintegration extends DamageWand {
 				chars.add( ch );
 			}
 
-			if (Level.solid[c])
+			if (Floor.solid[c])
 				terrainPassed++;
 			
 			CellEmitter.center( c ).burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );

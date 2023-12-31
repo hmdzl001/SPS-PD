@@ -81,7 +81,7 @@ public class Gold extends Item {
 		Statistics.goldCollected += quantity;
 		Badges.validateGoldCollected();
 
-		if(Dungeon.skins == 4 && Dungeon.hero.heroClass == HeroClass.WARRIOR){
+		if(Hero.skins == 4 && Dungeon.hero.heroClass == HeroClass.WARRIOR){
 			Dungeon.gold += (int)(quantity*0.2) + Dungeon.hero.spp;
 			Statistics.goldCollected += quantity;
 		}
@@ -131,7 +131,7 @@ public class Gold extends Item {
 
 	@Override
 	public Item random() {
-		quantity = Random.Int(30 + Dungeon.depth * 10, 60 + Dungeon.depth * 20);
+		quantity = Random.Int(30 + Dungeon.dungeondepth * 10, 60 + Dungeon.dungeondepth * 20);
 		return this;
 	}
 

@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SnowParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.utils.Random;
 
 public class Freezing {
@@ -36,7 +36,7 @@ public class Freezing {
 
 		Char ch = Actor.findChar(cell);
 		if (ch != null ) {
-			if (Level.water[ch.pos]) {
+			if (Floor.water[ch.pos]) {
 				Buff.prolong(ch, Frost.class,
 						Frost.duration(ch) * Random.Float(5f, 7.5f));
 			} else {
@@ -49,7 +49,7 @@ public class Freezing {
 			fire.clear(cell);
 		}
 
-		Heap heap = Dungeon.level.heaps.get(cell);
+		Heap heap = Dungeon.depth.heaps.get(cell);
 		if (heap != null) {
 			heap.icehit();
 		}

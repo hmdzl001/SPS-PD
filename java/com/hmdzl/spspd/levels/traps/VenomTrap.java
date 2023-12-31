@@ -38,12 +38,12 @@ public class VenomTrap extends Trap {
 	public void activate(Char ch) {
 		super.activate(ch);
 
-		VenomGas venomGas = Blob.seed(pos, 80 + 5 * Dungeon.depth, VenomGas.class);
+		VenomGas venomGas = Blob.seed(pos, 80 + 5 * Dungeon.dungeondepth, VenomGas.class);
 
-		venomGas.setStrength(1+Dungeon.depth/4);
+		venomGas.setStrength(1+Dungeon.dungeondepth /4);
 
 		GameScene.add(venomGas);
-		Heap heap = Dungeon.level.heaps.get(pos);
+		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {heap.earthhit();}
 
 	}

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.sellitem.SheepFur;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.SokobanBlackSheepSprite;
 
 public class SheepSokobanBlack extends NPC {
@@ -56,7 +56,7 @@ public void add(Buff buff) {
 
 @Override
 public boolean interact() {
-	int traps = Dungeon.level.countFleeceTraps(pos, 5);	
+	int traps = Dungeon.depth.countFleeceTraps(pos, 5);
 	int newPos = -1;
 	int curPos = pos;
 	int count = 100;
@@ -66,8 +66,8 @@ public boolean interact() {
 	if (traps>0){
 	
 	  do {
-		 newPos = Dungeon.level.randomRespawnCellSheep(pos, 5);
-		 dist = Level.distance(newPos, pos);
+		 newPos = Dungeon.depth.randomRespawnCellSheep(pos, 5);
+		 dist = Floor.distance(newPos, pos);
 		 if (count-- <= 0) {
 			break;
 		 }

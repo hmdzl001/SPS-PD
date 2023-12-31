@@ -38,7 +38,7 @@ public class WndHotel extends Window {
 
 		super();
 
-		IronKey key = new IronKey(Dungeon.depth);
+		IronKey key = new IronKey(Dungeon.dungeondepth);
 
 
 		IconTitle titlebar = new IconTitle();
@@ -58,7 +58,7 @@ public class WndHotel extends Window {
 			protected void onClick() {
                 if (Dungeon.gold > 100){
 					Dungeon.gold-=100;
-					IronKey key = new IronKey(Dungeon.depth);
+					IronKey key = new IronKey(Dungeon.dungeondepth);
 					key.doPickUp(Dungeon.hero);
 					hide();
 				} else {

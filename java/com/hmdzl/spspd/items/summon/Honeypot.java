@@ -31,7 +31,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.BeeSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -81,10 +81,10 @@ public class Honeypot extends Item {
 
 	@Override
 	protected void onThrow(int cell) {
-		if (Level.pit[cell]) {
+		if (Floor.pit[cell]) {
 			super.onThrow(cell);
 		} else {
-			Dungeon.level.drop(shatter(null, cell), cell);
+			Dungeon.depth.drop(shatter(null, cell), cell);
 		}
 	}
 
@@ -98,9 +98,9 @@ public class Honeypot extends Item {
 		int newPos = pos;
 		if (Actor.findChar(pos) != null) {
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
+			boolean[] passable = Floor.passable;
 
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int c = pos + n;
 				if (passable[c] && Actor.findChar(c) == null) {
 					candidates.add(c);
@@ -113,7 +113,7 @@ public class Honeypot extends Item {
 		if (newPos != -1 ) {
 			if (Dungeon.hero.subClass == HeroSubClass.LEADER ){
 				SteelBee bee = new SteelBee();
-				bee.spawn(Dungeon.depth);
+				bee.spawn(Dungeon.dungeondepth);
 				bee.HP = bee.HT;
 				bee.pos = newPos;
 
@@ -127,7 +127,7 @@ public class Honeypot extends Item {
 				return new ShatteredPot();
 			} else {
 				Bee bee = new Bee();
-				bee.spawn(Dungeon.depth);
+				bee.spawn(Dungeon.dungeondepth);
 				bee.setPotInfo(pos, owner);
 				bee.HP = bee.HT;
 				bee.pos = newPos;
@@ -176,7 +176,7 @@ public class Honeypot extends Item {
 
 		public Item setBee(Char bee) {
 			myBee = bee.id();
-			beeDepth = Dungeon.depth;
+			beeDepth = Dungeon.dungeondepth;
 			return this;
 		}
 
@@ -211,7 +211,7 @@ public class Honeypot extends Item {
 
 		private void updateBee(int cell, Char holder) {
 			// important, as ids are not unique between depths.
-			if (Dungeon.depth != beeDepth)
+			if (Dungeon.dungeondepth != beeDepth)
 				return;
 
 			Bee bee = (Bee) Actor.findById(myBee);
@@ -335,14 +335,14 @@ public class Honeypot extends Item {
 				// if already targeting something, and that thing is still alive and
 				// near the pot, keeping targeting it.
 				if (enemy != null && enemy.isAlive()
-						&& Level.distance(enemy.pos, potPos) <= 3)
+						&& Floor.distance(enemy.pos, potPos) <= 3)
 					return enemy;
 
 				// find all mobs near the pot
 				HashSet<Char> enemies = new HashSet<Char>();
-				for (Mob mob : Dungeon.level.mobs)
+				for (Mob mob : Dungeon.depth.mobs)
 					if (!(mob instanceof Bee)
-							&& Level.distance(mob.pos, potPos) <= 3
+							&& Floor.distance(mob.pos, potPos) <= 3
 							&& (mob.hostile || mob.ally))
 						enemies.add(mob);
 
@@ -351,7 +351,7 @@ public class Honeypot extends Item {
 				if (enemies.size() > 0)
 					return Random.element(enemies);
 				else
-					return (Level.distance(Dungeon.hero.pos, potPos) <= 3) ? Dungeon.hero
+					return (Floor.distance(Dungeon.hero.pos, potPos) <= 3) ? Dungeon.hero
 							: null;
 			}
 		}
@@ -361,7 +361,7 @@ public class Honeypot extends Item {
 			if (enemy != null && Actor.findById(potHolder) == enemy) {
 				target = enemy.pos;
 			} else if (potPos != -1
-					&& (state == WANDERING || Level.distance(target, potPos) > 3))
+					&& (state == WANDERING || Floor.distance(target, potPos) > 3))
 				this.target = target = potPos;
 			return super.getCloser(target);
 		}
@@ -423,7 +423,7 @@ public class Honeypot extends Item {
 		@Override
 		protected boolean getCloser(int target) {
 			if (state == WANDERING
-					|| Level.distance(target, Dungeon.hero.pos) > 6)
+					|| Floor.distance(target, Dungeon.hero.pos) > 6)
 				this.target = target = Dungeon.hero.pos;
 			return super.getCloser(target);
 		}
@@ -432,8 +432,8 @@ public class Honeypot extends Item {
 			if (enemy == null || !enemy.isAlive() || state == WANDERING) {
 
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]
 							&& mob.state != mob.PASSIVE) {
 						enemies.add(mob);
 					}
@@ -445,7 +445,7 @@ public class Honeypot extends Item {
 
 		@Override
 		public boolean interact() {
-			if (Level.passable[pos] || Dungeon.hero.flying) {
+			if (Floor.passable[pos] || Dungeon.hero.flying) {
 			int curPos = pos;
 
 			moveSprite(pos, Dungeon.hero.pos);

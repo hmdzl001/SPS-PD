@@ -47,7 +47,7 @@ public class PotionOfMindVision extends Potion {
 		Buff.affect(hero, Awareness.class, 30f);
 		Dungeon.observe();
 
-		if (Dungeon.level.mobs.size() > 0) {
+		if (Dungeon.depth.mobs.size() > 0) {
 			GLog.i( Messages.get(this, "see_mobs"));
 		} else {
 			GLog.i( Messages.get(this, "see_none"));

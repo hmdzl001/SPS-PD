@@ -18,7 +18,7 @@ import com.hmdzl.spspd.items.wands.WandOfError;
 import com.hmdzl.spspd.items.weapon.melee.special.ErrorW;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.ErrorAmmo;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.LoadSaveScene;
+import com.hmdzl.spspd.scenes.SaveScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Game;
@@ -134,11 +134,11 @@ public class RobotDMT extends Artifact {
 			detach(curUser.belongings.backpack);
 			try {
 				Dungeon.saveAll();
+				Game.switchScene(SaveScene.class);
 			} catch (IOException e) {
 				//
 			}
-			Dungeon.canSave=true;
-			Game.switchScene(LoadSaveScene.class);
+	
 		} 	else if (action.equals(AC_ERROR)) {
 			curUser = hero;
             curUser.spendAndNext(1f);
@@ -147,16 +147,16 @@ public class RobotDMT extends Artifact {
 			hero.sprite.emitter().burst(ElmoParticle.FACTORY, 12);
 			switch (Random.Int(4)){
 				case 0:
-					Dungeon.level.drop(new ErrorW() ,Dungeon.hero.pos).sprite.drop();
+					Dungeon.depth.drop(new ErrorW() ,Dungeon.hero.pos).sprite.drop();
 					break;
 				case 1:
-					Dungeon.level.drop(new WandOfError(),Dungeon.hero.pos).sprite.drop();
+					Dungeon.depth.drop(new WandOfError(),Dungeon.hero.pos).sprite.drop();
 					break;
 				case 2:
-					Dungeon.level.drop(new ErrorArmor(),Dungeon.hero.pos).sprite.drop();
+					Dungeon.depth.drop(new ErrorArmor(),Dungeon.hero.pos).sprite.drop();
 					break;
 				case 3:
-					Dungeon.level.drop(new ErrorAmmo(3),Dungeon.hero.pos).sprite.drop();
+					Dungeon.depth.drop(new ErrorAmmo(3),Dungeon.hero.pos).sprite.drop();
 					break;
 
 			}

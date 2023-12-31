@@ -60,7 +60,7 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.rockcode.Alink;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -126,8 +126,8 @@ public class ElderAvatar extends Mob {
 
 		a.pos = Terrain.WELL;
 		do {
-			a.pos = Random.Int(Dungeon.level.randomRespawnCellMob());
-		} while (Dungeon.level.map[a.pos] != Terrain.WELL
+			a.pos = Random.Int(Dungeon.depth.randomRespawnCellMob());
+		} while (Dungeon.depth.map[a.pos] != Terrain.WELL
 				|| Actor.findChar(a.pos) != null);
 		GameScene.add(a);
 	}
@@ -149,8 +149,8 @@ public class ElderAvatar extends Mob {
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		if (HP > 49) return Level.distance(pos, enemy.pos) <= 3;
-		else return Level.distance(pos, enemy.pos) <= 0;
+		if (HP > 49) return Floor.distance(pos, enemy.pos) <= 3;
+		else return Floor.distance(pos, enemy.pos) <= 0;
 	}
 
 	@Override
@@ -170,7 +170,7 @@ public class ElderAvatar extends Mob {
 			if (armor != null && !(armor instanceof WoodenArmor || armor instanceof RubberArmor || armor instanceof BaseArmor)
 					&& !armor.cursed) {
 				hero.belongings.armor = null;
-				Dungeon.level.drop(armor, hero.pos).sprite.drop();
+				Dungeon.depth.drop(armor, hero.pos).sprite.drop();
 				GLog.w(Messages.get(this, "disarm"));
 			}
 		}
@@ -180,8 +180,8 @@ public class ElderAvatar extends Mob {
     public boolean checkObelisk() {
 
         int obeliskAlive = 0;
-        if (Dungeon.level.mobs != null) {
-            for (Mob mob : Dungeon.level.mobs) {
+        if (Dungeon.depth.mobs != null) {
+            for (Mob mob : Dungeon.depth.mobs) {
                 if (mob instanceof Obelisk && mob.HP > 10) {
                     obeliskAlive++;
                 }
@@ -277,14 +277,14 @@ public class ElderAvatar extends Mob {
 		yell(Messages.get(this, "died"));
 
 		GameScene.bossSlain();
-		Dungeon.level.unseal();
-		Dungeon.level.drop(new Sokoban4(), pos).sprite.drop();
-		Dungeon.level.drop(new ArmorKit(), pos).sprite.drop();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
-		Dungeon.level.drop(new Gold(Random.Int(4900, 10000)), pos).sprite.drop();
+		Dungeon.depth.unseal();
+		Dungeon.depth.drop(new Sokoban4(), pos).sprite.drop();
+		Dungeon.depth.drop(new ArmorKit(), pos).sprite.drop();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
+		Dungeon.depth.drop(new Gold(Random.Int(4900, 10000)), pos).sprite.drop();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Alink(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
+			Dungeon.depth.drop(new Alink(), Dungeon.hero.pos).sprite.drop();
 
 		Badges.validateBossSlain();
 
@@ -368,9 +368,9 @@ public class ElderAvatar extends Mob {
 		}
 
 		public static void spawnAround(int pos) {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 					spawnAt(cell);
 				}
 			}
@@ -442,9 +442,9 @@ public class ElderAvatar extends Mob {
 		}
 
 		public static void spawnAround(int pos) {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 					spawnAt(cell);
 				}
 			}
@@ -529,9 +529,9 @@ public class ElderAvatar extends Mob {
 		}
 
 		public static void spawnAround(int pos) {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 					spawnAt(cell);
 				}
 			}
@@ -615,9 +615,9 @@ public class ElderAvatar extends Mob {
 		}
 
 		public static void spawnAround(int pos) {
-			for (int n : Level.NEIGHBOURS4) {
+			for (int n : Floor.NEIGHBOURS4) {
 				int cell = pos + n;
-				if (Level.passable[cell] && Actor.findChar(cell) == null) {
+				if (Floor.passable[cell] && Actor.findChar(cell) == null) {
 					spawnAt(cell);
 				}
 			}
@@ -699,7 +699,7 @@ public class ElderAvatar extends Mob {
 
 			if (3 - ElderAvatar.breaks > 4 * HP / HT) {
 				ElderAvatar.breaks++;
-				for (Mob mob : Dungeon.level.mobs) {
+				for (Mob mob : Dungeon.depth.mobs) {
 					if (mob instanceof ElderAvatar) {
 						mob.HP = 600;
 					}
@@ -712,8 +712,8 @@ public class ElderAvatar extends Mob {
 	public boolean checkElder() {
 
 		int elderAlive = 0;
-		if (Dungeon.level.mobs != null) {
-			for (Mob mob : Dungeon.level.mobs) {
+		if (Dungeon.depth.mobs != null) {
+			for (Mob mob : Dungeon.depth.mobs) {
 				if (mob instanceof ElderAvatar && mob.HP > 50) {
 					elderAlive++;
 				}

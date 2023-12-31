@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -49,21 +49,21 @@ public class RocketMissile extends Arrows {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
 			boolean terrainAffected = false;
-			for (int n : Level.NEIGHBOURS4OUT) {
+			for (int n : Floor.NEIGHBOURS4OUT) {
 				int c = cell + n;
-				if (c >= 0 && c < Level.getLength()) {
+				if (c >= 0 && c < Floor.getLength()) {
 					if (Dungeon.visible[c]) {
 						CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 					}
 
-					if (Level.flamable[c]) {
-						Level.set(c, Terrain.EMBERS);
+					if (Floor.flamable[c]) {
+						Floor.set(c, Terrain.EMBERS);
 						GameScene.updateMap(c);
 						terrainAffected = true;
 					}
 
-					if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL )&& Level.insideMap(c)){
-						Level.set(c, Terrain.EMPTY);
+					if ((Dungeon.depth.map[c] == Terrain.WALL || Dungeon.depth.map[c] == Terrain.GLASS_WALL )&& Floor.insideMap(c)){
+						Floor.set(c, Terrain.EMPTY);
 						GameScene.updateMap(c);
 						terrainAffected = true;
 					}
@@ -92,21 +92,21 @@ public class RocketMissile extends Arrows {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		boolean terrainAffected = false;
-		for (int n : Level.NEIGHBOURS4OUT) {
+		for (int n : Floor.NEIGHBOURS4OUT) {
 			int c = defender.pos + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
 				}
 
-				if (Level.flamable[c]) {
-					Level.set(c, Terrain.EMBERS);
+				if (Floor.flamable[c]) {
+					Floor.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 					terrainAffected = true;
 				}
 
-				if ((Dungeon.level.map[c] == Terrain.WALL || Dungeon.level.map[c] == Terrain.GLASS_WALL )&& Level.insideMap(c)){
-					Level.set(c, Terrain.EMPTY);
+				if ((Dungeon.depth.map[c] == Terrain.WALL || Dungeon.depth.map[c] == Terrain.GLASS_WALL )&& Floor.insideMap(c)){
+					Floor.set(c, Terrain.EMPTY);
 					GameScene.updateMap(c);
 					terrainAffected = true;
 				}

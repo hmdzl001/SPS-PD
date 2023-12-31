@@ -21,7 +21,7 @@ import com.hmdzl.spspd.actors.blobs.WaterOfAwareness;
 import com.hmdzl.spspd.actors.blobs.WaterOfHealth;
 import com.hmdzl.spspd.actors.blobs.WaterOfTransmutation;
 import com.hmdzl.spspd.actors.blobs.WellWater;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -36,7 +36,7 @@ public class MagicWellPainter extends Painter {
 	private static final Class<?>[] WATERS = { WaterOfAwareness.class,
 			WaterOfHealth.class, WaterOfTransmutation.class };
 		
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -66,7 +66,7 @@ public class MagicWellPainter extends Painter {
 			level.plant(new ReNepenth.Seed(), room.random());
 		}
 	
-		water.seed(c.x + Level.getWidth() * c.y, 1);
+		water.seed(c.x + Floor.getWidth() * c.y, 1);
 		level.blobs.put(waterClass, water);
 
 		room.entrance().set(Room.Door.Type.HIDDEN);

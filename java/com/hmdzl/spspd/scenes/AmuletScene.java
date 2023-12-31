@@ -22,6 +22,7 @@ package com.hmdzl.spspd.scenes;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.GamesInProgress;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.Speck;
@@ -60,7 +61,7 @@ public class AmuletScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				Dungeon.win(Messages.format(ResultDescriptions.WIN));
-				Dungeon.deleteGame( Dungeon.hero.heroClass, true );
+				Dungeon.deleteGame( GamesInProgress.curSlot, true );
 				Game.switchScene( RankingsScene.class );
 			}
 		};

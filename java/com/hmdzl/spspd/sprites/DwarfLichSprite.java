@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
@@ -62,10 +62,10 @@ public class DwarfLichSprite extends MobSprite {
 	}
 	
 	public void boneExplode(int cell) {
-		for (int n : Level.NEIGHBOURS9) {
+		for (int n : Floor.NEIGHBOURS9) {
 			int c = cell + n;
-			if (c >= 0 && c < Level.getLength()) {
-				if (Dungeon.visible[c] && Level.passable[c]) {
+			if (c >= 0 && c < Floor.getLength()) {
+				if (Dungeon.visible[c] && Floor.passable[c]) {
 					Sample.INSTANCE.play(Assets.SND_BONES);
 					CellEmitter.center(c).start(Speck.factory(Speck.RATTLE), 0.1f, 3);
 				}
@@ -74,8 +74,8 @@ public class DwarfLichSprite extends MobSprite {
 				if (ch != null && ch==Dungeon.hero) {
 					// those not at the center of the blast take damage less
 					// consistently.
-					int minDamage = c == cell ? Dungeon.depth + 5 : 1;
-					int maxDamage = 10 + Dungeon.depth * 2;
+					int minDamage = c == cell ? Dungeon.dungeondepth + 5 : 1;
+					int maxDamage = 10 + Dungeon.dungeondepth * 2;
 					                    
 					
 					int dmg = Random.NormalIntRange(minDamage, maxDamage) - Math.max(ch.drRoll(),0);
@@ -98,7 +98,7 @@ public class DwarfLichSprite extends MobSprite {
 
 	@Override
 	public void attack(int cell) {
-		if (!Level.adjacent(cell, ch.pos)) {
+		if (!Floor.adjacent(cell, ch.pos)) {
 
 			turnTo(ch.pos, cell);
 			boneExplode(cell);

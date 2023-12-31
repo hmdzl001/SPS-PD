@@ -37,6 +37,8 @@ public class FightGloves extends MeleeWeapon {
 
 	public FightGloves() {
 		super(2, 1f, 1f, 1);
+		MIN = 11;
+		MAX = 17;
 	}
 	
 	@Override

@@ -22,7 +22,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap.Type;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -32,7 +32,7 @@ import com.watabou.utils.Random;
 
 public class PitPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL);
 		fill(level, room, 1, Terrain.EMPTY);
@@ -88,7 +88,7 @@ public class PitPainter extends Painter {
 		}
 	}
 
-	private static Item prize(Level level) {
+	private static Item prize(Floor level) {
 
 		if (Random.Int(2) != 0) {
 			Item prize = level.findPrizeItem();

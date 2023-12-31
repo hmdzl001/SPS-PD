@@ -80,7 +80,7 @@ public class BossRush extends Item {
 
 		if (action.equals(AC_PORT)) {
             PocketBallFull.removePet(hero);
-			if ((Dungeon.bossLevel() || Dungeon.depth==1 || Dungeon.depth>25 ) && Dungeon.depth!=specialLevel) {
+			if ((Dungeon.bossLevel() || Dungeon.dungeondepth ==1 || Dungeon.dungeondepth >25 ) && Dungeon.dungeondepth !=specialLevel) {
 				hero.spend(TIME_TO_USE);
 				GLog.w(Messages.get(Item.class, "not_here"));
 				return;
@@ -91,7 +91,7 @@ public class BossRush extends Item {
 
 			hero.spend(TIME_TO_USE);
 			PocketBallFull.removePet(hero);
-			if (Dungeon.depth==specialLevel){
+			if (Dungeon.dungeondepth ==specialLevel){
 				this.doDrop(hero);
 			}
 			Buff buff = Dungeon.hero
@@ -99,8 +99,8 @@ public class BossRush extends Item {
 				if (buff != null)
 					buff.detach();
 
-              if (Dungeon.depth<25 && !Dungeon.bossLevel()){
-            	returnDepth = Dungeon.depth;
+              if (Dungeon.dungeondepth <25 && !Dungeon.bossLevel()){
+            	returnDepth = Dungeon.dungeondepth;
        			returnPos = hero.pos;
 				InterlevelScene.mode = InterlevelScene.Mode.BOSSRUSH;
 			} else {

@@ -32,7 +32,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -84,21 +84,21 @@ public class ActiveMrDestructo extends Item {
 		
 		if (Actor.findChar(cell) != null) {
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : Level.NEIGHBOURS8)
-				if (Level.passable[cell + i])
+			for (int i : Floor.NEIGHBOURS8)
+				if (Floor.passable[cell + i])
 					candidates.add(cell + i);
 			int newCell = candidates.isEmpty() ? cell : Random
 					.element(candidates);
 			
-			   if (!Level.pit[newCell] && activate) {
+			   if (!Floor.pit[newCell] && activate) {
 			   	 if (Dungeon.hero.subClass == HeroSubClass.LEADER){
 					 MrDestructo2dot0.spawnAt(newCell);
 				 } else MrDestructo.spawnAt(newCell);
 			   } else {
-			   Dungeon.level.drop(this, newCell).sprite.drop(cell);
+			   Dungeon.depth.drop(this, newCell).sprite.drop(cell);
 			   }
 			   
-		} else if (!Level.pit[cell] && activate) {
+		} else if (!Floor.pit[cell] && activate) {
             if (Dungeon.hero.subClass == HeroSubClass.LEADER){
                 MrDestructo2dot0.spawnAt(cell);
             } else
@@ -152,9 +152,9 @@ public class ActiveMrDestructo extends Item {
 		@Override
 		protected boolean act() {
 
-			for (int n : Level.NEIGHBOURS8DIST2) {
+			for (int n : Floor.NEIGHBOURS8DIST2) {
 				int c = pos + n;
-				if (c<Level.getLength() && c>0){
+				if (c< Floor.getLength() && c>0){
 					Char ch = Actor.findChar(c);
 				}
 			}
@@ -173,8 +173,8 @@ public class ActiveMrDestructo extends Item {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}
@@ -211,7 +211,7 @@ public class ActiveMrDestructo extends Item {
 
 		@Override
 		public int hitSkill(Char target) {
-			return 20+(Dungeon.depth);
+			return 20+(Dungeon.dungeondepth);
 		}
 
 		@Override
@@ -247,7 +247,7 @@ public class ActiveMrDestructo extends Item {
 				}
 
 				if (hit(this, ch, true)) {
-					ch.damage(Random.NormalIntRange(Dungeon.depth, Dungeon.depth+12), this);
+					ch.damage(Random.NormalIntRange(Dungeon.dungeondepth, Dungeon.dungeondepth +12), this);
 					damage(Random.NormalIntRange(5, 10), this);
 					Buff.affect(ch,ArmorBreak.class,3f).level(30);
 
@@ -306,9 +306,9 @@ public class ActiveMrDestructo extends Item {
 		@Override
 		protected boolean act() {
 
-			for (int n : Level.NEIGHBOURS8DIST2) {
+			for (int n : Floor.NEIGHBOURS8DIST2) {
 				int c = pos + n;
-				if (c<Level.getLength() && c>0){
+				if (c< Floor.getLength() && c>0){
 					Char ch = Actor.findChar(c);
 				}
 			}
@@ -327,8 +327,8 @@ public class ActiveMrDestructo extends Item {
 
 			if (enemy == null || !enemy.isAlive()) {
 				HashSet<Mob> enemies = new HashSet<Mob>();
-				for (Mob mob : Dungeon.level.mobs) {
-					if (mob.hostile && Level.fieldOfView[mob.pos]) {
+				for (Mob mob : Dungeon.depth.mobs) {
+					if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 						enemies.add(mob);
 					}
 				}
@@ -365,7 +365,7 @@ public class ActiveMrDestructo extends Item {
 
 		@Override
 		public int hitSkill(Char target) {
-			return 30+(Dungeon.depth);
+			return 30+(Dungeon.dungeondepth);
 		}
 
 		@Override
@@ -402,7 +402,7 @@ public class ActiveMrDestructo extends Item {
 
 				if (hit(this, ch, true)) {
 					Buff.affect(ch,ArmorBreak.class,3f).level(50);
-					ch.damage(Random.NormalIntRange(Dungeon.depth+20, Dungeon.depth+32), this);
+					ch.damage(Random.NormalIntRange(Dungeon.dungeondepth +20, Dungeon.dungeondepth +32), this);
 					damage(Random.NormalIntRange(5, 10), this);
 
 					if (Dungeon.visible[pos]) {

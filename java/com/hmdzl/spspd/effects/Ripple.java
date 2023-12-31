@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.effects;
 
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 
@@ -35,8 +35,8 @@ public class Ripple extends Image {
 	public void reset(int p) {
 		revive();
 
-		x = (p % Level.getWidth()) * DungeonTilemap.SIZE;
-		y = (p / Level.getWidth()) * DungeonTilemap.SIZE;
+		x = (p % Floor.getWidth()) * DungeonTilemap.SIZE;
+		y = (p / Floor.getWidth()) * DungeonTilemap.SIZE;
 
 		origin.set(width / 2, height / 2);
 		scale.set(0);

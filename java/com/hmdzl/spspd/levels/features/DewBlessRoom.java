@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Dewcharge;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -32,15 +32,15 @@ import com.hmdzl.spspd.utils.GLog;
 
 public class DewBlessRoom {
 
-	public static void trample(Level level, int pos, Char ch) {
+	public static void trample(Floor level, int pos, Char ch) {
 
 		if (ch instanceof Hero) {
 
             Buff.affect(Dungeon.hero, Dewcharge.class,720f);
-			GLog.h(Messages.get(DewBlessRoom.class, "order"), Dungeon.pars[Dungeon.depth]);
+			GLog.h(Messages.get(DewBlessRoom.class, "order"), Dungeon.pars[Dungeon.dungeondepth]);
 			CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
 			Dungeon.observe();
-			Level.set(pos, Terrain.GRASS);
+			Floor.set(pos, Terrain.GRASS);
 			GameScene.updateMap(pos);
 			//Dungeon.dewWater = true;
 		} else {

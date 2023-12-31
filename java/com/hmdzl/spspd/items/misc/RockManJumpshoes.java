@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -64,7 +64,7 @@ import java.util.ArrayList;
 
 				Ballistica route = new Ballistica(curUser.pos, target, Ballistica.PROJECTILE);
 				int cell = route.collisionPos;
-				int dist = Level.distance(curUser.pos, cell);
+				int dist = Floor.distance(curUser.pos, cell);
 				int range = 3;
 				if (Actor.findChar( cell ) != null && cell != curUser.pos)
 					cell = route.path.get(route.dist-1);
@@ -75,13 +75,13 @@ import java.util.ArrayList;
 				}
 
 				final int dest = cell;
-                final int finalrange = Level.distance(curUser.pos, cell);
+                final int finalrange = Floor.distance(curUser.pos, cell);
 				curUser.busy();
 				curUser.sprite.jump(curUser.pos, cell, new Callback() {
 					@Override
 					public void call() {
 						curUser.move(dest);
-						Dungeon.level.press(dest, curUser);
+						Dungeon.depth.press(dest, curUser);
 						Dungeon.observe();
 						CellEmitter.center(dest).burst(Speck.factory(Speck.DUST), 10);
 						curUser.spendAndNext(finalrange *1f);

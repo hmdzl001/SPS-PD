@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.npcs.MirrorImage;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
@@ -51,7 +51,7 @@ public class ScrollOfMirrorImage extends Scroll {
 	@Override
 	public void doRead() {
 		
-		if (Dungeon.depth>50){
+		if (Dungeon.dungeondepth >50){
 			GLog.w( Messages.get(Scroll.class, "prevent"));
 			Sample.INSTANCE.play(Assets.SND_READ);
 			Invisibility.dispel();
@@ -64,10 +64,10 @@ public class ScrollOfMirrorImage extends Scroll {
 
 		ArrayList<Integer> respawnPoints = new ArrayList<Integer>();
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			int p = curUser.pos + Level.NEIGHBOURS8[i];
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			int p = curUser.pos + Floor.NEIGHBOURS8[i];
 			if (Actor.findChar(p) == null
-					&& (Level.passable[p] || Level.avoid[p])) {
+					&& (Floor.passable[p] || Floor.avoid[p])) {
 				respawnPoints.add(p);
 			}
 		}
@@ -114,7 +114,7 @@ public class ScrollOfMirrorImage extends Scroll {
 		
 		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 			int p = hero.pos + PathFinder.NEIGHBOURS8[i];
-			if (Actor.findChar( p ) == null && (Level.passable[p] || Level.avoid[p])) {
+			if (Actor.findChar( p ) == null && (Floor.passable[p] || Floor.avoid[p])) {
 				respawnPoints.add( p );
 			}
 		}

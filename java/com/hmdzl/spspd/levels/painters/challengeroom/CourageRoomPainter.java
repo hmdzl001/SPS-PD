@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.levels.painters.challengeroom;
 
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -25,7 +25,7 @@ import com.watabou.utils.Random;
 
 public class CourageRoomPainter extends Painter {
 
-	public static void paint(Level level, Room room) {
+	public static void paint(Floor level, Room room) {
 
 		fill(level, room, Terrain.WALL );
 

@@ -34,7 +34,7 @@ import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class ThiefBossLevel extends Level {
+public class ThiefBossLevel extends Floor {
 
 	{
 		color1 = 0x4b6636;
@@ -94,8 +94,8 @@ public class ThiefBossLevel extends Level {
 
 		int y = TOP + 1;
 		while (y < TOP + HALL_HEIGHT) {
-			map[y * getWidth() + CENTER - 2] = Terrain.CHASM;
-			map[y * getWidth() + CENTER + 2] = Terrain.CHASM;
+			map[y * getWidth() + CENTER - 2] = Terrain.OLD_HIGH_GRASS;
+			map[y * getWidth() + CENTER + 2] = Terrain.OLD_HIGH_GRASS;
 			y += 2;
 		}
 		

@@ -7,7 +7,7 @@ import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.potions.PotionOfShield;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.GlassFruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -30,7 +30,7 @@ public class SiOtwoFlower extends Plant {
 			Buff.affect(ch, GlassShield.class).turns(2);
 		}
 
-		Dungeon.level.drop(new NutVegetable(), pos).sprite.drop();
+		Dungeon.depth.drop(new NutVegetable(), pos).sprite.drop();
 	}
 
 	public static class Seed extends Plant.Seed {
@@ -51,15 +51,15 @@ public class SiOtwoFlower extends Plant {
 			super.activate(ch);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			for (int i : Level.NEIGHBOURS8){
-				if (Level.passable[pos+i]){
+			for (int i : Floor.NEIGHBOURS8){
+				if (Floor.passable[pos+i]){
 					candidates.add(pos+i);
 				}
 			}
 
 			for (int i = 0; i < 2 && !candidates.isEmpty(); i++){
 				Integer c = Random.element(candidates);
-				Dungeon.level.drop(new GlassFruit(), c).sprite.drop(pos);
+				Dungeon.depth.drop(new GlassFruit(), c).sprite.drop(pos);
 				candidates.remove(c);
 			}
 		}

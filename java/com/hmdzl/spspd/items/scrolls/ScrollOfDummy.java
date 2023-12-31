@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ForeverShadow;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.DummySprite;
 import com.watabou.noosa.audio.Sample;
@@ -48,10 +48,10 @@ public class ScrollOfDummy extends Scroll {
 
 		ArrayList<Integer> respawnPoints = new ArrayList<Integer>();
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			int p = curUser.pos + Level.NEIGHBOURS8[i];
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			int p = curUser.pos + Floor.NEIGHBOURS8[i];
 			if (Actor.findChar(p) == null
-					&& (Level.passable[p] || Level.avoid[p])) {
+					&& (Floor.passable[p] || Floor.avoid[p])) {
 				respawnPoints.add(p);
 			}
 		}
@@ -74,10 +74,10 @@ public class ScrollOfDummy extends Scroll {
 	public void empoweredRead() {
 
         ArrayList<Integer> respawnPoints = new ArrayList<Integer>();
-        for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-            int p = curUser.pos + Level.NEIGHBOURS8[i];
+        for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+            int p = curUser.pos + Floor.NEIGHBOURS8[i];
             if (Actor.findChar(p) == null
-                    && (Level.passable[p] || Level.avoid[p])) {
+                    && (Floor.passable[p] || Floor.avoid[p])) {
                 respawnPoints.add(p);
             }
         }

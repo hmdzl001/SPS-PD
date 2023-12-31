@@ -35,6 +35,8 @@ public class AssassinsBlade extends MeleeWeapon {
 
 	public AssassinsBlade() {
 		super(4, 1f, 1f, 1);
+		MIN = 26;
+		MAX = 34;
 	}
 	
     @Override

@@ -34,7 +34,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Chains;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -106,10 +106,10 @@ public class EtherealChains extends Artifact {
 
 		@Override
 		public void onSelect(Integer target) {
-			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
+			if (target != null && (Dungeon.depth.visited[target] || Dungeon.depth.mapped[target])){
 
 				//ballistica does not go through walls on pre-rework boss arenas
-				int missileProperties = (Dungeon.depth == 10 || Dungeon.depth == 15 || Dungeon.depth == 20 || Dungeon.depth == 25) ?
+				int missileProperties = (Dungeon.dungeondepth == 10 || Dungeon.dungeondepth == 15 || Dungeon.dungeondepth == 20 || Dungeon.dungeondepth == 25) ?
 						Ballistica.PROJECTILE : Ballistica.STOP_CHARS | Ballistica.STOP_TARGET;
 
 				final Ballistica chain = new Ballistica(curUser.pos, target, missileProperties);
@@ -118,7 +118,7 @@ public class EtherealChains extends Artifact {
 				if (Actor.findChar( chain.collisionPos ) != null){
 					int newPos = -1;
 					for (int i : chain.subPath(1, chain.dist)){
-						if (!Level.solid[i] && Actor.findChar(i) == null){
+						if (!Floor.solid[i] && Actor.findChar(i) == null){
 							newPos = i;
 							break;
 						}
@@ -128,7 +128,7 @@ public class EtherealChains extends Artifact {
 					} else {
 						final int newMobPos = newPos;
 						final Char affected = Actor.findChar( chain.collisionPos );
-						int chargeUse = Level.distance(affected.pos, newMobPos);
+						int chargeUse = Floor.distance(affected.pos, newMobPos);
 						if (chargeUse > charge) {
 							GLog.w( Messages.get(EtherealChains.class, "no_charge") );
 							return;
@@ -144,7 +144,7 @@ public class EtherealChains extends Artifact {
 							public void call() {
 								Actor.add(new Pushing(affected, affected.pos, newMobPos, new Callback() {
 									public void call() {
-										Dungeon.level.press(newMobPos, affected);
+										Dungeon.depth.press(newMobPos, affected);
 									}
 								}));
 								affected.pos = newMobPos;
@@ -154,20 +154,20 @@ public class EtherealChains extends Artifact {
 						}));
 					}
 
-				} else if (Level.solid[chain.path.get(chain.dist)]
-						|| (chain.dist > 0 && Level.solid[chain.path.get(chain.dist-1)])
-						|| (chain.path.size() > chain.dist+1 && Level.solid[chain.path.get(chain.dist+1)])
+				} else if (Floor.solid[chain.path.get(chain.dist)]
+						|| (chain.dist > 0 && Floor.solid[chain.path.get(chain.dist-1)])
+						|| (chain.path.size() > chain.dist+1 && Floor.solid[chain.path.get(chain.dist+1)])
 						//if the player is trying to grapple the edge of the map, let them.
 						|| (chain.path.size() == chain.dist+1)) {
 					int newPos = -1;
 					for (int i : chain.subPath(1, chain.dist)){
-						if (!Level.solid[i] && Actor.findChar(i) == null) newPos = i;
+						if (!Floor.solid[i] && Actor.findChar(i) == null) newPos = i;
 						}
 					if (newPos == -1) {
 						GLog.w( Messages.get(EtherealChains.class, "does_nothing") );
 					} else {
 						final int newHeroPos = newPos;
-						int chargeUse = Level.distance(curUser.pos, newHeroPos);
+						int chargeUse = Floor.distance(curUser.pos, newHeroPos);
 						if (chargeUse > charge){
 							GLog.w( Messages.get(EtherealChains.class, "no_charge") );
 							return;
@@ -180,7 +180,7 @@ public class EtherealChains extends Artifact {
 							public void call() {
 								Actor.add(new Pushing(curUser, curUser.pos, newHeroPos, new Callback() {
 									public void call() {
-										Dungeon.level.press(newHeroPos, curUser);
+										Dungeon.depth.press(newHeroPos, curUser);
 									}
 								}));
 								curUser.spendAndNext(1f);
@@ -208,7 +208,7 @@ public class EtherealChains extends Artifact {
 
 		@Override
 		public void onSelect(Integer target) {
-			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
+			if (target != null && (Dungeon.depth.visited[target] || Dungeon.depth.mapped[target])){
 
 				if (Actor.findChar( target ) != null){
 					Char mob = Actor.findChar(target);

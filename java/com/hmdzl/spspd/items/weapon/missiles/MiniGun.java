@@ -29,7 +29,7 @@ import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -242,7 +242,7 @@ public class MiniGun extends Weapon {
 	public void minicheck( int cell ) {
 		final HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();
 		Item proto = new EscapeKnive();
-		for (int n : Level.NEIGHBOURS9DIST2) {
+		for (int n : Floor.NEIGHBOURS9DIST2) {
 			int c = cell + n;
 			final Char target;
 

@@ -104,7 +104,7 @@ public class EyeOfSkadi extends Artifact {
 
 		@Override
 		public void onSelect(Integer target) {
-			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
+			if (target != null && (Dungeon.depth.visited[target] || Dungeon.depth.mapped[target])){
 
 				if (Actor.findChar( target ) != null){
 					Char mob = Actor.findChar(target);
@@ -136,7 +136,7 @@ public class EyeOfSkadi extends Artifact {
 	}
 	
 	public void blast(int cell) {
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			
             CellEmitter.get(mob.pos).start(SnowParticle.FACTORY, 0.2f, 6);
 			mob.damage(Random.Int(mob.HP/4,mob.HP/2 ), DamageType.ICE_DAMAGE);

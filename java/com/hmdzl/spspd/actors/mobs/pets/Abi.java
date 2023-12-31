@@ -31,10 +31,9 @@ import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.wands.WandOfLight;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AbiSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.watabou.noosa.audio.Sample;
@@ -89,8 +88,8 @@ public class Abi extends PET {
 		if (cooldown > 1) {
 			return super.doAttack(enemy);
 		} else if (Random.Int(20) !=0 ){
-			boolean visible = Level.fieldOfView[pos]
-					|| Level.fieldOfView[enemy.pos];
+			boolean visible = Floor.fieldOfView[pos]
+					|| Floor.fieldOfView[enemy.pos];
 			if (visible) {
 				sprite.zap(enemy.pos);
 			} else {
@@ -108,7 +107,7 @@ public class Abi extends PET {
 		new Flare(6, 32).color(0x33FF33, true).show(this.sprite, 2f);
 		Sample.INSTANCE.play(Assets.SND_TELEPORT);
 		int dmg = this.damageRoll();
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			if (mob.isAlive() && ! (mob instanceof PET)) {
 				mob.damage(dmg * 3, ENERGY_DAMAGE);
 			}

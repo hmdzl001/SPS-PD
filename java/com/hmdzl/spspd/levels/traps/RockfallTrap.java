@@ -28,7 +28,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.hmdzl.spspd.utils.GLog;
@@ -49,13 +49,13 @@ public class RockfallTrap extends Trap {
 
 		boolean seen = false;
 
-		for (int i : Level.NEIGHBOURS9){
+		for (int i : Floor.NEIGHBOURS9){
 
-			if (Level.solid[pos+i])
+			if (Floor.solid[pos+i])
 				continue;
 
 			if (Dungeon.visible[ pos+i ]){
-				CellEmitter.get( pos + i - Level.WIDTH ).start(Speck.factory(Speck.ROCK), 0.07f, 10);
+				CellEmitter.get( pos + i - Floor.WIDTH ).start(Speck.factory(Speck.ROCK), 0.07f, 10);
 				if (!seen) {
 					Camera.main.shake(3, 0.7f);
 					Sample.INSTANCE.play(Assets.SND_ROCKS);
@@ -66,7 +66,7 @@ public class RockfallTrap extends Trap {
 			//Char ch = Actor.findChar( pos+i );
 
 			if (ch != null){
-				int damage = Random.NormalIntRange(Dungeon.depth, Dungeon.depth*2);
+				int damage = Random.NormalIntRange(Dungeon.dungeondepth, Dungeon.dungeondepth *2);
 				damage -= Random.IntRange( 0, ch.drRoll());
 				ch.damage( Math.max(damage, 0) , this);
 

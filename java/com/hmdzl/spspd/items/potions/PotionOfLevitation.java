@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.Levitation;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
@@ -51,9 +51,9 @@ public class PotionOfLevitation extends Potion {
 			Sample.INSTANCE.play(Assets.SND_SHATTER);
 		}
 
-			for (int offset : Level.NEIGHBOURS9) {
+			for (int offset : Floor.NEIGHBOURS9) {
 			if (Actor.findChar(cell + offset) != null
-					|| Dungeon.level.heaps.get(cell + offset) != null) {
+					|| Dungeon.depth.heaps.get(cell + offset) != null) {
 
 				GameScene.add(Blob.seed(cell + offset, 5, ElectriShock.class));
 

@@ -27,7 +27,7 @@ import com.hmdzl.spspd.items.challengelists.SewerChallenge;
 import com.hmdzl.spspd.items.food.completefood.GoldenNut;
 import com.hmdzl.spspd.items.reward.SewerReward;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.NutFruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.GnollArcherSprite;
@@ -61,10 +61,10 @@ public class GnollArcher extends Mob {
 	protected boolean canAttack(Char enemy) {
 		Ballistica attack = new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE);
 		if (buff(Locked.class) != null){
-			return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+			return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 		} else
 		
-		return !Level.adjacent(pos, enemy.pos) && attack.collisionPos == enemy.pos;
+		return !Floor.adjacent(pos, enemy.pos) && attack.collisionPos == enemy.pos;
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class GnollArcher extends Mob {
 	
 	@Override
 	protected boolean getCloser(int target) {
-		if (Level.adjacent(pos, enemy.pos)) {
+		if (Floor.adjacent(pos, enemy.pos)) {
 			return getFurther(target);
 		} else {
 			return super.getCloser(target);
@@ -89,36 +89,36 @@ public class GnollArcher extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		if (Dungeon.depth > 25) {
-			Dungeon.level.drop(new NutFruit(3), pos).sprite.drop();
+		if (Dungeon.dungeondepth > 25) {
+			Dungeon.depth.drop(new NutFruit(3), pos).sprite.drop();
 		}
 
 		Statistics.archersKilled++;
 		GLog.w(Messages.get(Mob.class, "killcount", Statistics.archersKilled));
 
 
-		if ( Dungeon.depth < 27) {
-			Dungeon.level.drop(new SewerChallenge(), pos).sprite.drop();
+		if ( Dungeon.dungeondepth < 27) {
+			Dungeon.depth.drop(new SewerChallenge(), pos).sprite.drop();
 			explodeDew(pos);
 		} else {
 			explodeDew(pos);
 		}
 
 		if (Statistics.archersKilled == 25) {
-			Dungeon.level.drop(new TreasureMap(), pos).sprite.drop();
+			Dungeon.depth.drop(new TreasureMap(), pos).sprite.drop();
 		}
 
 		if (Statistics.archersKilled == 50) {
-			Dungeon.level.drop(new SacrificeBook(), pos).sprite.drop();
+			Dungeon.depth.drop(new SacrificeBook(), pos).sprite.drop();
 		}
 
 		if (Statistics.archersKilled == 100) {
-			Dungeon.level.drop(new SewerReward(), pos).sprite.drop();
+			Dungeon.depth.drop(new SewerReward(), pos).sprite.drop();
 		}
 
 		if (Statistics.goldThievesKilled > 99 && Statistics.skeletonsKilled > 99
 				&& Statistics.albinoPiranhasKilled > 99 && Statistics.archersKilled == 100 ) {
-			Dungeon.level.drop(new GoldenNut(), pos).sprite.drop();
+			Dungeon.depth.drop(new GoldenNut(), pos).sprite.drop();
 		}
 	}
 }

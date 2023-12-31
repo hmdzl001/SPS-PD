@@ -84,7 +84,7 @@ public class PigPet extends PET {
 	public int attackProc(Char enemy, int damage) {
         cooldown--;
         if(cooldown == 0){
-			Dungeon.level.drop(Generator.random(Generator.Category.MUSHROOM), enemy.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(Generator.Category.MUSHROOM), enemy.pos).sprite.drop();
 			cooldown =  Math.max(25,45 - hero.petLevel);
 		}
 		return damage;
@@ -93,7 +93,7 @@ public class PigPet extends PET {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 		if (Random.Int(15) == 0) {
-			Dungeon.level.drop(new SmallMeat(), pos).sprite.drop();
+			Dungeon.depth.drop(new SmallMeat(), pos).sprite.drop();
 		}
 
 		return damage;

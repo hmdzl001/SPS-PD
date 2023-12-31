@@ -58,7 +58,7 @@ public class WndAscend extends Window {
 		RedButton btnReward = new RedButton(Messages.get(this, "ok")) {
 			@Override
 			protected void onClick() {
-				Dungeon.level.forcedone=true;
+				Dungeon.depth.forcedone=true;
 				hide();
 			}
 		};

@@ -33,7 +33,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -85,15 +85,15 @@ public class Pickaxe extends Weapon {
 
 		if (action.equals(AC_MINE)) {
 
-			if ((Dungeon.depth < 11 || Dungeon.depth > 15) && !(Dungeon.depth==32)) {
+			if ((Dungeon.dungeondepth < 11 || Dungeon.dungeondepth > 15) && !(Dungeon.dungeondepth ==32)) {
 				GLog.w(Messages.get(this,"no_vein"));
 				return;
 			}
 
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
 
-				final int pos = hero.pos + Level.NEIGHBOURS8[i];
-				if (Dungeon.level.map[pos] == Terrain.WALL_DECO) {
+				final int pos = hero.pos + Floor.NEIGHBOURS8[i];
+				if (Dungeon.depth.map[pos] == Terrain.WALL_DECO) {
 
 					hero.spend(TIME_TO_MINE);
 					hero.busy();
@@ -107,14 +107,14 @@ public class Pickaxe extends Weapon {
 									Speck.factory(Speck.STAR), 7);
 							Sample.INSTANCE.play(Assets.SND_EVOKE);
 
-							Level.set(pos, Terrain.WALL);
+							Floor.set(pos, Terrain.WALL);
 							GameScene.updateMap(pos);
 
 							DarkGold gold = new DarkGold();
 							if (gold.doPickUp(Dungeon.hero)) {
 								GLog.i( Messages.get(Dungeon.hero, "you_now_have", gold.name()));
 							} else {
-								Dungeon.level.drop(gold, hero.pos).sprite
+								Dungeon.depth.drop(gold, hero.pos).sprite
 										.drop();
 							}
 

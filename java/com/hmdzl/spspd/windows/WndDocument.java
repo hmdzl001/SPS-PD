@@ -141,7 +141,7 @@ public class WndDocument extends WndTabbed {
 				//depth.text(Integer.toString(d));
 				//depth.measure();
 				
-				if (d == Dungeon.depth) {
+				if (d == Dungeon.dungeondepth) {
 					label.hardlight(TITLE_COLOR);
 					//depth.hardlight(TITLE_COLOR);
 				}

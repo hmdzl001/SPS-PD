@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.StoneIce;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.special.SJRBMusic;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ExVagrantSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -93,8 +93,8 @@ public class ExVagrant extends Vagrant {
 
 		super.die(cause);
 
-		for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-			Char ch = findChar(pos + Level.NEIGHBOURS8[i]);
+		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+			Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
 			if (ch != null && ch.isAlive()) {
 				Buff.affect(ch,StoneIce.class).level(5);
 			}

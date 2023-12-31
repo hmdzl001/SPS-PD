@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.DarkGas;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
@@ -59,9 +59,9 @@ public class SmokeFruit extends Arrows {
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
-			for (int n : Level.NEIGHBOURS8) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int c = cell + n;
-				if (c >= 0 && c < Level.getLength()) {
+				if (c >= 0 && c < Floor.getLength()) {
 					GameScene.add(Blob.seed(c, 8, DarkGas.class));
 				}
 			}
@@ -72,9 +72,9 @@ public class SmokeFruit extends Arrows {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 		Buff.affect(defender, Blindness.class,5f);
-		for (int n : Level.NEIGHBOURS8) {
+		for (int n : Floor.NEIGHBOURS8) {
 			int c = defender.pos + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				GameScene.add(Blob.seed(c, 5, DarkGas.class));
 			}
 		}

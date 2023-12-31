@@ -43,7 +43,7 @@ public class BattleFlower extends Vegetable {
 		if (action.equals(AC_EAT)){
 			Buff.affect(hero, AttackUp.class,30f).level(25);
 			Buff.affect(hero, DefenceUp.class,30f).level(25);
-			Buff.affect(hero, Arcane.class,30f);
+			Buff.affect(hero, Arcane.class,5f);
 			Buff.affect(hero, TargetShoot.class,30f);
 		}
 	}

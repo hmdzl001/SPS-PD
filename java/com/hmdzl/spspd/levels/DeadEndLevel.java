@@ -23,7 +23,7 @@ import com.watabou.utils.Random;
 
 import java.util.Arrays;
 
-public class DeadEndLevel extends Level {
+public class DeadEndLevel extends Floor {
 
 	private static final int SIZE = 5;
 

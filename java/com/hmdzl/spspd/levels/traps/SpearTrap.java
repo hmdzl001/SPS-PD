@@ -25,8 +25,6 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.Wound;
-import com.hmdzl.spspd.levels.Level;
-import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.watabou.noosa.audio.Sample;
@@ -58,7 +56,7 @@ public class SpearTrap extends Trap {
 
 		//Char ch = Actor.findChar( pos);
 		if (ch != null){
-			int damage = Random.NormalIntRange(Dungeon.depth*2, Dungeon.depth*4);
+			int damage = Random.NormalIntRange(Dungeon.dungeondepth *2, Dungeon.dungeondepth *4);
 			damage -= Random.IntRange( 0, ch.drRoll());
 			ch.damage( Math.max(damage, 0) , this);
 			if (!ch.isAlive() && ch == Dungeon.hero){

@@ -76,7 +76,7 @@ public abstract class Trap implements Bundlable {
 	}
 
 	protected void disarm(){
-		Dungeon.level.disarmTrap(pos);
+		Dungeon.depth.disarmTrap(pos);
 		active = false;
 		if (sprite != null) {
 			sprite.reset( this );

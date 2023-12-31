@@ -28,7 +28,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.effects.Wound;
-import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.sprites.TrapSprite;
 import com.watabou.utils.Random;
 
@@ -45,7 +44,7 @@ public class GrippingTrap extends Trap {
 		Char c = Actor.findChar( pos );
 
 		if (c != null) {
-			int damage = Math.max( 0,  (Dungeon.depth) - Random.IntRange( 0, c.drRoll() / 2 ) );
+			int damage = Math.max( 0,  (Dungeon.dungeondepth) - Random.IntRange( 0, c.drRoll() / 2 ) );
 			Buff.affect( c, Bleeding.class ).set( damage );
 			Buff.prolong( c, Cripple.class, 15f);
 			Buff.prolong( c, Roots.class, 5f);

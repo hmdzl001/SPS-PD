@@ -27,7 +27,7 @@ import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTerror;
 import com.hmdzl.spspd.items.wands.WandOfBlood;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ShadowDragonSprite;
 import com.watabou.utils.Random;
 
@@ -84,7 +84,7 @@ public class ShadowDragon extends PET{
 
 	@Override
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override

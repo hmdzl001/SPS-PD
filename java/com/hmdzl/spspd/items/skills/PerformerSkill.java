@@ -43,15 +43,13 @@ import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Random;
 
 public class PerformerSkill extends ClassSkill {
  private static int SKILL_TIME = 1;
@@ -63,8 +61,8 @@ public class PerformerSkill extends ClassSkill {
 	@Override
 	public void doSpecial() {
 
-		for (Mob mob : Dungeon.level.mobs) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs) {
+			if (Floor.fieldOfView[mob.pos]) {
 				Buff.affect(mob, Charm.class,10f).object = curUser.id();
 				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f, 5);
 				Buff.affect(mob, Amok.class, 10f);
@@ -100,11 +98,11 @@ public class PerformerSkill extends ClassSkill {
 		Sample.INSTANCE.play(Assets.SND_READ);
 
 		if (Dungeon.hero.lvl > 55) {
-			Dungeon.level.drop(new DungeonBomb(), curUser.pos);
+			Dungeon.depth.drop(new DungeonBomb(), curUser.pos);
 		}
 
-		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-			if (Level.fieldOfView[mob.pos]) {
+		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
+			if (Floor.fieldOfView[mob.pos]) {
 				int base = Dungeon.hero.lvl;
 				double improve = (1 + 0.1 * Dungeon.hero.magicSkill());
 				int dmg = (int) (base * improve);
@@ -112,7 +110,7 @@ public class PerformerSkill extends ClassSkill {
 
 				mob.damage(Math.max(1, dmg), DamageType.ENERGY_DAMAGE);
 
-				Dungeon.level.plant((Plant.Seed) (Generator.random(Generator.Category.SEED)), mob.pos);
+				Dungeon.depth.plant((Plant.Seed) (Generator.random(Generator.Category.SEED)), mob.pos);
 
 				if (mob.isAlive()) {
 					Buff.prolong(mob, Blindness.class, 10f);
@@ -163,10 +161,10 @@ public class PerformerSkill extends ClassSkill {
 					result = null;
 				}
 				item.detach(Dungeon.hero.belongings.backpack);
-				Dungeon.level.drop(result, Dungeon.hero.pos).sprite.drop();
+				Dungeon.depth.drop(result, Dungeon.hero.pos).sprite.drop();
 				Buff.affect(curUser, HighVoice.class,100);
 				if (Dungeon.hero.lvl > 55) {
-					Dungeon.level.drop(new TransmutationBall(), Dungeon.hero.pos).sprite.drop();
+					Dungeon.depth.drop(new TransmutationBall(), Dungeon.hero.pos).sprite.drop();
 				}
 				PerformerSkill.charge += 20;
 			}

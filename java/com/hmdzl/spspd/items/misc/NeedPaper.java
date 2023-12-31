@@ -95,7 +95,7 @@ public class NeedPaper extends Item {
 			 } else {
 				 hero.sprite.operate(hero.pos);
 
-				Dungeon.level.drop(Generator.random(Random.oneOf(Generator.Category.WAND,
+				Dungeon.depth.drop(Generator.random(Random.oneOf(Generator.Category.WAND,
 						Generator.Category.RING, Generator.Category.ARTIFACT,
 						Generator.Category.MELEEWEAPON, Generator.Category.ARMOR)), Dungeon.hero.pos).sprite.drop(Dungeon.hero.pos);
 

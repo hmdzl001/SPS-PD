@@ -25,7 +25,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.MoonCake;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.meatfood.MeatFood;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.DogPetSprite;
 import com.watabou.utils.Random;
 
@@ -78,7 +78,7 @@ public class DogPet extends PET {
 	
 	@Override
 	protected boolean act() {
-		if (Level.adjacent(pos, Dungeon.hero.pos) && cooldown <= 0) {
+		if (Floor.adjacent(pos, Dungeon.hero.pos) && cooldown <= 0) {
 			Buff.affect(hero, ShieldArmor.class).level(Dungeon.hero.petLevel * 2);
 			Buff.affect(this, ShieldArmor.class).level(Dungeon.hero.petLevel * 2);
 			cooldown = Math.max(20,40-Dungeon.hero.petLevel);

@@ -33,7 +33,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class ZotBossLevel extends Level {
+public class ZotBossLevel extends Floor {
 
 	{
 		color1 = 0x534f3e;

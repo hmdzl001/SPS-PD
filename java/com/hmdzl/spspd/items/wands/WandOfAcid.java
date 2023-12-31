@@ -51,7 +51,7 @@ public class WandOfAcid extends DamageWand {
 	@Override
 	protected void onZap( Ballistica bolt ) {
 		
-		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+		Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {
 			heap.earthhit();
 		}

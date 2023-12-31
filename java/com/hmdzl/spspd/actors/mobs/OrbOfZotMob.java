@@ -26,7 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.OrbOfZot;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -64,9 +64,9 @@ public class OrbOfZotMob extends Mob {
 	@Override
 	protected boolean act() {
 		
-		for (int n : Level.NEIGHBOURS8DIST2) {
+		for (int n : Floor.NEIGHBOURS8DIST2) {
 			int c = pos + n;
-			if (c<Level.getLength() && c>0){
+			if (c< Floor.getLength() && c>0){
 			    Char ch = Actor.findChar(c);
 			}
 		}
@@ -85,8 +85,8 @@ public class OrbOfZotMob extends Mob {
 
 		if (enemy == null || !enemy.isAlive()) {
 			HashSet<Mob> enemies = new HashSet<Mob>();
-			for (Mob mob : Dungeon.level.mobs) {
-				if (mob.hostile && Level.fieldOfView[mob.pos]) {
+			for (Mob mob : Dungeon.depth.mobs) {
+				if (mob.hostile && Floor.fieldOfView[mob.pos]) {
 					enemies.add(mob);
 				}
 			}
@@ -123,7 +123,7 @@ public class OrbOfZotMob extends Mob {
 
 	@Override
 	public int hitSkill(Char target) {
-		return 70+(Dungeon.depth);
+		return 70+(Dungeon.dungeondepth);
 	}
 	
 	@Override
@@ -189,7 +189,7 @@ public class OrbOfZotMob extends Mob {
 	public void die(Object cause) {
 
 		yell(Messages.get(this, "die"));
-		Dungeon.level.drop(new OrbOfZot(), pos);
+		Dungeon.depth.drop(new OrbOfZot(), pos);
 		super.die(cause);
 	}	
 	

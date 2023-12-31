@@ -37,7 +37,7 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.Weapon.Enchantment;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.SentinelSprite;
 import com.watabou.utils.Bundle;
@@ -72,7 +72,7 @@ public class MineSentinel extends Mob {
 		weapon.upgrade(10);
 		
 
-		HP = HT = 400 + Dungeon.depth * 10;
+		HP = HT = 400 + Dungeon.dungeondepth * 10;
 		//HP = HT = 5;
 		evadeSkill = 15;
 		//evadeSkill = 2;
@@ -100,8 +100,8 @@ public class MineSentinel extends Mob {
 		
 		
 		if(state==HUNTING){
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-				int p = pos + Level.NEIGHBOURS8[i];
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				int p = pos + Floor.NEIGHBOURS8[i];
 				Char ch = Actor.findChar(p);
 				if (ch != null && ch instanceof MineSentinel &&  Random.Int(10)<2) {
 					ch.damage(1, this);
@@ -115,10 +115,10 @@ public class MineSentinel extends Mob {
 		}
 		
 		if (!heroNear() && Random.Float() < 0.50f && state==HUNTING){
-			for (int i = 0; i < Level.NEIGHBOURS8.length; i++) {
-				int p = hero.pos + Level.NEIGHBOURS8[i];
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				int p = hero.pos + Floor.NEIGHBOURS8[i];
 				if (Actor.findChar(p) == null
-						&& (Level.passable[p] || Level.avoid[p])) {
+						&& (Floor.passable[p] || Floor.avoid[p])) {
 					spawnPoints.add(p);
 				}
 			}
@@ -138,7 +138,7 @@ public class MineSentinel extends Mob {
 		 if (HP<(HT/4) && Random.Float() < 0.50f && state!=PASSIVE){
 			int newPos = -1;
 				for (int i = 0; i < 20; i++) {
-				newPos = Dungeon.level.randomRespawnCellMob();
+				newPos = Dungeon.depth.randomRespawnCellMob();
 				if (newPos != -1) {
 					break;
 				}
@@ -162,7 +162,7 @@ public class MineSentinel extends Mob {
 		//return checkOtiluke();
 		if (checkOtiluke()) {
 			return false;
-		}else return Level.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
+		}else return Floor.adjacent(pos, enemy.pos) && (!isCharmedBy(enemy));
 	}
 
 	@Override
@@ -178,7 +178,7 @@ public class MineSentinel extends Mob {
 
 	protected boolean heroNear (){
 		boolean check=false;
-		for (int i : Level.NEIGHBOURS9DIST2){
+		for (int i : Floor.NEIGHBOURS9DIST2){
 			int cell=pos+i;
 			if (Actor.findChar(cell) != null	
 				&& (Actor.findChar(cell) instanceof Hero)
@@ -196,7 +196,7 @@ public class MineSentinel extends Mob {
 
 	@Override
 	public int hitSkill(Char target) {
-		return (int) ((30 + Dungeon.depth*2) * weapon.ACU);
+		return (int) ((30 + Dungeon.dungeondepth *2) * weapon.ACU);
 	}
 
 	@Override
@@ -235,7 +235,7 @@ public class MineSentinel extends Mob {
 	@Override
 	public void die(Object cause) {
 		super.die(cause);
-		Dungeon.level.drop(weapon, pos).sprite.drop();	
+		Dungeon.depth.drop(weapon, pos).sprite.drop();
 	}
 
 	@Override
@@ -247,7 +247,7 @@ public class MineSentinel extends Mob {
 	protected boolean checkOtiluke(){
 		boolean check = false;
 
-		for (Mob mob : Dungeon.level.mobs) {
+		for (Mob mob : Dungeon.depth.mobs) {
 			if (mob instanceof Otiluke) {
 				check=true;
 			}

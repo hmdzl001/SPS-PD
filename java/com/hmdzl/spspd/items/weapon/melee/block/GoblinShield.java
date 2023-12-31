@@ -133,7 +133,7 @@ public class GoblinShield extends MeleeWeapon {
 					break;
 
 				case 12:
-					Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), defender.pos);
+					Dungeon.depth.plant((Plant.Seed) Generator.random(Generator.Category.SEED), defender.pos);
 					break;
 
 				case 13:

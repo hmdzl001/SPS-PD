@@ -30,7 +30,7 @@ import com.hmdzl.spspd.actors.buffs.HighLight;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
@@ -49,15 +49,15 @@ public class PotionOfPurity extends Potion {
 	@Override
 	public void shatter(int cell) {
 
-		PathFinder.buildDistanceMap(cell, BArray.not(Level.losBlockLow, null),
+		PathFinder.buildDistanceMap(cell, BArray.not(Floor.losBlockLow, null),
 				DISTANCE);
 
 		boolean procd = false;
 
-		Blob[] blobs = { Dungeon.level.blobs.get(ToxicGas.class),
-				Dungeon.level.blobs.get(ParalyticGas.class),
-				Dungeon.level.blobs.get(ConfusionGas.class),
-				Dungeon.level.blobs.get(StenchGas.class) };
+		Blob[] blobs = { Dungeon.depth.blobs.get(ToxicGas.class),
+				Dungeon.depth.blobs.get(ParalyticGas.class),
+				Dungeon.depth.blobs.get(ConfusionGas.class),
+				Dungeon.depth.blobs.get(StenchGas.class) };
 
 		for (int j = 0; j < blobs.length; j++) {
 
@@ -66,7 +66,7 @@ public class PotionOfPurity extends Potion {
 				continue;
 			}
 
-			for (int i = 0; i < Level.getLength(); i++) {
+			for (int i = 0; i < Floor.getLength(); i++) {
 				if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 
 					int value = blob.cur[i];

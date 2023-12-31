@@ -36,7 +36,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class CavesBossLevel extends Level {
+public class CavesBossLevel extends Floor {
 
 	{
 		color1 = 0x534f3e;
@@ -216,7 +216,7 @@ public class CavesBossLevel extends Level {
 			enteredArena = true;
 			seal();
 
-			Mob boss = Bestiary.mob(Dungeon.depth);
+			Mob boss = Bestiary.mob(Dungeon.dungeondepth);
 			boss.state = boss.HUNTING;
 			do {
 				boss.pos = Random.Int(getLength());

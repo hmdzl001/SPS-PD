@@ -59,7 +59,7 @@ public class WandOfCharm extends Wand {
 			}
 		}
 		
-	    Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+	    Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {heap.lighthit();}
 	}
 

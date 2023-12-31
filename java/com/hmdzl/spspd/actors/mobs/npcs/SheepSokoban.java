@@ -22,7 +22,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.sellitem.SheepFur;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.SokobanSheepSprite;
 
 public class SheepSokoban extends NPC {
@@ -63,7 +63,7 @@ public void damage(int dmg, Object src) {
 public boolean interact() {
 	int curPos = pos;
 	int movPos = pos;
-	int width = Level.getWidth();
+	int width = Floor.getWidth();
     boolean moved = false;
 	int posDif = Dungeon.hero.pos-curPos;
 	
@@ -77,7 +77,7 @@ public boolean interact() {
 		movPos = curPos+width;
 	} 
 	
-	if (movPos != pos && (Level.passable[movPos] || Level.avoid[movPos]) && Actor.findChar(movPos) == null){
+	if (movPos != pos && (Floor.passable[movPos] || Floor.avoid[movPos]) && Actor.findChar(movPos) == null){
 		
 		moveSprite(curPos,movPos);
 		move(movPos);

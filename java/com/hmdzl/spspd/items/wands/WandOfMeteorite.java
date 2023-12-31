@@ -29,7 +29,7 @@ import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -59,7 +59,7 @@ public class WandOfMeteorite extends DamageWand {
 	@Override
 	protected void onZap(Ballistica bolt) {
 
-		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
+		Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {
 			heap.firehit();
 		}
@@ -87,15 +87,15 @@ public class WandOfMeteorite extends DamageWand {
 		}
 
 
-		for (int n : Level.NEIGHBOURS9) {
+		for (int n : Floor.NEIGHBOURS9) {
 			int c = bolt.collisionPos + n;
-			if (c >= 0 && c < Level.getLength()) {
+			if (c >= 0 && c < Floor.getLength()) {
 				if (Dungeon.visible[c]) {
 					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 2);
 				}
 
-				if ((Level.flamable[c] ||  Dungeon.level.map[c] == Terrain.GLASS_WALL ) && Level.insideMap(c)) {
-					Level.set(c, Terrain.EMBERS);
+				if ((Floor.flamable[c] ||  Dungeon.depth.map[c] == Terrain.GLASS_WALL ) && Floor.insideMap(c)) {
+					Floor.set(c, Terrain.EMBERS);
 					GameScene.updateMap(c);
 				}
 

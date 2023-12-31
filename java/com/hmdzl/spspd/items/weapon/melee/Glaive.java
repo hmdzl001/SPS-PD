@@ -37,6 +37,8 @@ public class Glaive extends MeleeWeapon {
 
 	public Glaive() {
 		super(4, 1f, 1.75f, 2);
+		MIN = 42;
+		MAX = 60;
 	}
 
 	@Override

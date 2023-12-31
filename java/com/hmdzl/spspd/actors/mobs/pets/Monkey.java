@@ -24,7 +24,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.MonkeySprite;
 import com.watabou.utils.Random;
 
@@ -60,7 +60,7 @@ public class Monkey extends PET {
 	}
 
 	protected boolean canAttack(Char enemy) {
-		return Level.distance( pos, enemy.pos ) <= 2 ;
+		return Floor.distance( pos, enemy.pos ) <= 2 ;
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class Monkey extends PET {
 	public int attackProc(Char enemy, int damage) {
 		cooldown--;
 		if (cooldown == 0 && Random.Int(4) == 0){
-			Dungeon.level.drop(Generator.random(Generator.Category.BERRY), enemy.pos).sprite.drop();
+			Dungeon.depth.drop(Generator.random(Generator.Category.BERRY), enemy.pos).sprite.drop();
 			cooldown = Math.max(15,45 - hero.petLevel);
 		}
 

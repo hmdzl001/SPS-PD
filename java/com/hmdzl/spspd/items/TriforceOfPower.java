@@ -54,7 +54,7 @@ public class TriforceOfPower extends Item {
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
 
-			if (Dungeon.level != null && Dungeon.depth==32) {
+			if (Dungeon.depth != null && Dungeon.dungeondepth ==32) {
 				Dungeon.triforceofpower= true;							
 			}
 

@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
@@ -56,7 +56,7 @@ public class Tar extends Buff {
 	    }
 		   spend(TICK);
 		}
-		if ((Level.water[target.pos] )&& !target.flying) {
+		if ((Floor.water[target.pos] )&& !target.flying) {
 			detach();
 		}
 		

@@ -25,7 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.DarkLightParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 
 public class DarkGas extends Blob {
@@ -35,7 +35,7 @@ public class DarkGas extends Blob {
 		super.evolve();
 
 		int from = WIDTH + 1;
-		int to = Level.getLength() - WIDTH - 1;
+		int to = Floor.getLength() - WIDTH - 1;
 		for (int pos = from; pos < to; pos++) {
 			int dark;
 			if (cur[pos] > 0) {
@@ -58,7 +58,7 @@ public class DarkGas extends Blob {
 			Buff.prolong(ch, Blindness.class, 3);
 		}
 
-		Heap heap = Dungeon.level.heaps.get( pos );
+		Heap heap = Dungeon.depth.heaps.get( pos );
 		if (heap != null) heap.darkhit();
 	}
 

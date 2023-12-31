@@ -30,6 +30,8 @@ public class Kunai extends MeleeThrowWeapon {
 
 	public Kunai() {
 		super(1);
+		MIN = 5;
+		MAX = 10;
 	}
 
 

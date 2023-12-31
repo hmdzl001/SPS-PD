@@ -51,7 +51,7 @@ import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
 import com.hmdzl.spspd.items.weapon.rockcode.Sweb;
-import com.hmdzl.spspd.levels.Level;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -129,13 +129,13 @@ public class SpiderQueen extends Mob {
 	public void move(int step) {
 		super.move(step);
 
-		if (Dungeon.level.map[step] == Terrain.INACTIVE_TRAP ) {
+		if (Dungeon.depth.map[step] == Terrain.INACTIVE_TRAP ) {
 			sprite.emitter().burst(ElmoParticle.FACTORY, 5);
 			
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
-			boolean[] passable = Level.passable;
-			int[] neighbours = { pos + 1, pos - 1, pos + Level.getWidth(),
-					pos - Level.getWidth() };
+			boolean[] passable = Floor.passable;
+			int[] neighbours = { pos + 1, pos - 1, pos + Floor.getWidth(),
+					pos - Floor.getWidth() };
 			for (int n : neighbours) {
 				if (passable[n] && Actor.findChar(n) == null) {
 					candidates.add(n);
@@ -148,7 +148,7 @@ public class SpiderQueen extends Mob {
 				segg.pos = Random.element(candidates);
 				segg.state = segg.PASSIVE;
 
-				if (Dungeon.level.map[segg.pos] == Terrain.DOOR) {
+				if (Dungeon.depth.map[segg.pos] == Terrain.DOOR) {
 					Door.enter(segg.pos);
 				}
 
@@ -173,8 +173,8 @@ public class SpiderQueen extends Mob {
 	public void die(Object cause) {
 
 		GameScene.bossSlain();
-		Dungeon.level.unseal();
-		Dungeon.level.drop(new SkeletonKey(Dungeon.depth), pos).sprite.drop();
+		Dungeon.depth.unseal();
+		Dungeon.depth.drop(new SkeletonKey(Dungeon.dungeondepth), pos).sprite.drop();
 		Badges.validateBossSlain();
 
 			Badges.Badge badgeToCheck = null;
@@ -205,12 +205,12 @@ public class SpiderQueen extends Mob {
 					break;
 		}
 	
-	    Dungeon.level.drop(new TomeOfMastery(), pos).sprite.drop();
+	    Dungeon.depth.drop(new TomeOfMastery(), pos).sprite.drop();
 	
-	    Dungeon.level.drop(new Sokoban3(), pos).sprite.drop();
+	    Dungeon.depth.drop(new Sokoban3(), pos).sprite.drop();
 
-		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.skins == 7)
-			Dungeon.level.drop(new Sweb(), Dungeon.hero.pos).sprite.drop();
+		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Dungeon.hero.skins == 7)
+			Dungeon.depth.drop(new Sweb(), Dungeon.hero.pos).sprite.drop();
 		yell(Messages.get(this,"die"));
 		super.die(cause);
 	}
@@ -290,8 +290,8 @@ public class SpiderQueen extends Mob {
 
 		@Override
 		public boolean act() {
-			for (int i = 0; i < Level.NEIGHBOURS9DIST2.length; i++) {
-				GameScene.add(Blob.seed(pos + Level.NEIGHBOURS9DIST2[i], 2,
+			for (int i = 0; i < Floor.NEIGHBOURS9DIST2.length; i++) {
+				GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9DIST2[i], 2,
 						SlowWeb.class));
 			}
 			life_p ++;
@@ -462,7 +462,7 @@ public class SpiderQueen extends Mob {
 
 		@Override
 		protected boolean getCloser(int target) {
-			if (Level.fieldOfView[target] && Level.distance(pos, target) > 2
+			if (Floor.fieldOfView[target] && Floor.distance(pos, target) > 2
 					&& delay <= 0) {
 
 				blink(target);
@@ -486,11 +486,11 @@ public class SpiderQueen extends Mob {
 			if (Actor.findChar( cell ) != null && cell != this.pos)
 				cell = route.path.get(route.dist-1);
 
-			if (Level.avoid[ cell ]){
+			if (Floor.avoid[ cell ]){
 				ArrayList<Integer> candidates = new ArrayList<>();
-				for (int n : Level.NEIGHBOURS8) {
+				for (int n : Floor.NEIGHBOURS8) {
 					cell = route.collisionPos + n;
-					if (Level.passable[cell] && Actor.findChar( cell ) == null) {
+					if (Floor.passable[cell] && Actor.findChar( cell ) == null) {
 						candidates.add( cell );
 					}
 				}
