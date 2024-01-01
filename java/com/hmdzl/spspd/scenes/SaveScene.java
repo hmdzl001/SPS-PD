@@ -82,15 +82,10 @@ public class SaveScene extends PixelScene {
 		content.clear();
 		
 		ArrayList<GamesInProgress.Info> games = GamesInProgress.checkAll();
-		
-		//int slotGap = SPSSettings.landscape() ? 3 : 6;
+
 		int slotGap = 6;
-		int slotCount = Math.min(GamesInProgress.MAX_SLOTS, games.size()+1);
-		//int slotsHeight = slotCount*SLOT_HEIGHT + (slotCount-1)* slotGap;
-		int slotsHeight = slotCount*SLOT_HEIGHT + slotGap;
-		
-		float yPos = (h - slotsHeight)/2f;
-		if (SPSSettings.landscape()) yPos += 50;
+
+		float yPos =  8;
 		
 		for (GamesInProgress.Info game : games) {
 			SaveSlotButton2 existingGame = new SaveSlotButton2();
@@ -115,11 +110,11 @@ public class SaveScene extends PixelScene {
 		
 		//fadeIn();
 		
-		list.setRect( 0, 0, w, h );
+		list.setRect( 0, 13, w, h-8 );
 		list.scrollTo(0, 0);
 
 
-		content.setSize( 0,yPos+10 );
+		content.setSize( 0,yPos+30 );
 		
 		
 	}

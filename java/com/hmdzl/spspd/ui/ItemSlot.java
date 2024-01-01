@@ -59,6 +59,13 @@ public class ItemSlot extends Button {
     protected boolean    iconVisible = true;
 	protected boolean    iconVisible2 = true;
 
+	protected ItemSprite sprite;
+	protected Item       item;
+	protected BitmapText status;
+	protected BitmapText extra;
+	protected Image      itemIcon;
+	protected BitmapText level;
+
 	private static final String TXT_STRENGTH = ":%d";
 	private static final String TXT_TYPICAL_STR = "%d?";
 	private static final String TXT_KEY_DEPTH = "\u007F%d";
@@ -322,4 +329,5 @@ public class ItemSlot extends Button {
 		iconVisible = BR;
 		iconVisible2 = BF;
 	}
+
 }

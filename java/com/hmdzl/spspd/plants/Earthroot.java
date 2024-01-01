@@ -75,7 +75,7 @@ public class Earthroot extends Plant {
 	
 	public static class ExEarthroot extends Plant {
 		{
-			image = 0;
+			image = 5;
 		}
 		@Override
 		public void activate(Char ch) {

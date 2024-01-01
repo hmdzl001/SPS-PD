@@ -79,14 +79,9 @@ public class StartScene extends PixelScene {
 		
 		ArrayList<GamesInProgress.Info> games = GamesInProgress.checkAll();
 		
-		//int slotGap = SPSSettings.landscape() ? 3 : 6;
 		int slotGap = 6;
-		int slotCount = Math.min(GamesInProgress.MAX_SLOTS, games.size()+1);
-		//int slotsHeight = slotCount*SLOT_HEIGHT + (slotCount-1)* slotGap;
-		int slotsHeight = slotCount*SLOT_HEIGHT + slotGap;
 		
-		float yPos = (h - slotsHeight)/2f;
-		if (SPSSettings.landscape()) yPos += 50;
+		float yPos = 8;
 		
 		for (GamesInProgress.Info game : games) {
 			SaveSlotButton existingGame = new SaveSlotButton();
@@ -111,7 +106,7 @@ public class StartScene extends PixelScene {
 		
 		//fadeIn();
 
-		list.setRect( 0, 0, w, h );
+		list.setRect( 0, 13, w, h-8 );
 		list.scrollTo(0, 0);
 
 
@@ -287,7 +282,7 @@ public class StartScene extends PixelScene {
 				GamesInProgress.curSlot = slot;
 				ShatteredPixelDungeon.switchScene(HeroSelectScene.class);
 			} else {
-				if (slot == 0 || slot == 13){
+				if (slot == 0){
 					ShatteredPixelDungeon.scene().add( new WndGameInProgress3(slot));
 				}  else
 					ShatteredPixelDungeon.scene().add( new WndGameInProgress(slot));

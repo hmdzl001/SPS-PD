@@ -22,11 +22,13 @@
 package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.EquipableItem;
 import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PocketBall;
@@ -34,6 +36,7 @@ import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.Weightstone;
+import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.bombs.HugeBomb;
 import com.hmdzl.spspd.items.food.Nut;
@@ -95,6 +98,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.ui.ExitButton;
 import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.ItemSlot;
 import com.hmdzl.spspd.ui.RedButton;
@@ -102,8 +106,10 @@ import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
+import com.watabou.noosa.ui.Component;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -112,7 +118,10 @@ import static com.hmdzl.spspd.Dungeon.hero;
 
 public class WndIronMaker extends Window {
 
-	private WndBlacksmith.ItemButton[] inputs = new WndBlacksmith.ItemButton[5];
+	//private WndBlacksmith.ItemButton[] inputs = new WndBlacksmith.ItemButton[5];
+	
+	private static final InputButton[] inputs = new InputButton[5];
+	
 	private ItemSlot output;
 
 	private Emitter smokeEmitter;
@@ -147,25 +156,16 @@ public class WndIronMaker extends Window {
 
 		h += desc.height() + 6;
 
-		for (int i = 0; i < (inputs.length ); i++) {
-			inputs[i] = new WndBlacksmith.ItemButton(){
-				@Override
-				protected void onClick() {
-					super.onClick();
-					if (item != null){
-						if (!item.collect()){
-							Dungeon.depth.drop(item, hero.pos);
-						}
-						item = null;
-						slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
-					}
-					GameScene.selectItem( itemSelector, WndBag.Mode.IRON_MAKE, Messages.get(WndAlchemy.class, "select") );
+		
+			synchronized (inputs) {
+				for (int i = 0; i < (inputs.length); i++) {
+					inputs[i] = new InputButton();
+					inputs[i].setRect(15, h, BTN_SIZE, BTN_SIZE);
+					add(inputs[i]);
+					h += BTN_SIZE + 2;
 				}
-			};
-			inputs[i].setRect(15, h, BTN_SIZE, BTN_SIZE);
-			add(inputs[i]);
-			h += BTN_SIZE + 2;
-		}
+			}		
+		
 
 		Image arrow = Icons.get(Icons.RESUME);
 		arrow.hardlight(0, 0, 0);
@@ -213,47 +213,59 @@ public class WndIronMaker extends Window {
 				combine();
 			}
 		};
-		btnCombine.setRect(5, h, btnWidth, 18);
+		btnCombine.setRect(w - 5 - btnWidth, h, btnWidth, 18);
 		PixelScene.align(btnCombine);
 		btnCombine.enable(false);
 		add(btnCombine);
 
-		RedButton btnCancel = new RedButton(Messages.get(this, "cancel")){
+		RedButton btnAdd = new RedButton(Messages.get(this, "add")){
 			@Override
 			protected void onClick() {
 				super.onClick();
+				addnew();
+			}
+		};
+		btnAdd.setRect(5, h, btnWidth, 18);
+		PixelScene.align(btnAdd);
+		//btnAdd.enable(false);
+		add(btnAdd);
+
+		h += btnAdd.height();
+
+		resize(w, h);
+		
+		ExitButton btnExit = new ExitButton(){
+			@Override
+			protected void onClick() {
 				onBackPressed();
 			}
 		};
-		btnCancel.setRect(w - 5 - btnWidth, h, btnWidth, 18);
-		PixelScene.align(btnCancel);
-		add(btnCancel);
-
-		h += btnCancel.height();
-
-		resize(w, h);
+		btnExit.setPos( w - btnExit.width(), 0 );
+		add( btnExit );
 	}
 
 	protected WndBag.Listener itemSelector = new WndBag.Listener() {
 		@Override
 		public void onSelect( Item item ) {
-			if (item != null) {
-				Garbage gb = hero.belongings.getItem(Garbage.class);
-				if (item instanceof Garbage && gb.quantity() > 5) {
+			synchronized (inputs) {
+				 if (item != null && inputs[0] != null) {
+					 Garbage gb = hero.belongings.getItem(Garbage.class);
+				    if (item instanceof Garbage && gb.quantity() > 5) {
 					for (int i = 0; i < 5; i++) {
 						inputs[i].item(item.detach(hero.belongings.backpack));
 					}
 				} else {
 					for (int i = 0; i < (inputs.length); i++) {
-						if (inputs[i].item == null) {
-							inputs[i].item(item.detach(hero.belongings.backpack));
+						if (inputs[i].item() == null) {
+							inputs[i].item(item.detach(Dungeon.hero.belongings.backpack));
 							break;
 						}
 					}
 				}
 			}
 			updateState();
-		}
+			}
+		}		
 	};
 
 	private<T extends Item> ArrayList<T> filterInput(Class<? extends T> itemClass){
@@ -335,7 +347,7 @@ public class WndIronMaker extends Window {
 
 		ArrayList<ScrollOfMagicalInfusion> miscroll = filterInput(ScrollOfMagicalInfusion.class);
 
-		ArrayList<Item> item = filterInput(Item.class);
+		ArrayList<Item> items = filterInput(Item.class);
 
 		Item item1 = inputs[0].item;
 
@@ -411,7 +423,11 @@ public class WndIronMaker extends Window {
 				result = (water.size() * 15 > Random.Int(100))? item1.upgrade(1) : new Garbage();
 		} else if (equip.size() == 1){
 			result = new Garbage(2);
-		} else result = new Garbage(item.size());
+		} else if ( items.size() > 0) {
+			result = new Garbage(items.size());
+		} else {
+			result = null;
+		}
 
 		if (result != null){
 			bubbleEmitter.start(Speck.factory( Speck.BUBBLE ), 0.2f, 10 );
@@ -420,17 +436,48 @@ public class WndIronMaker extends Window {
 
 			output.item(result);
 			//if (!result.collect()){
-            Dungeon.depth.drop(result, hero.pos);
+                Dungeon.depth.drop(result, hero.pos);
 			//}
-			for (int i = 0; i < (inputs.length ); i++){
-				inputs[i].slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
-				inputs[i].item = null;
+			
+			synchronized (inputs) {
+      		    for (int i = 0; i < (inputs.length ); i++) {
+					if (inputs[i] != null && inputs[i].item() != null) {
+						Item item = inputs[i].item();
+						item.quantity(item.quantity() - 1);
+						if (item.quantity() <= 0) {
+							inputs[i].item(null);
+						} else {
+							inputs[i].slot.item(inputs[i].item);
+						}
+					}
+				}
 			}
-
+			
+		} else {
 			btnCombine.enable(false);
 		}
 
 	}
+	
+	private void addnew(){
+		synchronized (inputs) {
+     		for (int i = 0; i < (inputs.length ); i++){
+				if (inputs[i] != null && inputs[i].item() != null) {
+					Item item = inputs[i].item();
+					Class<? extends Item> item1 = item.getClass();
+					Item item2 = hero.belongings.getItem(item1);
+					if (hero.belongings.getItem(item1) != null) {
+						item2.detach(hero.belongings.backpack);
+						item.quantity(item.quantity() + 1);
+						inputs[i].slot.item(inputs[i].item);
+					} else {
+						//inputs[i].slot.item(inputs[i].item);
+					}
+				}
+			}
+			updateState();
+		}
+	}	
 
 	@Override
 	public void onBackPressed() {
@@ -443,4 +490,84 @@ public class WndIronMaker extends Window {
 		}
 		super.onBackPressed();
 	}
+	
+	private class InputButton extends Component {
+
+		protected NinePatch bg;
+		protected ItemSlot slot;
+
+		private Item item = null;
+
+		@Override
+		protected void createChildren() {
+			super.createChildren();
+
+			bg = Chrome.get( Chrome.Type.BUTTON);
+			add( bg );
+
+			slot = new ItemSlot() {
+				@Override
+				protected void onTouchDown() {
+					bg.brightness(1.2f);
+					Sample.INSTANCE.play(Assets.SND_CLICK);
+				}
+
+				@Override
+				protected void onTouchUp() {
+					bg.resetColor();
+				}
+
+				@Override
+				protected void onClick() {
+					super.onClick();
+					Item item = InputButton.this.item;
+					if (item != null) {
+						if (!item.collect() || item instanceof Gold) {
+						Dungeon.depth.drop(item, Dungeon.hero.pos);
+						}
+						InputButton.this.item(null);
+						updateState();
+					}
+					GameScene.selectItem(itemSelector, WndBag.Mode.IRON_MAKE, Messages.get(WndIronMaker.class, "select"));
+					//WndIronMaker.this.addToFront(WndBag.getBag(Bag.class, itemSelector , WndBag.Mode.IRON_MAKE, Messages.get(WndAlchemy.class, "select") ));
+				}
+
+				@Override
+				protected boolean onLongClick() {
+					Item item = InputButton.this.item;
+					if (item != null){
+						WndIronMaker.this.addToFront(new WndInfoItem(item));
+						return true;
+					}
+					return false;
+				}
+			};
+			slot.enable(true);
+			add( slot );
+		}
+
+		@Override
+		protected void layout() {
+			super.layout();
+
+			bg.x = x;
+			bg.y = y;
+			bg.size( width, height );
+
+			slot.setRect( x + 2, y + 2, width - 4, height - 4 );
+		}
+
+		public Item item(){
+			return item;
+		}
+
+		public void item( Item item ) {
+			if (item == null){
+				this.item = null;
+				slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
+			} else {
+				slot.item(this.item = item);
+			}
+		}
+	}	
 }

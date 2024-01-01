@@ -55,7 +55,6 @@ public class SkeletonBossLevel extends Floor {
 
 	private int arenaDoor;
 	private boolean enteredArena = false;
-	private boolean keyDropped = false;
 
 	@Override
 	public String tilesTex() {
@@ -69,14 +68,12 @@ public class SkeletonBossLevel extends Floor {
 
 	private static final String DOOR = "door";
 	private static final String ENTERED = "entered";
-	private static final String DROPPED = "droppped";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(DOOR, arenaDoor);
 		bundle.put(ENTERED, enteredArena);
-		bundle.put(DROPPED, keyDropped);
 	}
 
 	@Override
@@ -84,7 +81,6 @@ public class SkeletonBossLevel extends Floor {
 		super.restoreFromBundle(bundle);
 		arenaDoor = bundle.getInt(DOOR);
 		enteredArena = bundle.getBoolean(ENTERED);
-		keyDropped = bundle.getBoolean(DROPPED);
 	}
 
 	@Override
@@ -225,22 +221,6 @@ public class SkeletonBossLevel extends Floor {
 			//GameScene.updateMap(arenaDoor);
 			Dungeon.observe();
 		}
-	}
-
-	@Override
-	public Heap drop(Item item, int cell) {
-
-		if (!keyDropped && item instanceof SkeletonKey) {
-
-			keyDropped = true;
-			locked = false;
-
-			set(arenaDoor, Terrain.DOOR);
-			GameScene.updateMap(arenaDoor);
-			Dungeon.observe();
-		}
-
-		return super.drop(item, cell);
 	}
 
 	private boolean outsideEntraceRoom(int cell) {

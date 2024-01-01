@@ -15,43 +15,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.bags;
+package com.hmdzl.spspd.items.food.vegetable;
 
-
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.brewed.Brewed;
-import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.items.food.meatfood.BugMeat;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
-public class ShoppingCart extends Bag {
+public class BrewLeft extends Vegetable {
 
 	{
-		//name = "shopping cart";
-		image = ItemSpriteSheet.SHOPCART;
-
-		size = 30;
-	}
-
-	
-	@Override
-	public boolean grab(Item item) {
-		return item instanceof Food &&
-				item instanceof Brewed &&
-				!(item instanceof BugMeat);
+		stackable = true;
+		//name = "ration of food";
+		image = ItemSpriteSheet.EAT_GRASS;
+		energy = 5;
+		hornValue = 0;
+		 
 	}
 
 	@Override
 	public int price() {
-		return 50 * quantity;
+		return 1 * quantity;
 	}
-
-	//@Override
-	//public boolean doPickUp( Hero hero ) {
-
-	//	return hero.belongings.getItem( ShoppingCart.class ) == null && super.doPickUp( hero ) ;
-
-	//}
-
 }
-

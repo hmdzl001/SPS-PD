@@ -35,6 +35,7 @@ import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Belongings implements Iterable<Item> {
@@ -312,6 +313,21 @@ public class Belongings implements Iterable<Item> {
 		}
 
 		return count;
+	}
+
+	public ArrayList<Item> getAllSimilar(Item similar ){
+		ArrayList<Item> result = new ArrayList<>();
+
+		boolean lostInvent = owner != null;
+
+		for (Item item : this) {
+			if (item != similar && similar.isSimilar(item)) {
+				if (!lostInvent ) {
+					result.add(item);
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override

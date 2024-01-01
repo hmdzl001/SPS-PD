@@ -49,7 +49,6 @@ public class ZotBossLevel extends Floor {
 
 	private int arenaDoor;
 	private boolean enteredArena = false;
-	private boolean keyDropped = false;
 
 	@Override
 	public String tilesTex() {
@@ -64,7 +63,6 @@ public class ZotBossLevel extends Floor {
 
 	private static final String DOOR = "door";
 	private static final String ENTERED = "entered";
-	private static final String DROPPED = "droppped";
 	
 	protected static final float TIME_TO_RESPAWN = 20;
 
@@ -73,7 +71,6 @@ public class ZotBossLevel extends Floor {
 		super.storeInBundle(bundle);
 		bundle.put(DOOR, arenaDoor);
 		bundle.put(ENTERED, enteredArena);
-		bundle.put(DROPPED, keyDropped);
 	}
 
 	@Override
@@ -81,7 +78,6 @@ public class ZotBossLevel extends Floor {
 		super.restoreFromBundle(bundle);
 		arenaDoor = bundle.getInt(DOOR);
 		enteredArena = bundle.getBoolean(ENTERED);
-		keyDropped = bundle.getBoolean(DROPPED);
 	}
 
 	@Override

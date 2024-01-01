@@ -283,8 +283,7 @@ public class HallsBossLevel extends Floor {
 	
 	private int stairs = -1;
 	private boolean enteredArena = false;
-	private boolean keyDropped = false;
-	
+
 	@Override
 	public String tilesTex() {
 		return Assets.TILES_HALLS;
@@ -304,7 +303,6 @@ public class HallsBossLevel extends Floor {
 		super.storeInBundle( bundle );
 		bundle.put( STAIRS, stairs );
 		bundle.put( ENTERED, enteredArena );
-		bundle.put( DROPPED, keyDropped );
 	}
 	
 	@Override
@@ -312,7 +310,6 @@ public class HallsBossLevel extends Floor {
 		super.restoreFromBundle( bundle );
 		stairs = bundle.getInt( STAIRS );
 		enteredArena = bundle.getBoolean( ENTERED );
-		keyDropped = bundle.getBoolean( DROPPED );
 	}
 	
 	@Override
@@ -419,30 +416,36 @@ public class HallsBossLevel extends Floor {
 				Dungeon.visible[boss.pos]);
 			GameScene.add( boss );
 			boss.spawnFists();
-			
-			stairs = entrance;
-			entrance = -1;
+
 		}
 	}
-	
+
+	public void seal() {
+		if (entrance != 0) {
+
+			locked = true;
+
+			set(entrance, Terrain.WALL_DECO);
+			GameScene.updateMap(entrance);
+			GameScene.ripple(entrance);
+
+		}
+	}
+
+	public void unseal() {
+		if (stairs != 0) {
+
+			locked = false;
+
+			set(entrance, Terrain.ENTRANCE);
+			GameScene.updateMap(entrance);
+
+		}
+	}
+
 	private void doMagic( int cell ) {
 		set( cell, Terrain.EMPTY_SP );
 		CellEmitter.get( cell ).start( FlameParticle.FACTORY, 0.1f, 3 );
-	}
-	
-	@Override
-	public Heap drop( Item item, int cell ) {
-		
-		if (!keyDropped && item instanceof SkeletonKey) {
-			keyDropped = true;
-			unseal();
-			
-			entrance = stairs;
-			set( entrance, Terrain.ENTRANCE );
-			GameScene.updateMap( entrance );
-		}
-		
-		return super.drop( item, cell );
 	}
 
 	@Override

@@ -50,11 +50,12 @@ public class ExBambooMob extends BambooMob {
 	@Override
 	public boolean act() {
 
-		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
-			GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS8[i], 2, EarthEffectDamage.class));
+		if (isAlive()) {
+			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+				GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS8[i], 3, EarthEffectDamage.class));
+			}
 		}
-
-		if( 1 > 2 * HP / HT && !skilluse ) {
+		if( 1 > 2 * HP / HT && !skilluse && isAlive() ) {
 			skilluse = true;
 			this.HP = this.HT;
 			for (int i = 0; i < Floor.NEIGHBOURS8DIST2.length; i++) {

@@ -19,7 +19,9 @@ package com.hmdzl.spspd.ui;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.TitleScene;
+import com.hmdzl.spspd.windows.WndAlchemy;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;

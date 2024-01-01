@@ -79,8 +79,8 @@ public class AlchemistsToolkit extends Artifact {
 		   actions.add(AC_COOKING);
 		if (isEquipped(hero) && level < levelCap && !cursed)
 			actions.add(AC_BREW);
-		if (level > 0 && !isEquipped(hero) )
-			actions.add(AC_CREATE);
+		//if (level > 0 && !isEquipped(hero) )
+		actions.add(AC_CREATE);
 		return actions;
 	}
 

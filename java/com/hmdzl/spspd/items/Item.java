@@ -230,7 +230,6 @@ public class Item implements Bundlable {
 			updateQuickslot();
 
 			try {
-
 				// pssh, who needs copy constructors?
 				Item detached = getClass().newInstance();
 				Bundle copy = new Bundle();

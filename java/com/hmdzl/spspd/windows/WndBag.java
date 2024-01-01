@@ -21,6 +21,7 @@ import android.graphics.RectF;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.SPSSettings;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.hero.Belongings;
@@ -152,6 +153,8 @@ public class WndBag extends WndTabbed {
 	private Listener listener;
 	private WndBag.Mode mode;
 	private String title;
+
+	private ItemSelector selector;
 
 	private int nCols;
 	private int nRows;
@@ -598,4 +601,14 @@ public class WndBag extends WndTabbed {
 	public interface Listener {
 		void onSelect(Item item);
 	}
+
+	public abstract static class ItemSelector {
+		public abstract String textPrompt();
+		public Class<?extends Bag> preferredBag(){
+			return null; //defaults to last bag opened
+		}
+		public abstract boolean itemSelectable( Item item );
+		public abstract void onSelect( Item item );
+	}
+
 }

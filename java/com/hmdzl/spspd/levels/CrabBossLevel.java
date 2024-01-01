@@ -67,14 +67,13 @@ public class CrabBossLevel extends Floor {
 
 	private static final String DOOR = "door";
 	private static final String ENTERED = "entered";
-	private static final String DROPPED = "droppped";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(DOOR, arenaDoor);
 		bundle.put(ENTERED, enteredArena);
-		bundle.put(DROPPED, keyDropped);
+
 	}
 
 	@Override
@@ -82,7 +81,7 @@ public class CrabBossLevel extends Floor {
 		super.restoreFromBundle(bundle);
 		arenaDoor = bundle.getInt(DOOR);
 		enteredArena = bundle.getBoolean(ENTERED);
-		keyDropped = bundle.getBoolean(DROPPED);
+
 	}
 
 	@Override

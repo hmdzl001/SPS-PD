@@ -21,7 +21,9 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Dragonking;
+import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.Heap;
@@ -43,14 +45,12 @@ public class BossRushLevel extends Floor {
 		viewDistance = 8;
 	}
 
-	private static final int ROOM_LEFT = getWidth() / 2 - 1;
-	private static final int ROOM_RIGHT = getWidth() / 2 + 1;
+	private static final int ROOM_LEFT = WIDTH / 2 - 1;
+	private static final int ROOM_RIGHT = WIDTH / 2 + 1;
 	private static final int ROOM_TOP = HEIGHT / 2 - 1;
 	private static final int ROOM_BOTTOM = HEIGHT / 2 + 1;
 
 	private int stairs = -1;
-	private boolean enteredArena = false;
-	private boolean keyDropped = false;
 
 	@Override
 	public String tilesTex() {
@@ -63,23 +63,17 @@ public class BossRushLevel extends Floor {
 	}
 
 	private static final String STAIRS = "stairs";
-	private static final String ENTERED = "entered";
-	private static final String DROPPED = "droppped";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(STAIRS, stairs);
-		bundle.put(ENTERED, enteredArena);
-		bundle.put(DROPPED, keyDropped);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		stairs = bundle.getInt(STAIRS);
-		enteredArena = bundle.getBoolean(ENTERED);
-		keyDropped = bundle.getBoolean(DROPPED);
 	}
 
 	@Override
@@ -107,7 +101,7 @@ public class BossRushLevel extends Floor {
 		map[exit] = Terrain.LOCKED_EXIT;
 
 		Painter.fill(this, ROOM_LEFT - 1, ROOM_TOP - 1, ROOM_RIGHT - ROOM_LEFT
-				+ 3, ROOM_BOTTOM - ROOM_TOP + 3, Terrain.WALL);
+				+ 3, ROOM_BOTTOM - ROOM_TOP + 3, Terrain.HIGH_GRASS);
 		
 		Painter.fill(this, ROOM_LEFT, ROOM_TOP, ROOM_RIGHT - ROOM_LEFT + 1,
 				ROOM_BOTTOM - ROOM_TOP + 1, Terrain.EMPTY);
@@ -140,6 +134,10 @@ public class BossRushLevel extends Floor {
 
 	@Override
 	protected void createMobs() {
+		Mob mob = Bestiary.mob(Dungeon.dungeondepth);
+		mob.pos =  randomRespawnCellMob();
+		mobs.add(mob);
+		Actor.occupyCell(mob);
 	}
 
 	@Override
@@ -155,62 +153,6 @@ public class BossRushLevel extends Floor {
 	@Override
 	public int randomRespawnCell() {
 		return -1;
-	}
-	
-
-	@Override
-	public void press(int cell, Char hero) {
-
-		super.press(cell, hero);
-
-		if (!enteredArena && hero == Dungeon.hero && cell != entrance) {
-
-			enteredArena = true;
-			locked = true;
-
-			for (int i = ROOM_LEFT - 1; i <= ROOM_RIGHT + 1; i++) {
-				doMagic((ROOM_TOP - 1) * getWidth() + i);
-				doMagic((ROOM_BOTTOM + 1) * getWidth() + i);
-			}
-			for (int i = ROOM_TOP; i < ROOM_BOTTOM + 1; i++) {
-				doMagic(i * getWidth() + ROOM_LEFT - 1);
-				doMagic(i * getWidth() + ROOM_RIGHT + 1);
-			}
-			doMagic(entrance);
-			GameScene.updateMap();
-
-			Dungeon.observe();
-
-			Dragonking boss = new Dragonking();
-			do {
-				boss.pos = Random.Int(getLength());
-			} while (!passable[boss.pos] || Dungeon.visible[boss.pos]);
-			GameScene.add(boss);
-			
-			stairs = entrance;
-			entrance = -1;
-			
-		}
-	}
-
-	private void doMagic(int cell) {
-		set(cell, Terrain.EMPTY_SP);
-		CellEmitter.get(cell).start(FlameParticle.FACTORY, 0.1f, 3);
-	}
-
-	@Override
-	public Heap drop(Item item, int cell) {
-
-		if (!keyDropped && item instanceof SkeletonKey) {
-			keyDropped = true;
-			locked = false;
-
-			entrance = stairs;
-			set(entrance, Terrain.PEDESTAL);
-			GameScene.updateMap(entrance);
-		}
-
-		return super.drop(item, cell);
 	}
 
 	@Override

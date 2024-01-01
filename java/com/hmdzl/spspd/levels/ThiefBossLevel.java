@@ -54,7 +54,7 @@ public class ThiefBossLevel extends Floor {
 
 	private int arenaDoor;
 	private boolean enteredArena = false;
-	private boolean keyDropped = false;
+
 
 	@Override
 	public String tilesTex() {
@@ -75,7 +75,6 @@ public class ThiefBossLevel extends Floor {
 		super.storeInBundle(bundle);
 		bundle.put(DOOR, arenaDoor);
 		bundle.put(ENTERED, enteredArena);
-		bundle.put(DROPPED, keyDropped);
 	}
 
 	@Override
@@ -83,7 +82,6 @@ public class ThiefBossLevel extends Floor {
 		super.restoreFromBundle(bundle);
 		arenaDoor = bundle.getInt(DOOR);
 		enteredArena = bundle.getBoolean(ENTERED);
-		keyDropped = bundle.getBoolean(DROPPED);
 	}
 
 	@Override
@@ -208,21 +206,6 @@ public class ThiefBossLevel extends Floor {
 		}
 	}
 
-	@Override
-	public Heap drop(Item item, int cell) {
-
-		if (!keyDropped && item instanceof SkeletonKey) {
-
-			keyDropped = true;
-			locked = false;
-
-			set(arenaDoor, Terrain.DOOR);
-			GameScene.updateMap(arenaDoor);
-			Dungeon.observe();
-		}
-
-		return super.drop(item, cell);
-	}
 
 	private boolean outsideEntraceRoom(int cell) {
 		return cell / getWidth() < arenaDoor / getWidth();
