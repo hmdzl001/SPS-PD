@@ -38,9 +38,9 @@ public class RingOfMagic extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Magic();
+		return new RingMagic();
 	}
 
-	public class Magic extends RingBuff {
+	public class RingMagic extends RingBuff {
 	}
 }

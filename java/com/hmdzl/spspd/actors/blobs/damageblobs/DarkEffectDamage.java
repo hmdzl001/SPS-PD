@@ -27,7 +27,6 @@ import com.hmdzl.spspd.effects.particles.BlackFlameParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.GooSprite;
 import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.actors.damagetype.DamageType.DARK_DAMAGE;

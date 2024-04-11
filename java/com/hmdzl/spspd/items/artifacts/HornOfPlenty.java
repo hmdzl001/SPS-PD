@@ -12,7 +12,6 @@ import com.hmdzl.spspd.effects.SpellSprite;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.items.food.fruit.Blandfruit;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;

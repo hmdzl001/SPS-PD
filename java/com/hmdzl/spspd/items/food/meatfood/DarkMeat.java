@@ -41,26 +41,15 @@ public class DarkMeat extends MeatFood {
 	}
 
 	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-            effect(hero);
-		}
-	}
-
-	@Override
 	public int price() {
 		return 3 * quantity;
 	}
 
-    public static void effect(Hero hero){
-
+	public void doEat() {
 		GLog.i( Messages.get(Meat.class, "better") );
-			if (hero.HP < hero.HT) {
-				hero.HP = Math.min( hero.HP + hero.HT / 4, hero.HT );
-				hero.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+			if (curUser.HP < curUser.HT) {
+				curUser.HP = Math.min( curUser.HP + curUser.HT / 4, curUser.HT );
+				curUser.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 			}
 	
 	}

@@ -32,14 +32,8 @@ public class Cherry extends Fruit {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-				Dungeon.depth.drop(new DungeonBomb(), hero.pos).sprite.drop();
-		}
+	public void doEat() {
+		Dungeon.depth.drop(new DungeonBomb(), curUser.pos).sprite.drop();
 	}	
 
 	@Override

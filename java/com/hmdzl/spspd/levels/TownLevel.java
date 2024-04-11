@@ -48,6 +48,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.ConsideredHamster;
 import com.hmdzl.spspd.actors.mobs.npcs.Dachhack;
 import com.hmdzl.spspd.actors.mobs.npcs.DreamPlayer;
 import com.hmdzl.spspd.actors.mobs.npcs.Evan;
+import com.hmdzl.spspd.actors.mobs.npcs.FlyLing;
 import com.hmdzl.spspd.actors.mobs.npcs.FruitCat;
 import com.hmdzl.spspd.actors.mobs.npcs.G2159687;
 import com.hmdzl.spspd.actors.mobs.npcs.GoblinPlayer;
@@ -615,8 +616,12 @@ public class TownLevel extends Floor {
 	  mobs.add(hbb);
 
       Mob sfb = new SFB();
-	  sfb.pos = 34 + WIDTH * 11;
+	  sfb.pos = 33 + WIDTH * 11;
 	  mobs.add(sfb);
+
+	  Mob flyling = new FlyLing();
+	  flyling.pos = 37 + WIDTH * 12;
+	  mobs.add(flyling);
 
 	  Mob omi = new Omicronrg9();
 	  omi.pos = 36 + WIDTH * 11;

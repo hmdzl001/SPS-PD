@@ -22,8 +22,14 @@
 package com.hmdzl.spspd.items.wands;
 
 import com.hmdzl.spspd.actors.buffs.Arcane;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.items.rings.RingOfKnowledge;
+import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.Dungeon.hero;
 
 //for wands that directly damage a target
 //wands with AOE effects count here (e.g. fireblast), but wands with indrect damage do not (e.g. venom, transfusion)
@@ -56,9 +62,20 @@ public abstract class DamageWand extends Wand{
 
 	public int damageRoll(){
 		Arcane arcane = curUser.buff(Arcane.class);
+		int damage = Random.NormalIntRange(min(), max());
+		float bonus = 0;
+		for (Buff buff : curUser.buffs(RingOfKnowledge.RingKnowledge.class)) {
+			bonus += Math.min(((RingOfKnowledge.RingKnowledge) buff).level,30);
+		}
 		if (arcane != null) {
-			return 2 * Random.NormalIntRange(min(), max());
-		} else return Random.NormalIntRange(min(), max());
+			damage = damage * 2;
+		}
+		if (Random.Int(20) < 5  &&  bonus > 0 ) {
+			damage = (int)(damage * ( 1.2 + 0.06 * bonus));
+			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
+		}
+
+		 return damage;
 	}
 
 	public int damageRoll(int lvl){

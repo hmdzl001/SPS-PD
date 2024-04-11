@@ -35,7 +35,7 @@ public abstract class KindofMisc extends EquipableItem {
 
 							KindofMisc equipped;
 							//temporarily give 1 extra backpack spot to support swapping with a full inventory
-							//hero.belongings.backpack.size++;
+							hero.belongings.backpack.size++;
 							if (index == 0) {
 								equipped = m1;
 							} else if (index == 1) {
@@ -46,7 +46,7 @@ public abstract class KindofMisc extends EquipableItem {
 							if (equipped.doUnequip(hero, true, false)) {
 								execute(hero, AC_EQUIP);
 							}
-							//hero.belongings.backpack.size--;
+							hero.belongings.backpack.size--;
 						}
 					});
 

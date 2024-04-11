@@ -99,7 +99,7 @@ public class WandOfMagicMissile extends DamageWand {
 
 	@Override
 	protected int initialCharges() {
-		return 2;
+		return 3;
 	}
 	
 	/*@Override

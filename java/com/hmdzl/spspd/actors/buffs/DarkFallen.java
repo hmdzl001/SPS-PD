@@ -145,14 +145,14 @@ public class DarkFallen extends Buff {
 		@Override
 		public void die(Object cause) {
 
-			for (int i : Floor.NEIGHBOURS9DIST2) {
-				int c = pos + i;
-				if ( Floor.insideMap(c)) {
-					if (depth.discoverable[c]) {
-						depth.mapped[c] = true;
+			for (int i = 0; i < Floor.LENGTH; i++) {
+			//for (int i : Floor.NEIGHBOURS9DIST2 ) {
+				if (Floor.insideMap(i) && Floor.distance(i,pos)  < 3){
+					if (depth.discoverable[i]) {
+						depth.mapped[i] = true;
 					}
 
-					depth.discover(c);
+					depth.discover(i);
 					//GameScene.discoverTile( cell, terr );
 					observe();
 				}

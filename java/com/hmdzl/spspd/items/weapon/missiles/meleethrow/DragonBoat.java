@@ -32,7 +32,7 @@ public class DragonBoat extends MeleeThrowWeapon {
 
 	{
 		//name = "Dragon Boat";
-		image = ItemSpriteSheet.BOAT;
+		image = ItemSpriteSheet.WOODEN_BOAT;
 		 
 		usesTargeting = true;
 	}

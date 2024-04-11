@@ -17,9 +17,10 @@
  */
 package com.hmdzl.spspd.items.misc;
 
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
-public class LuckyBadge extends MiscEquippable {
+public class LuckyBadge extends Item {
 
 	{
 		//name = "LuckyBadge";
@@ -28,15 +29,7 @@ public class LuckyBadge extends MiscEquippable {
 		unique = true;
 		
 	}
-	
-	@Override
-	protected MiscBuff buff() {
-		return new GreatLucky();
-	}
 
-	public class GreatLucky extends MiscBuff {
-	}
-	
 	@Override
 	public boolean isIdentified() {
 		return true;

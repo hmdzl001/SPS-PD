@@ -38,6 +38,8 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class ShatteredPixelDungeon extends Game {
 
+	//public static int specialcoin = 10;
+
 	public ShatteredPixelDungeon() {
 		super(WelcomeScene.class);
 	}
@@ -60,7 +62,8 @@ public class ShatteredPixelDungeon extends Game {
 		Music.INSTANCE.enable(music());
 		Sample.INSTANCE.enable(soundFx());
 
-		Sample.INSTANCE.load(Assets.SND_CLICK, Assets.SND_BADGE,
+		Sample.INSTANCE.load(
+				Assets.SND_CLICK, Assets.SND_BADGE,
 				Assets.SND_GOLD,
 
 				Assets.SND_STEP, Assets.SND_WATER, Assets.SND_OPEN,
@@ -245,7 +248,15 @@ public class ShatteredPixelDungeon extends Game {
 		return Preferences.INSTANCE.getBoolean(Preferences.KEY_BRIGHTNESS,
 				false);
 	}
-	
+
+	public static void unlocks( int value ) {
+		GiftUnlocks.put( Preferences.KEY_UNLOCKS, value );
+	}
+
+	public static int unlocks() {
+		return GiftUnlocks.getInt( Preferences.KEY_UNLOCKS, 0, 0, Integer.MAX_VALUE );
+	}
+
 	/*public static void language(Languages lang) {
 		Preferences.INSTANCE.put( Preferences.KEY_LANG, lang.code());
 		if (lang == Languages.RUSSIAN || lang == Languages.CHINESE || lang == Languages.KOREAN)

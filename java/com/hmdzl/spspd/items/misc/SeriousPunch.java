@@ -31,7 +31,7 @@ public class SeriousPunch extends Item {
 
 	{
 		//name = "SeriousPunch";
-		image = ItemSpriteSheet.REDHAND;
+		image = ItemSpriteSheet.ONE_PUNCH;
 	
 		stackable = false;
 		unique = true;

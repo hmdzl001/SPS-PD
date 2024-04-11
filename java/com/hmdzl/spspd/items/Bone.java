@@ -43,7 +43,7 @@ public class Bone extends Item {
 
 	{
 		//name = "inscribed bone";
-		image = ItemSpriteSheet.BONE;
+		image = ItemSpriteSheet.KING_BONE;
 
 		stackable = false;
 		unique = true;

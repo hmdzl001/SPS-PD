@@ -27,38 +27,31 @@ public class GoldenNut extends CompleteFood {
 
 	{
 		//name = "golden dungeon nut";
-		image = ItemSpriteSheet.SEED_GOLDENDUNGEONNUT;
+		image = ItemSpriteSheet.GOLD_WALLNUT;
 		energy = 100;
 		hornValue = 2;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-
+	public void doEat() {
 			switch (Random.Int(2)) {
 			case 0:
-				hero.TRUE_HT+=40;
-				hero.STR+=1;
-				hero.hitSkill++;
-				hero.evadeSkill++;
-				hero.magicSkill++;
-				hero.sprite.showStatus(CharSprite.POSITIVE, "+1 all, +40 ht");
-                hero.updateHT(true);
+				curUser.TRUE_HT+=40;
+				curUser.STR+=1;
+				curUser.hitSkill++;
+				curUser.evadeSkill++;
+				curUser.magicSkill++;
+				curUser.sprite.showStatus(CharSprite.POSITIVE, "+1 all, +40 ht");
+                curUser.updateHT(true);
 				Badges.validateStrengthAttained();
 				break;
 			case 1:
-				hero.TRUE_HT+=10;
-				hero.STR+=2;
-				hero.sprite.showStatus(CharSprite.POSITIVE, "+2 str, +10 ht");
-				hero.updateHT(true);
+				curUser.TRUE_HT+=10;
+				curUser.STR+=3;
+				curUser.sprite.showStatus(CharSprite.POSITIVE, "+3 str, +10 ht");
+				curUser.updateHT(true);
 				Badges.validateStrengthAttained();
 				break;
 			}
-		}
 	}	
 
 }

@@ -39,7 +39,7 @@ public class ForestProtectorSprite extends MobSprite {
 		run = new Animation( 10, true );
 		run.frames( frames, 0,1,2,3 );
 
-		attack = new Animation( 12, false );
+		attack = new Animation( 20, false );
 		attack.frames( frames, 4, 4, 4,0 );
 
 		die = new Animation( 20, false );

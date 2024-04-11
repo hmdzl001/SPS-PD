@@ -24,7 +24,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PoisonParticle;
-import com.hmdzl.spspd.items.rings.RingOfElements.RingResistance;
+import com.hmdzl.spspd.items.rings.RingOfElements.RingElements;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -107,7 +107,7 @@ public class LokisPoison extends Buff implements Hero.Doom {
 	}
 
 	public static float durationFactor(Char ch) {
-		RingResistance r = ch.buff(RingResistance.class);
+		RingElements r = ch.buff(RingElements.class);
 		return  1;
 	}
 

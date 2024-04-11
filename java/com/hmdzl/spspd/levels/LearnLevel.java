@@ -20,12 +20,17 @@ package com.hmdzl.spspd.levels;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.mobs.GhostPhoto;
 import com.hmdzl.spspd.actors.mobs.TestMob;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAshWolf;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftCoconut;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftRen;
 import com.hmdzl.spspd.actors.mobs.npcs.Leadercn;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KnowledgeBook;
+import com.hmdzl.spspd.items.SpecialCoin;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.armor.specialarmor.TestArmor;
 import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
@@ -104,13 +109,18 @@ public class LearnLevel extends Floor {
 			 for (int i = 0; i < LENGTH; i++) {
 				 if (map[i] == Terrain.GROUND_A) {
 					 Leadercn npc = new Leadercn();
+					 //GiftRen npc2 = new GiftRen();
 					 mobs.add(npc);
+					// mobs.add(npc2);
 					 npc.pos = i;
+					// npc2.pos = i;
 					 Actor.occupyCell(npc);
+					// Actor.occupyCell(npc2);
 				 }
 				 if (map[i] == Terrain.EMPTY_SP) {
 				 //if (map[i] == Terrain.EMPTY) {
 					 TestMob mob = new TestMob();
+					 //GhostPhoto mob = new GhostPhoto();
 					 mobs.add(mob);
 					 mob.pos = i;
 					 mob.HP = 100;
@@ -150,6 +160,8 @@ public class LearnLevel extends Floor {
         addWeapon(15 + WIDTH * 2);
 		addArmor(16 + WIDTH * 2);
 
+		//addSCOIN(14 + WIDTH * 2);
+
 		addHeal(40 + WIDTH * 3);
 		addKey(41 + WIDTH * 3);
 		addDew(42 + WIDTH * 4);
@@ -183,10 +195,20 @@ public class LearnLevel extends Floor {
 		prize = new TestArmor();
 		 //prize = new TestWeapon();
 		drop(prize.identify(), pos).type = Heap.Type.HEAP;
-	}	
-	
-	
-	 private void addHeal(int pos) {
+	}
+
+	private void addSCOIN(int pos) {
+
+		Item prize;
+
+		prize = new SpecialCoin(100);
+		//prize = new TestWeapon();
+		drop(prize.identify(), pos).type = Heap.Type.HEAP;
+	}
+
+
+
+	private void addHeal(int pos) {
 		Item prize;
 		 prize = new PotionOfMending();
 		drop(prize, pos).type = Heap.Type.CHEST;

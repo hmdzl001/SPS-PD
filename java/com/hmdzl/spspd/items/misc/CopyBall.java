@@ -63,7 +63,7 @@ public class CopyBall extends Item {
 	private static final float TIME_TO_DIG = 1f;
 
 	{
-		image = ItemSpriteSheet.COPY_BALL;
+		image = ItemSpriteSheet.SLIME_BALL;
 		defaultAction = AC_USE;
 		
 		unique = true;
@@ -144,7 +144,7 @@ public class CopyBall extends Item {
 	public class CopyBallAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.COPY_BALL;
+			image = ItemSpriteSheet.SLIME_BALL;
 			ACU = 1000;
 		}
 

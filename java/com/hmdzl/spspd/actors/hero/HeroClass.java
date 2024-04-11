@@ -21,6 +21,8 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.DolyaSlate;
@@ -53,6 +55,7 @@ import com.hmdzl.spspd.items.armor.normalarmor.VestArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.WoodenArmor;
 import com.hmdzl.spspd.items.armor.specialarmor.LifeArmor;
 import com.hmdzl.spspd.items.armor.specialarmor.PerformerArmor;
+import com.hmdzl.spspd.items.armor.specialarmor.RenBArmor;
 import com.hmdzl.spspd.items.armor.specialarmor.RogueArmor;
 import com.hmdzl.spspd.items.armor.specialarmor.TestArmor;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
@@ -60,9 +63,10 @@ import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.artifacts.CloakOfShadows;
 import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.items.artifacts.FlyChains;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.Pylon;
-import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.artifacts.TimeOclock;
 import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
 import com.hmdzl.spspd.items.bags.ArrowCollecter;
 import com.hmdzl.spspd.items.bags.KeyRing;
@@ -86,9 +90,10 @@ import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
 import com.hmdzl.spspd.items.eggs.AflyEgg;
 import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.eggs.GoldDragonEgg;
-import com.hmdzl.spspd.items.eggs.RandomEgg;
-import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomMonthEgg;
 import com.hmdzl.spspd.items.food.Honey;
+import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.completefood.AflyFood;
 import com.hmdzl.spspd.items.food.completefood.FruitCandy;
 import com.hmdzl.spspd.items.food.completefood.Hamburger;
@@ -101,6 +106,7 @@ import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.completefood.Porksoup;
 import com.hmdzl.spspd.items.food.completefood.RiceGruel;
 import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
+import com.hmdzl.spspd.items.food.completefood.YearFood;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.journalpages.EnergyCore;
 import com.hmdzl.spspd.items.journalpages.NewHome;
@@ -175,6 +181,7 @@ import com.hmdzl.spspd.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.items.rings.RingOfEvasion;
 import com.hmdzl.spspd.items.rings.RingOfForce;
 import com.hmdzl.spspd.items.rings.RingOfFuror;
+import com.hmdzl.spspd.items.rings.RingOfKnowledge;
 import com.hmdzl.spspd.items.rings.RingOfHaste;
 import com.hmdzl.spspd.items.rings.RingOfMagic;
 import com.hmdzl.spspd.items.rings.RingOfMight;
@@ -219,15 +226,19 @@ import com.hmdzl.spspd.items.weapon.melee.Triangolo;
 import com.hmdzl.spspd.items.weapon.melee.TrickSand;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
 import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
-import com.hmdzl.spspd.items.weapon.melee.special.BunnyDagger;
-import com.hmdzl.spspd.items.weapon.melee.special.DiamondPickaxe;
-import com.hmdzl.spspd.items.weapon.melee.special.EleKatana;
-import com.hmdzl.spspd.items.weapon.melee.special.HolyMace;
-import com.hmdzl.spspd.items.weapon.melee.special.LinkSword;
+import com.hmdzl.spspd.items.weapon.melee.start.BeastKnive;
+import com.hmdzl.spspd.items.weapon.melee.start.BraveBook;
+import com.hmdzl.spspd.items.weapon.melee.start.BunnyDagger;
+import com.hmdzl.spspd.items.weapon.melee.start.BunnySpanner;
+import com.hmdzl.spspd.items.weapon.melee.start.DiamondPickaxe;
+import com.hmdzl.spspd.items.weapon.melee.start.EleKatana;
+import com.hmdzl.spspd.items.weapon.melee.start.HolyMace;
+import com.hmdzl.spspd.items.weapon.melee.start.LinkSword;
 import com.hmdzl.spspd.items.weapon.melee.special.NinjaFan;
-import com.hmdzl.spspd.items.weapon.melee.special.Pumpkin;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
-import com.hmdzl.spspd.items.weapon.melee.special.Whisk;
+import com.hmdzl.spspd.items.weapon.melee.start.PixelTorch;
+import com.hmdzl.spspd.items.weapon.melee.start.Whisk;
+import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
 import com.hmdzl.spspd.items.weapon.missiles.ElfBow;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
@@ -259,7 +270,7 @@ import com.hmdzl.spspd.sprites.HeroSkinSpriteSheet;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
-public enum HeroClass {
+public enum  HeroClass {
 
 	WARRIOR( "warrior" ,"warrior", HeroSubClass.BERSERKER, HeroSubClass.GLADIATOR),
 	MAGE( "mage","mage", HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK),
@@ -334,12 +345,17 @@ public enum HeroClass {
 			new PlantPotBlock(3).identify().collect();
 			//new WandOfTest().identify().collect();
 		}
-		
+
+		//if (GiftUnlocks.isUnlocked()) {
+			//new PlantPotBlock(3).identify().collect();
+			//new WandOfTest().identify().collect();
+		//}
+
 		//hero.updateAwareness();
 	}
 
 	private static void initCommon(Hero hero) {
-		new SaveYourLife().collect();
+
 		new KeyRing().collect();
 		new ArrowCollecter().collect();
 		new Pasty().identify().collect();
@@ -347,7 +363,7 @@ public enum HeroClass {
 		//new Lollipop().identify().collect();
 		//new Chocolate().identify().collect();
 		//new HealFruit(99).collect();
-		//new MeleePan().identify().collect();
+		//new LuckyBadge().identify().upgrade(100).collect();
 		new DewVial(0,0).identify().collect();
 		new RocketMissile(2).collect();
 		//new Vialupdater().collect();
@@ -355,8 +371,8 @@ public enum HeroClass {
 			new Ankhshield().collect();
 		}
 		if (Hero.skins == 3) {
-			EtherealChains chains = new EtherealChains();
-			(hero.belongings.misc3 = chains).identify().upgrade(3);
+			FlyChains chains2 = new FlyChains();
+			(hero.belongings.misc3 = chains2).identify().upgrade(3);
 			hero.belongings.misc3.activate(hero);
 			new EmpBola(10).collect();
 			new PoisonDart(10).collect();
@@ -366,6 +382,7 @@ public enum HeroClass {
 			new Stylus().collect();
 			new PotionOfHealing().identify().collect();
             new ScrollOfMagicMapping().identify().collect();
+			new YearFood().collect();
 		}
 
 		if (Hero.skins == 0) {
@@ -376,13 +393,15 @@ public enum HeroClass {
 		
 		if (Hero.skins == 5) {
 
-			Weapon weapon = (Weapon) Generator.random(Generator.Category.MELEEWEAPON);
-			Armor armor = new BaseArmor();
+			Weapon weapon1 = (Weapon) Generator.random(Generator.Category.MELEEWEAPON);
+			Weapon weapon2 = (Weapon) Generator.random(Generator.Category.MELEEWEAPON);;
 			Ring ring = (Ring) Generator.random(Generator.Category.RING);
 			Artifact artifact = (Artifact) Generator.random(Generator.Category.ARTIFACT);
 
-			(hero.belongings.weapon = weapon).identify();
-			(hero.belongings.armor = armor).identify();
+			(hero.belongings.weapon = weapon1).identify();
+			(hero.belongings.weapon_two = weapon2).identify();
+			(hero.belongings.armor = new BaseArmor()).identify();
+			(hero.belongings.armor_two = new BaseArmor()).identify();
 			(hero.belongings.misc1 = artifact).identify();
 			hero.belongings.misc1.activate(hero);
 			(hero.belongings.misc3 = ring).identify();
@@ -395,7 +414,6 @@ public enum HeroClass {
 			new KnowledgeBook().collect();
 			new ScrollOfRemoveCurse().identify().collect();
 
-			new TransmutationBall().collect();
 			new TransmutationBall().collect();
 			new TransmutationBall().collect();
 		}		
@@ -521,6 +539,7 @@ public enum HeroClass {
 				new ScrollOfPsionicBlast().collect();
 				new Hamburger().collect();
 				new RandomMonthEgg().collect();
+				new Honey().collect();
 			}
 
 			new RingOfElements().upgrade(10).identify().collect();
@@ -534,18 +553,18 @@ public enum HeroClass {
 			new RingOfHaste().upgrade(10).identify().collect();
 			new RingOfSharpshooting().upgrade(10).identify().collect();
 			new RingOfTenacity().upgrade(10).identify().collect();
+			new RingOfKnowledge().upgrade(10).identify().collect();
 
 			//new SewerReward().collect();
 
 		new IceChallenge().collect();
-
+		new SaveYourLife().collect();
 		//new UnBlessAnkh().collect();
 
 		//new WandOfFlock().upgrade(10).identify().collect();
 		//new WandOfBlackMeow().identify().collect();
-		new Pumpkin().collect();
+		//new Pumpkin().collect();
 		new FourClover().collect();
-
 		new MasterThievesArmband().upgrade(5).collect();
 			//new AlienBag().collect();
 		Dungeon.gold = 10000;
@@ -793,6 +812,7 @@ public enum HeroClass {
 
             (hero.belongings.weapon = new EleKatana()).identify();
             (hero.belongings.armor = new ClothArmor()).identify();
+			(hero.belongings.weapon_two = new BeastKnive()).identify();
 
             CloakOfShadows cloak = new CloakOfShadows();
             (hero.belongings.misc1 = cloak).identify();
@@ -849,7 +869,7 @@ public enum HeroClass {
 			(hero.belongings.weapon = new Dagger()).identify().upgrade(1);
 			(hero.belongings.armor = new RubberArmor()).identify().upgrade(1);
 			Dungeon.LimitedDrops.strengthPotions.count++;
-			TimekeepersHourglass th = new TimekeepersHourglass();
+			TimeOclock th = new TimeOclock();
 			(hero.belongings.misc1 = th).identify().upgrade(5);
 			hero.belongings.misc1.activate(hero);
 
@@ -980,6 +1000,7 @@ public enum HeroClass {
             (hero.belongings.weapon = new MegaCannon()).identify();
              hero.belongings.weapon.activate(hero);
              (hero.belongings.armor = new PerformerArmor()).identify();
+			(hero.belongings.weapon_two = new XSaber()).identify();
 
            new Dewcatcher.Seed().collect();
             new Dewcatcher.Seed().collect();
@@ -1078,6 +1099,7 @@ public enum HeroClass {
 			new JumpS().collect();
 		} else if (Hero.skins == 7) {
 			(hero.belongings.weapon = new BunnyDagger()).identify();
+			(hero.belongings.weapon_two = new BunnySpanner()).identify();
 			(hero.belongings.armor = new RogueArmor()).identify();
 			new JumpR().collect();
 
@@ -1106,6 +1128,7 @@ public enum HeroClass {
 		if (Hero.skins == 1) {
 			(hero.belongings.weapon = new DiamondPickaxe()).identify();
 			(hero.belongings.armor = new LeatherArmor()).identify();
+			(hero.belongings.weapon_two = new PixelTorch()).identify();
 			hero.STR += 4;
 			Dungeon.LimitedDrops.strengthPotions.count += 4;
 			new JumpF().collect();
@@ -1172,6 +1195,7 @@ public enum HeroClass {
 			hero.STR+=4;
 			(hero.belongings.weapon = new HolyMace()).identify().upgrade(1);
 			(hero.belongings.armor = new LeatherArmor()).identify().upgrade(1);
+			(hero.belongings.weapon_two = new BraveBook()).identify().upgrade(1);
 			Dungeon.LimitedDrops.strengthPotions.count+=4;
 			//new CannonOfMage().identify().collect();
 			new JumpA().collect();
@@ -1221,7 +1245,7 @@ public enum HeroClass {
 
 		} else if (Hero.skins == 7) {
 			 (hero.belongings.weapon = new NinjaFan()).identify();
-			  (hero.belongings.armor = new VestArmor()).identify();
+			  (hero.belongings.armor = new RenBArmor()).identify();
 
 			DriedRose rose = new DriedRose();
 			(hero.belongings.misc1 = rose).identify();
@@ -1254,47 +1278,16 @@ public enum HeroClass {
 	private static void initNewPlayer(Hero hero) {
 		hero.TRUE_HT = 50;
 		hero.HP = 10;
-		new WoodenBowN().identify().collect();
-
-		new SmokeFruit(99).collect();
-
-		new Torch().collect();
-
-		new HealFruit(99).collect();
-		new ToxicFruit(99).collect();
-		new NutFruit(99).collect();
-		
-		new ScrollOfUpgrade().collect();
-		new ScrollOfUpgrade().collect();
-
-		new TransmutationBall().collect();
-		new TransmutationBall().collect();
-
-		new ScrollOfIdentify().collect();
-		new ScrollOfIdentify().collect();
-		//new ScrollOfIdentify().collect();
-
-		new ScrollOfMagicalInfusion().collect();
-		new ScrollOfMagicalInfusion().collect();
-		new ScrollOfMagicalInfusion().collect();
-
-		//new Firebloom.Seed().collect();
-		//new Firebloom.Seed().collect();
-		//new Firebloom.Seed().collect();
-
-		new RocketMissile().collect();
-		
-        new WallBlock().collect();
-
+		//Buff.affect(hero, MindVision.class, 5f);
 	}
 
 	public String title() {
 		return Messages.get(HeroClass.class, title);
 	}
 
-	public String title2() {
-		return title2;
-	}
+	//public String title2() {
+	//	return title2;
+	//}
 
 	public HeroSubClass[] subClasses() {
 		return subClasses;

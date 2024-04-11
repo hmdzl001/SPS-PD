@@ -20,7 +20,7 @@ package com.hmdzl.spspd.actors.mobs.pets;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
@@ -87,7 +87,7 @@ public class Stone extends PET {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 		if (cooldown == 0) {
-			Buff.affect(enemy, Shieldblock.class,5f);
+			Buff.affect(enemy, HolyStun.class,5f);
 			cooldown = Math.max(10,30-hero.petLevel);
 		}
 		return damage;

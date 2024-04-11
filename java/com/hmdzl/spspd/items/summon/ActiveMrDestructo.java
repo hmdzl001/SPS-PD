@@ -152,7 +152,7 @@ public class ActiveMrDestructo extends Item {
 		@Override
 		protected boolean act() {
 
-			for (int n : Floor.NEIGHBOURS8DIST2) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int c = pos + n;
 				if (c< Floor.getLength() && c>0){
 					Char ch = Actor.findChar(c);
@@ -306,7 +306,7 @@ public class ActiveMrDestructo extends Item {
 		@Override
 		protected boolean act() {
 
-			for (int n : Floor.NEIGHBOURS8DIST2) {
+			for (int n : Floor.NEIGHBOURS8) {
 				int c = pos + n;
 				if (c< Floor.getLength() && c>0){
 					Char ch = Actor.findChar(c);

@@ -36,16 +36,12 @@ public class BattleFlower extends Vegetable {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
+	public void doEat() {
+			Buff.affect(curUser, AttackUp.class,30f).level(25);
+			Buff.affect(curUser, DefenceUp.class,30f).level(25);
+			Buff.affect(curUser, Arcane.class,5f);
+			Buff.affect(curUser, TargetShoot.class,30f);
 
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, AttackUp.class,30f).level(25);
-			Buff.affect(hero, DefenceUp.class,30f).level(25);
-			Buff.affect(hero, Arcane.class,5f);
-			Buff.affect(hero, TargetShoot.class,30f);
-		}
 	}
 
 	@Override

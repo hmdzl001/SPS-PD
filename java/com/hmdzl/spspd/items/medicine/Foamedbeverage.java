@@ -57,29 +57,25 @@ public class Foamedbeverage extends Pill {
 	}
 
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			Buff.detach(hero, Poison.class);
-			Buff.detach(hero, Cripple.class);
-			Buff.detach(hero, STRdown.class);
-			Buff.detach(hero, Bleeding.class);
-			Buff.affect(hero, Bless.class, 30f);
-            Buff.affect(hero, BerryRegeneration.class).level(hero.HT/4);
+	public void doEat2() {
+			Buff.detach(curUser, Poison.class);
+			Buff.detach(curUser, Cripple.class);
+			Buff.detach(curUser, STRdown.class);
+			Buff.detach(curUser, Bleeding.class);
+			Buff.affect(curUser, Bless.class, 30f);
+            Buff.affect(curUser, BerryRegeneration.class).level(curUser.HT/4);
             switch (Random.Int(4)) {
 				case 0:
-					Buff.affect(hero,FireImbue.class).set(60f);
+					Buff.affect(curUser,FireImbue.class).set(60f);
 					break;
 				case 1:
-					Buff.affect(hero,FrostImbue.class,60f);
+					Buff.affect(curUser,FrostImbue.class,60f);
 					break;
 				case 2:
-					Buff.affect(hero,ToxicImbue.class).set(60f);
+					Buff.affect(curUser,ToxicImbue.class).set(60f);
 					break;
 				case 3:
-					Buff.affect(hero,EarthImbue.class,60f);
+					Buff.affect(curUser,EarthImbue.class,60f);
 					break;
 				//case 4:
 					//Buff.affect(hero,FireImbue.class).set(30f);
@@ -87,7 +83,7 @@ public class Foamedbeverage extends Pill {
 				//case 5:
 				//	Buff.affect(hero,FireImbue.class).set(30f);
 				//	break;
-			}
+
 		}
 }
 

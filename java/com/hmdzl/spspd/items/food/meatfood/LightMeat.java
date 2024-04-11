@@ -39,22 +39,12 @@ public class LightMeat extends MeatFood {
 	}
 
 	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-            effect(hero);
-		}
-	}
-
-	@Override
 	public int price() {
 		return 3 * quantity;
 	}
 
-    public static void effect(Hero hero){
-		Dungeon.depth.drop(new SmallMeat(), hero.pos).sprite.drop();
+	public void doEat() {
+		Dungeon.depth.drop(new SmallMeat(), curUser.pos).sprite.drop();
 	}
 	
 	public static Food cook(MysteryMeat ingredient) {

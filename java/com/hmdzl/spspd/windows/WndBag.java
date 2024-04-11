@@ -21,7 +21,7 @@ import android.graphics.RectF;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.SPSSettings;
+import com.hmdzl.spspd.GiftUnlocks;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.hero.Belongings;
@@ -32,11 +32,14 @@ import com.hmdzl.spspd.items.AdamantRing;
 import com.hmdzl.spspd.items.AdamantWand;
 import com.hmdzl.spspd.items.AdamantWeapon;
 import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.ChangeEquip;
+import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.EquipableItem;
 import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.SpecialCoin;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.StrBottle;
 import com.hmdzl.spspd.items.Stylus;
@@ -67,6 +70,7 @@ import com.hmdzl.spspd.items.journalpages.JournalPage;
 import com.hmdzl.spspd.items.medicine.Greaterpill;
 import com.hmdzl.spspd.items.nornstone.NornStone;
 import com.hmdzl.spspd.items.potions.Potion;
+import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.quest.DarkGold;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.scrolls.Scroll;
@@ -74,6 +78,7 @@ import com.hmdzl.spspd.items.summon.Honeypot;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
+import com.hmdzl.spspd.items.weapon.melee.Spear;
 import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
@@ -105,7 +110,8 @@ import static com.hmdzl.spspd.Dungeon.hero;
 public class WndBag extends WndTabbed {
 
 	public enum Mode {
-		ALL, 
+		ALL,
+		NOTEQUIP,
 		UNIDENTIFED, 
 		UPGRADEABLE, 
 		QUICKSLOT, 
@@ -145,7 +151,7 @@ public class WndBag extends WndTabbed {
 	protected static final int COLS_L = 8;
 
 	//protected static final int SLOT_SIZE = 26;
-	protected static final int SLOT_SIZE = 22;
+	protected static final int SLOT_SIZE = 20;
 	protected static final int SLOT_MARGIN = 1;
 
 	protected static final int TITLE_HEIGHT = 12;
@@ -178,11 +184,12 @@ public class WndBag extends WndTabbed {
 		lastBag = bag;
 
 		nCols = ShatteredPixelDungeon.landscape() ? COLS_L : COLS_P;
-		nRows = (Belongings.BACKPACK_SIZE + 5 + 1) / nCols
-				+ ((Belongings.BACKPACK_SIZE + 5 + 1) % nCols > 0 ? 1 : 0);
+		nRows = (Belongings.BACKPACK_SIZE + 5 + 2) / nCols
+						+ ((Belongings.BACKPACK_SIZE + 5 + 2) % nCols > 0 ? 1 : 0)
+		;
 
-		int slotsWidth = SLOT_SIZE * nCols + SLOT_MARGIN * (nCols - 1);
-		int slotsHeight = SLOT_SIZE * nRows + SLOT_MARGIN * (nRows - 1);
+		int slotsWidth = SLOT_SIZE * nCols + SLOT_MARGIN * (nCols -1 );
+		int slotsHeight = SLOT_SIZE * nRows + SLOT_MARGIN * (nRows -1 );
 
 		RenderedText txtTitle = PixelScene.renderText(title != null ? title
 				: Messages.titleCase( bag.name() ), 9);
@@ -277,11 +284,28 @@ public class WndBag extends WndTabbed {
 		placeItem(stuff.misc3 != null ? stuff.misc3 : new Placeholder(
 				ItemSpriteSheet.RING_HOLDER));
 
+		if (ShatteredPixelDungeon.landscape()) {
+			placeItem(new ChangeEquip());
+			placeItem(stuff.weapon_two != null ? stuff.weapon_two : new Placeholder(
+					ItemSpriteSheet.WEAPON_HOLDER));
+			placeItem(stuff.armor_two != null ? stuff.armor_two : new Placeholder(
+					ItemSpriteSheet.ARMOR_HOLDER));
+		} else {
+			placeItem(stuff.weapon_two != null ? stuff.weapon_two : new Placeholder(
+					ItemSpriteSheet.WEAPON_HOLDER));
+			placeItem(stuff.armor_two != null ? stuff.armor_two : new Placeholder(
+					ItemSpriteSheet.ARMOR_HOLDER));
+			placeItem(new ChangeEquip());
+		}
 		boolean backpack = (container == hero.belongings.backpack);
-		if (!backpack) {
+		if (ShatteredPixelDungeon.landscape()) {
 			count = nCols;
 			col = 0;
 			row = 1;
+		} else {
+			count = nCols;
+			col = 0;
+			row = 2;
 		}
 
 		// Items in the bag
@@ -295,13 +319,25 @@ public class WndBag extends WndTabbed {
 		}
 
 		// Gold
-		if (container == hero.belongings.backpack) {
+		if (ShatteredPixelDungeon.landscape()) {
 			row = nRows - 1;
 			col = nCols - 1;
 			placeItem(new Gold(Dungeon.gold));
+		} else  {
+			row = 1;
+			col = 4;
+			placeItem(new Gold(Dungeon.gold));
 		}
 
-
+		if (ShatteredPixelDungeon.landscape()) {
+			row = nRows - 1;
+			col = nCols - 2;
+			placeItem(new SpecialCoin(0));
+		} else  {
+			row = 1;
+			col = 3;
+			placeItem(new SpecialCoin(0));
+		}
 	}
 
 	protected void placeItem(final Item item) {
@@ -373,7 +409,9 @@ public class WndBag extends WndTabbed {
 
 			icon.copy(icon());
 			icon.x = x + (width - icon.width) / 2;
+
 			icon.y = y + (height - icon.height) / 2 - 2 - (selected ? 0 : 1);
+
 			if (!selected && icon.y < y + CUT) {
 				RectF frame = icon.frame();
 				frame.top += (y + CUT - icon.y) / icon.texture.height;
@@ -438,7 +476,7 @@ public class WndBag extends WndTabbed {
 			super(item);
 
 			this.item = item;
-			if (item instanceof Gold) {
+			if (item instanceof Gold || item instanceof SpecialCoin || item instanceof ChangeEquip) {
 				bg.visible = false;
 			}
 
@@ -542,7 +580,7 @@ public class WndBag extends WndTabbed {
 				|| mode == Mode.EATABLE
 						&& (!item.isEquipped(hero) && (item instanceof MeleeWeapon || item instanceof Ring || item instanceof Wand || item instanceof Armor || item instanceof MeleeThrowWeapon || item instanceof RangeWeapon || item instanceof GunWeapon))
 				|| mode == Mode.HOLY_MACE
-						&& (item instanceof Torch || item instanceof GreatRune || item instanceof Greaterpill)
+						&& (item instanceof Torch || item instanceof GreatRune || item instanceof Greaterpill || item instanceof PotionOfStrength)
 				|| mode == Mode.IRON_MAKE
 						&& ((item.isUpgradable() && !item.isEquipped(hero)) || item instanceof WaterItem || item instanceof StoneOre || item instanceof Garbage
 							|| item instanceof Plant.Seed || item instanceof BuildBomb ||item instanceof Weightstone ||item instanceof Stylus
@@ -553,6 +591,9 @@ public class WndBag extends WndTabbed {
 							|| item instanceof Honeypot.ShatteredPot || item instanceof Potion || item instanceof Scroll || item instanceof Ankh)
 				|| mode == Mode.TEST_RECOVER
 							&& (!item.isunique() && item instanceof EquipableItem)
+
+				|| mode == Mode.NOTEQUIP
+							&& (!item.isEquipped(hero))
 				||mode == Mode.ALL );
 				}
 			} else {

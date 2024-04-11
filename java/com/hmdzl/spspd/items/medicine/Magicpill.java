@@ -31,14 +31,9 @@ public class Magicpill extends Pill {
 		sname = "MIG";
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Arcane.class,50f);
-			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		}
+	public void doEat2() {
+			Buff.affect(curUser, Arcane.class,50f);
+			curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 	}
 
 	@Override

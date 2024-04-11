@@ -47,29 +47,19 @@ public class ShockMeat extends MeatFood {
 	}
 
 	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-            effect(hero);
-		}
-	}
-
-	@Override
 	public int price() {
 		return 3 * quantity;
 	}
 
-    public static void effect(Hero hero){
+	public void doEat() {
 		GLog.i( Messages.get(Meat.class, "refresh") );
-		Buff.detach( hero, Poison.class );
-		Buff.detach( hero, Cripple.class );
-		Buff.detach( hero, STRdown.class );
-		Buff.detach( hero, Bleeding.class );
-		Buff.detach( hero, Drowsy.class );
-		Buff.detach( hero, Slow.class );
-		Buff.detach( hero, Vertigo.class);
+		Buff.detach( curUser, Poison.class );
+		Buff.detach( curUser, Cripple.class );
+		Buff.detach( curUser, STRdown.class );
+		Buff.detach( curUser ,Bleeding.class );
+		Buff.detach( curUser, Drowsy.class );
+		Buff.detach( curUser, Slow.class );
+		Buff.detach( curUser, Vertigo.class);
 	}
 	
 	public static Food cook(MysteryMeat ingredient) {

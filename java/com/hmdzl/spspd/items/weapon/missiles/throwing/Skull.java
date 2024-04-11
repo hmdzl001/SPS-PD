@@ -28,7 +28,7 @@ public class Skull extends TossWeapon {
 
 	{
 		//name = "skull";
-		image = ItemSpriteSheet.SKULLWEP;
+		image = ItemSpriteSheet.SKULL;
 
 		MIN = 1;
 		MAX = 4;

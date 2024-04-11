@@ -76,7 +76,7 @@ public class Potion extends Item {
 			ItemSpriteSheet.POTION_BISTRE, ItemSpriteSheet.POTION_INDIGO,
 			ItemSpriteSheet.POTION_SILVER, ItemSpriteSheet.POTION_AQUA,
 		    ItemSpriteSheet.POTION_VIOLET, ItemSpriteSheet.POTION_MIHUANG,
-			ItemSpriteSheet.POTION_CATALYST};
+			ItemSpriteSheet.POTION_MIX};
 
 	private static ItemStatusHandler<Potion> handler;
 

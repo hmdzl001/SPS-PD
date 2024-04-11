@@ -76,7 +76,11 @@ public class BugDragon extends PET{
 	public int attackProc(Char enemy, int damage) {
 	
 		if (cooldown<3 && enemy.isAlive()) {
+			damage = 0;
 			enemy.damage(enemy.HT,Item.class);
+		} else {
+			damage = 0;
+			enemy.damage(damageRoll(),Item.class);
 		}
 		cooldown = Random.Int(100);
 		return damage;

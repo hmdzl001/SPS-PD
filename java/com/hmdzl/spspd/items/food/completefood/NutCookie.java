@@ -46,25 +46,19 @@ public class NutCookie extends CompleteFood {
 		quantity = number;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
+	public void doEat() {
 			if (Random.Int(10) == 0){
-				Buff.affect(hero,GlassShield.class);
+				Buff.affect(curUser,GlassShield.class);
 			} else switch (Random.Int(4)){
-				case 0: Buff.affect(hero,MechArmor.class).level(10);
+				case 0: Buff.affect(curUser,MechArmor.class).level(10);
 						break;
-				case 1: Buff.affect(hero,EnergyArmor.class).level(10);
+				case 1: Buff.affect(curUser,EnergyArmor.class).level(10);
 					break;
-				case 2: Buff.affect(hero,ShieldArmor.class).level(10);
+				case 2: Buff.affect(curUser,ShieldArmor.class).level(10);
 					break;
-				case 3: Buff.affect(hero,MagicArmor.class).level(10);
+				case 3: Buff.affect(curUser,MagicArmor.class).level(10);
 					break;
 			}
-			
-		}
 	}
 
 	@Override

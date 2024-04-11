@@ -28,25 +28,18 @@ public class NutCake extends CompleteFood {
 
 	{
 		//name = "NutCake";
-		image = ItemSpriteSheet.NUT_CAKE;
+		image = ItemSpriteSheet.NUT_PUDDING;
 		energy = 450;
 		hornValue = 3;
 		 
 	}
 
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(7,14));
-			hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
-            Buff.affect(hero, ShieldArmor.class).level(hero.HT/3);
-			//Buff.detach(hero, Bleeding.class);
-            hero.updateHT(true);
-			hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
-
-		}
+	public void doEat() {
+			curUser.TRUE_HT = curUser.TRUE_HT + (Random.Int(7,14));
+			curUser.HP = curUser.HP+Math.min(((curUser.TRUE_HT-curUser.HP)/2), curUser.TRUE_HT-curUser.HP);
+            Buff.affect(curUser, ShieldArmor.class).level(curUser.HT/3);
+            curUser.updateHT(true);
+			curUser.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
 	}
 
 	@Override

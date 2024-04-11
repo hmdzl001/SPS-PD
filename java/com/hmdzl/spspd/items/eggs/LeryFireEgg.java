@@ -25,7 +25,7 @@ public class LeryFireEgg extends Egg {
 	
 	public static final float TIME_TO_USE = 1;
 		{
-		image = ItemSpriteSheet.FIREEGG;
+		image = ItemSpriteSheet.FIRE_EGG;
 
 		stackable = false;
 		}

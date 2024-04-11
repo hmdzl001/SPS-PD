@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items.weapon.melee.special;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
@@ -50,7 +50,7 @@ public class MeleePan extends MeleeWeapon {
     public void proc(Char attacker, Char defender, int damage) {
 
         if (Random.Int(100) < 30) {
-			Buff.prolong(defender, Shieldblock.class, 2f);
+			Buff.prolong(defender, HolyStun.class, 2f);
 		}
 
 		if (enchantment != null) {

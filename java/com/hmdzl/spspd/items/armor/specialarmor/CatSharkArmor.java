@@ -43,36 +43,20 @@ public class CatSharkArmor extends NormalArmor {
 	}
 
 	public int charge = 0;
-	//public int time = 0;
-	private static final String CHARGE = "charge";	
-	//private static final String TIME = "time";
+
+	private static final String CHARGE = "charge";
 	
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(CHARGE, charge);
-		//bundle.put(TIME, time);
 	}
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		//time = bundle.getInt(TIME);
+		charge = bundle.getInt(CHARGE);
 	}
 
-	@Override
-	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
-		if (super.doUnequip(hero, collect, single)) {
-			if (passiveBuff != null){
-				passiveBuff.detach();
-				passiveBuff = null;
-			}
-			hero.belongings.armor = null;
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
 	@Override
 	public Item upgrade(boolean hasglyph) {
 

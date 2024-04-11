@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.SwampGas;
@@ -36,6 +37,8 @@ import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ExBambooSprite;
+import com.hmdzl.spspd.utils.BArray;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class ExBambooMob extends BambooMob {
@@ -58,11 +61,15 @@ public class ExBambooMob extends BambooMob {
 		if( 1 > 2 * HP / HT && !skilluse && isAlive() ) {
 			skilluse = true;
 			this.HP = this.HT;
-			for (int i = 0; i < Floor.NEIGHBOURS8DIST2.length; i++) {
-				Char ch = findChar(pos + Floor.NEIGHBOURS8DIST2[i]);
-				if (ch != null && ch.isAlive()) {
-					Buff.affect(ch,Roots.class,10f);
-				}
+			PathFinder.buildDistanceMap( pos, BArray.not( Floor.solid, null ), 2 );
+			for (int i = 0; i < PathFinder.distance.length; i++) {
+				if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+					//for (int i = 0; i < Floor.NEIGHBOURS8DIST2.length; i++) {
+						Char ch = findChar(i);
+						if (ch != null && ch.isAlive()) {
+							Buff.affect(ch,Roots.class,10f);
+						}
+					}
 			}
 			this.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 		}

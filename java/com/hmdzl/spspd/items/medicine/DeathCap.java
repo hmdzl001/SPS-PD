@@ -37,31 +37,15 @@ public class DeathCap extends Pill {
 		image = ItemSpriteSheet.MUSHROOM_DEATHCAP;
 		 
 	}
-	
-	@Override
-	public void execute(Hero hero, String action) {
-		
-		if (action.equals(AC_EAT)) {
-			
-			if (Dungeon.bossLevel()){
-				GLog.w(Messages.get(Food.class,"bosslevel"));
-				return;
-			}
 
-		}
-		
-	   if (action.equals(AC_EAT)) {
+	public void doEat2() {
 		   for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			   Buff.affect(mob, BeOld.class).set(50);
 			   Buff.affect(mob, BeCorrupt.class).level(50);
 		   }
-		   int damage = Math.max(0,(Dungeon.dungeondepth) - Random.IntRange(0, hero.drRoll()));
-		   hero.damage(Math.max(1,Math.round(hero.HP/2)), this);
-		   Buff.prolong(hero, Cripple.class, Cripple.DURATION);
-
-		}
-	   
-	   super.execute(hero, action);
+		   int damage = Math.max(0,(Dungeon.dungeondepth) - Random.IntRange(0, curUser.drRoll()));
+		   curUser.damage(Math.max(1,Math.round(curUser.HP/2)), this);
+		   Buff.prolong(curUser, Cripple.class, Cripple.DURATION);
 	}	
 
 	@Override

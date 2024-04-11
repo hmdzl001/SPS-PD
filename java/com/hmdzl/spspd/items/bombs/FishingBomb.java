@@ -28,7 +28,9 @@ import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
+import com.watabou.utils.PathFinder;
 
 public class FishingBomb extends Bomb {
 
@@ -41,43 +43,45 @@ public class FishingBomb extends Bomb {
 	public void explode(int cell) {
 		super.explode(cell);
 
-	     	for (int n: Floor.NEIGHBOURS9DIST2) {
-			int c = cell + n;
-			if (c >= 0 && c < Floor.getLength()) {
-				if (Dungeon.visible[c]) {
-					CellEmitter.get(c).burst(SmokeParticle.FACTORY, 4);
-				}
+		PathFinder.buildDistanceMap( cell, BArray.not( Floor.solid, null ), 2 );
+		for (int i = 0; i < PathFinder.distance.length; i++) {
+			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+				if (i >= 0 && i < Floor.getLength()) {
+					if (Dungeon.visible[i]) {
+						CellEmitter.get(i).burst(SmokeParticle.FACTORY, 4);
+					}
 
-				Char ch = Actor.findChar(c);
-				if (ch != null) {
-				if (  ch instanceof Mob && !(ch instanceof Hero || ch instanceof NPC) ) {
+					Char ch = Actor.findChar(i);
+					if (ch != null) {
+						if (ch instanceof Mob && !(ch instanceof Hero || ch instanceof NPC)) {
 
-						int count = 20;
-						int pos;
-						do {
-							pos = Dungeon.depth.randomRespawnCellFish();
-							if (count-- <= 0) {
-								break;
+							int count = 20;
+							int pos;
+							do {
+								pos = Dungeon.depth.randomRespawnCellFish();
+								if (count-- <= 0) {
+									break;
+								}
+							} while (pos == -1);
+
+							if (pos == -1) {
+
+								GLog.w(Messages.get(this, "no_tp"));
+
+							} else {
+
+								ch.pos = pos;
+								ch.sprite.place(ch.pos);
+								ch.sprite.visible = Dungeon.visible[pos];
+								GLog.i(Messages.get(this, "tp"));
+
 							}
-						} while (pos == -1);
-
-						if (pos == -1) {
-
-							GLog.w(Messages.get(this,"no_tp"));
-
-						} else {
-
-							ch.pos = pos;
-							ch.sprite.place(ch.pos);
-							ch.sprite.visible = Dungeon.visible[pos];
-							GLog.i(Messages.get(this,"tp"));
 
 						}
-
 					}
 				}
-		 }}
-
+			}
+		}
 	}
 
 

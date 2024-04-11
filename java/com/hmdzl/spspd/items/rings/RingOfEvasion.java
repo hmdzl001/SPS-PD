@@ -38,9 +38,9 @@ public class RingOfEvasion extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Evasion();
+		return new RingEvasion();
 	}
 
-	public class Evasion extends RingBuff {
+	public class RingEvasion extends RingBuff {
 	}
 }

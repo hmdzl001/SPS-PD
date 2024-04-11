@@ -59,7 +59,7 @@ public class StarEater extends Plant {
 
 	public static class Seed extends Plant.Seed {
 		{
-			image = ItemSpriteSheet.SEED_FLYTRAP;
+			image = ItemSpriteSheet.SEED_STAREATER;
 
 			plantClass = StarEater.class;
 			explantClass = ExStarEater.class;

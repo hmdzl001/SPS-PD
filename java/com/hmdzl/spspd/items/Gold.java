@@ -28,6 +28,7 @@ import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -55,6 +56,8 @@ public class Gold extends Item {
 	public static final String AC_UNARMOR = "UNARMOR";
 
 	public static final String AC_PICKONE = "PICKONE";
+	
+	public static final String AC_MAKEBAG = "MAKEBAG";
 
 	public Gold() {
 		this(1);
@@ -71,6 +74,8 @@ public class Gold extends Item {
 		actions.remove(AC_THROW);
 		actions.add(AC_UNARMOR);
 		actions.add(AC_PICKONE);
+		if (Dungeon.gold > 10000)
+			actions.add(AC_MAKEBAG);
 		return actions;
 	}
 
@@ -92,7 +97,8 @@ public class Gold extends Item {
 			//thievery.collect(quantity);
 
 		GameScene.pickUp(this);
-		hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, quantity);
+		//hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, quantity);
+		hero.sprite.showStatusWithIcon(CharSprite.NEUTRAL, "+" + quantity, FloatingText2.GOLD);
 		hero.spendAndNext(TIME_TO_PICK_UP);
 
 		Sample.INSTANCE.play(Assets.SND_GOLD, 1, 1, Random.Float(0.9f, 1.1f));
@@ -116,6 +122,14 @@ public class Gold extends Item {
 			} else {
 				Dungeon.picktype = true;
 			}
+		}
+
+		if (action.equals(AC_MAKEBAG)) {
+			hero.spend(1f);
+			hero.busy();
+			hero.sprite.operate(hero.pos);
+			Dungeon.gold -= 10000;
+			Dungeon.depth.drop(new GoldBag(), hero.pos).sprite.drop();
 		}
 	}
 

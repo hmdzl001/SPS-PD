@@ -42,7 +42,7 @@ public class MissileShield extends Item {
 
 	{
 		//name = "MissileShield";
-		image = ItemSpriteSheet.WARRIORSHIELD;
+		image = ItemSpriteSheet.WOODEN_SHIELD;
 	
 		stackable = false;
 		unique = true;
@@ -162,7 +162,7 @@ public class MissileShield extends Item {
 	public class MissileShieldAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.WARRIORSHIELD;
+			image = ItemSpriteSheet.WOODEN_SHIELD;
 			ACU = 1000;
 		}
 

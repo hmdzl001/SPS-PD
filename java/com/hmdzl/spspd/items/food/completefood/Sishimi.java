@@ -37,11 +37,8 @@ public class Sishimi extends CompleteFood {
 		return 3 * quantity;
 	}
 
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero,MagicArmor.class).level(hero.HT/5);		
-		}
+	public void doEat() {
+			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/5);
 	}
 
 }

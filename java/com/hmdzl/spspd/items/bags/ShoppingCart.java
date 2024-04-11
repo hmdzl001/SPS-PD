@@ -36,8 +36,8 @@ public class ShoppingCart extends Bag {
 	
 	@Override
 	public boolean grab(Item item) {
-		return item instanceof Food &&
-				item instanceof Brewed &&
+		return (item instanceof Food ||
+				item instanceof Brewed) &&
 				!(item instanceof BugMeat);
 	}
 

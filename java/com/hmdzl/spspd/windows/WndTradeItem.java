@@ -236,11 +236,13 @@ public class WndTradeItem extends Window {
 		|| item instanceof JournalPage || item instanceof DolyaSlate || item instanceof ChallengeList || item instanceof ChallengeBook){
 			GLog.w( Messages.get(this, "donot") );
 			return ;
+		} else if (item.isEquippedSecond(hero)
+				&& !((EquipableItem) item).doUnequipSecond(hero, false)) {
+			return;
 		} else if (item.isEquipped(hero)
 				&& !((EquipableItem) item).doUnequip(hero, false)) {
 			return;
 		}
-		
 		item.detachAll(hero.belongings.backpack);
 
 		new Gold(item.price()).doPickUp(hero);
@@ -280,6 +282,7 @@ public class WndTradeItem extends Window {
 		if (!item.doPickUp(hero)) {
 			Dungeon.depth.drop(item, hero.pos).sprite.drop();
 		}
+
 		Dungeon.depth.drop(Generator.random(),heap.pos).type = Heap.Type.FOR_SALE;
 	}
 }

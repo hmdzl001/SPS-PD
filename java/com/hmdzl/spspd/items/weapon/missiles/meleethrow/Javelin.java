@@ -39,7 +39,7 @@ public class Javelin extends MeleeThrowWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		Buff.affect(defender, WatchOut.class);
+		Buff.affect(defender, WatchOut.class,10f);
 		super.proc(attacker, defender, damage);
 	}
 

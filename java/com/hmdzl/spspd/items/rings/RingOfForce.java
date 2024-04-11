@@ -25,9 +25,9 @@ public class RingOfForce extends Ring {
 
 	@Override
 	protected RingBuff buff() {
-		return new Force();
+		return new RingForce();
 	}
 	
-	public class Force extends RingBuff {
+	public class RingForce extends RingBuff {
 	}
 }

@@ -19,7 +19,7 @@ package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.normalarmor.StoneArmor;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
@@ -90,7 +90,7 @@ public class BlueGirl extends PET {
 
 		if (cooldown == 0) {
 			if (enemy.isAlive()) {
-				Buff.affect(enemy, Shieldblock.class, 2f);
+				Buff.affect(enemy, HolyStun.class, 2f);
 				damage += damage;
 				cooldown = Math.max(20, 40 - hero.petLevel);
 			}

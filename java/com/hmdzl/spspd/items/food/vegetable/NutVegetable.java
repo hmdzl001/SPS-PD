@@ -27,19 +27,15 @@ public class NutVegetable extends Vegetable {
 	{
 		stackable = true;
 		//name = "ration of food";
-		image = ItemSpriteSheet.EAT_GRASS;
+		image = ItemSpriteSheet.NUT_VEGETABLE;
 		energy = 20;
 		hornValue = 1;
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
+	public void doEat() {
+			Buff.affect(curUser, ShieldArmor.class).level(curUser.HT/5);
 
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, ShieldArmor.class).level(hero.HT/5);
-		}
 	}
 
 	@Override

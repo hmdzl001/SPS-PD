@@ -16,7 +16,7 @@ public class RingOfEnergy extends Ring {
 	
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",  1.25*level);
+			return Messages.get(this, "stats",  Math.min(30,level) , (int)Math.min(15f,level/2));
 		} else {
 			return "???";
 		}
@@ -24,9 +24,9 @@ public class RingOfEnergy extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Energy();
+		return new RingEnergy();
 	}
 
-	public class Energy extends RingBuff {
+	public class RingEnergy extends RingBuff {
 	}
 }

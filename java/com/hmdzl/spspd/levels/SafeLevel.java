@@ -18,6 +18,7 @@
 package com.hmdzl.spspd.levels;
 
 import com.hmdzl.spspd.Assets;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.YellowDewdrop;
@@ -38,9 +39,20 @@ public class SafeLevel extends Floor {
 	}
 
 
+	//@Override
+	//public String tilesTex() {
+	//	return Assets.TILES_PUZZLE;
+	//}
 	@Override
 	public String tilesTex() {
-		return Assets.TILES_PUZZLE;
+		switch (Statistics.roomType){
+			case 0 :
+				return Assets.TILES_TOWN;
+			case 1 :
+				return Assets.TILES_FOREST;
+			case 2 : default:
+			     return Assets.TILES_PUZZLE;
+		}
 	}
 
 	@Override
@@ -50,8 +62,23 @@ public class SafeLevel extends Floor {
 
 	@Override
 	protected boolean build() {
-		
-		map = SaveRoomLayouts.SAFE_ROOM_DEFAULT.clone();
+
+		switch (Statistics.roomType) {
+			case 0:
+				//Statistics.roomType = 0;
+				map = SaveRoomLayouts.ROOM_OF_GRASS.clone();
+				break;
+			case 1:
+				//Statistics.roomType = 1;
+				map = SaveRoomLayouts.ROOM_OF_FOREST.clone();
+				break;
+			case 2: default:
+				//Statistics.roomType = 2;
+				map = SaveRoomLayouts.SAFE_ROOM_DEFAULT.clone();
+				break;
+		}
+
+		//map = SaveRoomLayouts.SAFE_ROOM_DEFAULT.clone();
 	
 		decorate();
 
@@ -108,8 +135,9 @@ public class SafeLevel extends Floor {
 		}
 		 for (int i = 0; i < LENGTH; i++) {				
 				if (map[i]==Terrain.EMPTY && heaps.get(i) == null && Random.Int(100)>70){
-					if (first && !ringDrop){drop(new LuckyBadge().identify(), i).type = Heap.Type.CHEST; ringDrop=true;}
-				    else if (Random.Int(5)==0){drop(new Gold(Random.Int(goldmin, goldmax)), i).type = Heap.Type.CHEST;}
+					//if (first && !ringDrop){drop(new LuckyBadge().identify(), i).type = Heap.Type.CHEST; ringDrop=true;}
+				   // else
+					if (Random.Int(5)==0){drop(new Gold(Random.Int(goldmin, goldmax)), i).type = Heap.Type.CHEST;}
 					else if (Random.Int(4)==0){drop(new SmallMeat(), i).type = Heap.Type.M_WEB;}
 					else {drop(new YellowDewdrop(), i).type = Heap.Type.E_DUST;}
 				}

@@ -40,16 +40,11 @@ public class ZongZi extends CompleteFood {
 		return 60 * quantity;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-             Buff.affect(hero, Tar.class);
-			 Buff.affect(hero, Slow.class, 30f);
-			 Buff.affect(hero,MagicArmor.class).level(hero.HT/4);
-			 Buff.affect(hero,AttackUp.class,50f).level(20);
-		}
+	public void doEat() {
+             Buff.affect(curUser, Tar.class);
+			 Buff.affect(curUser, Slow.class, 30f);
+			 Buff.affect(curUser,MagicArmor.class).level(curUser.HT/4);
+			 Buff.affect(curUser,AttackUp.class,50f).level(20);
 	}
 
 }

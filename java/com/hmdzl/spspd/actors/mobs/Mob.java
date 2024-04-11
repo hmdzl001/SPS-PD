@@ -45,6 +45,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
+import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.Surprise;
@@ -63,7 +64,9 @@ import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.misc.PPC;
 import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.reward.BoundReward;
+import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
+import com.hmdzl.spspd.items.rings.RingOfKnowledge;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
@@ -451,8 +454,8 @@ public abstract class Mob extends Char {
 		if (enemySeen && (paralysed == 0)) {
 			int evadeSkill = this.evadeSkill;
 			int penalty = 0;
-			for (Buff buff : enemy.buffs(RingOfAccuracy.Accuracy.class)) {
-				penalty += ((RingOfAccuracy.Accuracy) buff).level;
+			for (Buff buff : enemy.buffs(RingOfAccuracy.RingAccuracy.class)) {
+				penalty += ((RingOfAccuracy.RingAccuracy) buff).level;
 			}
 			if (penalty != 0 && enemy == Dungeon.hero)
 				evadeSkill *= Math.pow(0.75, penalty);
@@ -650,9 +653,12 @@ public abstract class Mob extends Char {
 		float lootChance = this.lootChance;
 		float lootChanceOther = this.lootChanceOther;
 		int bonus = 0;
-		for (Buff buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
-			bonus += ((LuckyBadge.GreatLucky) buff).level;
+
+		LuckyBadge luckyBadge = Dungeon.hero.belongings.getItem(LuckyBadge.class);
+	    if(luckyBadge != null){
+		    bonus += luckyBadge.level;
 		}
+
 		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
 			bonus += 5;
 		if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR) {
@@ -675,6 +681,10 @@ public abstract class Mob extends Char {
 			Item lootOther = createLootOther();
 			if (lootOther != null)
 				Dungeon.depth.drop(lootOther, pos).sprite.drop();
+		}
+
+		if (!ally && !sumcopy){
+			rollToDropLoot();
 		}
 
 		if (Dungeon.hero.isAlive() && !Dungeon.visible[pos]) {
@@ -824,6 +834,23 @@ public abstract class Mob extends Char {
 			}
 		  }
 		  }
+		}
+	}
+
+	public void rollToDropLoot(){
+		if (Ring.getBonus(Dungeon.hero, RingOfKnowledge.RingKnowledge.class) > 0) {
+			int rolls = 1;
+			if (properties.contains(Property.BOSS)) rolls = 10;
+			ArrayList<Item> bonus = RingOfKnowledge.tryForBonusDrop(Dungeon.hero, rolls);
+			if (bonus != null && !bonus.isEmpty()) {
+				for (Item b : bonus) Dungeon.depth.drop(b, pos).sprite.drop();
+				if (RingOfKnowledge.latestDropWasRare){
+					new Flare(8, 48).color(0xAA00FF, true).show(sprite, 3f);
+					RingOfKnowledge.latestDropWasRare = false;
+				} else {
+					new Flare(8, 24).color(0xFFFFFF, true).show(sprite, 3f);
+				}
+			}
 		}
 	}
 	

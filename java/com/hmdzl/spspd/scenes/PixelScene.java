@@ -101,6 +101,7 @@ public class PixelScene extends Scene {
 		}
 		minZoom = 1;
 		maxZoom = defaultZoom * 2;
+		//maxZoom = 1;
 
 		Camera.reset(new PixelCamera(defaultZoom));
 

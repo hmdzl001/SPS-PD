@@ -33,14 +33,9 @@ public class Strawberry extends Fruit {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
+	public void doEat() {
+				Buff.affect(curUser, InfJump.class, MindVision.DURATION);
 
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-				Buff.affect(hero, InfJump.class, MindVision.DURATION);
-		}
 	}	
 
 	@Override

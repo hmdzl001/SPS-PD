@@ -19,7 +19,7 @@ package com.hmdzl.spspd.items.weapon.missiles.throwing;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
@@ -51,7 +51,7 @@ public class EscapeKnive extends TossWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 		super.proc(attacker, defender, damage);
-        Buff.prolong(defender, Shieldblock.class, 4f);
+        Buff.prolong(defender, HolyStun.class, 4f);
 	}	
 
 	@Override

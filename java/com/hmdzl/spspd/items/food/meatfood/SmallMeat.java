@@ -29,28 +29,11 @@ public class SmallMeat extends MeatFood {
 		hornValue = 0;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-	}
 
 	@Override
 	public int price() {
 		return 1 * quantity;
 	}
 
-	
-	//public static Food cook(MysteryMeat ingredient) {
-	//	IceMeat result = new IceMeat();
-	//	result.quantity = ingredient.quantity();
-	//	return result;
-	//}
-	
-	//public static Food cook(Meat ingredient) {
-	//	IceMeat result = new IceMeat();
-	//	result.quantity = ingredient.quantity();
-	//	return result;
-	//}
+
 }

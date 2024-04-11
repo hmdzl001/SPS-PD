@@ -36,21 +36,15 @@ public class Icecream extends CompleteFood {
 		 
 	}
 
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(6, 12));
-			hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
-			Buff.detach(hero, Poison.class);
-			Buff.detach(hero, Burning.class);
-			Buff.detach(hero, STRdown.class);
+	public void doEat() {
+			curUser.TRUE_HT = curUser.TRUE_HT + (Random.Int(3, 6));
+			curUser.HP = curUser.HP+Math.min(((curUser.TRUE_HT-curUser.HP)/2), curUser.TRUE_HT-curUser.HP);
+			Buff.detach(curUser, Poison.class);
+			Buff.detach(curUser, Burning.class);
+			Buff.detach(curUser, STRdown.class);
 			//Buff.detach(hero, Bleeding.class);
-            hero.updateHT(true);
-			hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
-
-		}
+            curUser.updateHT(true);
+			curUser.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
 	}
 
 	@Override

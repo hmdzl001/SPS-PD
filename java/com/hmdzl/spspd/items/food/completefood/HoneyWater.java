@@ -31,28 +31,21 @@ public class HoneyWater extends CompleteFood {
 
 	{
 		//name = "HoneyWater";
-		image = ItemSpriteSheet.HONEYWATER;
+		image = ItemSpriteSheet.HONEY_WATER;
 		 
 		energy = 10;
 		hornValue = 2;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-			 hero.TRUE_HT = hero.TRUE_HT + (Random.Int(6, 12));
+	public void doEat() {
+		curUser.TRUE_HT = curUser.TRUE_HT + (Random.Int(3, 6));
 			 //hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
-				Buff.detach(hero, Poison.class);
-				Buff.detach(hero, Cripple.class);
-				Buff.detach(hero, STRdown.class);
-				Buff.detach(hero, Bleeding.class);
-				hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
-				hero.updateHT(true);
-			
-		}
+				Buff.detach(curUser, Poison.class);
+				Buff.detach(curUser, Cripple.class);
+				Buff.detach(curUser, STRdown.class);
+				Buff.detach(curUser, Bleeding.class);
+				curUser.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
+				curUser.updateHT(true);
 	}	
 
 	@Override

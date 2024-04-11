@@ -21,7 +21,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.eggs.RandomEasterEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEasterEgg;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.sprites.ChocoboSprite;

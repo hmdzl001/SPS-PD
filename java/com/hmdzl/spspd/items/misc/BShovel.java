@@ -49,7 +49,7 @@ public class BShovel extends Item {
 
 	{
 		//name = "Shovel";
-		image = ItemSpriteSheet.BSHOVEL;
+		image = ItemSpriteSheet.G_BUTTON;
 		defaultAction = AC_USE;
 		unique = true;
 		 

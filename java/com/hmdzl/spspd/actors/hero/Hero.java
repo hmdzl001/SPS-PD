@@ -30,6 +30,7 @@ import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.NmGas;
 import com.hmdzl.spspd.actors.buffs.AflyBless;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
@@ -65,6 +66,7 @@ import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
 import com.hmdzl.spspd.actors.buffs.ItemSteal;
 import com.hmdzl.spspd.actors.buffs.Light;
+import com.hmdzl.spspd.actors.buffs.LingBless;
 import com.hmdzl.spspd.actors.buffs.Locked;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.MechArmor;
@@ -99,6 +101,7 @@ import com.hmdzl.spspd.actors.buffs.mindbuff.KeepMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.LoseMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.TerrorMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.WeakMind;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.SommonSkeleton;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
@@ -106,6 +109,7 @@ import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.CheckedCell;
 import com.hmdzl.spspd.effects.Flare;
+import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Amulet;
 import com.hmdzl.spspd.items.Ankh;
@@ -122,6 +126,7 @@ import com.hmdzl.spspd.items.PocketBallFull;
 import com.hmdzl.spspd.items.armor.glyphs.Iceglyph;
 import com.hmdzl.spspd.items.artifacts.CapeOfThorns;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
+import com.hmdzl.spspd.items.artifacts.FlyChains;
 import com.hmdzl.spspd.items.artifacts.Pylon;
 import com.hmdzl.spspd.items.artifacts.TalismanOfForesight;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
@@ -163,7 +168,10 @@ import com.hmdzl.spspd.items.misc.SeriousPunch;
 import com.hmdzl.spspd.items.misc.Shovel;
 import com.hmdzl.spspd.items.misc.UndeadBook;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
+import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.rings.RingOfAccuracy;
+import com.hmdzl.spspd.items.rings.RingOfElements;
+import com.hmdzl.spspd.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.items.rings.RingOfForce;
 import com.hmdzl.spspd.items.rings.RingOfFuror;
 import com.hmdzl.spspd.items.rings.RingOfHaste;
@@ -171,6 +179,7 @@ import com.hmdzl.spspd.items.rings.RingOfMagic;
 import com.hmdzl.spspd.items.rings.RingOfMight;
 import com.hmdzl.spspd.items.rings.RingOfTenacity;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
+import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
@@ -185,7 +194,6 @@ import com.hmdzl.spspd.levels.features.TentPlace;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Earthroot;
-import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.plants.Sungrass;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
@@ -194,6 +202,7 @@ import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.ui.AttackIndicator;
 import com.hmdzl.spspd.ui.BuffIndicator;
+import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.QuickSlotButton;
 import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
@@ -296,8 +305,8 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 		int EX_HT = 0;
-		if (hero.buff(RingOfMight.Might.class) != null || hero.buff(HTimprove.class) != null || Dungeon.hero.subClass == HeroSubClass.PASTOR ) {
-            for (Buff buff : buffs(RingOfMight.Might.class)) {
+		if (hero.buff(RingOfMight.RingMight.class) != null || hero.buff(HTimprove.class) != null || Dungeon.hero.subClass == HeroSubClass.PASTOR ) {
+            for (Buff buff : buffs(RingOfMight.RingMight.class)) {
                 EX_HT += (int) (Math.min((TRUE_HT * RingOfMight.strengthBonus(this) / 15), TRUE_HT * 2));
             }
             for (Buff buff : buffs(HTimprove.class)) {
@@ -326,7 +335,7 @@ public class Hero extends Char {
 	public int STR() {
 		int STR = this.STR;
 
-		for (Buff buff : buffs(RingOfMight.Might.class)) {
+		for (Buff buff : buffs(RingOfMight.RingMight.class)) {
 			STR += (int)(RingOfMight.strengthBonus(this)/5);
 		}
 
@@ -347,8 +356,8 @@ public class Hero extends Char {
 	public int magicSkill() {
 		int magicSkill = this.magicSkill;
 
-		for (Buff buff : buffs(RingOfMagic.Magic.class)) {
-			magicSkill += Math.min(30,((RingOfMagic.Magic) buff).level);
+		for (Buff buff : buffs(RingOfMagic.RingMagic.class)) {
+			magicSkill += Math.min(30,((RingOfMagic.RingMagic) buff).level);
 		}	
 		if (subClass == HeroSubClass.BATTLEMAGE)
 			magicSkill += 5;
@@ -530,6 +539,9 @@ public class Hero extends Char {
 		Hunger hunger = buff(Hunger.class);
 		if (hunger != null && hunger.isStarving()) { evasion  = 0.75f;}
 		if (hunger != null && hunger.isOverfed()) { evasion = 1.5f; }
+
+		if (buff(LingBless.class)!= null) {evasion = 1.2f;}
+
 		KindOfArmor arm =  belongings.armor;
 		if (arm != null) {
 			return (int) (evadeSkill * evasion * arm.dexterityFactor(this));
@@ -562,6 +574,15 @@ public class Hero extends Char {
 
 		if (dr < 0)
 			dr = 0;
+
+		int tenacity = 0;
+		for (Buff buff : buffs(RingOfTenacity.RingTenacity.class)) {
+			tenacity += ((RingOfTenacity.RingTenacity) buff).level;
+		}
+
+		if (tenacity != 0) // (HT - HP)/HT = heroes current % missing health.
+			dr += tenacity;
+
 		if (barkskin != null) {
 			dr += barkskin.level();
 		}
@@ -578,8 +599,12 @@ public class Hero extends Char {
 		int magic = hero.magicSkill();
 		int dmg;
 		int bonus = 0;
-		for (Buff buff : buffs(RingOfForce.Force.class)) {
-			bonus += Math.min(((RingOfForce.Force) buff).level,30);
+		for (Buff buff : buffs(RingOfForce.RingForce.class)) {
+			bonus += Math.min(((RingOfForce.RingForce) buff).level,30);
+		}
+		int bonus2 = 0;
+		for (Buff buff : buffs(RingOfFuror.RingFuror.class)) {
+			bonus2 += ((RingOfFuror.RingFuror) buff).level;
 		}
 
 
@@ -604,10 +629,16 @@ public class Hero extends Char {
              dmg+= Dungeon.hero.lvl* (Dungeon.hero.STR-10)* Dungeon.hero.HP/Dungeon.hero.HT;
 		}
 
+		if (bonus2 > 0 ){
+			dmg += bonus2;
+			hero.sprite.emitter().burst(Speck.factory(Speck.STEAM),8);
+		}
+
 		if (bonus > 0 && Random.Int(100)< bonus * 2 + 5 ){
-			dmg *= 2.50f;
+			dmg *= 2.20f;
 			hero.sprite.emitter().burst(Speck.factory(Speck.STAR),8);
 		}
+
 
 		if (hero.subClass == HeroSubClass.MONK && Random.Int(10) == 0 ){
 			dmg *= (10f + magic * 1f) /10f ;
@@ -705,8 +736,8 @@ public class Hero extends Char {
 		float speed = super.speed();
 
 		int hasteLevel = 0;
-		for (Buff buff : buffs(RingOfHaste.Haste.class)) {
-			hasteLevel += ((RingOfHaste.Haste) buff).level;
+		for (Buff buff : buffs(RingOfHaste.RingHaste.class)) {
+			hasteLevel += ((RingOfHaste.RingHaste) buff).level;
 		}
 
 		
@@ -722,8 +753,12 @@ public class Hero extends Char {
 		}
 
 		if (hero.heroClass == HeroClass.HUNTRESS && skins == 2) {
-			speed += 0.5f;
+			speed += 0.25f;
 
+		}
+
+		if (buff(LingBless.class)!= null) {
+			speed += 0.2f;
 		}
 		
 		if (subClass == HeroSubClass.FREERUNNER) {
@@ -754,8 +789,8 @@ public class Hero extends Char {
 			return true;
 
 		int bonus = 0;
-		for (Buff buff : hero.buffs(RingOfAccuracy.Accuracy.class)) {
-			bonus += Math.min(((RingOfAccuracy.Accuracy) buff).level,30);
+		for (Buff buff : hero.buffs(RingOfAccuracy.RingAccuracy.class)) {
+			bonus += Math.min(((RingOfAccuracy.RingAccuracy) buff).level,30);
 		}
 		if (Dungeon.hero.subClass == HeroSubClass.JOKER){
 			bonus += 10;
@@ -807,8 +842,8 @@ public class Hero extends Char {
 			// combo
 			// This is for that one guy, you shall get your fists of fury!
 			int bonus = 0;
-			for (Buff buff : buffs(RingOfFuror.Furor.class)) {
-				bonus += ((RingOfFuror.Furor) buff).level;
+			for (Buff buff : buffs(RingOfFuror.RingFuror.class)) {
+				bonus += ((RingOfFuror.RingFuror) buff).level;
 			}
 			return (float) ( 1 / Math.min( 4, 1 + bonus * 1.00 / 10) );
 		}
@@ -1758,7 +1793,7 @@ public class Hero extends Char {
 				int earngold = Math.min(1000 * hero.lvl, damage);
 				Dungeon.gold += earngold;
 
-				hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, earngold);
+				hero.sprite.showStatusWithIcon(CharSprite.NEUTRAL, "+" + earngold, FloatingText2.GOLD);
 			}
 		}
 		if (buff(ItemSteal.class)!=null){
@@ -2005,13 +2040,23 @@ public class Hero extends Char {
 		}	
 		
 		int tenacity = 0;
-		for (Buff buff : buffs(RingOfTenacity.Tenacity.class)) {
-			tenacity += ((RingOfTenacity.Tenacity) buff).level;
+		for (Buff buff : buffs(RingOfTenacity.RingTenacity.class)) {
+			tenacity += ((RingOfTenacity.RingTenacity) buff).level;
+		}
+
+		int element = 0;
+		for (Buff buff : buffs(RingOfElements.RingElements.class)) {
+			element += ((RingOfElements.RingElements) buff).level;
 		}
 		
-		if (tenacity != 0) // (HT - HP)/HT = heroes current % missing health.
-			dmg = (int) Math.ceil(dmg * Math.max(0.60, (1- 1.00*tenacity/75)));
-			
+		if (tenacity != 0 && !(src instanceof Wand)  && !(src instanceof DamageType) && !(src instanceof Buff) && !(src instanceof Blob)) {// (HT - HP)/HT = heroes current % missing health.
+			dmg = (int) Math.ceil(dmg * Math.max(0.60, (1 - 1.00 * tenacity / 75)));
+		}
+
+		if (element != 0 && !(src instanceof Hunger) && ((src instanceof Wand)  || (src instanceof DamageType) || (src instanceof Blob) || (src instanceof Buff))) {// (HT - HP)/HT = heroes current % missing health.
+			dmg = (int) Math.ceil(dmg * Math.max(0.60, (1 - 1.00 * element / 75)));
+		}
+
         if (buff(Fury.class) != null){dmg = (int) Math.ceil(dmg * 0.75);}
 		if (buff(BloodAngry.class) != null){dmg = (int) Math.ceil(dmg * 0.80);}
 		if (buff(Rhythm2.class) != null){dmg = (int) Math.ceil(dmg * 0.90);}
@@ -2310,6 +2355,10 @@ public class Hero extends Char {
 			this.exp += 2;
 		}
 
+		if (Ring.getBonus(Dungeon.hero, RingOfEnergy.RingEnergy.class) > 0) {
+			this.exp += (int)Math.min(15,Ring.getBonus(Dungeon.hero, RingOfEnergy.RingEnergy.class)/2);
+		}
+
 		if (haspet) {
 			petExperience += exp;
 		}
@@ -2319,6 +2368,9 @@ public class Hero extends Char {
 
 		EtherealChains.chainsRecharge chains = buff(EtherealChains.chainsRecharge.class);
 		if (chains != null) chains.gainExp(percent);
+
+		FlyChains.chainsRecharge2 chains2 = buff(FlyChains.chainsRecharge2.class);
+		if (chains2 != null) chains2.gainExp(percent);
 		
 		Pylon.beaconRecharge pylon = buff(Pylon.beaconRecharge.class);
 		if (pylon != null) pylon.gainExp(percent);		
@@ -2349,7 +2401,7 @@ public class Hero extends Char {
 				TRUE_HT+=5;
 				magicSkill++;
 				Dungeon.gold+=1000;
-				hero.sprite.showStatus(CharSprite.NEUTRAL, TXT_VALUE, 1000);
+				hero.sprite.showStatusWithIcon(CharSprite.NEUTRAL, "+1000", FloatingText2.GOLD);
 				
 			}
 			if (heroClass == HeroClass.SOLDIER){
@@ -2478,7 +2530,7 @@ public class Hero extends Char {
 				GLog.w(msg);
 			}
 
-			if (buff instanceof RingOfMight.Might) {
+			if (buff instanceof RingOfMight.RingMight) {
 				//if (((RingOfMight.Might) buff).level > 0) {
 			//		HT += ((RingOfMight.Might) buff).level * 8;
 			//	}
@@ -2495,7 +2547,7 @@ public class Hero extends Char {
 	@Override
 	public void remove(Buff buff) {
 		super.remove(buff);
-		if (buff instanceof RingOfMight.Might) {
+		if (buff instanceof RingOfMight.RingMight) {
 			//if (((RingOfMight.Might) buff).level > 0) {
 				//HT -= ((RingOfMight.Might) buff).level * 8;
 				//hero.damage(1, this);

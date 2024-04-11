@@ -26,7 +26,7 @@ public class HoneyGel extends CompleteFood {
 
 	{
 		//name = "HoneyGel";
-		image = ItemSpriteSheet.H_GEL;
+		image = ItemSpriteSheet.UPGRADEGOO_YELLOW;
 		 
 		energy = 20;
 		hornValue = 2;
@@ -39,23 +39,9 @@ public class HoneyGel extends CompleteFood {
 		return YELLOW;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-			 hero.TRUE_HT = hero.TRUE_HT + (Random.Int(6, 12));
-			 //hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
-				//Buff.detach(hero, Poison.class);
-				//Buff.detach(hero, Cripple.class);
-				//Buff.detach(hero, STRdown.class);
-				//Buff.detach(hero, Bleeding.class);
-
-				//hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
-				hero.updateHT(true);
-			
-		}
+	public void doEat() {
+			curUser.TRUE_HT = curUser.TRUE_HT + (Random.Int(3, 6));
+			curUser.updateHT(true);
 	}	
 
 	@Override

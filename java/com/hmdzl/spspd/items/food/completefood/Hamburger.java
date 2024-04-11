@@ -39,15 +39,10 @@ public class Hamburger extends CompleteFood {
 		return 10 * quantity;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			hero.HP+= hero.HT/5;
-			Buff.affect(hero,MagicArmor.class).level(hero.HT/3);
-			Buff.affect(hero,AttackUp.class,50f).level(70);
-			hero.sprite.emitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
-		}
+	public void doEat() {
+			curUser.HP+= curUser.HT/5;
+			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/3);
+			Buff.affect(curUser,AttackUp.class,50f).level(70);
+			curUser.sprite.emitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
 	}
 }

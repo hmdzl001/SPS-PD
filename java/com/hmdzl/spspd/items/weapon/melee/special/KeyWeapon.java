@@ -32,7 +32,7 @@ public class KeyWeapon extends MeleeWeapon {
 
 	{
 		//name = "keyweapon";
-		image = ItemSpriteSheet.ANCIENTKEY;
+		image = ItemSpriteSheet.OLD_KEY;
 		 
 	}
 

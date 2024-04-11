@@ -30,39 +30,33 @@ public class Cloudberry extends Fruit {
 
 	{
 		//name = "dungeon cloud berry";
-		image = ItemSpriteSheet.SEED_CLOUDBERRY;
+		image = ItemSpriteSheet.CLOUDBERRY;
 		energy = 50;
 		hornValue = 1;
 		 
 	}
 
 	private int duration = 10;
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-
+	public void doEat() {
 			switch (Random.Int(10)) {
 			case 0: case 1: case 2: case 3: case 4: case 5: 
-				Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
+				Buff.affect(curUser, HasteBuff.class, HasteBuff.DURATION);
 				break;
 			case 6: case 7: case 8: 
-				 Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
-				 if(Dungeon.dungeondepth <51){Buff.affect(hero, Levitation.class, duration);
+				 Buff.affect(curUser, HasteBuff.class, HasteBuff.DURATION);
+				 if(Dungeon.dungeondepth <51){Buff.affect(curUser, Levitation.class, duration);
 				}
 				
 				break;
 			 case 9: case 10:
-				 Buff.affect(hero, HasteBuff.class, HasteBuff.DURATION);
-				 if(Dungeon.dungeondepth <51){Buff.affect(hero, Levitation.class, duration*2);
+				 Buff.affect(curUser, HasteBuff.class, HasteBuff.DURATION);
+				 if(Dungeon.dungeondepth <51){Buff.affect(curUser, Levitation.class, duration*2);
 				}
 				
-				Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/10,15));
+				Buff.affect(curUser, BerryRegeneration.class).level(Math.max(curUser.HT/10,15));
 				break;
 			}
-		}
+
 	}	
 
 	@Override

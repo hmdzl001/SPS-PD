@@ -26,7 +26,7 @@ public class BugMeat extends MeatFood {
 
 	{
 		//name = "monster meat";
-		image = ItemSpriteSheet.FUNNY_FOOD;
+		image = ItemSpriteSheet.BUG_MEAT;
 		energy = 50;
 		hornValue = 1;
 		stackable = false;
@@ -40,13 +40,10 @@ public class BugMeat extends MeatFood {
 		return actions;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)) {
-			hero.TRUE_HT = Math.max(hero.TRUE_HT-1,1);
-			hero.updateHT(true);
-		}
+	public void doEat() {
+			curUser.TRUE_HT = Math.max(curUser.TRUE_HT-1,1);
+			curUser.updateHT(true);
+
 	}	
 
 	@Override

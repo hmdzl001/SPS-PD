@@ -17,7 +17,7 @@ public class RingOfFuror extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats",new DecimalFormat("#.##").format( Math.min(300f, level * 10f)));
+			return Messages.get(this, "stats",new DecimalFormat("#.##").format( Math.min(300f, level * 10f)),level);
 		} else {
 			return "???";
 		}
@@ -26,10 +26,10 @@ public class RingOfFuror extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Furor();
+		return new RingFuror();
 	}
 
 
-	public class Furor extends RingBuff {
+	public class RingFuror extends RingBuff {
 	}
 }

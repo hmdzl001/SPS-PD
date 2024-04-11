@@ -227,7 +227,7 @@ public class WndTent extends Window {
         }
 
         btnCombine.enable(false);
-
+		onBackPressed();
 
 	}
 

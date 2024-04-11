@@ -66,7 +66,7 @@ public class PPC2 extends Item {
 	public static final float TIME_TO_MINE = 3;
 	{
 		//name = "PPC2";
-		image = ItemSpriteSheet.PPC;
+		image = ItemSpriteSheet.SPECIAL_PC;
 		defaultAction = AC_TRY;
 		unique = true;
 		 

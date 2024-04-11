@@ -38,29 +38,13 @@ public class BlueMilk extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		
-		if (action.equals(AC_EAT)) {
-			
-			if (Dungeon.bossLevel()){
-				GLog.w(Messages.get(Food.class,"bosslevel"));
-				return;
-			}
-
-		}
-		
-	   if (action.equals(AC_EAT)) {
+	public void doEat() {
 				for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 					Buff.affect(mob, Slow.class, 50f);
 					Buff.affect(mob, AttackDown.class, 50f).level(50);
 				}
-				Buff.affect(hero, HasteBuff.class, 10f);
-				Buff.affect(hero, BerryRegeneration.class).level(hero.HP/2);
-
-		}
-	   
-	   super.execute(hero, action);
+				Buff.affect(curUser, HasteBuff.class, 10f);
+				Buff.affect(curUser, BerryRegeneration.class).level(curUser.HP/2);
 	}	
 	
 	@Override

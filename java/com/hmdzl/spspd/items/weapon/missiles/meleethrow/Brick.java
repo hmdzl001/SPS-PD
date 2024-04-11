@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.weapon.missiles.meleethrow;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.messages.Messages;
@@ -32,7 +32,7 @@ public class Brick extends  MeleeThrowWeapon {
 
 	{
 		//name = "Brick";
-		image = ItemSpriteSheet.W_BRICK;
+		image = ItemSpriteSheet.BRICK;
 		 
 		usesTargeting = true;
 	}
@@ -48,7 +48,7 @@ public class Brick extends  MeleeThrowWeapon {
     public void proc(Char attacker, Char defender, int damage) {
 
         if (Random.Int(100) < 40) {
-			Buff.prolong(defender, Shieldblock.class, 2);
+			Buff.prolong(defender, HolyStun.class, 2);
 		}
 
 		if (enchantment != null) {

@@ -27,27 +27,20 @@ public class Nut extends Food {
 
 	{
 		//name = "dungeon nut";
-		image = ItemSpriteSheet.SEED_TOASTEDDUNGEONNUT;
+		image = ItemSpriteSheet.SMALL_NUT;
 		energy = 10;
 		//message = "Crunch Crunch.";
 		hornValue = 1;
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-
-		    hero.HP += 1;
+	public void doEat() {
+		    curUser.HP += 1;
 			switch (Random.Int(10)) {
 			case 0:
-				Buff.affect(hero, Barkskin.class).level(hero.lvl);
+				Buff.affect(curUser, Barkskin.class).level(curUser.lvl);
 				break;
 			}
-		}
 	}	
 	
 

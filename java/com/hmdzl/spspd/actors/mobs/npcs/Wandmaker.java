@@ -92,7 +92,6 @@ public class Wandmaker extends NPC {
 
 		sprite.turnTo(pos, Dungeon.hero.pos);
 		if (Quest.given) {
-
 			Item item = Quest.alternative ? Dungeon.hero.belongings
 					.getItem(CorpseDust.class) : Dungeon.hero.belongings
 					.getItem(Rotberry.Seed.class);

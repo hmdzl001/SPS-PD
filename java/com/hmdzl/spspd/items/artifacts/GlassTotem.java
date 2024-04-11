@@ -24,7 +24,7 @@ public class GlassTotem extends Artifact {
 
 	{
 		//name = "Glass Totem";
-		image = ItemSpriteSheet.GLASSTOTEM;
+		image = ItemSpriteSheet.ARTIFACT_GLASS_TOTEM;
 
 		level = 0;
 		levelCap = 10;

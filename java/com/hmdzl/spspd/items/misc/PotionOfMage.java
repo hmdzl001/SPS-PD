@@ -70,7 +70,7 @@ public class PotionOfMage extends Item {
 	private static final float TIME_TO_DIG = 1f;
 
 	{
-		image = ItemSpriteSheet.POTION_OF_MAGE;
+		image = ItemSpriteSheet.MIX_BOTTLE;
 		defaultAction = AC_USE;
 		
 		unique = true;
@@ -218,7 +218,7 @@ public class PotionOfMage extends Item {
 	public class MageAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.POTION_OF_MAGE;
+			image = ItemSpriteSheet.SLIME_BALL;
 			ACU = 1000;
 		}
 

@@ -38,26 +38,11 @@ public class JackOLantern extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		
-		if (action.equals(AC_EAT)) {
-			
-			if (Dungeon.bossLevel()){
-				GLog.w(Messages.get(Food.class,"bosslevel"));
-				return;
-			}
-
-		}
-		
-	   if (action.equals(AC_EAT)) {
+	public void doEat2() {
 				for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 					GameScene.add(Blob.seed(mob.pos, 3, Fire.class));
 					Buff.affect(mob,DBurning.class).set(8f);
-				}
-		}
-	   
-	   super.execute(hero, action);
+		        }
 	}	
 
 	@Override

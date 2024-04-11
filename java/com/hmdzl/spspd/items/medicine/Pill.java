@@ -63,7 +63,7 @@ public class Pill extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_EAT)) {
-
+			curUser = Dungeon.hero;
 			if (hero.buff(Locked.class) != null ) {
 				GLog.w(Messages.get(Food.class, "locked"));
 			} else {
@@ -110,6 +110,7 @@ public class Pill extends Item {
 						break;						
 				}
 */
+				doEat2();
 				hero.sprite.operate(hero.pos);
 				hero.busy();
 				SpellSprite.show(hero, SpellSprite.FOOD);
@@ -125,6 +126,10 @@ public class Pill extends Item {
 			super.execute(hero, action);
 
 		}
+	}
+
+	public void doEat2() {
+
 	}
 
 	@Override

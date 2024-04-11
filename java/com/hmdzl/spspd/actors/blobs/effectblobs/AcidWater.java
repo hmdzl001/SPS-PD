@@ -24,9 +24,7 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.effects.BlobEmitter;
-import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.AcidPoolParticle;
-import com.hmdzl.spspd.effects.particles.WoolParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
@@ -60,7 +58,7 @@ public class AcidWater extends Blob {
 		Char ch = Actor.findChar(pos);
 		if (ch != null && !ch.isImmune(this.getClass())) {
 			//if (ch.buff(Frost.class) != null) {
-				Buff.affect(ch, Ooze.class);
+				Buff.affect(ch, Ooze.class).set(3f);
 			//}
 
 			Heap heap = Dungeon.depth.heaps.get(pos);

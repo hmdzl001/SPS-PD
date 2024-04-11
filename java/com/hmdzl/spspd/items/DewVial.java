@@ -584,6 +584,19 @@ public class DewVial extends Item {
 
 		updateQuickslot();
 	}
+
+	public void collectDew(GreenDewdrop dew) {
+
+		//GLog.i(Messages.get(DewVial.class, "collect"));
+		dewpoint += (dew.quantity*Random.Int(10,30));
+		if (dewpoint >= MAX_VOLUME()) {
+			dewpointex +=  dewpoint - MAX_VOLUME();
+			dewpoint = MAX_VOLUME();
+			//GLog.p(Messages.get(DewVial.class, "full"));
+		}
+
+		updateQuickslot();
+	}
 	
 	
 	public void fill() {

@@ -65,7 +65,7 @@ public class WandOfCharm extends Wand {
 
 	@Override
 	protected int initialCharges() {
-		return 1;
+		return 2;
 	}
 
 	@Override

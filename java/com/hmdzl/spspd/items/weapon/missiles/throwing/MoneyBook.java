@@ -21,10 +21,12 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.utils.BArray;
+import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;
 
@@ -74,23 +76,24 @@ public class MoneyBook extends TossWeapon {
 		 if (action.equals(AC_CAST)) {
 			curUser = hero;
 			Buff.affect(hero,Invisibility.class,10f);
-			for (int m : Floor.NEIGHBOURS8DIST2) {
-			int c = hero.pos + m;
-			if (c >= 0 && c < Floor.getLength()) {
-
-				Char ch2 = Actor.findChar(c);
-				if (ch2 != null) {
-					Buff.affect(ch2, Shieldblock.class, 5f);
-				}
-			}
-		}
+			 PathFinder.buildDistanceMap( curUser.pos, BArray.not( Floor.solid, null ), 2 );
+			 for (int i = 0; i < PathFinder.distance.length; i++) {
+				 if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+					 if (i >= 0 && i < Floor.getLength()) {
+						 Char ch2 = Actor.findChar(i);
+						 if (ch2 != null) {
+							 Buff.affect(ch2, HolyStun.class, 5f);
+						 }
+					 }
+				 }
+			 }
 		detach(curUser.belongings.backpack);
 		}
 	}
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-        Buff.affect(defender,Shieldblock.class,10f);
+        Buff.affect(defender, HolyStun.class,10f);
 		super.proc(attacker, defender, damage);
 	}
 

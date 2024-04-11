@@ -29,32 +29,26 @@ public class Blackberry extends Fruit {
 
 	{
 		//name = "dungeon black berry";
-		image = ItemSpriteSheet.SEED_BLACKBERRY;
+		image = ItemSpriteSheet.BLACKBERRY;
 		energy = 50;
 		hornValue = 1;
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-
+	public void doEat() {
 			switch (Random.Int(10)) {
 			case 0:
 			case 1:
-				Buff.affect(hero, MindVision.class, MindVision.DURATION);
+				Buff.affect(curUser, MindVision.class, MindVision.DURATION);
 				Dungeon.observe();
-				Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/8,20));
+				Buff.affect(curUser, BerryRegeneration.class).level(Math.max(curUser.HT/8,20));
 				break;
 			 case 2: case 3: case 4: case 5:
 			case 6: case 7: case 8: case 9:
-				Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/10,15));
+				Buff.affect(curUser, BerryRegeneration.class).level(Math.max(curUser.HT/10,15));
 				break;
 			}
-		}
+
 	}	
 
 	@Override

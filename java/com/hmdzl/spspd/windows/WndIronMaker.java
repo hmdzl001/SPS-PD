@@ -30,13 +30,14 @@ import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.GreatRune;
+import com.hmdzl.spspd.items.GreenDewdrop;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PocketBall;
+import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.Stylus;
 import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.Weightstone;
-import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.bombs.HugeBomb;
 import com.hmdzl.spspd.items.food.Nut;
@@ -50,6 +51,8 @@ import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.items.food.staplefood.StapleFood;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
+import com.hmdzl.spspd.items.medicine.Timepill;
+import com.hmdzl.spspd.items.medicine.Timepill2;
 import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.quest.DarkGold;
 import com.hmdzl.spspd.items.scrolls.Scroll;
@@ -250,14 +253,18 @@ public class WndIronMaker extends Window {
 			synchronized (inputs) {
 				 if (item != null && inputs[0] != null) {
 					 Garbage gb = hero.belongings.getItem(Garbage.class);
-				    if (item instanceof Garbage && gb.quantity() > 5) {
+				    if (item instanceof Garbage && gb.quantity() > 5 && inputs[1] == null) {
 					for (int i = 0; i < 5; i++) {
 						inputs[i].item(item.detach(hero.belongings.backpack));
 					}
 				} else {
 					for (int i = 0; i < (inputs.length); i++) {
 						if (inputs[i].item() == null) {
-							inputs[i].item(item.detach(Dungeon.hero.belongings.backpack));
+							if (item.stackable == false) {
+								inputs[i].item(item.detachAll(Dungeon.hero.belongings.backpack));
+							} else {
+								inputs[i].item(item.detach(Dungeon.hero.belongings.backpack));
+							}
 							break;
 						}
 					}
@@ -357,6 +364,8 @@ public class WndIronMaker extends Window {
 			result = Generator.random();
 		} else if ( nut.size() == 5 ){
 			result = new NutCookie(6);
+		} else if ( ore.size() == 4 && water.size() == 1){
+			result = new Timepill2();
 		} else if (meatfoods.size()==1 && ore.size() == 1 && staplefoods.size() ==1 && fruits.size() == 1 && vegetables.size() == 1 ){
 			result = new MixPizza(8);
 		} else if (potions.size()==1 && ore.size() == 1 && scrolls.size() ==1 && water.size() == 1 && seeds.size() == 1 ){
@@ -418,9 +427,18 @@ public class WndIronMaker extends Window {
 		} else if ( gels.size() == 1  ){
 			result = new Torch();
 		} else if (inputs[1].item != null && item1.getClass() == inputs[1].item.getClass()) {
-			result = item1.isUpgradable() ? item1.upgrade(1) : new Garbage(2);
+			int ilvl = item1.level + 1;
+			result =item1.isUpgradable() ? Item.copy(item1.getClass()).upgrade(ilvl).identify()  : new Garbage(2);
 		} else if (equip.size() == 1 && water.size() > 0 ){
-				result = (water.size() * 15 > Random.Int(100))? item1.upgrade(1) : new Garbage();
+			int ilvl = item1.level + 1;
+			result = (water.size() * 15 > Random.Int(100))? Item.copy(item1.getClass()).upgrade(ilvl).identify()  : new Garbage();
+		} else if (seeds.size() == 5){
+			result = new Garbage(3);
+		} else if (seeds.size() == 2){
+			result = new Garbage();
+		} else if (seeds.size() == 1){
+			//need change
+			result = new GreenDewdrop();
 		} else if (equip.size() == 1){
 			result = new Garbage(2);
 		} else if ( items.size() > 0) {
@@ -466,7 +484,7 @@ public class WndIronMaker extends Window {
 					Item item = inputs[i].item();
 					Class<? extends Item> item1 = item.getClass();
 					Item item2 = hero.belongings.getItem(item1);
-					if (hero.belongings.getItem(item1) != null) {
+					if (hero.belongings.getItem(item1) != null && item2.stackable) {
 						item2.detach(hero.belongings.backpack);
 						item.quantity(item.quantity() + 1);
 						inputs[i].slot.item(inputs[i].item);

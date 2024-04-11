@@ -18,40 +18,18 @@
 package com.hmdzl.spspd.actors.animate;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.effects.Wound;
 import com.hmdzl.spspd.effects.particles.BlastParticle;
-import com.hmdzl.spspd.items.Gold;
-import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
-import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.levels.traps.PitfallTrap;
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.CharSprite;
-import com.hmdzl.spspd.sprites.HeroSprite;
-import com.hmdzl.spspd.sprites.MobSprite;
-import com.hmdzl.spspd.windows.WndOptions;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.noosa.tweeners.ScaleTweener;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
-import com.watabou.utils.Random;
-
-import static com.hmdzl.spspd.Dungeon.hero;
 
 public class AppearAction {
 

@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Floor;
@@ -96,7 +97,7 @@ public class Bandit extends Thief {
 			skilluse = true;
 			Buff.affect(this,EnergyArmor.class).level((int)(Dungeon.gold/40));
 			Dungeon.gold -=golddrop;
-			enemy.sprite.showStatus(CharSprite.NEUTRAL,"-" + golddrop);
+			enemy.sprite.showStatusWithIcon(CharSprite.NEUTRAL,"-" + golddrop, FloatingText2.GOLD);
 		}
 
 		if (skilluse && Random.Int(3) == 1) {

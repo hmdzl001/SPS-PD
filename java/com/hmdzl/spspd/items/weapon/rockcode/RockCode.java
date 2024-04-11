@@ -11,6 +11,7 @@ import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.wands.Wand;
+import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -48,7 +49,7 @@ public abstract class RockCode extends Item {
 
 	}
 
-	public abstract void onHit(MegaCannon megap, Char attacker, Char defender, int damage);
+	public abstract void onHit(XSaber megap, Char attacker, Char defender, int damage);
 		
 	@Override
 	public ArrayList<String> actions(Hero hero ) {

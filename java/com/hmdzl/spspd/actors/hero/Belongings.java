@@ -40,14 +40,16 @@ import java.util.Iterator;
 
 public class Belongings implements Iterable<Item> {
 
-	public static final int BACKPACK_SIZE = 34;
+	public static final int BACKPACK_SIZE = 35;
 
 	private Hero owner;
 
 	public Bag backpack;
 
 	public KindOfWeapon weapon = null;
+	public KindOfWeapon weapon_two = null;
 	public KindOfArmor armor = null;
+	public KindOfArmor armor_two = null;
 	public KindofMisc misc1 = null;
 	public KindofMisc misc2 = null;
 	public KindofMisc misc3 = null;
@@ -66,6 +68,9 @@ public class Belongings implements Iterable<Item> {
 
 	private static final String WEAPON = "weapon";
 	private static final String ARMOR = "armor";
+
+	private static final String WEAPON_TWO = "weapon_two";
+	private static final String ARMOR_TWO = "armor_two";
 	private static final String MISC1 = "misc1";
 	private static final String MISC2 = "misc2";
 	private static final String MISC3 = "misc3";
@@ -76,6 +81,8 @@ public class Belongings implements Iterable<Item> {
 
 		bundle.put(WEAPON, weapon);
 		bundle.put(ARMOR, armor);
+		bundle.put(WEAPON_TWO, weapon_two);
+		bundle.put(ARMOR_TWO, armor_two);
 		bundle.put(MISC1, misc1);
 		bundle.put(MISC2, misc2);
 		bundle.put(MISC3, misc3);
@@ -91,11 +98,14 @@ public class Belongings implements Iterable<Item> {
 			weapon.activate(owner);
 		}
 
+		weapon_two = (KindOfWeapon) bundle.get(WEAPON_TWO);
+
 		armor = (KindOfArmor) bundle.get(ARMOR);
 		if (armor != null) {
 			armor.activate(owner);
 		}
-		//armor = (MagicPlantArmor) bundle.get(ARMOR);
+
+		armor_two = (KindOfArmor) bundle.get(ARMOR_TWO);
 
 		misc1 = (KindofMisc) bundle.get(MISC1);
 		if (misc1 != null) {
@@ -165,6 +175,16 @@ public class Belongings implements Iterable<Item> {
 			armor.identify();
 			Badges.validateItemLevelAquired(armor);
 		}
+
+		if (weapon_two != null) {
+			weapon_two.identify();
+			Badges.validateItemLevelAquired(weapon_two);
+		}
+		if (armor_two != null) {
+			armor_two.identify();
+			Badges.validateItemLevelAquired(armor_two);
+		}
+
 		if (misc1 != null) {
 			misc1.identify();
 			Badges.validateItemLevelAquired(misc1);
@@ -189,7 +209,7 @@ public class Belongings implements Iterable<Item> {
 	}	
 	
 	public void uncurseEquipped() {
-		ScrollOfRemoveCurse.uncurse(owner, armor, weapon, misc1, misc2, misc3);
+		ScrollOfRemoveCurse.uncurse(owner, armor, weapon, misc1, misc2, misc3,weapon_two,armor_two);
 	}
 
 	public Item randomUnequipped() {
@@ -223,6 +243,15 @@ public class Belongings implements Iterable<Item> {
 		if (armor != null) {
 			armor.cursed = false;
 			armor.activate(owner);
+		}
+
+		if (weapon_two != null) {
+			weapon_two.cursed = false;
+
+		}
+
+		if (armor_two != null) {
+			armor_two.cursed = false;
 		}
 
 		if (misc1 != null) {
@@ -341,7 +370,7 @@ public class Belongings implements Iterable<Item> {
 
 		private Iterator<Item> backpackIterator = backpack.iterator();
 
-		private Item[] equipped = { weapon, armor, misc1, misc2 ,misc3 };
+		private Item[] equipped = { weapon, armor, misc1, misc2 ,misc3,weapon_two,armor_two };
 		private int backpackIndex = equipped.length;
 
 		@Override
@@ -386,7 +415,13 @@ public class Belongings implements Iterable<Item> {
 				break;
 			case 4:
 				equipped[4] = misc3 = null;
-				break;				
+				break;
+			case 5:
+				equipped[4] = weapon_two = null;
+				break;
+			case 6:
+				equipped[4] = armor_two = null;
+				break;
 			default:
 				backpackIterator.remove();
 			}

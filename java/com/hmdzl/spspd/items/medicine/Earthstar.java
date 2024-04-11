@@ -36,31 +36,15 @@ public class Earthstar extends Pill {
 		image = ItemSpriteSheet.MUSHROOM_EARTHSTAR;
 		 
 	}
-	
-	@Override
-	public void execute(Hero hero, String action) {
-		
-		if (action.equals(AC_EAT)) {
-			
-			if (Dungeon.bossLevel()){
-				GLog.w(Messages.get(Food.class,"bosslevel"));
-				return;
-			}
 
-		}
-		
-	   if (action.equals(AC_EAT)) {
-
+	public void doEat2() {
 		   for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
-			   mob.HP = Math.max(1, (int)(mob.HP/2));
+			   //mob.HP = Math.max(1, (int)(mob.HP/2));
 			   Buff.affect(mob, Bleeding.class).set(Random.Int(mob.HP/8,mob.HP/4));
 
 		   }
-		   hero.damage(Math.max(1,Math.round(hero.HP/4)), this);
-		   Buff.prolong(hero, Blindness.class, Random.Int(5, 7));
-		}
-	   
-	   super.execute(hero, action);
+		   curUser.damage(Math.max(1,Math.round(curUser.HP/4)), this);
+		   Buff.prolong(curUser, Blindness.class, Random.Int(5, 7));
 	}	
 
 	@Override

@@ -65,10 +65,12 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.GooSprite;
 import com.hmdzl.spspd.sprites.PoisonGooSprite;
+import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -97,10 +99,10 @@ public class Goo extends Mob {
 	public int damageRoll() {
 		if (pumpedUp > 0) {
 			pumpedUp = 0;
-			for (int i = 0; i < Floor.NEIGHBOURS9DIST2.length; i++) {
-				int j = pos + Floor.NEIGHBOURS9DIST2[i];
-				if (j >= 0 && j <= 1023 && Floor.passable[j])
-					CellEmitter.get(j).burst(ElmoParticle.FACTORY, 10);
+			PathFinder.buildDistanceMap( pos, BArray.not(  Floor.solid, null ), 2 );
+			for (int i = 0; i < PathFinder.distance.length; i++) {
+				if (PathFinder.distance[i] < Integer.MAX_VALUE)
+					CellEmitter.get(i).burst(ElmoParticle.FACTORY, 10);
 			}
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 			return Random.NormalIntRange(5, 30);
@@ -158,10 +160,10 @@ public class Goo extends Mob {
 	protected boolean doAttack(Char enemy) {
 		if (pumpedUp == 1) {
 			((GooSprite) sprite).pumpUp();
-			for (int i = 0; i < Floor.NEIGHBOURS9DIST2.length; i++) {
-				int j = pos + Floor.NEIGHBOURS9DIST2[i];
-				if (j >= 0 && j <= 1023 && Floor.passable[j])
-					GameScene.add(Blob.seed(j, 2, GooWarn.class));
+			PathFinder.buildDistanceMap( pos, BArray.not(  Floor.solid, null ), 2 );
+			for (int i = 0; i < PathFinder.distance.length; i++) {
+				if (PathFinder.distance[i] < Integer.MAX_VALUE)
+					GameScene.add(Blob.seed(i, 2, GooWarn.class));
 			}
 			pumpedUp++;
 

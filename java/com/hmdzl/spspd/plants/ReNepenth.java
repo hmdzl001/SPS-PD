@@ -59,7 +59,7 @@ public class ReNepenth extends Plant {
 
 	public static class Seed extends Plant.Seed {
 		{
-			image = ItemSpriteSheet.SEED_PHASEPITCHER;
+			image = ItemSpriteSheet.SEED_RENEPENTH;
 
 			plantClass = ReNepenth.class;
 			explantClass = ExReNepenth.class;

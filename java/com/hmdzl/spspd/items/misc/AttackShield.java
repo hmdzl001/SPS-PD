@@ -42,7 +42,7 @@ public class AttackShield extends Item {
 
 	{
 		//name = "AttackShield";
-		image = ItemSpriteSheet.BIG_AMMO;
+		image = ItemSpriteSheet.FIGHT_VEST;
 	
 		stackable = false;
 		unique = true;

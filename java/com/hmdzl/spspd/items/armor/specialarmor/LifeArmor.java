@@ -31,7 +31,7 @@ public class LifeArmor extends NormalArmor {
     public Buff passiveBuff;
 	{
 		//name = "life armor";
-		image = ItemSpriteSheet.LIVE_ARMOR;
+		image = ItemSpriteSheet.LEAF_ARMOR;
 		MAX = 0;
 		MIN = 0;
 	}

@@ -58,7 +58,7 @@ public class TaurcenBow extends Weapon {
 
 	{
 		//name = "TaurcenBow";
-		image = ItemSpriteSheet.BOW;
+		image = ItemSpriteSheet.TAURCEN_BOW;
 
 		STR = 10;
 
@@ -182,8 +182,8 @@ public class TaurcenBow extends Weapon {
 			damage = (int)(damage*1.5f);
 		
 		float bonus = 0;
-		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+		for (Buff buff : owner.buffs(RingOfSharpshooting.RingShoot.class)) {
+			bonus += Math.min(((RingOfSharpshooting.RingShoot) buff).level,30);
 		}	
 		
 		if (Random.Int(10) < 3  &&  bonus > 0 ) {
@@ -306,7 +306,7 @@ public class TaurcenBow extends Weapon {
 					}
 					if (arrow == Arrow.POSION) {
 						defender.damage(DMG / 4, this);
-						if (defender.isAlive()) Buff.affect(defender, Ooze.class);
+						if (defender.isAlive()) Buff.affect(defender, Ooze.class).set(5f);
 
 					}
 					if (arrow == Arrow.ELE) {

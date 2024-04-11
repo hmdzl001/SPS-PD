@@ -193,8 +193,8 @@ public class PocketBallFull extends Item {
                 pet = new Stone();
                 break;
 		    case 206:
-                  pet = new DwarfBoy();
-                  break;
+                pet = new DwarfBoy();
+                break;
             case 301:
                 pet = new Datura();
                 break;
@@ -442,7 +442,7 @@ public class PocketBallFull extends Item {
         if(petCheck!=null){
 
             Buff.detach(petCheck,HiddenShadow.class);
-            Buff.affect(petCheck, WatchOut.class);
+            Buff.affect(petCheck, WatchOut.class,9999f);
         }
     }
 

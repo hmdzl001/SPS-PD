@@ -32,14 +32,9 @@ public class Smashpill extends Pill {
 		
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, AttackUp.class,800f).level(50);
-			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		}
+	public void doEat2() {
+			Buff.affect(curUser, AttackUp.class,800f).level(50);
+			curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 	}
 
 	@Override

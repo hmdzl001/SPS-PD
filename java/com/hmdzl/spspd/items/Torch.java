@@ -42,7 +42,7 @@ public class Torch extends Item {
 
 		stackable = true;
 
-		defaultAction = AC_SET;
+		defaultAction = AC_LIGHT;
 	}
 
 	@Override

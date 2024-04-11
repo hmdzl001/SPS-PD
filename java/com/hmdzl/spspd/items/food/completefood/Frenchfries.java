@@ -28,7 +28,7 @@ public class Frenchfries extends CompleteFood {
 
 	{
 		//name = "Frenchfries";
-		image = ItemSpriteSheet.FRENCHFRIES;
+		image = ItemSpriteSheet.FRENCH_FRIES;
 		energy = 150;
 		hornValue = 2;
 		 
@@ -39,16 +39,11 @@ public class Frenchfries extends CompleteFood {
 		return 20 * quantity;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-             Buff.affect(hero, ShieldArmor.class).level(hero.HT/2);
-			 Buff.affect(hero, Recharging.class,20f);
-			 Buff.affect(hero, SuperArcane.class,40f).level(5);
+	public void doEat() {
+             Buff.affect(curUser, ShieldArmor.class).level(curUser.HT/2);
+			 Buff.affect(curUser, Recharging.class,20f);
+			 Buff.affect(curUser, SuperArcane.class,40f).level(5);
 			 //magic
-		}
 	}
 
 }

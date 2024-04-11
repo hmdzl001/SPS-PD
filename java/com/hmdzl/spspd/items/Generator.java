@@ -47,12 +47,14 @@ import com.hmdzl.spspd.items.artifacts.CloakOfShadows;
 import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.EyeOfSkadi;
+import com.hmdzl.spspd.items.artifacts.FlyChains;
 import com.hmdzl.spspd.items.artifacts.GlassTotem;
 import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
 import com.hmdzl.spspd.items.artifacts.TalismanOfForesight;
+import com.hmdzl.spspd.items.artifacts.TimeOclock;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
 import com.hmdzl.spspd.items.bags.Bag;
@@ -75,23 +77,23 @@ import com.hmdzl.spspd.items.eggs.GoldDragonEgg;
 import com.hmdzl.spspd.items.eggs.GreenDragonEgg;
 import com.hmdzl.spspd.items.eggs.LeryFireEgg;
 import com.hmdzl.spspd.items.eggs.LightDragonEgg;
-import com.hmdzl.spspd.items.eggs.RandomAtkEgg;
-import com.hmdzl.spspd.items.eggs.RandomColEgg;
-import com.hmdzl.spspd.items.eggs.RandomDefEgg;
-import com.hmdzl.spspd.items.eggs.RandomEasterEgg;
-import com.hmdzl.spspd.items.eggs.RandomEgg;
-import com.hmdzl.spspd.items.eggs.RandomEgg1;
-import com.hmdzl.spspd.items.eggs.RandomEgg10;
-import com.hmdzl.spspd.items.eggs.RandomEgg11;
-import com.hmdzl.spspd.items.eggs.RandomEgg12;
-import com.hmdzl.spspd.items.eggs.RandomEgg2;
-import com.hmdzl.spspd.items.eggs.RandomEgg3;
-import com.hmdzl.spspd.items.eggs.RandomEgg4;
-import com.hmdzl.spspd.items.eggs.RandomEgg5;
-import com.hmdzl.spspd.items.eggs.RandomEgg6;
-import com.hmdzl.spspd.items.eggs.RandomEgg7;
-import com.hmdzl.spspd.items.eggs.RandomEgg8;
-import com.hmdzl.spspd.items.eggs.RandomEgg9;
+import com.hmdzl.spspd.items.eggs.randomone.RandomAtkEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomColEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomDefEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEasterEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg1;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg10;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg11;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg12;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg2;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg3;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg4;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg5;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg6;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg7;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg8;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg9;
 import com.hmdzl.spspd.items.eggs.RedDragonEgg;
 import com.hmdzl.spspd.items.eggs.ScorpionEgg;
 import com.hmdzl.spspd.items.eggs.ShadowDragonEgg;
@@ -182,6 +184,7 @@ import com.hmdzl.spspd.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.items.rings.RingOfEvasion;
 import com.hmdzl.spspd.items.rings.RingOfForce;
 import com.hmdzl.spspd.items.rings.RingOfFuror;
+import com.hmdzl.spspd.items.rings.RingOfKnowledge;
 import com.hmdzl.spspd.items.rings.RingOfHaste;
 import com.hmdzl.spspd.items.rings.RingOfMagic;
 import com.hmdzl.spspd.items.rings.RingOfMight;
@@ -359,12 +362,40 @@ import java.util.HashMap;
 public class Generator {
 
 	public enum Category {
-		MELEEWEAPON( 130,Weapon.class),OLDWEAPON(0,Weapon.class),RANGEWEAPON(20,Weapon.class),SHOOTWEAPON(40,Weapon.class),GUNWEAPON(0,Weapon.class),ARMOR(100, Armor.class),WEAPON( 0,Weapon.class),
-		POTION(500, Potion.class), SCROLL(500, Scroll.class), WAND(40, Wand.class), RING(15, Ring.class),
-		ARTIFACT(20, Artifact.class), SEED(5, Plant.Seed.class), SEED2(0,	Plant.Seed.class),SEED3(0,	Plant.Seed.class),SEED4(0,	Plant.Seed.class),
-		FOOD(10, Food.class), GOLD(300, Gold.class), BERRY(50, Food.class), MUSHROOM(5, Pill.class), BOMBS(20, Bomb.class),
-		NORNSTONE(0,NornStone.class), EGGS(0, Egg.class), HIGHFOOD(0,Food.class), SUMMONED(1,Item.class), PILL(5, Pill.class),LINKDROP(0, Item.class),MUSICWEAPON(0,Weapon.class)
-		,SHOES(0,Item.class),DEW(0,Item.class),BASEPET(0,Egg.class),EASTERWEAPON(0,Item.class),ROCKCODE(0,RockCode.class), ARROWS(0,Arrows.class);
+		MELEEWEAPON( 130,Weapon.class),
+		OLDWEAPON(0,Weapon.class),
+		RANGEWEAPON(20,Weapon.class),
+		SHOOTWEAPON(40,Weapon.class),
+		GUNWEAPON(0,Weapon.class),
+		ARMOR(100, Armor.class),
+		WEAPON( 0,Weapon.class),
+		POTION(500, Potion.class),
+		SCROLL(500, Scroll.class),
+		WAND(40, Wand.class),
+		RING(15, Ring.class),
+		ARTIFACT(20, Artifact.class),
+		SEED(5, Plant.Seed.class),
+		SEED2(0,	Plant.Seed.class),
+		SEED3(0,	Plant.Seed.class),
+		SEED4(0,	Plant.Seed.class),
+		FOOD(10, Food.class),
+		GOLD(300, Gold.class),
+		BERRY(50, Food.class),
+		MUSHROOM(5, Pill.class),
+		BOMBS(20, Bomb.class),
+		NORNSTONE(0,NornStone.class),
+		EGGS(0, Egg.class),
+		HIGHFOOD(0,Food.class),
+		SUMMONED(1,Item.class),
+		PILL(5, Pill.class),
+		LINKDROP(0, Item.class),
+		MUSICWEAPON(0,Weapon.class),
+		SHOES(0,Item.class),
+		DEW(0,Item.class),
+		BASEPET(0,Egg.class),
+		EASTERWEAPON(0,Item.class),
+		ROCKCODE(0,RockCode.class),
+		ARROWS(0,Arrows.class);
 
 		public Class<?>[] classes;
 		public float[] probs;
@@ -572,8 +603,8 @@ public class Generator {
 				RingOfEvasion.class, RingOfElements.class, RingOfForce.class,
 				RingOfFuror.class, RingOfHaste.class, RingOfMagic.class,
 				RingOfMight.class, RingOfSharpshooting.class,
-				RingOfTenacity.class, RingOfEnergy.class };
-		Category.RING.probs = new float[] { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+				RingOfTenacity.class, RingOfEnergy.class, RingOfKnowledge.class };
+		Category.RING.probs = new float[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1 };
 
 		Category.ARTIFACT.classes = new Class<?>[] { CapeOfThorns.class,
 				ChaliceOfBlood.class, CloakOfShadows.class, HornOfPlenty.class,
@@ -581,9 +612,9 @@ public class Generator {
 				TalismanOfForesight.class, TimekeepersHourglass.class,
 				UnstableSpellbook.class, AlchemistsToolkit.class, RobotDMT.class,
 				EyeOfSkadi.class, EtherealChains.class,
-				DriedRose.class, GlassTotem.class, AlienBag.class
+				DriedRose.class, GlassTotem.class, AlienBag.class, FlyChains.class, TimeOclock.class
 		};
-		Category.ARTIFACT.probs =  new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+		Category.ARTIFACT.probs =  new float[]{  1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0};
 
 		Category.SEED.classes = new Class<?>[] { 
 				Firebloom.Seed.class, Icecap.Seed.class, Sorrowmoss.Seed.class, Blindweed.Seed.class,

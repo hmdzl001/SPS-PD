@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.MagicMissile;
+import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
@@ -67,9 +68,9 @@ public class Trush extends RockCode {
 	}
 	
 	@Override
-	public void onHit(MegaCannon megaCannon, Char attacker, Char defender, int damage) {
+	public void onHit(XSaber megaCannon, Char attacker, Char defender, int damage) {
 
-		if ( megaCannon.charge > 2 ) {
+		if ( Random.Int(10) == 1 ) {
 		defender.damage(3 * Random.Int( megaCannon.damageRoll(hero) ), Dungeon.hero);
 		}
 	}

@@ -32,14 +32,9 @@ public class Shootpill extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, TargetShoot.class,800f);
-			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		}
+	public void doEat2() {
+			Buff.affect(curUser, TargetShoot.class,800f);
+			curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 	}
 
 	@Override

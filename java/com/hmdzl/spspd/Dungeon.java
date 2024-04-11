@@ -184,7 +184,9 @@ public class Dungeon {
 	//public static boolean goeidrop = false;
 	
 	public static int challenges;
-	
+
+	public static int giftunlocked;
+
 	public static Hero hero;
 	public static Floor depth;
 
@@ -208,6 +210,7 @@ public class Dungeon {
 
 		version = Game.versionCode;
 		challenges = ShatteredPixelDungeon.challenges();
+		giftunlocked = ShatteredPixelDungeon.unlocks();
 
 		Actor.clear();
 		Actor.resetNextID();
@@ -289,6 +292,7 @@ public class Dungeon {
 
 		version = Game.versionCode;
 		challenges = ShatteredPixelDungeon.challenges();
+		giftunlocked = ShatteredPixelDungeon.unlocks();
 
 		//Generator.initArtifacts();
 
@@ -367,6 +371,10 @@ public class Dungeon {
 
 	public static boolean isChallenged(int mask) {
 		return (challenges & mask) != 0;
+	}
+
+	public static boolean isGift(int mask) {
+		return (giftunlocked & mask) != 0;
 	}
 
 	public static Floor newFieldLevel() {
@@ -1462,8 +1470,6 @@ public class Dungeon {
 		QuickSlotButton.reset();
 
 		Dungeon.challenges = bundle.getInt(CHALLENGES);
-
-		//Dungeon.saferoom = bundle.getInt(SAFEROOM);
 
 		Dungeon.depth = null;
 		Dungeon.dungeondepth = -1;

@@ -39,7 +39,7 @@ public class CallCoconut extends Item {
 
 	{
 		//name = "call coconut";
-		image = ItemSpriteSheet.ANCIENTKEY;
+		image = ItemSpriteSheet.OLD_KEY;
 		defaultAction = AC_ACTIVE;
 		stackable = true;
 	}

@@ -89,7 +89,8 @@ public class RingOfElements extends Ring {
 		if (isIdentified()){
 			return Messages.get(this, "stats",
 			new DecimalFormat("#.##").format(Math.min(300,100+100*level/15)),
-			new DecimalFormat("#.##").format(Math.max(40,(100-level*2))));
+			new DecimalFormat("#.##").format(Math.max(40,(100-level*2))),
+			new DecimalFormat("#.##").format(100f * Math.min(0.40, 1.00*level/75)));
 		} else {
 			return "???";
 		}
@@ -98,21 +99,21 @@ public class RingOfElements extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new RingResistance();
+		return new RingElements();
 	}
 
 	public static float fintime(Char target, Class effect ){
-		if (getBonus(target, RingResistance.class) == 0) return 1f;
+		if (getBonus(target, RingElements.class) == 0) return 1f;
 
 		for (Class c : REDUCE){
 			if (c.isAssignableFrom(effect)){
-				return (float)Math.max(0.40, ((100-getBonus(target, RingResistance.class)*2)/100));
+				return (float)Math.max(0.40, ((100-getBonus(target, RingElements.class)*2)/100));
 			}
 		}
 		
 		for (Class c : IMPROVE){
 			if (c.isAssignableFrom(effect)){
-				return (float)Math.min(3.00,((15+getBonus(target, RingResistance.class))/15));
+				return (float)Math.min(3.00,((15+getBonus(target, RingElements.class))/15));
 			}
 		}		
 
@@ -184,7 +185,7 @@ public class RingOfElements extends Ring {
 		IMPROVE.add(TargetShoot.class);
 	}
 
-	public class RingResistance extends RingBuff {
+	public class RingElements extends RingBuff {
 
 		/*public HashSet<Class<?>> resistances() {
 			if (Random.Int(level + 2) >= 2) {

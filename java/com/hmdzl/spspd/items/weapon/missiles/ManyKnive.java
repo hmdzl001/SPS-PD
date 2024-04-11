@@ -162,8 +162,8 @@ public class ManyKnive extends Weapon {
 			damage = (int)(damage*1.5f);
 		
 		float bonus = 0;
-		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+		for (Buff buff : owner.buffs(RingOfSharpshooting.RingShoot.class)) {
+			bonus += Math.min(((RingOfSharpshooting.RingShoot) buff).level,30);
 		}	
 		
 		if (Random.Int(10) < 3  &&  bonus > 0 ) {

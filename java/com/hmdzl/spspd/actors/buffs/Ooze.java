@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
+import android.annotation.SuppressLint;
+
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.levels.Floor;
@@ -77,6 +79,7 @@ public class Ooze extends Buff {
 		 this.left = left;
 	}
 
+	@SuppressLint("SuspiciousIndentation")
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {

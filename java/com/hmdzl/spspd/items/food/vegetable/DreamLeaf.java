@@ -36,18 +36,14 @@ public class DreamLeaf extends Vegetable {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
+	public void doEat() {
 			//Buff.detach(hero, Poison.class);
-			Buff.detach(hero, Cripple.class);
-			Buff.detach(hero, STRdown.class);
+			Buff.detach(curUser, Cripple.class);
+			Buff.detach(curUser, STRdown.class);
 			//Buff.detach(hero, Bleeding.class);
-			Buff.detach(hero, AttackDown.class);
-			Buff.detach(hero, ArmorBreak.class);
-		}
+			Buff.detach(curUser, AttackDown.class);
+			Buff.detach(curUser, ArmorBreak.class);
+
 	}
 
 	@Override

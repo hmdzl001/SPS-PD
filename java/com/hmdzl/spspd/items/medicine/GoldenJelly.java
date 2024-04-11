@@ -36,25 +36,11 @@ public class GoldenJelly extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		
-		if (action.equals(AC_EAT)) {
-			
-			if (Dungeon.bossLevel()){
-				GLog.w(Messages.get(Food.class,"bosslevel"));
-				return;
-			}
-
-		}
-		
-	   if (action.equals(AC_EAT)) {
+	public void doEat2() {
 				for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 					Buff.affect(mob, GrowSeed.class).set(10f);
 				}
-				Buff.affect(hero, Vertigo.class, 10f);
-		}
-	   super.execute(hero, action);
+				Buff.affect(curUser, Vertigo.class, 10f);
 	}	
 	
 	@Override

@@ -34,7 +34,7 @@ public class Handcannon extends MeleeWeapon {
 
 	{
 		//name = "Handcannon";
-		image = ItemSpriteSheet.HANDCANNON;
+		image = ItemSpriteSheet.HAND_CANNON;
         defaultAction = AC_ONOFF;
 	}
 	

@@ -20,7 +20,6 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.CheckBox;
 import com.hmdzl.spspd.ui.RedButton;

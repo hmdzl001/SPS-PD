@@ -150,8 +150,8 @@ public class Weapon extends KindOfWeapon {
                 default:
 			}
 			int bonus = 0;
-			for (Buff buff : hero.buffs(RingOfSharpshooting.Aim.class)) {
-				bonus += ((RingOfSharpshooting.Aim) buff).level;
+			for (Buff buff : hero.buffs(RingOfSharpshooting.RingShoot.class)) {
+				bonus += ((RingOfSharpshooting.RingShoot) buff).level;
 			}
 			ACU *= (float) (Math.pow(1.1, bonus));
 		}
@@ -172,8 +172,8 @@ public class Weapon extends KindOfWeapon {
 
 		float DLY = this.DLY;
 		int bonus = 0;
-		for (Buff buff : hero.buffs(RingOfFuror.Furor.class)) {
-			bonus += ((RingOfFuror.Furor) buff).level;
+		for (Buff buff : hero.buffs(RingOfFuror.RingFuror.class)) {
+			bonus += ((RingOfFuror.RingFuror) buff).level;
 		}
 
 		DLY = (float)( DLY / Math.min( 4, 1 + bonus * 1.00 / 10) );
@@ -189,8 +189,8 @@ public class Weapon extends KindOfWeapon {
 	    int RCH = this.RCH;
 		
 		int bonus = 0;
-		for (Buff buff : hero.buffs(RingOfAccuracy.Accuracy.class)) {
-			bonus += Math.min(((RingOfAccuracy.Accuracy) buff).level,30);
+		for (Buff buff : hero.buffs(RingOfAccuracy.RingAccuracy.class)) {
+			bonus += Math.min(((RingOfAccuracy.RingAccuracy) buff).level,30);
 		}
         if (Dungeon.hero.subClass == HeroSubClass.JOKER){
 			bonus += 10;
@@ -217,8 +217,8 @@ public class Weapon extends KindOfWeapon {
 				 damage = (int)(damage*1.5f);
 			
 			float bonus = 0;
-			for (Buff buff : hero.buffs(RingOfSharpshooting.Aim.class)) {
-				bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+			for (Buff buff : hero.buffs(RingOfSharpshooting.RingShoot.class)) {
+				bonus += Math.min(((RingOfSharpshooting.RingShoot) buff).level,30);
 			}
 			if (Random.Int(10) < 3  &&  bonus > 0 ) {
 			damage = (int)(damage * ( 1.5 + 0.25 * bonus));

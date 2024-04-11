@@ -37,6 +37,8 @@ public class WndOptions extends Window {
 
 		int width = ShatteredPixelDungeon.landscape() ? WIDTH_L : WIDTH_P;
 
+
+
 		RenderedTextMultiline tfTitle = PixelScene.renderMultiline( title, 9 );
 		tfTitle.hardlight( TITLE_COLOR );
 		tfTitle.setPos(MARGIN, MARGIN);

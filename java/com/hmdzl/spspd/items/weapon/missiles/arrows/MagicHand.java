@@ -52,12 +52,12 @@ public class MagicHand extends Arrows {
 	
 	@Override
 	public Item random() {
-		quantity = Random.Int(1, 2);
+		quantity = Random.Int(3, 5);
 		return this;
 	}
 
 	@Override
 	public int price() {
-		return quantity * 100;
+		return quantity * 20;
 	}
 }

@@ -28,22 +28,16 @@ import com.hmdzl.spspd.utils.GLog;
 public class GreenSpore extends Pill {
 	{
 		//name = "Green Sporre";
-		image = ItemSpriteSheet.MUSHROOM_LICHEN;
+		image = ItemSpriteSheet.MUSHROOM_GREEN_SPORE;
 		 
 	}
-	
-	@Override
-	public void execute(Hero hero, String action) {
 
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
+	public void doEat2() {
             if (!Dungeon.dewWater && !Dungeon.dewDraw){
 				GLog.w(Messages.get(this,"not_time"));
 				return;
 			}
-			else Buff.affect(hero, Dewcharge.class,100f);
-		}
+			else Buff.affect(curUser, Dewcharge.class,100f);
 	}
 
 	@Override

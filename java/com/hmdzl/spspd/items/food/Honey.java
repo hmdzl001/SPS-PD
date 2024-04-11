@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.items.food;
 
-import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -25,30 +25,31 @@ public class Honey extends Food {
 
 	{
 		//name = "Honey";
-		image = ItemSpriteSheet.POTION_HONEY;
+		image = ItemSpriteSheet.HONEY;
 		 
 		energy = 50;
 		hornValue = 0;
 	}
 
+	public void doEat() {
+		curUser.TRUE_HT = curUser.TRUE_HT + (Random.Int(2, 4));
+		curUser.updateHT(true);
+	}
+
+	public Honey() {
+		this(1);
+	}
+
+	public Honey(int number) {
+		super();
+		quantity = number;
+	}
+
 	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-			 hero.TRUE_HT = hero.TRUE_HT + (Random.Int(5, 10));
-			 hero.updateHT(true);
-			 //hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
-				//Buff.detach(hero, Poison.class);
-				//Buff.detach(hero, Cripple.class);
-				//Buff.detach(hero, STRdown.class);
-				//Buff.detach(hero, Bleeding.class);
-
-				//hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
-			
-		}
-	}	
+	public Item random() {
+		quantity = Random.Int(1, 2);
+		return this;
+	}
 
 	@Override
 	public int price() {

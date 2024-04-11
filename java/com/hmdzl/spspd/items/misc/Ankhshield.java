@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.misc;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -91,9 +91,9 @@ public class Ankhshield extends Item {
 			        if (Floor.fieldOfView[mob.pos]) {
 					    if (Floor.distance(hero.pos,mob.pos) < 4) {
 							mob.damage(5, this);
-							Buff.prolong(mob, Shieldblock.class, 3);
+							Buff.prolong(mob, HolyStun.class, 3);
 						} else {
-							Buff.affect(mob, WatchOut.class);
+							Buff.affect(mob, WatchOut.class,15f);
 						}
 			        }
 		        }

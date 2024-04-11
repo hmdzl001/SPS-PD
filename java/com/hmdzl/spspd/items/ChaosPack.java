@@ -26,7 +26,7 @@ public class ChaosPack extends Item {
 
 	{
 		//name = "ChaosPack";
-		image = ItemSpriteSheet.DEMO_SCROLL;
+		image = ItemSpriteSheet.CHAOS_PAPER;
 
 		stackable = false;
 		unique = true;

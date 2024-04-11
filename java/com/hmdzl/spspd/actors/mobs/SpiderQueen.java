@@ -63,7 +63,9 @@ import com.hmdzl.spspd.sprites.SpiderJumpSprite;
 import com.hmdzl.spspd.sprites.SpiderMindSprite;
 import com.hmdzl.spspd.sprites.SpiderNormalSprite;
 import com.hmdzl.spspd.sprites.SpiderQueenSprite;
+import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.utils.GLog;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -290,9 +292,10 @@ public class SpiderQueen extends Mob {
 
 		@Override
 		public boolean act() {
-			for (int i = 0; i < Floor.NEIGHBOURS9DIST2.length; i++) {
-				GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9DIST2[i], 2,
-						SlowWeb.class));
+			PathFinder.buildDistanceMap( pos, BArray.not( Floor.solid, null ), 2 );
+			for (int i = 0; i < PathFinder.distance.length; i++) {
+				if (PathFinder.distance[i] < Integer.MAX_VALUE)
+					GameScene.add(Blob.seed(i, 2, SlowWeb.class));
 			}
 			life_p ++;
             damage(1,this);

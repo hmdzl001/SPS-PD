@@ -35,6 +35,7 @@ import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -44,8 +45,16 @@ import java.util.HashSet;
 
 public class WandOfShatteredFireblast extends DamageWand {
 
+	private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing(	0xFFFFFF);
+
+
+	@Override
+	public ItemSprite.Glowing glowing() {
+		return WHITE;
+	}
+
 	{
-		image = ItemSpriteSheet.SHATTERED_FIRE;
+		image = ItemSpriteSheet.WAND_FIREBOLT;
 
 		collisionProperties = Ballistica.STOP_TERRAIN;
 	}

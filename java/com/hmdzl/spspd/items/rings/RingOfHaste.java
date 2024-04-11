@@ -40,11 +40,11 @@ public class RingOfHaste extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Haste();
+		return new RingHaste();
 	}
 	
 
-	public class Haste extends RingBuff {		
+	public class RingHaste extends RingBuff {
 	}
 	
 	

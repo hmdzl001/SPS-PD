@@ -28,29 +28,23 @@ public class Moonberry extends Fruit {
 
 	{
 		//name = "dungeon moon berry";
-		image = ItemSpriteSheet.SEED_MOONBERRY;
+		image = ItemSpriteSheet.MOONBERRY;
 		energy = 50;
 		hornValue = 1;
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-
+	public void doEat() {
 				switch (Random.Int(2)) {
 				case 0:
-					Buff.affect(hero, MoonFury.class);
+					Buff.affect(curUser, MoonFury.class);
 					break;
 				case 1:
-					Buff.affect(hero, MoonFury.class);
-					Buff.affect(hero, Barkskin.class).level(hero.lvl);
+					Buff.affect(curUser, MoonFury.class);
+					Buff.affect(curUser, Barkskin.class).level(curUser.lvl);
 					break;
 				}
-			}
+
 	}	
 
 	@Override

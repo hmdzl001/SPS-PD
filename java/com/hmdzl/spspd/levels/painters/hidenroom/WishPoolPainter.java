@@ -17,6 +17,7 @@
  */
 package com.hmdzl.spspd.levels.painters.hidenroom;
 
+import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.Hmdzl001;
 import com.hmdzl.spspd.items.Generator;
@@ -25,6 +26,8 @@ import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.levels.painters.Painter;
+import com.hmdzl.spspd.utils.BArray;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
 
 public class WishPoolPainter extends Painter {
@@ -76,7 +79,7 @@ public class WishPoolPainter extends Painter {
         Point center = room.center();
         int pos = room.center().x + center.y * Floor.getWidth();
 
-        Mob hmdzl = new Hmdzl001();
+        Mob hmdzl = Bestiary.exmob( 55 ) ;
         hmdzl.pos = pos;
         level.mobs.add(hmdzl);
 
@@ -90,17 +93,17 @@ public class WishPoolPainter extends Painter {
                 level.map[p] = Terrain.WATER;
             }
         }
-
-        for (int i = 0; i < Floor.NEIGHBOURS8OUT2.length; i++) {
-            int p = hmdzl.pos + Floor.NEIGHBOURS8OUT2[i];
-            if ( level.map[p] != Terrain.WALL_DECO &&
-                    level.map[p] != Terrain.WALL &&
-                    level.map[p] != Terrain.DOOR &&
-                    level.map[p] != Terrain.SECRET_DOOR &&
-                    level.map[p] != Terrain.GLASS_WALL && Floor.insideMap(p)) {
-                level.map[p] = Terrain.EMPTY_SP;
+        PathFinder.buildDistanceMap( pos, BArray.not( Floor.solid, null ), 2 );
+        for (int i = 0; i < PathFinder.distance.length; i++) {
+            if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+                if (level.map[i] != Terrain.WALL_DECO &&
+                        level.map[i] != Terrain.WALL &&
+                        level.map[i] != Terrain.DOOR &&
+                        level.map[i] != Terrain.SECRET_DOOR &&
+                        level.map[i] != Terrain.GLASS_WALL && Floor.insideMap(i)) {
+                    level.map[i] = Terrain.EMPTY_SP;
+                }
             }
         }
-
     }
 }

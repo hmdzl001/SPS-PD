@@ -26,7 +26,7 @@ public class CocoCatEgg extends Egg {
 	public static final float TIME_TO_USE = 1;
 
 		{
-		image = ItemSpriteSheet.RANDOWNEGG;
+		image = ItemSpriteSheet.RANDOM_PET_EGG;
 
 		stackable = false;
 		}

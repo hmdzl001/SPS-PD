@@ -45,7 +45,7 @@ public class TreasureMap extends Item {
 
 	{
 		//name = "treasure map";
-		image = ItemSpriteSheet.MAP;
+		image = ItemSpriteSheet.CHEIF_MAP;
 
 		stackable = false;
 		unique = true;

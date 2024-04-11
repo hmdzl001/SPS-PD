@@ -410,6 +410,11 @@ public class Item implements Bundlable {
 		return false;
 	}
 
+	public boolean isEquippedSecond(Hero hero) {
+		return false;
+	}
+
+
 	public Item identify() {
 
 		levelKnown = true;
@@ -493,7 +498,6 @@ public class Item implements Bundlable {
 
 	public static Item copy(Class<? extends Item> cl) {
 		try {
-
 			Item item = cl.newInstance();
 			item.dounique();
 			return item;

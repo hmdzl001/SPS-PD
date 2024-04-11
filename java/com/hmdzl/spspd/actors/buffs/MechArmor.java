@@ -1,5 +1,6 @@
 package com.hmdzl.spspd.actors.buffs;
 
+import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -38,12 +39,12 @@ public class MechArmor extends Buff {
 
 		public int absorb(int damage) {
 			if (level <= damage) {
-				target.sprite.showStatus(CharSprite.NULL_DAMAGE,"-"+ Integer.toString(level));
+				target.sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE,"-"+ Integer.toString(level),FloatingText2.SHIELDING);
 				detach();
 				return damage - level;
 			} else {
 				level -= damage;
-				target.sprite.showStatus(CharSprite.NULL_DAMAGE,"-"+ Integer.toString(damage));
+				target.sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE,"-"+ Integer.toString(damage), FloatingText2.SHIELDING);
 				return 0;
 			}
 		}

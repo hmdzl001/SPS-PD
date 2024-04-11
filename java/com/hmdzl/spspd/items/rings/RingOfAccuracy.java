@@ -38,9 +38,9 @@ public class RingOfAccuracy extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Accuracy();
+		return new RingAccuracy();
 	}
 
-	public class Accuracy extends RingBuff {
+	public class RingAccuracy extends RingBuff {
 	}
 }

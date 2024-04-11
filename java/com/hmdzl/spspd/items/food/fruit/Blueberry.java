@@ -31,20 +31,15 @@ public class Blueberry extends Fruit {
 
 	{
 		//name = "dungeon blue berry";
-		image = ItemSpriteSheet.SEED_BLUEBERRY;
+		image = ItemSpriteSheet.BLUEBERRY;
 		energy = 50;
 		hornValue = 1;
 		 
 	}
-	
-	@Override
-	public void execute(Hero hero, String action) {
 
-		super.execute(hero, action);
+	public void doEat() {
 
-		if (action.equals(AC_EAT)) {
-
-			if (Random.Float()<0.05f) {
+			if (Random.Float()<0.1f) {
 			
 				int length = Floor.getLength();
 				//int[] map = Dungeon.level.map;
@@ -55,28 +50,17 @@ public class Blueberry extends Fruit {
 					//int terr = map[i];
 					if (discoverable[i]) {
 						mapped[i] = true;
-						//if ((Terrain.flags[terr] & Terrain.SECRET) != 0) {
-							//Level.set(i, Terrain.discover(terr));
-							//GameScene.updateMap(i);
-							//Dungeon.level.discover( i );
-
-							//if (Dungeon.visible[i]) {
-								//GameScene.discoverTile(i, terr);
-								//discover(i);
-								//noticed = true;
-							//}
-						//}
 					}
 				}
 				Dungeon.observe();
-				Buff.affect(hero, Notice.class, 50f);
+				Buff.affect(curUser, Notice.class, 50f);
 				
 			} else {
 
-				Buff.affect(hero, Notice.class, 50f);
+				Buff.affect(curUser, Notice.class, 50f);
 
 			}
-		}
+
 	}	
 	
 	public static void discover(int cell) {

@@ -22,9 +22,11 @@ import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.artifacts.HornOfPlenty;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -38,23 +40,23 @@ public class Hunger extends Buff implements Hero.Doom {
 	public static final float STARVING = 800f;
 	public static final float MAX_HUNGER = 1000f;
 
-	private float level;
+	private float hungerlevel;
 	private float partialDamage;
 
-	private static final String LEVEL = "level";
+	private static final String HUNGERLEVEL = "hungerlevel";
 	private static final String PARTIALDAMAGE 	= "partialDamage";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(LEVEL, level);
+		bundle.put(HUNGERLEVEL, hungerlevel);
 		bundle.put( PARTIALDAMAGE, partialDamage );
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		level = bundle.getFloat(LEVEL);
+		hungerlevel = bundle.getFloat(HUNGERLEVEL);
 		partialDamage = bundle.getFloat(PARTIALDAMAGE);
 	}
 
@@ -66,18 +68,18 @@ public class Hunger extends Buff implements Hero.Doom {
 
 			if (!isOverStarving()) {
 				
-				float newLevel = level + STEP;
+				float newLevel = hungerlevel + STEP;
 				boolean statusUpdated = false;
-				if (newLevel <= OVERFED && level > OVERFED) {
+				if (newLevel <= OVERFED && hungerlevel > OVERFED) {
 
 					GLog.n(Messages.get(this, "onoverfed"));
 					statusUpdated = true;
 
-				} else if (newLevel >= OVERFED && level < OVERFED) {
+				} else if (newLevel >= OVERFED && hungerlevel < OVERFED) {
 
 					statusUpdated = true;
 
-				} else if (newLevel >= STARVING && level < STARVING) {
+				} else if (newLevel >= STARVING && hungerlevel < STARVING) {
 
 					GLog.n(Messages.get(this, "onstarving"));
 					//hero.resting = false;
@@ -86,13 +88,13 @@ public class Hunger extends Buff implements Hero.Doom {
 
 					hero.interrupt();
 
-				} else if (newLevel >= HUNGRY && level < HUNGRY) {
+				} else if (newLevel >= HUNGRY && hungerlevel < HUNGRY) {
 
 					GLog.w(Messages.get(this, "onhungry"));
 					statusUpdated = true;
 
 				}
-				level = newLevel;
+				hungerlevel = newLevel;
 
 				if (statusUpdated) {
 					BuffIndicator.refreshHero();
@@ -129,64 +131,65 @@ public class Hunger extends Buff implements Hero.Doom {
 			energy = Math.round(energy * 0.75f);
 			GLog.n(Messages.get(this, "cursedhorn"));
 		}
-		if (level<150f && energy > 0) {
+		if (hungerlevel <150f && energy > 0) {
 			energy = Math.round(energy * 0.5f);
 		}
 
-		if (level>150f && level <650f && energy > 0) {
+		if (hungerlevel >150f && hungerlevel <650f && energy > 0) {
 			energy = Math.round(energy * 0.8f);
 		}
 
-		if (level>=800f && energy > 0) {
+		if (hungerlevel >=800f && energy > 0) {
 			energy = Math.round(energy * 1.2f);
 		}
 		if(Dungeon.isChallenged(Challenges.ENERGY_LOST) && energy > 0){
 			energy = Math.round(energy * 0.4f);
 		}
-		
+
+		Dungeon.hero.sprite.showStatusWithIcon(CharSprite.EAT_SOME, "+" + energy, FloatingText2.HUNGER);
 	    reduceHunger( energy );
 		
 	}
 	
 	public void reduceHunger( float energy ) {
 
-		level -= energy;
-		if (level < 0) {
-			level = 0;
-		} else if (level > MAX_HUNGER) {
-			level = MAX_HUNGER;
+		hungerlevel -= energy;
+		if (hungerlevel < 1) {
+			hungerlevel = 1;
+		} else if (hungerlevel > MAX_HUNGER) {
+			hungerlevel = MAX_HUNGER;
 		}
 
 		BuffIndicator.refreshHero();
 	}	
 
 	public boolean isOverStarving() {
-		return level >= MAX_HUNGER;
+		return hungerlevel >= MAX_HUNGER;
 	}	
 	
 	public boolean isStarving() {
-		return level >= STARVING;
+		return hungerlevel >= STARVING;
 	}
 	
 	public boolean isOverfed() {
-		return level <= OVERFED;
+		return hungerlevel <= OVERFED;
 	}
 	
 	public boolean isHungry() {
-		return  (level >= HUNGRY && level < STARVING);
+		return  (hungerlevel >= HUNGRY && hungerlevel < STARVING);
 	}
 	
 	public int hungerLevel() {
-		return (int) level;
+		return (int) hungerlevel;
 	}
 
 	@Override
 	public int icon() {
-        if (level < OVERFED) {
+        if (hungerlevel < OVERFED) {
             return BuffIndicator.OVERFED;
-        } else if (level < HUNGRY) {
+        } else if (hungerlevel < HUNGRY) {
             return BuffIndicator.NONE;
-        } else if (level < STARVING) {
+        } else if (hungerlevel < STARVING) {
 			return BuffIndicator.HUNGER;
 		} else {
 			return BuffIndicator.STARVATION;
@@ -195,11 +198,11 @@ public class Hunger extends Buff implements Hero.Doom {
 
 	@Override
 	public String toString() {
-        if (level < OVERFED) {
+        if (hungerlevel < OVERFED) {
             return Messages.get(this, "overfed");
-        } else if (level < HUNGRY) {
+        } else if (hungerlevel < HUNGRY) {
             return Messages.get(this, "normal");
-        } else if (level < STARVING) {
+        } else if (hungerlevel < STARVING) {
             return Messages.get(this, "hungry");
         } else {
 			return Messages.get(this, "starving");
@@ -209,11 +212,11 @@ public class Hunger extends Buff implements Hero.Doom {
 	@Override
 	public String desc() {
 		String result;
-		if (level < OVERFED) {
+		if (hungerlevel < OVERFED) {
             result =  Messages.get(this, "desc_intro_overfed");
-        } else if (level < HUNGRY) {
+        } else if (hungerlevel < HUNGRY) {
             result =  Messages.get(this, "desc_intro_normal");
-        } else if (level < STARVING) {
+        } else if (hungerlevel < STARVING) {
 			result = Messages.get(this, "desc_intro_hungry");
 		} else {
 			result = Messages.get(this, "desc_intro_starving");

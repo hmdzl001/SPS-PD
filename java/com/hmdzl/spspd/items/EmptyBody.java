@@ -26,7 +26,7 @@ public class EmptyBody extends Item {
 
 	{
 		//name = "EmptyBody";
-		image = ItemSpriteSheet.TENGU_SWORD;
+		image = ItemSpriteSheet.EMPTY_SWORD;
 
 		stackable = false;
 		unique = true;

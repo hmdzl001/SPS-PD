@@ -37,12 +37,8 @@ public class Herbmeat extends CompleteFood {
 		return 2 * quantity;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero,AttackUp.class,70f).level(30);
-		}
+	public void doEat() {
+			Buff.affect(curUser,AttackUp.class,70f).level(30);
 	}
 
 }

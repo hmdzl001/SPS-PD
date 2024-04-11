@@ -20,8 +20,9 @@ package com.hmdzl.spspd.actors.buffs;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
-	public class WatchOut extends Buff {
+	public class WatchOut extends FlavourBuff {
 
+		public static final float DURATION = 30f;
 	{
 		type = buffType.NEGATIVE;
 	}
@@ -38,15 +39,7 @@ import com.hmdzl.spspd.ui.BuffIndicator;
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc");
-	}
-
-	@Override
-	public boolean act() {
-		if (target.isAlive()) {
-			spend(TICK);
-		}
-		return true;
+		return Messages.get(this, "desc",dispTurns());
 	}
 
 }

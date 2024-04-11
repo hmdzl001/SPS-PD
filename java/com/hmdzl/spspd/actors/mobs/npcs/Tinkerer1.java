@@ -85,8 +85,7 @@ public class Tinkerer1 extends NPC {
 	}
 
 	private void tell( String text ) {
-		GameScene.show(
-			new WndQuest( this, text ));
+		GameScene.show(new WndQuest( this, text ));
 	}
 
 }

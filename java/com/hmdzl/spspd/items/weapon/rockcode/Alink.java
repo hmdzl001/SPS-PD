@@ -25,6 +25,7 @@ import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMirrorImage;
+import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -33,6 +34,7 @@ import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 public class Alink extends RockCode {
 
@@ -99,9 +101,9 @@ public class Alink extends RockCode {
 	}
 	
 	@Override
-	public void onHit(MegaCannon megaCannon, Char attacker, Char defender, int damage) {
+	public void onHit(XSaber megaCannon, Char attacker, Char defender, int damage) {
 
-		if ( megaCannon.charge > 2 ) {
+		if (Random.Int(10) == 1) {
 			new ScrollOfMirrorImage.DelayedImageSpawner(1, 1, 1).attachTo(curUser);
 		}
 

@@ -41,14 +41,11 @@ public class Vegetablesoup extends CompleteFood {
 		return 1 * quantity;
 	}
 
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.detach(hero, Poison.class);
-			Buff.detach(hero, Cripple.class);
-			Buff.detach(hero, STRdown.class);
-			Buff.detach(hero, Bleeding.class);
-			Buff.affect(hero,MagicArmor.class).level(hero.HT/2);
-		}
+	public void doEat() {
+			Buff.detach(curUser, Poison.class);
+			Buff.detach(curUser, Cripple.class);
+			Buff.detach(curUser, STRdown.class);
+			Buff.detach(curUser, Bleeding.class);
+			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/2);
 	}
 }

@@ -21,6 +21,10 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.TestMob;
+import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PuddingCup;
 import com.hmdzl.spspd.items.StoneOre;
@@ -29,7 +33,10 @@ import com.hmdzl.spspd.items.keys.IronKey;
 import com.hmdzl.spspd.items.sellitem.DevUpPlan;
 import com.hmdzl.spspd.items.wands.WandOfTest;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CoconutSprite;
+import com.hmdzl.spspd.windows.WndNewNpcMessage;
+import com.hmdzl.spspd.windows.WndQuest;
 
 public class Leadercn extends NPC {
 
@@ -43,6 +50,7 @@ public class Leadercn extends NPC {
 	@Override
 	protected boolean act() {
 		throwItem();
+		pushother();
 		return super.act();
 	}	
 	
@@ -79,40 +87,58 @@ public class Leadercn extends NPC {
 	public boolean interact() {
 		
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		switch (Dungeon.sacrifice) {
+		this.sprite.emitter().burst(Speck.factory(Speck.STEAM),6);
+		switch (this.FRIEND) {
             case 0:
-			yell(Messages.get(this, "yell1"));
-				Dungeon.depth.drop(new IronKey(Dungeon.dungeondepth), Dungeon.hero.pos).sprite.drop();
+            teacher(this,Messages.get(this, "yell1"));
+			//yell(Messages.get(this, "yell1"));
+			Dungeon.depth.drop(new IronKey(Dungeon.dungeondepth), Dungeon.hero.pos).sprite.drop();
 			break;
-			case 1:
-			yell(Messages.get(this, "yell2"));
+			case 10:
+				teacher(this,Messages.get(this, "yell2"));
 			break;
-			case 2:
-			yell(Messages.get(this, "yell3"));
+			case 20:
+				teacher(this,Messages.get(this, "yell3"));
+
 			break;	
-            case 3:
-			yell(Messages.get(this, "yell4"));
+            case 30:
+				teacher(this,Messages.get(this, "yell4"));
+
 			break;			
-            case 4:
-			yell(Messages.get(this, "yell5"));
+            case 40:
+				teacher(this,Messages.get(this, "yell5"));
+
 			Dungeon.depth.drop(new StoneOre(), Dungeon.hero.pos).sprite.drop();
 			break;			
-            case 5:
-			yell(Messages.get(this, "yell6"));
+            case 50:
+				teacher(this,Messages.get(this, "yell6"));
+
 			Dungeon.depth.drop(new WandOfTest().identify(), Dungeon.hero.pos).sprite.drop();
 			break;			
-            case 6:
-			yell(Messages.get(this, "yell7"));
+            case 60:
+				teacher(this,Messages.get(this, "yell7"));
+
 			Dungeon.depth.drop(new DungeonBomb(), Dungeon.hero.pos).sprite.drop();
 			break;			
-            case 7:
-			yell(Messages.get(this, "yell8"));
+            case 70:
+				teacher(this,Messages.get(this, "yell8"));
+
 				Dungeon.depth.drop(new PuddingCup(), this.pos).sprite.drop();
 			break;						
 		}
-		Dungeon.sacrifice++;
+
+		for (Mob mob : Dungeon.depth.mobs) {
+			if (mob instanceof Leadercn && mob.isAlive())
+				((NPC)mob).FRIEND += 10;
+		}
+
+
 		this.destroy();
 		this.sprite.die();
 		return true;
+	}
+
+	private void teacher(NPC npc,String text ) {
+		GameScene.show(new WndNewNpcMessage(npc,text ));
 	}
 }

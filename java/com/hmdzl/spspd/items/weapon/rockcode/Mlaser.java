@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.MagicMissile;
+import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.watabou.noosa.audio.Sample;
@@ -74,9 +75,9 @@ public class Mlaser extends RockCode {
 	}
 	
 	@Override
-	public void onHit(MegaCannon megaCannon, Char attacker, Char defender, int damage) {
+	public void onHit(XSaber megaCannon, Char attacker, Char defender, int damage) {
 
-		if ( megaCannon.charge > 2 ) {
+		if ( Random.Int(10) == 1 ) {
 			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), ENERGY_DAMAGE);
 			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), EARTH_DAMAGE);
 			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), FIRE_DAMAGE);

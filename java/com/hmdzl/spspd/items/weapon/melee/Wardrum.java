@@ -37,7 +37,7 @@ public class Wardrum extends MeleeWeapon {
 
 	{
 		//name = "Wardrum";
-		image = ItemSpriteSheet.WARDURM;
+		image = ItemSpriteSheet.WARDRUM;
 	}
 
 	public Wardrum() {

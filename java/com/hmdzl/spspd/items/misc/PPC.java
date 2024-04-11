@@ -48,7 +48,7 @@ public class PPC extends Item {
 
 	{
 		//name = "PPC";
-		image = ItemSpriteSheet.PPC;
+		image = ItemSpriteSheet.SEARCH_GLASS;
 		defaultAction = AC_TRY;
 		unique = true;
 		 

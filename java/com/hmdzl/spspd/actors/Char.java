@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.HealLight;
+import com.hmdzl.spspd.actors.blobs.NmGas;
 import com.hmdzl.spspd.actors.blobs.SlowGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
@@ -93,24 +94,34 @@ import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
+import com.hmdzl.spspd.effects.FloatingText2;
+import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.glyphs.Darkglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Earthglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Electricityglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Lightglyph;
 import com.hmdzl.spspd.items.rings.RingOfElements;
+import com.hmdzl.spspd.items.wands.CannonOfMage;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.wands.WandOfAcid;
 import com.hmdzl.spspd.items.wands.WandOfBlood;
+import com.hmdzl.spspd.items.wands.WandOfCharm;
+import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
+import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
+import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
 import com.hmdzl.spspd.items.wands.WandOfMeteorite;
 import com.hmdzl.spspd.items.wands.WandOfSwamp;
+import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.levels.features.Chasm;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -539,21 +550,100 @@ public abstract class Char extends Actor {
        //if (dmg > HP){
 		//Buff.detach(this,Corruption.class);}
 		HP -= dmg;
-		
-		
-		if (dmg > 0) {
-			if (src instanceof Hunger){
-				sprite.showStatus(CharSprite.NULL_DAMAGE, Integer.toString(dmg));
-			} else if (src instanceof Char){
-				sprite.showStatus(CharSprite.MELEE_DAMAGE, Integer.toString(dmg));
-			} else if (src instanceof DamageType || src instanceof Buff ||
-					src instanceof Blob || src instanceof Wand){
-				sprite.showStatus(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg));
-			} else {
-				sprite.showStatus(CharSprite.NULL_DAMAGE, Integer.toString(dmg));
+
+		//if (dmg > 0) {
+			//if (src instanceof Hunger){
+			//	sprite.showStatus(CharSprite.NULL_DAMAGE, Integer.toString(dmg));
+			//} else if (src instanceof Char){
+			//	sprite.showStatus(CharSprite.MELEE_DAMAGE, Integer.toString(dmg));
+			//} else if (src instanceof DamageType || src instanceof Buff ||
+			//		src instanceof Blob || src instanceof Wand){
+			//	sprite.showStatus(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg));
+			//} else {
+			//	sprite.showStatus(CharSprite.NULL_DAMAGE, Integer.toString(dmg));
+			//}
+
+		//}
+
+		if (sprite != null && dmg > 0) {
+			//defaults to normal damage icon if no other ones apply
+			int                                                      icon = FloatingText2.PHYS_DMG;
+
+			if (src instanceof Hunger) {
+				icon = FloatingText2.HUNGER;
+				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof MeleeWeapon){
+				icon = FloatingText2.TRUE_DMG;
+				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof DamageType.EnergyDamage ||
+					src instanceof WandOfMagicMissile ||
+					src instanceof CannonOfMage ||
+					src instanceof WandOfDisintegration) {
+				icon = FloatingText2.MAGIC_DMG;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
 			}
 
+			if (src instanceof DamageType.FireDamage ||
+					src instanceof WandOfFirebolt ||
+					src instanceof WandOfMeteorite) {
+				icon = FloatingText2.BURNING;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof DamageType.IceDamage ||
+					src instanceof WandOfFlow ||
+					src instanceof WandOfFreeze) {
+				icon = FloatingText2.FROST;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof DamageType.EarthDamage ||
+					src instanceof WandOfAcid ||
+					src instanceof WandOfSwamp) {
+				icon = FloatingText2.OOZE;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof DamageType.ShockDamage ||
+					src instanceof WandOfLightning ||
+					src instanceof WandOfTCloud) {
+				icon = FloatingText2.SHOCKING;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof DamageType.LightDamage ||
+					src instanceof WandOfLight ||
+					src instanceof WandOfCharm) {
+				icon = FloatingText2.EXPERIENCE;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof DamageType.DarkDamage ||
+					src instanceof WandOfBlood ||
+					src instanceof WandOfFlock) {
+				icon = FloatingText2.CORRUPTION;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof ToxicGas ||
+					src instanceof Poison ){
+				icon = FloatingText2.TOXIC;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
+			}
+
+			if (src instanceof Bleeding){
+				icon = FloatingText2.BLEEDING;
+			    sprite.showStatusWithIcon(CharSprite.MELEE_DAMAGE, Integer.toString(dmg), icon);
+		    }
+			if (src instanceof NmGas){
+				icon = FloatingText2.ROBOT;
+				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof Chasm){
+				icon = FloatingText2.FALLING;
+				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (icon == FloatingText2.PHYS_DMG) {
+				sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(dmg), icon);
+			}
 		}
+
 		//sprite.showStatus(HP > HT / 2 ? CharSprite.WARNING
 		//		: CharSprite.NEGATIVE, Integer.toString(dmg)
 		if (HP <= 0 || HT <= 0) {

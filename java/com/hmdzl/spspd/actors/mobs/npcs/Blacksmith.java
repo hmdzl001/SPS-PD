@@ -85,6 +85,7 @@ public class Blacksmith extends NPC {
 	@Override
 	protected boolean act() {
 		throwItem();
+		pushother();
 		return super.act();
 	}
 

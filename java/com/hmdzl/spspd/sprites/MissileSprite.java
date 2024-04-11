@@ -58,17 +58,19 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		speed.set(d).normalize().scale(SPEED);
 
 		if (image == ItemSpriteSheet.KNIVE
-				|| image == ItemSpriteSheet.INCENDIARY_DART
+
 				|| image == ItemSpriteSheet.POSION_DART
+				|| image == ItemSpriteSheet.AMMO_M
+				|| image == ItemSpriteSheet.AMMO_L
 				|| image == ItemSpriteSheet.MIND_ARROW) {
 
 			angularSpeed = 0;
 			angle = 135 - (float) (Math.atan2(d.x, d.y) / 3.1415926 * 180);
 			
 		}	else if (image == ItemSpriteSheet.WAVE
-				|| image == ItemSpriteSheet.SKULLWEP
-				|| image == ItemSpriteSheet.MIDDLE_AMMO
-				|| image == ItemSpriteSheet.BIG_AMMO) {
+				|| image == ItemSpriteSheet.SKULL
+				|| image == ItemSpriteSheet.AMMO_S
+				) {
 
 				angularSpeed = 0;
 				angle = 90 - (float) (Math.atan2(d.x, d.y) / 3.1415926 * 180);

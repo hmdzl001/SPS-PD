@@ -29,7 +29,9 @@ import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.Trap;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;
+import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 
 public class EarthDamage2Trap extends Trap {
 
@@ -41,10 +43,13 @@ public class EarthDamage2Trap extends Trap {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		for (int i : Floor.NEIGHBOURS9DIST2) {
-			if (Floor.insideMap(pos + i) && !Floor.solid[pos + i]) {
-				GameScene.add(Blob.seed(pos + i, 20, EarthEffectDamage.class));
-				Splash.at(pos + i, 0x000000, 5);
+		PathFinder.buildDistanceMap( pos, BArray.not( Floor.solid, null ), 2 );
+		for (int i = 0; i < PathFinder.distance.length; i++) {
+			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+				if (Floor.insideMap(i) && !Floor.solid[i]) {
+					GameScene.add(Blob.seed(i, 20, EarthEffectDamage.class));
+					Splash.at(i, 0x000000, 5);
+				}
 			}
 		}
 		Sample.INSTANCE.play(Assets.SND_SHATTER);

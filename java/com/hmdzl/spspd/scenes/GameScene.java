@@ -22,7 +22,6 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.FogOfWar;
-import com.hmdzl.spspd.GamesInProgress;
 import com.hmdzl.spspd.SPSSettings;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
@@ -36,6 +35,7 @@ import com.hmdzl.spspd.effects.CircleArc;
 import com.hmdzl.spspd.effects.EmoIcon;
 import com.hmdzl.spspd.effects.Flare;
 import com.hmdzl.spspd.effects.FloatingText;
+import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.effects.Ripple;
 import com.hmdzl.spspd.effects.SpellSprite;
 import com.hmdzl.spspd.items.Heap;
@@ -74,6 +74,7 @@ import com.hmdzl.spspd.ui.TargetHealthIndicator;
 import com.hmdzl.spspd.ui.Toast;
 import com.hmdzl.spspd.ui.Toolbar;
 import com.hmdzl.spspd.ui.Window;
+import com.hmdzl.spspd.ui.WindowDown;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndBag.Mode;
@@ -158,7 +159,7 @@ public class GameScene extends PixelScene {
 		Camera.main.zoom( GameMath.gate(minZoom, defaultZoom + SPSSettings.zoom(), maxZoom));
 		Camera.main.edgeScroll.set(1);
 		switch (ShatteredPixelDungeon.cameratypes()) {
-			case 1: default:    Camera.main.setFollowDeadzone(0);      break;
+			case 1: default:    Camera.main.setFollowDeadzone(0.1f);      break;
 			case 2:             Camera.main.setFollowDeadzone(0.4f);   break;
 			case 0:             Camera.main.setFollowDeadzone(0.9f);   break;
 
@@ -455,7 +456,7 @@ public class GameScene extends PixelScene {
 		switch (InterlevelScene.mode){
 			//case FALL:
 			case DESCEND:
-				switch (Random.Int(6)){
+				/*switch (Random.Int(6)){
 					case 0:
 					AppearAction.heroLife();
 					break;
@@ -473,7 +474,7 @@ public class GameScene extends PixelScene {
 						break;
 					case 5:
 						break;
-				}
+				}*/
 				Camera.main.snapTo(hero.center().x, hero.center().y - DungeonTilemap.SIZE * (defaultZoom/Camera.main.zoom));
 				break;
 			case CONTINUE:
@@ -748,6 +749,12 @@ public class GameScene extends PixelScene {
 				.recycle(FloatingText.class) : null;
 	}
 
+	public static FloatingText2 status2() {
+		return scene != null ? (FloatingText2) scene.statuses
+				.recycle(FloatingText2.class) : null;
+	}
+
+
 	public static void pickUp(Item item) {
 		scene.toolbar.pickup(item);
 	}
@@ -783,6 +790,15 @@ public class GameScene extends PixelScene {
 		if (scene != null) {
 			cancelCellSelector();
 			scene.addToFront(wnd);
+		}
+	}
+
+	public static void show(WindowDown wndd) {
+		//cancelCellSelector();
+		//scene.add(wnd);
+		if (scene != null) {
+			cancelCellSelector();
+			scene.addToFront(wndd);
 		}
 	}
 	

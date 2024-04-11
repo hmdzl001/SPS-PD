@@ -137,8 +137,8 @@ public class Armor extends KindOfArmor {
 		float DEX = this.DEX;
 		
 		int bonus = 0;
-		for (Buff buff : hero.buffs(RingOfEvasion.Evasion.class)) {
-			bonus += ((RingOfEvasion.Evasion) buff).level;
+		for (Buff buff : hero.buffs(RingOfEvasion.RingEvasion.class)) {
+			bonus += ((RingOfEvasion.RingEvasion) buff).level;
 		}
 		
 		 DEX+= (float) (Math.min(2,bonus/15));
@@ -155,8 +155,8 @@ public class Armor extends KindOfArmor {
 		float STE = this.STE;
 
 		int bonus = 0;
-		for (Buff buff : hero.buffs(RingOfEvasion.Evasion.class)) {
-			bonus += ((RingOfEvasion.Evasion) buff).level;
+		for (Buff buff : hero.buffs(RingOfEvasion.RingEvasion.class)) {
+			bonus += ((RingOfEvasion.RingEvasion) buff).level;
 		}
 
 		STE+= (float) (Math.min(6,bonus/5));

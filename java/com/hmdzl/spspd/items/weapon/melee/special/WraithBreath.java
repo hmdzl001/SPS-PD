@@ -30,7 +30,7 @@ public class WraithBreath extends MeleeWeapon {
 
 	{
 		//name = "Wraith Breath";
-		image = ItemSpriteSheet.WRAITHBREATH;
+		image = ItemSpriteSheet.WAVE;
 	}
 
 	public WraithBreath() {

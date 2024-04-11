@@ -24,7 +24,6 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.effects.BlobEmitter;
-import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.BlackFlameParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Floor;

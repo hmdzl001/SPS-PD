@@ -21,7 +21,6 @@ import android.graphics.RectF;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -31,10 +30,7 @@ import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
-import com.watabou.noosa.tweeners.ScaleTweener;
 import com.watabou.utils.Callback;
-import com.watabou.utils.PointF;
-import com.watabou.utils.Random;
 
 public class HeroSprite extends CharSprite {
 

@@ -37,13 +37,8 @@ public class Chocolate extends CompleteFood {
 		return 60 * quantity;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-             Buff.affect(hero, ShieldArmor.class).level(hero.HT);
-		}
+	public void doEat() {
+             Buff.affect(curUser, ShieldArmor.class).level(curUser.HT);
 	}
 
 }

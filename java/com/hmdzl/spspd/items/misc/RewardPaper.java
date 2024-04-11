@@ -39,7 +39,7 @@ public class RewardPaper extends Item {
 
 	{
 		//name = "RewardPaper";
-		image = ItemSpriteSheet.REWARD_PAPER;
+		image = ItemSpriteSheet.REWARD_PC;
 		unique = true;
 		defaultAction = AC_CHOOSE;
 	}

@@ -23,7 +23,7 @@ public class FishPetFood extends PetFood {
 
 	{
 		//name = "PetFood";
-		image = ItemSpriteSheet.PINK_FISH;
+		image = ItemSpriteSheet.F_PET_FOOD;
 		energy = 100;
 		hornValue = 1;
 		 

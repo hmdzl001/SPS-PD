@@ -29,8 +29,10 @@ import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -97,15 +99,16 @@ public class WandOfLightning extends DamageWand {
 		}
 
 		if (Floor.water[ch.pos] && !ch.flying){
-			for (int i : Floor.NEIGHBOURS8DIST2) {
-				int cell = ch.pos + i;
-				//player can only be hit by lightning from an adjacent enemy.
-				if (!Floor.insideMap(cell) || Actor.findChar(cell) == Dungeon.hero) continue;
-
-				Char n = Actor.findChar( ch.pos + i );
-				if (n != null && !affected.contains( n )) {
-					arcs.add(new Lightning.Arc(ch.pos, n.pos));
-					arc(n);
+			PathFinder.buildDistanceMap( ch.pos, BArray.not( Floor.solid, null ), 2 );
+			for (int i = 0; i < PathFinder.distance.length; i++) {
+				if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+					//player can only be hit by lightning from an adjacent enemy.
+					if (!Floor.insideMap(i) || Actor.findChar(i) == Dungeon.hero) continue;
+					Char n = Actor.findChar(i);
+					if (n != null && !affected.contains(n)) {
+						arcs.add(new Lightning.Arc(ch.pos, n.pos));
+						arc(n);
+					}
 				}
 			}
 		}

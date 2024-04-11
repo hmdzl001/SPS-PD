@@ -245,7 +245,7 @@ public class ToyGun extends Weapon {
 	public class ToyAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.AMMO;
+			image = ItemSpriteSheet.AMMO_S;
 		}
 
 		public int damageRoll(Hero owner) {

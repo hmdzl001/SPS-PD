@@ -119,12 +119,13 @@ public class WandOfMeteorite extends DamageWand {
 
 	@Override
 	protected int initialCharges() {
-		return 1;
+		return 2;
 	}	
 	
 	@Override	
 	protected int chargesPerCast() {
-		return Math.max(1, curCharges);
+	//	return Math.max(1, curCharges);
+		return 1;
 	}	
 	
 	@Override

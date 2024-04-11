@@ -42,24 +42,14 @@ public class EarthMeat extends MeatFood {
 	}
 
 	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-            effect(hero);
-		}
-	}
-
-	@Override
 	public int price() {
 		return 3 * quantity;
 	}
 
-    public static void effect(Hero hero){
+	public void doEat() {
 
 		GLog.i( Messages.get(Meat.class, "hard") );
-		Buff.affect( hero, Barkskin.class ).level( hero.lvl*3 );
+		Buff.affect( curUser, Barkskin.class ).level( curUser.lvl*3 );
 
 	}
 	

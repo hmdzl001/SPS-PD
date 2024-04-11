@@ -192,7 +192,7 @@ public class ShootGun extends Weapon {
 	public class ShootAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.AMMO;
+			image = ItemSpriteSheet.AMMO_M;
 		}
 
 		public int damageRoll(Hero owner) {
@@ -232,7 +232,7 @@ public class ShootGun extends Weapon {
 	public class ShootEndAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.COPY_BALL;
+			image = ItemSpriteSheet.AMMO_L;
 			ACU = 1000;
 		}
 

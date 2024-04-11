@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
@@ -47,7 +48,7 @@ public class GoldCollector extends Mob {
 
 	@Override
 	public Item SupercreateLoot(){
-		return Random.oneOf( new Gold(100) ,new VIPcard(),new MasterThievesArmband());
+		return Random.oneOf( new Gold(100),new VIPcard(),new MasterThievesArmband());
 	}
 
 	@Override
@@ -68,10 +69,10 @@ public class GoldCollector extends Mob {
 				skilluse = true;
 				Buff.affect(this, ShieldArmor.class).level((int) (Dungeon.gold / 20));
 				Dungeon.gold -= golddrop;
-				enemy.sprite.showStatus(CharSprite.NEUTRAL, "-" + golddrop);
+				enemy.sprite.showStatusWithIcon(CharSprite.NEUTRAL, "-" + golddrop, FloatingText2.GOLD);
 			} else {
 				Dungeon.gold -= 10;
-				enemy.sprite.showStatus(CharSprite.NEUTRAL, "-10" );
+				enemy.sprite.showStatusWithIcon(CharSprite.NEUTRAL, "-10" ,FloatingText2.GOLD);
 				Dungeon.depth.drop(new Gold(10),enemy.pos);
 			}
 		}

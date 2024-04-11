@@ -39,7 +39,7 @@ public class DemoScroll extends Item {
 	public static final String AC_READ2 = "READ2";
 	{
 		//name = "DemoScroll";
-		image = ItemSpriteSheet.DEMO_SCROLL;
+		image = ItemSpriteSheet.DEMON_PAPER;
 
 		stackable = false;
 		charge = 0;

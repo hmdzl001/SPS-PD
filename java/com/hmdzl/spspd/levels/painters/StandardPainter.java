@@ -84,7 +84,7 @@ public class StandardPainter extends Painter {
 		}
 
 		if (!Dungeon.bossLevel() && Random.Int(2) == 0) {
-			switch (Random.Int(8)) {
+			switch (Random.Int(7)) {
 				case 0:
 					if (level.feeling != Floor.Feeling.GRASS) {
 						if (Math.min(room.width(), room.height()) >= 5
@@ -96,36 +96,37 @@ public class StandardPainter extends Painter {
 					} else {
 						// Burned room
 					}
-				case 1:
-					if (level.feeling != Floor.Feeling.SPECIAL_FLOOR) {
-						if (Math.min(room.width(), room.height()) >= 5
-								&& Math.max(room.width(), room.height()) >= 5) {
-							paintGlassN(level, room);
-							return;
-						}
-						break;
-					} else {
+				//case 1:
+				//	if (level.feeling != Floor.Feeling.SPECIAL_FLOOR) {
+				//		if (Math.min(room.width(), room.height()) >= 5
+				//				&& Math.max(room.width(), room.height()) >= 5) {
+							//paintGlassN(level, room);
+				//			paintBridge(level, room);
+				//			return;
+				//		}
+				//		break;
+				//	} else {
 						// Burned room
-					}
-				case 2:
+				//	}
+				case 1:
 					if (Math.max(room.width(), room.height()) >= 4) {
 						paintStriped(level, room);
 						return;
 					}
 					break;
-				case 3:
+				case 2:
 					if (room.width() >= 6 && room.height() >= 6) {
 						paintStudy(level, room);
 						return;
 					}
 					break;
-				case 4:
+				case 3:
 					if (room.width() >= 6 && room.height() >= 6) {
 						paintStudy2(level, room);
 						return;
 					}
 					break;
-				case 5:
+				case 4:
 					if (level.feeling != Floor.Feeling.WATER) {
 						if (room.connected.size() == 2 && room.width() >= 4
 								&& room.height() >= 4) {
@@ -136,7 +137,7 @@ public class StandardPainter extends Painter {
 					} else {
 						// Fissure
 					}
-				case 6:
+				case 5:
 					if (!Dungeon.bossLevel()
 							&& !Dungeon.bossLevel(Dungeon.dungeondepth + 1)
 							&& (Dungeon.dungeondepth < 21 &&  Dungeon.dungeondepth > 1)
@@ -145,7 +146,7 @@ public class StandardPainter extends Painter {
 						return;
 					}
 					break;
-				case 7:
+				case 6:
 					if (Dungeon.dungeondepth > 1) {
 					paintBurned(level, room);
 					return;
@@ -511,7 +512,7 @@ public class StandardPainter extends Painter {
 //		set( bonus, room.center(), Terrain.PEDESTAL );
 	}	
 	
-	private static void paintGlassN(Floor level, Room room ) {
+	/*private static void paintGlassN(Floor level, Room room ) {
 		fill(level, room, 1, Terrain.EMPTY);
 
 		//true = space, false = wall
@@ -521,11 +522,12 @@ public class StandardPainter extends Painter {
 		Painter.fill(level, room, 1, Terrain.EMPTY_SP);
 		for (int x = 0; x < maze.length; x++)
 			for (int y = 0; y < maze[0].length; y++) {
-				if (maze[x][y] == Maze.FILLED /*&& x!= 0 && y!=0 && x != room.right - room.left - 1  && y != room.bottom - room.top - 1 */) {
-					Painter.fill(level, x + room.left, y + room.top, 1, 1, Terrain.GLASS_WALL);
+				if (maze[x][y] == Maze.FILLED /*&& x!= 0 && y!=0 && x != room.right - room.left - 1  && y != room.bottom - room.top - 1 */
+	//) {
+				/*	Painter.fill(level, x + room.left, y + room.top, 1, 1, Terrain.GLASS_WALL);
 				}
 			}
-	}
+	}*/
 
 	private static void paintBridge(Floor level, Room room) {
 

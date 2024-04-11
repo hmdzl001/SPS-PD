@@ -36,7 +36,7 @@ public class RotAmmo extends SpAmmo {
 		if (Random.Int(7) == 3) {
 			Buff.prolong(defender, Roots.class,3f);
 		} else
-			Buff.affect(defender, Ooze.class);
+			Buff.affect(defender, Ooze.class).set(5f);
 		defender.damage((int)(0.5*damage), attacker);
 	}
 	@Override
@@ -45,7 +45,7 @@ public class RotAmmo extends SpAmmo {
 		if (Random.Int(7) == 3) {
 			Buff.prolong(defender, Roots.class,3f);
 		} else
-			Buff.affect(defender, Ooze.class);
+			Buff.affect(defender, Ooze.class).set(5f);
 		defender.damage((int)(0.5*damage), attacker);
 	}
 

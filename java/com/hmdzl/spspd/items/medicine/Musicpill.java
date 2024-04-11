@@ -37,18 +37,13 @@ public class Musicpill extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Rhythm.class,800f);
+	public void doEat2() {
+			Buff.affect(curUser, Rhythm.class,800f);
 			if (Dungeon.hero.heroClass == HeroClass.PERFORMER)
-				Buff.affect(hero, WarGroove.class);
+				Buff.affect(curUser, WarGroove.class);
 			if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR)
-				Buff.affect(hero, Rhythm2.class,800f);
-			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		}
+				Buff.affect(curUser, Rhythm2.class,800f);
+			curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 	}
 
 	@Override

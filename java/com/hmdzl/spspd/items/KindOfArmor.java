@@ -41,13 +41,18 @@ public class KindOfArmor extends EquipableItem {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		actions.add(isEquipped(hero) ? AC_UNEQUIP : AC_EQUIP);
+		actions.add(isEquippedSecond(hero) ? AC_UNEQUIP_SECOND : (isEquipped(hero)? AC_UNEQUIP : AC_EQUIP)  );
 		return actions;
 	}
 
 	@Override
 	public boolean isEquipped(Hero hero) {
-		return hero.belongings.armor == this;
+		return hero.belongings.armor == this || hero.belongings.armor_two == this;
+	}
+
+
+	public boolean isEquippedSecond(Hero hero) {
+		return hero.belongings.armor_two == this;
 	}
 
 	//@Override
@@ -89,13 +94,26 @@ public class KindOfArmor extends EquipableItem {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)) {
-
 			hero.belongings.armor = null;
-			((HeroSprite) hero.sprite).updateArmor();
+		//	((HeroSprite) hero.sprite).updateArmor();
 			
 			//hero.remove(buff);
 			//buff = null;
 			
+			return true;
+
+		} else {
+
+			return false;
+
+		}
+	}
+
+	@Override
+	public boolean doUnequipSecond(Hero hero, boolean collect, boolean single) {
+		if (super.doUnequipSecond(hero, collect, single)) {
+
+			hero.belongings.armor_two = null;
 			return true;
 
 		} else {

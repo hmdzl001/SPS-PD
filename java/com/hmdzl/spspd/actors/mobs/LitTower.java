@@ -113,22 +113,7 @@ public class LitTower extends Mob implements Callback {
 		}
 		return check;
 	}
-	
 
-	protected boolean heroNear (){
-		boolean check=false;
-		for (int i : Floor.NEIGHBOURS9DIST2){
-			int cell=pos+i;
-			if (Actor.findChar(cell) != null	
-				&& (Actor.findChar(cell) instanceof Hero)
-				){
-				check=true;
-			}			
-		}		
-		return check;
-	}
-	
-	
 	@Override
 	protected boolean canAttack(Char enemy) {
 		return new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos == enemy.pos;

@@ -44,6 +44,10 @@ enum Preferences {
 	public static final String KEY_BRIGHTNESS = "brightness";
 	public static final String KEY_VERSION = "version";
 
+	public static final String KEY_SPECIAL_COIN = "specialcoin";
+
+	public static final String KEY_UNLOCKS = "unlocks";
+
 	private SharedPreferences prefs;
 
 	private SharedPreferences get() {

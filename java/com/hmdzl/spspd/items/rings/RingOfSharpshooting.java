@@ -24,10 +24,10 @@ public class RingOfSharpshooting extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Aim();
+		return new RingShoot();
 	}
 
 
-	public class Aim extends RingBuff {
+	public class RingShoot extends RingBuff {
 	}
 }

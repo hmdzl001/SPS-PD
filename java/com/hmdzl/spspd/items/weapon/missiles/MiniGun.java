@@ -185,7 +185,7 @@ public class MiniGun extends Weapon {
 	public class ShootAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.AMMO;
+			image = ItemSpriteSheet.AMMO_S;
 		}
 
 		public int damageRoll(Hero owner) {
@@ -242,7 +242,7 @@ public class MiniGun extends Weapon {
 	public void minicheck( int cell ) {
 		final HashMap<Callback, Mob> targets = new HashMap<Callback, Mob>();
 		Item proto = new EscapeKnive();
-		for (int n : Floor.NEIGHBOURS9DIST2) {
+		for (int n : Floor.NEIGHBOURS8) {
 			int c = cell + n;
 			final Char target;
 

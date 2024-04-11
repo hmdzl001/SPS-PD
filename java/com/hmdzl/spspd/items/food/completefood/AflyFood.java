@@ -37,13 +37,9 @@ public class AflyFood extends CompleteFood {
 		return 2 * quantity;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, AflyBless.class,150f);
-			hero.belongings.observeS();
-		}
+	public void doEat() {
+			Buff.affect(curUser, AflyBless.class,150f);
+			curUser.belongings.observeS();
 	}
 
 }

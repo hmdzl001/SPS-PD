@@ -31,7 +31,9 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.TrapSprite;
+import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class FlockTrap extends Trap {
@@ -49,16 +51,17 @@ public class FlockTrap extends Trap {
 		Actor.add(new Actor() {
 
 			protected boolean act() {
-				int cell;
-				for (int i : Floor.NEIGHBOURS9DIST2) {
-					cell = pos + i;
-					if (Floor.insideMap(cell) && Actor.findChar(cell) == null && !(Floor.solid[cell] || Floor.pit[cell])) {
-						Sheep sheep = new Sheep();
-						sheep.lifespan = 2 + Random.Int(Dungeon.dungeondepth + 10);
-						sheep.pos = cell;
-						GameScene.add(sheep);
+				PathFinder.buildDistanceMap( pos, BArray.not( Floor.solid, null ), 2 );
+				for (int i = 0; i < PathFinder.distance.length; i++) {
+					if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+						if (Floor.insideMap(i) && Actor.findChar(i) == null && !(Floor.solid[i] || Floor.pit[i])) {
+							Sheep sheep = new Sheep();
+							sheep.lifespan = 2 + Random.Int(Dungeon.dungeondepth + 10);
+							sheep.pos = i;
+							GameScene.add(sheep);
+						}
+						CellEmitter.get(i).burst(Speck.factory(Speck.WOOL), 4);
 					}
-					CellEmitter.get(cell).burst(Speck.factory(Speck.WOOL), 4);
 				}
 				Sample.INSTANCE.play(Assets.SND_PUFF);
 				Actor.remove(this);

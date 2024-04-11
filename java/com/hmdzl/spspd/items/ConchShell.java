@@ -43,7 +43,7 @@ public class ConchShell extends Item {
 
 	{
 		//name = "conch shell";
-		image = ItemSpriteSheet.SHELL;
+		image = ItemSpriteSheet.CAVE_SHELL;
 
 		stackable = false;
 		unique = true;

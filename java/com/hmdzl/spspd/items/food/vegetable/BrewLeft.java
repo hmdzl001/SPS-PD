@@ -17,9 +17,6 @@
  */
 package com.hmdzl.spspd.items.food.vegetable;
 
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class BrewLeft extends Vegetable {
@@ -27,7 +24,7 @@ public class BrewLeft extends Vegetable {
 	{
 		stackable = true;
 		//name = "ration of food";
-		image = ItemSpriteSheet.EAT_GRASS;
+		image = ItemSpriteSheet.NUT_VEGETABLE;
 		energy = 5;
 		hornValue = 0;
 		 

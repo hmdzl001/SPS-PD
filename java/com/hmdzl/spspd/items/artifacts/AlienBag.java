@@ -26,7 +26,7 @@ public class AlienBag extends Artifact {
 
 	{
 		//name = "AlienBag";
-		image = ItemSpriteSheet.ALIEN_BAG;
+		image = ItemSpriteSheet.ARTIFACT_CAT_BAG;
 
 		level = 0;
 		exp = 0;

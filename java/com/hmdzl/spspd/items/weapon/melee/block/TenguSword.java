@@ -30,7 +30,7 @@ public class TenguSword extends MeleeWeapon {
 
 	{
 		//name = "TenguSword";
-		image = ItemSpriteSheet.TENGU_SWORD;
+		image = ItemSpriteSheet.EMPTY_SWORD;
 	}
 
 	public TenguSword() {

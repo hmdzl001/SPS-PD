@@ -38,7 +38,7 @@ public class EyeOfSkadi extends Artifact {
 
 	{
 		//name = "Eye of Skadi";
-		image = ItemSpriteSheet.ICE_EYE;
+		image = ItemSpriteSheet.ARTIFACT_ICE_EYE;
 
 		level = 0;
 		exp = 0;

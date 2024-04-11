@@ -32,15 +32,10 @@ public class RealgarWine extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, FireImbue.class).set(FireImbue.DURATION);
-			Buff.affect(hero, ToxicImbue.class).set(ToxicImbue.DURATION);
-			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		}
+	public void doEat2() {
+			Buff.affect(curUser, FireImbue.class).set(FireImbue.DURATION);
+			Buff.affect(curUser, ToxicImbue.class).set(ToxicImbue.DURATION);
+			curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 	}
 
 	@Override

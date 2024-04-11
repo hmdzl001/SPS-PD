@@ -41,14 +41,11 @@ public class Meatroll extends CompleteFood {
 	public ItemSprite.Glowing glowing() {
 		return BROWN;
 	}
-	
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Recharging.class,20f);
-			Buff.affect(hero, SuperArcane.class,40f).level(5);
-			Buff.affect(hero,AttackUp.class,50f).level(20);
-		}
+
+	public void doEat() {
+			Buff.affect(curUser, Recharging.class,20f);
+			Buff.affect(curUser, SuperArcane.class,40f).level(5);
+			Buff.affect(curUser,AttackUp.class,50f).level(20);
 	}	
 
 	@Override

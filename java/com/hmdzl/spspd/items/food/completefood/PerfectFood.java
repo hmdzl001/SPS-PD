@@ -35,21 +35,14 @@ public class PerfectFood extends CompleteFood {
 		hornValue = 10;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(3, 7));
-			Buff.affect(hero, Bless.class,50f);
-			Buff.affect(hero, Light.class,50f);
+	public void doEat() {
+			curUser.TRUE_HT = curUser.TRUE_HT + (Random.Int(3, 7));
+			Buff.affect(curUser, Bless.class,50f);
+			Buff.affect(curUser, Light.class,50f);
 			//hero.HP = Math.min(hero.HP + hero.TRUE_HT/10, hero.TRUE_HT);
-			Buff.affect(hero, HasteBuff.class,25f);
-			Buff.affect(hero, Levitation.class,25f);
+			Buff.affect(curUser, HasteBuff.class,25f);
+			Buff.affect(curUser, Levitation.class,25f);
 			//hero.updateHT(true);
-			
-			
-		}
 	}
 
 	@Override

@@ -40,29 +40,15 @@ public class PixieParasol extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		
-		if (action.equals(AC_EAT)) {
-			
-			if (Dungeon.bossLevel()){
-				GLog.w(Messages.get(Food.class,"bosslevel"));
-				return;
-			}
-
-		}
-		
-	   if (action.equals(AC_EAT)) {
+	public void doEat2() {
 				for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 					Buff.affect(mob, Drowsy.class);
 					Buff.prolong(mob, Paralysis.class, Random.IntRange(10, 16));
 					Buff.affect(mob,ArmorBreak.class,50f).level(30);
 					mob.sprite.centerEmitter().start(Speck.factory(Speck.NOTE),	0.3f, 5);
 				}
-				Buff.affect(hero, Bless.class,20f);
-		}
-	   
-	   super.execute(hero, action);
+				Buff.affect(curUser, Bless.class,20f);
+
 	}	
 
 	@Override

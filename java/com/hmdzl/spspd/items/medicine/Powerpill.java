@@ -32,14 +32,9 @@ public class Powerpill extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Muscle.class,1440f);
-			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		}
+	public void doEat2() {
+			Buff.affect(curUser, Muscle.class,1440f);
+			curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 	}
 	@Override
 	public int price() {

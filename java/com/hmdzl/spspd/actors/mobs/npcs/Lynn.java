@@ -21,7 +21,7 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.LynnDoll;
 import com.hmdzl.spspd.messages.Messages;
@@ -85,7 +85,7 @@ public class Lynn extends NPC {
 		}
 		if (doll!=null){
 			yell(Messages.get(this, "yell3"));
-			Buff.prolong(Dungeon.hero,Shieldblock.class,20f);
+			Buff.prolong(Dungeon.hero, HolyStun.class,20f);
 			Dungeon.hero.HP = (int)(Dungeon.hero.HP/3);
 			doll.detachAll(Dungeon.hero.belongings.backpack);
 		}

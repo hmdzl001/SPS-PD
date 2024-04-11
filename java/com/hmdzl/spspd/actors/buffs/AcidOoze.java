@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
+import android.annotation.SuppressLint;
+
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.levels.Floor;
@@ -50,6 +52,7 @@ public class AcidOoze extends Buff {
 		return Messages.get(this, "desc");
 	}
 
+	@SuppressLint("SuspiciousIndentation")
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {

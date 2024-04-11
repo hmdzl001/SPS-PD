@@ -26,7 +26,7 @@ public class ShadowDragonEgg extends Egg {
 	public static final float TIME_TO_USE = 1;
 		{
 		//name = "shadow dragon egg";
-		image = ItemSpriteSheet.SHADOWEGG;
+		image = ItemSpriteSheet.SHADOW_DRAGONEGG;
 
 		stackable = false;
 		}

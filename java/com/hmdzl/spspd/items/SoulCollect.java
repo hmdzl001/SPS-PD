@@ -30,7 +30,7 @@ public class SoulCollect extends Item {
 
 	{
 		//name = "Soul collect";
-		image = ItemSpriteSheet.SOUL_COLLECT;
+		image = ItemSpriteSheet.POCKETBALL_FULL;
 		stackable = false;
 	}
 

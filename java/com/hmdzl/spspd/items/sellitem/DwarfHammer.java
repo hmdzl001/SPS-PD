@@ -29,7 +29,7 @@ public class DwarfHammer extends SellItem {
 
 		{
 		//name = "dwarf demon hammer";
-		image = ItemSpriteSheet.DWARFHAMMER;
+		image = ItemSpriteSheet.OTILUKES_HAMMER;
 
 		}
 

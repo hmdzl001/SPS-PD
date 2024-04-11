@@ -30,7 +30,7 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.ToyGun;
-import com.hmdzl.spspd.items.weapon.melee.special.DemonBlade;
+import com.hmdzl.spspd.items.weapon.melee.start.DemonBlade;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -157,8 +157,8 @@ public class ElfBow extends Weapon {
 			damage = (int)(damage*1.5f);
 		
 		float bonus = 0;
-		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+		for (Buff buff : owner.buffs(RingOfSharpshooting.RingShoot.class)) {
+			bonus += Math.min(((RingOfSharpshooting.RingShoot) buff).level,30);
 		}	
 		
 		if (Random.Int(10) < 3  &&  bonus > 0 ) {

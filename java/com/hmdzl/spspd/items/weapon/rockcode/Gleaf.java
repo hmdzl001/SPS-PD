@@ -25,6 +25,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.effects.MagicMissile;
+import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
@@ -79,9 +80,9 @@ public class Gleaf extends RockCode {
 	}
 	
 	@Override
-	public void onHit(MegaCannon megaCannon, Char attacker, Char defender, int damage) {
+	public void onHit(XSaber megaCannon, Char attacker, Char defender, int damage) {
 
-		if ( megaCannon.charge > 2 ) {
+		if (Random.Int(10) == 1) {
 			Buff.affect(defender, Poison.class).set(damage/2);
 			Buff.affect(defender,Roots.class,3f);
 		}

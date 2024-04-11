@@ -125,11 +125,19 @@ public abstract class Floor implements Bundlable {
 	public static final int[] NEIGHBOURS9 = { 0, +1, -1, +getWidth(), -getWidth(),
 			+1 + getWidth(), +1 - getWidth(), -1 + getWidth(), -1 - getWidth() };
 
+	public static final int[] dir = new int[]{-1, +1, -getWidth(), +getWidth(), -getWidth()-1, -getWidth()+1, +getWidth()-1, +getWidth()+1};
+	public static final int[] dirLR = new int[]{-1-getWidth(), -1, -1+getWidth(), -getWidth(), +getWidth(), +1-getWidth(), +1, +1+getWidth()};
+
+	//逆时针
+	public static final int[] CIRCLE4 = new int[]{-getWidth(), -1, +1, +getWidth()};
+	public static final int[] CIRCLE8 = new int[]{-getWidth()-1, -getWidth(), -getWidth()+1, -1, +1, +getWidth()-1, +getWidth(), +getWidth()+1};
+	public static final int[] CIRCLE9 = new int[]{ -getWidth()-1, -getWidth(), -getWidth()+1, -1, 0, +1, +getWidth()-1, +getWidth(), +getWidth()+1};
+
 	// Note that use of these without checking values is unsafe, mobs can be
 	// within 2 tiles of the
 	// edge of the map, unsafe use in that case will cause an array out of
 	// bounds exception.
-	public static final int[] NEIGHBOURS8DIST2 = { +2 + 2 * getWidth(),
+/*	public static final int[] NEIGHBOURS8DIST2 = { +2 + 2 * getWidth(),
 			+1 + 2 * getWidth(), 2 * getWidth(), -1 + 2 * getWidth(), -2 + 2 * getWidth(),
 			+2 + getWidth(), +1 + getWidth(), +getWidth(), -1 + getWidth(), -2 + getWidth(), +2, +1, -1,
 			-2, +2 - getWidth(), +1 - getWidth(), -getWidth(), -1 - getWidth(), -2 - getWidth(),
@@ -146,11 +154,11 @@ public abstract class Floor implements Bundlable {
 			+1 + 2 * getWidth(), 2 * getWidth(), -1 + 2 * getWidth(), -2 + 2 * getWidth(),
 			+2 + getWidth(), -2 + getWidth(), +2, -2, +2 - getWidth(), -2 - getWidth(),
 			+2 - 2 * getWidth(), +1 - 2 * getWidth(), -2 * getWidth(), -1 - 2 * getWidth(),
-			-2 - 2 * getWidth() };	
+			-2 - 2 * getWidth() };
 
 	public static final int[] NEIGHBOURS8OUT = { +2 + 2 * getWidth(), 2 * getWidth(), -2 + 2 * getWidth(),
-		 +2, -2, +2 - 2 * getWidth(),  -2 * getWidth(),-2 - 2 * getWidth() };				
-
+		 +2, -2, +2 - 2 * getWidth(),  -2 * getWidth(),-2 - 2 * getWidth() };
+*/
 	protected static final float TIME_TO_RESPAWN = 50;
 	protected static final int REGROW_TIMER = 10;
 	protected static final int DROP_TIMER = 10;
@@ -276,8 +284,9 @@ public abstract class Floor implements Bundlable {
 			}
 
 			int bonus = 0;
-			for (Buff buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
-				bonus += ((LuckyBadge.GreatLucky) buff).level;
+			LuckyBadge luckyBadge = Dungeon.hero.belongings.getItem(LuckyBadge.class);
+			if(luckyBadge != null){
+				bonus += luckyBadge.level;
 			}
 			if (Dungeon.hero.heroClass == HeroClass.SOLDIER) {
 				bonus += 5;

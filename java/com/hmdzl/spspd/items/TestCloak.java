@@ -62,7 +62,7 @@ public class TestCloak extends Item {
              Buff.affect(hero,HasteBuff.class,100f);
 			Buff.affect(hero,Levitation.class,100f);
 			Buff.affect(hero,Invisibility.class,100f);
-			detach(curUser.belongings.backpack);
+			detach(hero.belongings.backpack);
 		} else {
 			super.execute(hero, action);
 

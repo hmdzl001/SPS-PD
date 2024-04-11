@@ -178,7 +178,7 @@ public class MineSentinel extends Mob {
 
 	protected boolean heroNear (){
 		boolean check=false;
-		for (int i : Floor.NEIGHBOURS9DIST2){
+		for (int i : Floor.NEIGHBOURS9){
 			int cell=pos+i;
 			if (Actor.findChar(cell) != null	
 				&& (Actor.findChar(cell) instanceof Hero)

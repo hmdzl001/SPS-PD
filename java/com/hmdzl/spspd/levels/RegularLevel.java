@@ -33,6 +33,7 @@ import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
 import com.hmdzl.spspd.items.keys.GoldenKey;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
+import com.hmdzl.spspd.items.reward.BoundReward;
 import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.painters.Painter;
@@ -708,8 +709,9 @@ public abstract class  RegularLevel extends Floor {
 
 		int nItems = 3;
 		int bonus = 0;
-		for (LuckyBadge.GreatLucky buff : Dungeon.hero.buffs(LuckyBadge.GreatLucky.class)) {
-			bonus += buff.level;
+		LuckyBadge luckyBadge = Dungeon.hero.belongings.getItem(LuckyBadge.class);
+		if(luckyBadge != null){
+			bonus += luckyBadge.level;
 		}
 		if (Dungeon.hero.heroClass == HeroClass.SOLDIER)
 			bonus += 5;
@@ -768,33 +770,28 @@ public abstract class  RegularLevel extends Floor {
 		if (Random.Int(5)>0){
 			Heap.Type type = Heap.Type.LOCKED_CHEST;
 			drop(new GoldenKey(Dungeon.dungeondepth),randomDropCell()).type = HEAP;
-			switch (Random.Int(15)) {
-				case 0:
-				case 1:
-					drop(Generator.random(Generator.Category.GOLD), randomDropCell()).type = type;
+			switch (Random.Int(20)) {
+				case 0: case 1: case 2: case 3:
+					drop(new BoundReward(), randomDropCell()).type = type;
 					break;
-				case 2:	
-				case 3:
-				case 4:
-				case 5:
+				case 4:case 5: case 6:
 					drop(Generator.random(Generator.Category.HIGHFOOD), randomDropCell()).type = type;
 					break;
-				case 6:
-				case 7:
-				case 8:
+				case 7:case 8:case 9:case 10:case 11:case 12:
 					drop(Generator.random(Generator.Category.NORNSTONE), randomDropCell()).type = type;
 					break;
-				case 9:case 10:case 11: 
+				case 13: case 14: case 15:case 16:
 					drop(Generator.random(Generator.Category.PILL), randomDropCell()).type = type;
 					break;
-				case 12:case 13:
+				case 17:case 18:
 					drop(Generator.random(Generator.Category.SUMMONED), randomDropCell()).type = type;
 					break;
-				case 14:
+				case 19:
 					drop(Generator.random(Generator.Category.EGGS), randomDropCell()).type = type;
 					break;
-				
 				default:
+					drop(new BoundReward(), randomDropCell()).type = type;
+					break;
 			}
 
 		} else {

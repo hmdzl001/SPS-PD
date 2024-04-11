@@ -37,12 +37,8 @@ public class Mediummeat extends CompleteFood {
 		return 3 * quantity;
 	}
 
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero,AttackUp.class,50f).level(60);
-			
-		}
+	public void doEat() {
+			Buff.affect(curUser,AttackUp.class,50f).level(60);
 	}
 
 }

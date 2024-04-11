@@ -23,20 +23,16 @@ package com.hmdzl.spspd.windows;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
-import com.hmdzl.spspd.actors.hero.Belongings;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Garbage;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.KindofMisc;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.artifacts.AlchemistsToolkit;
-import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.bombs.BuildBomb;
 import com.hmdzl.spspd.items.brewed.Brewed;
 import com.hmdzl.spspd.items.eggs.Egg;
@@ -77,6 +73,7 @@ import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.items.food.staplefood.StapleFood;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
+import com.hmdzl.spspd.items.food.vegetable.Truffles;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.medicine.BlueMilk;
 import com.hmdzl.spspd.items.medicine.DeathCap;
@@ -126,15 +123,12 @@ import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.HeroSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.ui.ExitButton;
-import com.hmdzl.spspd.ui.IconButton;
 import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.ItemSlot;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
 import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.ColorBlock;
-import com.watabou.noosa.Game;
-import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.audio.Sample;
@@ -349,6 +343,8 @@ public class WndAlchemy extends Window {
 		ArrayList<Honeypot> honeypot = filterInput(Honeypot.class);
 		ArrayList<Honey> honey = filterInput(Honey.class);
 		ArrayList<Honeypot.ShatteredPot> shatteredpot = filterInput(Honeypot.ShatteredPot.class);
+		ArrayList<Truffles> truffles = filterInput(Truffles.class);
+
 		ArrayList<WaterItem> water = filterInput(WaterItem.class);
 		ArrayList<Vegetable> vegetables = filterInput(Vegetable.class);
 		ArrayList<StoneOre> ore = filterInput(StoneOre.class);
@@ -439,7 +435,7 @@ public class WndAlchemy extends Window {
 			result = new BlueMilk();
 		} else if (water.size() ==1  && vegetables.size() == 1 && mossseed.size() ==1 ) {
 			result = new DeathCap();
-		} else if ( honey.size() == 1 && gels.size() == 1 && ore.size() == 1 ){
+		} else if ( honey.size() == 1  && gels.size() == 1 && ore.size() == 1 ){
 			result = new Egg();
 			//potion creation
 
@@ -459,7 +455,9 @@ public class WndAlchemy extends Window {
 				((Brewed)result).cook(seeds.get(0));
 
 		} else if (honeypot.size() == 1 || shatteredpot.size() == 1) {
-			result = new Honey();
+			result = new Honey(2);
+		} else if (truffles.size() == 1) {
+			result = new Honey(1);
 		} else if (honey.size() == 1  &&  water.size() == 1 && iceseed.size() == 1 ){
 			result = new Icecream();
 		} else if (meatfoods.size() ==1  && water.size() == 1 && vegetables.size() ==1 ){
@@ -476,7 +474,7 @@ public class WndAlchemy extends Window {
 			result = new Kebab();
 		} else if (water.size() == 1 && vegetables.size() == 2 ){
 			result = new Vegetablesoup();
-		} else if (staplefoods.size() ==1  && nut.size() == 1 && honey.size() ==1 ){
+		} else if (staplefoods.size() ==1  && nut.size() == 1 && honey.size() ==1  ){
 			result = new NutCake();
 		} else if (staplefoods.size() ==1  && nut.size() == 2 ){
 			result = new MoonCake();
@@ -488,11 +486,11 @@ public class WndAlchemy extends Window {
 			result = new FoodFans();
 		} else if ( nut.size() == 2 && scrolls.size()==1){
 			result = new Frenchfries();
-		} else if ( honey.size() == 1 && gels.size() == 1 ){
+		} else if ( honey.size() == 1  && gels.size() == 1 ){
 			result = new HoneyGel();
 		}  else if ( water.size() == 1 && meatfoods.size() == 1  ){
 			result = new Sishimi();
-		} else if (honey.size() == 1  && staplefoods.size() ==1  ){
+		} else if (honey.size() == 1 && staplefoods.size() ==1  ){
 			result = new Honeyrice();
 		} else if (honey.size() == 1  && meatfoods.size() ==1  ){
 			result = new Honeymeat();
@@ -557,7 +555,7 @@ public class WndAlchemy extends Window {
 					Item item = inputs[i].item();
 					Class<? extends Item> item1 = item.getClass();
 					Item item2 = hero.belongings.getItem(item1);
-					if (hero.belongings.getItem(item1) != null) {
+					if (hero.belongings.getItem(item1) != null && item2.stackable) {
 						item2.detach(hero.belongings.backpack);
 						item.quantity(item.quantity() + 1);
 						inputs[i].slot.item(inputs[i].item);

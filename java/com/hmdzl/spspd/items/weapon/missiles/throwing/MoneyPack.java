@@ -26,7 +26,7 @@ import com.watabou.utils.Random;
 public class MoneyPack extends TossWeapon {
 
 	{
-		image = ItemSpriteSheet.MONEY_PACK;
+		image = ItemSpriteSheet.RED_PAPER;
 
 		STR = 10;
 		MIN = 1;

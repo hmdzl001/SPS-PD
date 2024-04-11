@@ -36,19 +36,15 @@ public class Greaterpill extends Pill {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
+	public void doEat2() {
+		Buff.affect(curUser, BerryRegeneration.class).level(Math.max(curUser.HT/2,30));
+		curUser.HP = curUser.HP+Math.min(curUser.HT, (int)(curUser.HT*2-curUser.HP));
+		Buff.detach(curUser, Poison.class);
+		Buff.detach(curUser, Cripple.class);
+		Buff.detach(curUser, STRdown.class);
+		Buff.detach(curUser, Bleeding.class);
+		curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/2,30));
-		hero.HP = hero.HP+Math.min(hero.HT, (int)(hero.HT*2-hero.HP));
-		Buff.detach(hero, Poison.class);
-		Buff.detach(hero, Cripple.class);
-		Buff.detach(hero, STRdown.class);
-		Buff.detach(hero, Bleeding.class);
-			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		}
 	}
 
 	@Override

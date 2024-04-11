@@ -34,15 +34,11 @@ public class HealGrass extends Vegetable {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
+	public void doEat() {
 			//hero.HP = Math.min(hero.HP + hero.HT/5, hero.HT);
-			Buff.affect(hero, BerryRegeneration.class).level(20);
-			Buff.affect(hero,MagicArmor.class).level(hero.HT/5);
-		}
+			Buff.affect(curUser, BerryRegeneration.class).level(20);
+			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/5);
+
 	}
 
 	@Override

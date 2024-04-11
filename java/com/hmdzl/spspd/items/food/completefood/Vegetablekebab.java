@@ -44,11 +44,8 @@ public class Vegetablekebab extends CompleteFood {
 		return 2 * quantity;
 	}
 
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero,MagicArmor.class).level(hero.HT/2);
-			Buff.affect(hero,AttackUp.class,50f).level(20);
-		}
+	public void doEat() {
+			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/2);
+			Buff.affect(curUser,AttackUp.class,50f).level(20);
 	}
 }

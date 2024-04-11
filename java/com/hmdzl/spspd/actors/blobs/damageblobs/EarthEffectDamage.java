@@ -24,7 +24,6 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.particles.AcidPoolParticle;
-import com.hmdzl.spspd.effects.particles.LeafParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;

@@ -430,6 +430,10 @@ public class Assets {
 
 	public static final String DEMON_RABBIT= "demonrabbit.png";
 
+	public static final String WHITE_LING= "whiteling.png";
+
+	public static final String LIVE_PHOTO= "livephoto.png";
+
 
 }
 

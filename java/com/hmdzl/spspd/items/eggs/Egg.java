@@ -36,6 +36,7 @@ import com.hmdzl.spspd.actors.mobs.pets.ShadowDragon;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.eggs.randomone.RandomEgg;
 import com.hmdzl.spspd.items.sellitem.VIPcard;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
@@ -56,8 +57,8 @@ public class Egg extends Item {
 
 		{
 		//name = "egg";
-		image = ItemSpriteSheet.EGG;
-
+		image = ItemSpriteSheet.PET_EGG;
+		//pet_id = 0;
 		stackable = false;
 		}
 
@@ -69,6 +70,8 @@ public class Egg extends Item {
 		public int darks = 0;
 		public int lights = 0;
 
+	    //protected int pet_id;
+
 		private static final String MOVES = "moves";
 		private static final String BURNS = "burns";
 		private static final String FREEZES = "freezes";
@@ -76,8 +79,7 @@ public class Egg extends Item {
 		private static final String LITS = "lits";
 		private static final String DARKS = "darks";
 		private static final String LIGHTS = "lights";
-		
-		
+
 		@Override
 		public void storeInBundle(Bundle bundle) {
 			super.storeInBundle(bundle);

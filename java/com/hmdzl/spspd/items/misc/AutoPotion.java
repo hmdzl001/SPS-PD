@@ -22,7 +22,7 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 public class AutoPotion extends MiscEquippable {
 
 	{
-		image = ItemSpriteSheet.ARTIFACT;
+		image = ItemSpriteSheet.AUTO_POTION;
 		//unique = true;
 	}
 	

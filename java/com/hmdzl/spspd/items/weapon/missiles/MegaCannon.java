@@ -52,10 +52,10 @@ public class MegaCannon extends Weapon {
 
 	private RockCode rockCode;
 
-	protected WndBag.Mode mode = WndBag.Mode.ROCK_CODE;
+
 
 	public static final String AC_SHOOT	 = "SHOOT";
-	public static final String AC_ADD	 = "ADD";
+	
 	
     public static int charge = 0;
 
@@ -84,31 +84,24 @@ public class MegaCannon extends Weapon {
 
 	public MegaCannon() {
 		super();
-		rockCode = null;
+		//rockCode = null;
 	}
 	
 	
 	private static final String CHARGE = "charge";
-    private static final String ROCK_CODE =   "rockCode";
+
 	
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(CHARGE, charge);
-		if (rockCode != null) bundle.put( ROCK_CODE, rockCode);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		charge = bundle.getInt(CHARGE);
-		if (bundle.contains(ROCK_CODE)) rockCode = (RockCode) bundle.get( ROCK_CODE );
 	}			
-
-	public MegaCannon(RockCode code) {
-		this.rockCode = code;
-	}
-		
 	
 	@Override
 	public Item uncurse(){
@@ -193,7 +186,6 @@ public class MegaCannon extends Weapon {
 		ArrayList<String> actions = super.actions(hero);
 
 		actions.add(AC_SHOOT);
-        actions.add(AC_ADD);	
  
 		return actions;
 	}
@@ -203,11 +195,7 @@ public class MegaCannon extends Weapon {
 		super.execute(hero, action);
 		if (action.equals(AC_SHOOT)) {
 		    GameScene.selectCell( shooter );
-		} 
-	    if (action.equals(AC_ADD)) {
-			curUser = hero;
-	        GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
-		} 
+		}
 	}
 
 	
@@ -229,18 +217,13 @@ public class MegaCannon extends Weapon {
 	}
 	
 	public int damageRoll(Hero owner) {
-		int damage = Random.Int(MIN, MAX);
-		damage = damage/2 * charge;
-		return Math.round(damage);
+		return 0;
 	}	
 	
 	@Override
     public void proc(Char attacker, Char defender, int damage) {
-		if (rockCode != null) {
-			rockCode.onHit(MegaCannon.this, attacker, defender, damage);
-		}
-
-		charge = 0;
+		
+		charge ++;
 		updateQuickslot();
 
 		if (enchantment != null) {
@@ -257,8 +240,8 @@ public class MegaCannon extends Weapon {
 			damage = (int)(damage*1.5f);
 		
 		float bonus = 0;
-		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+		for (Buff buff : owner.buffs(RingOfSharpshooting.RingShoot.class)) {
+			bonus += Math.min(((RingOfSharpshooting.RingShoot) buff).level,30);
 		}	
 		
 		if (Random.Int(10) < 3 &&  bonus > 0) {
@@ -298,7 +281,7 @@ public class MegaCannon extends Weapon {
 	public class MegamanAmmo extends MissileWeapon {
 		
 		{
-			image = charge > 2 ? ItemSpriteSheet.BIG_AMMO : charge > 1 ? ItemSpriteSheet.MIDDLE_AMMO : ItemSpriteSheet.AMMO;
+			image = charge > 2 ? ItemSpriteSheet.AMMO_L : charge > 1 ? ItemSpriteSheet.AMMO_M : ItemSpriteSheet.AMMO_S;
 			ACU = 100f;
 			//enchantment = MegaCannon.this.enchantment;
 		}
@@ -354,43 +337,4 @@ public class MegaCannon extends Weapon {
 			return Messages.get(ToyGun.class, "prompt");
 		}
 	};
-	
-	
-	public Item addRockCode(RockCode code, Char owner){
-		this.rockCode = null;
-		this.rockCode = code;
-		code.identify();
-		code.cursed = false;
-		updateQuickslot();
-		return this;
-	}
-
-	private final WndBag.Listener itemSelector = new WndBag.Listener() {
-		@Override
-		public void onSelect( final Item item ) {
-			if (item != null) {
-
-				GameScene.show(
-						new WndOptions("",
-								Messages.get(GunWeapon.class, "warning"),
-								Messages.get(GunWeapon.class, "yes"),
-								Messages.get(GunWeapon.class, "no")) {
-							@Override
-							protected void onSelect(int index) {
-								if (index == 0) {
-									Sample.INSTANCE.play(Assets.SND_EVOKE);
-									//item.detach(curUser.belongings.backpack);
-									addRockCode((RockCode) item, curUser);
-
-									curUser.spendAndNext(2f);
-
-									updateQuickslot();
-								}
-							}
-						}
-				);
-			}
-		}
-	};
-
 }

@@ -34,7 +34,7 @@ public class DewTrap extends Trap {
 
 	{
 		color = TrapSprite.RED;
-		shape = TrapSprite.LARGE_DOT;
+		shape = TrapSprite.CROSSHAIR;
 	}
 
 	@Override

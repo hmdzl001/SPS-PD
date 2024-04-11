@@ -35,20 +35,14 @@ public class Meat extends MeatFood {
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-
+	public void doEat() {
 			switch (Random.Int(15)) {
 			case 0:
 				GLog.w(Messages.get(this,"bad"));
-				Buff.affect(hero, Poison.class).set(hero.HT / 5);
+				Buff.affect(curUser, Poison.class).set(curUser.HT / 5);
 				break;
 			}
-		}
+
 	}	
 
 	@Override

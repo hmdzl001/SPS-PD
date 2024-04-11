@@ -112,7 +112,7 @@ public class TimeKeeper extends Mob {
 		if ( HP - dmg < HT/2 && !skilluse){
 			dmg = 0;
 			skilluse = true;
-			Buff.affect(this,WatchOut.class);
+			Buff.affect(this,WatchOut.class,200f);
 			int newPos;
 			do {
 				newPos = Random.Int(Floor.getLength());

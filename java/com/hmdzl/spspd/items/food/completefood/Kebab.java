@@ -43,13 +43,10 @@ public class Kebab extends CompleteFood {
 	public int price() {
 		return 5 * quantity;
 	}
-	
-		public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero,MagicArmor.class).level(hero.HT/4);
-			Buff.affect(hero,AttackUp.class,50f).level(40);
-		}
+
+	public void doEat() {
+			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/4);
+			Buff.affect(curUser,AttackUp.class,50f).level(40);
 	}
 
 }

@@ -56,7 +56,7 @@ public class GnollMark extends Item {
 	private static final float TIME_TO_DIG = 1f;
 
 	{
-		image = ItemSpriteSheet.GNOLL_MARK;
+		image = ItemSpriteSheet.SAMAN_MARK;
 		defaultAction = AC_CHOOSE;
 		
 		unique = true;

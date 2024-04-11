@@ -19,13 +19,10 @@ package com.hmdzl.spspd.scenes;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Chrome;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.GamesInProgress;
-import com.hmdzl.spspd.SPSSettings;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.ui.ActionIndicator;
 import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.ExitButton;
 import com.hmdzl.spspd.ui.Icons;

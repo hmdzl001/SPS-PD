@@ -38,32 +38,26 @@ public class MysteryMeat extends MeatFood {
 		hornValue = 1;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-
+	public void doEat() {
 			switch (Random.Int(5)) {
 			case 0:
 				GLog.w(Messages.get(this,"hot"));
-				Buff.affect(hero, Burning.class).set(5f);
+				Buff.affect(curUser, Burning.class).set(5f);
 				break;
 			case 1:
 				GLog.w(Messages.get(this,"legs"));
-				Buff.prolong(hero, Roots.class, Paralysis.duration(hero));
+				Buff.prolong(curUser, Roots.class, Paralysis.duration(curUser));
 				break;
 			case 2:
 				GLog.w(Messages.get(this,"bad"));
-				Buff.affect(hero, Poison.class).set(hero.HT / 5);
+				Buff.affect(curUser, Poison.class).set(curUser.HT / 5);
 				break;
 			case 3:
 				GLog.w(Messages.get(this,"stuffed"));
-				Buff.prolong(hero, Slow.class, 10f);
+				Buff.prolong(curUser, Slow.class, 10f);
 				break;
 			}
-		}
+
 	}
 
 	@Override

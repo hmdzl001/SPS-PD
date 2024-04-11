@@ -81,8 +81,6 @@ public class Blacksmith2 extends NPC {
 	public boolean interact() {
 
 		sprite.turnTo(pos, Dungeon.hero.pos);
-		
-		
 		DarkGold gold = Dungeon.hero.belongings.getItem(DarkGold.class);
 		if (!checkAdamant()) {
 			tell(Messages.get(Blacksmith2.class, "himself"));

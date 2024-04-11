@@ -123,5 +123,7 @@ public class SPSSettings extends GameSettings {
 		return getBoolean(KEY_SYSTEMFONT,
 				(language() == Languages.TCHINESE || language() == Languages.CHINESE));
 	}
+
+	public static final String KEY_GIFT	= "start_gift";
 	
 }

@@ -42,7 +42,7 @@ public class MKbox extends Item {
 
 	{
 		//name = "MKbox";
-		image = ItemSpriteSheet.MK_BOX;
+		image = ItemSpriteSheet.UNKNOW_BOX;
 		defaultAction = AC_USE;
 		unique = true;
 		stackable = false;

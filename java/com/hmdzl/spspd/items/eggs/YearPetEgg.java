@@ -28,7 +28,7 @@ public class YearPetEgg extends Egg {
 
 		{
 		//name = "year egg";
-		image = ItemSpriteSheet.RANDOWNEGG;
+		image = ItemSpriteSheet.RANDOM_PET_EGG;
 
 		stackable = false;
 		}

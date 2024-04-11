@@ -60,7 +60,9 @@ public class TrickSand extends MeleeWeapon {
 		}
 		if (defender.buff(Silent.class) != null) {
 			defender.damage((int) (damage * 0.5),attacker);
-		} else Buff.affect(defender,Silent.class,6f);
+		} else {
+			Buff.affect(defender, Silent.class, 6f);
+		}
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);
 		}

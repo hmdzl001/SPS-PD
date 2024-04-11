@@ -22,6 +22,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.MagicMissile;
+import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.watabou.noosa.audio.Sample;
@@ -61,7 +62,7 @@ public class Nshuriken extends RockCode {
 	}
 	
 	@Override
-	public void onHit(MegaCannon megaCannon, Char attacker, Char defender, int damage) {
+	public void onHit(XSaber megaCannon, Char attacker, Char defender, int damage) {
 
 		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), MegaCannon.class);
 		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), MegaCannon.class);

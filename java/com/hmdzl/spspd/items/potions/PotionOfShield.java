@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.watabou.noosa.audio.Sample;
 
@@ -58,7 +58,7 @@ public class PotionOfShield extends Potion {
 
 		Char ch = Actor.findChar(cell);
 		if (ch != null) {
-			Buff.prolong(ch, Shieldblock.class,5f); }
+			Buff.prolong(ch, HolyStun.class,5f); }
 
 	}
 

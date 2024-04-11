@@ -104,16 +104,16 @@ public class MissileWeapon extends Weapon {
 			} else if (!(this instanceof Boomerang )) {
 
 				int bonus = 0;
-				for (Buff buff : curUser.buffs(RingOfSharpshooting.Aim.class))
-					bonus += ((RingOfSharpshooting.Aim) buff).level;
+				for (Buff buff : curUser.buffs(RingOfSharpshooting.RingShoot.class))
+					bonus += ((RingOfSharpshooting.RingShoot) buff).level;
 			}
 		}
 	}
 
 	protected void miss(int cell) {
 		int bonus = 0;
-		for (Buff buff : curUser.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += ((RingOfSharpshooting.Aim) buff).level;
+		for (Buff buff : curUser.buffs(RingOfSharpshooting.RingShoot.class)) {
+			bonus += ((RingOfSharpshooting.RingShoot) buff).level;
 		}
 		if (curUser.heroClass == HeroClass.HUNTRESS)
 			bonus += 3;

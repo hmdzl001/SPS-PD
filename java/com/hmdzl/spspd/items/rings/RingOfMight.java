@@ -26,14 +26,14 @@ public class RingOfMight extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Might();
+		return new RingMight();
 	}
 
 	public static int strengthBonus( Char target ){
-		return getBonus( target, Might.class );
+		return getBonus( target, RingMight.class );
 	}
 
 
-	public class Might extends RingBuff {
+	public class RingMight extends RingBuff {
 	}
 }

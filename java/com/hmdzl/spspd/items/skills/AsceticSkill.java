@@ -37,9 +37,11 @@ import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.HashMap;
@@ -115,21 +117,32 @@ public class AsceticSkill extends ClassSkill {
 
 	@Override
 	public void doSpecial4() {
-		for (int n : Floor.NEIGHBOURS8DIST2) {
-			int c = curUser.pos + n;
-
-			if (c >= 0 && c < Floor.getLength()) {
-				if ((Dungeon.depth.map[c] == Terrain.WALL || Dungeon.depth.map[c] == Terrain.GLASS_WALL || Dungeon.depth.map[c] == Terrain.WALL_DECO)&& Floor.insideMap(c)) {
-					Floor.set(c, Terrain.EMBERS);
-					GameScene.updateMap(c);
-					Dungeon.observe();
+		PathFinder.buildDistanceMap( curUser.pos, BArray.not( Floor.solid, null ), 2 );
+		for (int i = 0; i < PathFinder.distance.length; i++) {
+			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+				if (i >= 0 && i < Floor.getLength()) {
+					if ((Dungeon.depth.map[i] == Terrain.WALL || Dungeon.depth.map[i] == Terrain.GLASS_WALL || Dungeon.depth.map[i] == Terrain.WALL_DECO) && Floor.insideMap(i)) {
+						Floor.set(i, Terrain.EMBERS);
+						GameScene.updateMap(i);
+						Dungeon.observe();
+					}
+					Char ch2 = Actor.findChar(i);
+					if (ch2 != null) {
+						int dmg = (int) (Dungeon.dungeondepth * (1 + 0.1 * Dungeon.hero.magicSkill()));
+						if (Dungeon.hero.lvl > 55) {
+							Buff.affect(ch2, Vertigo.class, 10f);
+							Buff.affect(ch2, Blindness.class, 10f);
+						}
+						if (dmg > 0) {
+							ch2.damage(dmg, this);
+						}
+					}
 				}
 			}
 		}
 
-		for (int n : Floor.NEIGHBOURS8OUT) {
+		for (int n : Floor.NEIGHBOURS4) {
 			int d = curUser.pos + n;
-
 			if (d >= 0 && d < Floor.getLength()) {
 				if (Dungeon.depth.map[d] != Terrain.ENTRANCE && Dungeon.depth.map[d] != Terrain.EXIT
 						&& Dungeon.depth.map[d] != Terrain.LOCKED_EXIT
@@ -141,23 +154,6 @@ public class AsceticSkill extends ClassSkill {
 			}
 		}
 
-		for (int m : Floor.NEIGHBOURS8DIST2) {
-			int c = curUser.pos + m;
-			if (c >= 0 && c < Floor.getLength()) {
-
-				Char ch2 = Actor.findChar(c);
-				if (ch2 != null) {
-					int dmg = (int) (Dungeon.dungeondepth * (1 + 0.1 * Dungeon.hero.magicSkill()));
-					if (Dungeon.hero.lvl > 55) {
-						Buff.affect(ch2, Vertigo.class, 10f);
-						Buff.affect(ch2, Blindness.class, 10f);
-					}
-					if (dmg > 0) {
-						ch2.damage(dmg, this);
-					}
-				}
-			}
-		}
 		curUser.spend(SKILL_TIME);
 		curUser.sprite.operate(curUser.pos);
 		curUser.busy();

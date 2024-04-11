@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.items.journalpages;
 
+import com.hmdzl.spspd.Statistics;
+import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class SafeSpotPage extends JournalPage {
@@ -28,4 +30,17 @@ public class SafeSpotPage extends JournalPage {
 		
 		stackable = false;
 	}
+
+	@Override
+	public String info() {
+		switch(Statistics.roomType){
+			case 0:
+				return Messages.get(this, "grassroom_desc");
+			case 1:
+				return Messages.get(this, "forestroom_desc");
+			case 2: default:
+				return Messages.get(this, "cityroom_desc");
+		}
+	}
+
 }

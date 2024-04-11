@@ -28,7 +28,7 @@ public class PotionOfMixing extends Potion {
 
 	{
 
-	    image = ItemSpriteSheet.POTION_CATALYST;
+	    image = ItemSpriteSheet.POTION_MIX;
 		initials = 15;
 	}
 

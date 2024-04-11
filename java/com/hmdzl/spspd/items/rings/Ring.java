@@ -48,7 +48,7 @@ public class Ring extends KindofMisc {
 			RingOfEvasion.class, RingOfElements.class, RingOfForce.class,
 			RingOfFuror.class, RingOfHaste.class, RingOfMagic.class,
 			RingOfMight.class, RingOfSharpshooting.class, RingOfTenacity.class,
-			RingOfEnergy.class, };
+			RingOfEnergy.class, RingOfKnowledge.class };
 	private static final String[] gems = { "diamond", "opal", "garnet", "ruby",
 			"amethyst", "topaz", "onyx", "tourmaline", "emerald", "sapphire",
 			"quartz", "agate" };

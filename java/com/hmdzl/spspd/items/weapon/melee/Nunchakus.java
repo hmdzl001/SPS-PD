@@ -20,7 +20,7 @@ package com.hmdzl.spspd.items.weapon.melee;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.messages.Messages;
@@ -58,7 +58,7 @@ public class Nunchakus extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 	
         if (Random.Int(100) < 20) {
-			Buff.prolong(defender, Shieldblock.class, 2);
+			Buff.prolong(defender, HolyStun.class, 2);
 		}
 
 		if (enchantment != null) {

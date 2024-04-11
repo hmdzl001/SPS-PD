@@ -31,14 +31,10 @@ public class Hardpill extends Pill {
 		sname = "DEF";
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
+	public void doEat2() {
+			Buff.affect(curUser, DefenceUp.class,800f).level(50);
+			curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
 
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, DefenceUp.class,800f).level(50);
-			hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f, 4);
-		}
 	}
 
 	@Override

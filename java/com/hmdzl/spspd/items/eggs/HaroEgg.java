@@ -26,7 +26,7 @@ public class HaroEgg extends Egg {
 	public static final float TIME_TO_USE = 1;
 		{
 		//name = "Haro egg";
-		image = ItemSpriteSheet.HARO_THE_PET;
+		image = ItemSpriteSheet.HARO_EGG;
 
 		stackable = false;
 		}

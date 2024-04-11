@@ -25,7 +25,7 @@ public class Vegetable extends Food {
 	{
 		stackable = true;
 		//name = "ration of food";
-		image = ItemSpriteSheet.EAT_GRASS;
+		image = ItemSpriteSheet.NUT_VEGETABLE;
 		 
 	}
 

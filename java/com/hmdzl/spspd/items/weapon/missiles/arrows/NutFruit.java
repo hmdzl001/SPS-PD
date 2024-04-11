@@ -17,12 +17,16 @@
  */
 package com.hmdzl.spspd.items.weapon.missiles.arrows;
 
+import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.items.Ankh;
+import com.hmdzl.spspd.items.food.fruit.Durian;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
 public class NutFruit extends Arrows {
 
@@ -39,8 +43,8 @@ public class NutFruit extends Arrows {
 
 	public NutFruit(int number) {
 		super(10,10);
-		MIN = bow!= null ? bow.MIN *5: 10;
-		MAX = bow!= null ? bow.MAX *5: 10;
+		MIN = bow!= null ? bow.MIN *3: 10;
+		MAX = bow!= null ? bow.MAX *4: 10;
 
 		quantity = number;
 	}
@@ -61,6 +65,9 @@ public class NutFruit extends Arrows {
 		if (enemy == null || enemy == curUser) {
             Floor.set(cell, Terrain.HIGH_GRASS);
             GameScene.updateMap(cell);
+			if (Random.Int(10) ==0){
+				Dungeon.depth.drop(new Durian(), cell).sprite.drop(cell);
+			}
         } else
 			super.onThrow(cell);
 	}

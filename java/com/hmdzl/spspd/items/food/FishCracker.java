@@ -31,13 +31,6 @@ public class FishCracker extends Food {
 	}
 
 	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-		
-	}	
-
-	@Override
 	public int price() {
 		return 1000 * quantity;
 	}

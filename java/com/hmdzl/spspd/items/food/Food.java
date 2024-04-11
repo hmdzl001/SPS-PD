@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.Statistics;
+import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
@@ -74,10 +75,12 @@ public class Food extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 		if (action.equals(AC_EAT)) {
-
 			if (hero.buff(Locked.class) != null ) {
 				GLog.w(Messages.get(Food.class, "locked"));
-			} else {
+				return;
+			}
+			curUser = Dungeon.hero;
+
 				if (!(Dungeon.hero.heroClass == HeroClass.FOLLOWER) || Random.Int(10)>=1 ){
 				   detach(hero.belongings.backpack);
 				}
@@ -115,7 +118,7 @@ public class Food extends Item {
                        Buff.affect(hero, MagicArmor.class).level(10);
 						break;
 				}
-
+			    doEat();
 				hero.sprite.operate(hero.pos);
 				hero.busy();
 				SpellSprite.show(hero, SpellSprite.FOOD);
@@ -125,12 +128,17 @@ public class Food extends Item {
 
 				Statistics.foodEaten++;
 				Badges.validateFoodEaten();
-			}
+
+
 		} else {
 
 			super.execute(hero, action);
 
 		}
+	}
+
+	public void doEat() {
+
 	}
 
 	@Override

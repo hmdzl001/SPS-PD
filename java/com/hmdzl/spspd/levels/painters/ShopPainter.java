@@ -40,7 +40,7 @@ import com.hmdzl.spspd.items.challengelists.CourageChallenge;
 import com.hmdzl.spspd.items.challengelists.PowerChallenge;
 import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
 import com.hmdzl.spspd.items.eggs.Egg;
-import com.hmdzl.spspd.items.eggs.RandomMonthEgg;
+import com.hmdzl.spspd.items.eggs.randomone.RandomMonthEgg;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.journalpages.Town;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
@@ -185,7 +185,7 @@ public class ShopPainter extends Painter {
 		//itemsToSpawn.add(new ScrollOfMagicMapping());
 		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
 		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
-		itemsToSpawn.add(new MagicHand(2));
+		itemsToSpawn.add(new MagicHand(5));
 		itemsToSpawn.add(Generator.random(Generator.Category.BOMBS));
 		//for (int i = 0; i < 2; i++)
 		itemsToSpawn.add(Random.Int(2) == 0 ?
@@ -235,18 +235,18 @@ public class ShopPainter extends Painter {
 			// this way players who get the hourglass late can still max it,
 			// usually.
 			switch (Dungeon.dungeondepth) {
-			case 6:
-				bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.20f);
-				break;
-			case 11:
-				bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.25f);
-				break;
-			case 16:
-				bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.50f);
-				break;
-			case 21:
-				bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.80f);
-				break;
+				case 6:
+					bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.20f);
+					break;
+				case 11:
+					bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.25f);
+					break;
+				case 16:
+					bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.50f);
+					break;
+				case 21:
+					bags = (int) Math.ceil((5 - hourglass.sandBags) * 0.80f);
+					break;
 			}
 
 			for (int i = 1; i <= bags; i++) {
@@ -254,6 +254,8 @@ public class ShopPainter extends Painter {
 				hourglass.sandBags++;
 			}
 		}
+
+		//itemsToSpawn.add(new TimeOclock.clock());
 
 		Item rare;
 		switch (Random.Int(4)) {

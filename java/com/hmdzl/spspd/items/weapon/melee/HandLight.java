@@ -59,7 +59,9 @@ public class HandLight extends MeleeWeapon {
 		}
 		if (defender.buff(Silent.class) != null) {
 			defender.damage((int) (damage * 0.5),attacker);
-		} else Buff.affect(defender,Silent.class,3f);
+		} else {
+			Buff.affect(defender, Silent.class, 3f);
+		}
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);
 		}

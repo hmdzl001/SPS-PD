@@ -26,22 +26,14 @@ public class FunnyFood extends MeatFood {
 
 	{
 		//name = "monster meat";
-		image = ItemSpriteSheet.FUNNY_FOOD;
+		image = ItemSpriteSheet.BUG_MEAT;
 		energy = 500;
 		hornValue = 1;
 		 
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-		
-			Buff.prolong(hero, FunnyBuff.class,1600f);
-		
-		}
+	public void doEat() {
+			Buff.prolong(curUser, FunnyBuff.class,1600f);
 	}	
 
 	@Override

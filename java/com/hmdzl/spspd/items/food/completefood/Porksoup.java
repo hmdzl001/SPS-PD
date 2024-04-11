@@ -32,7 +32,7 @@ public class Porksoup extends CompleteFood {
 
 	{
 		//name = "porksoup";
-		image = ItemSpriteSheet.MEATSOUP;
+		image = ItemSpriteSheet.MEAT_SOUP;
 		energy = 200;
 		hornValue = 3;
 		 
@@ -48,17 +48,14 @@ public class Porksoup extends CompleteFood {
 		return 3 * quantity;
 	}
 
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.detach(hero, Poison.class);
-			Buff.detach(hero, Cripple.class);
-			Buff.detach(hero, STRdown.class);
-			Buff.detach(hero, Bleeding.class);
-			Buff.affect(hero,MagicArmor.class).level(hero.HT/4);
-			Buff.affect(hero,AttackUp.class,50f).level(20);
-			
-		}
+	public void doEat() {
+			Buff.detach(curUser, Poison.class);
+			Buff.detach(curUser, Cripple.class);
+			Buff.detach(curUser, STRdown.class);
+			Buff.detach(curUser, Bleeding.class);
+			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/4);
+			Buff.affect(curUser,AttackUp.class,50f).level(20);
+
 	}
 
 }

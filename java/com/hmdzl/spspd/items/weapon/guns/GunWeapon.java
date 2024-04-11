@@ -134,7 +134,7 @@ public class GunWeapon extends Weapon {
 	}	
 	
 	{
-		image = ItemSpriteSheet.AMMO;
+		image = ItemSpriteSheet.AMMO_S;
 		
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
@@ -205,8 +205,8 @@ public class GunWeapon extends Weapon {
 			damage = (int)(damage*1.5f);
 		
 		float bonus = 0;
-		for (Buff buff : owner.buffs(RingOfSharpshooting.Aim.class)) {
-			bonus += Math.min(((RingOfSharpshooting.Aim) buff).level,30);
+		for (Buff buff : owner.buffs(RingOfSharpshooting.RingShoot.class)) {
+			bonus += Math.min(((RingOfSharpshooting.RingShoot) buff).level,30);
 		}	
 		
 		if (Random.Int(10) < 3 && bonus > 0) {
@@ -324,7 +324,7 @@ public class GunWeapon extends Weapon {
 	public class NormalAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.AMMO;
+			image = ItemSpriteSheet.AMMO_S;
 			STR = Math.max(typicalSTR(),hero.STR);
 			ACU = 1.3f;
 

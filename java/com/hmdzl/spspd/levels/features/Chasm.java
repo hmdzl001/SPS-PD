@@ -24,6 +24,7 @@ import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Wound;
@@ -74,15 +75,18 @@ public class Chasm {
 			buff.detach();
             int damage = Random.NormalIntRange(Dungeon.dungeondepth, Dungeon.dungeondepth *2);
 			Buff.affect( hero, Bleeding.class).set(damage);
+		    Buff.affect( hero, HolyStun.class,3f);
 			Buff.affect( hero, Cripple.class,5f);
-		    hero.damage(Random.IntRange(hero.HT/4, hero.HT/3), new Hero.Doom() {
-			@Override
-			public void onDeath() {
-				Badges.validateDeathFromFalling();
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-				//GLog.n("You fell to death...");
-			}
-		});
+		    hero.damage(Random.IntRange(hero.HT/4, hero.HT/3), new Chasm()
+					//new Hero.Doom() {
+			//@Override
+			//public void onDeath() {
+			//	Badges.validateDeathFromFalling();
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//	//GLog.n("You fell to death...");
+			//}
+		//}
+		);
 			Wound.hit( pos );
 		if (hero.isAlive()) {
 			hero.interrupt();
@@ -117,9 +121,10 @@ public class Chasm {
 		int pos = mob.pos;
 		int damage = Random.NormalIntRange(Dungeon.dungeondepth, Dungeon.dungeondepth *2);
 	    Buff.affect( mob, Bleeding.class).set(damage);
-		Buff.affect( mob, Cripple.class,5f);
+		Buff.affect( mob, HolyStun.class,5f);
+		Buff.affect( mob, Cripple.class,10f);
 		Wound.hit( mob );
-		mob.damage(mob.HT/5, Gold.class);
+		mob.damage(mob.HT/5, new Chasm());
 		Dungeon.depth.setTrap( new PitfallTrap().hide(), mob.pos );
 		Floor.set( mob.pos, Terrain.SECRET_TRAP);
 		GameScene.updateMap( mob.pos);

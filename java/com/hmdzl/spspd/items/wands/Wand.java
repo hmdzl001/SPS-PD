@@ -57,6 +57,7 @@ public abstract class Wand extends Item {
 	private static final int USAGES_TO_KNOW    = 20;
 
 	public static final String AC_ZAP	= "ZAP";
+	public static final String AC_NOVA	= "NOVA";
 
 	private static final float TIME_TO_ZAP	= 1f;
 	
@@ -84,6 +85,7 @@ public abstract class Wand extends Item {
 		ArrayList<String> actions = super.actions( hero );
 		if (curCharges > 0 || !curChargeKnown) {
 			actions.add( AC_ZAP );
+			//actions.add( AC_NOVA );
 		}
 
 		return actions;
@@ -239,12 +241,12 @@ public abstract class Wand extends Item {
 	
 	public void updateLevel() {
 		maxCharges =
-				Dungeon.isChallenged(Challenges.ENERGY_LOST)? Math.min( (int)(initialCharges() + level/3), 4 ) : Math.min((int)(initialCharges() + level/3), 10 );
+				Dungeon.isChallenged(Challenges.ENERGY_LOST)? Math.min( (int)(initialCharges() + level/5), 6 ) : Math.min((int)(initialCharges() + level/2), 10 );
 		curCharges = Math.min( curCharges, maxCharges );
 	}
 	
 	protected int initialCharges() {
-		return 2;
+		return 3;
 	}
 	
 	protected int chargesPerCast() {
@@ -434,7 +436,7 @@ public abstract class Wand extends Item {
 
 		private void gainCharge(){
 			int missingCharges = 0;
-			missingCharges += Math.min(0.75f, 0.25f * Ring.getBonus(target, RingOfEnergy.Energy.class)/10);
+			missingCharges += Math.min(0.75f, 0.25f * Ring.getBonus(target, RingOfEnergy.RingEnergy.class)/10);
 			//missingCharges = Math.max(0, missingCharges);
             if (Dungeon.hero.heroClass==HeroClass.MAGE && Hero.skins==2){
 			missingCharges+=0.05f;

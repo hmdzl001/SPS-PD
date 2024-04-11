@@ -20,11 +20,13 @@ package com.hmdzl.spspd.items;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.journalpages.JournalPage;
 import com.hmdzl.spspd.items.journalpages.SafeSpotPage;
 import com.hmdzl.spspd.items.keys.IronKey;
+import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
@@ -35,6 +37,7 @@ import com.hmdzl.spspd.windows.WndOtiluke;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -110,6 +113,8 @@ public class DolyaSlate extends Item {
 	public boolean doPickUp(Hero hero) {
 		if (super.doPickUp(hero)) {
             Dungeon.depth.drop(new SafeSpotPage().identify(),hero.pos);
+			Dungeon.depth.drop(new LuckyBadge().identify(),hero.pos);
+			Statistics.roomType = Random.Int(3);
 			return true;
 		} else {
 			return false;

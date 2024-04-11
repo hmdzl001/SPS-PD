@@ -45,25 +45,19 @@ public class FruitCandy extends CompleteFood {
 		quantity = number;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
+	public void doEat() {
 			switch (Random.Int(3)){
 				case 0:
-					Buff.affect(hero, HasteBuff.class,20f);
-					Buff.affect(hero, Levitation.class, 20f);
+					Buff.affect(curUser, HasteBuff.class,20f);
+					Buff.affect(curUser, Levitation.class, 20f);
 					break;
 				case 1:
-					Buff.affect(hero, Notice.class, 30f);
+					Buff.affect(curUser, Notice.class, 30f);
 					break;
 				case 2:
-					Buff.affect(hero, BerryRegeneration.class).level(Math.max(hero.HT/10,10));
+					Buff.affect(curUser, BerryRegeneration.class).level(Math.max(curUser.HT/10,10));
 					break;
 			}
-			
-		}
 	}
 
 	@Override

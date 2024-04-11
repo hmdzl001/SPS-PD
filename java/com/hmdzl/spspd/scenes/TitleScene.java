@@ -31,6 +31,7 @@ import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.ChangesButton;
 import com.hmdzl.spspd.ui.CrashReportButton;
 import com.hmdzl.spspd.ui.ExitButton;
+import com.hmdzl.spspd.ui.GiftButton;
 import com.hmdzl.spspd.ui.LanguageButton;
 import com.hmdzl.spspd.ui.LearnButton;
 import com.hmdzl.spspd.ui.PrefsButton;
@@ -173,6 +174,10 @@ public class TitleScene extends PixelScene {
 		LanguageButton btnLang = new LanguageButton();
 		btnLang.setPos(16, 1);
 		add( btnLang );
+
+		//GiftButton btnGift = new GiftButton();
+		//btnGift.setPos(32, 1);
+		//add( btnGift );
 
 		ExitButton btnExit = new ExitButton();
 		btnExit.setPos(w - btnExit.width(), 0);

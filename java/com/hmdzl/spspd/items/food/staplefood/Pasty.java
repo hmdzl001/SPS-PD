@@ -150,54 +150,50 @@ public class Pasty extends StapleFood {
 
 		 
 	}
-	
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
 
-		if (action.equals(AC_EAT)){
+	public void doEat() {
 			switch(holiday){
 				case NONE:
 					break; //do nothing extra
 				case SPRING:
-					Buff.affect(hero, BerryRegeneration.class).level(10);
-					hero.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+					Buff.affect(curUser, BerryRegeneration.class).level(10);
+					curUser.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 					break;
 				case EASTER:
-					Buff.affect(hero, Bless.class,5f);
-					hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
+					Buff.affect(curUser, Bless.class,5f);
+					curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 					break;
 				case STUDENT:
-					Buff.affect(hero, Light.class,50f);
-					Buff.affect(hero, MindVision.class,50f);
-					hero.sprite.emitter().start(FlameParticle.FACTORY, 0.2f, 3);
+					Buff.affect(curUser, Light.class,50f);
+					Buff.affect(curUser, MindVision.class,50f);
+					curUser.sprite.emitter().start(FlameParticle.FACTORY, 0.2f, 3);
 					break;
 				case HWEEN:
 					//heals for 10% max hp
-					hero.HP = Math.min(hero.HP + hero.HT/10, hero.HT);
-					hero.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
+					curUser.HP = Math.min(curUser.HP + curUser.HT/10, curUser.HT);
+					curUser.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 					break;
 				case THANK:
-				    Buff.affect(hero, HasteBuff.class,5f);
-					Buff.affect(hero, Levitation.class,5f);
+				    Buff.affect(curUser, HasteBuff.class,5f);
+					Buff.affect(curUser, Levitation.class,5f);
 				    break;
 				case XMAS:
-					Buff.affect( hero, Recharging.class, 2f ); //half of a charge
-					ScrollOfRecharging.charge( hero );
+					Buff.affect( curUser, Recharging.class, 2f ); //half of a charge
+					ScrollOfRecharging.charge( curUser );
 					break;
 				case WORKER:
 					Dungeon.gold +=500;
 					GLog.p(Messages.get(Pasty.class,"worker"));
 					break;
 				case CHILD:
-					hero.HP = hero.TRUE_HT;
-					hero.TRUE_HT +=3;
-					hero.updateHT(true);
-					Buff.affect(hero,Blindness.class, 20f);
-					Buff.affect(hero,Vertigo.class, 20f);
+					curUser.HP = curUser.TRUE_HT;
+					curUser.TRUE_HT +=3;
+					curUser.updateHT(true);
+					Buff.affect(curUser,Blindness.class, 20f);
+					Buff.affect(curUser,Vertigo.class, 20f);
 					break;
 			}
-		}
+
 	}
 
 	@Override

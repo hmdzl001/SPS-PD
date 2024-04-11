@@ -27,28 +27,17 @@ public class Honeymeat extends CompleteFood {
 
 	{
 		//name = "honeymeat";
-		image = ItemSpriteSheet.HONEYMEAT;
+		image = ItemSpriteSheet.HONEY_MEAT;
 		energy = 150;
 		hornValue = 3;
 		 
 	}
 
-	public void execute(Hero hero, String action) {
+	public void doEat() {
+			curUser.TRUE_HT = curUser.TRUE_HT + (Random.Int(3, 6));
+			Buff.affect(curUser,AttackUp.class,50f).level(20);
+			curUser.updateHT(true);
 
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
-			hero.TRUE_HT = hero.TRUE_HT + (Random.Int(6, 12));
-			Buff.affect(hero,AttackUp.class,50f).level(20);
-			//hero.HP = hero.HP+Math.min(((hero.TRUE_HT-hero.HP)/2), hero.TRUE_HT-hero.HP);
-			//Buff.detach(hero, Poison.class);
-			//Buff.detach(hero, Cripple.class);
-			//Buff.detach(hero, STRdown.class);
-			//Buff.detach(hero, Bleeding.class);
-             hero.updateHT(true);
-			//hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
-
-		}
 	}
 
 	@Override

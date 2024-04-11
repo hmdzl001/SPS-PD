@@ -77,7 +77,7 @@ public class TempestBoomerang extends TossWeapon {
 
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
-		Buff.affect(defender, WatchOut.class);
+		Buff.affect(defender, WatchOut.class,1000f);
 		super.proc(attacker, defender, damage);
 	}
 

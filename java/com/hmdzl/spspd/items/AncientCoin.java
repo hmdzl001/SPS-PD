@@ -43,7 +43,7 @@ public class AncientCoin extends Item {
 
 	{
 		//name = "ancient coin";
-		image = ItemSpriteSheet.COIN;
+		image = ItemSpriteSheet.COIN_CARD;
 
 		stackable = false;
 		unique = true;

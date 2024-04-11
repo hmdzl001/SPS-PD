@@ -22,6 +22,7 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
 
@@ -71,7 +72,9 @@ public class TentSleep extends FlavourBuff {
 
 	{
 		immunities.add(Blob.class);
-		immunities.add(Buff.class);
+		//immunities.add(Stu.class);
+		//immunities.add(Blob.class);
+		immunities.add(DamageType.class);
 	}	
 	
 	@Override

@@ -42,7 +42,7 @@ public class GunOfSoldier extends Item {
 	private static final float TIME_TO_DIG = 1f;
 
 	{
-		image = ItemSpriteSheet.GUN_S;
+		image = ItemSpriteSheet.SOLDIER_GUN;
 		defaultAction = AC_USE;
 		unique = true;
 		usesTargeting = true;
@@ -123,7 +123,7 @@ public class GunOfSoldier extends Item {
 	public class SoldierAmmo extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.MIDDLE_AMMO;
+			image = ItemSpriteSheet.AMMO_M;
 			ACU = 1000;
 		}
 

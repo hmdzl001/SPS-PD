@@ -27,6 +27,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.DarkBlock;
 import com.hmdzl.spspd.effects.EmoIcon;
 import com.hmdzl.spspd.effects.FloatingText;
+import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.effects.IceBlock;
 import com.hmdzl.spspd.effects.ShieldHalo;
 import com.hmdzl.spspd.effects.Speck;
@@ -76,7 +77,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	//blue
 	public static final int NULL_DAMAGE		= 0xFFFFFF;
     //white
-	public static final int CHAOS_DAMAGE		= 0x9400D3;
+	public static final int EAT_SOME		= 0xCC9966;
 	//violet
 
 	private static final float MOVE_INTERVAL	= 0.1f;
@@ -104,7 +105,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected Emitter levitation;
 	protected Emitter regrow;
 	protected Emitter healing;
-	
+	protected PosTweener motion2;
 	protected IceBlock iceBlock;
 	protected DarkBlock darkBlock;
 	protected TorchHalo halo;
@@ -117,6 +118,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	private Tweener jumpTweener;
 
 	private Tweener rollTweener;
+
 	private Callback jumpCallback;
 
 	private Callback rollCallback;
@@ -167,17 +169,48 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		point( worldToCamera( cell ) );
 	}
 	
+	//public void showStatus2( int color, String text, Object... args ) {
+	//	if (visible) {
+	//		if (args.length > 0) {
+	//			text = Messages.format( text, args );
+	//		}
+	//		if (ch != null) {
+	//			PointF tile = DungeonTilemap.tileCenterToWorld(ch.pos);
+	//			FloatingText.show( tile.x, tile.y-(width*0.5f), ch.pos, text, color );
+	//		} else {
+	//			FloatingText.show( x + width * 0.5f, y, text, color );
+	//		}
+	//	}
+	//}
+
 	public void showStatus( int color, String text, Object... args ) {
+		showStatusWithIcon(color, text, FloatingText2.NO_ICON, args);
+	}
+
+	public void showStatusWithIcon( int color, String text, int icon, Object... args ) {
 		if (visible) {
 			if (args.length > 0) {
 				text = Messages.format( text, args );
 			}
+			//float x = destinationCenter().x;
+			//float y = destinationCenter().y - height()/2f;
 			if (ch != null) {
 				PointF tile = DungeonTilemap.tileCenterToWorld(ch.pos);
-				FloatingText.show( tile.x, tile.y-(width*0.5f), ch.pos, text, color );
+				//FloatingText2.show( x, y, ch.pos, text, color, icon, true );
+				FloatingText2.show( tile.x, tile.y-(width*0.5f), ch.pos, text, color, icon, true );
 			} else {
-				FloatingText.show( x + width * 0.5f, y, text, color );
+				//FloatingText2.show( x, y, -1, text, color, icon, true );
+				FloatingText2.show( x + width * 0.5f, y, -1, text, color, icon, true );
 			}
+		}
+	}
+
+	public PointF destinationCenter(){
+		PosTweener motion2 = this.motion2;
+		if (motion2 != null && motion2.elapsed >= 0){
+			return new PointF(motion2.end.x + width()/2f, motion2.end.y + height()/2f);
+		} else {
+			return center();
 		}
 	}
 	

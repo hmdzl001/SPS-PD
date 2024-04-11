@@ -23,6 +23,7 @@ import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.ui.HealthBar;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 
@@ -74,8 +75,7 @@ public class WndInfoMob extends WndTitledMessage {
 		protected void layout() {
 
 			image.x = 0;
-			image.y = Math.max(0, name.height() + GAP + health.height()
-					- image.height);
+			image.y = Math.max(0, name.height() + GAP + health.height() - image.height);
 
 			name.x = image.width + GAP;
 			name.y = image.height - health.height() - GAP - name.baseLine();

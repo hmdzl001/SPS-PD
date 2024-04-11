@@ -45,16 +45,11 @@ public class MixPizza extends CompleteFood {
 		quantity = number;
 	}
 
-	@Override
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero, Bless.class,10f);
-			Buff.affect(hero, Light.class,10f);
-			Buff.affect(hero, HasteBuff.class,10f);
-			Buff.affect(hero, Levitation.class,10f);
-		}
+	public void doEat() {
+			Buff.affect(curUser, Bless.class,10f);
+			Buff.affect(curUser, Light.class,10f);
+			Buff.affect(curUser, HasteBuff.class,10f);
+			Buff.affect(curUser, Levitation.class,10f);
 	}
 
 	@Override

@@ -26,9 +26,11 @@ import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
+import com.hmdzl.spspd.utils.BArray;
 import com.hmdzl.spspd.windows.WndBag;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Button;
+import com.watabou.utils.PathFinder;
 
 public class QuickSlotButton extends Button implements WndBag.Listener {
 
@@ -215,9 +217,13 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 		}
 
 		//Otherwise pick nearby tiles to try and 'angle' the shot, auto-aim basically.
-		for (int i : Floor.NEIGHBOURS9DIST2) {
-			if (new Ballistica(Dungeon.hero.pos, target.pos+i, Ballistica.PROJECTILE).collisionPos == target.pos){
-				return target.pos+i;
+
+		PathFinder.buildDistanceMap( Dungeon.hero.pos, BArray.not( Floor.solid, null ), 2 );
+		for (int i = 0; i < PathFinder.distance.length; i++) {
+			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+				if (new Ballistica(Dungeon.hero.pos, target.pos + i, Ballistica.PROJECTILE).collisionPos == target.pos) {
+					return target.pos + i;
+				}
 			}
 		}
 

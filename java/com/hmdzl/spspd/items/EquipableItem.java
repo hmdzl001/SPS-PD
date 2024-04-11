@@ -31,6 +31,8 @@ public abstract class EquipableItem extends Item {
 	public static final String AC_EQUIP = "EQUIP";
 	public static final String AC_UNEQUIP = "UNEQUIP";
 
+	public static final String AC_UNEQUIP_SECOND = "UNEQUIPSECOND";
+
 	{
 
 	}
@@ -50,6 +52,8 @@ public abstract class EquipableItem extends Item {
 			}
 		} else if (action.equals(AC_UNEQUIP)) {
 			doUnequip(hero, true);
+		} else if (action.equals(AC_UNEQUIP_SECOND)) {
+			doUnequipSecond(hero, true);
 		} else {
 			super.execute(hero, action);
 		}
@@ -57,7 +61,9 @@ public abstract class EquipableItem extends Item {
 
 	@Override
 	public void doDrop(Hero hero) {
-		if (!isEquipped(hero) || doUnequip(hero, false, false)) {
+		if (!isEquipped(hero) || ( !isEquippedSecond(hero) && doUnequip(hero, false, false)) ||
+				doUnequipSecond(hero, false, false)
+				) {
 			super.doDrop(hero);
 		}
 	}
@@ -65,7 +71,11 @@ public abstract class EquipableItem extends Item {
 	@Override
 	public void cast(final Hero user, int dst) {
 
-		if (isEquipped(user)) {
+		if(isEquippedSecond(user)){
+			if (quantity == 1 && !this.doUnequipSecond(user, false, false)) {
+				return;
+			}
+		} else if (isEquipped(user)) {
 			if (quantity == 1 && !this.doUnequip(user, false, false)) {
 				return;
 			}
@@ -115,6 +125,38 @@ public abstract class EquipableItem extends Item {
 
 	final public boolean doUnequip(Hero hero, boolean collect) {
 		return doUnequip(hero, collect, true);
+	}
+
+	public boolean doUnequipSecond(Hero hero, boolean collect, boolean single) {
+
+		if (cursed) {
+			GLog.w(Messages.get(this,"unequip_cursed", name()));
+			return false;
+		}
+
+		if (single) {
+			hero.spendAndNext(time2equip(hero));
+		} else {
+			hero.spend(time2equip(hero));
+		}
+
+		if (Dungeon.hero.heroClass == HeroClass.WARRIOR && Hero.skins == 4){
+			if(!this.isunique()){
+				Dungeon.hero.spp += 5;
+				Dungeon.hero.spp += this.level;
+				collect = false;
+			}
+		}
+
+		if (collect && !collect(hero.belongings.backpack)) {
+			Dungeon.depth.drop(this, hero.pos);
+		}
+
+		return true;
+	}
+
+	final public boolean doUnequipSecond(Hero hero, boolean collect) {
+		return doUnequipSecond(hero, collect, true);
 	}
 
 }

@@ -20,7 +20,6 @@ package com.hmdzl.spspd.scenes;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.watabou.input.Touchscreen.Touch;
-import com.watabou.noosa.Camera;
 import com.watabou.noosa.TouchArea;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;

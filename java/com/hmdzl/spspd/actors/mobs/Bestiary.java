@@ -18,6 +18,17 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAFly;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAshWolf;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftBaMech;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftBegger;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftBunnyKeeper;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftCoconut;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftFlyLing;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftFruitWorker;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftMeatSeller;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftRen;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftTorch;
 import com.hmdzl.spspd.actors.mobs.npcs.Hmdzl001;
 import com.watabou.utils.Random;
 
@@ -84,17 +95,17 @@ public class Bestiary {
 			case 3:
 				chances = new float[]{1, 1,1,
 						0.8f, 0.6f, 0.4f,
-						0.2f, 0.7f};
+						 0.7f};
 				classes = new Class<?>[]{
 						Rat.class, BrownBat.class,Shit.class,
 						DustElement.class, LiveMoss.class, Swarm.class,
-						Crab.class,PatrolUAV.class};
+						PatrolUAV.class};
 				break;
 			case 4:
-				chances = new float[]{1, 1,
+				chances = new float[]{ 1,
 						1,1,1,
 						1,1,1};
-				classes = new Class<?>[]{BrownBat.class,Shit.class,
+				classes = new Class<?>[]{Shit.class,
 						DustElement.class, LiveMoss.class, Swarm.class,
 						Crab.class,PatrolUAV.class,Vagrant.class};
 				break;
@@ -119,17 +130,17 @@ public class Bestiary {
 			//	};
 			//	break;
 			case 7:
-				chances = new float[]{ 1, 1, 0.4f,
+				chances = new float[]{ 1, 1, 0.5f,
 						0.2f,0.2f};
-				classes = new Class<?>[]{Thief.class, Gnoll.class, Guard.class,
+				classes = new Class<?>[]{Thief.class, Gnoll.class, GhostPhoto.class,
 						PatrolUAV.class,Vagrant.class};
 				break;
 			case 8:
 				chances = new float[]{1, 1, 0.5f,
-						0.4f, 0.3f,
+						0.4f, 0.3f,1,
 						0.5f,1f,0.5f};
 				classes = new Class<?>[]{Thief.class, Gnoll.class, Guard.class,
-						Assassin.class, TrollWarrior.class,
+						Assassin.class, TrollWarrior.class, GhostPhoto.class,
 						FireRabbit.class,BambooMob.class,GoldCollector.class};
 				break;
 			case 9:
@@ -533,16 +544,12 @@ public class Bestiary {
 				classes = new Class<?>[] { FlyingProtector.class };
 				break;
 			case 55:
-				chances = new float[] { 1 };
-				classes = new Class<?>[] { Hmdzl001.class };
-				/*chances = new float[] {
-						1,1,1,1,1,
-						1,1,1,1,1,
-						1,1,1,1,1
-				};
-				classes = new Class<?>[] { Coconut.class, Jinkeloid.class, AshWolf.class, Hmdzl001.class, Apostle.class,
-						Lyn.class, NutPainter.class, RainTrainer.class, Tempest102.class, WhiteGhost.class,
-						FruitCat.class, BoneStar.class, AFly.class, SheepSokobanSwitch.class, HBB.class, };*/
+				chances = new float[] { 1,1,1,1,
+				                        1,1,1,1,
+						                1,1,1};
+				classes = new Class<?>[] { GiftRen.class, GiftAshWolf.class, GiftCoconut.class, GiftBegger.class,
+				 GiftAFly.class, GiftBaMech.class, GiftFruitWorker.class, GiftMeatSeller.class,
+				GiftTorch.class, GiftFlyLing.class, GiftBunnyKeeper.class};
 				break;
 			case 85:
 				chances = new float[] { 1,1,1,1,1,

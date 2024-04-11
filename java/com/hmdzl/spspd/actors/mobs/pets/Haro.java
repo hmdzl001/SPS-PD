@@ -21,7 +21,7 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Recharging;
-import com.hmdzl.spspd.actors.buffs.Shieldblock;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.CompleteFood;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;
@@ -94,7 +94,7 @@ public class Haro extends PET {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 		if (cooldown == 0) {
-			Buff.affect(enemy,Shieldblock.class,5f);
+			Buff.affect(enemy, HolyStun.class,5f);
 			cooldown = Math.max(10,50-Dungeon.hero.petLevel);
 		}
 		return damage;

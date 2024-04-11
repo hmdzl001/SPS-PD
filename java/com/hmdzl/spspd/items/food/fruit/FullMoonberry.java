@@ -30,33 +30,28 @@ public class FullMoonberry extends Fruit {
 
 	{
 		//name = "dungeon full moon berry";
-		image = ItemSpriteSheet.SEED_FULLMOONBERRY;
+		image = ItemSpriteSheet.FULLMOONBERRY;
 		energy = 50;
 		hornValue = 1;
 		 
 	}
-		
-	@Override
-	public void execute(Hero hero, String action) {
 
-		super.execute(hero, action);
-
-		if (action.equals(AC_EAT)) {
+	public void doEat() {
 
 				switch (Random.Int(2)) {
 				case 0:
-					Buff.affect(hero, MoonFury.class);
-					Buff.affect(hero, FullMoonStrength.class);
-					Buff.affect(hero, Light.class, Light.DURATION);
+					Buff.affect(curUser, MoonFury.class);
+					Buff.affect(curUser, FullMoonStrength.class);
+					Buff.affect(curUser, Light.class, Light.DURATION);
 					break;
 				case 1:
-					Buff.affect(hero, MoonFury.class);
-					Buff.affect(hero, FullMoonStrength.class);
-					Buff.affect(hero, Barkskin.class).level(hero.lvl);
-					Buff.affect(hero, Light.class, Light.DURATION);
+					Buff.affect(curUser, MoonFury.class);
+					Buff.affect(curUser, FullMoonStrength.class);
+					Buff.affect(curUser, Barkskin.class).level(curUser.lvl);
+					Buff.affect(curUser, Light.class, Light.DURATION);
 					break;
 				}
-			}
+
 	}	
 
 

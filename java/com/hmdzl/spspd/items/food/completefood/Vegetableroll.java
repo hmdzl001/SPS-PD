@@ -44,13 +44,12 @@ public class Vegetableroll extends CompleteFood {
 	public int price() {
 		return 6 * quantity;
 	}
-	public void execute(Hero hero, String action) {
-		super.execute(hero, action);
-		if (action.equals(AC_EAT)){
-			Buff.affect(hero,MagicArmor.class).level(hero.HT/4);
-			Buff.affect(hero, Recharging.class,20f);
-			Buff.affect(hero, SuperArcane.class,40f).level(5);
-		}
+
+	public void doEat() {
+			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/4);
+			Buff.affect(curUser, Recharging.class,20f);
+			Buff.affect(curUser, SuperArcane.class,40f).level(5);
+
 	}
 
 }

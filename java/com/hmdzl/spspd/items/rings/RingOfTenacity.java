@@ -17,7 +17,7 @@ public class RingOfTenacity extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * Math.min(0.40, 1.00*level/75)));
+			return Messages.get(this, "stats",level ,new DecimalFormat("#.##").format(100f * Math.min(0.40, 1.00*level/75)));
 		} else {
 			return "???";
 		}
@@ -25,9 +25,9 @@ public class RingOfTenacity extends Ring {
 	
 	@Override
 	protected RingBuff buff() {
-		return new Tenacity();
+		return new RingTenacity();
 	}
 
-	public class Tenacity extends RingBuff {
+	public class RingTenacity extends RingBuff {
 	}
 }
