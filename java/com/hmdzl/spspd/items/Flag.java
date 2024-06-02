@@ -28,7 +28,7 @@ public class Flag extends Item {
 		//name = "flag";
 		image = ItemSpriteSheet.FLAG;
 
-		stackable = false;
+		stackable = true;
 		unique = true;
 	}
 

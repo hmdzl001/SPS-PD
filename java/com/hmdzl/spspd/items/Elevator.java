@@ -18,9 +18,12 @@
 package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.windows.WndItem;
 import com.watabou.noosa.Game;
 
 import java.util.ArrayList;
@@ -31,12 +34,16 @@ public class Elevator extends Item {
 
     public static final String AC_DOWN = "DOWN";
 
+	private static final String AC_CHOOSE = "CHOOSE";
+
 
 	{
 		//name = "Elevator";
 		image = ItemSpriteSheet.ELEVATOR;
 
 		stackable = true;
+
+		defaultAction = AC_CHOOSE;
 
 	}
 
@@ -51,7 +58,9 @@ public class Elevator extends Item {
 
 	@Override
 	public void execute(Hero hero, String action) {
-
+		if (action.equals( AC_CHOOSE )) {
+			GameScene.show(new WndItem(null, this, true));
+		}
 		if (action.equals(AC_UP)) {
 			PocketBallFull.removePet(hero);
 			InterlevelScene.mode = InterlevelScene.Mode.ASCEND;

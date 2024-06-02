@@ -86,7 +86,7 @@ public class Fadeleaf extends Plant {
 	
 	public static class ExFadeleaf extends Plant {
 		{
-			image = 6;
+			image = 25;
 		}
 		@Override
 		public void activate(Char ch) {

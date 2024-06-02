@@ -32,6 +32,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
 import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
 import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -39,9 +40,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Belongings implements Iterable<Item> {
-
-	public static final int BACKPACK_SIZE = 35;
-
+	public static int BACKPACK_SIZE = 42;
 	private Hero owner;
 
 	public Bag backpack;

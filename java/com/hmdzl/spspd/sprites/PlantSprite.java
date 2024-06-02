@@ -90,6 +90,7 @@ public class PlantSprite extends Image {
 				scale.set(1 - time / DELAY);
 			}
 			break;
+
 		case WITHERING:
 			if ((time -= Game.elapsed) <= 0) {
 				super.kill();

@@ -258,7 +258,7 @@ public class Hero extends Char {
 
 	public int petCooldown = 0;
 
-	public int petAction = 0;
+	//public int petAction = 0;
 
     public boolean damagetwice;
 
@@ -434,7 +434,7 @@ public class Hero extends Char {
 		
 		bundle.put(PETCOOLDOWN, petCooldown);
 
-		bundle.put(PETACTION, petAction);
+		//bundle.put(PETACTION, petAction);
 
 		belongings.storeInBundle(bundle);
 	}
@@ -466,7 +466,7 @@ public class Hero extends Char {
 		petExperience = bundle.getInt(PETEXP);
 		petCooldown = bundle.getInt(PETCOOLDOWN);
 
-		petAction = bundle.getInt(PETACTION);
+		//petAction = bundle.getInt(PETACTION);
 		
 		belongings.restoreFromBundle(bundle);
 	}
@@ -934,6 +934,8 @@ public class Hero extends Char {
 			Statistics.time = 0;
 			//Dungeon.observe();
 		}
+
+		if(Dungeon.dewDraw || Dungeon.dewWater){ Dungeon.depth.currentmoves+=time;}
 		
 		super.spend(time);
 	}
@@ -969,9 +971,6 @@ public class Hero extends Char {
 		} else {viewDistance = 5;
 			Dungeon.observe();}
 
-		
-		if(Dungeon.dewDraw || Dungeon.dewWater){ Dungeon.depth.currentmoves++;}
-	
 		if (paralysed > 0) {
 
 			curAction = null;

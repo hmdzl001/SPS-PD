@@ -25,6 +25,9 @@ import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PoisonParticle;
 import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.food.fruit.Blackberry;
+import com.hmdzl.spspd.items.food.vegetable.RootRadish;
+import com.hmdzl.spspd.items.food.vegetable.ToxicEggplant;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.ToxicFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -57,6 +60,10 @@ public class Sorrowmoss extends Plant {
 			CellEmitter.center(pos).burst(PoisonParticle.SPLASH, 3);
 		}
 
+
+		Dungeon.depth.drop(new ToxicEggplant(), pos).sprite.drop();
+
+
 	}
 
 	public static class Seed extends Plant.Seed {
@@ -70,7 +77,7 @@ public class Sorrowmoss extends Plant {
 	}
 	public static class ExSorrowmoss extends Plant {
 		{
-			image = 2;
+			image = 21;
 		}
 		@Override
 		public void activate(Char ch) {

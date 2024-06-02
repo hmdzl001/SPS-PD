@@ -29,7 +29,7 @@ public class SeedPouch extends Bag {
 		//name = "seed pouch";
 		image = ItemSpriteSheet.POUCH;
 
-		size = 30;
+		size = 34;
 	}
 
 	@Override

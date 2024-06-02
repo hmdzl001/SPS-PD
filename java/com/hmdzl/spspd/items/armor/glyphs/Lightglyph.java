@@ -17,6 +17,8 @@
  */
 package com.hmdzl.spspd.items.armor.glyphs;
 
+import android.annotation.SuppressLint;
+
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -37,6 +39,7 @@ public class Lightglyph extends Glyph {
 
 	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 
+	@SuppressLint("SuspiciousIndentation")
 	@Override
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
 

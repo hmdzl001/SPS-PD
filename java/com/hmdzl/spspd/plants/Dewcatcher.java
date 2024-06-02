@@ -59,7 +59,7 @@ public class Dewcatcher extends Plant {
 	
 	public static class ExDewcatcher extends Plant {
 		{
-			image = 12;
+			image = 31;
 		}
 		@Override
 		public void activate(Char ch) {

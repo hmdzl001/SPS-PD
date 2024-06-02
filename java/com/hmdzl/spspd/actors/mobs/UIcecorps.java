@@ -34,6 +34,7 @@ import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.SelfDestroy;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
@@ -151,7 +152,7 @@ public class UIcecorps extends Mob {
         if (src instanceof StoneIce)
         	dmg = 10;
 		if (dmg > 40)
-		dmg = Random.Int(10, 40);
+		   dmg = Random.Int(10, 40);
 		
 		super.damage(dmg, src);
 	}		

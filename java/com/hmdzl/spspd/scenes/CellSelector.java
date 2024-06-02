@@ -42,9 +42,7 @@ public class CellSelector extends TouchArea {
 	@Override
 	protected void onClick(Touch touch) {
 		if (dragging) {
-
 			dragging = false;
-
 		} else {
 			//PointF p = Camera.main.screenToCamera( (int) touch.current.x, (int) touch.current.y );
 			select(((DungeonTilemap) target).screenToTile((int) touch.current.x, (int) touch.current.y));
@@ -53,14 +51,10 @@ public class CellSelector extends TouchArea {
 
 	public void select(int cell) {
 		if (enabled && listener != null && cell != -1) {
-
 			listener.onSelect(cell);
 			GameScene.ready();
-
 		} else {
-
 			GameScene.cancel();
-
 		}
 	}
 
@@ -163,7 +157,6 @@ public class CellSelector extends TouchArea {
 		another = null;
 		if (pinching) {
 			pinching = false;
-
 			int zoom = Math.round(camera.zoom);
 			camera.zoom(zoom);
 			ShatteredPixelDungeon.zoom(zoom - PixelScene.defaultZoom);

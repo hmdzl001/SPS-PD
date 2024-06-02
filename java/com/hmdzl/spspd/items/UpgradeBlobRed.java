@@ -47,6 +47,7 @@ public class UpgradeBlobRed extends Item {
 
 		stackable = true;
 
+		defaultAction = AC_INSCRIBE;
 		 
 	}
 

@@ -62,7 +62,7 @@ public class Rotberry extends Plant {
 	}
 	public static class ExRotberry extends Plant {
 		{
-			image = 7;
+			image = 26;
 		}
 		@Override
 		public void activate(Char ch) {

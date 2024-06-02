@@ -285,6 +285,7 @@ public class Goo extends Mob {
 		GameScene.add( mob, 1f );
 		mobs.add( mob );
 		ScrollOfTeleportation.appear(mob, mob.pos);
+		mob.yell(Messages.get(this,"goo"));
 
 		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
 			Dungeon.depth.drop(new Obubble(), Dungeon.hero.pos).sprite.drop();

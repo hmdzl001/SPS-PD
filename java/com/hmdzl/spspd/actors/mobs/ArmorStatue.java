@@ -154,7 +154,9 @@ public class ArmorStatue extends Mob {
 
 	@Override
 	public String description() {
-		return Messages.get(this, "desc", armor.name());
+		String info = Messages.get(this, "desc");
+		info += "\n" + Messages.get(this, "armor", armor.name());
+		return info;
 	}
 	
 	@Override

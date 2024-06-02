@@ -22,7 +22,7 @@ import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 public class MiniBunny extends SellItem {
 
 	{
-		image = ItemSpriteSheet.RABBIT_EGG;
+		image = ItemSpriteSheet.MINI_BUNNY;
 		stackable = true;
 	}
 

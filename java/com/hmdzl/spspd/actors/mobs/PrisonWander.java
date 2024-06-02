@@ -31,6 +31,7 @@ import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
+import com.hmdzl.spspd.actors.buffs.SelfDestroy;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
@@ -44,9 +45,11 @@ import com.hmdzl.spspd.items.SkillBook;
 import com.hmdzl.spspd.items.TenguKey;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
+import com.hmdzl.spspd.items.bombs.XBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban2;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.SavageHelmet;
+import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
@@ -69,6 +72,8 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.Dungeon.hero;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
+import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public class PrisonWander extends Mob {
 
@@ -304,15 +309,12 @@ public class PrisonWander extends Mob {
 
 	public static class SeekBombP extends Mob {
 
-		private static final int BOMB_DELAY = 8;
-		private int timeToBomb = BOMB_DELAY;
 		{
 			spriteClass = SeekingBombSprite.class;
 
-			HP = HT = 1;
+			HP = HT = 10;
 			evadeSkill = 0;
-			baseSpeed = 1f;
-			timeToBomb = BOMB_DELAY;
+			baseSpeed = 0.5f;
 			EXP = 0;
 
 			state = HUNTING;
@@ -323,59 +325,48 @@ public class PrisonWander extends Mob {
 
 		@Override
 		public int attackProc(Char enemy, int damage) {
-			int dmg = super.attackProc(enemy, damage);
-
-			DungeonBomb bomb = new DungeonBomb();
-			bomb.explode(pos);
-			yell("KA-BOOM!!!");
-
-			destroy();
-			sprite.die();
-
-			return dmg;
-		}
-
-		@Override
-		public void die(Object cause) {
-			DungeonBomb bomb = new DungeonBomb();
-			bomb.explode(pos);
-			super.die(cause);
-
+			enemy.damage(damageRoll(), SHOCK_DAMAGE);
+			damage = 0;
+			return damage;
 		}
 
 		@Override
 		public int hitSkill(Char target) {
-			return 10;
+			return 20;
 		}
 
 		@Override
 		public int damageRoll() {
-			return Random.NormalIntRange(0, 1);
+			return Random.NormalIntRange(6, 10);
 		}
 
 		@Override
 		public int drRoll() {
-			return 0;
+			return 3;
 		}
 
 		@Override
 		public boolean act() {
-			yell(""+timeToBomb+"!");
-			if (timeToBomb == 0){
-				DungeonBomb bomb = new DungeonBomb();
-				bomb.explode(pos);
-				yell("KA-BOOM!!!");
-				destroy();
-				sprite.die();
-			}
-
+			yell(""+HP/2+"!");
 			return super.act();
 		}
 
 		@Override
 		public void move(int step) {
 			super.move(step);
-			timeToBomb --;
+			HP+=4;
+		}
+
+		@Override
+		public void damage(int dmg, Object src) {
+			if (!(src instanceof SelfDestroy) ) dmg = 0;
+			super.damage(dmg, src);
+		}
+
+		public void die(Object cause) {
+			DungeonBomb xbomb = new DungeonBomb();
+			xbomb.explode(pos);
+			super.die(cause);
 		}
 
 	}

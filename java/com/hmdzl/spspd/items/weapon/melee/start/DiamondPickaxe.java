@@ -362,6 +362,11 @@ public class DiamondPickaxe extends MeleeWeapon {
 		}
 	}
 
+	@Override
+	public int price() {
+		return 2000 * quantity;
+	}
+
 	/*@Override
 	public String info() {
 		return "This is a large and sturdy tool for breaking rocks. Probably it can be used as a weapon.";

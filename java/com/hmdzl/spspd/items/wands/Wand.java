@@ -98,7 +98,7 @@ public abstract class Wand extends Item {
 				GLog.w(Messages.get(Wand.class, "silent"));
 			} else 	if (Dungeon.hero.heroClass == HeroClass.MAGE && Hero.skins == 4 && Dungeon.hero.spp < 1) {
 				GLog.w(Messages.get(Wand.class, "needmana"));
-			} else{
+			} else {
 			curUser = hero;
 			curItem = this;
 			GameScene.selectCell( zapper );
@@ -133,7 +133,7 @@ public abstract class Wand extends Item {
 	public void charge( Char owner, float chargeScaleFactor ){
 		charge( owner );
 		charger.setScaleFactor( chargeScaleFactor );
-	}	
+	}
 
 	protected void processSoulMark(Char target, int chargesUsed){
 		if (target != Dungeon.hero &&
@@ -364,18 +364,21 @@ public abstract class Wand extends Item {
 					return;
 				}
 
+				if (curWand.curCharges < 1) {
+					GLog.i( Messages.get(Wand.class, "fizzles") );
+					return;
+				}
+
 				curUser.sprite.zap(cell);
 
 				//attempts to target the cell aimed at if something is there, otherwise targets the collision pos.
-				if (Actor.findChar(target) != null)
+				if (Actor.findChar(target) != null) {
 					QuickSlotButton.target(Actor.findChar(target));
-				else
+				} else {
 					QuickSlotButton.target(Actor.findChar(cell));
+				}
 
-				if (curWand.curCharges >= 1) {
-
-					curUser.busy();
-
+				curUser.busy();
 					curWand.fx(shot, new Callback() {
 						@Override
 						public void call() {
@@ -386,13 +389,8 @@ public abstract class Wand extends Item {
 
 					Invisibility.dispel();
 
-				} else {
-
-					GLog.w( Messages.get(Wand.class, "fizzles") );
-
 				}
 
-			}
 		}
 
 		@Override
@@ -410,7 +408,7 @@ public abstract class Wand extends Item {
 		private static final float CHARGE_BUFF_BONUS = 0.25f;
 
 		float scalingFactor = NORMAL_SCALE_FACTOR;
-		
+
 		@Override
 		public boolean attachTo( Char target ) {
 			super.attachTo( target );
@@ -420,9 +418,10 @@ public abstract class Wand extends Item {
 		
 		@Override
 		public boolean act() {
-			if (curCharges < maxCharges)
+			if (curCharges < maxCharges) {
 				gainCharge();
-			
+			}
+
 			if (partialCharge >= 1 && curCharges < maxCharges) {
 				partialCharge--;
 				curCharges++;
@@ -435,8 +434,8 @@ public abstract class Wand extends Item {
 		}
 
 		private void gainCharge(){
-			int missingCharges = 0;
-			missingCharges += Math.min(0.75f, 0.25f * Ring.getBonus(target, RingOfEnergy.RingEnergy.class)/10);
+			float missingCharges = 0;
+			missingCharges += Math.min(0.75f, 0.25f * Ring.getBonus(Dungeon.hero, RingOfEnergy.RingEnergy.class)/10);
 			//missingCharges = Math.max(0, missingCharges);
             if (Dungeon.hero.heroClass==HeroClass.MAGE && Hero.skins==2){
 			missingCharges+=0.05f;
@@ -445,8 +444,12 @@ public abstract class Wand extends Item {
 				partialCharge = missingCharges;
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
 					+ (SCALING_CHARGE_ADDITION - Math.max(1, missingCharges)));
-					
-			partialCharge += 0.02f;
+
+			if (Wand.this.cursed) {
+				partialCharge += 0.01f;
+			} else {
+				partialCharge += 0.02f;
+			}
 			//partialCharge += 0.01f*Math.min(1,missingCharges/10);
 		
 			Recharging bonus = target.buff(Recharging.class);

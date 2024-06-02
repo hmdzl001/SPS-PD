@@ -45,6 +45,8 @@ public class TransmutationBall extends Item {
 		image = ItemSpriteSheet.TRAN_BALL;
 		
 	    stackable = true;
+
+		defaultAction = AC_USE;
 	}
 	
 	@Override

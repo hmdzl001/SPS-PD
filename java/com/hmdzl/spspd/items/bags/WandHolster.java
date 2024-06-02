@@ -33,7 +33,7 @@ public class WandHolster extends Bag {
 		//name = "wand holster";
 		image = ItemSpriteSheet.HOLSTER;
 
-		size = 30;
+		size = 34;
 	}
 
 	@Override

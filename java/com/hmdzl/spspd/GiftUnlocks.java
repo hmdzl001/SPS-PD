@@ -2,14 +2,25 @@ package com.hmdzl.spspd;
 
 import android.content.Context;
 
+import com.hmdzl.spspd.actors.hero.Belongings;
+import com.hmdzl.spspd.actors.hero.Hero;
+import com.hmdzl.spspd.actors.hero.HeroClass;
+import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.Game;
+import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.UUID;
 
 public enum GiftUnlocks {
 
@@ -31,6 +42,8 @@ public enum GiftUnlocks {
 	private int size;
 	private int price;
 	String codeName;
+
+	public static final String GIFT_UNLOCK_FILE = "giftunlock.dat";
 
 	private static int coinleft = 0;
 
@@ -105,23 +118,36 @@ public enum GiftUnlocks {
 		}
 	}
 
+	public void save() {
+		try {
+			OutputStream output = Game.instance.openFileOutput(GIFT_UNLOCK_FILE,
+					Game.MODE_PRIVATE);
+			Bundle.write(bundle, output);
+			output.close();
+		} catch (IOException e) {
+			ShatteredPixelDungeon.reportException(e);
+		}
+	}
+
+	public void load() {
+		try {
+			InputStream input = Game.instance.openFileInput(GIFT_UNLOCK_FILE);
+			Bundle bundle = Bundle.read(input);
+			input.close();
+		} catch (IOException e) {
+
+		}
+	}
+
 	public static Bundle get(){
 		try {
-			InputStream input = Game.instance.openFileInput("Unlocks.dat");
+			InputStream input = Game.instance.openFileInput(GIFT_UNLOCK_FILE);
 			bundle = Bundle.read(input);
 			input.close();
 			return bundle;
 		} catch (IOException e){
 			bundle=new Bundle();
 			return bundle;
-		}
-	}
-	public static void save(){
-		try {
-			OutputStream output = Game.instance.openFileOutput("Unlocks.dat", Context.MODE_PRIVATE);
-			Bundle.write(bundle, output);
-			output.close();
-		} catch (IOException ignored){
 		}
 	}
 
@@ -189,16 +215,18 @@ public enum GiftUnlocks {
 
 	public static void put( String key, int value ) {
 		get().put(key, value);
-		save();
+		//save();
 	}
 
 	public static void put( String key, boolean value ) {
 		get().put( key, value );
-		save();
+		//save();
 	}
 
 	public static void put( String key, String value ) {
 		get().put(key, value);
-		save();
+		//save();
 	}
+
+
 }

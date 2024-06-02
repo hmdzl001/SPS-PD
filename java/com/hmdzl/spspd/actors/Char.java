@@ -74,6 +74,8 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Rhythm;
 import com.hmdzl.spspd.actors.buffs.Rhythm2;
 import com.hmdzl.spspd.actors.buffs.Roots;
+import com.hmdzl.spspd.actors.buffs.SelfDenial;
+import com.hmdzl.spspd.actors.buffs.SelfDestroy;
 import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Shocked;
@@ -380,6 +382,11 @@ public abstract class Char extends Actor {
 	}
 
 	public int defenseProc(Char enemy, int damage) {
+		
+		if (buff(SelfDenial.class) != null) {
+			SelfDenial.level++;
+		}
+		
 		return damage;
 	}
 
@@ -571,6 +578,10 @@ public abstract class Char extends Actor {
 
 			if (src instanceof Hunger) {
 				icon = FloatingText2.HUNGER;
+				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
+			}
+			if (src instanceof SelfDestroy) {
+				icon = FloatingText2.SELF_DMG;
 				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
 			}
 			if (src instanceof MeleeWeapon){
@@ -976,15 +987,15 @@ public abstract class Char extends Actor {
 				new HashSet<Class>( Arrays.asList(Roots.class)  ),
 				new HashSet<Class>( Arrays.asList(BeCorrupt.class,BeOld.class) )
 		),
-		FISHER( new HashSet<Class>( Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class)),
+		FISHER( new HashSet<Class>( Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class,DamageType.ShockDamage.class,DamageType.IceDamage.class)),
 				new HashSet<Class>( ),
-				new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class))
+				new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class,DamageType.FireDamage.class))
 		),
 		ELF( new HashSet<Class>( Arrays.asList(BeOld.class) ),
 				new HashSet<Class>( ),
 				new HashSet<Class>( Arrays.asList(Vertigo.class,Blindness.class))
 		),
-		DWARF( new HashSet<Class>(  Arrays.asList(Paralysis.class , AcidOoze.class,GrowSeed.class ) ),
+		DWARF( new HashSet<Class>(  Arrays.asList(Paralysis.class , AcidOoze.class,GrowSeed.class,DamageType.EarthDamage.class ) ),
 				new HashSet<Class>( Arrays.asList(Cripple.class, Roots.class) ),
 				new HashSet<Class>(  Arrays.asList(ShadowCurse.class,DamageType.DarkDamage.class,Darkglyph.class,WandOfBlood.class))
 		),
@@ -1005,9 +1016,9 @@ public abstract class Char extends Actor {
 				new HashSet<Class>(  ),
 				new HashSet<Class>( Arrays.asList( BeOld.class, DamageType.DarkDamage.class, Blindness.class) )
 		),
-		DRAGON( new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class) ),
+		DRAGON( new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class,DamageType.FireDamage.class) ),
 				new HashSet<Class>(  Arrays.asList(BeCorrupt.class,BeOld.class,AttackDown.class) ),
-				new HashSet<Class>(  Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class) )
+				new HashSet<Class>(  Arrays.asList(WandOfFreeze.class,WandOfFlow.class,DamageType.IceDamage.class) )
 		),
 		PLANT( new HashSet<Class>(Arrays.asList(Roots.class, Cripple.class, AcidOoze.class,DamageType.LightDamage.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class)),

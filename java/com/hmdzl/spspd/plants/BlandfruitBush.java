@@ -53,7 +53,7 @@ public class BlandfruitBush extends Plant {
 	}
 	public static class ExBlandfruitBush extends Plant {
 		{
-			image = 8;
+			image = 27;
 		}
 		@Override
 		public void activate(Char ch) {

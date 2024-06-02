@@ -321,21 +321,21 @@ public class WndHero extends WndTabbed {
 					btnDisTarget.reqWidth() + 2, btnDisTarget.reqHeight() + 2);
 			add(btnDisTarget);
 
-			RedButton btnChangeAction = new RedButton(Messages.get(this, "change")) {
-				@Override
-				protected void onClick() {
-					GameScene.show(new WndChangeAction());
-				}
-			};
+			//RedButton btnChangeAction = new RedButton(Messages.get(this, "change")) {
+			//	@Override
+			//	protected void onClick() {
+				//	GameScene.show(new WndChangeAction());
+			//	}
+			//};
 
-            btnChangeAction.setRect(btnDisTarget.right() + 1, title.height()+ btnSummon.top() + 1,
-                    btnSummon.reqWidth() + 2, btnSummon.reqHeight() + 2);
-			add(btnChangeAction);
+            //btnChangeAction.setRect(btnDisTarget.right() + 1, title.height()+ btnSummon.top() + 1,
+            //        btnSummon.reqWidth() + 2, btnSummon.reqHeight() + 2);
+			//add(btnChangeAction);
 
 			pos = btnDisTarget.bottom() + GAP;
 
 			if (Dungeon.dungeondepth <26 && (Dungeon.dewDraw || Dungeon.dewWater)) {
-				statSlot(Messages.get(this, "level_move"), Dungeon.depth.currentmoves);
+				statSlot(Messages.get(this, "level_move"), (int)Dungeon.depth.currentmoves);
 				statSlot(Messages.get(this, "level_max"), Dungeon.pars[Dungeon.dungeondepth]);
 				//statSlot(Messages.get(this, "level_prefect"), Statistics.prevfloormoves);
 			}
@@ -375,16 +375,16 @@ public class WndHero extends WndTabbed {
         }
     }
 
-	private class WndChangeAction extends WndOptions {
-		public WndChangeAction() {
-			super(Messages.get(WndHero.class, "pa_t"), Messages.get(WndHero.class, "pa_i"),Messages.get(WndHero.class, "pa_de"),
-					Messages.get(WndHero.class, "pa_ch"),Messages.get(WndHero.class, "pa_fe"));
-		}
+	//private class WndChangeAction extends WndOptions {
+		//public WndChangeAction() {
+		//	super(Messages.get(WndHero.class, "pa_t"), Messages.get(WndHero.class, "pa_i"),Messages.get(WndHero.class, "pa_de"),
+		//			Messages.get(WndHero.class, "pa_ch"),Messages.get(WndHero.class, "pa_fe"));
+		//}
 
-		@Override
-		protected void onSelect( int index ) {
-			Dungeon.hero.petAction = index;
-		}
+		//@Override
+		//protected void onSelect( int index ) {
+		//	Dungeon.hero.petAction = index;
+		//}
 
-	}
+	//}
 }

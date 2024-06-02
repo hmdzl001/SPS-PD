@@ -34,7 +34,7 @@ public class NutVegetable extends Vegetable {
 	}
 
 	public void doEat() {
-			Buff.affect(curUser, ShieldArmor.class).level(curUser.HT/5);
+			Buff.affect(curUser, ShieldArmor.class).level(curUser.HT/20);
 
 	}
 

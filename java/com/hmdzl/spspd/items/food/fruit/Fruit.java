@@ -27,7 +27,7 @@ public class Fruit extends Food {
 		//name = "ration of food";
 		image = ItemSpriteSheet.RATION;
 
-		 
+		 eattime = 1;
 	}
 
 

@@ -27,6 +27,8 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.food.vegetable.DreamLeaf;
+import com.hmdzl.spspd.items.food.vegetable.Marigold;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.BlindFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -64,6 +66,10 @@ public class Blindweed extends Plant {
 		if (Dungeon.visible[pos]) {
 			CellEmitter.get(pos).burst(Speck.factory(Speck.LIGHT), 4);
 		}
+
+
+		Dungeon.depth.drop(new Marigold(), pos).sprite.drop();
+
 	}
 
 	public static class Seed extends Plant.Seed {
@@ -77,7 +83,7 @@ public class Blindweed extends Plant {
 	}
 	public static class ExBlindweed extends Plant {
 		{
-			image = 3;
+			image = 22;
 		}
 		@Override
 		public void activate(Char ch) {

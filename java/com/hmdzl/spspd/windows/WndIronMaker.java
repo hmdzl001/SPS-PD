@@ -59,6 +59,7 @@ import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.scrolls.ScrollOfIdentify;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
+import com.hmdzl.spspd.items.weapon.melee.special.FiveFlower;
 import com.hmdzl.spspd.items.weapon.spammo.BattleAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.BlindAmmo;
 import com.hmdzl.spspd.items.weapon.spammo.DewAmmo;
@@ -364,6 +365,8 @@ public class WndIronMaker extends Window {
 			result = Generator.random();
 		} else if ( nut.size() == 5 ){
 			result = new NutCookie(6);
+		} else if ( vegetables.size() == 5 ){
+			result = new FiveFlower();
 		} else if ( ore.size() == 4 && water.size() == 1){
 			result = new Timepill2();
 		} else if (meatfoods.size()==1 && ore.size() == 1 && staplefoods.size() ==1 && fruits.size() == 1 && vegetables.size() == 1 ){

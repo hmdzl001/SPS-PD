@@ -103,8 +103,7 @@ public class Weapon extends KindOfWeapon {
 
 	private static final String ENCHANTMENT = "enchantment";
 
-    public int STR()
-    {
+    public int STR() {
         if(Dungeon.hero != null  && (this instanceof MeleeWeapon || this instanceof RelicMeleeWeapon ) &&
 				Dungeon.hero.belongings.weapon == this && STR > 2 &&
 				(Dungeon.hero.heroClass == HeroClass.ROGUE || Dungeon.hero.subClass == HeroSubClass.ARTISAN))
@@ -210,8 +209,9 @@ public class Weapon extends KindOfWeapon {
 		int exStr = hero.STR() - STR();
 		if (exStr > 0) {
 			damage += exStr;
+		} else if (exStr < 0) {
+			damage = (int)(damage * 0.8f);
 		}
-
 		if (this instanceof MissileWeapon) {
 			if (Dungeon.hero.buff(TargetShoot.class)!= null)
 				 damage = (int)(damage*1.5f);

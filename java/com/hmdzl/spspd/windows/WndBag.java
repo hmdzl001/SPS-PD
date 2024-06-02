@@ -185,8 +185,7 @@ public class WndBag extends WndTabbed {
 
 		nCols = ShatteredPixelDungeon.landscape() ? COLS_L : COLS_P;
 		nRows = (Belongings.BACKPACK_SIZE + 5 + 2) / nCols
-						+ ((Belongings.BACKPACK_SIZE + 5 + 2) % nCols > 0 ? 1 : 0)
-		;
+						+ ((Belongings.BACKPACK_SIZE + 5 + 2) % nCols > 0 ? 1 : 0);
 
 		int slotsWidth = SLOT_SIZE * nCols + SLOT_MARGIN * (nCols -1 );
 		int slotsHeight = SLOT_SIZE * nRows + SLOT_MARGIN * (nRows -1 );
@@ -308,9 +307,20 @@ public class WndBag extends WndTabbed {
 			row = 2;
 		}
 
+		if (container != Dungeon.hero.belongings.backpack){
+			placeItem(container);
+			count--; //don't count this one, as it's not actually inside of itself
+		}
+
 		// Items in the bag
-		for (Item item : container.items) {
-			placeItem(item);
+		for (Item item : container.items.toArray(new Item[0])) {
+			//placeItem(item);
+			if (!(item instanceof Bag)) {
+				placeItem( item );
+			} else {
+				count++;
+				//hero.belongings.backpack.size++;
+			}
 		}
 
 		// Free Space
@@ -476,7 +486,7 @@ public class WndBag extends WndTabbed {
 			super(item);
 
 			this.item = item;
-			if (item instanceof Gold || item instanceof SpecialCoin || item instanceof ChangeEquip) {
+			if (item instanceof Gold || item instanceof SpecialCoin || item instanceof ChangeEquip || item instanceof Bag) {
 				bg.visible = false;
 			}
 

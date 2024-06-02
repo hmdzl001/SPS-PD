@@ -308,10 +308,12 @@ public class DewVial extends Item {
 			// uncurse(hero, hero.belongings.backpack.items.toArray(new Item[0]));
 			 uncurse(hero, hero.belongings.weapon,
 					hero.belongings.armor, hero.belongings.misc1,
-					hero.belongings.misc2, hero.belongings.misc3);
+					hero.belongings.misc2, hero.belongings.misc3,
+					 hero.belongings.armor_two,hero.belongings.weapon_two);
 			 uncurse(hero, hero.belongings.weapon,
 					hero.belongings.armor, hero.belongings.misc1,
-					hero.belongings.misc2, hero.belongings.misc3);
+					hero.belongings.misc2, hero.belongings.misc3,
+					 hero.belongings.armor_two,hero.belongings.weapon_two);
 
 
 			if (dewpointex > 0){

@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
+import com.hmdzl.spspd.items.ChangeEquip;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -33,6 +34,8 @@ import com.watabou.noosa.Gizmo;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Button;
 import com.watabou.noosa.ui.Component;
+
+import java.util.regex.Pattern;
 
 public class Toolbar extends Component {
 
@@ -194,7 +197,9 @@ public class Toolbar extends Component {
 			}
 			@Override
 			protected boolean onLongClick() {
-				Dungeon.hero.search(true);
+				//Dungeon.hero.search(true);
+				ChangeEquip item = new ChangeEquip();
+				item.execute(Dungeon.hero,ChangeEquip.AC_CHANGE);
 				return true;
 			}
 		} );

@@ -43,6 +43,7 @@ public class GreatRune extends Item {
 
 		stackable = true;
 
+		defaultAction = AC_INSCRIBE;
 		 
 	}
 

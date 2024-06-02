@@ -23,6 +23,8 @@ import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
+import com.hmdzl.spspd.items.food.vegetable.FirePepper;
+import com.hmdzl.spspd.items.food.vegetable.IceMint;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.FireFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -47,6 +49,10 @@ public class Firebloom extends Plant {
 		if (Dungeon.visible[pos]) {
 			CellEmitter.get(pos).burst(FlameParticle.FACTORY, 5);
 		}
+
+
+		Dungeon.depth.drop(new FirePepper(), pos).sprite.drop();
+
 	}
 
 	public static class Seed extends Plant.Seed {
@@ -61,7 +67,7 @@ public class Firebloom extends Plant {
 
 	public static class ExFirebloom extends Plant {
 		{
-			image = 0;
+			image = 19;
 		}
 		@Override
 		public void activate(Char ch) {

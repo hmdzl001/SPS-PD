@@ -52,6 +52,8 @@ public class FloatingText2 extends RenderedTextBlock {
 	public static int MAGIC_DMG         = 2;
 	public static int TRUE_DMG          = 3;
 
+	public static int SELF_DMG          = 4;
+
 	//debuff/dot damage icons
 	public static int HUNGER    = 5;
 	public static int BURNING   = 6;

@@ -27,6 +27,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.bags.Bag;
+import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
@@ -192,7 +193,7 @@ public class Item implements Bundlable {
 			}
 
 			items.add(this);
-			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon)
+			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon || this instanceof Egg)
 				Dungeon.quickslot.replaceSimilar(this);
 			updateQuickslot();
 			Collections.sort(items, itemComparator);
@@ -218,7 +219,7 @@ public class Item implements Bundlable {
 
 		} else if (quantity == 1) {
 
-			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon) {
+			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon || this instanceof Egg) {
 				Dungeon.quickslot.convertToPlaceholder(this);
 			}
 
@@ -273,7 +274,7 @@ public class Item implements Bundlable {
 
 		} else if (quantity == 1) {
 
-			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon) {
+			if (stackable || this instanceof Boomerang || this instanceof MeleeThrowWeapon || this instanceof Egg) {
 				Dungeon.quickslot.convertToPlaceholder(this);
 			}
 
@@ -332,7 +333,13 @@ public class Item implements Bundlable {
 		cursed=false;
 		return this;
 	}
-	
+
+	public Item docurse(){
+		cursed=true;
+		return this;
+	}
+
+
 	public Item reinforce(){
 		reinforced=true;
 		return this;

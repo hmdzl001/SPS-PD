@@ -75,6 +75,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import static com.hmdzl.spspd.Dungeon.shopOnLevel;
+
 public class Heap implements Bundlable {
 
 	private static final int SEEDS_TO_POTION = 3;
@@ -186,7 +188,7 @@ public class Heap implements Bundlable {
 			break;
 		case M_WEB:
 			CellEmitter.center(pos).start(Speck.factory(Speck.COBWEB), 0.1f, 3);
-				if (Random.Int(10) == 0){
+				if (Random.Int(10) == 0 && !shopOnLevel()){
 					if (Spinner.spawnAt(pos) == null) {
 						Spinner.spawnAround(hero.pos);
 					}

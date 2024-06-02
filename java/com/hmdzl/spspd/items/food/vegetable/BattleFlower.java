@@ -37,10 +37,10 @@ public class BattleFlower extends Vegetable {
 	}
 
 	public void doEat() {
-			Buff.affect(curUser, AttackUp.class,30f).level(25);
-			Buff.affect(curUser, DefenceUp.class,30f).level(25);
-			Buff.affect(curUser, Arcane.class,5f);
-			Buff.affect(curUser, TargetShoot.class,30f);
+			Buff.affect(curUser, AttackUp.class,15f).level(25);
+			Buff.affect(curUser, DefenceUp.class,15f).level(25);
+			Buff.affect(curUser, Arcane.class,4f);
+			Buff.affect(curUser, TargetShoot.class,15f);
 
 	}
 

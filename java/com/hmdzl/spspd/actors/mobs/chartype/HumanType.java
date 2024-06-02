@@ -15,34 +15,42 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.food.vegetable;
+package com.hmdzl.spspd.actors.mobs.chartype;
 
-import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.MagicArmor;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.sprites.ErrorSprite;
 
-public class HealGrass extends Vegetable {
+public class HumanType extends Mob {
+	
+
+	private static final float SPAWN_DELAY = 2f;
 
 	{
-		stackable = true;
-		//name = "ration of food";
-		image = ItemSpriteSheet.HEAL_L;
-		energy = 20;
-		hornValue = 1;
-		 
-	}
+		spriteClass = ErrorSprite.class;
 
-	public void doEat() {
-			//hero.HP = Math.min(hero.HP + hero.HT/5, hero.HT);
-			Buff.affect(curUser, BerryRegeneration.class).level(20);
-			Buff.affect(curUser,MagicArmor.class).level(curUser.HT/5);
-
+		HP = HT = 1;
+		evadeSkill = 1;
+		
+		EXP = 1;
+		maxLvl = 1;
+		
+		properties.add(Property.HUMAN);
 	}
 
 	@Override
-	public int price() {
-		return 1 * quantity;
+	public int damageRoll() {
+		return 1;
 	}
+
+	@Override
+	public int hitSkill(Char target) {
+		return 1;
+	}
+
+	@Override
+	public int drRoll() {
+		return 1;
+	}
+
 }

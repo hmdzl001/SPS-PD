@@ -90,12 +90,7 @@ public class Golem extends Mob {
 	
 	@Override
 	public void die(Object cause) {
-		
 		Imp.Quest.process(this);
-		//if (Dungeon.limitedDrops.nornstones.count<6 
-		//		&& Random.Int(6)<3){
-		//	Dungeon.level.drop(Generator.random(Generator.Category.NORNSTONE), pos).sprite.drop();
-		//	Dungeon.limitedDrops.nornstones.count++;}		
 		super.die(cause);
 	}
 

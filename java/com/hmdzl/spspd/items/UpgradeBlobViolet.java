@@ -42,7 +42,7 @@ public class UpgradeBlobViolet extends Item {
 		image = ItemSpriteSheet.UPGRADEGOO_VIOLET;
 
 		stackable = true;
-
+		defaultAction = AC_INSCRIBE;
 		 
 	}
 

@@ -43,7 +43,7 @@ public class DemoScroll extends Item {
 
 		stackable = false;
 		charge = 0;
-		//defaultAction = AC_READ;
+		defaultAction = AC_READ2;
 	}
 
 	public static int charge;
@@ -121,10 +121,15 @@ public class DemoScroll extends Item {
 		    
 			//detach(hero.belongings.backpack);
 		} else if (action.equals(AC_READ2)) {
-            charge -= 10;
-            Dungeon.hero.TRUE_HT++;
-			Dungeon.hero.updateHT(true);
-			GLog.w(Messages.get(this, "htup"));
+			if (charge<10){
+				GLog.w(Messages.get(this, "nocharge"));
+				return;
+			} else {
+				charge -= 10;
+				Dungeon.hero.TRUE_HT++;
+				Dungeon.hero.updateHT(true);
+				GLog.w(Messages.get(this, "htup"));
+			}
 		} else {
 			super.execute(hero, action);
 

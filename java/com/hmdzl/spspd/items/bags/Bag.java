@@ -47,6 +47,10 @@ public class Bag extends Item implements Iterable<Item> {
 
 	public int size = 1;
 
+	public int capacity(){
+		return 35; // default container size
+	}
+
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
@@ -82,6 +86,7 @@ public class Bag extends Item implements Iterable<Item> {
 		if (super.collect(container)) {
 
 			owner = container.owner;
+			//Dungeon.hero.belongings.backpack.size++;
 
 			/*for (Item item : container.items.toArray(new Item[0])) {
 				if (grab(item)) {

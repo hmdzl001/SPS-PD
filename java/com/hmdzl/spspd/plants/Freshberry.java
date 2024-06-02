@@ -71,7 +71,7 @@ public class Freshberry extends Plant {
 	
 	public static class ExFreshberry extends Plant {
 		{
-			image = 7;
+			image = 26;
 		}
 		@Override
 		public void activate(Char ch) {

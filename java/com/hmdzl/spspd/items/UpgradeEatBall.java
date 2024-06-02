@@ -42,6 +42,7 @@ public class UpgradeEatBall extends Item {
 		image = ItemSpriteSheet.UP_EATER;
 		
 	    stackable = true;
+		defaultAction = AC_USE;
 	}
 	
 	@Override

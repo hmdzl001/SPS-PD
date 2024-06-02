@@ -6,6 +6,8 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.food.vegetable.RootRadish;
+import com.hmdzl.spspd.items.food.vegetable.StormTulip;
 import com.hmdzl.spspd.items.potions.PotionOfLevitation;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.ShockFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -35,6 +37,9 @@ public class Stormvine extends Plant {
 		if (heap != null) {
 			heap.shockhit();
 		}
+
+		Dungeon.depth.drop(new StormTulip(), pos).sprite.drop();
+
 	}
 
 
@@ -50,7 +55,7 @@ public class Stormvine extends Plant {
 	
 	public static class ExStormvine extends Plant {
 		{
-			image = 9;
+			image = 28;
 		}
 		@Override
 		public void activate(Char ch) {

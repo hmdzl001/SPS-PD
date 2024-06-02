@@ -48,6 +48,7 @@ public class ChangeEquip extends Item {
 		image = ItemSpriteSheet.EQUIP_CHANGE;
 		stackable = true;
 		defaultAction = AC_CHANGE;
+		unique = true;
 	}
 
 	public static final String AC_CHANGE = "CHANGE";

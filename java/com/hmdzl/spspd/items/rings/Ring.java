@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 public class Ring extends KindofMisc {
 
-	private static final int TICKS_TO_KNOW = 200;
+	//private static final int TICKS_TO_KNOW = 200;
 
 	private static final float TIME_TO_EQUIP = 1f;
 
@@ -64,7 +64,7 @@ public class Ring extends KindofMisc {
 
 	private String gem;
 
-	private int ticksToKnow = TICKS_TO_KNOW;
+	//private int ticksToKnow = TICKS_TO_KNOW;
 
 	@SuppressWarnings("unchecked")
 	public static void initGems() {
@@ -302,15 +302,15 @@ public class Ring extends KindofMisc {
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(UNFAMILIRIARITY, ticksToKnow);
+		//bundle.put(UNFAMILIRIARITY, ticksToKnow);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		if ((ticksToKnow = bundle.getInt(UNFAMILIRIARITY)) == 0) {
-			ticksToKnow = TICKS_TO_KNOW;
-		}
+		//if ((ticksToKnow = bundle.getInt(UNFAMILIRIARITY)) == 0) {
+		//	ticksToKnow = TICKS_TO_KNOW;
+		//}
 	}
 
 	public static int getBonus(Char target, Class<?extends RingBuff> type){
@@ -328,7 +328,7 @@ public class Ring extends KindofMisc {
 		public int level;
 
 		public RingBuff() {
-			level = Ring.this.level;
+			level = Ring.this.cursed? -5 : Ring.this.level;
 		}
 
 		@Override

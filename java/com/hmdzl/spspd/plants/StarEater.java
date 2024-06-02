@@ -69,7 +69,7 @@ public class StarEater extends Plant {
 	}
 	public static class ExStarEater extends Plant {
 		{
-			image = 15;
+			image = 34;
 		}
 		@Override
 		public void activate(Char ch) {

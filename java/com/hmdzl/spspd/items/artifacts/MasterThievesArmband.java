@@ -11,6 +11,7 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -82,15 +83,15 @@ public class MasterThievesArmband extends Artifact {
 			if (!isEquipped( hero )) {
 				GLog.i( Messages.get(Artifact.class, "need_to_equip") );
 				usesTargeting = false;
-
+				return;
 			} else if (charge < 1) {
 				GLog.i( Messages.get(this, "no_charge") );
 				usesTargeting = false;
-
+				return;
 			} else if (cursed) {
 				GLog.w( Messages.get(this, "cursed") );
 				usesTargeting = false;
-
+				return;
 			} else {
 				usesTargeting = true;
 				GameScene.selectCell(targeter);
@@ -121,7 +122,7 @@ public class MasterThievesArmband extends Artifact {
 		public void onSelect(Integer target) {
 
 			if (target == null) {
-				return;
+				GLog.w(Messages.get(MasterThievesArmband.class, "no_target"));
 			} else if (!Dungeon.depth.adjacent(curUser.pos, target) || Actor.findChar(target) == null){
 				GLog.w( Messages.get(MasterThievesArmband.class, "no_target") );
 			} else {
@@ -133,15 +134,13 @@ public class MasterThievesArmband extends Artifact {
 				//} else
 					if (ch instanceof Mob) {
 					curUser.busy();
-					curUser.sprite.attack(target, new Callback() {
-								@Override
-								public void call() {
-									Sample.INSTANCE.play(Assets.SND_HIT);
-									if (((Mob) ch).firstitem == true) {
-										Item loot = ((Mob) ch).SupercreateLoot();
-										Dungeon.depth.drop(loot, curUser.pos).sprite.drop();
-										((Mob) ch).firstitem = false;
-									} else Dungeon.depth.drop(new StoneOre(), curUser.pos).sprite.drop();
+					curUser.sprite.operate(target);
+					Sample.INSTANCE.play(Assets.SND_HIT);
+					if (((Mob) ch).firstitem == true) {
+						Item loot = ((Mob) ch).SupercreateLoot();
+						Dungeon.depth.drop(loot, curUser.pos).sprite.drop();
+						((Mob) ch).firstitem = false;
+					} else {Dungeon.depth.drop(new StoneOre(), curUser.pos).sprite.drop();}
 									charge--;
 									exp++;
 									while (exp >= level && level < levelCap) {
@@ -150,12 +149,8 @@ public class MasterThievesArmband extends Artifact {
 										upgrade();
 									}
 									updateQuickslot();
-									curUser.next();
-								}
-					});
-
-
-					}
+									//curUser.next();
+					    }
 					}
 
 			}

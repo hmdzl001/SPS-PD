@@ -18,7 +18,7 @@ public class PotionBandolier extends Bag {
 		//name = "potion bandolier";
 		image = ItemSpriteSheet.BANDOLIER;
 
-		size = 30;
+		size = 34;
 	}
 
 	@Override

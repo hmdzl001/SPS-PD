@@ -48,6 +48,7 @@ public class SpecialCoin extends Item {
 		//name = "gold";
 		image = ItemSpriteSheet.GOLD_WALLNUT;
 		stackable = true;
+		unique = true;
 	}
 
 	public SpecialCoin() {

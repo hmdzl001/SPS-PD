@@ -252,7 +252,7 @@ public class SpiderQueen extends Mob {
 			EXP = 0;
 
 			state = PASSIVE;
-			properties.add(Property.UNKNOW);
+			properties.add(Property.BEAST);
 			properties.add(Property.BOSS);
 		}
 

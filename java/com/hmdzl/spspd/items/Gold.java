@@ -51,6 +51,7 @@ public class Gold extends Item {
 		//name = "gold";
 		image = ItemSpriteSheet.GOLD;
 		stackable = true;
+		unique = true;
 	}
 
 	public static final String AC_UNARMOR = "UNARMOR";

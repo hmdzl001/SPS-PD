@@ -26,6 +26,7 @@ import com.hmdzl.spspd.items.food.fruit.Cloudberry;
 import com.hmdzl.spspd.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.levels.Floor;
+import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -70,8 +71,10 @@ public class ReNepenth extends Plant {
 	
 	public static class ExReNepenth extends Plant {
 		{
-			image = 14;
+			image = 33;
 		}
+
+
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);

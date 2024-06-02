@@ -97,6 +97,7 @@ import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MiniMoai;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AshWolfSprite;
+import com.hmdzl.spspd.sprites.BeggerSprite;
 import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.PigPetSprite;
 import com.hmdzl.spspd.sprites.RENSprite;
@@ -110,7 +111,7 @@ public class GiftBegger extends GiftNpc {
 
 	{
 		//name = Messages.get(this,"name");
-		spriteClass = VagrantSprite.class;
+		spriteClass = BeggerSprite.class;
 		properties.add(Property.HUMAN);
 		
 	}

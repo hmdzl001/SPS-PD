@@ -66,7 +66,7 @@ public class Seedpod extends Plant{
 	}
 	public static class ExSeedpod extends Plant {
 		{
-			image = 13;
+			image = 32;
 		}
 		@Override
 		public void activate(Char ch) {

@@ -25,6 +25,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
+import com.hmdzl.spspd.actors.buffs.SelfDestroy;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
@@ -36,7 +37,9 @@ import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.artifacts.GlassTotem;
+import com.hmdzl.spspd.items.bombs.AddBomb;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
+import com.hmdzl.spspd.items.bombs.XBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban4;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.DanceLion;
@@ -115,31 +118,12 @@ public class LichDancer extends Mob {
 	@Override
 	protected boolean act() {
 		
-        if( 3 - breaks > 4 * HP / HT ) {
+        if( 2 - breaks > 3 * HP / HT ) {
 			breaks++;
 			jump();
+			addbomb();
             return true;
         }
-
-		 if (Random.Int(5) == 0 && breaks > 0){
-			ArrayList<Integer> spawnPoints = new ArrayList<>();
-
-			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-				int p = enemy.pos + PathFinder.NEIGHBOURS8[i];
-				if (Actor.findChar( p ) == null && (Floor.passable[p] || Floor.avoid[p])) {
-					spawnPoints.add( p );
-				}
-			}
-
-			if (spawnPoints.size() > 0) {
-				Mob	m = new LinkBomb();
-				if (m != null) {
-					GameScene.add(m);
-					ScrollOfTeleportation.appear(m, Random.element(spawnPoints));
-				}
-			}
-		}
-
 		if (HP < HT) {
 			//sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 			HP = HP + 3;
@@ -163,6 +147,21 @@ public class LichDancer extends Mob {
 		spawnTomb();
 		spend(1 / speed());
 	}
+
+	private void addbomb() {
+		int bombPos;
+		do {
+			bombPos = Random.Int(Floor.getLength());
+		} while (!Floor.fieldOfView[bombPos] || !Floor.passable[bombPos]
+				|| Floor.adjacent(bombPos, enemy.pos)
+				|| Actor.findChar(bombPos) != null);
+
+		Mob	m = new LinkAddBomb();
+		GameScene.add(m);
+		ScrollOfTeleportation.appear(m, bombPos);
+	}
+
+
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
@@ -324,11 +323,11 @@ public class LichDancer extends Mob {
 
 	}
 }
-    public static class LinkBomb extends Mob {
+    public static class LinkAddBomb extends Mob {
         {
             spriteClass = SeekingBombSprite.class;
 
-            HP = HT = 1;
+            HP = HT = 8;
             evadeSkill = 0;
             baseSpeed = 1f;
             EXP = 0;
@@ -339,20 +338,6 @@ public class LichDancer extends Mob {
             properties.add(Property.MINIBOSS);
         }
 
-		private int bombtime=3;
-		private static final String BOMBTIME	= "bombtime";
-
-		public void storeInBundle( Bundle bundle ) {
-			super.storeInBundle(bundle);
-			bundle.put( BOMBTIME, bombtime );
-		}
-
-		@Override
-		public void restoreFromBundle( Bundle bundle ) {
-			super.restoreFromBundle(bundle);
-			bombtime = bundle.getInt( BOMBTIME );
-		}
-
 		@Override
         public int drRoll() {
             return 0;
@@ -360,17 +345,73 @@ public class LichDancer extends Mob {
 
         @Override
         public boolean act() {
-            yell(""+bombtime+"!");
-            if (bombtime < 1){
-                DungeonBomb bomb = new DungeonBomb();
-                bomb.explode(pos);
-                yell("KA-BOOM!!!");
-                destroy();
-                sprite.die();
-            }
-			bombtime --;
+            yell(""+HP/2+"!");
             return super.act();
         }
 
-    }
+		@Override
+		public void damage(int dmg, Object src) {
+			if (!(src instanceof SelfDestroy) ) dmg = 0;
+			super.damage(dmg, src);
+		}
+
+		public void die(Object cause) {
+			AddBomb addbomb = new AddBomb();
+			addbomb.explode(pos);
+			for (Mob mob : Dungeon.depth.mobs) {
+				if (mob instanceof LichDancer) {
+					Mob	ma = new LinkXBomb();
+					GameScene.add(ma);
+					ScrollOfTeleportation.appear(ma, pos);
+				}
+			}
+			super.die(cause);
+		}
+	}
+
+	public static class LinkXBomb extends Mob {
+		{
+			spriteClass = SeekingBombSprite.class;
+
+			HP = HT = 8;
+			evadeSkill = 0;
+			baseSpeed = 1f;
+			EXP = 0;
+
+			state = PASSIVE;
+
+			properties.add(Property.MECH);
+			properties.add(Property.MINIBOSS);
+		}
+
+		@Override
+		public int drRoll() {
+			return 0;
+		}
+
+		@Override
+		public boolean act() {
+			yell(""+HP/2+"!");
+			return super.act();
+		}
+
+		@Override
+		public void damage(int dmg, Object src) {
+			if (!(src instanceof SelfDestroy) ) dmg = 0;
+			super.damage(dmg, src);
+		}
+
+		public void die(Object cause) {
+			XBomb xbomb = new XBomb();
+			xbomb.explode(pos);
+			for (Mob mob : Dungeon.depth.mobs) {
+				if (mob instanceof LichDancer) {
+					Mob	mb = new LinkAddBomb();
+					GameScene.add(mb);
+					ScrollOfTeleportation.appear(mb, pos);
+				}
+			}
+			super.die(cause);
+		}
+	}
 }

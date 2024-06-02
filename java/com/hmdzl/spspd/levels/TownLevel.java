@@ -34,6 +34,7 @@ import com.hmdzl.spspd.actors.mobs.Piranha;
 import com.hmdzl.spspd.actors.mobs.TestMob;
 import com.hmdzl.spspd.actors.mobs.TestMob2;
 import com.hmdzl.spspd.actors.mobs.npcs.AFly;
+import com.hmdzl.spspd.actors.mobs.npcs.AHorse;
 import com.hmdzl.spspd.actors.mobs.npcs.ARealMan;
 import com.hmdzl.spspd.actors.mobs.npcs.ATV9;
 import com.hmdzl.spspd.actors.mobs.npcs.AliveFish;
@@ -729,6 +730,10 @@ public class TownLevel extends Floor {
 		  Mob bonestar = new BoneStar();
 		  bonestar.pos = 21 + WIDTH * 9;
 		  mobs.add(bonestar);
+
+		  Mob ahorse = new AHorse();
+		  ahorse.pos = 28 + WIDTH * 6;
+		  mobs.add(ahorse);
 
 	 }
 

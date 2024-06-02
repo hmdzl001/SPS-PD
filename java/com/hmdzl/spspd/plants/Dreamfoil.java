@@ -31,6 +31,7 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.food.vegetable.DreamLeaf;
+import com.hmdzl.spspd.items.food.vegetable.RootRadish;
 import com.hmdzl.spspd.items.potions.PotionOfPurity;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.CharmFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -48,7 +49,10 @@ public class Dreamfoil extends Plant {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-        Dungeon.depth.drop(new DreamLeaf(), pos).sprite.drop();
+
+		Dungeon.depth.drop(new DreamLeaf(), pos).sprite.drop();
+
+
 		if (ch != null) {
 			if (ch instanceof Mob)
 				Buff.affect(ch, MagicalSleep.class);
@@ -78,7 +82,7 @@ public class Dreamfoil extends Plant {
 	
 	public static class ExDreamfoil extends Plant {
 		{
-			image = 10;
+			image = 29;
 		}
 		@Override
 		public void activate(Char ch) {

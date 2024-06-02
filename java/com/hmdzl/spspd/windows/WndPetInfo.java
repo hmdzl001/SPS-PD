@@ -67,16 +67,16 @@ public class WndPetInfo extends Window {
 		add(message2);
 
 
-		RedButton btnChange = new RedButton(Messages.get(this, "change")) {
+		RedButton btnInfo = new RedButton(Messages.get(this, "moreinfo")) {
 			@Override
 			protected void onClick() {
 				hide();
-                heropet.changeplace();
+				GameScene.show(new WndInfoMob(heropet));
 			}
 		};
-		btnChange.setRect(0, message2.top() + message2.height() + GAP, WIDTH,
+		btnInfo.setRect(0, message2.top() + message2.height() + GAP, WIDTH,
 				BTN_HEIGHT);
-		add(btnChange);
+		add(btnInfo);
 
 		RedButton btnStay = new RedButton(Messages.get(this, "stay")) {
 			@Override
@@ -89,7 +89,7 @@ public class WndPetInfo extends Window {
 					}
 			}
 		};
-		btnStay.setRect(0, btnChange.top() + btnChange.height() + GAP, WIDTH,
+		btnStay.setRect(0, btnInfo.top() + btnInfo.height() + GAP, WIDTH,
 				BTN_HEIGHT);
 		add(btnStay);	
 		

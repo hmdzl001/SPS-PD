@@ -19,6 +19,8 @@ package com.hmdzl.spspd.items.weapon.melee.special;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.SelfDestroy;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -50,6 +52,9 @@ public class TestWeapon extends MeleeWeapon {
 		if (damage > Random.Int(8,20)) {
 			Dungeon.hero.spp++;
 		}
+
+		//Buff.affect(defender, SelfDestroy.class);
+
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);
 		}

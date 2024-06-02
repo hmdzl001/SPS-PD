@@ -46,7 +46,7 @@ public class UpgradeBlobYellow extends Item {
 
 		stackable = true;
 
-		 
+		defaultAction = AC_INSCRIBE;
 	}
 
 	@Override

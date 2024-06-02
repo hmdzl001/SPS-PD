@@ -321,6 +321,7 @@ public class SewerHeart extends Mob {
 		GameScene.add( mob, 1f );
 		mobs.add( mob );
 		ScrollOfTeleportation.appear(mob, mob.pos);
+		mob.yell(Messages.get(this,"heart"));
 		//important to process the visuals and pressing of cells last, so spawned mobs have a chance to occupy cells first
 
 		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)

@@ -84,7 +84,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	private static final float FLASH_INTERVAL	= 0.05f;
 	
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, REGROW, HEALING, SHIELDED,
+		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, REGROW, HEALING,SKILLREADY, SHIELDED,
 	}
 	
 	protected Animation idle;
@@ -105,6 +105,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected Emitter levitation;
 	protected Emitter regrow;
 	protected Emitter healing;
+
+	protected Emitter skillready;
 	protected PosTweener motion2;
 	protected IceBlock iceBlock;
 	protected DarkBlock darkBlock;
@@ -401,7 +403,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 			case HEALING:
 				healing = emitter();
 				healing.pour(Speck.factory(Speck.HEALING), 0.5f);
-				break;		
+				break;
+			case SKILLREADY:
+				skillready = emitter();
+				skillready.pour(Speck.factory(Speck.BUBBLE), 0.5f);
+				break;
 			case SHIELDED:
 				GameScene.effect( shield = new ShieldHalo( this ));
 				break;			
@@ -470,6 +476,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					healing = null;
 				}
 				break;
+			case SKILLREADY:
+				if (skillready != null){
+					skillready.on = false;
+					skillready = null;
+				}
+				break;
 			case SHIELDED:
 				if (shield != null){
 					shield.putOut();
@@ -516,8 +528,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		}
 		if (regrow != null) {
 			regrow.visible = visible;
-		}		
-		
+		}
+
+		if (skillready != null) {
+			skillready.visible = visible;
+		}
+
 	}
 	
 	@Override

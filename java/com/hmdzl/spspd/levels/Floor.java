@@ -175,7 +175,7 @@ public abstract class Floor implements Bundlable {
 	public boolean[] mapped;
 	
 	public int movepar=400;
-	public int currentmoves=0;
+	public float currentmoves=0;
 	public boolean genpetnext = false;
 
 	//private int newvd;
@@ -321,8 +321,8 @@ public abstract class Floor implements Bundlable {
 				}
 			}
 
-			if (Dungeon.dungeondepth > 1 && Dungeon.dungeondepth < 21) {
-				switch (Random.Int(10)) {
+			if (Dungeon.dungeondepth > 3 && Dungeon.dungeondepth < 21) {
+				switch (Random.Int(8)) {
 				case 0:
 					feeling = Feeling.CHASM;
 					break;
@@ -344,7 +344,7 @@ public abstract class Floor implements Bundlable {
                       break;
 				}
 			} else if (Dungeon.dungeondepth > 20 && Dungeon.dungeondepth < 26) {
-				switch (Random.Int(10)) {
+				switch (Random.Int(8)) {
 				case 0:
 					feeling = Feeling.DARK;
 					addItemToSpawn(new Torch());

@@ -15,23 +15,34 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.hmdzl.spspd.items.food.vegetable;
+package com.hmdzl.spspd.sprites;
 
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.Assets;
+import com.watabou.noosa.TextureFilm;
 
-public class BrewLeft extends Vegetable {
+public class FarmerSprite extends MobSprite {
 
-	{
-		stackable = true;
-		//name = "ration of food";
-		image = ItemSpriteSheet.NUT_VEGETABLE;
-		energy = 5;
-		hornValue = 0;
-		 
-	}
+	public FarmerSprite() {
+		super();
 
-	@Override
-	public int price() {
-		return 1 * quantity;
-	}
+		texture( Assets.FARMER );
+
+		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+
+        idle = new Animation( 10, true );
+        idle.frames(frames, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3);
+
+        run = new Animation( 20, true );
+        run.frames( frames, 0 );
+
+        attack = new Animation( 12, false );
+        attack.frames( frames, 0, 2, 3 );
+
+        die = new Animation( 20, false );
+        die.frames( frames, 0 );
+
+        play( idle );
+    }
+
+
 }

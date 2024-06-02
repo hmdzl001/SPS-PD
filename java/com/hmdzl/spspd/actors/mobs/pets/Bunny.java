@@ -25,6 +25,7 @@ import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
+import com.hmdzl.spspd.items.sellitem.MiniBunny;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.sprites.BunnySprite;
 import com.watabou.utils.Random;
@@ -72,7 +73,7 @@ public class Bunny extends PET{
 
 	@Override
 	public Item SupercreateLoot(){
-		return new EasterEgg();
+		return new MiniBunny();
 	}
 
 	@Override

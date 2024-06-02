@@ -22,6 +22,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.food.fruit.Durian;
+import com.hmdzl.spspd.items.food.vegetable.MotherRose;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -63,9 +64,19 @@ public class NutFruit extends Arrows {
 	protected void onThrow(int cell) {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
-            Floor.set(cell, Terrain.HIGH_GRASS);
-            GameScene.updateMap(cell);
-			if (Random.Int(10) ==0){
+			if (!(Dungeon.depth.map[cell] == Terrain.WELL ||
+					Dungeon.depth.map[cell] == Terrain.EMPTY_WELL ||
+					Dungeon.depth.map[cell] == Terrain.ENTRANCE ||
+					Dungeon.depth.map[cell] == Terrain.EXIT ||
+					Dungeon.depth.map[cell] == Terrain.ALCHEMY ||
+					Dungeon.depth.map[cell] == Terrain.IRON_MAKER ||
+					Dungeon.depth.map[cell] == Terrain.FLOWER_POT)) {
+				Floor.set(cell, Terrain.HIGH_GRASS);
+				GameScene.updateMap(cell);
+			}
+			if (Dungeon.depth.map[cell] == Terrain.FLOWER_POT){
+				Dungeon.depth.drop(new MotherRose(), cell).sprite.drop(cell);
+			} else if (Random.Int(10) ==0){
 				Dungeon.depth.drop(new Durian(), cell).sprite.drop(cell);
 			}
         } else

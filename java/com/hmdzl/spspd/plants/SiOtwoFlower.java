@@ -44,7 +44,7 @@ public class SiOtwoFlower extends Plant {
 	}
 	public static class ExSiOtwoFlower extends Plant {
 		{
-			image = 18;
+			image = 37;
 		}
 		@Override
 		public void activate(Char ch) {

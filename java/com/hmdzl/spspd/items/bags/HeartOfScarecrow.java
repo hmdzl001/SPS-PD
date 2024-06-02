@@ -31,7 +31,7 @@ public class HeartOfScarecrow extends Bag {
 		//name = "HeartOfScarecrow";
 		image = ItemSpriteSheet.H_O_SCARECROW;
 
-		size = 30;
+		size = 34;
 	}
 
 	

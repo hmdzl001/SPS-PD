@@ -112,6 +112,7 @@ import com.hmdzl.spspd.plants.Seedpod;
 import com.hmdzl.spspd.plants.StarEater;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AshWolfSprite;
+import com.hmdzl.spspd.sprites.BunnyKeeperSprite;
 import com.hmdzl.spspd.sprites.DemonRabbitSprite;
 import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.MrDestructo2dot0Sprite;
@@ -127,7 +128,7 @@ public class GiftBunnyKeeper extends GiftNpc {
 
 	{
 		//name = Messages.get(this,"name");
-		spriteClass = DemonRabbitSprite.class;
+		spriteClass = BunnyKeeperSprite.class;
 		properties.add(Property.MECH);
 		
 	}

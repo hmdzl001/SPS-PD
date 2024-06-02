@@ -54,7 +54,7 @@ public class HermitCrab extends Mob implements Callback {
 		loot = Generator.Category.BERRY;
 		lootChance = 0.33f;
 
-		properties.add(Property.BEAST);
+		properties.add(Property.FISHER);
 		properties.add(Property.BOSS);
 
 	}

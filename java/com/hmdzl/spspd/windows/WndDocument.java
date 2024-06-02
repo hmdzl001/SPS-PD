@@ -61,6 +61,8 @@ public class WndDocument extends WndTabbed {
 	private NotesTab notesTab;
 	private CatalogTab catalogTab;
 	private MobCatalogTab mobcatalogTab;
+	private MobCatalogTab2 mobcatalogTab2;
+	private MobCatalogTab3 mobcatalogTab3;
 	
 	public static int last_index = 0;
 	
@@ -84,8 +86,18 @@ public class WndDocument extends WndTabbed {
 		mobcatalogTab = new MobCatalogTab();
 		add(mobcatalogTab);
 		mobcatalogTab.setRect(0, 0, width, height);
-		mobcatalogTab.updateList();		
-		
+		mobcatalogTab.updateList();
+
+		mobcatalogTab2 = new MobCatalogTab2();
+		add(mobcatalogTab2);
+		mobcatalogTab2.setRect(0, 0, width, height);
+		mobcatalogTab2.updateList();
+
+		mobcatalogTab3 = new MobCatalogTab3();
+		add(mobcatalogTab3);
+		mobcatalogTab3.setRect(0, 0, width, height);
+		mobcatalogTab3.updateList();
+
 		Tab[] tabs = {
 				new LabeledTab( Messages.get(WndDocument.class, "notes") ) {
 					protected void select( boolean value ) {
@@ -107,7 +119,22 @@ public class WndDocument extends WndTabbed {
 						mobcatalogTab.active = mobcatalogTab.visible = value;
 						if (value) last_index = 2;
 					}
-				}				
+				},
+
+				new LabeledTab( Messages.get(WndDocument.class, "mobs2") ) {
+					protected void select( boolean value ) {
+						super.select( value );
+						mobcatalogTab2.active = mobcatalogTab2.visible = value;
+						if (value) last_index = 3;
+					}
+				},
+				new LabeledTab( Messages.get(WndDocument.class, "mobs3") ) {
+					protected void select( boolean value ) {
+						super.select( value );
+						mobcatalogTab3.active = mobcatalogTab3.visible = value;
+						if (value) last_index = 4;
+					}
+				}
 		};
 		
 		for (Tab tab : tabs) {
@@ -530,13 +557,13 @@ private static class MobCatalogTab extends Component{
 		
 		private static int currentItemIdx   = 0;
 		
-		private static final int SEWER_IDX = 0;
-		private static final int PRISON_IDX  = 1;
-		private static final int CAVE_IDX   = 2;
-		private static final int CITY_IDX   = 3;
-		private static final int HALL_IDX  = 4;
-		private static final int EX_IDX = 5;
-		private static final int ETC_IDX = 6;
+		private static final int HUMAN_IDX = 0;
+		private static final int ORC_IDX = 1;
+		private static final int FISHER_IDX = 2;
+		private static final int ELF_IDX = 3;
+		private static final int DWARF_IDX = 4;
+		private static final int TROLL_IDX = 5;
+		private static final int DEMONIC_IDX = 6;
 		
 		private ScrollPane list;
 		
@@ -609,30 +636,30 @@ private static class MobCatalogTab extends Component{
 			
 			ArrayList<Class<? extends Mob>> mobClass;
 			final HashMap<Class<? extends Mob>, Boolean> known = new HashMap<>();
-			if (currentItemIdx == SEWER_IDX) {
-				mobClass = new ArrayList<>(NewMobCatalog.SEWER.mob());
+			if (currentItemIdx == HUMAN_IDX) {
+				mobClass = new ArrayList<>(NewMobCatalog.HUMAN.mob());
                 for (Class<? extends Mob> cls : mobClass){
                     known.put(cls, true);
                 }
-            } else if (currentItemIdx == PRISON_IDX){
-				mobClass = new ArrayList<>(NewMobCatalog.PRISON.mob());
+            } else if (currentItemIdx == ORC_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.ORC.mob());
 				for (Class<? extends Mob> cls : mobClass){
                     known.put(cls, true);
 				} 
-			} else if (currentItemIdx == CAVE_IDX){
-				mobClass = new ArrayList<>(NewMobCatalog.CAVE.mob());
+			} else if (currentItemIdx == FISHER_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.FISHER.mob());
 				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
-			} else if (currentItemIdx == CITY_IDX){
-				mobClass = new ArrayList<>(NewMobCatalog.CITY.mob());
+			} else if (currentItemIdx == ELF_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.ELF.mob());
 				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
-			} else if (currentItemIdx == HALL_IDX){
-				mobClass = new ArrayList<>(NewMobCatalog.HALL.mob());
+			} else if (currentItemIdx == DWARF_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.DWARF.mob());
 				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
-			} else if (currentItemIdx == EX_IDX){
-				mobClass = new ArrayList<>(NewMobCatalog.EX.mob());
+			} else if (currentItemIdx == TROLL_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.TROLL.mob());
 				for (Class<? extends Mob> cls : mobClass) known.put(cls,true);
-			} else if (currentItemIdx == ETC_IDX) {
-				mobClass = new ArrayList<>(NewMobCatalog.ETC.mob());
+			} else if (currentItemIdx == DEMONIC_IDX) {
+				mobClass = new ArrayList<>(NewMobCatalog.DEMONIC.mob());
 				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
 			} else {
 				mobClass = new ArrayList<>();
@@ -697,8 +724,360 @@ private static class MobCatalogTab extends Component{
 		
 		
 		
-	}	
-	
+	}
+
+	private static class MobCatalogTab2 extends Component{
+
+		private RedButton[] itemButtons;
+		private static final int NUM_BUTTONS = 7;
+
+		private static int currentItemIdx   = 0;
+
+		private static final int GOBLIN_IDX = 0;
+		private static final int BEAST_IDX = 1;
+		private static final int DRAGON_IDX = 2;
+		private static final int PLANT_IDX = 3;
+		private static final int ELEMENT_IDX = 4;
+		private static final int MECH_IDX = 5;
+		private static final int UNDEAD_IDX = 6;
+
+		private ScrollPane list;
+
+		private ArrayList<MobCatalogItem> mobs = new ArrayList<>();
+		private ArrayList<ListItem> items2 = new ArrayList<WndDocument.ListItem>();
+
+		@Override
+		protected void createChildren() {
+			itemButtons = new RedButton[NUM_BUTTONS];
+			for (int i = 0; i < NUM_BUTTONS; i++){
+				final int idx = i;
+				itemButtons[i] = new RedButton( "" ){
+					@Override
+					protected void onClick() {
+						currentItemIdx = idx;
+						updateList();
+					}
+				};
+				//itemButtons[i].icon(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER + i, null));
+				itemButtons[i].icon(new ItemSprite(ItemSpriteSheet.INFO3 + i , null));
+				add( itemButtons[i] );
+			}
+
+			list = new ScrollPane( new Component() ) {
+				@Override
+				public void onClick( float x, float y ) {
+					int size = mobs.size();
+					for (int i=0; i < size; i++) {
+						if (mobs.get( i ).onClick( x, y )) {
+							break;
+						}
+					}
+				}
+			};
+			add( list );
+		}
+
+		private static final int BUTTON_HEIGHT = 17;
+
+		@Override
+		protected void layout() {
+			super.layout();
+
+			int perRow = NUM_BUTTONS;
+			float buttonWidth = width()/perRow;
+
+			for (int i = 0; i < NUM_BUTTONS; i++) {
+				itemButtons[i].setRect((i%perRow) * (buttonWidth), (i/perRow) * (BUTTON_HEIGHT + 1),
+						buttonWidth, BUTTON_HEIGHT);
+				PixelScene.align(itemButtons[i]);
+			}
+
+			list.setRect(0, itemButtons[NUM_BUTTONS-1].bottom() + 1, width,
+					height - itemButtons[NUM_BUTTONS-1].bottom() - 1);
+		}
+
+		private void updateList() {
+			mobs.clear();
+			for (int i = 0; i < NUM_BUTTONS; i++){
+				if (i == currentItemIdx){
+					itemButtons[i].icon().color(TITLE_COLOR);
+				} else {
+					itemButtons[i].icon().resetColor();
+				}
+			}
+
+			Component content = list.content();
+			content.clear();
+			list.scrollTo( 0, 0 );
+
+			ArrayList<Class<? extends Mob>> mobClass;
+			final HashMap<Class<? extends Mob>, Boolean> known = new HashMap<>();
+			if (currentItemIdx == GOBLIN_IDX) {
+				mobClass = new ArrayList<>(NewMobCatalog.GOBLIN.mob());
+				for (Class<? extends Mob> cls : mobClass){
+					known.put(cls, true);
+				}
+			} else if (currentItemIdx == BEAST_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.BEAST.mob());
+				for (Class<? extends Mob> cls : mobClass){
+					known.put(cls, true);
+				}
+			} else if (currentItemIdx == DRAGON_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.DRAGON.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
+			} else if (currentItemIdx == PLANT_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.PLANT.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
+			} else if (currentItemIdx == ELEMENT_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.ELEMENT.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
+			} else if (currentItemIdx == MECH_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.MECH.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls,true);
+			} else if (currentItemIdx == UNDEAD_IDX) {
+				mobClass = new ArrayList<>(NewMobCatalog.UNDEAD.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
+			} else {
+				mobClass = new ArrayList<>();
+			}
+
+			/*Collections.sort(itemClasses, new Comparator<Class<? extends Item>>() {
+				@Override
+				public int compare(Class<? extends Item> a, Class<? extends Item> b) {
+					int result = 0;
+
+					//specifically known items appear first, then seen items, then unknown items.
+					if (known.get(a) && NewCatalog.isSeen(a)) result -= 2;
+					if (known.get(b) && NewCatalog.isSeen(b)) result += 2;
+					if (NewCatalog.isSeen(a))                 result --;
+					if (NewCatalog.isSeen(b))                 result ++;
+
+					return result;
+				}
+			});*/
+
+			float pos = 0;
+			for (Class<? extends Mob> itemClass : mobClass) {
+				try{
+					MobCatalogItem mob = new MobCatalogItem(itemClass.newInstance());
+					mob.setRect( 0, pos, width, ITEM_HEIGHT );
+					content.add( mob );
+					mobs.add( mob );
+
+					pos += mob.height();
+				} catch (Exception e) {
+					ShatteredPixelDungeon.reportException(e);
+				}
+			}
+
+			content.setSize( width, pos );
+			list.setSize( list.width(), list.height() );
+		}
+
+		private static class MobCatalogItem extends ListItem2 {
+
+			private Mob mob;
+
+			public MobCatalogItem(Mob mob ) {
+				super( new MobSprite(), Messages.titleCase(mob.name));
+				this.mob = mob;
+				//icon.copy( new ItemSprite(new Item(){ {image = ItemSpriteSheet.SOMETHING; }}));
+				icon.copy(mob.sprite());
+				label.hardlight( 0xCCCCCC );
+
+			}
+
+			public boolean onClick( float x, float y ) {
+				if (inside( x, y )) {
+					GameScene.show(new WndTitledMessage( new Image(icon),
+							Messages.titleCase(mob.name), mob.description() ));
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+
+
+
+	}
+
+	private static class MobCatalogTab3 extends Component{
+
+		private RedButton[] itemButtons;
+		private static final int NUM_BUTTONS = 7;
+
+		private static int currentItemIdx   = 0;
+
+		private static final int ALIEN_IDX = 0;
+		private static final int UNKNOW_IDX = 1;
+		private static final int EX_MOB_IDX = 2;
+		private static final int BOSS_IDX = 3;
+		private static final int NPC1_IDX = 4;
+		private static final int NPC2_IDX = 5;
+		private static final int PET_IDX = 6;
+
+		private ScrollPane list;
+
+		private ArrayList<MobCatalogItem> mobs = new ArrayList<>();
+		private ArrayList<ListItem> items2 = new ArrayList<WndDocument.ListItem>();
+
+		@Override
+		protected void createChildren() {
+			itemButtons = new RedButton[NUM_BUTTONS];
+			for (int i = 0; i < NUM_BUTTONS; i++){
+				final int idx = i;
+				itemButtons[i] = new RedButton( "" ){
+					@Override
+					protected void onClick() {
+						currentItemIdx = idx;
+						updateList();
+					}
+				};
+				//itemButtons[i].icon(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER + i, null));
+				itemButtons[i].icon(new ItemSprite(ItemSpriteSheet.INFO4 + i , null));
+				add( itemButtons[i] );
+			}
+
+			list = new ScrollPane( new Component() ) {
+				@Override
+				public void onClick( float x, float y ) {
+					int size = mobs.size();
+					for (int i=0; i < size; i++) {
+						if (mobs.get( i ).onClick( x, y )) {
+							break;
+						}
+					}
+				}
+			};
+			add( list );
+		}
+
+		private static final int BUTTON_HEIGHT = 17;
+
+		@Override
+		protected void layout() {
+			super.layout();
+
+			int perRow = NUM_BUTTONS;
+			float buttonWidth = width()/perRow;
+
+			for (int i = 0; i < NUM_BUTTONS; i++) {
+				itemButtons[i].setRect((i%perRow) * (buttonWidth), (i/perRow) * (BUTTON_HEIGHT + 1),
+						buttonWidth, BUTTON_HEIGHT);
+				PixelScene.align(itemButtons[i]);
+			}
+
+			list.setRect(0, itemButtons[NUM_BUTTONS-1].bottom() + 1, width,
+					height - itemButtons[NUM_BUTTONS-1].bottom() - 1);
+		}
+
+		private void updateList() {
+			mobs.clear();
+			for (int i = 0; i < NUM_BUTTONS; i++){
+				if (i == currentItemIdx){
+					itemButtons[i].icon().color(TITLE_COLOR);
+				} else {
+					itemButtons[i].icon().resetColor();
+				}
+			}
+
+			Component content = list.content();
+			content.clear();
+			list.scrollTo( 0, 0 );
+
+			ArrayList<Class<? extends Mob>> mobClass;
+			final HashMap<Class<? extends Mob>, Boolean> known = new HashMap<>();
+			if (currentItemIdx == ALIEN_IDX) {
+				mobClass = new ArrayList<>(NewMobCatalog.ALIEN.mob());
+				for (Class<? extends Mob> cls : mobClass){
+					known.put(cls, true);
+				}
+			} else if (currentItemIdx == UNKNOW_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.UNKNOW.mob());
+				for (Class<? extends Mob> cls : mobClass){
+					known.put(cls, true);
+				}
+			} else if (currentItemIdx == EX_MOB_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.EX_MOB.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
+			} else if (currentItemIdx == BOSS_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.BOSS.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
+			} else if (currentItemIdx == NPC1_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.NPC1.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
+			} else if (currentItemIdx == NPC2_IDX){
+				mobClass = new ArrayList<>(NewMobCatalog.NPC2.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls,true);
+			} else if (currentItemIdx == PET_IDX) {
+				mobClass = new ArrayList<>(NewMobCatalog.PET.mob());
+				for (Class<? extends Mob> cls : mobClass) known.put(cls, true);
+			} else {
+				mobClass = new ArrayList<>();
+			}
+
+			/*Collections.sort(itemClasses, new Comparator<Class<? extends Item>>() {
+				@Override
+				public int compare(Class<? extends Item> a, Class<? extends Item> b) {
+					int result = 0;
+
+					//specifically known items appear first, then seen items, then unknown items.
+					if (known.get(a) && NewCatalog.isSeen(a)) result -= 2;
+					if (known.get(b) && NewCatalog.isSeen(b)) result += 2;
+					if (NewCatalog.isSeen(a))                 result --;
+					if (NewCatalog.isSeen(b))                 result ++;
+
+					return result;
+				}
+			});*/
+
+			float pos = 0;
+			for (Class<? extends Mob> itemClass : mobClass) {
+				try{
+					MobCatalogItem mob = new MobCatalogItem(itemClass.newInstance());
+					mob.setRect( 0, pos, width, ITEM_HEIGHT );
+					content.add( mob );
+					mobs.add( mob );
+
+					pos += mob.height();
+				} catch (Exception e) {
+					ShatteredPixelDungeon.reportException(e);
+				}
+			}
+
+			content.setSize( width, pos );
+			list.setSize( list.width(), list.height() );
+		}
+
+		private static class MobCatalogItem extends ListItem2 {
+
+			private Mob mob;
+
+			public MobCatalogItem(Mob mob ) {
+				super( new MobSprite(), Messages.titleCase(mob.name));
+				this.mob = mob;
+				//icon.copy( new ItemSprite(new Item(){ {image = ItemSpriteSheet.SOMETHING; }}));
+				icon.copy(mob.sprite());
+				label.hardlight( 0xCCCCCC );
+
+			}
+
+			public boolean onClick( float x, float y ) {
+				if (inside( x, y )) {
+					GameScene.show(new WndTitledMessage( new Image(icon),
+							Messages.titleCase(mob.name), mob.description() ));
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+
+
+
+	}
+
 }
 
 

@@ -109,6 +109,7 @@ import com.hmdzl.spspd.plants.StarEater;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AshWolfSprite;
 import com.hmdzl.spspd.sprites.ErrorSprite;
+import com.hmdzl.spspd.sprites.FarmerSprite;
 import com.hmdzl.spspd.sprites.MrDestructo2dot0Sprite;
 import com.hmdzl.spspd.sprites.PigPetSprite;
 import com.hmdzl.spspd.sprites.RENSprite;
@@ -122,7 +123,7 @@ public class GiftFruitWorker extends GiftNpc {
 
 	{
 		//name = Messages.get(this,"name");
-		spriteClass = ScarecrowSprite.class;
+		spriteClass = FarmerSprite.class;
 		properties.add(Property.MECH);
 		
 	}

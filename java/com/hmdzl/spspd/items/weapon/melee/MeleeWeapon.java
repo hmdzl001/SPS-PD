@@ -143,7 +143,7 @@ public class MeleeWeapon extends Weapon {
 
 	@Override
 	public int price() {
-		int price = 50 ;
+		int price = 80 ;
 		if (enchantment != null) {
 			price *= 1.5;
 		}

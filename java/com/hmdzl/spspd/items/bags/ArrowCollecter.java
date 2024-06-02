@@ -29,7 +29,7 @@ public class ArrowCollecter extends Bag {
 		//name = "HeartOfScarecrow";
 		image = ItemSpriteSheet.ARROW_COLLECTER;
 
-		size = 30;
+		size = 34;
 	}
 
 	

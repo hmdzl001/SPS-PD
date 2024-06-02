@@ -17,7 +17,7 @@
  */
 package com.hmdzl.spspd.items.sellitem;
 
-		import com.hmdzl.spspd.sprites.ItemSpriteSheet;
+import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class BottleFlower extends SellItem {
 

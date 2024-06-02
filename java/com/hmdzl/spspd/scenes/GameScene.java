@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.animate.AppearAction;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.BannerSprites;
 import com.hmdzl.spspd.effects.BlobEmitter;
 import com.hmdzl.spspd.effects.CircleArc;
@@ -89,6 +90,7 @@ import com.hmdzl.spspd.windows.WndInfoTrap;
 import com.hmdzl.spspd.windows.WndLifeTradeItem;
 import com.hmdzl.spspd.windows.WndMessage;
 import com.hmdzl.spspd.windows.WndOptions;
+import com.hmdzl.spspd.windows.WndPetInfo;
 import com.hmdzl.spspd.windows.WndStory;
 import com.hmdzl.spspd.windows.WndTradeItem;
 import com.watabou.noosa.Camera;
@@ -801,7 +803,7 @@ public class GameScene extends PixelScene {
 			scene.addToFront(wndd);
 		}
 	}
-	
+
 	public static void afterObserve() {
 		if (scene != null) {
 			scene.fog.updateVisibility(Dungeon.visible, Dungeon.depth.visited,
@@ -923,8 +925,13 @@ public class GameScene extends PixelScene {
 		if (Dungeon.visible[cell]) {
 			Mob mob = (Mob) Actor.findChar(cell);
 			if (mob != null) {
-				GameScene.show(new WndInfoMob(mob));
-				return;
+				if (mob instanceof PET) {
+					GameScene.show(new WndPetInfo((PET) mob));
+					return;
+				} else {
+					GameScene.show(new WndInfoMob(mob));
+					return;
+				}
 			}
 		}
 

@@ -434,6 +434,18 @@ public class Assets {
 
 	public static final String LIVE_PHOTO= "livephoto.png";
 
+	public static final String BUNNY_KEEPER= "bunnykeeper.png";
 
+	public static final String A_HORSE= "ahorse.png";
+
+	public static final String FARMER= "farmer.png";
+
+	public static final String BEACON_MECH= "beaconmech.png";
+
+	public static final String BEGGER= "begger.png";
+
+	public static final String MEAT_SELLER= "meatseller.png";
+
+	public static final String LING_FIRE= "lanfire.png";
 }
 

@@ -29,6 +29,7 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.HiddenShadow;
+import com.hmdzl.spspd.actors.buffs.LightShootAttack;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.SpeedUp;
@@ -37,8 +38,10 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.wands.Wand;
@@ -57,6 +60,8 @@ import com.watabou.utils.Random;
 
 import java.util.HashSet;
 
+import static com.hmdzl.spspd.Dungeon.hero;
+
 public abstract class GiftNpc extends NPC {
 
 	{
@@ -69,7 +74,7 @@ public abstract class GiftNpc extends NPC {
 
 		flying = true;
 		hostile = false;
-		ally = true;
+		//ally = true;
 
 		state = PASSIVE;
 
@@ -101,10 +106,6 @@ public abstract class GiftNpc extends NPC {
 	@Override
 	public void damage(int dmg, Object src) {
 
-		dmg = 0;
-
-		super.damage(dmg, src);
-
 	}
 
 	@Override
@@ -114,7 +115,7 @@ public abstract class GiftNpc extends NPC {
 
 	@Override
 	public boolean interact() {
-		sprite.turnTo(pos, Dungeon.hero.pos);
+		sprite.turnTo(pos, hero.pos);
 		GameScene.show(new WndOptions(
 				this.sprite(),
 				Messages.get(this, "name"),
@@ -136,24 +137,17 @@ public abstract class GiftNpc extends NPC {
 
 
 	private void normaltalk() {
-			switch (FRIEND) {
-				case 0:
-				case 10:
-				case 20:
+			switch (Random.Int(4)) {
+				case 1:
 					friend(this, Messages.get(this, "yell1"));
 					break;
-				case 30:
-				case 40:
-				case 50:
+				case 2:
 					friend(this, Messages.get(this, "yell2"));
 					break;
-				case 60:
-				case 70:
-				case 80:
+				case 3:
 					friend(this, Messages.get(this, "yell3"));
 					break;
-				case 90:
-				case 100: default:
+				case 0: default:
 					friend(this, Messages.get(this, "yell4"));
 					break;
 		}
@@ -190,19 +184,25 @@ public abstract class GiftNpc extends NPC {
 		boolean loveitem = this.loveitem(item);
 		if (loveitem) {
 			this.FRIEND += 10;
-			item.detach(Dungeon.hero.belongings.backpack);
-			Dungeon.hero.spend(1f);
-			Dungeon.hero.busy();
-			Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+			item.detach(hero.belongings.backpack);
+			hero.spend(1f);
+			hero.busy();
+			hero.sprite.operate(hero.pos);
 			GLog.p(Messages.get(GiftNpc.class, "npc_item", item.name()));
 			givereward(this);
 		} else {
 			GLog.n(Messages.get(GiftNpc.class, "npc_not_item"));
+			saydonot(this);
+
 		}
 	}
 
 	public void givereward(NPC npc) {
 
+	}
+
+	public void saydonot(NPC npc) {
+		friend(this, Messages.get(this, "want"));
 	}
 
 }

@@ -100,6 +100,8 @@ public class TestMob extends Mob {
 		Dungeon.depth.drop(new HeartOfScarecrow(), pos).sprite.drop();
 		explodeDew(pos);
 
+		//UIcecorps2.spawnAt(pos);
+
 		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			if (mob instanceof TestMob && mob.isAlive())
 				mob.HP+=10;

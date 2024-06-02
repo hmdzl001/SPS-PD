@@ -24,6 +24,8 @@ import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
 import com.hmdzl.spspd.items.Heap;
+import com.hmdzl.spspd.items.food.vegetable.IceMint;
+import com.hmdzl.spspd.items.food.vegetable.RootRadish;
 import com.hmdzl.spspd.items.potions.PotionOfParalyticGas;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.RootFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -59,6 +61,9 @@ public class Earthroot extends Plant {
 		if (heap != null) {
 			heap.earthhit();
 		}
+
+		Dungeon.depth.drop(new RootRadish(), pos).sprite.drop();
+
 	}
 
 	public static class Seed extends Plant.Seed {
@@ -75,7 +80,7 @@ public class Earthroot extends Plant {
 	
 	public static class ExEarthroot extends Plant {
 		{
-			image = 5;
+			image = 24;
 		}
 		@Override
 		public void activate(Char ch) {

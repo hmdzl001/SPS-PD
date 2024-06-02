@@ -1079,7 +1079,7 @@ public class Dungeon {
 	}
 
 	public static boolean shopOnLevel() {
-		return dungeondepth == 1 || dungeondepth == 6 || dungeondepth == 11 || dungeondepth == 16 || dungeondepth == 21;
+		return dungeondepth == 1 || dungeondepth == 6 || dungeondepth == 11 || dungeondepth == 16 || dungeondepth == 21 || dungeondepth == 50 || dungeondepth == 55;
 	}
 
 	public static boolean bossLevel() {

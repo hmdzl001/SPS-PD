@@ -32,6 +32,7 @@ public class ZongZi extends CompleteFood {
 		image = ItemSpriteSheet.ZONGZI;
 		energy = 600;
 		hornValue = 5;
+		eattime = 5;
 		stackable = false;
 	}
 

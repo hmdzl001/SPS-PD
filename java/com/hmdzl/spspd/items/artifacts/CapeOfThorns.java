@@ -41,8 +41,9 @@ public class CapeOfThorns extends Artifact {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && level > 1 && !cursed)
-		actions.add(AC_NEEDLING);
+		if (isEquipped(hero) && level > 1 && !cursed) {
+			actions.add(AC_NEEDLING);
+		}
 		return actions;
 	}	
 	

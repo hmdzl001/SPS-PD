@@ -53,7 +53,8 @@ public class ScrollOfRemoveCurse extends Scroll {
 				curUser.belongings.backpack.items.toArray(new Item[0]));
 		procced = uncurse(curUser, curUser.belongings.weapon,
 				curUser.belongings.armor, curUser.belongings.misc1,
-				curUser.belongings.misc2, curUser.belongings.misc3 )
+				curUser.belongings.misc2, curUser.belongings.misc3,
+				curUser.belongings.armor_two,curUser.belongings.weapon_two)
 				|| procced;
 
 		Buff.detach(curUser, STRdown.class);

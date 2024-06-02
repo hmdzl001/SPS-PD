@@ -47,8 +47,6 @@ public class EntrancePainter extends Painter {
 
 		if(!shopOnLevel()){
 			set(level, dewbless, Terrain.DEW_BLESS);
-			Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
-			level.explant(seed, room.random());
 		}
 
 

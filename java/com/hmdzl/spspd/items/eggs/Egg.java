@@ -60,6 +60,7 @@ public class Egg extends Item {
 		image = ItemSpriteSheet.PET_EGG;
 		//pet_id = 0;
 		stackable = false;
+		defaultAction = AC_THROW;
 		}
 
 		public int moves = 0;

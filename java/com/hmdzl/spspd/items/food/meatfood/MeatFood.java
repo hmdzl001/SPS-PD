@@ -26,7 +26,7 @@ public class MeatFood extends Food {
 		stackable = true;
 		//name = "ration of food";
 		image = ItemSpriteSheet.RATION;
-
+		eattime = 2;
 		 
 	}
 

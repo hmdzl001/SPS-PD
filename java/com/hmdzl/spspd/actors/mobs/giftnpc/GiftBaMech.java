@@ -102,6 +102,7 @@ import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AshWolfSprite;
+import com.hmdzl.spspd.sprites.BeaconMechSprite;
 import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.MrDestructo2dot0Sprite;
 import com.hmdzl.spspd.sprites.PigPetSprite;
@@ -115,7 +116,7 @@ public class GiftBaMech extends GiftNpc {
 
 	{
 		//name = Messages.get(this,"name");
-		spriteClass = MrDestructo2dot0Sprite.class;
+		spriteClass = BeaconMechSprite.class;
 		properties.add(Property.MECH);
 		
 	}

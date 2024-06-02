@@ -105,6 +105,7 @@ import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AshWolfSprite;
 import com.hmdzl.spspd.sprites.ErrorSprite;
+import com.hmdzl.spspd.sprites.MeatSellerSprite;
 import com.hmdzl.spspd.sprites.MrDestructo2dot0Sprite;
 import com.hmdzl.spspd.sprites.PigPetSprite;
 import com.hmdzl.spspd.sprites.RENSprite;
@@ -118,7 +119,7 @@ public class GiftMeatSeller extends GiftNpc {
 
 	{
 		//name = Messages.get(this,"name");
-		spriteClass = ShopkeeperSprite.class;
+		spriteClass = MeatSellerSprite.class;
 		properties.add(Property.MECH);
 		
 	}

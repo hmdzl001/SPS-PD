@@ -47,7 +47,7 @@ public class NutPlant extends Plant {
 	}
 	public static class ExNutPlant extends Plant {
 		{
-			image = 17;
+			image = 36;
 		}
 		@Override
 		public void activate(Char ch) {

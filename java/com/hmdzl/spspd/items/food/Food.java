@@ -48,13 +48,15 @@ import java.util.ArrayList;
 
 public class Food extends Item {
 
-	private static final float TIME_TO_EAT = 3f;
+	//private static final float TIME_TO_EAT = 3f;
 
 	public static final String AC_EAT = "EAT";
 
 	public float energy = Hunger.HUNGRY;
 
 	public int hornValue = 3;
+
+	public float eattime = 3;
 
 	{
 		stackable = true;
@@ -118,14 +120,13 @@ public class Food extends Item {
                        Buff.affect(hero, MagicArmor.class).level(10);
 						break;
 				}
-			    doEat();
+			    hero.spend(eattime);
 				hero.sprite.operate(hero.pos);
 				hero.busy();
 				SpellSprite.show(hero, SpellSprite.FOOD);
 				Sample.INSTANCE.play(Assets.SND_EAT);
 
-				hero.spend(TIME_TO_EAT);
-
+			    doEat();
 				Statistics.foodEaten++;
 				Badges.validateFoodEaten();
 

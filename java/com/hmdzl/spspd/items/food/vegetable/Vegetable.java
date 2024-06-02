@@ -26,6 +26,7 @@ public class Vegetable extends Food {
 		stackable = true;
 		//name = "ration of food";
 		image = ItemSpriteSheet.NUT_VEGETABLE;
+		eattime = 1;
 		 
 	}
 

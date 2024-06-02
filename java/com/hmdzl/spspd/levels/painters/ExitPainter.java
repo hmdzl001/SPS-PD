@@ -25,9 +25,11 @@ import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.plants.Plant;
 
 import static com.hmdzl.spspd.Dungeon.shopOnLevel;
 
@@ -62,6 +64,8 @@ public class ExitPainter extends Painter {
 			//Actor.occupyCell(mob);
 		}
 
+		Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
+		level.explant(seed, room.random());
 
 		level.exit = room.random(1);
 		if (Dungeon.isChallenged(Challenges.TEST_TIME)) {

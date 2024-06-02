@@ -44,6 +44,7 @@ public class Weightstone extends Item {
 
 		stackable = true;
 
+		defaultAction = AC_APPLY;
 		 
 	}
 

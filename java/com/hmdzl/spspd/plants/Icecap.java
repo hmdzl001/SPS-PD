@@ -21,6 +21,8 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Freezing;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
+import com.hmdzl.spspd.items.food.vegetable.IceMint;
+import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.potions.PotionOfFrost;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.IceFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -41,8 +43,7 @@ public class Icecap extends Plant {
 	public void activate(Char ch) {
 		super.activate(ch);
 
-		PathFinder
-				.buildDistanceMap(pos, BArray.not(Floor.losBlockLow, null), 1);
+		PathFinder.buildDistanceMap(pos, BArray.not(Floor.losBlockLow, null), 1);
 
 		Fire fire = (Fire) Dungeon.depth.blobs.get(Fire.class);
 
@@ -53,6 +54,9 @@ public class Icecap extends Plant {
 				Freezing.affect(i, fire);
 			}
 		}
+
+		Dungeon.depth.drop(new IceMint(), pos).sprite.drop();
+
 	}
 
 	public static class Seed extends Plant.Seed {
@@ -67,7 +71,7 @@ public class Icecap extends Plant {
 	
 	public static class ExIcecap extends Plant {
 		{
-			image = 1;
+			image = 20;
 		}
 		@Override
 		public void activate(Char ch) {

@@ -35,18 +35,23 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
+import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
+import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SeekingBombSprite;
 import com.hmdzl.spspd.sprites.UDM300Sprite;
 import com.watabou.utils.Random;
+
+import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 
 public class UDM300 extends Mob {
 
@@ -249,18 +254,14 @@ public class UDM300 extends Mob {
 	}
 
 	public static class SeekBomb extends Mob {
-
-		private static final int BOMB_DELAY = 10;
-        private int timeToBomb = BOMB_DELAY;
 		{
 			spriteClass = SeekingBombSprite.class;
 
-			HP = HT = 1;
+			HP = HT = 100;
 			evadeSkill = 0;
 			baseSpeed = 1f;
-            timeToBomb = BOMB_DELAY;
 			EXP = 0;
-            
+
 			state = HUNTING;
 
 			properties.add(Property.MECH);
@@ -269,25 +270,13 @@ public class UDM300 extends Mob {
 
 	    @Override
 	    public int attackProc(Char enemy, int damage) {
-		    int dmg = super.attackProc(enemy, damage);
-
-		    DungeonBomb bomb = new DungeonBomb();
-		    bomb.explode(pos);
-		    yell("KA-BOOM!!!");
-		
-		    destroy();
-		    sprite.die();
-
-		    return dmg;
+		    Buff.affect(enemy, Slow.class,4f);
+			enemy.damage(1, Weapon.class);
+			for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
+				mob.beckon(enemy.pos);
+			}
+		    return 0;
 	    } 
-		
-		@Override
-		public void die(Object cause) {
-			DungeonBomb bomb = new DungeonBomb();
-		    bomb.explode(pos);
-			super.die(cause);
-
-		}
 
 		@Override
 		public int hitSkill(Char target) {
@@ -302,26 +291,6 @@ public class UDM300 extends Mob {
 		@Override
 		public int drRoll() {
 			return 0;
-		}
-
-		@Override
-		public boolean act() {
-			yell(""+timeToBomb+"!");
-            if (timeToBomb == 0){
-		    DungeonBomb bomb = new DungeonBomb();
-		    bomb.explode(pos);
-		    yell("KA-BOOM!!!");
-		    destroy();
-		    sprite.die();
-			}
-
-			return super.act();
-		}
-		
-		@Override
-	    public void move(int step) {
-	        super.move(step);
-			timeToBomb --;
 		}
 
 	}	

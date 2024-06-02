@@ -19,6 +19,7 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAFly;
+import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAHorse;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAshWolf;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftBaMech;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftBegger;
@@ -546,10 +547,10 @@ public class Bestiary {
 			case 55:
 				chances = new float[] { 1,1,1,1,
 				                        1,1,1,1,
-						                1,1,1};
+						                1,1,1,1};
 				classes = new Class<?>[] { GiftRen.class, GiftAshWolf.class, GiftCoconut.class, GiftBegger.class,
 				 GiftAFly.class, GiftBaMech.class, GiftFruitWorker.class, GiftMeatSeller.class,
-				GiftTorch.class, GiftFlyLing.class, GiftBunnyKeeper.class};
+				GiftTorch.class, GiftFlyLing.class, GiftBunnyKeeper.class, GiftAHorse.class};
 				break;
 			case 85:
 				chances = new float[] { 1,1,1,1,1,

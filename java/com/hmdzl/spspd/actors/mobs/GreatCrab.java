@@ -41,7 +41,7 @@ public class GreatCrab extends Crab {
 
 			state = WANDERING;
 
-			properties.add(Property.BEAST);
+			properties.add(Property.FISHER);
 			properties.add(Property.MINIBOSS);
 		}
 

@@ -53,6 +53,7 @@ import com.hmdzl.spspd.items.weapon.guns.GunC;
 import com.hmdzl.spspd.items.weapon.guns.GunD;
 import com.hmdzl.spspd.items.weapon.guns.GunE;
 import com.hmdzl.spspd.items.weapon.melee.special.MeleePan;
+import com.hmdzl.spspd.items.weapon.melee.start.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.MagicHand;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.RocketMissile;
 import com.hmdzl.spspd.items.weapon.ranges.AlloyBowN;
@@ -130,7 +131,7 @@ public class ShopPainter extends Painter {
 			itemsToSpawn.add(new MeleePan());
 			itemsToSpawn.add(new Pasty());
 			itemsToSpawn.add(new NoomlinCrown());
-			//itemsToSpawn.add(new UnstableSpellbook());
+			itemsToSpawn.add(new DiamondPickaxe().identify().dounique().upgrade(10));
             break;	
 			
 		case 6:

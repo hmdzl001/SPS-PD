@@ -34,6 +34,7 @@ import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
+import com.hmdzl.spspd.actors.buffs.SelfDestroy;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
@@ -65,7 +66,7 @@ public class UIcecorps2 extends Mob {
 		spriteClass = IceRabbit2Sprite.class;
 		baseSpeed = 1.5f;
 
-		HP = HT = 1500;
+		HP = HT = 500;
 		EXP = 20;
 		evadeSkill = 5;
 
@@ -76,10 +77,10 @@ public class UIcecorps2 extends Mob {
 		properties.add(Property.BOSS);
 	}
 
-	private int breaks = 30;
     private int timeToIce = 0;
 	
 	public void spawnfires() {
+
 		FireRabbit fr1 = new FireRabbit();
 
 		fr1.pos = Dungeon.depth.randomRespawnCellMob();
@@ -90,7 +91,8 @@ public class UIcecorps2 extends Mob {
 	
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(Dungeon.hero.lvl/2, Dungeon.hero.lvl);
+		//return Random.NormalIntRange(Dungeon.hero.lvl/2, Dungeon.hero.lvl);
+		return 0;
 	}
 
 	@Override
@@ -121,29 +123,13 @@ public class UIcecorps2 extends Mob {
 
 		return damage;
 	}	
-	
-    private static final String BREAKS	= "breaks";
-	
-    @Override
-    public void storeInBundle( Bundle bundle ) {
-        super.storeInBundle(bundle);
-        bundle.put( BREAKS, breaks );
-    }
 
-    @Override
-    public void restoreFromBundle( Bundle bundle ) {
-        super.restoreFromBundle(bundle);
-        breaks = bundle.getInt( BREAKS );
-    }	
-	
 	@Override
     public boolean act() {
-		
-		if (breaks >1) {
-			Buff.prolong(this,BoxStar.class, 3f);
-			breaks--;
-		}
-		
+		beckon(Dungeon.hero.pos);
+		//if (buffs(SelfDestroy.class)){
+		Buff.affect(this, SelfDestroy.class);
+		//}
 		timeToIce++;
 		if (timeToIce > 20){
            spawnfires();
@@ -155,13 +141,7 @@ public class UIcecorps2 extends Mob {
 	
 	@Override
 	public void damage(int dmg, Object src) {
-        if (buff(BoxStar.class) != null && !(src instanceof StoneIce) )
-			dmg = 0;
-        if (src instanceof StoneIce)
-        	dmg = 10;
-		if (dmg > 40)
-		dmg = Random.Int(10, 40);
-		
+        if (!(src instanceof SelfDestroy) ) dmg = 0;
 		super.damage(dmg, src);
 	}		
 	

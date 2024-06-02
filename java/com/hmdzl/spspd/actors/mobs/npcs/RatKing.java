@@ -89,10 +89,10 @@ public class RatKing extends NPC {
 		if (state == SLEEPING) {
 			notice();
 			yell(Messages.get(this, "not_sleeping"));
-			yell(Messages.get(this, "not_takeing"));
+			//yell(Messages.get(this, "not_takeing"));
 			state = WANDERING;
 		//} else if (Statistics.deepestFloor>9 && checkChests >= Dungeon.ratChests && spork==null && runicblade==null){ 
-		} else if (Statistics.deepestFloor>10 && spork==null){
+		} else if (spork==null){
 			yell(Messages.get(this, "thanks"));
 			Dungeon.sporkAvail = true;
 		} else if (spork!=null) {

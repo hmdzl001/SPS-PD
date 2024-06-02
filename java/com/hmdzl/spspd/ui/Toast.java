@@ -30,7 +30,7 @@ public class Toast extends Component {
 
 	protected NinePatch bg;
 	protected SimpleButton close;
-	protected RenderedText text;
+	protected RenderedTextMultiline text;
 
 	public Toast(String text) {
 		super();
@@ -57,7 +57,7 @@ public class Toast extends Component {
         };
 		add(close);
 
-		text = PixelScene.renderText(8);
+		text = PixelScene.renderMultiline(8);
 		add(text);
 	}
 
@@ -72,8 +72,9 @@ public class Toast extends Component {
 		close.setPos(bg.x + bg.width() - bg.marginHor() / 2 - MARGIN_HOR
 				- close.width(), y + (height - close.height()) / 2);
 
-		text.x = close.left() - MARGIN_HOR - text.width();
-		text.y = y + (height - text.height()) / 2;
+		//text.x = close.left() - MARGIN_HOR - text.width();
+		//text.y = y + (height - text.height()) / 2;
+		text.setPos(close.left() - MARGIN_HOR - text.width(), y + (height - text.height()) / 2);
 		PixelScene.align(text);
 	}
 

@@ -30,7 +30,7 @@ public class ShoppingCart extends Bag {
 		//name = "shopping cart";
 		image = ItemSpriteSheet.SHOPCART;
 
-		size = 30;
+		size = 34;
 	}
 
 	

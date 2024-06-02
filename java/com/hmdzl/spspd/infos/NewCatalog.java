@@ -142,7 +142,7 @@ import com.hmdzl.spspd.items.food.staplefood.OverpricedRation;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
 import com.hmdzl.spspd.items.food.vegetable.BattleFlower;
 import com.hmdzl.spspd.items.food.vegetable.DreamLeaf;
-import com.hmdzl.spspd.items.food.vegetable.HealGrass;
+import com.hmdzl.spspd.items.food.vegetable.SunFlower;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.medicine.BlueMilk;
 import com.hmdzl.spspd.items.medicine.DeathCap;
@@ -218,6 +218,7 @@ import com.hmdzl.spspd.items.sellitem.DwarfHammer;
 import com.hmdzl.spspd.items.sellitem.HummingTool;
 import com.hmdzl.spspd.items.sellitem.HunterLens;
 import com.hmdzl.spspd.items.sellitem.Mirror2;
+import com.hmdzl.spspd.items.food.vegetable.MotherRose;
 import com.hmdzl.spspd.items.sellitem.NouthSouth;
 import com.hmdzl.spspd.items.sellitem.SellMushroom;
 import com.hmdzl.spspd.items.sellitem.SellPermit;
@@ -305,6 +306,7 @@ import com.hmdzl.spspd.items.weapon.melee.relic.JupitersWraith;
 import com.hmdzl.spspd.items.weapon.melee.relic.LokisFlail;
 import com.hmdzl.spspd.items.weapon.melee.relic.NeptunusTrident;
 import com.hmdzl.spspd.items.weapon.melee.special.AFlySock;
+import com.hmdzl.spspd.items.weapon.melee.special.DewWaterGun;
 import com.hmdzl.spspd.items.weapon.melee.start.DemonBlade;
 import com.hmdzl.spspd.items.weapon.melee.start.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.start.EleKatana;
@@ -493,6 +495,7 @@ public enum NewCatalog {
 		WEAPONS.seen.put( SmallChakram.class , true);
 		WEAPONS.seen.put( HugeShuriken.class , true);
 		WEAPONS.seen.put( Tamahawk.class , true);
+		WEAPONS.seen.put( DewWaterGun.class , true);
 		WEAPONS.seen.put( DewVial.class , true);
 		WEAPONS.seen.put( Weightstone.class , true);
 
@@ -671,6 +674,7 @@ public enum NewCatalog {
 		SPECIALS.seen.put(GhostGirlRose.class,true);
 		SPECIALS.seen.put(RustybladeCat.class,true);
 		SPECIALS.seen.put(DwarfHammer.class,true);
+		SPECIALS.seen.put(MotherRose.class,true);
 
 
 		ARTIFACTS.seen.put( AlchemistsToolkit.class,      true);
@@ -716,7 +720,7 @@ public enum NewCatalog {
 		FOODS.seen.put( Pasty.class, true);
 		FOODS.seen.put( BattleFlower.class, true);
 		FOODS.seen.put( DreamLeaf.class, true);
-		FOODS.seen.put( HealGrass.class, true);
+		FOODS.seen.put( SunFlower.class, true);
 		FOODS.seen.put( NutVegetable.class, true);
 		FOODS.seen.put( Blackberry.class, true);
 		FOODS.seen.put( Blueberry.class, true);

@@ -37,6 +37,7 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.Speck;
+import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
@@ -145,11 +146,14 @@ public abstract class PET extends NPC {
 		
 		if (Dungeon.dungeondepth != 50)
 		{ assignPet(this); }
-		
+
+		//if (cooldown < 5 && this.sprite != null) {;}
+
 		if ( HP<HT){HP+=Dungeon.hero.petLevel;}
 		
 		return super.act();
 	}
+
 
 	public boolean lovefood(Item item) {
 		return item instanceof PetFood;
@@ -241,6 +245,11 @@ public abstract class PET extends NPC {
 	public void beckon(int cell) {
 	}
 
+	public String description() {
+
+		return   "ID. " + this.type+ "\n" + super.description()  ;
+	}
+
 
 	private void assignPet(PET pet){
 		
@@ -285,17 +294,7 @@ public abstract class PET extends NPC {
 		if (state == SLEEPING) {
 			state = HUNTING;
 		}
-
-		if (Dungeon.hero.petAction == 0) {
-			GameScene.show(new WndPetInfo(this));
-		} else if (Dungeon.hero.petAction == 1) {
-			changeplace();
-		} else if (Dungeon.hero.petAction == 2) {
-			GameScene.selectItem(itemSelector, WndBag.Mode.ALL, Messages.get(WndHero.class, "choose_food"));
-		} else if (Dungeon.hero.petAction == 3) {
-			dropreward();
-		}
-
+		changeplace();
 		return true;
 	}
 
@@ -319,7 +318,8 @@ public abstract class PET extends NPC {
 			Item loot = this.SupercreateLoot();
 			Dungeon.depth.drop(loot,pos).sprite.drop();
 			cooldown = this.oldcooldown;
-		} else GLog.n(Messages.get(this,"pet_not_ready"));;
+			this.sprite.remove(CharSprite.State.SKILLREADY);
+		} else GLog.n(Messages.get(this,"pet_not_ready"));
 	}
 	
 	{

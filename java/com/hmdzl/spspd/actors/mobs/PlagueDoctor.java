@@ -269,6 +269,7 @@ public class PlagueDoctor extends Mob {
 		GameScene.add( mob, 1f );
 		mobs.add( mob );
 		ScrollOfTeleportation.appear(mob, mob.pos);
+		mob.yell(Messages.get(this,"doctor"));
 
 		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
 			Dungeon.depth.drop(new Dpotion(), Dungeon.hero.pos).sprite.drop();

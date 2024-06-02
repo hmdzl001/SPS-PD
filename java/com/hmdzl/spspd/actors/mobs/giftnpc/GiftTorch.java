@@ -110,6 +110,7 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.AshWolfSprite;
 import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.FireElementalSprite;
+import com.hmdzl.spspd.sprites.LingFireSprite;
 import com.hmdzl.spspd.sprites.PigPetSprite;
 import com.hmdzl.spspd.sprites.RENSprite;
 import com.hmdzl.spspd.sprites.VagrantSprite;
@@ -124,7 +125,7 @@ public class GiftTorch extends GiftNpc {
 
 	{
 		//name = Messages.get(this,"name");
-		spriteClass = FireElementalSprite.class;
+		spriteClass = LingFireSprite.class;
 		properties.add(Property.HUMAN);
 		
 	}

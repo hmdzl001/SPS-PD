@@ -640,7 +640,8 @@ public abstract class Mob extends Char {
 		&& Dungeon.dungeondepth <25 && !Dungeon.bossLevel(Dungeon.dungeondepth) && (Dungeon.dewDraw || Dungeon.dewWater)){
 			Dungeon.depth.cleared=true;
 			GameScene.levelCleared();		
-			if(Dungeon.dungeondepth >0){Statistics.prevfloormoves=Math.max(Dungeon.pars[Dungeon.dungeondepth]-Dungeon.depth.currentmoves,0);
+			if(Dungeon.dungeondepth >0){
+				Statistics.prevfloormoves=Math.max(Dungeon.pars[Dungeon.dungeondepth]-(int)Dungeon.depth.currentmoves,0);
 			   if (Statistics.prevfloormoves>1){
 			     GLog.h(Messages.get(this, "clear1"), Statistics.prevfloormoves);
 				 Dungeon.depth.drop(new BoundReward(), pos).sprite.drop();

@@ -28,7 +28,7 @@ public class Vialupdater extends Item {
 
 	{
 		//name = "Vialupdater";
-		image = ItemSpriteSheet.FLAG;
+		image = ItemSpriteSheet.VIAL;
 
 		stackable = false;
 		unique = true;

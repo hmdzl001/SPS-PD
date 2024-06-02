@@ -74,9 +74,9 @@ public class TentRoomPainter extends Painter {
 		//Actor.occupyCell(mob1);
 
 		mob2.pos = j;
-		if (!Dungeon.shopOnLevel()) {
+		//if (!Dungeon.shopOnLevel()) {
 			level.mobs.add(mob2);
-		}
+		//}
 		//Actor.occupyCell(mob2);
 	}
 
