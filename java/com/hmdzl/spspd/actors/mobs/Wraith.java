@@ -112,13 +112,13 @@ public class Wraith extends Mob {
 		return damage;
 	}
 	
-	//public void damage(int dmg, Object src) {
+	//public void damage(int dmg, Object src, int type) {
 	//	if (enemySeen
 	//			&& (src instanceof Wand || src instanceof LightningTrap.Electricity || src instanceof Char)) {
 	//		GLog.n("The attack passes through the wraith.");
 	//		sprite.showStatus(CharSprite.NEUTRAL, "missed");
 	//	} else {
-	//		super.damage(dmg, src);
+	//		super.damage(dmg, src,type);
 	//	}
 	//}
 

@@ -279,7 +279,7 @@ public static class Tower extends Mob implements Callback {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type) {
 
 		for (Mob mob : Dungeon.depth.mobs) {
 			mob.beckon(Dungeon.hero.pos);
@@ -290,7 +290,7 @@ public static class Tower extends Mob implements Callback {
 				Speck.factory(Speck.SCREAM), 0.3f, 3);
 		Sample.INSTANCE.play(Assets.SND_CHALLENGE);
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 	
 	@Override
@@ -364,7 +364,7 @@ public static class Tower extends Mob implements Callback {
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
 							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,1);
 					}
 				}
 			}

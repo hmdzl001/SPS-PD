@@ -17,15 +17,11 @@
  */
 package com.hmdzl.spspd.windows;
 
-import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.actors.mobs.giftnpc.GiftNpc;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.HealthBar;
-import com.watabou.noosa.Game;
-import com.watabou.noosa.Image;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 

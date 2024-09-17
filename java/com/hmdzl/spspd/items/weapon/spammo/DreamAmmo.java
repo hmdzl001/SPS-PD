@@ -5,8 +5,8 @@ import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 
@@ -23,19 +23,19 @@ public class DreamAmmo extends SpAmmo {
 
 	@Override
 	public void onHit(GunWeapon gunweapon, Char attacker, Char defender, int damage) {
-		defender.damage((int)(0.20*damage), DARK_DAMAGE);
+		defender.damage((int)(0.20*damage), DARK_DAMAGE,2);
 		Buff.prolong(defender, ArmorBreak.class,6f).level(25);
 		Buff.prolong(defender, Slow.class,3f);
 	}
 	@Override
 	public void onHit(Boomerang boomerang, Char attacker, Char defender, int damage) {
-		defender.damage((int)(0.20*damage), DARK_DAMAGE);
+		defender.damage((int)(0.20*damage), DARK_DAMAGE,2);
 		Buff.prolong(defender, ArmorBreak.class,6f).level(25);
 		Buff.prolong(defender, Slow.class,3f);
 	}
 	@Override
 	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
-		defender.damage((int)(0.20*damage), DARK_DAMAGE);
+		defender.damage((int)(0.20*damage), DARK_DAMAGE,2);
 		Buff.prolong(defender, ArmorBreak.class,6f).level(25);
 		Buff.prolong(defender, Slow.class,3f);
 	}

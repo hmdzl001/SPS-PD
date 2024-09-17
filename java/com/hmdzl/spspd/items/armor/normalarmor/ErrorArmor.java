@@ -42,6 +42,8 @@ public class ErrorArmor extends NormalArmor {
 		STR = 0;
 		MAX = 0;
 		MIN = 0;
+		M_MIN = 0;
+		M_MAX = 0;
 	}
 
 	public ErrorArmor() {
@@ -63,8 +65,8 @@ public class ErrorArmor extends NormalArmor {
 		switch (Random.Int (10)) {
 			case 0 :
 				if (attacker.properties().contains(Char.Property.BOSS) || attacker.properties().contains(Char.Property.MINIBOSS)){
-					attacker.damage(Random.Int(attacker.HT/8, attacker.HT/4), this);}
-				else attacker.damage(Random.Int(attacker.HT, attacker.HT * 2), this);
+					attacker.damage(Random.Int(attacker.HT/8, attacker.HT/4), this,3);}
+				else attacker.damage(Random.Int(attacker.HT, attacker.HT * 2), this,3);
 				attacker.sprite.emitter().burst(ShadowParticle.UP, 5);
 				if (!defender.isAlive() && attacker instanceof Hero) {
 					Badges.validateGrimWeapon();

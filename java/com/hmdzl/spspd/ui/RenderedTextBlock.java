@@ -24,7 +24,6 @@ package com.hmdzl.spspd.ui;
 import com.hmdzl.spspd.messages.Languages;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.PixelScene;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 

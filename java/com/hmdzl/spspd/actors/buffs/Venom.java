@@ -72,7 +72,7 @@ public class Venom extends Poison implements Hero.Doom {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-			target.damage(damage, this);
+			target.damage(damage, this,2);
 			if (damage < ((Dungeon.dungeondepth +1)/2)+1)
 				damage++;
 

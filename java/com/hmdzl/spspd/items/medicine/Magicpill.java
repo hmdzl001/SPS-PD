@@ -19,7 +19,6 @@ package com.hmdzl.spspd.items.medicine;
 
 import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 

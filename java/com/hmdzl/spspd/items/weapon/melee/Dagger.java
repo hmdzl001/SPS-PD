@@ -56,7 +56,7 @@ public class Dagger extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		int exdmg = Dungeon.hero.damageRoll();
-		defender.damage(Random.Int(exdmg/2,exdmg/4*3), this);
+		defender.damage(Random.Int(exdmg/2,exdmg/4*3), this,3);
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);		
 		}

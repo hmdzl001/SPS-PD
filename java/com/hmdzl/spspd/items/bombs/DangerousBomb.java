@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items.bombs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -26,7 +25,6 @@ import com.hmdzl.spspd.effects.particles.SmokeParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.BArray;
@@ -81,12 +79,12 @@ public class DangerousBomb extends Bomb {
 							int dmg = Random.NormalIntRange(minDamage, maxDamage)
 									- Math.max(ch.drRoll(), 0);
 							if (dmg > 0) {
-								ch.damage(dmg, this);
+								ch.damage(dmg, this,1);
 							}
-							if (ch == Dungeon.hero && !ch.isAlive())
+							//if (ch == Dungeon.hero && !ch.isAlive())
 								// constant is used here in the rare instance a player
 								// is killed by a double bomb.
-								Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+								//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						}
 					}
 				}

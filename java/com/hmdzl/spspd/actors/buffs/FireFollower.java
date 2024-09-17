@@ -68,7 +68,7 @@ public class FireFollower extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.PFIRE;
+		return BuffIndicator.FIRE_3;
 	}
 
 	@Override

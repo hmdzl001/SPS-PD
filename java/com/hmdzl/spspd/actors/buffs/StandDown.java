@@ -56,7 +56,7 @@ public class StandDown extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.SHIELDBLOCK;
+		return BuffIndicator.PARALYSIS;
 	}
 	
 	//@Override

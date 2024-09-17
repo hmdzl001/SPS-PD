@@ -26,7 +26,6 @@ import com.hmdzl.spspd.items.food.fruit.Cloudberry;
 import com.hmdzl.spspd.items.food.fruit.Moonberry;
 import com.hmdzl.spspd.items.potions.PotionOfMight;
 import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -78,6 +77,21 @@ public class ReNepenth extends Plant {
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);
+
+			switch (Random.Int(4)){
+				case 0:
+					Dungeon.depth.drop(new Blackberry(), pos).sprite.drop();
+					break;
+				case 1:
+					Dungeon.depth.drop(new Blueberry(), pos).sprite.drop();
+					break;
+				case 2:
+					Dungeon.depth.drop(new Cloudberry(), pos).sprite.drop();
+					break;
+				case 3:
+					Dungeon.depth.drop(new Moonberry(), pos).sprite.drop();
+					break;
+			}
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){

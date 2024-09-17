@@ -89,7 +89,7 @@ public class GreenDragon extends PET{
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		enemy.damage(damageRoll()/2, SHOCK_DAMAGE);
+		enemy.damage(damageRoll()/2, SHOCK_DAMAGE,2);
 		damage = damage/2;
 		if (cooldown > 0) cooldown --;
 		if (cooldown==0 && enemy.isAlive()) {

@@ -35,8 +35,6 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Button;
 import com.watabou.noosa.ui.Component;
 
-import java.util.regex.Pattern;
-
 public class Toolbar extends Component {
 
 	private Tool btnWait;

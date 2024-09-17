@@ -46,7 +46,7 @@ public class MonsterBox extends Mob {
 		//HT = hero.HT;
 		HT = hero.HT;
 		EXP = 1;
-		evadeSkill = hero.evadeSkill;
+		//evadeSkill = hero.evadeSkill;
 		//enemySeen = true;
 		properties.add(Property.UNKNOW);
 	}
@@ -59,6 +59,11 @@ public class MonsterBox extends Mob {
 	@Override
 	public int hitSkill(Char target) {
 		return Dungeon.hero.hitSkill;
+	}
+
+	@Override
+	public int evadeSkill(Char target) {
+		return Dungeon.hero.evadeSkill;
 	}
 
 

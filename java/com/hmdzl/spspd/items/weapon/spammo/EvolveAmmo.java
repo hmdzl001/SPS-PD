@@ -6,8 +6,8 @@ import com.hmdzl.spspd.actors.mobs.NormalCell;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
@@ -39,7 +39,7 @@ public class EvolveAmmo extends SpAmmo {
 				GameScene.add(cell);
 				CellEmitter.get(cell.pos).burst(Speck.factory(Speck.WOOL), 4);
 			}
-		} else defender.damage((int)(0.10*damage), attacker);
+		} else defender.damage((int)(0.10*damage), attacker,1);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class EvolveAmmo extends SpAmmo {
 				GameScene.add(cell);
 				CellEmitter.get(cell.pos).burst(Speck.factory(Speck.WOOL), 4);
 			}
-		} else defender.damage((int)(0.10*damage), attacker);
+		} else defender.damage((int)(0.10*damage), attacker,1);
 	}
 	@Override
 	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
@@ -78,6 +78,6 @@ public class EvolveAmmo extends SpAmmo {
 				GameScene.add(cell);
 				CellEmitter.get(cell.pos).burst(Speck.factory(Speck.WOOL), 4);
 			}
-		} else defender.damage((int)(0.10*damage), attacker);
+		} else defender.damage((int)(0.10*damage), attacker,1);
 	}	
 }

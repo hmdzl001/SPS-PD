@@ -85,7 +85,7 @@ public class ParyAttack extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.BLESS;
+		return BuffIndicator.STAR_BLESS;
 	}
 
 	public int level() {

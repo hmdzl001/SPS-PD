@@ -50,6 +50,9 @@ public class NormalArmor extends Armor {
 
 		MIN = min();
 		MAX = max();
+
+		M_MIN = m_min();
+		M_MAX = m_max();
 	}
 
 	private int min() {
@@ -60,7 +63,13 @@ public class NormalArmor extends Armor {
 		return 8*tier - 4;
 	}
 
+	private int m_min() {
+		return 0;
+	}
 
+	private int m_max() {
+		return 1;
+	}
 
 	@Override
 	public Item upgrade() {
@@ -71,6 +80,7 @@ public class NormalArmor extends Armor {
 	public Item upgrade(boolean hasglyph) {
 		MIN +=1;
 		MAX +=3;
+		//M_MAX +=1;
 		return super.upgrade(hasglyph);
 	}	
 	
@@ -93,19 +103,35 @@ public class NormalArmor extends Armor {
 		String name = name();
 
 		String info = desc();
-
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(NormalArmor.class, "stats_known", tier, MIN, MAX, STR);
-				info += "\n\n" + Messages.get(NormalArmor.class, "stats_known2",new DecimalFormat("#.##").format(DEX), new DecimalFormat("#.##").format(STE), ENG);
-          if (Dungeon.hero.STR() > typicalSTR()){
+			info += "\n\n" + Messages.get(NormalArmor.class, "stats_known", tier,STR);
+
+			if (MIN > 0 || MAX > 0) {
+				info += "\n" + Messages.get(NormalArmor.class, "stats_melee", MIN, MAX);
+			}
+			if( M_MIN>0 || M_MAX>0){
+				info += "\n" + Messages.get(NormalArmor.class, "stats_magic", M_MIN, M_MAX);
+			}
+
+			info += "\n\n" + Messages.get(NormalArmor.class, "stats_known2",new DecimalFormat("#.##").format(DEX), new DecimalFormat("#.##").format(STE), ENG);
+			if (Dungeon.hero.STR() > typicalSTR()){
 				info += " " + Messages.get(NormalArmor.class, "excess_str", Dungeon.hero.STR() - typicalSTR());
 			}
-				} else {
+
+		} else {
 			info += "\n\n" + Messages.get(NormalArmor.class, "stats_unknown", tier, min(), max(), typicalSTR());
+
+
+		}
+
+		if (magical) {
+			info += "\n\n" +  Messages.get(NormalArmor.class, "magical");
 		}
 
 		String stats_desc = Messages.get(this, "stats_desc");
 		if (!stats_desc.equals("")) info+= "\n\n" + stats_desc;
+
+
 
 		if (glyph != null) {
 			info += "\n\n" +  Messages.get(NormalArmor.class, "inscribed",glyph.desc());

@@ -24,7 +24,6 @@ import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.food.vegetable.FirePepper;
-import com.hmdzl.spspd.items.food.vegetable.IceMint;
 import com.hmdzl.spspd.items.potions.PotionOfLiquidFlame;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.FireFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -72,6 +71,8 @@ public class Firebloom extends Plant {
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);
+
+			Dungeon.depth.drop(new FirePepper(), pos).sprite.drop();
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){

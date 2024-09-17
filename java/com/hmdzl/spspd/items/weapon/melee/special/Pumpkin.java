@@ -56,7 +56,7 @@ public class Pumpkin extends MeleeWeapon {
 
 		if (Random.Int(100) < 20) {
 			Buff.affect(defender, Burning.class).set(5f);
-			defender.damage(Random.Int(1, level + 2), this);
+			defender.damage(Random.Int(1, level + 2), this,2);
 			defender.sprite.emitter().burst(FlameParticle.FACTORY, level + 1);
 		}
 		if (Random.Int(100) < 20) {

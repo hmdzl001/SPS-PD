@@ -31,7 +31,7 @@ public class TargetShoot extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.MARK;
+		return BuffIndicator.TARGET;
 	}
 
 	@Override

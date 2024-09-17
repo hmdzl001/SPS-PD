@@ -28,6 +28,8 @@ public class BulletArmor extends NormalArmor {
 		STR += 1;
 		MAX = 46;
 		MIN = 10;
+		M_MIN = 0;
+		M_MAX = 0;
 	}
 
 	public BulletArmor() {

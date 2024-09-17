@@ -19,7 +19,6 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
@@ -55,7 +54,7 @@ public class RatKing extends NPC {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	}
 
 	@Override

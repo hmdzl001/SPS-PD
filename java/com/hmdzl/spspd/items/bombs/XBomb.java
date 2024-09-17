@@ -20,15 +20,11 @@ package com.hmdzl.spspd.items.bombs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.SmokeParticle;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 
@@ -68,7 +64,7 @@ public class XBomb extends Bomb {
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
 							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,1);
 					}
 					
 					} else {
@@ -80,7 +76,7 @@ public class XBomb extends Bomb {
 					int dmg = Random.NormalIntRange(minDamage, maxDamage);
 							//- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,1);
 					}
 				  }
 				}

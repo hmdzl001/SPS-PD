@@ -20,7 +20,6 @@ package com.hmdzl.spspd.items.food.fruit;
 import com.hmdzl.spspd.actors.buffs.Barkskin;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MoonFury;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;
 

@@ -107,19 +107,23 @@ public class ArmorStatue extends Mob {
 		return Random.NormalIntRange(armor.MIN, armor.MAX);
 	}
 
+	public int magicdrRoll() {
+		return Random.NormalIntRange(armor.M_MIN, armor.M_MAX);
+	}
+
 	//@Override
 	//protected boolean canAttack(Char enemy) {
 	//	return Level.distance( pos, enemy.pos ) <= weapon.RCH;
 	//}
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
 		}
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 
@@ -162,7 +166,7 @@ public class ArmorStatue extends Mob {
 	@Override
 	public void add(Buff buff) {
 		 if (buff instanceof Locked || buff instanceof Silent) {
-				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 		} else {
 			super.add(buff);
 		}

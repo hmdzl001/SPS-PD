@@ -32,6 +32,8 @@ public class RogueArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 2;
 		MIN = 0;
+		M_MIN = 0;
+		M_MAX = 7;
 	}
 
 	public RogueArmor() {

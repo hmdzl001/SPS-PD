@@ -67,7 +67,7 @@ public class WandOfFreeze extends DamageWand {
 			//}
 
 			processSoulMark(ch, chargesPerCast());
-			ch.damage(damage, this);
+			ch.damage(damage, this,2);
 
 			if (ch.isAlive()){
 				if (Floor.water[ch.pos]){

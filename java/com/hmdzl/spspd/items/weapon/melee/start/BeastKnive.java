@@ -17,33 +17,19 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.start;
 
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.Shocked;
-import com.hmdzl.spspd.actors.buffs.Shocked2;
-import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.effects.Beam;
-import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.CellSelector;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -125,7 +111,7 @@ public class BeastKnive extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 		
 	    int DMG = damage;
-		defender.damage(Random.Int(DMG / 4, DMG / 2), this);
+		defender.damage(Random.Int(DMG / 4, DMG / 2), this,3);
 		charge++;
 		if (Random.Int(100) < 40) {
 			Buff.affect(defender, Bleeding.class).set(Random.Int(5,DMG));

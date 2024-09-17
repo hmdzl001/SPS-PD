@@ -78,7 +78,7 @@ public class ScrollOfPsionicBlast extends Scroll {
 		
 		for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
 			if (Floor.fieldOfView[mob.pos]) {
-				mob.damage(mob.HT, this );
+				mob.damage(mob.HT, this,2 );
 			}
 		}
 		

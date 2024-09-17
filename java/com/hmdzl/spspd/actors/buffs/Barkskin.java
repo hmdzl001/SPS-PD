@@ -70,7 +70,7 @@ public class Barkskin extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.BARKSKIN;
+		return BuffIndicator.NATURE_SHIELD;
 	}
 	
 	@Override

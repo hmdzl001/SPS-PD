@@ -83,7 +83,7 @@ public class BambooMob extends Mob {
 
 		int dmg = Random.IntRange(0, damage) - enemy.drRoll();
 		if (dmg > 0) {
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,1);
 			Wound.hit(enemy);
 		}
 

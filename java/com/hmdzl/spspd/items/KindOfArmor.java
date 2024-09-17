@@ -30,8 +30,14 @@ public class KindOfArmor extends EquipableItem {
 
 	protected static final float TIME_TO_EQUIP = 1f;
 
+	public boolean magical = false;
+
 	public int MIN = 0;
 	public int MAX = 1;
+
+	public int M_MIN = 0;
+	public int M_MAX = 1;
+
 	public int tier;
 
 	//public KindOfArmor( int tier ) {
@@ -144,4 +150,9 @@ public class KindOfArmor extends EquipableItem {
 
     public void proc(Char attacker, Char defender, int damage) {
 	}
+
+	public int magicdrRoll(Hero owner) {
+		return Random.NormalIntRange(M_MIN, M_MAX);
+	}
+
 }

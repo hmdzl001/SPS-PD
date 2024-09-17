@@ -102,13 +102,13 @@ public class SokobanSentinel extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
 		}
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 	
 	@Override

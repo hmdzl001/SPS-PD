@@ -119,7 +119,7 @@ public class CapeOfThorns extends Artifact {
 				int deflected = Random.NormalIntRange(0, damage);
 				damage -= deflected;
 
-				attacker.damage(deflected, this);
+				attacker.damage(deflected, this,3);
 
 				exp += deflected;
 

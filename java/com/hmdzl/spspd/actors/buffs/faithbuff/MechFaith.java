@@ -25,7 +25,7 @@ public class MechFaith extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.MECH_FAITH;
+		return BuffIndicator.FAITH_MECH;
 	}
 
 	@Override

@@ -54,14 +54,13 @@ public class HTimprove extends FlavourBuff {
 	}
 	@Override
 	public int icon() {
-		return BuffIndicator.BLESS;
+		return BuffIndicator.HT_UP;
 	}
 	
     @Override
     public boolean act() {
-
-	detach();
-	Dungeon.hero.updateHT(false);
+	    detach();
+	    Dungeon.hero.updateHT(false);
 	return true;
 	}	
 

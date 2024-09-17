@@ -21,18 +21,21 @@
 package com.hmdzl.spspd.scenes;
 
 import com.hmdzl.spspd.Chrome;
-import com.hmdzl.spspd.ShatteredPixelDungeon;
-
-import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.PixelScene;
-import com.hmdzl.spspd.ui.*;
-
-import com.hmdzl.spspd.windows.WndOptions;
-
-import com.hmdzl.spspd.windows.WndTitledMessage;
-
 import com.hmdzl.spspd.GiftUnlocks;
-import com.watabou.noosa.*;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
+import com.hmdzl.spspd.messages.Messages;
+import com.hmdzl.spspd.ui.Archs;
+import com.hmdzl.spspd.ui.ExitButton;
+import com.hmdzl.spspd.ui.Icons;
+import com.hmdzl.spspd.ui.RedButton;
+import com.hmdzl.spspd.ui.RenderedTextMultiline;
+import com.hmdzl.spspd.ui.ScrollPane;
+import com.hmdzl.spspd.ui.Window;
+import com.hmdzl.spspd.windows.WndOptions;
+import com.watabou.noosa.Camera;
+import com.watabou.noosa.Image;
+import com.watabou.noosa.NinePatch;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 
 //TODO: update this class with relevant info as new versions come out.

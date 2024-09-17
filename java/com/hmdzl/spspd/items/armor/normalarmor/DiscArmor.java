@@ -24,6 +24,8 @@ public class DiscArmor extends NormalArmor {
 	{
 		//name = "disc armor";
 		image = ItemSpriteSheet.ARMOR_DISC;
+		M_MIN = 0;
+		M_MAX = 4;
 	}
 
 	public DiscArmor() {

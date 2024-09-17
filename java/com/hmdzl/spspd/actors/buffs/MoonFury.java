@@ -27,7 +27,7 @@ public class MoonFury extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.MOON_FURY;
+		return BuffIndicator.FURY;
 	}
 
 	@Override

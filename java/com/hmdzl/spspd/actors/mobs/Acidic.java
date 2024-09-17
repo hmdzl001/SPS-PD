@@ -40,7 +40,9 @@ public class Acidic extends Scorpio {
 
 	@Override
 	public boolean act() {
-		GameScene.add(Blob.seed(pos, 30, StenchGas.class));
+		if (state != SLEEPING) {
+			GameScene.add(Blob.seed(pos, 30, StenchGas.class));
+		}
 		return super.act();
 	}	
 	
@@ -49,7 +51,7 @@ public class Acidic extends Scorpio {
 
 		int dmg = Random.IntRange(0, damage/2) - enemy.drRoll();
 		if (dmg > 0) {
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,2);
 			Wound.hit(enemy);
 		}
 

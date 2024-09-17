@@ -62,7 +62,7 @@ public class CannonOfMage extends DamageWand {
 			if (ch.isAlive()){
 			switch (Random.Int(7)) {
 				case 0:
-					ch.damage((int) (damageRoll() * (1 + 0.3 * Dungeon.hero.magicSkill())), this);
+					ch.damage((int) (damageRoll() * (1 + 0.3 * Dungeon.hero.magicSkill())), this,1);
 					break;
 				case 1:
 					Buff.affect(ch, Burning.class).set(3f);
@@ -88,7 +88,7 @@ public class CannonOfMage extends DamageWand {
 					break;
 			}
 			processSoulMark(ch, chargesPerCast());
-			ch.damage((int) (damageRoll() * (1 + 0.6 * Dungeon.hero.magicSkill())), this);
+			ch.damage((int) (damageRoll() * (1 + 0.6 * Dungeon.hero.magicSkill())), this,2);
 			}
 		}
 	}

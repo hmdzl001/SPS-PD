@@ -355,7 +355,7 @@ public class GunWeapon extends Weapon {
 			if (spammo != null) {
 				spammo.onHit(GunWeapon.this, attacker, defender, damage);
 			}
-			defender.damage( (int)(damageRoll2(hero)/2),DamageType.ENERGY_DAMAGE);
+			defender.damage( (int)(damageRoll2(hero)/2),DamageType.ENERGY_DAMAGE,2);
 			super.proc(attacker, defender, damage);
 		}
 		

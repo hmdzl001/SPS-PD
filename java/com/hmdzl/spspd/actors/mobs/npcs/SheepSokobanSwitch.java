@@ -38,7 +38,7 @@ protected boolean act() {
 }
 
 @Override
-public void damage(int dmg, Object src) {
+public void damage(int dmg, Object src, int type) {
 }
 @Override
 public void add(Buff buff) {

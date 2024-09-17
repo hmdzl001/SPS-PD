@@ -18,7 +18,7 @@
 package com.hmdzl.spspd.ui;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.windows.WndSettings;
+import com.hmdzl.spspd.windows.WndSettingsOut;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;
@@ -63,6 +63,6 @@ public class PrefsButton extends Button {
 
 	@Override
 	protected void onClick() {
-		parent.add(new WndSettings(false));
+		parent.add(new WndSettingsOut());
 	}
 }

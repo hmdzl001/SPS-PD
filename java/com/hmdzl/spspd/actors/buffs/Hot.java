@@ -33,7 +33,7 @@ public class Hot extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.HOT;
+		return BuffIndicator.FIRE_3;
 	}
 
 	@Override

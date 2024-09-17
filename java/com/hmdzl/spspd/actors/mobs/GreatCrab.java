@@ -62,7 +62,7 @@ public class GreatCrab extends Crab {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, int type) {
 			// crab blocks all attacks originating from the hero or enemy
 			// characters or traps if it is alerted.
 			// All direct damage from these sources is negated, no exceptions.
@@ -72,7 +72,7 @@ public class GreatCrab extends Crab {
 				GLog.n( Messages.get(this, "noticed") );
 				sprite.showStatus( CharSprite.NEUTRAL, Messages.get(this, "blocked") );
 			} else {
-				super.damage(dmg, src);
+				super.damage(dmg, src,type);
 			}
 		}
 

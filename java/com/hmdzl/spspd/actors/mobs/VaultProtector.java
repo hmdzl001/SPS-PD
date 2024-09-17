@@ -78,7 +78,7 @@ public class VaultProtector extends Mob {
 			skilluse = true;
 			Dungeon.gold+=1;
 		} else {
-		enemy.damage(damageRoll(), DamageType.ENERGY_DAMAGE);
+		enemy.damage(damageRoll(), DamageType.ENERGY_DAMAGE,2);
 		Dungeon.gold-=Math.max(1,(int)Dungeon.gold/100);
 		damage = 0;
 		}

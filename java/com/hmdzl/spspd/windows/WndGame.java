@@ -32,7 +32,7 @@ import com.watabou.noosa.Game;
 
 import java.io.IOException;
 
-public class WndGame extends Window {
+public class  WndGame extends Window {
 
 	private static final int WIDTH = 120;
 	private static final int BTN_HEIGHT = 20;
@@ -48,7 +48,7 @@ public class WndGame extends Window {
 			@Override
 			protected void onClick() {
 				hide();
-				GameScene.show(new WndSettings(true));
+				GameScene.show(new WndSettings());
 			}
 		});
 

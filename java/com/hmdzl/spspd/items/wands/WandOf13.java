@@ -105,7 +105,7 @@ public class WandOf13 extends DamageWand {
 			processSoulMark(ch, chargesPerCast());
 			Buff.affect(ch,Bleeding.class).set(damageRoll());
 			Buff.affect(ch,ArmorBreak.class,5f).level(20);
-			ch.damage( (int)( damageRoll(lvl) * (1 + 0.1 * Dungeon.hero.magicSkill())), this );
+			ch.damage( (int)( damageRoll(lvl) * (1 + 0.1 * Dungeon.hero.magicSkill())), this,2 );
 			ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
 			ch.sprite.flash();
 		}

@@ -53,7 +53,7 @@ public class FlyChains extends Artifact {
 	public static final String AC_LOCKED = "LOCKED";
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_CHAINS;
+		image = ItemSpriteSheet.ARTIFACT_FLY_BUG;
 
 		levelCap = 5;
 		exp = 0;

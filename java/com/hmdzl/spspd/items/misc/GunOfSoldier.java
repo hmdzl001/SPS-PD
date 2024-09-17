@@ -148,9 +148,9 @@ public class GunOfSoldier extends Item {
 		public void proc(Char attacker, Char defender, int damage) {
 
             if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
-				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/6),this);
+				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/6),this,3);
 			} else {
-				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/3),this);
+				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/3),this,3);
 			//defender.damage(defender.HT,this);
 		   }
 			super.proc(attacker, defender, damage);

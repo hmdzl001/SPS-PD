@@ -20,7 +20,6 @@ package com.hmdzl.spspd.items.weapon.missiles.arrows;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.food.fruit.Durian;
 import com.hmdzl.spspd.items.food.vegetable.MotherRose;
 import com.hmdzl.spspd.levels.Floor;

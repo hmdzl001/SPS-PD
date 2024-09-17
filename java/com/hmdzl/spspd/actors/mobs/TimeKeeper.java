@@ -81,7 +81,7 @@ public class TimeKeeper extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damageRoll(), ENERGY_DAMAGE);
+		enemy.damage(damageRoll(), ENERGY_DAMAGE,2);
 		damage = 0;
 
 		if (enemy.isAlive() && Random.Int(5)==1) {
@@ -108,7 +108,7 @@ public class TimeKeeper extends Mob {
 	}	
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		if ( HP - dmg < HT/2 && !skilluse){
 			dmg = 0;
 			skilluse = true;
@@ -131,7 +131,7 @@ public class TimeKeeper extends Mob {
 			spend(1 / speed());
 
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 }

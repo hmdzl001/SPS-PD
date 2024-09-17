@@ -75,7 +75,7 @@ public class Tree extends  MeleeThrowWeapon {
 				int dmg = Random.Int( MIN, MAX );
 				int effectiveDamage = Math.max( dmg - dr, 0 );
 
-				ch.damage( effectiveDamage, attacker );
+				ch.damage( effectiveDamage, attacker,1 );
 			}
 		}
 

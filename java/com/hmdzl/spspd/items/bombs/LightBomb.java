@@ -60,10 +60,10 @@ public class LightBomb extends Bomb {
 					|| ch.properties().contains(Char.Property.MINIBOSS)
 						) {
 					int dmg = Random.NormalIntRange(200, 400);
-					ch.damage(dmg, this);
+					ch.damage(dmg, this,2);
                    } else {
                 	int dmg = Random.NormalIntRange(50, 100);
- 					ch.damage(dmg, this);
+ 					ch.damage(dmg, this,2);
 				}
 			}
 		}}

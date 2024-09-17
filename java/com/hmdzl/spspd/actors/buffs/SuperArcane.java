@@ -53,7 +53,7 @@ public class SuperArcane extends FlavourBuff {
 	}
 	@Override
 	public int icon() {
-		return BuffIndicator.ARCANE;
+		return BuffIndicator.MAGIC_UP;
 	}
 
 	public int level() {

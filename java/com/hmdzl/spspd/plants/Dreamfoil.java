@@ -31,7 +31,6 @@ import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.food.vegetable.DreamLeaf;
-import com.hmdzl.spspd.items.food.vegetable.RootRadish;
 import com.hmdzl.spspd.items.potions.PotionOfPurity;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.CharmFruit;
 import com.hmdzl.spspd.levels.Floor;
@@ -87,6 +86,8 @@ public class Dreamfoil extends Plant {
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);
+
+			Dungeon.depth.drop(new DreamLeaf(), pos).sprite.drop();
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){

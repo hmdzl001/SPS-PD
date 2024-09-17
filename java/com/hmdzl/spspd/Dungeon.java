@@ -101,7 +101,9 @@ import java.util.HashSet;
 
 public class Dungeon {
 
-	// enum of items which have limited spawns, records how many have spawned
+    public static boolean canseehp  = false;
+
+    // enum of items which have limited spawns, records how many have spawned
 	// could all be their own separate numbers, but this allows iterating, much
 	// nicer for bundling/initializing.
 	public enum LimitedDrops {
@@ -171,7 +173,7 @@ public class Dungeon {
 	public static boolean dewNorn = false;
 
 	public static boolean gnollmission = false;
-	public static boolean picktype = false;
+	//public static boolean picktype = false;
 	//public static boolean secondQuest = false;
 
 
@@ -280,7 +282,7 @@ public class Dungeon {
 		dewNorn = false;
 
 		gnollmission = false;
-		picktype = false;
+		//picktype = false;
 
 		pars = new int[100];
 		
@@ -363,7 +365,7 @@ public class Dungeon {
 		dewNorn = false;
 
 		gnollmission = false;
-		picktype = false;
+		//picktype = false;
 
 		pars = new int[100];
 
@@ -1273,7 +1275,7 @@ public class Dungeon {
 			bundle.put(DEWNORN, dewNorn);
 
 			bundle.put(GNOLLMISSION, gnollmission);
-			bundle.put(PICKTYPE, picktype);
+			//bundle.put(PICKTYPE, picktype);
 			bundle.put(PARS, pars);
 
 			Bundle limDrops = new Bundle();
@@ -1544,7 +1546,7 @@ public class Dungeon {
 		dewNorn = bundle.getBoolean(DEWNORN);
 
 		gnollmission = bundle.getBoolean(GNOLLMISSION);
-		picktype = bundle.getBoolean(PICKTYPE);
+		//picktype = bundle.getBoolean(PICKTYPE);
 		pars = bundle.getIntArray(PARS);
 
 		Statistics.restoreFromBundle(bundle);

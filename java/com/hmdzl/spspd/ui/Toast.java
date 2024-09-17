@@ -20,7 +20,6 @@ package com.hmdzl.spspd.ui;
 import com.hmdzl.spspd.Chrome;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.watabou.noosa.NinePatch;
-import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 
 public class Toast extends Component {

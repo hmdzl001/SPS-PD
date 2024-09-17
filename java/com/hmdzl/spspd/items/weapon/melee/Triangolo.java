@@ -65,7 +65,7 @@ public class Triangolo extends MeleeWeapon {
 				int dmg = Random.Int( MIN, MAX );
 				int effectiveDamage = Math.max( dmg - dr, 0 );
 
-				ch.damage( effectiveDamage, ENERGY_DAMAGE );
+				ch.damage( effectiveDamage, ENERGY_DAMAGE,2 );
 			}
 		}
 		if (enchantment != null) {

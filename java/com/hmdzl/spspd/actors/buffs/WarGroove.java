@@ -24,7 +24,7 @@ public class WarGroove extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.WARGROOVE;
+		return BuffIndicator.MUSIC_WARGROOVE;
 	}
 
 	@Override

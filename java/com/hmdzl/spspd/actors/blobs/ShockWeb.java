@@ -42,7 +42,7 @@ public class ShockWeb extends Blob {
 				Char ch = Actor.findChar(i);
 				if (ch != null && !ch.isImmune(this.getClass())) {
 					int damage = 5;
-				    ch.damage(damage, this);
+				    ch.damage(damage, this,2);
 					Buff.affect(ch, Shocked.class).level((int)TICK);
 				}
 			}

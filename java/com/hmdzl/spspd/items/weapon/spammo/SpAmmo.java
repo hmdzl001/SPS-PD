@@ -4,8 +4,8 @@ package com.hmdzl.spspd.items.weapon.spammo;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public abstract class SpAmmo extends Item {

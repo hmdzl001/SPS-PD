@@ -88,7 +88,7 @@ public class JupitersHorror extends Weapon.Enchantment {
 						
 						
 						if (dmg > 0) {
-							ch.damage(dmg, this);
+							ch.damage(dmg, this,2);
 							if(Random.Int(15)==1){Buff.prolong(ch, Paralysis.class, 1);}
 						}
 												

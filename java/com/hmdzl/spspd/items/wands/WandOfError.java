@@ -94,7 +94,7 @@ public class WandOfError extends Wand {
 			int damage = (ch.HT/4) ;
 			if (Dungeon.hero.buff(MoonFury.class) != null)
 			{damage *= (int) 4f; Buff.detach(Dungeon.hero, MoonFury.class);}
-				ch.damage(damage, this);
+				ch.damage(damage, this,3);
 			}
 			break;
 			case 2:

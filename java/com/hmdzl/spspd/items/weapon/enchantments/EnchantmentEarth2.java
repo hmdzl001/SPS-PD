@@ -50,9 +50,9 @@ public class EnchantmentEarth2 extends Weapon.Enchantment {
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
 		
-		defender.damage((int)(Random.Int(level,maxdmg)*0.25), EARTH_DAMAGE);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), EARTH_DAMAGE,2);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), EARTH_DAMAGE);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), EARTH_DAMAGE,2);
 		}		
 		if ((Random.Int(4) == 1 )&& defender.isAlive()) {
 			Buff.prolong(defender, Roots.class,3f);

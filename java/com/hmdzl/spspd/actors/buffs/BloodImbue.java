@@ -53,7 +53,7 @@ public class BloodImbue extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.PBLOOD;
+		return BuffIndicator.FURY;
 	}
 
 	@Override

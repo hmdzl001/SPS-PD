@@ -178,7 +178,7 @@ public class Pickaxe extends Weapon {
 		//	updateQuickslot();
 	//	}
 		if (defender instanceof King.DwarfKingTomb || defender instanceof ElderAvatar.Obelisk || defender instanceof LichDancer.BatteryTomb){
-			defender.damage(Random.Int(100,200), this);
+			defender.damage(Random.Int(100,200), this,3);
 		}
 		
 		switch (Random.Int (10)) {

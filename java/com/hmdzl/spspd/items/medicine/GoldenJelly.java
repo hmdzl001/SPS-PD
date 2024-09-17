@@ -21,12 +21,8 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.GrowSeed;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
 
 public class GoldenJelly extends Pill {
 

@@ -30,14 +30,14 @@ import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.utils.GLog;
 
-public class DewBlessRoom {
+public class DewBlessPlace {
 
 	public static void trample(Floor level, int pos, Char ch) {
 
 		if (ch instanceof Hero) {
 
             Buff.affect(Dungeon.hero, Dewcharge.class,720f);
-			GLog.h(Messages.get(DewBlessRoom.class, "order"), Dungeon.pars[Dungeon.dungeondepth]);
+			GLog.h(Messages.get(DewBlessPlace.class, "order"), Dungeon.pars[Dungeon.dungeondepth]);
 			CellEmitter.get(pos).burst(ElmoParticle.FACTORY, 6);
 			Dungeon.observe();
 			Floor.set(pos, Terrain.GRASS);

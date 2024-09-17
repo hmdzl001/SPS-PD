@@ -20,11 +20,7 @@ package com.hmdzl.spspd.levels;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.mobs.GhostPhoto;
 import com.hmdzl.spspd.actors.mobs.TestMob;
-import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAshWolf;
-import com.hmdzl.spspd.actors.mobs.giftnpc.GiftCoconut;
-import com.hmdzl.spspd.actors.mobs.giftnpc.GiftRen;
 import com.hmdzl.spspd.actors.mobs.npcs.Leadercn;
 import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
@@ -39,6 +35,7 @@ import com.hmdzl.spspd.items.potions.PotionOfMending;
 import com.hmdzl.spspd.items.potions.PotionOfMindVision;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicMapping;
 import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
+import com.hmdzl.spspd.items.weapon.ranges.WoodenBowN;
 import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Bundle;
@@ -159,6 +156,7 @@ public class LearnLevel extends Floor {
  
         addWeapon(15 + WIDTH * 2);
 		addArmor(16 + WIDTH * 2);
+		addBow(14 + WIDTH * 2);
 
 		//addSCOIN(14 + WIDTH * 2);
 
@@ -194,6 +192,15 @@ public class LearnLevel extends Floor {
 		
 		prize = new TestArmor();
 		 //prize = new TestWeapon();
+		drop(prize.identify(), pos).type = Heap.Type.HEAP;
+	}
+
+	private void addBow(int pos) {
+
+		Item prize;
+
+		prize = new WoodenBowN();
+		//prize = new TestWeapon();
 		drop(prize.identify(), pos).type = Heap.Type.HEAP;
 	}
 

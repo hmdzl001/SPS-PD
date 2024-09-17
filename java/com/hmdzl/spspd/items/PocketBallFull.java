@@ -25,6 +25,7 @@ import com.hmdzl.spspd.actors.buffs.WatchOut;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.pets.Abi;
+import com.hmdzl.spspd.actors.mobs.pets.BatPet;
 import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
 import com.hmdzl.spspd.actors.mobs.pets.BlueGirl;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
@@ -264,6 +265,9 @@ public class PocketBallFull extends Item {
             case 666:
                 pet = new YearPet();
                 break;
+            case 807:
+                pet = new BatPet();
+                break;
             default:
                 pet = null;
                 break;
@@ -404,6 +408,9 @@ public class PocketBallFull extends Item {
                 break;				  
               case 666:
                   pet = new YearPet();
+                  break;
+              case 807:
+                  pet = new BatPet();
                   break;
               default:
                   pet = null;

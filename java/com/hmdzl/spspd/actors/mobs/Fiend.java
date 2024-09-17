@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
@@ -33,7 +32,6 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.wands.WandOfBlood;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.FiendSprite;
@@ -118,12 +116,12 @@ public class Fiend extends Mob implements Callback {
 			}
 
 			int dmg = Random.Int(20, 45);
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,2);
 
-			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(Messages.get(this, "kill"));
-			}
+			//}
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
 		}
@@ -177,7 +175,7 @@ public class Fiend extends Mob implements Callback {
 				sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			}
 		} else if (buff instanceof Amok || buff instanceof Terror) {
-				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 		} else {
 			super.add(buff);
 		}

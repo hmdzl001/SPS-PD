@@ -326,7 +326,9 @@ public class InterlevelScene extends PixelScene {
 		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 6) {
 			if (Dungeon.hero.spp > Dungeon.hero.lvl){
 				Dungeon.hero.spp --;
-			} else Dungeon.hero.HT--;
+			} else {
+				Dungeon.hero.HT--;
+			}
 		}
 		if (Dungeon.dungeondepth == 41) {
 			  Dungeon.dungeondepth =40;

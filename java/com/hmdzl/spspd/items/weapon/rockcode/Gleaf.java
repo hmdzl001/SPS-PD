@@ -26,7 +26,6 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -55,7 +54,7 @@ public class Gleaf extends RockCode {
 		int damageRoll = Random.Int(Dungeon.hero.lvl,Dungeon.hero.lvl*3);
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
-			ch.damage( damageRoll,EARTH_DAMAGE );
+			ch.damage( damageRoll,EARTH_DAMAGE,2 );
 			if (ch.isAlive() && Random.Int(2) == 0){
 				Buff.affect(ch, Poison.class).set(Dungeon.hero.lvl);
 				Buff.affect(ch,Roots.class,3f);
@@ -87,7 +86,7 @@ public class Gleaf extends RockCode {
 			Buff.affect(defender,Roots.class,3f);
 		}
 
-		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), EARTH_DAMAGE);
+		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), EARTH_DAMAGE,2);
 	}
 
 	

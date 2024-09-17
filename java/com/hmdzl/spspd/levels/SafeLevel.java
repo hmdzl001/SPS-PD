@@ -23,7 +23,6 @@ import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
-import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
 

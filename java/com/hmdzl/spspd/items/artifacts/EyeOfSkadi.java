@@ -139,7 +139,7 @@ public class EyeOfSkadi extends Artifact {
 		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			
             CellEmitter.get(mob.pos).start(SnowParticle.FACTORY, 0.2f, 6);
-			mob.damage(Random.Int(mob.HP/4,mob.HP/2 ), DamageType.ICE_DAMAGE);
+			mob.damage(Random.Int(mob.HP/4,mob.HP/2 ), DamageType.ICE_DAMAGE,2);
 			
 			if (mob.isAlive()) {
 			Buff.prolong(mob, Frost.class, Frost.duration(mob)* Random.Float(1f*level(), 1.5f*level()));

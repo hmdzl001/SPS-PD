@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.food;
 
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class FishCracker extends Food {

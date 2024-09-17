@@ -54,7 +54,7 @@ public class BeTired extends Buff {
 			detach();
 		if(level>15){
 			level=0;
-			target.damage(target.HT/10,target);
+			target.damage(target.HT/10,target,3);
 		detach();}
 		return true;
 

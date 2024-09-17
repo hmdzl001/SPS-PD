@@ -85,7 +85,7 @@ public class Snake extends PET {
 		}
 		
 		if (cooldown == 0 && enemy.isAlive()) {
-			enemy.damage(Math.max(1,(int)(enemy.HP/3)),this);
+			enemy.damage(Math.max(1,(int)(enemy.HP/3)),this,1);
 			cooldown = Math.max(5,25 - hero.petLevel);
 		}
 		

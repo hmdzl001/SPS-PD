@@ -5,8 +5,8 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -27,7 +27,7 @@ public class RotAmmo extends SpAmmo {
 			Buff.prolong(defender, Roots.class,3f);
 		} else
 			Buff.affect(defender, Ooze.class).set(5f);
-		    defender.damage((int)(0.5*damage), attacker);
+		    defender.damage((int)(0.5*damage), attacker,2);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class RotAmmo extends SpAmmo {
 			Buff.prolong(defender, Roots.class,3f);
 		} else
 			Buff.affect(defender, Ooze.class).set(5f);
-		defender.damage((int)(0.5*damage), attacker);
+		defender.damage((int)(0.5*damage), attacker,2);
 	}
 	@Override
 	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
@@ -46,7 +46,7 @@ public class RotAmmo extends SpAmmo {
 			Buff.prolong(defender, Roots.class,3f);
 		} else
 			Buff.affect(defender, Ooze.class).set(5f);
-		defender.damage((int)(0.5*damage), attacker);
+		defender.damage((int)(0.5*damage), attacker,2);
 	}
 
 }

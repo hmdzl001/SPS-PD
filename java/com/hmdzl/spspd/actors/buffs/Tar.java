@@ -29,7 +29,7 @@ public class Tar extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.TAR;
+		return BuffIndicator.TAROIL;
 	}
 
 	@Override

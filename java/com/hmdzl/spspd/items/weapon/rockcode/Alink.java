@@ -26,7 +26,6 @@ import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMirrorImage;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;

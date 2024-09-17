@@ -67,7 +67,7 @@ public class WandOfMagicMissile extends DamageWand {
 		Char ch = Actor.findChar( bolt.collisionPos );
 		if (ch != null) {
 		    processSoulMark(ch, chargesPerCast());
-			ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this);
+			ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this,2);
             Buff.affect(ch, MagicWeak.class, level());
 			ch.sprite.burst(0xFF99CCFF, 2);
 

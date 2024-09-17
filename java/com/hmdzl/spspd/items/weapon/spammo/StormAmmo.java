@@ -4,8 +4,8 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Shocked;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -27,7 +27,7 @@ public class StormAmmo extends SpAmmo {
 		if (Random.Int(6) == 3) {
 			Buff.affect(defender, Shocked.class).level(2);
 
-		} else  defender.damage((int)(0.40*damage), SHOCK_DAMAGE);
+		} else  defender.damage((int)(0.40*damage), SHOCK_DAMAGE,2);
 
 	}
 	@Override
@@ -36,7 +36,7 @@ public class StormAmmo extends SpAmmo {
 		if (Random.Int(6) == 3) {
 			Buff.affect(defender, Shocked.class).level(2);
 
-		} else  defender.damage((int)(0.40*damage), SHOCK_DAMAGE);
+		} else  defender.damage((int)(0.40*damage), SHOCK_DAMAGE,2);
 
 	}
 		@Override
@@ -45,7 +45,7 @@ public class StormAmmo extends SpAmmo {
 		if (Random.Int(6) == 3) {
 			Buff.affect(defender, Shocked.class).level(2);
 
-		} else  defender.damage((int)(0.40*damage), SHOCK_DAMAGE);
+		} else  defender.damage((int)(0.40*damage), SHOCK_DAMAGE,2);
 
 	}
 }

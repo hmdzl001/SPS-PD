@@ -41,7 +41,7 @@ import java.util.Locale;
 
 public class WndGameInProgress extends Window {
 	private static final int WIDTH    = 120;
-	private static final int HEIGHT   = 120;
+	private static final int HEIGHT   = 160;
 
 	private int GAP	  = 5;
 
@@ -79,7 +79,7 @@ public class WndGameInProgress extends Window {
 				}
 			};
 			float btnW = btnChallenges.reqWidth() + 2;
-			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , btnChallenges.reqHeight() + 2 );
+			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , btnChallenges.reqHeight());
 			add( btnChallenges );
 
 			pos = btnChallenges.bottom() + GAP;
@@ -87,12 +87,20 @@ public class WndGameInProgress extends Window {
 
 		pos += GAP;
 
+		statSlot( Messages.get(this, "depth"), info.depth );
+
+		statSlot( Messages.get(this, "oldslot"), info.oldslot );
+
+		pos += GAP;
+
+		statSlot( Messages.get(this, "skin"), Messages.get(this,"id_"+ info.skins) );
 		statSlot( Messages.get(this, "str"), info.str );
 		statSlot( Messages.get(this, "health"), (info.hp) + "/" + info.ht );
 
 		pos += GAP;
 		statSlot( Messages.get(this, "gold"), info.goldCollected );
-		statSlot( Messages.get(this, "depth"), info.maxDepth );
+		statSlot( Messages.get(this, "maxdepth"), info.maxDepth );
+		statSlot( Messages.get(this, "verison"), info.version );
 
 		pos += GAP;
 

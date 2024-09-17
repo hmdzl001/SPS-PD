@@ -23,7 +23,6 @@ import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.ui.BuffIndicator;
 import com.hmdzl.spspd.ui.HealthBar;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 

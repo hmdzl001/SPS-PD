@@ -18,10 +18,7 @@
 package com.hmdzl.spspd.items.medicine;
 
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.FireImbue;
 import com.hmdzl.spspd.actors.buffs.LingBless;
-import com.hmdzl.spspd.actors.buffs.ToxicImbue;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 

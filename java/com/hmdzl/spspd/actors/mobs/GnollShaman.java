@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
@@ -31,7 +30,6 @@ import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.traps.LightningTrap;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ShamanSprite;
 import com.watabou.noosa.Camera;
@@ -88,7 +86,7 @@ public class GnollShaman extends Mob implements Callback {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damageRoll()/2, SHOCK_DAMAGE);
+		enemy.damage(damageRoll()/2, SHOCK_DAMAGE,2);
 		damage = damage/2;
 
 		return damage;
@@ -124,7 +122,7 @@ public class GnollShaman extends Mob implements Callback {
 				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
-				enemy.damage(dmg, SHOCK_DAMAGE);
+				enemy.damage(dmg, SHOCK_DAMAGE,2);
 
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
@@ -133,10 +131,10 @@ public class GnollShaman extends Mob implements Callback {
 
 					Camera.main.shake(2, 0.3f);
 
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE) );
+					//if (!enemy.isAlive()) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE) );
 						//GLog.n(Messages.get(this, "zap_kill"));
-					}
+					//}
 				}
 			} else {
 				enemy.sprite

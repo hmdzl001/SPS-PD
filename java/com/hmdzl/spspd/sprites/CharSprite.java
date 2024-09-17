@@ -26,7 +26,6 @@ import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.DarkBlock;
 import com.hmdzl.spspd.effects.EmoIcon;
-import com.hmdzl.spspd.effects.FloatingText;
 import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.effects.IceBlock;
 import com.hmdzl.spspd.effects.ShieldHalo;
@@ -147,7 +146,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		turnTo( ch.pos, Random.Int( Floor.LENGTH ) );
 
 		if (ch != Dungeon.hero) {
-			if (health == null) {
+			 if (health == null) {
 				health = new CharHealthIndicator(ch);
 			} else {
 				health.target(ch);

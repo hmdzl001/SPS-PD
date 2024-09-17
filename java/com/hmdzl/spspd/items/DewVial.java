@@ -21,6 +21,7 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -328,8 +329,30 @@ public class DewVial extends Item {
 			}
 
 			//dewpoint = dewpoint - 70 - rejection;
-            if (cv!=null ) {cv.fill();cv.fill();}
-			 updateQuickslot();
+
+			if (ShatteredPixelDungeon.allin()){
+				int uptime = (int)(dewpointex/( 70 + rejection));
+				if (uptime > 1) {
+					for (int i = 0; i < uptime; i++) {
+						uncurse(hero, hero.belongings.backpack.items.toArray(new Item[0]));
+						// uncurse(hero, hero.belongings.backpack.items.toArray(new Item[0]));
+						uncurse(hero, hero.belongings.weapon,
+								hero.belongings.armor, hero.belongings.misc1,
+								hero.belongings.misc2, hero.belongings.misc3,
+								hero.belongings.armor_two,hero.belongings.weapon_two);
+						uncurse(hero, hero.belongings.weapon,
+								hero.belongings.armor, hero.belongings.misc1,
+								hero.belongings.misc2, hero.belongings.misc3,
+								hero.belongings.armor_two,hero.belongings.weapon_two);
+						dewpointex = dewpointex - 70 - rejection;
+					}
+				} else {
+
+				}
+			}
+
+			if (cv!=null ) {cv.fill();cv.fill();}
+			updateQuickslot();
 			
 		} else if (action.equals(AC_BLESS) && Dungeon.dewDraw) {
 			curUser = hero;
@@ -363,27 +386,28 @@ public class DewVial extends Item {
 			 updateQuickslot();
 
 		} else if (action.equals(AC_PEEK)) {
-			Buff.affect(hero, MindVision.class, 2f);
+			Buff.affect(hero, MindVision.class, 5f);
 			if(Dungeon.dungeondepth < 25 && !Dungeon.bossLevel()) {
 				GameScene.add(Blob.seed(Dungeon.depth.exit, 1, TorchLight.class));
 				GameScene.add(Blob.seed(Dungeon.depth.entrance, 1, TorchLight.class));
 			}
 			if (dewpointex > 0){
-				if (dewpointex > 5 + rejection){
-					dewpointex = dewpointex - 5 - rejection;
+				if (dewpointex > 20 + rejection){
+					dewpointex = dewpointex - 20 - rejection;
 				} else {
-					dewpoint = dewpoint + dewpointex - 5 - rejection;
+					dewpoint = dewpoint + dewpointex - 20 - rejection;
 					dewpointex = 0;
 				}
 			} else {
-				dewpoint = dewpoint - 5 - rejection;
+				dewpoint = dewpoint - 20 - rejection;
 			}
 			//dewpoint = dewpoint - 5  - rejection;
             if (cv!=null) {cv.fill();}
 			hero.sprite.operate(hero.pos);
 			hero.busy();
 			hero.spend(TIME_TO_LIGHT);
-			 updateQuickslot();
+			GameScene.dewpeek();
+			updateQuickslot();
 		} else if (action.equals(AC_REFINE)) {
 
 			if (dewpointex > 0){
@@ -432,7 +456,11 @@ public class DewVial extends Item {
 			    proccedUp = true;
 			    hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 			    //GLog.p(Messages.get(DewVial.class, "looks_better",item.name()));
+				if (item.level == levelLimit){
+					item.uncurse();
+				}
 			    Badges.validateItemLevelAquired(item);
+
 			} else if (item != null && item.isUpgradable()){
 				dewpointex ++;
 			}
@@ -475,6 +503,24 @@ public class DewVial extends Item {
 					dewpoint = dewpoint - 70 - rejection;
 				}
 				//dewpoint = dewpoint - 70 - rejection;
+				int levelLimit = Math.max(3, 3+Math.round((Statistics.deepestFloor-2)/2));
+				int maxuptime = (int) (dewpointex / (70 + rejection));
+				if (item.level <levelLimit && ShatteredPixelDungeon.allin() && maxuptime > 0){
+					if (levelLimit - item.level < maxuptime  ) {
+						for (int i = 0; i < levelLimit - item.level; i++) {
+							item.upgrade();
+							dewpointex = dewpointex - 70 - rejection;
+						}
+					} else {
+						for (int i = 0; i < maxuptime; i++) {
+							item.upgrade();
+							dewpointex = dewpointex - 70 - rejection;
+						}
+					}
+				} else {
+
+				}
+
                 CrystalVial cv = hero.belongings.getItem(CrystalVial.class);
                 if (cv!=null) {cv.fill();}
 			}
@@ -482,14 +528,15 @@ public class DewVial extends Item {
 	};
 	
 	private void dewupgrade(Item item) {
-        int n = Random.Int(Math.min(1, Statistics.deepestFloor/24) , Math.max(2, Statistics.deepestFloor/6));
+        int n = Random.Int(1 , Math.max(2, Statistics.deepestFloor/6));
+		int levelLimit = Math.max(3, 3+Math.round((Statistics.deepestFloor-2)/2));
 
 		//GLog.w(Messages.get(this, "looks_better", item.name()));
 		for(int i=0; i<n; i++) {
 			item.upgrade();
 		}
 		item.upgrade();
-		if (item.level > 14) {item.identify();}
+		if (item.level > levelLimit && Random.Int(2) == 0) {item.identify();}
 		curUser.sprite.operate(curUser.pos);
 		curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 		Badges.validateItemLevelAquired(item);
@@ -599,6 +646,18 @@ public class DewVial extends Item {
 
 		updateQuickslot();
 	}
+
+	public void collectallDew(int number) {
+
+		dewpoint += (1*number);
+		if (dewpoint >= MAX_VOLUME()) {
+			dewpointex +=  dewpoint - MAX_VOLUME();
+			dewpoint = MAX_VOLUME();
+			//GLog.p(Messages.get(DewVial.class, "full"));
+		}
+
+		updateQuickslot();
+	}
 	
 	
 	public void fill() {
@@ -699,7 +758,7 @@ public class DewVial extends Item {
 
 		@Override
 		public int icon() {
-			return BuffIndicator.LIGHT;
+			return BuffIndicator.TORCH_LIGHT;
 		}
 
 		@Override

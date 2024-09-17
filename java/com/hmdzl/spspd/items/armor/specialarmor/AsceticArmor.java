@@ -32,6 +32,9 @@ public class AsceticArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 15;
 		MIN = 0;
+		M_MIN = 0;
+		M_MAX = 7;
+		magical = true;
 	}
 
 	public AsceticArmor() {

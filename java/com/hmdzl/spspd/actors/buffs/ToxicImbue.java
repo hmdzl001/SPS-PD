@@ -67,7 +67,7 @@ public class ToxicImbue extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.PTOXIC;
+		return BuffIndicator.GAS_IMM;
 	}
 
 	@Override

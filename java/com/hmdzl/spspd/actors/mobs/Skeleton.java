@@ -19,7 +19,6 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -28,7 +27,6 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.StoneCross;
 import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SkeletonSprite;
 import com.watabou.noosa.audio.Sample;
@@ -80,7 +78,7 @@ public class Skeleton extends Mob {
 			if (ch != null && ch.isAlive()) {
 				int damage = Math.max(0,
 						Random.NormalIntRange(3, 8) - Random.IntRange(0, ch.drRoll() / 2));
-				ch.damage(damage, this);
+				ch.damage(damage, this,1);
 				Buff.affect(ch,Silent.class,10f);
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;
@@ -92,10 +90,10 @@ public class Skeleton extends Mob {
 			Sample.INSTANCE.play(Assets.SND_BONES);
 		}
 
-		if (heroKilled) {
-			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//if (heroKilled) {
+		//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 			//GLog.n(Messages.get(this, "kill"));
-		}
+		//}
 	}
 
 	@Override

@@ -21,7 +21,9 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
 import com.hmdzl.spspd.actors.buffs.Awareness;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -40,9 +42,10 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
+import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.particles.BlastParticle;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -281,11 +284,47 @@ public class SoldierSkill extends ClassSkill {
 
 		}
 
+		@Override
+		public int attackProc(Char enemy, int damage) {
+			int dmg = super.attackProc(enemy, damage);
+
+			if (this.HP < 5) {
+
+				Sample.INSTANCE.play(Assets.SND_BLAST);
+
+				if (Dungeon.visible[pos]) {
+					CellEmitter.center(pos).burst(BlastParticle.FACTORY, 30);
+				}
+
+				GameScene.add(Blob.seed(pos,5, Fire.class));
+
+				for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+					Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
+					if (ch != null && ch.isAlive() && ch != Dungeon.hero) {
+						ch.damage(damage, this,2);
+					}
+				}
+
+				destroy();
+				sprite.die();
+			}
+
+			return dmg;
+		}
+
+		@Override
+		public void damage(int dmg, Object src, int type) {
+			if (dmg > this.HP){
+				dmg = 0;
+				this.HP = 1;
+			}
+
+			super.damage(dmg,src,type);
+		}
+
 
 		@Override
 		public void die(Object cause) {
-			DungeonBomb bomb = new DungeonBomb();
-			bomb.explode(pos);
 			super.die(cause);
 		}
 
@@ -305,6 +344,11 @@ public class SoldierSkill extends ClassSkill {
 			ally=true;
 
 			properties.add(Property.MECH);
+		}
+
+		@Override
+		public int damageRoll() {
+			return 2*Dungeon.hero.damageRoll();
 		}
 
 
@@ -335,15 +379,6 @@ public class SoldierSkill extends ClassSkill {
 
 			return b;
 
-		}
-
-
-		@Override
-		public void die(Object cause) {
-			DungeonBomb bomb = new DungeonBomb();
-			bomb.explode(pos);
-			bomb.explode(pos);
-			super.die(cause);
 		}
 
 	    {

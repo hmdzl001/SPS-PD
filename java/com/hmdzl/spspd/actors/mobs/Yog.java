@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -188,11 +187,11 @@ public class Yog extends Mob {
 	}
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		if (dmg > HP && (src instanceof Hero)) {
 			dmg = 1;
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 	@Override
@@ -225,7 +224,7 @@ public class Yog extends Mob {
 		if (fistsCount<1){
 			spawnFists();
 			sprite.emitter().burst(ShadowParticle.UP, 2);
-			this.damage(REGENERATION,this);
+			this.damage(REGENERATION,this,3);
 		}
 		return super.defenseProc(enemy, damage);
 	}
@@ -413,15 +412,15 @@ public class Yog extends Mob {
 				if (hit(this, enemy, true)) {
 
 					int dmg = damageRoll();
-					enemy.damage(dmg, this);
+					enemy.damage(dmg, this,2);
 
 					enemy.sprite.bloodBurstA(sprite.center(), dmg);
 					enemy.sprite.flash();
 
-					if (!enemy.isAlive() && enemy == Dungeon.hero) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(TXT_KILL, name);
-					}
+					//}
 					return true;
 
 				} else {
@@ -598,7 +597,7 @@ public class Yog extends Mob {
 				if (hit(this, enemy, true)) {
 
 					int dmg = damageRoll();
-					enemy.damage(dmg, this);
+					enemy.damage(dmg, this,1);
 					
 					if(Random.Int(10)==0){
 						Buff.prolong(enemy, Roots.class, 20);
@@ -607,10 +606,10 @@ public class Yog extends Mob {
 					enemy.sprite.bloodBurstA(sprite.center(), dmg);
 					enemy.sprite.flash();
 
-					if (!enemy.isAlive() && enemy == Dungeon.hero) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-						GLog.n(TXT_KILL, name);
-					}
+					//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//	GLog.n(TXT_KILL, name);
+					//}
 					return true;
 
 				} else {

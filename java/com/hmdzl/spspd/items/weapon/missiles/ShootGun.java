@@ -264,13 +264,13 @@ public class ShootGun extends Weapon {
 				int dmg = Random.Int( MIN, MAX );
 				int effectiveDamage = Math.max( dmg - dr, 0 );
                 Buff.affect(ch,ArmorBreak.class, 5f).level(30);
-				ch.damage( effectiveDamage, attacker );
+				ch.damage( effectiveDamage, attacker,2 );
 			}
 		}
 			if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
-				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/6),this);
+				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/6),this,2);
 			} else {
-				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/3),this);
+				defender.damage(Math.min(defender.HT - defender.HP,defender.HT/3),this,2);
 		    }   
 			super.proc(attacker, defender, damage);
 		}		

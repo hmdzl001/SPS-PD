@@ -33,7 +33,7 @@ public class SpAttack extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.SMASH;
+		return BuffIndicator.SMASH_HIT;
 	}
 
 	@Override

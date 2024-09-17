@@ -56,7 +56,7 @@ public class CorruptGas extends Blob implements Hero.Doom {
 					  damage++;
 				    }
 
-				   ch.damage(damage, this);
+				   ch.damage(damage, this,1);
 				}
 			}
 		}

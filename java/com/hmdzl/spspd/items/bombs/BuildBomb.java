@@ -63,7 +63,7 @@ public class  BuildBomb extends Bomb {
 
 					int dmg = Random.NormalIntRange(minDamage, maxDamage);
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,1);
 					}
 				}
 			}

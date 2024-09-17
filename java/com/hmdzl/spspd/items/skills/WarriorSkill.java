@@ -123,7 +123,7 @@ public class WarriorSkill extends ClassSkill {
 			Char mob = Actor.findChar(curUser.pos
 					+ Floor.NEIGHBOURS8[i]);
 			if (mob != null && mob != curUser && !(mob instanceof PET ) ) {
-				mob.damage(curUser.HT /2, Hero.class);
+				mob.damage(curUser.HT /2, Hero.class,1);
 			}
 
 		}

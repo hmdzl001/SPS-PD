@@ -24,6 +24,8 @@ public class LeatherArmor extends NormalArmor {
 	{
 		//name = "leather armor";
 		image = ItemSpriteSheet.ARMOR_LEATHER;
+		M_MIN = 0;
+		M_MAX = 3;
 	}
 
 	public LeatherArmor() {

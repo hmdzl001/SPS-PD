@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.STRdown;
@@ -29,7 +28,6 @@ import com.hmdzl.spspd.items.eggs.Egg;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.WarlockSprite;
 import com.watabou.utils.Callback;
@@ -85,7 +83,7 @@ public class Warlock extends Mob implements Callback {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damage/2, DARK_DAMAGE);
+		enemy.damage(damage/2, DARK_DAMAGE,2);
 		damage = damage/2;
 
 		return damage;
@@ -128,12 +126,12 @@ public class Warlock extends Mob implements Callback {
 			}
 
 			int dmg = Random.Int(16, 24+adj(0));
-			enemy.damage(dmg, DARK_DAMAGE);
+			enemy.damage(dmg, DARK_DAMAGE,2);
 
-			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(Messages.get(this, "kill"));
-			}
+			//}
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
 		}

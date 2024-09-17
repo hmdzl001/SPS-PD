@@ -51,7 +51,7 @@ public class MindArrow extends TossWeapon {
 	@Override
 	public void proc(Char attacker, Char defender, int damage) {
 		super.proc(attacker, defender, damage);
-        defender.damage(Dungeon.hero.spp,this);
+        defender.damage(Dungeon.hero.spp,this,3);
 		Buff.affect(defender,BeCorrupt.class).level(Dungeon.hero.spp);
 	}	
 

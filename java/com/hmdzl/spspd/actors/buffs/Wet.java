@@ -33,7 +33,7 @@ public class Wet extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.WET;
+		return BuffIndicator.SHOCK_3;
 	}
 
 	@Override

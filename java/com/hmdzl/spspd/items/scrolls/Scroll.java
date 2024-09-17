@@ -153,7 +153,7 @@ public abstract class Scroll extends Item {
 		if (Dungeon.isChallenged(Challenges.ITEM_PHOBIA)){
 			Buff.affect(curUser, Silent.class, 5f);
 			int damage = curUser.HT/10;
-			curUser.damage(damage, this);
+			curUser.damage(damage, this,3);
 		}
 	}
 	

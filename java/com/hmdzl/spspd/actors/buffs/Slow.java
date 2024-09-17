@@ -30,7 +30,7 @@ public class Slow extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.SLOW;
+		return BuffIndicator.SLOW_SPEED;
 	}
 
 	@Override

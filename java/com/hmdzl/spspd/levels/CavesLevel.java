@@ -97,6 +97,10 @@ public class CavesLevel extends RegularLevel {
 		return Patch.generate(feeling == Feeling.CHASM ? 0.30f : 0.35f, 4);
 	}
 
+	protected boolean[] glass() {
+		return Patch.generate( 0.35f, 4);
+	}
+
 	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{ VenomTrap.class, ExplosiveTrap.class, FlashingTrap.class,  KnowledgeTrap.class,
@@ -255,13 +259,13 @@ public class CavesLevel extends RegularLevel {
 		}
 
 
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.SIGN;
-				break;
-			}
-		}
+		//while (true) {
+		//	int pos = roomEntrance.random();
+		//	if (pos != entrance) {
+		//		map[pos] = Terrain.SIGN;
+		//		break;
+		//	}
+		//}
 
 		setPar();		
 

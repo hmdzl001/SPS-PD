@@ -63,6 +63,10 @@ public class TrianglePLevel extends RegularLevel {
 		return Patch.generate(0, 3);
 	}
 
+	protected boolean[] glass() {
+		return Patch.generate( 0, 4);
+	}
+
 	@Override
 	protected void createItems() {
 		addItemToSpawn(new Vialupdater());

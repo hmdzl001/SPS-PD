@@ -23,9 +23,12 @@ package com.hmdzl.spspd.items.misc;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.CrazyMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.HarmMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.LoseMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.SleepMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.TerrorMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.WeakMind;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -74,10 +77,12 @@ public class PPC extends Item {
 		ArrayList<String> actions = super.actions( hero );
 	
 		actions.add(AC_TRY);
-		if (charge > 20)
-		actions.add(AC_HEAL);
-	    if (charge > 5)
-		actions.add(AC_MIND);
+		if (charge > 20) {
+			actions.add(AC_HEAL);
+		}
+	    if (charge > 5) {
+			actions.add(AC_MIND);
+		}
 		
         actions.remove( AC_THROW );
         actions.remove( AC_DROP );
@@ -87,9 +92,9 @@ public class PPC extends Item {
 	@Override
 	public void execute( final Hero hero, String action ) {
 		if (action.equals(AC_TRY)) {
-			if (charge < 1) {
-				GLog.p(Messages.get(PPC.class, "need_charge"));
-			} else {
+			//if (charge < 1) {
+			//	GLog.p(Messages.get(PPC.class, "need_charge"));
+			//} else {
 				charge--;
 				hero.sprite.operate(hero.pos);
 				hero.busy();
@@ -97,7 +102,7 @@ public class PPC extends Item {
 
 				Buff.affect(Dungeon.hero, Bless.class, 10f);
 
-			}
+			//}
 		}
 		 if (action.equals(AC_HEAL)) {
 
@@ -114,6 +119,10 @@ public class PPC extends Item {
 				 Buff.detach(Dungeon.hero, TerrorMind.class);
 			 } else if (Dungeon.hero.buff(LoseMind.class) != null) {
 				 Buff.detach(Dungeon.hero, LoseMind.class);
+			 } else if (Dungeon.hero.buff(HarmMind.class) != null) {
+				 Buff.detach(Dungeon.hero, HarmMind.class);
+			 } else if (Dungeon.hero.buff(SleepMind.class) != null) {
+				 Buff.detach(Dungeon.hero, SleepMind.class);
 			 }
 
 				Dungeon.hero.HP += Dungeon.hero.HT / 5;

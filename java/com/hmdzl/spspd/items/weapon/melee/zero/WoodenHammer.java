@@ -63,7 +63,7 @@ public class WoodenHammer extends MeleeWeapon {
             }
 			if (durable == 0){
 				Dungeon.hero.belongings.weapon = null;
-				defender.damage(2*damage, this);
+				defender.damage(2*damage, this,1);
 				GLog.n(Messages.get(KindOfWeapon.class,"destory"));
 			}
 		}		

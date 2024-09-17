@@ -24,6 +24,7 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.mobs.pets.PET;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.eggs.AflyEgg;
+import com.hmdzl.spspd.items.eggs.BatPetEgg;
 import com.hmdzl.spspd.items.eggs.BlueDragonEgg;
 import com.hmdzl.spspd.items.eggs.BlueGirlEgg;
 import com.hmdzl.spspd.items.eggs.BugDragonEGG;
@@ -197,6 +198,9 @@ public class PocketBall extends Item {
                 break;
             case 666:
                 petegg = new YearPetEgg();
+                break;
+            case 807:
+                petegg = new BatPetEgg();
                 break;
             default:
                 petegg = new RandomEgg();

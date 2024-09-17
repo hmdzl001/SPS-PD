@@ -20,7 +20,6 @@ package com.hmdzl.spspd.items.food.fruit;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Notice;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.levels.Floor;

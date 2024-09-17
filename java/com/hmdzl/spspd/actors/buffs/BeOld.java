@@ -18,8 +18,6 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.HealLight;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -85,7 +83,7 @@ public class BeOld extends Buff implements Hero.Doom {
 	public boolean act() {
 		if (target.isAlive()) {
 
-			target.damage(2, this);
+			target.damage(2, this,3);
 			spend(TICK);
 
 			if ((left -= TICK) <= 0) {
@@ -110,7 +108,7 @@ public class BeOld extends Buff implements Hero.Doom {
 	public void onDeath() {
 		Badges.validateDeathFromPoison();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n("You died from earthhit...");
 	}
 }

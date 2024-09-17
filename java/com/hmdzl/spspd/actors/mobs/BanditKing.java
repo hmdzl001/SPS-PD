@@ -23,7 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.CountDown;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.weapon.melee.special.Spork;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.BanditKingSprite;
 import com.hmdzl.spspd.utils.GLog;

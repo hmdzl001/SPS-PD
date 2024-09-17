@@ -255,14 +255,6 @@ public class BetweenLevel extends RegularLevel {
 			addItemToSpawn(new Blackberry());
 			addItemToSpawn(new Mushroom());
 		}
-		if (Dungeon.dungeondepth == 1){
-			Tinkerer1 npc = new Tinkerer1();
-			do {
-				npc.pos = randomRespawnCell();
-			} while (npc.pos == -1 || heaps.get(npc.pos) != null);
-			mobs.add(npc);
-			Actor.occupyCell(npc);
-		}
 
 		for (Item item : itemsToSpawn) {
 			int cell = randomFallRespawnCell();
@@ -304,7 +296,7 @@ public class BetweenLevel extends RegularLevel {
 
 	}
 
-	@Override
+	//@Override
 	protected int randomSpecialDropCell() {
 		while (true) {
 			Room room = randomNormalRoom(Type.EXIT, 1);
@@ -369,6 +361,10 @@ public class BetweenLevel extends RegularLevel {
 	@Override
 	protected boolean[] chasm() {
 		return Patch.generate(0, 3);
+	}
+
+	protected boolean[] glass() {
+		return Patch.generate( 0, 4);
 	}
 
 	@Override

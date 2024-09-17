@@ -19,7 +19,6 @@ package com.hmdzl.spspd.items.wands;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -59,7 +58,7 @@ public class WandOfTCloud extends Wand {
 
 	{
 	    image = ItemSpriteSheet.WAND_TCLOUD;
-		collisionProperties = Ballistica.PROJECTILE;
+		collisionProperties = Ballistica.STOP_TARGET;
 	}
 
 	@Override
@@ -88,7 +87,7 @@ public class WandOfTCloud extends Wand {
 			dist = 1;
 		}
 		
-		if ( curCharges > 9 ){
+		//if ( curCharges > 9 ){
 		cloudLabel: for (int i = 0; i < n; i++) {
 			do {
 				for (int j = 0; j < Floor.getLength(); j++) {
@@ -97,14 +96,15 @@ public class WandOfTCloud extends Wand {
 						if (Dungeon.hero.subClass == HeroSubClass.LEADER ){
 							STCloud scloud = new STCloud();
 							scloud.pos = j;
-							scloud.lvl = level;
+							scloud.dewLvl = level;
+							scloud.lifespan = chargesPerCast()+3;
 							GameScene.add(scloud);
 						} else {
 
 							TCloud cloud = new TCloud();
 							cloud.pos = j;
-							cloud.lvl = level;
-							//cloud.lifespan = chargesPerCast();
+							cloud.dewLvl = level;
+							cloud.lifespan = chargesPerCast()+5;
 							GameScene.add(cloud);
 						}
 						CellEmitter.get(j).burst(Speck.factory(Speck.WOOL), 4);
@@ -115,23 +115,23 @@ public class WandOfTCloud extends Wand {
 				dist++;
 			} while (dist < n);
 		}
-	} else {
-		GLog.w(Messages.get(this, "more_charge"));
-		for (int i : Floor.NEIGHBOURS9) {
-			int c = bolt.collisionPos + i;
-			if (c >= 0 && c < Floor.getLength()) {
-				GameScene.add(Blob.seed(c, curCharges, ElectriShock.class));
-				CellEmitter.get(c).burst(EnergyParticle.FACTORY, 5);
-			}
-		}
-		}
+	//} else {
+	//	GLog.w(Messages.get(this, "more_charge"));
+	//	for (int i : Floor.NEIGHBOURS9) {
+	//		int c = bolt.collisionPos + i;
+	//		if (c >= 0 && c < Floor.getLength()) {
+		//		GameScene.add(Blob.seed(c, curCharges, ElectriShock.class));
+	//			CellEmitter.get(c).burst(EnergyParticle.FACTORY, 5);
+		//	}
+	//	}
+	//	}
 	    Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);
 		if (heap != null) {heap.shockhit();}
 	}
 
 	@Override
 	protected int initialCharges() {
-		return 1;
+		return 3;
 	}	
 	
 	@Override	
@@ -159,39 +159,39 @@ public class WandOfTCloud extends Wand {
 		state = HUNTING;
 		flying = true;
 		ally=true;
-
 		viewDistance = 6;
 		properties.add(Property.ELEMENT);
-
 	}
+	    public int lifespan;
+		private boolean initialized = false;
 
-	public int lvl;
-	public int lifespan; 
-	
-	private static final String LVL = "lvl";
-	
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(LVL, lvl);
-	}
+		@Override
+		protected boolean act() {
+			if (initialized) {
+				HP = 0;
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		lvl = bundle.getInt(LVL);
-	}
-	
-	@Override
-	protected boolean act() {
-		timeToBomb --;
-		if (timeToBomb == 0){
-			destroy();
-			sprite.die();
+				destroy();
+				sprite.die();
+
+			} else {
+				if (lifespan > 1){
+					lifespan --;
+					//spend(1f);
+					return super.act();
+				} else {
+					initialized = true;
+			/*for (int n : Level.NEIGHBOURS8DIST2) {
+				Char ch = Actor.findChar(n);
+				if (ch != null && ch != this && ch.isAlive()) {
+					Buff.affect(ch, SkillUse.class,2f).object = id();
+				}
+			}*/
+					spend(1f);
+				}
+			}
+			return true;
 		}
-		
-        return super.act();
-	}	
+
 	
 	@Override
 	public void move(int step) {		
@@ -221,7 +221,7 @@ public class WandOfTCloud extends Wand {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(10 + lvl, 15 + 3*lvl);
+		return Random.NormalIntRange(10 + dewLvl, 15 + 3*dewLvl);
 	}	
 	
 	@Override
@@ -237,11 +237,11 @@ public class WandOfTCloud extends Wand {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Floor.distance(pos, enemy.pos) <= 1) {
+		//if (Floor.distance(pos, enemy.pos) <= 1) {
 
-			return super.doAttack(enemy);
+		//	return super.doAttack(enemy);
 
-		} else {
+		//} else {
 
 			boolean visible = Floor.fieldOfView[pos]
 					|| Floor.fieldOfView[enemy.pos];
@@ -252,23 +252,21 @@ public class WandOfTCloud extends Wand {
 			spend(TIME_TO_ZAP);
 
 			if (hit(this, enemy, true)) {
-				int dmg = Random.Int(6 + lvl, 20 + 3*lvl);
+				int dmg = Random.Int(6 + dewLvl, 20 + 3*dewLvl);
 				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
-				enemy.damage(dmg, this);
+				enemy.damage(dmg, this,2);
 				//Buff.affect(enemy, SkillUse.class,2f).object = id();
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
-				damage(Random.NormalIntRange(10 + lvl, 15 + 3*lvl), this);
+				damage(Random.NormalIntRange(10 + dewLvl, 15 + 3*dewLvl), this,2);
 				if (enemy == Dungeon.hero) {
-
 					Camera.main.shake(2, 0.3f);
-
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//if (!enemy.isAlive()) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "zap_kill"));
-					}
+					//}
 				}
 			} else {
 				enemy.sprite
@@ -276,7 +274,7 @@ public class WandOfTCloud extends Wand {
 			}
 
 			return !visible;
-		}
+		//}
 	}	
 	
 	@Override
@@ -284,16 +282,16 @@ public class WandOfTCloud extends Wand {
 		next();
 	}	
 	
-	@Override
-	public int attackProc(Char enemy, int damage) {
-		int dmg = super.attackProc(enemy, damage);
-		if(HP < 1){
-		destroy();
-		sprite.die();
-		}
+	//@Override
+	//public int attackProc(Char enemy, int damage) {
+	//	int dmg = super.attackProc(enemy, damage);
+		//if(HP < 1){
+		//destroy();
+		//sprite.die();
+		//}
 		
-		return dmg;
-	}	
+		//return dmg;
+	//}
 
 	@Override
 	public int drRoll() {
@@ -330,15 +328,20 @@ public class WandOfTCloud extends Wand {
 	@Override
 	public void add( Buff buff ) {
 		//in other words, can't be directly affected by buffs/debuffs.
-	}	
+	}
+
+		@Override
+		public void damage(int dmg, Object src, int type) {
+
+		}
 	
 }	
 	
     public static class STCloud extends NPC implements Callback {
 
     private static final float TIME_TO_ZAP = 1f;
-   		private static final int BOMB_DELAY = 40;
-		private int timeToBomb = BOMB_DELAY;
+   		//private static final int BOMB_DELAY = 40;
+		//private int timeToBomb = BOMB_DELAY;
 	
 	{
 		//name = "TCloud";
@@ -354,33 +357,34 @@ public class WandOfTCloud extends Wand {
 
 	}
 
-	public int lvl;
-	public int lifespan; 
-	
-	private static final String LVL = "lvl";
-	
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(LVL, lvl);
-	}
+	public int lifespan;
+	private boolean initialized = false;
 
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		lvl = bundle.getInt(LVL);
-	}
-	
-	@Override
-	protected boolean act() {
-		timeToBomb --;
-		if (timeToBomb == 0){
-			destroy();
-			sprite.die();
+		protected boolean act() {
+			if (initialized) {
+				HP = 0;
+
+				destroy();
+				sprite.die();
+
+			} else {
+				if (lifespan > 1){
+					lifespan --;
+					//spend(1f);
+					return super.act();
+				} else {
+					initialized = true;
+			/*for (int n : Level.NEIGHBOURS8DIST2) {
+				Char ch = Actor.findChar(n);
+				if (ch != null && ch != this && ch.isAlive()) {
+					Buff.affect(ch, SkillUse.class,2f).object = id();
+				}
+			}*/
+					spend(1f);
+				}
+			}
+			return true;
 		}
-		
-        return super.act();
-	}	
 	
 	
 	@Override
@@ -407,7 +411,7 @@ public class WandOfTCloud extends Wand {
 
 	@Override
 	public int damageRoll() {
-		return Random.NormalIntRange(20 + lvl, 30 + 5*lvl);
+		return Random.NormalIntRange(20 + dewLvl, 30 + 5*dewLvl);
 	}	
 	
 	@Override
@@ -423,11 +427,11 @@ public class WandOfTCloud extends Wand {
 	@Override
 	protected boolean doAttack(Char enemy) {
 
-		if (Floor.distance(pos, enemy.pos) <= 1) {
+		//if (Floor.distance(pos, enemy.pos) <= 1) {
 
-			return super.doAttack(enemy);
+		//	return super.doAttack(enemy);
 
-		} else {
+		//} else {
 
 			boolean visible = Floor.fieldOfView[pos]
 					|| Floor.fieldOfView[enemy.pos];
@@ -438,23 +442,23 @@ public class WandOfTCloud extends Wand {
 			spend(TIME_TO_ZAP);
 
 			if (hit(this, enemy, true)) {
-				int dmg = Random.Int(4 + lvl, 12 + 3*lvl);
+				int dmg = Random.Int(4 + dewLvl, 12 + 3*dewLvl);
 				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
-				enemy.damage(dmg, this);
+				enemy.damage(dmg, this,2);
 				//Buff.affect(enemy, SkillUse.class,2f).object = id();
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
-				damage(Random.NormalIntRange(20 + lvl, 30 + 5*lvl), this);
+				damage(Random.NormalIntRange(20 + dewLvl, 30 + 5*dewLvl), this,2);
 				if (enemy == Dungeon.hero) {
 
 					Camera.main.shake(2, 0.3f);
 
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//if (!enemy.isAlive()) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "zap_kill"));
-					}
+					//}
 				}
 			} else {
 				enemy.sprite
@@ -462,7 +466,7 @@ public class WandOfTCloud extends Wand {
 			}
 
 			return !visible;
-		}
+		//}
 	}	
 	
 	@Override
@@ -474,6 +478,11 @@ public class WandOfTCloud extends Wand {
 	public int drRoll() {
 		return 0;
 	}
+
+		@Override
+		public void damage(int dmg, Object src, int type) {
+
+		}
 
 	@Override
 	public boolean interact() {

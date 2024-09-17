@@ -22,7 +22,6 @@ import com.hmdzl.spspd.actors.buffs.AttackDown;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.STRdown;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class DreamLeaf extends Vegetable {

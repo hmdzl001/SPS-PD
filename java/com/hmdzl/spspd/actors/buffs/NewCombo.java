@@ -51,7 +51,12 @@ public class NewCombo extends Buff implements ActionIndicator.Action {
 		private float comboTime = 0f;
 		private int misses = 0;
 
-		@Override
+	public String status() {
+		return count > 0 ? Integer.toString( count ) : null;
+	}
+
+
+	@Override
 		public int icon() {
 			return BuffIndicator.COMBO;
 		}
@@ -67,12 +72,12 @@ public class NewCombo extends Buff implements ActionIndicator.Action {
 			comboTime = 4f;
 			misses = 0;
 
-			if (count >= 2) {
+			//if (count >= 2) {
 
-				ActionIndicator.setAction( this );
-				GLog.p( Messages.get(this, "combo", count) );
+			//	ActionIndicator.setAction( this );
+			//	GLog.p( Messages.get(this, "combo", count) );
 
-			}
+			//}
 
 		}
 
@@ -213,7 +218,7 @@ public class NewCombo extends Buff implements ActionIndicator.Action {
 				dmg -= Random.IntRange( 0, enemy.drRoll() );
 				dmg = target.attackProc(enemy, dmg);
 				dmg = enemy.defenseProc(target, dmg);
-				enemy.damage( dmg, this );
+				enemy.damage( dmg, this,1 );
 
 				//special effects
 				switch (type){

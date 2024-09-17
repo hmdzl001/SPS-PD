@@ -19,7 +19,6 @@ package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -158,7 +157,7 @@ public class BrokenRobot extends Mob {
 			}
 
 			if (hit(this, ch, true)) {
-				ch.damage(Random.NormalIntRange(2, 8+adj(0)), LIGHT_DAMAGE);
+				ch.damage(Random.NormalIntRange(2, 8+adj(0)), LIGHT_DAMAGE,2);
 
 				if (Dungeon.visible[pos]) {
 					ch.sprite.flash();
@@ -166,10 +165,10 @@ public class BrokenRobot extends Mob {
 							Random.IntRange(1, 2));
 				}
 
-				if (!ch.isAlive() && ch == Dungeon.hero) {
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//if (!ch.isAlive() && ch == Dungeon.hero) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n(Messages.get(this, "kill"));
-				}
+				//}
 			} else {
 				ch.sprite.showStatus(CharSprite.NEUTRAL, ch.defenseVerb());
 			}
@@ -238,7 +237,7 @@ public class BrokenRobot extends Mob {
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
 							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,1);
 					}
  
 					if (ch == this && HP<1){	

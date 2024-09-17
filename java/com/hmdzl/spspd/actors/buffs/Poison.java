@@ -18,8 +18,6 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -84,7 +82,7 @@ public class Poison extends Buff implements Hero.Doom {
 	public boolean act() {
 		if (target.isAlive()) {
 
-			target.damage((int) (left / 2) + 1, this);
+			target.damage((int) (left / 2) + 1, this,2);
 			spend(TICK);
 
 			if ((left -= TICK) <= 0) {
@@ -104,7 +102,7 @@ public class Poison extends Buff implements Hero.Doom {
 	public void onDeath() {
 		Badges.validateDeathFromPoison();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n("You died from earthhit...");
 	}
 }

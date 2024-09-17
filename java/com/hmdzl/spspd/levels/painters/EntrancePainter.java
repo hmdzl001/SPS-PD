@@ -17,13 +17,12 @@
  */
 package com.hmdzl.spspd.levels.painters;
 
-import com.hmdzl.spspd.items.Generator;
+import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.mobs.npcs.Tinkerer1;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.plants.Plant;
-
-import static com.hmdzl.spspd.Dungeon.shopOnLevel;
 
 public class EntrancePainter extends Painter {
 
@@ -39,17 +38,26 @@ public class EntrancePainter extends Painter {
 		level.entrance = room.random(1);
 		set(level, level.entrance, Terrain.ENTRANCE);
 
-        int dewbless = room.random();
-        while (level.map[dewbless] == Terrain.SIGN || level.map[dewbless] == Terrain.ENTRANCE ||
-				level.map[dewbless] == Terrain.TRAP || level.map[dewbless] == Terrain.SECRET_TRAP) {
-            dewbless = room.random();
-        }
+        //int dewbless = room.random();
+       // while (level.map[dewbless] == Terrain.SIGN || level.map[dewbless] == Terrain.ENTRANCE ||
+		//		level.map[dewbless] == Terrain.TRAP || level.map[dewbless] == Terrain.SECRET_TRAP) {
+       //     dewbless = room.random();
+      //  }
 
-		if(!shopOnLevel()){
-			set(level, dewbless, Terrain.DEW_BLESS);
+		//if(!shopOnLevel()){
+		//	set(level, dewbless, Terrain.DEW_BLESS);
+		//}
+
+		if (Dungeon.dungeondepth == 1){
+			Tinkerer1 npc = new Tinkerer1();
+			do {
+				npc.pos = room.random();
+			} while (level.map[npc.pos] == Terrain.ENTRANCE
+					|| level.map[npc.pos] == Terrain.SIGN
+					|| level.map[npc.pos] == Terrain.DEW_BLESS);
+			level.mobs.add(npc);
+			Actor.occupyCell(npc);
 		}
-
-
 
         //if (depth<25 && depth >1 ) {
            // level.map[dewbless] = Terrain.DEW_BLESS;

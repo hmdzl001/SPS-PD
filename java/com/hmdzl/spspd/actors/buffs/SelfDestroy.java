@@ -17,14 +17,8 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.PointF;
-import com.watabou.utils.Random;
 
 public class SelfDestroy extends Buff {
 
@@ -46,11 +40,11 @@ public class SelfDestroy extends Buff {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-				target.damage(2, this);
-				if (target == Dungeon.hero && !target.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				target.damage(2, this,3);
+				//if (target == Dungeon.hero && !target.isAlive()) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n("You bled to death...");
-				}
+				//}
 				spend(TICK);
 		} else {
 			detach();

@@ -42,7 +42,7 @@ public class CookingPainter extends Painter {
 
 		Point pot = room.center();
 		
-		set(level, pot, Terrain.ALCHEMY);
+		set(level, pot.x, pot.y, Terrain.ALCHEMY);
 
 		Alchemy alchemy = new Alchemy();
 		alchemy.seed(pot.x + Floor.getWidth() * pot.y, 1);

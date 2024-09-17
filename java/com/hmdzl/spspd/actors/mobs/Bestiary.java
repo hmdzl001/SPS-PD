@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAFly;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAHorse;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftAshWolf;
@@ -30,7 +29,6 @@ import com.hmdzl.spspd.actors.mobs.giftnpc.GiftFruitWorker;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftMeatSeller;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftRen;
 import com.hmdzl.spspd.actors.mobs.giftnpc.GiftTorch;
-import com.hmdzl.spspd.actors.mobs.npcs.Hmdzl001;
 import com.watabou.utils.Random;
 
 public class Bestiary {
@@ -145,19 +143,19 @@ public class Bestiary {
 						FireRabbit.class,BambooMob.class,GoldCollector.class};
 				break;
 			case 9:
-				if (Dungeon.sporkAvail) {
-					chances = new float[]{1, 1, 0.1f,
-							1,1};
-					classes = new Class<?>[]{Assassin.class, TrollWarrior.class, BanditKing.class,
-							GoldCollector.class,FireRabbit.class};
-				} else {
+				//if (Dungeon.sporkAvail) {
+				//	chances = new float[]{1, 1, 0.1f,
+				//			1,1};
+				//	classes = new Class<?>[]{Assassin.class, TrollWarrior.class, BanditKing.class,
+				//			GoldCollector.class,FireRabbit.class};
+				//} else {
 					chances = new float[]{1, 1, 1,
 							1,1,1,
 							1,1,1};
 					classes = new Class<?>[]{Thief.class, Gnoll.class, Guard.class,
 							Assassin.class, TrollWarrior.class, Zombie.class
 							,FireRabbit.class,BambooMob.class,GoldCollector.class};
-				}
+				//}
 				break;
 
 			case 10:

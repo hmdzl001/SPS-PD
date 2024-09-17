@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;

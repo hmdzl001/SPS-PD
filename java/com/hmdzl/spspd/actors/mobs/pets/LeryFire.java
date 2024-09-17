@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
@@ -35,7 +34,6 @@ import com.hmdzl.spspd.items.scrolls.Scroll;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.BottleFire;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.LerySprite;
@@ -142,7 +140,7 @@ public class LeryFire extends PET implements Callback{
 			case 0: 		
 			if (hit(this, enemy, true)) {			
 			    int dmg = damageRoll()*2;
-			    enemy.damage(dmg, this);
+			    enemy.damage(dmg, this,2);
 			    Buff.prolong(enemy, Frost.class, Frost.duration(enemy)* Random.Float(1f, 1.5f));
 			    CellEmitter.get(enemy.pos).start(SnowParticle.FACTORY, 0.2f, 6);
 		    } else {
@@ -153,7 +151,7 @@ public class LeryFire extends PET implements Callback{
 		if (hit(this, enemy, true)) {			
 
 			int dmg = damageRoll()*2;
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,2);
 			
 			Buff.affect(enemy,Poison.class).set(Dungeon.hero.petLevel + 1);
 
@@ -165,7 +163,7 @@ public class LeryFire extends PET implements Callback{
 		if (hit(this, enemy, true)) {			
 
 			int dmg = damageRoll()*2;
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,2);
 			
 			if (Random.Int(dmg)<Dungeon.hero.petLevel){
 				GameScene.add(Blob.seed(enemy.pos, 1, Fire.class));}
@@ -178,7 +176,7 @@ public class LeryFire extends PET implements Callback{
 		if (hit(this, enemy, true)) {			
 
 			int dmg = damageRoll()*3;
-			enemy.damage(dmg, this);			
+			enemy.damage(dmg, this,1);
 			
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
@@ -190,7 +188,7 @@ public class LeryFire extends PET implements Callback{
 				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
-				enemy.damage(dmg, this);
+				enemy.damage(dmg, this,2);
 
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
@@ -199,10 +197,10 @@ public class LeryFire extends PET implements Callback{
 
 					Camera.main.shake(2, 0.3f);
 
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//if (!enemy.isAlive()) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(TXT_LIGHTNING_KILLED, name);
-					}
+					//}
 				}
 			} else {
 				enemy.sprite

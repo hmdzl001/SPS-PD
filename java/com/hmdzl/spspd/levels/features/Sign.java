@@ -66,7 +66,7 @@ public class Sign {
 
 			int index = Dungeon.dungeondepth - 1;
 
-			if (index < TIPS.length) {
+			//if (index < TIPS.length) {
 				GameScene.show(new WndMessage(Messages.get(Sign.class, "tip_"+Dungeon.dungeondepth)));
 
 				if (index >= 21) {
@@ -82,12 +82,12 @@ public class Sign {
 				}
 
 			}
-		}
+		//}
 	}
 	
 	public static void readPit(int pos) {
-				GameScene.show(new WndMessage(Messages.get(Sign.class,"pit_message")));			
-			}
+		GameScene.show(new WndMessage(Messages.get(Sign.class,"pit_message")));
+	}
 			
 	
 }

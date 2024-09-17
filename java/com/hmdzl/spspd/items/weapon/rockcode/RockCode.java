@@ -12,7 +12,6 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;

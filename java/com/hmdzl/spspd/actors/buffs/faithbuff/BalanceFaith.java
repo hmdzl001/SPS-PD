@@ -25,7 +25,7 @@ public class BalanceFaith extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.BALANCE_FAITH;
+		return BuffIndicator.FAITH_BALANCE;
 	}
 
 	@Override

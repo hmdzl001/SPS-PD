@@ -18,47 +18,24 @@
 package com.hmdzl.spspd.actors.mobs.giftnpc;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.blobs.NmGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.blobs.VenomGas;
-import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.actors.buffs.HasteBuff;
-import com.hmdzl.spspd.actors.buffs.HiddenShadow;
-import com.hmdzl.spspd.actors.buffs.LightShootAttack;
-import com.hmdzl.spspd.actors.buffs.MagicArmor;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
-import com.hmdzl.spspd.actors.buffs.SpeedUp;
-import com.hmdzl.spspd.actors.buffs.WatchOut;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
-import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.bags.Bag;
-import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
-import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
-import com.hmdzl.spspd.windows.WndHero;
 import com.hmdzl.spspd.windows.WndNewNpcMessage;
 import com.hmdzl.spspd.windows.WndOptions;
-import com.hmdzl.spspd.windows.WndPetInfo;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
-
-import java.util.HashSet;
 
 import static com.hmdzl.spspd.Dungeon.hero;
 
@@ -104,7 +81,7 @@ public abstract class GiftNpc extends NPC {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 	}
 

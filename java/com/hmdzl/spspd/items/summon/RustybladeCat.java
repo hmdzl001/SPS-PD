@@ -138,7 +138,7 @@ public class RustybladeCat extends Item {
 
 		@Override
 		protected boolean act() {
-			damage(1, this);
+			damage(1, this,3);
 			
 		    if (Floor.adjacent(pos, Dungeon.hero.pos)){
 			Dungeon.hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f,	1);
@@ -201,7 +201,7 @@ public class RustybladeCat extends Item {
 
 		@Override
 		protected boolean act() {
-			damage(1, this);
+			damage(1, this,3);
 		if (Floor.adjacent(pos, Dungeon.hero.pos)){
 			Dungeon.hero.sprite.emitter().start(Speck.factory(Speck.UP), 0.4f,	1);
             Dungeon.hero.belongings.relord();

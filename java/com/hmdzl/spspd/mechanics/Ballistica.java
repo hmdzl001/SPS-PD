@@ -18,9 +18,9 @@
 package com.hmdzl.spspd.mechanics;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.levels.Terrain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,26 +40,34 @@ public class Ballistica {
 
 	public static final int PROJECTILE =  	STOP_TARGET	| STOP_CHARS | STOP_TERRAIN;
 
-	public static final int GLASSPASS =   STOP_CHARS | PASS_LIGHT ;
-
 	public static final int MAGIC_BOLT =    STOP_CHARS  | STOP_TERRAIN;
 
 	public static final int WONT_STOP =  0;
 
-	public static int[] trace = new int[Math.max(Floor.getWidth(), Floor.HEIGHT)];
+	public static int[] trace = new int[Math.max(Floor.getWidth(), Floor.getLength())];
 	public static int distance;
 
 	public Ballistica( int from, int to, int params ){
 		sourcePos = from;
-		build(from, to, (params & STOP_TARGET) > 0, (params & STOP_CHARS) > 0, (params & STOP_TERRAIN) > 0,(params & PASS_LIGHT) > 0);
-		if (collisionPos != null)
+		build(from, to, 
+		(params & STOP_TARGET) > 0, 
+		(params & STOP_CHARS) > 0, 
+		(params & STOP_TERRAIN) > 0,
+		(params & PASS_LIGHT) > 0);
+		
+		if (collisionPos != null){
 			dist = path.indexOf( collisionPos );
-		else
+		} else if (!path.isEmpty()) {
 			collisionPos = path.get( dist=path.size()-1 );
+		} else {
+			path.add(from);
+			collisionPos = from;
+			dist = 0;
+		}
 	}
 	
 	private void build( int from, int to, boolean stopTarget, boolean stopChars, boolean stopTerrain, boolean passlight ) {
-		int w = Floor.WIDTH;
+		int w = Floor.getWidth();
 
 		int x0 = from % w;
 		int x1 = to % w;
@@ -101,24 +109,69 @@ public class Ballistica {
 		int err = dA / 2;
 		while (Floor.insideMap(cell)) {
 
-			//if we're in a wall, collide with the previous cell along the path.
-			if (passlight && cell != sourcePos && !Floor.passable[cell] && !( Floor.avoid[cell] || Dungeon.depth.map[cell] == Terrain.GLASS_WALL)) {
+			if (collisionPos == null
+					&& stopTerrain
+					&& cell != sourcePos
+					&& !Dungeon.depth.passable[cell]
+					&& !Dungeon.depth.avoid[cell]
+					&& Actor.findChar(cell) == null) {
 				collide(path.get(path.size() - 1));
 			}
 
-			if (stopTerrain && cell != sourcePos && !Floor.passable[cell] && !Floor.avoid[cell] ) {
+			if (collisionPos == null
+					&& passlight
+					&& cell != sourcePos
+					&& !Dungeon.depth.passable[cell]
+					&& !Dungeon.depth.avoid[cell]
+					&& !Dungeon.depth.lightpass[cell]
+					&& Actor.findChar(cell) == null) {
 				collide(path.get(path.size() - 1));
 			}
-
-			path.add(cell);
-
-			if ((stopTerrain && cell != sourcePos && Floor.losBlockHigh[cell])
-					|| (cell != sourcePos && stopChars && Actor.findChar( cell ) != null)
-					|| (cell == to && stopTarget)
-
-					){
+			
+            path.add(cell);
+			
+			
+			if (collisionPos == null && stopTerrain && cell != sourcePos && Dungeon.depth.solid[cell]) {
+				//if (passlight && (Dungeon.depth.passable[cell] || Dungeon.depth.map[cell] == Terrain.GLASS_WALL)) {
+				//if ( passlight && (Dungeon.depth.passable[cell] || Dungeon.depth.avoid[cell] || Dungeon.depth.lightpass[cell] )) {
+					//do nothing
+				//} else {
+					collide(cell);
+				//}
+			}
+			if (collisionPos == null && cell != sourcePos && stopChars && Actor.findChar( cell ) != null) {
 				collide(cell);
 			}
+			if (collisionPos == null && cell == to && stopTarget){
+				collide(cell);
+			}
+
+			if (collisionPos == null && cell == to && passlight && Actor.findChar( cell ) != null ){
+				if ((Dungeon.depth.passable[cell] || Dungeon.depth.avoid[cell] || Dungeon.depth.lightpass[cell] )) {
+					//do nothing
+				} else {
+					collide(cell);
+				}
+			}
+			
+			//if we're in a wall, collide with the previous cell along the path.
+			//if (passlight && cell != sourcePos && !Floor.passable[cell] && !( Floor.avoid[cell] || Dungeon.depth.map[cell] == Terrain.GLASS_WALL)) {
+			//	collide(path.get(path.size() - 1));
+			//}
+
+			//if (stopTerrain && cell != sourcePos && !Floor.passable[cell] && !Floor.avoid[cell] ) {
+			//	collide(path.get(path.size() - 1));
+			//}
+
+			
+
+			//if ((stopTerrain && cell != sourcePos && Floor.losBlockHigh[cell])
+			//		|| (cell != sourcePos && stopChars && Actor.findChar( cell ) != null)
+			//		|| (cell == to && stopTarget)
+
+			//		){
+			//	collide(cell);
+			//}
 
 			cell += stepA;
 
@@ -143,6 +196,7 @@ public class Ballistica {
 			end = Math.min( end, path.size()-1);
 			return path.subList(start, end+1);
 		} catch (Exception e){
+			ShatteredPixelDungeon.reportException(e);
 			return new ArrayList<>();
 		}
 	}

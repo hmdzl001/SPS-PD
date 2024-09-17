@@ -21,9 +21,9 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
+import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
-import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.watabou.noosa.audio.Sample;
 

@@ -21,12 +21,8 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
 public class Earthstar extends Pill {
@@ -43,7 +39,7 @@ public class Earthstar extends Pill {
 			   Buff.affect(mob, Bleeding.class).set(Random.Int(mob.HP/8,mob.HP/4));
 
 		   }
-		   curUser.damage(Math.max(1,Math.round(curUser.HP/4)), this);
+		   curUser.damage(Math.max(1,Math.round(curUser.HP/4)), this,1);
 		   Buff.prolong(curUser, Blindness.class, Random.Int(5, 7));
 	}	
 

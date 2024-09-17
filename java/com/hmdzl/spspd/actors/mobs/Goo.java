@@ -537,9 +537,9 @@ public class Goo extends Mob {
 			}
 		} else if (buff instanceof Hot) {
 			if (Floor.water[this.pos])
-				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 			else
-				damage(Random.NormalIntRange(HT / 2, HT), buff);
+				damage(Random.NormalIntRange(HT / 2, HT), buff,3);
 		} else {
 			super.add(buff);
 		}

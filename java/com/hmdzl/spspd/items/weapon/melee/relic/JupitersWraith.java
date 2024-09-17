@@ -112,7 +112,7 @@ public class JupitersWraith extends RelicMeleeWeapon {
 					
 					
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,1);
 						if(Random.Int(3)==1 && ch.isAlive()){Buff.prolong(ch, Paralysis.class, 1);}
 					}
 											

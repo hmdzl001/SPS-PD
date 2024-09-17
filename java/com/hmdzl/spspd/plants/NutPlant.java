@@ -53,6 +53,8 @@ public class NutPlant extends Plant {
 		public void activate(Char ch) {
 			super.activate(ch);
 
+			Dungeon.depth.drop(new NutVegetable(), pos).sprite.drop();
+
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){
 				if (Floor.passable[pos+i]){

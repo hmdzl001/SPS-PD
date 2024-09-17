@@ -145,6 +145,7 @@ public class Artifact extends KindofMisc {
 
 			passiveBuff.detach();
 			passiveBuff = null;
+			Dungeon.canseehp = false;
 
 			if (activeBuff != null) {
 				activeBuff.detach();

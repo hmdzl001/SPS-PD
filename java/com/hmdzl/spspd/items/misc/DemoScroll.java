@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items.misc;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Muscle;
 import com.hmdzl.spspd.actors.buffs.Recharging;
@@ -107,11 +106,11 @@ public class DemoScroll extends Item {
 		hero.busy();
 		hero.spend(2f);
 		 int dmg = Dungeon.hero.spp+1;
-          hero.damage(dmg,this);
-		 if (!hero.isAlive()) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+          hero.damage(dmg,this,3);
+		 //if (!hero.isAlive()) {
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n("The Chalice sucks your life essence dry...");
-			}
+			//}
 		 Dungeon.hero.TRUE_HT-= Math.min(dmg,hero.TRUE_HT-1);
 		 Dungeon.hero.updateHT(false);
 		 GLog.w(Messages.get(this, "htdown"));

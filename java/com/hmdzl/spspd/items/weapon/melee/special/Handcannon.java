@@ -98,7 +98,7 @@ public class Handcannon extends MeleeWeapon {
 					if (defender != null) {
 						vial.sip();
 						dmg = Math.max(1, (attacker.damageRoll() - i) * 2);
-						defender.damage(dmg, this);
+						defender.damage(dmg, this,2);
 						GLog.h("Vrrrrrr!");
 					} else {
 						GLog.h("Xxxxxxx!");

@@ -110,13 +110,13 @@ public class Statue extends Mob {
 	}
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
 		}
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 	@Override
@@ -158,7 +158,7 @@ public class Statue extends Mob {
 	@Override
 	public void add(Buff buff) {
 		 if (buff instanceof Locked || buff instanceof Silent) {
-				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 		} else {
 			super.add(buff);
 		}

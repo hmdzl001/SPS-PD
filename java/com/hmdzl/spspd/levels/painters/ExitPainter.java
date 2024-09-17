@@ -23,6 +23,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ExProtect;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
+import com.hmdzl.spspd.actors.mobs.BanditKing;
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Generator;
@@ -60,6 +61,18 @@ public class ExitPainter extends Painter {
 		    Buff.affect(mob,ExProtect.class);
 		    Buff.affect(mob,ShieldArmor.class).level(Dungeon.dungeondepth *5);
 		    Buff.affect(mob,MagicArmor.class).level(Dungeon.dungeondepth *5);
+			level.mobs.add(mob);
+			//Actor.occupyCell(mob);
+		}
+
+		if(Dungeon.dungeondepth == 11) {
+			Mob mob = new BanditKing();
+			mob.pos = room.random();
+			// mob.state = mob.HUNTING;
+			mob.originalgen=false;
+			Buff.affect(mob,ExProtect.class);
+			Buff.affect(mob,ShieldArmor.class).level(Dungeon.dungeondepth *5);
+			Buff.affect(mob,MagicArmor.class).level(Dungeon.dungeondepth *5);
 			level.mobs.add(mob);
 			//Actor.occupyCell(mob);
 		}

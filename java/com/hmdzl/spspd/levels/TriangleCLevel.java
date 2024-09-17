@@ -67,6 +67,10 @@ public class TriangleCLevel extends RegularLevel {
 	protected boolean[] chasm() {
 		return Patch.generate(0, 3);
 	}
+
+	protected boolean[] glass() {
+		return Patch.generate( 0, 4);
+	}
 	
 	@Override
 	protected boolean assignRoomType() {

@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.SpeedImbue;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.mobs.Mob;
+import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.Generator;
@@ -127,14 +128,14 @@ public class AsceticSkill extends ClassSkill {
 						Dungeon.observe();
 					}
 					Char ch2 = Actor.findChar(i);
-					if (ch2 != null) {
+					if (ch2 != null && ch2 != Dungeon.hero && !(ch2 instanceof NPC)) {
 						int dmg = (int) (Dungeon.dungeondepth * (1 + 0.1 * Dungeon.hero.magicSkill()));
 						if (Dungeon.hero.lvl > 55) {
 							Buff.affect(ch2, Vertigo.class, 10f);
 							Buff.affect(ch2, Blindness.class, 10f);
 						}
 						if (dmg > 0) {
-							ch2.damage(dmg, this);
+							ch2.damage(dmg, this,1);
 						}
 					}
 				}

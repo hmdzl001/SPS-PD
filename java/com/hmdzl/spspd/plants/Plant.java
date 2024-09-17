@@ -33,7 +33,6 @@ import com.hmdzl.spspd.items.artifacts.SandalsOfNature;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.PlantSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;

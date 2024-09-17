@@ -23,7 +23,6 @@ import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class Vegetablesoup extends CompleteFood {

@@ -19,7 +19,6 @@ package com.hmdzl.spspd.sprites;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -27,7 +26,6 @@ import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.messages.Messages;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -82,14 +80,14 @@ public class DwarfLichSprite extends MobSprite {
 					
 					
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,2);
 						if(Random.Int(15)==1){Buff.prolong(ch, Paralysis.class, 1);}
 					}
 											
 
-					if (ch == Dungeon.hero && !ch.isAlive()){
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-					}
+					//if (ch == Dungeon.hero && !ch.isAlive()){
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//}
 				}
 			}
 		}

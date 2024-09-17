@@ -61,16 +61,18 @@ public class Albino extends Rat {
 
 	@Override
 	public boolean act() {
-		for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
-			GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 2, SandStorm.class));
+		if (state != SLEEPING) {
+			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+				GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS9[i], 2, SandStorm.class));
+			}
 		}
 		return super.act();
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type) {
 		GameScene.add(Blob.seed(pos, 15, CorruptGas.class));
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 

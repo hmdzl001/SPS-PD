@@ -20,8 +20,6 @@ package com.hmdzl.spspd.actors.mobs.giftnpc;
 
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.MechArmor;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Generator;
@@ -32,16 +30,11 @@ import com.hmdzl.spspd.items.armor.normalarmor.ProtectiveclothingArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.StoneArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.StyrofoamArmor;
 import com.hmdzl.spspd.items.armor.specialarmor.RenBArmor;
-import com.hmdzl.spspd.items.artifacts.AlienBag;
-import com.hmdzl.spspd.items.artifacts.GlassTotem;
-import com.hmdzl.spspd.items.artifacts.RobotDMT;
 import com.hmdzl.spspd.items.food.Nut;
 import com.hmdzl.spspd.items.food.completefood.PerfectFood;
-import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.completefood.YearFood;
 import com.hmdzl.spspd.items.food.fruit.Cherry;
 import com.hmdzl.spspd.items.food.fruit.Strawberry;
-import com.hmdzl.spspd.items.food.meatfood.MeatFood;
 import com.hmdzl.spspd.items.medicine.BlueMilk;
 import com.hmdzl.spspd.items.medicine.DeathCap;
 import com.hmdzl.spspd.items.medicine.Earthstar;
@@ -84,9 +77,7 @@ import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MiniMoai;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.RENSprite;
-import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndNewNpcMessage;
-import com.hmdzl.spspd.windows.WndOptions;
 import com.watabou.utils.Random;
 
 public class GiftRen extends GiftNpc {

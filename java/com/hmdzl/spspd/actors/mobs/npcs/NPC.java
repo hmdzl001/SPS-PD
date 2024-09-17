@@ -18,10 +18,7 @@
 package com.hmdzl.spspd.actors.mobs.npcs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
-import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.effects.Pushing;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Floor;
 import com.watabou.utils.Bundle;

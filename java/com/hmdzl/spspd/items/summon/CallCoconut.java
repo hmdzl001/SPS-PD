@@ -136,7 +136,7 @@ public class CallCoconut extends Item {
 
 		@Override
 		protected boolean act() {
-			damage(1, this);
+			damage(1, this,3);
 
 			return super.act();
 		}
@@ -227,7 +227,7 @@ public class CallCoconut extends Item {
 
 		@Override
 		protected boolean act() {
-			damage(1, this);
+			damage(1, this,3);
 
 			return super.act();
 		}

@@ -33,7 +33,7 @@ public class MagicWeak extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.MAGICWEAK;
+		return BuffIndicator.MAGIC_WEAK;
 	}
 
 	@Override

@@ -57,7 +57,7 @@ public class Darkglyph extends Glyph {
 			defender.HP += Random.Int(Math.min(healing, (defender.HT - defender.HP)/4)/2);
 			defender.sprite.emitter().burst(Speck.factory(Speck.HEALING), 1);
 			//defender.sprite.showStatus(CharSprite.POSITIVE,Integer.toString(healing));
-			attacker.damage(healing, DARK_DAMAGE);
+			attacker.damage(healing, DARK_DAMAGE,2);
 			}
 		}
 

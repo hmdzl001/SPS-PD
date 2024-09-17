@@ -19,6 +19,7 @@ package com.hmdzl.spspd.items.scrolls;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.Armor;
@@ -51,7 +52,25 @@ public class ScrollOfMagicalInfusion extends InventoryScroll {
 
 		GLog.p(Messages.get(this, "infuse", item.name()));
 
+		ScrollOfMagicalInfusion smup = Dungeon.hero.belongings.getItem(ScrollOfMagicalInfusion.class);
+		if (smup != null && ShatteredPixelDungeon.allin()) {
+			if (!((Scroll) curItem).ownedByBook) {
+				int lvl = item.level;
+				int maxlvl = item.level + smup.quantity();
+				if (lvl < maxlvl)
+					for (int i = 0; i < maxlvl - lvl; i++) {
+						item.upgrade();
+						smup.detach(Dungeon.hero.belongings.backpack);
+					}
+			} else {
+				//do nothing
+			}
+		}
+
+
 		Badges.validateItemLevelAquired(item);
+
+
 
 		curUser.sprite.emitter().start(Speck.factory(Speck.UP), 0.2f, 3);
 		readAnimation();

@@ -87,7 +87,7 @@ public class WandOfDisintegration extends DamageWand {
 		int lvl = Math.max(level - chars.size() , 1);
 		for (Char ch : chars) {
 			processSoulMark(ch, chargesPerCast());
-			ch.damage( (int)( damageRoll(lvl) * (1 + 0.1 * Dungeon.hero.magicSkill())), this );
+			ch.damage( (int)( damageRoll(lvl) * (1 + 0.1 * Dungeon.hero.magicSkill())), this,2 );
 			ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
 			ch.sprite.flash();
 		}

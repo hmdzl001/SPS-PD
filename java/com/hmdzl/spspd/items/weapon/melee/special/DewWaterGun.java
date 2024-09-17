@@ -24,9 +24,6 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Invisibility;
-import com.hmdzl.spspd.actors.buffs.Shocked;
-import com.hmdzl.spspd.actors.buffs.Shocked2;
-import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Wet;
 import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -35,8 +32,6 @@ import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.effects.particles.PurpleParticle;
 import com.hmdzl.spspd.items.DewVial;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.artifacts.Artifact;
-import com.hmdzl.spspd.items.artifacts.UnstableSpellbook;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
@@ -256,7 +251,7 @@ public class DewWaterGun extends MeleeWeapon {
 		for (Char ch : chars) {
 
 			if (Floor.distance(beam.sourcePos, ch.pos) < 5) {
-				ch.damage(Random.Int(16+level,20+4*level), DamageType.ICE_DAMAGE);
+				ch.damage(Random.Int(16+level,20+4*level), DamageType.ICE_DAMAGE,2);
 				ch.sprite.centerEmitter().burst(PurpleParticle.BURST, Random.IntRange(1, 2));
 				ch.sprite.flash();
 			}

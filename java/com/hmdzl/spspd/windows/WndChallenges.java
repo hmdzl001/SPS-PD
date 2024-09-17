@@ -75,8 +75,7 @@ public class WndChallenges extends Window {
 				@Override
 				protected void onClick() {
 					super.onClick();
-					ShatteredPixelDungeon.scene().add(
-							new WndMessage(Messages.get(Challenges.class, challenge+"_desc"))
+					ShatteredPixelDungeon.scene().add(new WndMessage(Messages.get(Challenges.class, challenge+"_desc"))
 					);
 				}
 			};

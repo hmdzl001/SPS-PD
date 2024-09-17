@@ -87,7 +87,7 @@ public class Kodora extends PET {
 		   cooldown--;
 		} 
 		damage = 0;
-		enemy.damage(damageRoll(), WandOfMagicMissile.class);
+		enemy.damage(damageRoll(), WandOfMagicMissile.class,2);
 		
 		return damage;
 	}	

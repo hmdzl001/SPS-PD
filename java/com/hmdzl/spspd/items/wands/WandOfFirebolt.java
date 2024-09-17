@@ -62,7 +62,7 @@ public class WandOfFirebolt extends DamageWand {
 
 			processSoulMark(ch, chargesPerCast());
 
-		    ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this);
+		    ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this,2);
 			
 			Buff.affect(ch, Burning.class).set(5f);
 

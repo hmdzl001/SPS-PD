@@ -23,7 +23,6 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
 import com.hmdzl.spspd.mechanics.Ballistica;
@@ -46,7 +45,7 @@ public class Trush extends RockCode {
 		int damageRoll = Random.Int(Dungeon.hero.lvl,Dungeon.hero.lvl*3);
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
-			ch.damage( 4 * damageRoll,Dungeon.hero );
+			ch.damage( 4 * damageRoll,Dungeon.hero,1 );
 		}
 		
 		if (!(Dungeon.depth.map[bolt.collisionPos] == Terrain.WELL ||
@@ -71,7 +70,7 @@ public class Trush extends RockCode {
 	public void onHit(XSaber megaCannon, Char attacker, Char defender, int damage) {
 
 		if ( Random.Int(10) == 1 ) {
-		defender.damage(3 * Random.Int( megaCannon.damageRoll(hero) ), Dungeon.hero);
+		defender.damage(3 * Random.Int( megaCannon.damageRoll(hero) ), Dungeon.hero,1);
 		}
 	}
 

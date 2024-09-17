@@ -28,6 +28,8 @@ public class VestArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 2;
 		MIN = 0;
+		M_MAX = 2;
+		M_MIN = 0;
 	}
 
 	public VestArmor() {
@@ -38,6 +40,7 @@ public class VestArmor extends NormalArmor {
 	public Item upgrade(boolean hasglyph) {
 		MIN -= 1;
 		MAX -= 2;
+		M_MAX += 1;
 		return super.upgrade(hasglyph);
 	}
 }

@@ -22,7 +22,9 @@ import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
+import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
+import com.hmdzl.spspd.actors.blobs.damageblobs.FireEffectDamage;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
@@ -31,7 +33,6 @@ import com.hmdzl.spspd.actors.buffs.Cripple;
 import com.hmdzl.spspd.actors.buffs.GlassShield;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
-import com.hmdzl.spspd.actors.buffs.SelfDestroy;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
@@ -45,11 +46,9 @@ import com.hmdzl.spspd.items.SkillBook;
 import com.hmdzl.spspd.items.TenguKey;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
-import com.hmdzl.spspd.items.bombs.XBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban2;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
 import com.hmdzl.spspd.items.misc.SavageHelmet;
-import com.hmdzl.spspd.items.scrolls.ScrollOfTeleportation;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentLight;
@@ -72,7 +71,6 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.Dungeon.hero;
-import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 import static com.hmdzl.spspd.actors.damagetype.DamageType.SHOCK_DAMAGE;
 
 public class PrisonWander extends Mob {
@@ -325,7 +323,7 @@ public class PrisonWander extends Mob {
 
 		@Override
 		public int attackProc(Char enemy, int damage) {
-			enemy.damage(damageRoll(), SHOCK_DAMAGE);
+			enemy.damage(damageRoll(), SHOCK_DAMAGE,2);
 			damage = 0;
 			return damage;
 		}
@@ -354,18 +352,19 @@ public class PrisonWander extends Mob {
 		@Override
 		public void move(int step) {
 			super.move(step);
-			HP+=4;
+			//HP+=4;
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
-			if (!(src instanceof SelfDestroy) ) dmg = 0;
-			super.damage(dmg, src);
+		public void damage(int dmg, Object src, int type) {
+			//if (!(src instanceof SelfDestroy) ) dmg = 0;
+			super.damage(dmg, src,type);
 		}
 
 		public void die(Object cause) {
 			DungeonBomb xbomb = new DungeonBomb();
 			xbomb.explode(pos);
+			GameScene.add(Blob.seed(pos, 20, FireEffectDamage.class));
 			super.die(cause);
 		}
 

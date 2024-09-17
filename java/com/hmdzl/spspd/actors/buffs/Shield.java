@@ -35,7 +35,7 @@ public class Shield extends Buff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.DISPEL;
+		return BuffIndicator.BLOCK_SHIELD;
 	}
 
 	@Override

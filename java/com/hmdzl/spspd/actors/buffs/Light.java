@@ -55,7 +55,7 @@ public class Light extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.LIGHT;
+		return BuffIndicator.TORCH_LIGHT;
 	}
 
 	@Override

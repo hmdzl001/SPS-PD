@@ -181,9 +181,9 @@ public class AttackShield extends Item {
 		public void proc(Char attacker, Char defender, int damage) {
 
 			if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
-				defender.damage((int)(0.25* defender.HT * (defender.HP/defender.HT)) ,this);
+				defender.damage((int)(0.25* defender.HT * (defender.HP/defender.HT)) ,this,1);
 			} else {
-				defender.damage((int) (0.5 * defender.HT * (defender.HP / defender.HT)), this);
+				defender.damage((int) (0.5 * defender.HT * (defender.HP / defender.HT)), this,1);
 				Buff.prolong(defender, Vertigo.class, 5f);
 			}
 			super.proc(attacker, defender, damage);

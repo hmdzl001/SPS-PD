@@ -41,7 +41,7 @@ public class MagicImmunity extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.DISPEL;
+		return BuffIndicator.BLOCK_SHIELD;
 	}
 
 	@Override

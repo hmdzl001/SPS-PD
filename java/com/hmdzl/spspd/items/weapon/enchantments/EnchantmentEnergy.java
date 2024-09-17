@@ -48,10 +48,10 @@ public class EnchantmentEnergy extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.25), ENERGY_DAMAGE);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), ENERGY_DAMAGE,2);
 		
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), ENERGY_DAMAGE);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), ENERGY_DAMAGE,2);
 		}
 
 		if (attacker.buff(DamageUp.class) == null) {

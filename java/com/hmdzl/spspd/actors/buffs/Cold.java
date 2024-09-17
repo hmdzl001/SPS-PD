@@ -33,7 +33,7 @@ public class Cold extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.COLD;
+		return BuffIndicator.ICE_3;
 	}
 
 	@Override

@@ -26,7 +26,6 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.ui.ScrollPane;
-import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 
@@ -60,7 +59,7 @@ public class WndCatalogus extends WndTabbed {
 		}
 
 		txtTitle = PixelScene.renderText(Messages.get(this, "title"), 9);
-		txtTitle.hardlight(Window.TITLE_COLOR);
+		txtTitle.hardlight(TITLE_COLOR);
 		//txtTitle.measure();
 		add(txtTitle);
 

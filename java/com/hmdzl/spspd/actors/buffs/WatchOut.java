@@ -29,7 +29,7 @@ import com.hmdzl.spspd.ui.BuffIndicator;
 
 	@Override
 	public int icon() {
-		return BuffIndicator.LIGHT;
+		return BuffIndicator.TARGET;
 	}
 
 	@Override

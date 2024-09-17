@@ -25,7 +25,6 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Badges.Badge;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -130,7 +129,7 @@ public class SewerHeart extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		if( (5 - breaks) > 6 * HP / HT ) {
 			int newPos;
 			do {
@@ -154,7 +153,7 @@ public class SewerHeart extends Mob {
 				}
 			}
 			
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 		
 	}
 
@@ -244,16 +243,16 @@ public class SewerHeart extends Mob {
 			}
 
 			if (hit( this, ch, true )) {
-				ch.damage( Random.NormalIntRange( 20, 35 ), this );
+				ch.damage( Random.NormalIntRange( 20, 35 ), this,2 );
 
 				if (Floor.fieldOfView[pos]) {
 					ch.sprite.flash();
 					CellEmitter.center( pos ).burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
 				}
 
-				if (!ch.isAlive() && ch == Dungeon.hero) {
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-				}
+			//	if (!ch.isAlive() && ch == Dungeon.hero) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//	}
 			} else {
 				ch.sprite.showStatus( CharSprite.NEUTRAL,  ch.defenseVerb() );
 			}
@@ -461,13 +460,13 @@ public class SewerHeart extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, int type) {
 			if (src instanceof Burning) {
 				destroy();
 				sprite.die();
 			} else {
 
-				super.damage(dmg, src);
+				super.damage(dmg, src,type);
 			}
 		}
 

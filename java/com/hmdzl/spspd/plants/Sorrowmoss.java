@@ -25,8 +25,6 @@ import com.hmdzl.spspd.actors.buffs.ShadowCurse;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.PoisonParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.food.fruit.Blackberry;
-import com.hmdzl.spspd.items.food.vegetable.RootRadish;
 import com.hmdzl.spspd.items.food.vegetable.ToxicEggplant;
 import com.hmdzl.spspd.items.potions.PotionOfToxicGas;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.ToxicFruit;
@@ -82,6 +80,8 @@ public class Sorrowmoss extends Plant {
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);
+
+			Dungeon.depth.drop(new ToxicEggplant(), pos).sprite.drop();
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){

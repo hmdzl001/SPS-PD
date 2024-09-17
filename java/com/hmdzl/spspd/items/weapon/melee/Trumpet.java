@@ -62,7 +62,7 @@ public class Trumpet extends MeleeWeapon {
 				int dmg = Random.Int( MIN, MAX );
 				int effectiveDamage = Math.max( dmg - dr, 0 );
 
-				ch.damage( effectiveDamage/3, ENERGY_DAMAGE );
+				ch.damage( effectiveDamage/3, ENERGY_DAMAGE,2 );
 			}
 		}
 

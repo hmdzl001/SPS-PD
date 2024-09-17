@@ -33,7 +33,7 @@ public class STRdown extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.WEAKNESS;
+		return BuffIndicator.STR_DOWN;
 	}
 
 	@Override

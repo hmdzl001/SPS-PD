@@ -21,7 +21,6 @@
 package com.hmdzl.spspd.levels.traps;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Lightning;
@@ -30,9 +29,7 @@ import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.TrapSprite;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.utils.Random;
 
@@ -52,15 +49,15 @@ public class LightningTrap extends Trap {
 		//Char ch = Actor.findChar( pos );
 
 		if (ch != null) {
-			ch.damage( Math.max( 1, Random.Int( ch.HP / 3, 2 * ch.HP / 3 ) ), LIGHTNING );
+			ch.damage( Math.max( 1, Random.Int( ch.HP / 3, 2 * ch.HP / 3 ) ), LIGHTNING,2 );
 			if (ch == Dungeon.hero) {
 
 				Camera.main.shake( 2, 0.3f );
 
-				if (!ch.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-					GLog.n( Messages.get(this, "ondeath") );
-				}
+				//if (!ch.isAlive()) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//	GLog.n( Messages.get(this, "ondeath") );
+				//}
 			}
 
 			ArrayList<Lightning.Arc> arcs = new ArrayList<>();

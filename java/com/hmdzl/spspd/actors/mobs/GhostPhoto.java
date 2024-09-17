@@ -17,30 +17,17 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.damageblobs.IceEffectDamage;
-import com.hmdzl.spspd.actors.blobs.effectblobs.ElectriShock;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Locked;
-import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Wet;
-import com.hmdzl.spspd.effects.CellEmitter;
-import com.hmdzl.spspd.effects.particles.EnergyParticle;
-import com.hmdzl.spspd.effects.particles.RainParticle;
 import com.hmdzl.spspd.items.Generator;
-import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.RedDewdrop;
-import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
-import com.hmdzl.spspd.sprites.CharSprite;
-import com.hmdzl.spspd.sprites.ErrorSprite;
 import com.hmdzl.spspd.sprites.LivePhotoSprite;
-import com.hmdzl.spspd.sprites.ThiefSprite;
 import com.watabou.utils.Random;
 
 public class GhostPhoto extends Mob {

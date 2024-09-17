@@ -28,7 +28,6 @@ import com.hmdzl.spspd.actors.buffs.FrostImbue;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.ToxicImbue;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;

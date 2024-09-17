@@ -113,7 +113,7 @@ public class SPSSettings extends GameSettings {
 	public static void systemFont(boolean value){
 		put(KEY_SYSTEMFONT, value);
 		if (!value) {
-			RenderedText.setFont("pixelfont.ttf");
+			RenderedText.setFont("txttheme/pixelfont.ttf");
 		} else {
 			RenderedText.setFont( null );
 		}
@@ -125,5 +125,37 @@ public class SPSSettings extends GameSettings {
 	}
 
 	public static final String KEY_GIFT	= "start_gift";
+
+	public static final String PICK_TYPE	= "start_gift";
+
+	public static final String KEY_PICKTYPE		= "picktype";
+
+	public static void picktype( boolean value ) {
+		//Music.INSTANCE.enable( value );
+		put( KEY_PICKTYPE, value );
+	}
+	public static boolean picktype() {
+		return getBoolean( KEY_PICKTYPE, true );
+	}
+
+	public static final String KEY_SHOWUP		= "showup";
+
+	public static void showup( boolean value ) {
+		//Music.INSTANCE.enable( value );
+		put( KEY_SHOWUP, value );
+	}
+	public static boolean showup() {
+		return getBoolean( KEY_SHOWUP, false );
+	}
+
+	public static final String KEY_ALLIN		= "allin";
+
+	public static void allin( boolean value ) {
+		//Music.INSTANCE.enable( value );
+		put( KEY_ALLIN, value );
+	}
+	public static boolean allin() {
+		return getBoolean( KEY_ALLIN, false );
+	}
 	
 }

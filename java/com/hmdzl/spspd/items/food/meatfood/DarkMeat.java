@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.food.meatfood;
 
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.messages.Messages;

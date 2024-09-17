@@ -22,7 +22,6 @@ import com.hmdzl.spspd.DungeonTilemap;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.PixelScene;
@@ -209,24 +208,39 @@ public class QuickSlotButton extends Button implements WndBag.Listener {
 
 	
 	}
-		
+	
 	public static int autoAim(Char target){
+		//will use generic projectile logic if no item is specified
+		return autoAim(target, new Item());
+	}
+		
+	public static int autoAim(Char target,Item item){
 		//first try to directly target
-		if (new Ballistica(Dungeon.hero.pos, target.pos, Ballistica.PROJECTILE).collisionPos == target.pos) {
+		//if (new Ballistica(Dungeon.hero.pos, target.pos, Ballistica.PROJECTILE).collisionPos == target.pos) {
+		//	return target.pos;
+		//}
+		if (item.targetingPos(Dungeon.hero, target.pos) == target.pos) {
 			return target.pos;
 		}
-
 		//Otherwise pick nearby tiles to try and 'angle' the shot, auto-aim basically.
 
-		PathFinder.buildDistanceMap( Dungeon.hero.pos, BArray.not( Floor.solid, null ), 2 );
-		for (int i = 0; i < PathFinder.distance.length; i++) {
-			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
-				if (new Ballistica(Dungeon.hero.pos, target.pos + i, Ballistica.PROJECTILE).collisionPos == target.pos) {
-					return target.pos + i;
-				}
-			}
-		}
+		//PathFinder.buildDistanceMap( Dungeon.hero.pos, BArray.not( Floor.solid, null ), 2 );
+		//for (int i = 0; i < PathFinder.distance.length; i++) {
+		//	if (PathFinder.distance[i] < Integer.MAX_VALUE) {
+		//		if (new Ballistica(Dungeon.hero.pos, target.pos + i, Ballistica.PROJECTILE).collisionPos == target.pos) {
+		//			return target.pos + i;
+		//		}
+		//	}
+		//}
 
+		PathFinder.buildDistanceMap( target.pos, BArray.not( new boolean[Floor.getLength()], null ), 2 );
+		for (int i = 0; i < PathFinder.distance.length; i++) {
+			if (PathFinder.distance[i] < Integer.MAX_VALUE
+					&& item.targetingPos(Dungeon.hero, i) == target.pos)
+				return i;
+		}
+		
+		
 		//couldn't find a cell, give up.
 		return -1;
 	}

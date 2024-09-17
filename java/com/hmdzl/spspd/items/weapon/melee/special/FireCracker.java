@@ -58,7 +58,7 @@ public class FireCracker extends MeleeWeapon {
     public void proc(Char attacker, Char defender, int damage) {
 
 		if (defender instanceof YearBeast) {
-             defender.damage(1,this);
+             defender.damage(1,this,3);
 		}
 
 		if (Random.Int(100)> 75) {
@@ -84,7 +84,7 @@ public class FireCracker extends MeleeWeapon {
 						int dmg = Random.NormalIntRange(minDamage, maxDamage)
 								- Math.max(ch.drRoll(),0);
 						if (dmg > 0) {
-							ch.damage(dmg, this);
+							ch.damage(dmg, this,3);
 						}
 					}
 				}

@@ -54,7 +54,7 @@ public class EmpBola extends TossWeapon {
 		Buff.affect(defender, Shocked.class).level(5);
 		Buff.detach(defender, EnergyArmor.class);
 		if(defender.properties().contains(Char.Property.MECH)){
-			defender.damage(defender.HT/3,this);
+			defender.damage(defender.HT/3,this,3);
 		}
 	}
 

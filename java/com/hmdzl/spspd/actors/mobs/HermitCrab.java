@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
@@ -75,7 +74,7 @@ public class HermitCrab extends Mob implements Callback {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		
 		if (dmg>HT/4 && src != this){
             for (Mob mob : Dungeon.depth.mobs) {
@@ -85,7 +84,7 @@ public class HermitCrab extends Mob implements Callback {
 				}
 			}
 		}			
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 
@@ -118,7 +117,7 @@ public class HermitCrab extends Mob implements Callback {
 				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
-				enemy.damage(dmg, this);
+				enemy.damage(dmg, this,2);
 
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
@@ -127,10 +126,10 @@ public class HermitCrab extends Mob implements Callback {
 
 					Camera.main.shake(2, 0.3f);
 
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//if (!enemy.isAlive()) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "kill"));
-					}
+					//}
 				}
 			} else {
 				enemy.sprite

@@ -99,7 +99,7 @@ public class DwarfLich extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damageRoll()/2,  DARK_DAMAGE );
+		enemy.damage(damageRoll()/2,  DARK_DAMAGE,2 );
 		damage = damage/2;
 
 		return damage;

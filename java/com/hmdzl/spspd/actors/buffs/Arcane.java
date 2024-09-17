@@ -30,7 +30,7 @@ public class Arcane extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.ARCANE;
+		return BuffIndicator.MAGIC_UP;
 	}
 
 	@Override

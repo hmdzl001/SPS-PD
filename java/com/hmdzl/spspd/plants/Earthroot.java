@@ -24,7 +24,6 @@ import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.food.vegetable.IceMint;
 import com.hmdzl.spspd.items.food.vegetable.RootRadish;
 import com.hmdzl.spspd.items.potions.PotionOfParalyticGas;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.RootFruit;
@@ -86,6 +85,8 @@ public class Earthroot extends Plant {
 		public void activate(Char ch) {
 			super.activate(ch);
 
+			Dungeon.depth.drop(new RootRadish(), pos).sprite.drop();
+
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){
 				if (Floor.passable[pos+i]){
@@ -141,7 +142,7 @@ public class Earthroot extends Plant {
 
 		@Override
 		public int icon() {
-			return BuffIndicator.ARMOR;
+			return BuffIndicator.NATURE_SHIELD;
 		}
 
 		@Override

@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.blobs.damageblobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -63,7 +62,7 @@ public class LightEffectDamage extends Blob {
 	private void lighthit(int pos) {
 		Char ch = Actor.findChar(pos);
 		if (ch != null && !ch.isImmune(this.getClass()) ) {
-			ch.damage( Math.max( 1, Random.Int( ch.HP / 100, ch.HP / 50 ) ), LIGHT_DAMAGE );
+			ch.damage( Math.max( 1, Random.Int( ch.HP / 100, ch.HP / 50 ) ), LIGHT_DAMAGE,2 );
 		}
 		Heap heap = Dungeon.depth.heaps.get(pos);
 		if (heap != null) {
@@ -92,7 +91,7 @@ public class LightEffectDamage extends Blob {
 		return Messages.get(this, "desc");
 	}
 
-	public void onDeath() {
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-	}	
+	//public void onDeath() {
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+	//}
 }

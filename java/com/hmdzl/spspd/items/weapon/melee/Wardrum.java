@@ -67,7 +67,7 @@ public class Wardrum extends MeleeWeapon {
 				int dmg = Random.Int( MIN, MAX );
 				int effectiveDamage = Math.max( dmg - dr, 0 );
 
-				ch.damage( effectiveDamage/2, ENERGY_DAMAGE);
+				ch.damage( effectiveDamage/2, ENERGY_DAMAGE,2);
 
 				Buff.prolong(ch, Vertigo.class, 3f);
 				Buff.prolong(ch, Terror.class, 3f).object = attacker.id();

@@ -51,7 +51,7 @@ public class WandOfBlood extends DamageWand {
 
 			processSoulMark(ch, chargesPerCast());
 			
-			ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this);
+			ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this,2);
 			if (curUser.HP < curUser.HT){
 			curUser.HP += Math.min(Random.Int(0,damageRoll()),(curUser.HT - curUser.HP));}
 		}

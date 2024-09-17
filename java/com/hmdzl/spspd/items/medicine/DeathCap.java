@@ -22,12 +22,8 @@ import com.hmdzl.spspd.actors.buffs.BeCorrupt;
 import com.hmdzl.spspd.actors.buffs.BeOld;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
 public class DeathCap extends Pill {
@@ -44,7 +40,7 @@ public class DeathCap extends Pill {
 			   Buff.affect(mob, BeCorrupt.class).level(50);
 		   }
 		   int damage = Math.max(0,(Dungeon.dungeondepth) - Random.IntRange(0, curUser.drRoll()));
-		   curUser.damage(Math.max(1,Math.round(curUser.HP/2)), this);
+		   curUser.damage(Math.max(1,Math.round(curUser.HP/2)), this,2);
 		   Buff.prolong(curUser, Cripple.class, Cripple.DURATION);
 	}	
 

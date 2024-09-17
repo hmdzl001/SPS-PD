@@ -12,6 +12,9 @@ public class MechArmor extends Buff {
 
 		private int level;
 
+	public String status() {
+		return level > 0 ? Integer.toString( level ) : null;
+	}
 
 		@Override
 		public boolean act() {		
@@ -57,7 +60,7 @@ public class MechArmor extends Buff {
 
 		@Override
 		public int icon() {
-			return BuffIndicator.MECHARMOR;
+			return BuffIndicator.MECH_ARMOR;
 		}
 
 		@Override

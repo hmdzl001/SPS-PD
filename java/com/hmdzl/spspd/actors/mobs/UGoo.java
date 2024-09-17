@@ -19,7 +19,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
@@ -46,7 +45,6 @@ import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.items.weapon.melee.special.Handcannon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.UGooSprite;
@@ -160,7 +158,7 @@ public class UGoo extends Mob {
     }	
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	
 		if (GoosCount > 0){
 			dmg = Random.Int(0,1);
@@ -168,7 +166,7 @@ public class UGoo extends Mob {
 		if (dmg > 15){
 			GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}		
 	
 	@Override
@@ -350,15 +348,15 @@ public class UGoo extends Mob {
 				if (hit(this, enemy, true)) {
 
 					int dmg = damageRoll();
-					enemy.damage(dmg, this);
+					enemy.damage(dmg, this,1);
 
 					enemy.sprite.bloodBurstA(sprite.center(), dmg);
 					enemy.sprite.flash();
 
-					if (!enemy.isAlive() && enemy == Dungeon.hero) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(TXT_KILL, name);
-					}
+					//}
 					return true;
 
 				} else {
@@ -525,9 +523,9 @@ public class UGoo extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, int type) {
 			GameScene.add(Blob.seed(pos, 5, ElectriShock.class));
-			super.damage(dmg, src);
+			super.damage(dmg, src,type);
 		}
 
 

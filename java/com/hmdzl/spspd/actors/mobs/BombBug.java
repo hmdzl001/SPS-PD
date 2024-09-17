@@ -102,7 +102,7 @@ public class BombBug extends IceBug {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type) {
 		if (dmg> HT/6) {
 			dmg =(int)Math.max(HT/6,1);
 		}
@@ -116,7 +116,7 @@ public class BombBug extends IceBug {
 			}
 		}
 
-		super.damage(dmg,src);
+		super.damage(dmg,src,type);
 
 	}
 

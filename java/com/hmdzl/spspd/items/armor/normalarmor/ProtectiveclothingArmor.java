@@ -28,6 +28,8 @@ public class ProtectiveclothingArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 30;
 		MIN = 0;
+		M_MAX = 6;
+		M_MIN = 0;
 	}
 
 	public ProtectiveclothingArmor() {
@@ -37,6 +39,7 @@ public class ProtectiveclothingArmor extends NormalArmor {
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN -= 1;
+		M_MAX += 1;
 		return super.upgrade(hasglyph);
 	}
 }

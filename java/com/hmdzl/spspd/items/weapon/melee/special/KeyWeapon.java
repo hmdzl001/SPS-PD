@@ -51,7 +51,7 @@ public class KeyWeapon extends MeleeWeapon {
 		}
 
 		if (Random.Int(100) < 40) {
-		defender.damage(Random.Int(exdmg/2,exdmg/4*3), this);
+		defender.damage(Random.Int(exdmg/2,exdmg/4*3), this,3);
 		}
 		
 	    if (Random.Int(100) < 40) {

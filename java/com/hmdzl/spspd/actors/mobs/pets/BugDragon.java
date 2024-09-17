@@ -77,10 +77,10 @@ public class BugDragon extends PET{
 	
 		if (cooldown<3 && enemy.isAlive()) {
 			damage = 0;
-			enemy.damage(enemy.HT,Item.class);
+			enemy.damage(enemy.HT,Item.class,3);
 		} else {
 			damage = 0;
-			enemy.damage(damageRoll(),Item.class);
+			enemy.damage(damageRoll(),Item.class,3);
 		}
 		cooldown = Random.Int(100);
 		return damage;

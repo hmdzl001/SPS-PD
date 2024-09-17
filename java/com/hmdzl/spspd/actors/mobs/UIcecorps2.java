@@ -26,7 +26,6 @@ import com.hmdzl.spspd.actors.blobs.CorruptGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
-import com.hmdzl.spspd.actors.buffs.BoxStar;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
@@ -52,7 +51,6 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.IceRabbit2Sprite;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import static com.hmdzl.spspd.actors.damagetype.DamageType.ICE_DAMAGE;
@@ -117,7 +115,7 @@ public class UIcecorps2 extends Mob {
 			Buff.affect(enemy, StoneIce.class).level(3);
 		}
 		
-		enemy.damage(damageRoll()*3/4, ICE_DAMAGE);
+		enemy.damage(damageRoll()*3/4, ICE_DAMAGE,2);
 		damage = damage/4;
 
 
@@ -140,9 +138,9 @@ public class UIcecorps2 extends Mob {
     }	
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
         if (!(src instanceof SelfDestroy) ) dmg = 0;
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}		
 	
 	@Override

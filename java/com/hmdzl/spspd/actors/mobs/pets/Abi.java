@@ -19,7 +19,6 @@ package com.hmdzl.spspd.actors.mobs.pets;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Blindness;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -32,7 +31,6 @@ import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;
 import com.hmdzl.spspd.items.wands.WandOfLight;
 import com.hmdzl.spspd.levels.Floor;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Plant;
 import com.hmdzl.spspd.sprites.AbiSprite;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -109,11 +107,11 @@ public class Abi extends PET {
 		int dmg = this.damageRoll();
 		for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			if (mob.isAlive() && ! (mob instanceof PET)) {
-				mob.damage(dmg * 3, ENERGY_DAMAGE);
+				mob.damage(dmg * 3, ENERGY_DAMAGE,2);
 			}
-			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-			}
+			//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//}
 		}
 		this.cooldown = 5;
 		spend(1f);
@@ -125,17 +123,17 @@ public class Abi extends PET {
 		if (hit(this, enemy, true)) {
 			int dmg = this.damageRoll();
 			if (Random.Int(5) == 1) {
-				enemy.damage(dmg*2, DARK_DAMAGE);
+				enemy.damage(dmg*2, DARK_DAMAGE,2);
 				Buff.affect(enemy, MagicWeak.class,6f);
 				this.cooldown = 5;
 			} else {
-				enemy.damage(dmg, LIGHT_DAMAGE);
+				enemy.damage(dmg, LIGHT_DAMAGE,2);
 				Buff.affect(enemy, Blindness.class,6f);
 				this.cooldown = 5;
 			}
-			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-			}
+			//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//}
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
 		}

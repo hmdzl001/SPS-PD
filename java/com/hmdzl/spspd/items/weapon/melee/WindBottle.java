@@ -59,15 +59,15 @@ public class WindBottle extends MeleeWeapon {
 		WandOfFlow.throwChar(defender, trajectory, 1);
 
 		if(defender.buff(ShieldArmor.class) != null) {
-			defender.damage(damage,attacker);
+			defender.damage(damage,attacker,1);
 		} else if(defender.buff(MagicArmor.class) != null){
-			defender.damage(damage,attacker);
+			defender.damage(damage,attacker,2);
 		} else if (defender.buff(EnergyArmor.class) != null){
-			defender.damage(damage,attacker);
+			defender.damage(damage,attacker,2);
 		}
 	
 		if (defender.buff(Silent.class) != null) {
-			defender.damage((int) (damage * 0.5),attacker);
+			defender.damage((int) (damage * 0.5),attacker,2);
 		} else {
 			Buff.affect(defender, Silent.class, 5f);
 		}

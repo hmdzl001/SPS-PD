@@ -34,7 +34,7 @@ public class Nmstop extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.COLD;
+		return BuffIndicator.BLINDNESS;
 	}
 
 	@Override

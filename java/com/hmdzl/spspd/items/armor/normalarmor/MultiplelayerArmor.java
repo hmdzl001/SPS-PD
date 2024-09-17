@@ -28,6 +28,8 @@ public class MultiplelayerArmor extends NormalArmor {
 		STR += 1;
 		MAX = 36;
 		MIN = 8;
+		M_MIN = 0;
+		M_MAX = 0;
 	}
 
 	public MultiplelayerArmor() {

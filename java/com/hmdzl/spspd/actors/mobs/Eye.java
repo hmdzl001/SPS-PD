@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Light;
@@ -33,7 +32,6 @@ import com.hmdzl.spspd.items.wands.WandOfDisintegration;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.EyeSprite;
@@ -99,7 +97,7 @@ public class Eye extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damageRoll()*3/4, LIGHT_DAMAGE);
+		enemy.damage(damageRoll()*3/4, LIGHT_DAMAGE,2);
 		damage = damage/4;
 
 		return damage;
@@ -148,7 +146,7 @@ public class Eye extends Mob {
 			}
 
 			if (hit(this, ch, true)) {
-				ch.damage(Random.NormalIntRange(14, 20+adj(0)), LIGHT_DAMAGE);
+				ch.damage(Random.NormalIntRange(14, 20+adj(0)), LIGHT_DAMAGE,2);
 
 				if (Dungeon.visible[pos]) {
 					ch.sprite.flash();
@@ -156,10 +154,10 @@ public class Eye extends Mob {
 							Random.IntRange(1, 2));
 				}
 
-				if (!ch.isAlive() && ch == Dungeon.hero) {
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//if (!ch.isAlive() && ch == Dungeon.hero) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n(Messages.get(this, "kill"));
-				}
+				//}
 			} else {
 				ch.sprite.showStatus(CharSprite.NEUTRAL, ch.defenseVerb());
 			}

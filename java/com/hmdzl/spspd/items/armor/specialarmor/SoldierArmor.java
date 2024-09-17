@@ -35,6 +35,8 @@ public class SoldierArmor extends NormalArmor {
 		STR += 1;
 		MAX = 40;
 		MIN = 20;
+		M_MIN = 0;
+		M_MAX = 7;
 	}
 
 	public SoldierArmor() {

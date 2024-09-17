@@ -86,6 +86,10 @@ public class PrisonLevel extends RegularLevel {
 		return Patch.generate(feeling == Feeling.CHASM ? 0.30f : 0.35f, 4);
 	}
 
+	protected boolean[] glass() {
+		return Patch.generate( 0.35f, 4);
+	}
+
 	@Override
 	protected Class<?>[] trapClasses() {
 		return new Class[]{ PoisonTrap.class, SpearTrap.class, ToxicTrap.class,
@@ -206,13 +210,13 @@ public class PrisonLevel extends RegularLevel {
 		}
 
 
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.SIGN;
-				break;
-			}
-		}
+		//while (true) {
+		//	int pos = roomEntrance.random();
+		//	if (pos != entrance) {
+		//		map[pos] = Terrain.SIGN;
+		//		break;
+		//	}
+		//}
 		
 		setPar();
 	}

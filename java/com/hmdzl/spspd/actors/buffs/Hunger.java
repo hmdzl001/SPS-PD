@@ -20,7 +20,6 @@ package com.hmdzl.spspd.actors.buffs;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Challenges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.items.artifacts.Artifact;
@@ -83,7 +82,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 					GLog.n(Messages.get(this, "onstarving"));
 					//hero.resting = false;
-					hero.damage(1, this);
+					hero.damage(1, this,3);
 					statusUpdated = true;
 
 					hero.interrupt();
@@ -107,7 +106,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			    partialDamage += target.HT/100f;
 				
 				if (partialDamage > 1){
-					target.damage( (int)partialDamage, this);
+					target.damage( (int)partialDamage, this,3);
 					partialDamage -= (int)partialDamage;
 				}
 				
@@ -186,7 +185,7 @@ public class Hunger extends Buff implements Hero.Doom {
 	@Override
 	public int icon() {
         if (hungerlevel < OVERFED) {
-            return BuffIndicator.OVERFED;
+            return BuffIndicator.OVERFEED;
         } else if (hungerlevel < HUNGRY) {
             return BuffIndicator.NONE;
         } else if (hungerlevel < STARVING) {
@@ -232,7 +231,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 		Badges.validateDeathFromHunger();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n(TXT_DEATH);
 	}
 }

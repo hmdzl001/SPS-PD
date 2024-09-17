@@ -57,6 +57,7 @@ import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
+import com.hmdzl.spspd.items.artifacts.ClownDeck;
 import com.hmdzl.spspd.items.artifacts.MasterThievesArmband;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.items.misc.DemoScroll;
@@ -430,13 +431,13 @@ public abstract class Mob extends Char {
 
 	public int attackProc(Char enemy, int damage) {
 		if (Dungeon.isChallenged(Challenges.ELE_STOME)){
-			enemy.damage( Statistics.deepestFloor/5 , DamageType.ENERGY_DAMAGE);
+			enemy.damage( Statistics.deepestFloor/5 , DamageType.ENERGY_DAMAGE,2);
 		}
 
 		if (buff(Shocked.class)!=null && !Shocked.first){
 			Buff.detach(this,Shocked.class);
 			Buff.affect(this, Disarm.class,5f);
-			damage(this.HP/10,SHOCK_DAMAGE);
+			damage(this.HP/10,SHOCK_DAMAGE,2);
 		}
 
 		return damage;
@@ -529,7 +530,7 @@ public abstract class Mob extends Char {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		Terror.recover(this);
 
@@ -551,7 +552,7 @@ public abstract class Mob extends Char {
 	   }
 		//alerted = true;
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 	@Override
@@ -599,6 +600,9 @@ public abstract class Mob extends Char {
 		MasterThievesArmband.Thievery armband = Dungeon.hero.buff(MasterThievesArmband.Thievery.class);
 		if (armband != null) armband.gainCharge();
 
+		ClownDeck.deckRecharge clowndeck = Dungeon.hero.buff(ClownDeck.deckRecharge.class);
+		if (clowndeck != null) clowndeck.gainCharge();
+
 		if (Dungeon.hero.heroClass == HeroClass.PERFORMER && Hero.skins == 7)
 			Dungeon.hero.belongings.recode();
 	
@@ -639,7 +643,7 @@ public abstract class Mob extends Char {
 		if (!Dungeon.depth.cleared && originalgen && !checkOriginalGenMobs() && Dungeon.dungeondepth >1
 		&& Dungeon.dungeondepth <25 && !Dungeon.bossLevel(Dungeon.dungeondepth) && (Dungeon.dewDraw || Dungeon.dewWater)){
 			Dungeon.depth.cleared=true;
-			GameScene.levelCleared();		
+			GameScene.levelCleared();
 			if(Dungeon.dungeondepth >0){
 				Statistics.prevfloormoves=Math.max(Dungeon.pars[Dungeon.dungeondepth]-(int)Dungeon.depth.currentmoves,0);
 			   if (Statistics.prevfloormoves>1){
@@ -648,7 +652,8 @@ public abstract class Mob extends Char {
 			   } else if (Statistics.prevfloormoves==0){
 				 GLog.h(Messages.get(this, "clear3"));
 			   }
-			} 
+			}
+
 		}
 
 		float lootChance = this.lootChance;

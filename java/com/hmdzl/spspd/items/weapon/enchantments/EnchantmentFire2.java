@@ -48,9 +48,9 @@ public class EnchantmentFire2 extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.75), FIRE_DAMAGE);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.75), FIRE_DAMAGE,2);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), FIRE_DAMAGE);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), FIRE_DAMAGE,2);
 		}
 		if (defender.isAlive()){
 		Buff.prolong(defender, Hot.class,3f);

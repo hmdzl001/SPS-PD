@@ -6,8 +6,8 @@ import com.hmdzl.spspd.actors.buffs.Ooze;
 import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.effects.particles.EarthParticle;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -25,7 +25,7 @@ public class MossAmmo extends SpAmmo {
 
 	@Override
 	public void onHit(GunWeapon gunweapon, Char attacker, Char defender, int damage) {
-		defender.damage((int)(0.10*damage), EARTH_DAMAGE);
+		defender.damage((int)(0.10*damage), EARTH_DAMAGE,2);
 		if (Random.Int(4) == 3) {
 			Buff.affect(defender, Ooze.class).set(5f);
 			defender.sprite.emitter().burst(EarthParticle.FACTORY, 5);
@@ -36,7 +36,7 @@ public class MossAmmo extends SpAmmo {
 
 	@Override
 	public void onHit(Boomerang boomerang, Char attacker, Char defender, int damage) {
-		defender.damage((int)(0.10*damage), EARTH_DAMAGE);
+		defender.damage((int)(0.10*damage), EARTH_DAMAGE,2);
 		if (Random.Int(4) == 3) {
 			Buff.affect(defender, Ooze.class).set(5f);
 			defender.sprite.emitter().burst(EarthParticle.FACTORY, 5);
@@ -46,7 +46,7 @@ public class MossAmmo extends SpAmmo {
 	}
 	@Override
 	public void onHit(ManyKnive manyknive, Char attacker, Char defender, int damage) {
-		defender.damage((int)(0.10*damage), EARTH_DAMAGE);
+		defender.damage((int)(0.10*damage), EARTH_DAMAGE,2);
 		if (Random.Int(4) == 3) {
 			Buff.affect(defender, Ooze.class).set(5f);
 			defender.sprite.emitter().burst(EarthParticle.FACTORY, 5);

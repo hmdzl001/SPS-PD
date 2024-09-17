@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items.wands;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.CellEmitter;
@@ -27,7 +26,6 @@ import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.BArray;
 import com.watabou.noosa.Camera;
@@ -67,17 +65,17 @@ public class WandOfLightning extends DamageWand {
 
 		for (Char ch : affected){
 			processSoulMark(ch, chargesPerCast());
-			ch.damage((int)((1 + 0.1 * Dungeon.hero.magicSkill()) * Math.round(Random.NormalIntRange(min, max) * multipler)), this);
+			ch.damage((int)((1 + 0.1 * Dungeon.hero.magicSkill()) * Math.round(Random.NormalIntRange(min, max) * multipler)), this,2);
 
 			if (ch == Dungeon.hero) Camera.main.shake( 2, 0.3f );
 			ch.sprite.centerEmitter().burst( SparkParticle.FACTORY, 3 );
 			ch.sprite.flash();
 		}
 		// Everything is processed in fx() method
-		if (!curUser.isAlive()) {
-			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//if (!curUser.isAlive()) {
+		//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 			//GLog.n("You killed yourself with your own Wand of Lightning...");
-		}
+		//}
 
 
 		Heap heap = Dungeon.depth.heaps.get(bolt.collisionPos);

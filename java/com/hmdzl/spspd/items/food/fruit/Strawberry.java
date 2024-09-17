@@ -20,7 +20,6 @@ package com.hmdzl.spspd.items.food.fruit;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.InfJump;
 import com.hmdzl.spspd.actors.buffs.MindVision;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class Strawberry extends Fruit {

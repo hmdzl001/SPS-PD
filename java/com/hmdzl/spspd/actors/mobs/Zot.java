@@ -250,7 +250,7 @@ public class Zot extends Mob {
 	}
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		
 		if(!checkPhases()){
 			ArrayList<Integer> spawnPoints = new ArrayList<Integer>();
@@ -272,7 +272,7 @@ public class Zot extends Mob {
 			}
 		}
 		
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 	@Override

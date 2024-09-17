@@ -42,7 +42,7 @@ public class GasesImmunity extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.IMMUNITY;
+		return BuffIndicator.GAS_IMM;
 	}
 
 	@Override

@@ -138,7 +138,7 @@ public class FairyCard extends Item {
 
 		@Override
 		protected boolean act() {
-			damage(1, this);
+			damage(1, this,3);
 			
 		    if (Floor.adjacent(pos, Dungeon.hero.pos)){
 			
@@ -205,7 +205,7 @@ public class FairyCard extends Item {
 
 		@Override
 		protected boolean act() {
-			damage(1, this);
+			damage(1, this,3);
 		if (Floor.adjacent(pos, Dungeon.hero.pos)){
 			
 			int bless = 5;

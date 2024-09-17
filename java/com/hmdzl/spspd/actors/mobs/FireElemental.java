@@ -83,7 +83,7 @@ public class FireElemental extends Mob {
 		if (Random.Int(2) == 0) {
 			Buff.affect(enemy, Burning.class).set(3);
 		}
-		enemy.damage(damageRoll(), DamageType.FIRE_DAMAGE);
+		enemy.damage(damageRoll(), DamageType.FIRE_DAMAGE,2);
 		damage = 0;
 
 		return damage;
@@ -103,9 +103,9 @@ public class FireElemental extends Mob {
 			}
 		} else if (buff instanceof Frost || buff instanceof Chill) {
 			if (Floor.water[this.pos])
-				damage(Random.NormalIntRange(HT / 2, HT), buff);
+				damage(Random.NormalIntRange(HT / 2, HT), buff,3);
 			else
-				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 		} else {
 			super.add(buff);
 		}

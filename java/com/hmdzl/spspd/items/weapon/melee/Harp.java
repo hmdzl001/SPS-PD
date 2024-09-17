@@ -63,7 +63,7 @@ public class Harp extends MeleeWeapon {
 				int dmg = Random.Int( MIN, MAX );
 				int effectiveDamage = Math.max( dmg - dr, 0 );
 
-				ch.damage( effectiveDamage/4, ENERGY_DAMAGE );
+				ch.damage( effectiveDamage/4, ENERGY_DAMAGE,2 );
 			}
 		}
 

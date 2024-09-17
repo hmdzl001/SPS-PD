@@ -256,16 +256,16 @@ public class TaurcenBow extends Weapon {
 			if (TaurcenBow.charge > 7 ) {
 				if (arrow == Arrow.NONE) {
 					if (defender.isAlive()) Buff.affect(defender, ArmorBreak.class,5f).level(40);
-					defender.damage(DMG,this);
+					defender.damage(DMG,this,3);
 					TaurcenBow.charge = 0;
 				}
 				if (arrow == Arrow.FIRE) {
 					if (defender.isAlive())Buff.affect(defender, Burning.class).set(3f);
-					defender.damage(DMG/2,this);
+					defender.damage(DMG/2,this,2);
 					TaurcenBow.charge = 0;
 				}
 				if (arrow == Arrow.ICE) {
-					defender.damage(DMG/2,this);
+					defender.damage(DMG/2,this,2);
 					if (defender.isAlive()) {
 						Buff.prolong(defender, Wet.class, 5f);
 						Buff.prolong(defender, Slow.class, 5f);
@@ -273,14 +273,14 @@ public class TaurcenBow extends Weapon {
 					TaurcenBow.charge = 0;
 				}
 				if (arrow == Arrow.POSION) {
-					defender.damage(DMG/4,this);
+					defender.damage(DMG/4,this,2);
 					if (defender.isAlive())Buff.affect(defender, Ooze.class).set(5f);
 					TaurcenBow.charge = 0;
 				}
 				if (arrow == Arrow.ELE) {
 					if (defender.isAlive())Buff.affect(defender, Shocked.class).level(3);
 					Buff.affect(attacker, AttackUp.class,10f).level(30);
-					defender.damage(DMG/3,this);
+					defender.damage(DMG/3,this,2);
 					TaurcenBow.charge = 0;
 				}
 
@@ -288,16 +288,16 @@ public class TaurcenBow extends Weapon {
 					if (arrow == Arrow.NONE) {
 						if (defender.isAlive())
 							Buff.affect(defender, ArmorBreak.class, 5f).level(40);
-						defender.damage(DMG, this);
+						defender.damage(DMG, this,2);
 					}
 					if (arrow == Arrow.FIRE) {
 						if (defender.isAlive())
 							Buff.affect(defender, Burning.class).set(3f);
-						defender.damage(DMG / 2, this);
+						defender.damage(DMG / 2, this,2);
 
 					}
 					if (arrow == Arrow.ICE) {
-						defender.damage(DMG / 2, this);
+						defender.damage(DMG / 2, this,2);
 						if (defender.isAlive()) {
 							Buff.prolong(defender, Wet.class, 5f);
 							Buff.prolong(defender, Slow.class, 5f);
@@ -305,14 +305,14 @@ public class TaurcenBow extends Weapon {
 
 					}
 					if (arrow == Arrow.POSION) {
-						defender.damage(DMG / 4, this);
+						defender.damage(DMG / 4, this,2);
 						if (defender.isAlive()) Buff.affect(defender, Ooze.class).set(5f);
 
 					}
 					if (arrow == Arrow.ELE) {
 						if (defender.isAlive()) Buff.affect(defender, Shocked.class).level(3);
 						Buff.affect(attacker, AttackUp.class, 10f).level(30);
-						defender.damage(DMG / 3, this);
+						defender.damage(DMG / 3, this,2);
 
 					}
 				}

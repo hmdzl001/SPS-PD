@@ -44,7 +44,7 @@ public class EarthImbue extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.PEARTH;
+		return BuffIndicator.EARTH_2;
 	}
 
 	@Override

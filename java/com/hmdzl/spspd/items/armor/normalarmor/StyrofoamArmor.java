@@ -28,6 +28,8 @@ public class StyrofoamArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 22;
 		MIN = 0;
+		M_MAX = 5;
+		M_MIN = 0;
 	}
 
 	public StyrofoamArmor() {
@@ -38,6 +40,7 @@ public class StyrofoamArmor extends NormalArmor {
 	public Item upgrade(boolean hasglyph) {
 		MIN -= 1;
 		MAX -= 1;
+		M_MAX += 1;
 		return super.upgrade(hasglyph);
 	}
 }

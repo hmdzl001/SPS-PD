@@ -28,6 +28,8 @@ public class StoneArmor extends NormalArmor {
 		STR += 1;
 		MAX = 26;
 		MIN = 6;
+		M_MIN = 0;
+		M_MAX = 0;
 	}
 
 	public StoneArmor() {

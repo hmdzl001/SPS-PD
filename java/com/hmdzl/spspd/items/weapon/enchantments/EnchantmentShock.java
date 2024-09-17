@@ -62,7 +62,7 @@ public class EnchantmentShock extends Weapon.Enchantment {
 			hit(defender, (int)(Random.Int(level,maxdmg)*0.75));
 			
 			if(fcb != null){
-			   defender.damage((int)(Random.Int(level,maxdmg)*0.50), SHOCK_DAMAGE);
+			   defender.damage((int)(Random.Int(level,maxdmg)*0.50), SHOCK_DAMAGE,2);
 		    }
 
 			attacker.sprite.parent.add(new Lightning( attacker.pos, defender.pos, null ));
@@ -89,7 +89,7 @@ public class EnchantmentShock extends Weapon.Enchantment {
 
 		affected.add(ch);
 		ch.damage(Floor.water[ch.pos] && !ch.flying ? damage * 2
-				: damage, SHOCK_DAMAGE);
+				: damage, SHOCK_DAMAGE,2);
 
 		ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 		ch.sprite.flash();

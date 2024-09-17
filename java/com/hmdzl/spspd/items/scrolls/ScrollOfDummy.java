@@ -113,7 +113,7 @@ public class ScrollOfDummy extends Scroll {
 
 		@Override
 		protected boolean act() {
-			damage(1, this);
+			damage(1, this,3);
 			return super.act();
 		}
 
@@ -144,13 +144,13 @@ public class ScrollOfDummy extends Scroll {
 		}
 
 		@Override
-		public void damage( int dmg, Object src ) {
+		public void damage(int dmg, Object src, int type) {
 
 			if(dmg > 0){
 				dmg = 2;
 			}
 
-			super.damage(dmg, src);
+			super.damage(dmg, src,type);
 		}
 
 	}

@@ -48,7 +48,7 @@ public class Terror extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.TERROR;
+		return BuffIndicator.DARK_3;
 	}
 
 	@Override

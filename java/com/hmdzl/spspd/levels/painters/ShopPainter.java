@@ -20,9 +20,14 @@ package com.hmdzl.spspd.levels.painters;
 import android.annotation.SuppressLint;
 
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.actors.Actor;
+import com.hmdzl.spspd.actors.blobs.Blob;
+import com.hmdzl.spspd.actors.blobs.damageblobs.ShockEffectDamage;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.ImpShopkeeper;
 import com.hmdzl.spspd.actors.mobs.npcs.Shopkeeper;
+import com.hmdzl.spspd.effects.CellEmitter;
+import com.hmdzl.spspd.effects.particles.EnergyParticle;
 import com.hmdzl.spspd.items.Ankh;
 import com.hmdzl.spspd.items.DolyaSlate;
 import com.hmdzl.spspd.items.Generator;
@@ -64,6 +69,8 @@ import com.hmdzl.spspd.items.weapon.ranges.WoodenBowN;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
+import com.hmdzl.spspd.scenes.GameScene;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -76,6 +83,7 @@ public class ShopPainter extends Painter {
 	private static int pasHeight;
 
 	private static ArrayList<Item> itemsToSpawn;
+	private static ArrayList<Item> itemsToSpawnSpecial;
 
 	public static void paint(Floor level, Room room) {
 
@@ -86,9 +94,9 @@ public class ShopPainter extends Painter {
 		pasHeight = room.height() - 2;
 		int per = pasWidth * 2 + pasHeight * 2;
 
-		if (itemsToSpawn == null)
+		if (itemsToSpawn == null) {
 			generateItems();
-
+		}
 		int pos = xy2p(room, room.entrance()) + (per - itemsToSpawn.size()) / 2;
 		for (Item item : itemsToSpawn) {
 
@@ -106,6 +114,7 @@ public class ShopPainter extends Painter {
 			pos++;
 		}
 
+
 		placeShopkeeper(level, room);
 
 		for (Room.Door door : room.connected.values()) {
@@ -120,111 +129,116 @@ public class ShopPainter extends Painter {
 
 		itemsToSpawn = new ArrayList<Item>();
 		switch (Dungeon.dungeondepth) {
-		case 1:
-			itemsToSpawn.add(new SeedPouch());
-			if(Random.Int(2) ==0) {
-				itemsToSpawn.add(new WoodenBowN().identify());
-			} else {
-				itemsToSpawn.add(new GunA().identify());
-			}
-			//itemsToSpawn.add(new MiniMoai().identify());
-			itemsToSpawn.add(new MeleePan());
-			itemsToSpawn.add(new Pasty());
-			itemsToSpawn.add(new NoomlinCrown());
-			itemsToSpawn.add(new DiamondPickaxe().identify().dounique().upgrade(10));
-            break;	
-			
-		case 6:
-			itemsToSpawn.add(new ScrollHolder());
-            itemsToSpawn.add(new DolyaSlate().identify());
-			if(Random.Int(2) ==0) {
-				itemsToSpawn.add(new StoneBowN().identify());
-			} else {
-				itemsToSpawn.add(new GunB().identify());
-			}
-			//itemsToSpawn.add(new DiscArmor().identify());
-			break;
+			case 1:
+				//itemsToSpawn.add(new SeedPouch());
+				if (Random.Int(2) == 0) {
+					itemsToSpawn.add(new WoodenBowN().identify());
+				} else {
+					itemsToSpawn.add(new GunA().identify());
+				}
+				//itemsToSpawn.add(new MiniMoai().identify());
+				itemsToSpawn.add(new MeleePan());
+				itemsToSpawn.add(new Pasty());
+				//itemsToSpawn.add(new NoomlinCrown());
+				itemsToSpawn.add(new DiamondPickaxe().identify().dounique().upgrade(10));
+				break;
 
-		case 11:
-			itemsToSpawn.add(new PotionBandolier());
-			itemsToSpawn.add(new Town().identify());
-			if(Random.Int(2) ==0) {
-				itemsToSpawn.add(new MetalBowN().identify());
-			} else {
-				itemsToSpawn.add(new GunC().identify());
-			}
-			//itemsToSpawn.add(new MailArmor().identify());
-			break;
+			case 6:
+				//itemsToSpawn.add(new ScrollHolder());
+				//itemsToSpawn.add(new DolyaSlate().identify());
+				if (Random.Int(2) == 0) {
+					itemsToSpawn.add(new StoneBowN().identify());
+				} else {
+					itemsToSpawn.add(new GunB().identify());
+				}
+				//itemsToSpawn.add(new DiscArmor().identify());
+				break;
 
-		case 16:
-			itemsToSpawn.add(new WandHolster());
-			if(Random.Int(2) ==0) {
-				itemsToSpawn.add(new AlloyBowN().identify());
-			} else {
-				itemsToSpawn.add(new GunD().identify());
-			}
-			//itemsToSpawn.add(new ScaleArmor().identify());
-			break;
+			case 11:
+			//	itemsToSpawn.add(new PotionBandolier());
+			//	itemsToSpawn.add(new Town().identify());
+				if (Random.Int(2) == 0) {
+					itemsToSpawn.add(new MetalBowN().identify());
+				} else {
+					itemsToSpawn.add(new GunC().identify());
+				}
+				//itemsToSpawn.add(new MailArmor().identify());
+				break;
 
-		case 21:
-			//itemsToSpawn.add(new Torch());
-			if(Random.Int(2) ==0) {
-				itemsToSpawn.add(new PVCBowN().identify());
-			} else {
-				itemsToSpawn.add(new GunE().identify());
-			}
-			itemsToSpawn.add(new CourageChallenge());
-			itemsToSpawn.add(new PowerChallenge());
-			itemsToSpawn.add(new WisdomChallenge());
-			break;
+			case 16:
+				//itemsToSpawn.add(new WandHolster());
+				if (Random.Int(2) == 0) {
+					itemsToSpawn.add(new AlloyBowN().identify());
+				} else {
+					itemsToSpawn.add(new GunD().identify());
+				}
+				//itemsToSpawn.add(new ScaleArmor().identify());
+				break;
+
+			case 21:
+				//itemsToSpawn.add(new Torch());
+				if (Random.Int(2) == 0) {
+					itemsToSpawn.add(new PVCBowN().identify());
+				} else {
+					itemsToSpawn.add(new GunE().identify());
+				}
+				//itemsToSpawn.add(new CourageChallenge());
+				//itemsToSpawn.add(new PowerChallenge());
+				//itemsToSpawn.add(new WisdomChallenge());
+				break;
 		}
 
 
 		//itemsToSpawn.add(new PotionOfHealing());
 		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
 		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
+		itemsToSpawn.add(Generator.random(Generator.Category.POTION));
 		//itemsToSpawn.add(new ScrollOfMagicMapping());
 		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
 		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
+		itemsToSpawn.add(Generator.random(Generator.Category.SCROLL));
+		itemsToSpawn.add(Generator.random(Generator.Category.SEED));
 		itemsToSpawn.add(new MagicHand(5));
 		itemsToSpawn.add(Generator.random(Generator.Category.BOMBS));
 		//for (int i = 0; i < 2; i++)
-		itemsToSpawn.add(Random.Int(2) == 0 ?
-				Generator.random(Generator.Category.POTION):
-		        Generator.random(Generator.Category.SCROLL));
+		//itemsToSpawn.add(Random.Int(2) == 0 ?
+		//		Generator.random(Generator.Category.POTION) :
+		//		Generator.random(Generator.Category.SCROLL));
 
 		itemsToSpawn.add(Generator.random(Generator.Category.RANGEWEAPON));
 		//itemsToSpawn.add(Generator.random(Generator.Category.SHOOTWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.MELEEWEAPON));
 		itemsToSpawn.add(Generator.random(Generator.Category.ARMOR));
+		itemsToSpawn.add(new RocketMissile());
+		itemsToSpawn.add(new RocketMissile());
 
-		if  (Random.Int(3) == 0)
-		itemsToSpawn.add(Random.Int(2) == 0 ? new RandomMonthEgg() : new Egg());
+		if (Random.Int(3) == 0)
+			itemsToSpawn.add(Random.Int(2) == 0 ? new RandomMonthEgg() : new Egg());
 		itemsToSpawn.add(new RocketMissile());
 		switch (Random.Int(6)) {
-		case 1:
-			itemsToSpawn.add(new ActiveMrDestructo());
-			break;
-		case 2:
-			itemsToSpawn.add(new FairyCard());
-			break;
-		case 3:
-			itemsToSpawn.add(new Mobile());
-			break;
-		case 4:
-			itemsToSpawn.add(new Honeypot());
-			break;
-		default:
-			itemsToSpawn.add(new PocketBall());
-			break;
+			case 1:
+				itemsToSpawn.add(new ActiveMrDestructo());
+				break;
+			case 2:
+				itemsToSpawn.add(new FairyCard());
+				break;
+			case 3:
+				itemsToSpawn.add(new Mobile());
+				break;
+			case 4:
+				itemsToSpawn.add(new Honeypot());
+				break;
+			default:
+				itemsToSpawn.add(new PocketBall());
+				break;
 		}
 
 		//if (Dungeon.depth == 6) {
 		itemsToSpawn.add(new Ankh());
-			//itemsToSpawn.add(new Weightstone());
+		//itemsToSpawn.add(new Weightstone());
 		//} else {
-			//itemsToSpawn.add(Random.Int(2) == 0 ? new Ankh()
-					//: new Weightstone());
+		//itemsToSpawn.add(Random.Int(2) == 0 ? new Ankh()
+		//: new Weightstone());
 		//}
 
 		TimekeepersHourglass hourglass = Dungeon.hero.belongings
@@ -260,19 +274,19 @@ public class ShopPainter extends Painter {
 
 		Item rare;
 		switch (Random.Int(4)) {
-		case 0:
-			rare = Generator.random(Generator.Category.WAND).identify();
-			rare.level = 0;
-			break;
-		case 1:
-			rare = Generator.random(Generator.Category.RING).identify();
-			rare.level = 1;
-			break;
-		case 2:
-			rare = Generator.random(Generator.Category.ARTIFACT).identify();
-			break;
-		default:
-			rare = new Stylus();
+			case 0:
+				rare = Generator.random(Generator.Category.WAND).identify();
+				rare.level = 0;
+				break;
+			case 1:
+				rare = Generator.random(Generator.Category.RING).identify();
+				rare.level = 1;
+				break;
+			case 2:
+				rare = Generator.random(Generator.Category.ARTIFACT).identify();
+				break;
+			default:
+				rare = new Stylus();
 		}
 		rare.cursed = rare.cursedKnown = false;
 		itemsToSpawn.add(rare);
@@ -335,6 +349,47 @@ public class ShopPainter extends Painter {
 		}
 	}*/
 
+	@SuppressLint("SuspiciousIndentation")
+	private static void generateSpecialItem() {
+
+		itemsToSpawnSpecial = new ArrayList<Item>();
+		switch (Dungeon.dungeondepth) {
+			case 1:
+				itemsToSpawnSpecial.add(new SeedPouch());
+				itemsToSpawnSpecial.add(new NoomlinCrown().upgrade(1));
+
+				//itemsToSpawn.add(new DiamondPickaxe().identify().dounique().upgrade(10));
+				break;
+
+			case 6:
+				itemsToSpawnSpecial.add(new ScrollHolder());
+				itemsToSpawnSpecial.add(new DolyaSlate().identify());
+
+				break;
+
+			case 11:
+				itemsToSpawnSpecial.add(new PotionBandolier());
+				itemsToSpawnSpecial.add(new Town().identify());
+				break;
+
+			case 16:
+				itemsToSpawnSpecial.add(new WandHolster());
+				itemsToSpawnSpecial.add(new NoomlinCrown().identify());
+				break;
+
+			case 21:
+				itemsToSpawnSpecial.add(new CourageChallenge());
+				itemsToSpawnSpecial.add(new PowerChallenge());
+				itemsToSpawnSpecial.add(new WisdomChallenge());
+				break;
+
+		}
+		// this is a hard limit, level gen allows for at most an 8x5 room, can't
+		// fit more than 39 items + 1 shopkeeper.
+		Collections.shuffle(itemsToSpawnSpecial);
+	}
+
+
 	public static int spaceNeeded() {
 		if (itemsToSpawn == null)
 			generateItems();
@@ -345,17 +400,21 @@ public class ShopPainter extends Painter {
 
 	private static void placeShopkeeper(Floor level, Room room) {
 
-		int pos;
-		do {
-			pos = room.random();
-		} while (level.heaps.get(pos) != null);
+		int pos = room.random();
+
+		//int number = 0;
+
+		Point c = room.center();
 
 		//Mob shopkeeper = level instanceof HallsLevel ?
 		Mob shopkeeper = Dungeon.dungeondepth > 20 ?
 				new ImpShopkeeper()
 				: new Shopkeeper();
-		shopkeeper.pos = pos;
+		shopkeeper.pos = c.x + Floor.getWidth() * c.y;
+
 		level.mobs.add(shopkeeper);
+
+		generateSpecialItem();
 
 		if (Dungeon.dungeondepth > 20) {
 			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
@@ -364,52 +423,72 @@ public class ShopPainter extends Painter {
 					level.map[p] = Terrain.WATER;
 				}
 			}
-		}
-	}
-
-	private static int xy2p(Room room, Point xy) {
-		if (xy.y == room.top) {
-
-			return (xy.x - room.left - 1);
-
-		} else if (xy.x == room.right) {
-
-			return (xy.y - room.top - 1) + pasWidth;
-
-		} else if (xy.y == room.bottom) {
-
-			return (room.right - xy.x - 1) + pasWidth + pasHeight;
-
 		} else {
-
-			if (xy.y == room.top + 1) {
-				return 0;
-			} else {
-				return (room.bottom - xy.y - 1) + pasWidth * 2 + pasHeight;
+			for (int i = 0; i < Floor.NEIGHBOURS9.length; i++) {
+				int p = shopkeeper.pos + Floor.NEIGHBOURS9[i];
+				if (level.map[p] == Terrain.EMPTY_SP) {
+					level.map[p] = Terrain.PEDESTAL;
+				}
 			}
+		}
+
+		for (Item item : itemsToSpawnSpecial) {
+
+			int[] cells = { shopkeeper.pos - 1, shopkeeper.pos + 1, shopkeeper.pos - Floor.getWidth(),
+					shopkeeper.pos + Floor.getWidth(), shopkeeper.pos - 1 - Floor.getWidth(),
+					shopkeeper.pos - 1 + Floor.getWidth(), shopkeeper.pos + 1 - Floor.getWidth(),
+					shopkeeper.pos + 1 + Floor.getWidth() };
+			int e = cells[Random.Int(cells.length)];
+			//if (Dungeon.depth.findMob(e) != null)
+			level.drop(item, e).type = Heap.Type.FOR_SALE;
 
 		}
 	}
 
-	private static Point p2xy(Room room, int p) {
-		if (p < pasWidth) {
+		private static int xy2p (Room room, Point xy){
+			if (xy.y == room.top) {
 
-			return new Point(room.left + 1 + p, room.top + 1);
+				return (xy.x - room.left - 1);
 
-		} else if (p < pasWidth + pasHeight) {
+			} else if (xy.x == room.right) {
 
-			return new Point(room.right - 1, room.top + 1 + (p - pasWidth));
+				return (xy.y - room.top - 1) + pasWidth;
 
-		} else if (p < pasWidth * 2 + pasHeight) {
+			} else if (xy.y == room.bottom) {
 
-			return new Point(room.right - 1 - (p - (pasWidth + pasHeight)),
-					room.bottom - 1);
+				return (room.right - xy.x - 1) + pasWidth + pasHeight;
 
-		} else {
+			} else {
 
-			return new Point(room.left + 1, room.bottom - 1
-					- (p - (pasWidth * 2 + pasHeight)));
+				if (xy.y == room.top + 1) {
+					return 0;
+				} else {
+					return (room.bottom - xy.y - 1) + pasWidth * 2 + pasHeight;
+				}
 
+			}
+		}
+
+		private static Point p2xy (Room room,int p){
+			if (p < pasWidth) {
+
+				return new Point(room.left + 1 + p, room.top + 1);
+
+			} else if (p < pasWidth + pasHeight) {
+
+				return new Point(room.right - 1, room.top + 1 + (p - pasWidth));
+
+			} else if (p < pasWidth * 2 + pasHeight) {
+
+				return new Point(room.right - 1 - (p - (pasWidth + pasHeight)),
+						room.bottom - 1);
+
+			} else {
+
+				return new Point(room.left + 1, room.bottom - 1
+						- (p - (pasWidth * 2 + pasHeight)));
+
+			}
 		}
 	}
-}
+

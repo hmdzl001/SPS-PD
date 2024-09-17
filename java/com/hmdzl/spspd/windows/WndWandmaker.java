@@ -71,7 +71,16 @@ public class WndWandmaker extends Window {
 		btnNonBattle.setRect(0, btnBattle.bottom() + GAP, WIDTH, BTN_HEIGHT);
 		add(btnNonBattle);
 
-		resize(WIDTH, (int) btnNonBattle.bottom());
+		RedButton btnElement = new RedButton(Messages.get(this, "element")) {
+			@Override
+			protected void onClick() {
+				selectReward(wandmaker, item, Wandmaker.Quest.wand3);
+			}
+		};
+		btnElement.setRect(0, btnNonBattle.bottom() + GAP, WIDTH, BTN_HEIGHT);
+		add(btnElement);
+
+		resize(WIDTH, (int) btnElement.bottom());
 	}
 
 	private void selectReward(Wandmaker wandmaker, Item item, Wand reward) {

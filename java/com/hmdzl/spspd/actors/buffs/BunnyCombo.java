@@ -45,11 +45,15 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class BunnyCombo extends Buff implements ActionIndicator.Action {
+public class BunnyCombo extends Buff {
 
-		private int count = 0;
+		public int count = 0;
 		private float comboTime = 0f;
 		private int misses = 0;
+
+	public String status() {
+		return count > 0 ? Integer.toString( count ) : null;
+	}
 
 		@Override
 		public int icon() {
@@ -67,12 +71,10 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 			comboTime = 4f;
 			misses = 0;
 
-			if (count >= 2) {
-
-				ActionIndicator.setAction( this );
-				GLog.p( Messages.get(this, "combo", count) );
-
-			}
+			//if (count >= 2) {
+				//ActionIndicator.setAction( this );
+			//	GLog.p( Messages.get(this, "combo", count) );
+			//}
 
 		}
 
@@ -87,7 +89,7 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 		@Override
 		public void detach() {
 			super.detach();
-			ActionIndicator.clearAction(this);
+			//ActionIndicator.clearAction(this);
 		}
 
 		@Override
@@ -104,11 +106,11 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 		public String desc() {
 			String desc = Messages.get(this, "desc");
 
-			if (count >= 10)desc += "\n\n" + Messages.get(this, "5_desc");
-			else if (count >= 8)desc += "\n\n" + Messages.get(this, "4_desc");
-			else if (count >= 6)desc += "\n\n" + Messages.get(this, "3_desc");
-			else if (count >= 4)desc += "\n\n" + Messages.get(this, "2_desc");
-			else if (count >= 2)desc += "\n\n" + Messages.get(this, "1_desc");
+			//if (count >= 10)desc += "\n\n" + Messages.get(this, "5_desc");
+			//else if (count >= 8)desc += "\n\n" + Messages.get(this, "4_desc");
+			//else if (count >= 6)desc += "\n\n" + Messages.get(this, "3_desc");
+			//else if (count >= 4)desc += "\n\n" + Messages.get(this, "2_desc");
+			//else if (count >= 2)desc += "\n\n" + Messages.get(this, "1_desc");
 
 			return desc;
 		}
@@ -129,30 +131,30 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 		public void restoreFromBundle(Bundle bundle) {
 			super.restoreFromBundle(bundle);
 			count = bundle.getInt( COUNT );
-			if (count >= 2) ActionIndicator.setAction(this);
+			//if (count >= 2) ActionIndicator.setAction(this);
 			comboTime = bundle.getFloat( TIME );
 			misses = bundle.getInt( MISSES );
 		}
 
-		@Override
-		public Image getIcon() {
-			Image icon;
+		//@Override
+		//public Image getIcon() {
+		//	Image icon;
 
-			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.BUNNY_DAGGER;}});
+		//	icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.BUNNY_DAGGER;}});
 
-            if (count >= 10)icon.tint(0x00000000);
-			else if (count >= 8)icon.tint(0xFFFFCC00);
-			else if (count >= 6)icon.tint(0xFFFFFF00);
-			else if (count >= 4)icon.tint(0xFFCCFF00);
-			else icon.tint(0xFF00FF00);
+         //   if (count >= 10)icon.tint(0x00000000);
+		//	else if (count >= 8)icon.tint(0xFFFFCC00);
+		//	else if (count >= 6)icon.tint(0xFFFFFF00);
+		//	else if (count >= 4)icon.tint(0xFFCCFF00);
+		//	else icon.tint(0xFF00FF00);
 
-			return icon;
-		}
+		//	return icon;
+		//}
 
-		@Override
-		public void doAction() {
-			GameScene.selectCell(finisher);
-		}
+		//@Override
+		//public void doAction() {
+			//GameScene.selectCell(finisher);
+		//}
 
 		private enum finisherType{
 			A, B, C, D, E
@@ -204,7 +206,7 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 				dmg -= Random.IntRange( 0, enemy.drRoll() );
 				dmg = target.attackProc(enemy, dmg);
 				dmg = enemy.defenseProc(target, dmg);
-				enemy.damage( dmg, this );
+				enemy.damage( dmg, this,1 );
 
 				//special effects
 				switch (type){
@@ -275,7 +277,7 @@ public class BunnyCombo extends Buff implements ActionIndicator.Action {
 				switch(type) {
 					case E:
 						detach();
-						ActionIndicator.clearAction(BunnyCombo.this);
+						//ActionIndicator.clearAction(BunnyCombo.this);
 						hero.spendAndNext(hero.attackDelay());
 						break;
 					default:

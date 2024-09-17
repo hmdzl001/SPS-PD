@@ -44,7 +44,7 @@ public class Bamboo extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		int DMG = damage;
-		defender.damage(Random.Int(DMG,DMG/2*3), this);
+		defender.damage(Random.Int(DMG,DMG/2*3), this,1);
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);		
 		}

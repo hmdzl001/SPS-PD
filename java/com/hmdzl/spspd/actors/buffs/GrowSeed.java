@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -60,7 +58,7 @@ public class GrowSeed extends Buff implements Hero.Doom {
 			
 			int dmg = Random.Int(1, target.HT/20);
 
-			target.damage(dmg, Bleeding.class);
+			target.damage(dmg, this,2);
 
 			int p = target.pos;
 			for (int n : Floor.NEIGHBOURS8) {
@@ -89,7 +87,7 @@ public class GrowSeed extends Buff implements Hero.Doom {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.GROW_SEED;
+		return BuffIndicator.EARTH_2;
 	}
 
 	public void set(float duration) {
@@ -125,8 +123,8 @@ public class GrowSeed extends Buff implements Hero.Doom {
 		return Messages.get(this, "desc", dispTurns(left));
 	}
 
-	@Override
+	//@Override
 	public void onDeath() {
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+	//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 	}
 }

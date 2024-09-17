@@ -156,7 +156,7 @@ public class SpiderQueen extends Mob {
 
 				GameScene.add(segg, 1f);
 				Actor.addDelayed(new Pushing(segg, pos, segg.pos), -1);
-				damage(1,this);
+				damage(1,this,1);
 			}			
 			
 			if (Dungeon.visible[step] && Dungeon.hero.isAlive()) {
@@ -298,7 +298,7 @@ public class SpiderQueen extends Mob {
 					GameScene.add(Blob.seed(i, 2, SlowWeb.class));
 			}
 			life_p ++;
-            damage(1,this);
+            damage(1,this,1);
 			return super.act();
 		}
 

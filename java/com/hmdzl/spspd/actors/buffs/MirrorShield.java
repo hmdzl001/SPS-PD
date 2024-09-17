@@ -34,13 +34,13 @@ public class MirrorShield extends FlavourBuff {
 			int deflected = Random.NormalIntRange(damage/2, damage);
 			damage = 0;
 
-			attacker.damage(deflected, this);
+			attacker.damage(deflected, this,3);
 
 			return damage;
 		}
 		
 	public int icon() {
-		return BuffIndicator.MIRROR_SHIELD;
+		return BuffIndicator.MAGIC_MIRROR;
 	}
 
 	@Override

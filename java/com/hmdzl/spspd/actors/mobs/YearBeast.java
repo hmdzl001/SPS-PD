@@ -177,12 +177,12 @@ public class YearBeast extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		if ( src instanceof FireCracker || src instanceof MoneyPack) {
 			times=0;
 		}
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 

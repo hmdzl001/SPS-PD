@@ -63,6 +63,8 @@ public class Armor extends KindOfArmor {
 	public float STE = 1f; // stealth modifier
 	public int   ENG = 1;  // energy modifier
 
+
+
 	public Glyph glyph;
 
 	@Override
@@ -188,8 +190,20 @@ public class Armor extends KindOfArmor {
 		//return encumbrance > 0 ?  Math.max(Math.round(dr)*(1-encumbrance/3),0) :Math.round(dr) - encumbrance;
 
 		return Math.max(Math.round(dr),0);
-	}	
-	
+	}
+
+	@Override
+	public int magicdrRoll(Hero hero) {
+		int encumbrance = hero.STR() - STR() ;
+		int magicdr = super.magicdrRoll(hero);
+		if (encumbrance < 0) {
+			magicdr = (int)(magicdr*0.8f);
+		}
+		//return encumbrance > 0 ?  Math.max(Math.round(dr)*(1-encumbrance/3),0) :Math.round(dr) - encumbrance;
+
+		return Math.max(Math.round(magicdr),0);
+	}
+
 
 	public Item upgrade(boolean hasglyph) {
 	

@@ -25,7 +25,7 @@ public class LifeFaith extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.LIFE_FAITH;
+		return BuffIndicator.FAITH_NATURE;
 	}
 
 	@Override

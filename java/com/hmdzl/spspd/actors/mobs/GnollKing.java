@@ -171,14 +171,14 @@ public class GnollKing extends Mob {
 				
 		if (breaks == 3){
 		    if (dmg > 0 || (Random.Int(3) == 0 )) {
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,1);
 		    }
         }
 		return super.defenseProc(enemy, damage);
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	
 		dmg = Math.min(dmg,20);
 		
@@ -187,7 +187,7 @@ public class GnollKing extends Mob {
 			    GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
 			}
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src, type);
 	}	
 	
 	@Override

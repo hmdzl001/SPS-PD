@@ -80,7 +80,7 @@ public class LearnSkill extends Buff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.BLESS;
+		return BuffIndicator.SELF_DESTORY;
 	}
 
 	@Override

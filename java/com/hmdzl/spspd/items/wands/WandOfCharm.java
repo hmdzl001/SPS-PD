@@ -38,7 +38,7 @@ public class WandOfCharm extends Wand {
 
 	{
 	    image = ItemSpriteSheet.WAND_CHARM;
-		collisionProperties = Ballistica.PROJECTILE;
+		//collisionProperties = Ballistica.PROJECTILE;
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class WandOfCharm extends Wand {
 
 	@Override
 	protected int initialCharges() {
-		return 2;
+		return 3;
 	}
 
 	@Override

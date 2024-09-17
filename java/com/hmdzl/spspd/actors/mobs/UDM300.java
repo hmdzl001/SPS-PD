@@ -35,13 +35,11 @@ import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Tar;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
@@ -50,8 +48,6 @@ import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.SeekingBombSprite;
 import com.hmdzl.spspd.sprites.UDM300Sprite;
 import com.watabou.utils.Random;
-
-import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 
 public class UDM300 extends Mob {
 
@@ -177,13 +173,13 @@ public class UDM300 extends Mob {
 	}	
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		dmg = Math.min(dmg,20);
 		if (dmg > 15){
 			GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}		
 	
 	@Override
@@ -192,7 +188,7 @@ public class UDM300 extends Mob {
 		int dmg = Random.IntRange(0, damage/3) - enemy.drRoll();
 
 		if (dmg > 0 || (Random.Int(3) == 0 )) {
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,1);
 		}
         
 		return super.defenseProc(enemy, damage);
@@ -271,7 +267,7 @@ public class UDM300 extends Mob {
 	    @Override
 	    public int attackProc(Char enemy, int damage) {
 		    Buff.affect(enemy, Slow.class,4f);
-			enemy.damage(1, Weapon.class);
+			enemy.damage(1, Weapon.class,1);
 			for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 				mob.beckon(enemy.pos);
 			}

@@ -59,7 +59,7 @@ public class EmptyPotion extends MeleeWeapon {
 				int dmg = Random.Int( MIN, MAX );
 				int effectiveDamage = Math.max( dmg - dr, 0 );
 
-				ch.damage( effectiveDamage, this );
+				ch.damage( effectiveDamage, this,2 );
 			}
 		}
 		if (enchantment != null) {
@@ -72,7 +72,7 @@ public class EmptyPotion extends MeleeWeapon {
 			}
 			if (durable == 0){
 				Dungeon.hero.belongings.weapon = null;
-				defender.damage(2*damage, this);
+				defender.damage(2*damage, this,1);
 				GLog.n(Messages.get(KindOfWeapon.class,"destory"));
 			}
 		}

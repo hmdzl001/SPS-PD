@@ -179,7 +179,7 @@ public class Heap implements Bundlable {
 				
 				if (RedWraith.spawnAt(pos) == null) {
 						hero.sprite.emitter().burst(ShadowParticle.CURSE, 6);
-						hero.damage(hero.HP / 2, this);
+						hero.damage(hero.HP / 2, this,3);
 					}
 					Sample.INSTANCE.play(Assets.SND_CURSED);
 					break;
@@ -271,7 +271,53 @@ public class Heap implements Bundlable {
 			items.add(index, b);
 		}
 	}
-	
+
+	public void collectdewauto(){
+
+		DewVial vial = Dungeon.hero.belongings.getItem(DewVial.class);
+
+		if (type != Type.HEAP) {
+			return;
+		}
+
+		boolean evaporated = false;
+		int alldew = 0;
+
+		for (Item item : items.toArray(items.toArray(new Item[0]))) {
+			if (item instanceof Dewdrop) {
+				alldew+=item.quantity;
+				items.remove(item);
+				evaporated = true;
+			} else if (item instanceof VioletDewdrop) {
+				alldew+=item.quantity*30;
+				items.remove(item);
+				evaporated = true;
+			} else if (item instanceof RedDewdrop) {
+				alldew+=item.quantity*15;
+				items.remove(item);
+				evaporated = true;
+			} else if (item instanceof YellowDewdrop) {
+				alldew+=item.quantity*5;
+				items.remove(item);
+				evaporated = true;
+			}
+		}
+
+		if (evaporated) {
+			if (Dungeon.visible[pos]) {
+				evaporateFX(pos);
+			}
+			vial.collectallDew(alldew);
+			GLog.p("+" + alldew);
+			if (isEmpty()) {
+				destroy();
+			} else if (sprite != null) {
+				sprite.view(image(), glowing());
+			}
+		}
+	}
+
+
 	public void firehit() {
 
 		if (type == Type.MIMIC) {

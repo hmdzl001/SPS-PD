@@ -48,7 +48,7 @@ public class HolyStun extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.SHIELDBLOCK;
+		return BuffIndicator.LIGHT_3;
 	}
 
 	@Override

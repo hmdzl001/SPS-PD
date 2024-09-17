@@ -110,7 +110,7 @@ public class HighAttack extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.HIGH_ATTACK;
+		return BuffIndicator.CLIMB_HIT;
 	}
 
 	public int level() {

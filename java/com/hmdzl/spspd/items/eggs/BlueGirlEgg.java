@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items.eggs;
 
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.pets.Abi;
 import com.hmdzl.spspd.actors.mobs.pets.BlueGirl;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 

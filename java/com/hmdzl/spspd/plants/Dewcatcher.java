@@ -20,6 +20,7 @@ package com.hmdzl.spspd.plants;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Dewdrop;
+import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.items.YellowDewdrop;
@@ -64,6 +65,8 @@ public class Dewcatcher extends Plant {
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);
+
+			Dungeon.depth.drop(new VioletDewdrop(), pos).sprite.drop(pos);
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){

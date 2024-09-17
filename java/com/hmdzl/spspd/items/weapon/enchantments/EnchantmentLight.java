@@ -46,9 +46,9 @@ public class EnchantmentLight extends Weapon.Enchantment {
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT / 10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int) (Random.Int(level, maxdmg) * 0.75), LIGHT_DAMAGE);
+		defender.damage((int) (Random.Int(level, maxdmg) * 0.75), LIGHT_DAMAGE,2);
 		if (fcb != null && Random.Int(2) == 1) {
-			defender.damage((int) (Random.Int(level, maxdmg) * 0.50), LIGHT_DAMAGE);
+			defender.damage((int) (Random.Int(level, maxdmg) * 0.50), LIGHT_DAMAGE,2);
 		}
 		if (Random.Int(3) >= 1) {
 			Buff.prolong(defender, Blindness.class, 4f);

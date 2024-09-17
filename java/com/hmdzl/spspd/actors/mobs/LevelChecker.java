@@ -67,10 +67,10 @@ public class LevelChecker extends Mob {
 				skilluse = true;
 				Dungeon.hero.lvl++;
 			} else {
-				enemy.damage(1,Item.class);
+				enemy.damage(1,Item.class,3);
 			}
 		} else {
-			enemy.damage(1, Item.class);
+			enemy.damage(1, Item.class,3);
 		}
 		return damage;
 

@@ -90,7 +90,7 @@ public class LightDragon extends PET{
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		enemy.damage(damageRoll()/2, LIGHT_DAMAGE);
+		enemy.damage(damageRoll()/2, LIGHT_DAMAGE,2);
 		damage = damage/2;
 		if (cooldown > 0) cooldown --;
 		if (cooldown==0 && enemy.isAlive()) {

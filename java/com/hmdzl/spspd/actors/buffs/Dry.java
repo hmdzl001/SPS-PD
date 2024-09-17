@@ -33,7 +33,7 @@ public class Dry extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.DRY;
+		return BuffIndicator.EARTH_3;
 	}
 
 	@Override

@@ -201,8 +201,8 @@ public class PlagueDoctor extends Mob {
 	}
 	
 	@Override
-	public void damage(int dmg, Object src) {
-		super.damage(dmg, src);
+	public void damage(int dmg, Object src, int type) {
+		super.damage(dmg, src,type);
 	}
 
 	@Override
@@ -396,13 +396,13 @@ public class PlagueDoctor extends Mob {
 
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, int type) {
 			if (src instanceof WandOfLight) {
 				destroy();
 				sprite.die();
 			} else {
 
-				super.damage(dmg, src);
+				super.damage(dmg, src,type);
 			}
 		}
 

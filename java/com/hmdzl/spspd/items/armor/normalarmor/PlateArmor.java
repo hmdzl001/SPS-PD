@@ -24,6 +24,8 @@ public class PlateArmor extends NormalArmor {
 	{
 		//name = "plate armor";
 		image = ItemSpriteSheet.ARMOR_PLATE;
+		M_MIN = 0;
+		M_MAX = 7;
 	}
 
 	public PlateArmor() {

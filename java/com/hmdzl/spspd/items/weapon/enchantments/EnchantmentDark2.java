@@ -48,9 +48,9 @@ public class EnchantmentDark2 extends Weapon.Enchantment {
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
 		Buff.affect(defender, ShadowCurse.class);
-		defender.damage((int)(Random.Int(level,maxdmg)*0.25), DARK_DAMAGE);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), DARK_DAMAGE,2);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), DARK_DAMAGE);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), DARK_DAMAGE,2);
 		}
 		defender.sprite.emitter().burst(ShadowParticle.UP, 5);
 		return true;

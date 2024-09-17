@@ -58,7 +58,7 @@ public class ForeverShadow extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.BLESS;
+		return BuffIndicator.INVISIBLE;
 	}
 
 	@Override

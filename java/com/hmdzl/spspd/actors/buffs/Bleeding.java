@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -69,17 +67,17 @@ public class Bleeding extends Buff {
 
 			if ((level = Random.Int(level / 3, level/2)) > 0) {
 
-				target.damage(level, this);
+				target.damage(level, this,3);
 				if (target.sprite.visible) {
 					Splash.at(target.sprite.center(), -PointF.PI / 2,
 							PointF.PI / 6, target.sprite.blood(),
 							Math.min(10 * level / target.HT, 10));
 				}
 
-				if (target == Dungeon.hero && !target.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//if (target == Dungeon.hero && !target.isAlive()) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n("You bled to death...");
-				}
+				//}
 
 				spend(TICK);
 			} else {

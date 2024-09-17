@@ -68,6 +68,10 @@ public class ChaosLevel extends RegularLevel {
 	protected boolean[] chasm() {
 		return Patch.generate(0, 3);
 	}
+
+	protected boolean[] glass() {
+		return Patch.generate( 0, 4);
+	}
 	
 	@Override
 	protected Class<?>[] trapClasses() {
@@ -108,13 +112,13 @@ public class ChaosLevel extends RegularLevel {
 		
  		int length = Floor.getLength();
 
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.SIGN;
-				break;
-			}
-		}
+		//while (true) {
+		//	int pos = roomEntrance.random();
+		//	if (pos != entrance) {
+		//		map[pos] = Terrain.SIGN;
+		//		break;
+		//	}
+		//}
 
 		for (int i = 0; i < length; i++) {
 			

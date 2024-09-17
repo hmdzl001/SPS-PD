@@ -31,6 +31,8 @@ package com.hmdzl.spspd.items.armor.specialarmor;
 		STR -= 1;
 		MAX = 20;
 		MIN = 0;
+		M_MIN = 0;
+		M_MAX = 7;
 	}
 
 	public FollowerArmor() {

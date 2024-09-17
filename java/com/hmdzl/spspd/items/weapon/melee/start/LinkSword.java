@@ -33,7 +33,7 @@ import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
@@ -211,7 +211,7 @@ public class LinkSword extends MeleeWeapon {
 		if (Random.Int(100) > 60) {
 			switch (Random.Int(7)) {
 				case 0:
-					defender.damage(Random.Int(exdmg / 4, exdmg / 2), this);
+					defender.damage(Random.Int(exdmg / 4, exdmg / 2), this,1);
 					break;
 				case 1:
 					Buff.affect(defender, Bleeding.class).set(Random.Int(3, damage));
@@ -230,7 +230,7 @@ public class LinkSword extends MeleeWeapon {
 
 							int effectiveDamage = Math.max(exdmg, 0);
 
-							ch.damage(effectiveDamage / 2, this);
+							ch.damage(effectiveDamage / 2, this,1);
 						}
 					}
 					break;
@@ -241,7 +241,7 @@ public class LinkSword extends MeleeWeapon {
 					break;
 				case 6:
 					if (charge > 25 && Random.Int(10)==0) {
-						defender.damage(2*damage, this);
+						defender.damage(2*damage, this,1);
 					}
 					break;
 				default:
@@ -307,7 +307,7 @@ public class LinkSword extends MeleeWeapon {
 								}
 								if(ls.charge > 10) {
 									ls.charge-=10;
-									ch.damage(ch.HT / 20, this);
+									ch.damage(ch.HT / 20, this,1);
 								}
 							}
 						}

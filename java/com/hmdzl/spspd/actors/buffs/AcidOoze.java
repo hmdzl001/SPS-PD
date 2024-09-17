@@ -19,8 +19,6 @@ package com.hmdzl.spspd.actors.buffs;
 
 import android.annotation.SuppressLint;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -34,7 +32,7 @@ public class AcidOoze extends Buff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.OOZE;
+		return BuffIndicator.EARTH_1;
 	}
 
 	@Override
@@ -57,12 +55,12 @@ public class AcidOoze extends Buff {
 	public boolean act() {
 		if (target.isAlive()) {
 			if (Random.Int(6) == 0) {
-				target.damage(1, this);
-			} else target.damage(Math.min(500,(int)(target.HT/15)), this);
-            if (!target.isAlive() && target == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				target.damage(1, this,2);
+			} else target.damage(Math.min(500,(int)(target.HT/15)), this,2);
+           // if (!target.isAlive() && target == Dungeon.hero) {
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(TXT_HERO_KILLED, toString());
-			}
+			//}
 			spend(TICK);
 		}
 		if (Floor.water[target.pos]) {

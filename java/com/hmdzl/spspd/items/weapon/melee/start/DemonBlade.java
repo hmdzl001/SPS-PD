@@ -64,7 +64,7 @@ public class DemonBlade extends MeleeWeapon {
 
 		int DMG = damage;
 
-		defender.damage(Random.Int(DMG/4,DMG/2), this);
+		defender.damage(Random.Int(DMG/4,DMG/2), this,2);
 
 		damage = (int)(damage* (1 + 0.1 * Dungeon.hero.magicSkill()));
 		

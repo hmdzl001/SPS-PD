@@ -23,7 +23,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.ShaftParticle;
-import com.hmdzl.spspd.items.food.vegetable.RootRadish;
 import com.hmdzl.spspd.items.food.vegetable.SunFlower;
 import com.hmdzl.spspd.items.potions.PotionOfHealing;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.HealFruit;
@@ -79,6 +78,8 @@ public class Sungrass extends Plant {
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);
+
+			Dungeon.depth.drop(new SunFlower(), pos).sprite.drop();
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){
@@ -150,7 +151,7 @@ public class Sungrass extends Plant {
 
 		@Override
 		public int icon() {
-			return BuffIndicator.HEALING;
+			return BuffIndicator.REGEN_HEAL;
 		}
 
 		@Override

@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.ui.BuffIndicator;
@@ -68,15 +66,15 @@ public class CountDown extends Buff {
 			ticks++;
 			if (ticks>5){
 				target.sprite.emitter().burst(ShadowParticle.CURSE, 6);
-				target.damage(Math.round(target.HT / 4), this);
+				target.damage(Math.round(target.HT / 4), this,2);
 				detach();
 			}
 		}
 		
-		if (!target.isAlive() && target == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//if (!target.isAlive() && target == Dungeon.hero) {
+		//		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(TXT_HERO_KILLED, toString());
-		}
+		//}
 			
 		spend(TICK);	
 		

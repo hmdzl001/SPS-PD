@@ -27,10 +27,8 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.KindOfWeapon;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.items.weapon.Weapon;
-import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.TempestBoomerang;
 import com.hmdzl.spspd.items.weapon.ranges.RangeWeapon;
 import com.hmdzl.spspd.messages.Messages;
@@ -90,9 +88,9 @@ public class MissileWeapon extends Weapon {
 		Char enemy = Actor.findChar(cell);
 		//hero.damagetwice = false;
 		if (enemy == null || enemy == curUser) {
-			if (this instanceof Boomerang)
-				super.onThrow(cell);
-			else
+			//if (this instanceof Boomerang)
+			//	super.onThrow(cell);
+			//else
 				miss(cell);
 		} else {
 			if (!curUser.shoot(enemy, this)) {
@@ -101,7 +99,7 @@ public class MissileWeapon extends Weapon {
 				if (!isdestory){
 				   Dungeon.depth.drop( this, enemy.pos).sprite.drop();
 				}
-			} else if (!(this instanceof Boomerang )) {
+			} else {
 
 				int bonus = 0;
 				for (Buff buff : curUser.buffs(RingOfSharpshooting.RingShoot.class))
@@ -127,9 +125,9 @@ public class MissileWeapon extends Weapon {
 		super.proc(attacker, defender, damage);
 
 		KindOfWeapon wep = hero.belongings.weapon;
-		if (hero.heroClass== HeroClass.HUNTRESS &&  wep !=null && this instanceof MissileWeapon && !( this instanceof ManyKnive.KniveAmmo) && !(this instanceof TaurcenBow.TaurcenBowArrow)&& !(this instanceof GunWeapon.NormalAmmo)) {
-			defender.damage(Random.Int(wep.MAX,wep.MIN),this);
-		}
+		//if (hero.heroClass== HeroClass.HUNTRESS &&  wep !=null && this instanceof MissileWeapon && !( this instanceof ManyKnive.KniveAmmo) && !(this instanceof TaurcenBow.TaurcenBowArrow)&& !(this instanceof GunWeapon.NormalAmmo)) {
+		//	defender.damage(Random.Int(wep.MAX,wep.MIN),this,1);
+		//}
 		Hero hero = (Hero) attacker;
 		if (hero.rangedWeapon == null && stackable) {
 			if (quantity == 1) {

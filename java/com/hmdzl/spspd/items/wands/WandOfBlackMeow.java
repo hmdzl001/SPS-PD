@@ -155,7 +155,7 @@ public class WandOfBlackMeow extends Wand {
 		}
 
 		@Override
-		public void damage( int dmg, Object src ) {
+		public void damage(int dmg, Object src, int type) {
 		}
 
 		@Override
@@ -163,7 +163,7 @@ public class WandOfBlackMeow extends Wand {
 
 			int dmg = Random.IntRange(1, dewLvl*3);
 			if (dmg > 0) {
-				enemy.damage(dmg, LIGHT_DAMAGE);
+				enemy.damage(dmg, LIGHT_DAMAGE,2);
 			}
 
 			return super.defenseProc(enemy, damage);

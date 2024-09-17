@@ -244,7 +244,7 @@ public class Tank extends Mob {
                 for (int n : Floor.NEIGHBOURS8) {
                     Char ch = Actor.findChar(n+rockpos);
                     if (ch != null && ch.isAlive()) {
-                        ch.damage(15,this);
+                        ch.damage(15,this,1);
                     }
                 }
 			}

@@ -29,7 +29,7 @@ public class Assets {
 		public static final String TEXT_ICONS = "text_icons.png";
 	}
 
-
+	public static final String STATE_ICON = "state_icon.png";
 	public static final String ARCS_BG = "arcs1.png";
 	public static final String ARCS_FG = "arcs2.png";
 	public static final String DASHBOARD = "dashboard.png";
@@ -47,7 +47,7 @@ public class Assets {
 	public static final String TOOLBAR = "toolbar.png";
 	public static final String SHADOW = "shadow.png";
 	
-	public static final String PIXELFONT    = "pixel_font.png";
+	public static final String PIXELFONT    = "txttheme/pixel_font.png";
 	public static final String FONT1X       = "font1x(2).png";
 	public static final String FONT2X       = "font2x(2).png";
 
@@ -194,63 +194,63 @@ public class Assets {
 	public static final String CONS_ICONS  = "consumable_icons.png";
 	public static final String CONS_ICONS2 = "consumable_icons2.png";
 
-	public static final String FONTS1X = "font1x.png";
-	public static final String FONTS15X = "font15x.png";
-	public static final String FONTS2X = "font2x.png";
-	public static final String FONTS25X = "font25x.png";
-	public static final String FONTS3X = "font3x.png";
+	public static final String FONTS1X = "txttheme/font1x.png";
+	public static final String FONTS15X = "txttheme/font15x.png";
+	public static final String FONTS2X = "txttheme/font2x.png";
+	public static final String FONTS25X = "txttheme/font25x.png";
+	public static final String FONTS3X = "txttheme/font3x.png";
 
-	public static final String THEME = "theme.mp3";
-	public static final String TUNE = "game.mp3";
-	public static final String HAPPY = "surface.mp3";
+	public static final String THEME = "sound/theme.mp3";
+	public static final String TUNE = "sound/game.mp3";
+	public static final String HAPPY = "sound/surface.mp3";
 
-	public static final String SND_CLICK = "snd_click.mp3";
-	public static final String SND_BADGE = "snd_badge.mp3";
-	public static final String SND_GOLD = "snd_gold.mp3";
+	public static final String SND_CLICK = "sound/snd_click.mp3";
+	public static final String SND_BADGE = "sound/snd_badge.mp3";
+	public static final String SND_GOLD = "sound/snd_gold.mp3";
 
-	public static final String SND_OPEN = "snd_door_open.mp3";
-	public static final String SND_UNLOCK = "snd_unlock.mp3";
-	public static final String SND_ITEM = "snd_item.mp3";
-	public static final String SND_DEWDROP = "snd_dewdrop.mp3";
-	public static final String SND_HIT = "snd_hit.mp3";
-	public static final String SND_MISS = "snd_miss.mp3";
-	public static final String SND_STEP = "snd_step.mp3";
-	public static final String SND_WATER = "snd_water.mp3";
-	public static final String SND_DESCEND = "snd_descend.mp3";
-	public static final String SND_EAT = "snd_eat.mp3";
-	public static final String SND_READ = "snd_read.mp3";
-	public static final String SND_LULLABY = "snd_lullaby.mp3";
-	public static final String SND_DRINK = "snd_drink.mp3";
-	public static final String SND_SHATTER = "snd_shatter.mp3";
-	public static final String SND_ZAP = "snd_zap.mp3";
-	public static final String SND_LIGHTNING = "snd_lightning.mp3";
-	public static final String SND_LEVELUP = "snd_levelup.mp3";
-	public static final String SND_DEATH = "snd_death.mp3";
-	public static final String SND_CHALLENGE = "snd_challenge.mp3";
-	public static final String SND_CURSED = "snd_cursed.mp3";
-	public static final String SND_TRAP = "snd_trap.mp3";
-	public static final String SND_EVOKE = "snd_evoke.mp3";
-	public static final String SND_TOMB = "snd_tomb.mp3";
-	public static final String SND_ALERT = "snd_alert.mp3";
-	public static final String SND_MELD = "snd_meld.mp3";
-	public static final String SND_BOSS = "snd_boss.mp3";
-	public static final String SND_BLAST = "snd_blast.mp3";
-	public static final String SND_PLANT = "snd_plant.mp3";
-	public static final String SND_RAY = "snd_ray.mp3";
-	public static final String SND_BEACON = "snd_beacon.mp3";
-	public static final String SND_TELEPORT = "snd_teleport.mp3";
-	public static final String SND_CHARMS = "snd_charms.mp3";
-	public static final String SND_MASTERY = "snd_mastery.mp3";
-	public static final String SND_PUFF = "snd_puff.mp3";
-	public static final String SND_ROCKS = "snd_rocks.mp3";
-	public static final String SND_BURNING = "snd_burning.mp3";
-	public static final String SND_FALLING = "snd_falling.mp3";
-	public static final String SND_GHOST = "snd_ghost.mp3";
-	public static final String SND_SECRET = "snd_secret.mp3";
-	public static final String SND_BONES = "snd_bones.mp3";
-	public static final String SND_BEE = "snd_bee.mp3";
-	public static final String SND_DEGRADE = "snd_degrade.mp3";
-	public static final String SND_MIMIC = "snd_mimic.mp3";
+	public static final String SND_OPEN = "sound/snd_door_open.mp3";
+	public static final String SND_UNLOCK = "sound/snd_unlock.mp3";
+	public static final String SND_ITEM = "sound/snd_item.mp3";
+	public static final String SND_DEWDROP = "sound/snd_dewdrop.mp3";
+	public static final String SND_HIT = "sound/snd_hit.mp3";
+	public static final String SND_MISS = "sound/snd_miss.mp3";
+	public static final String SND_STEP = "sound/snd_step.mp3";
+	public static final String SND_WATER = "sound/snd_water.mp3";
+	public static final String SND_DESCEND = "sound/snd_descend.mp3";
+	public static final String SND_EAT = "sound/snd_eat.mp3";
+	public static final String SND_READ = "sound/snd_read.mp3";
+	public static final String SND_LULLABY = "sound/snd_lullaby.mp3";
+	public static final String SND_DRINK = "sound/snd_drink.mp3";
+	public static final String SND_SHATTER = "sound/snd_shatter.mp3";
+	public static final String SND_ZAP = "sound/snd_zap.mp3";
+	public static final String SND_LIGHTNING = "sound/snd_lightning.mp3";
+	public static final String SND_LEVELUP = "sound/snd_levelup.mp3";
+	public static final String SND_DEATH = "sound/snd_death.mp3";
+	public static final String SND_CHALLENGE = "sound/snd_challenge.mp3";
+	public static final String SND_CURSED = "sound/snd_cursed.mp3";
+	public static final String SND_TRAP = "sound/snd_trap.mp3";
+	public static final String SND_EVOKE = "sound/snd_evoke.mp3";
+	public static final String SND_TOMB = "sound/snd_tomb.mp3";
+	public static final String SND_ALERT = "sound/snd_alert.mp3";
+	public static final String SND_MELD = "sound/snd_meld.mp3";
+	public static final String SND_BOSS = "sound/snd_boss.mp3";
+	public static final String SND_BLAST = "sound/snd_blast.mp3";
+	public static final String SND_PLANT = "sound/snd_plant.mp3";
+	public static final String SND_RAY = "sound/snd_ray.mp3";
+	public static final String SND_BEACON = "sound/snd_beacon.mp3";
+	public static final String SND_TELEPORT = "sound/snd_teleport.mp3";
+	public static final String SND_CHARMS = "sound/snd_charms.mp3";
+	public static final String SND_MASTERY = "sound/snd_mastery.mp3";
+	public static final String SND_PUFF = "sound/snd_puff.mp3";
+	public static final String SND_ROCKS = "sound/snd_rocks.mp3";
+	public static final String SND_BURNING = "sound/snd_burning.mp3";
+	public static final String SND_FALLING = "sound/snd_falling.mp3";
+	public static final String SND_GHOST = "sound/snd_ghost.mp3";
+	public static final String SND_SECRET = "sound/snd_secret.mp3";
+	public static final String SND_BONES = "sound/snd_bones.mp3";
+	public static final String SND_BEE = "sound/snd_bee.mp3";
+	public static final String SND_DEGRADE = "sound/snd_degrade.mp3";
+	public static final String SND_MIMIC = "sound/snd_mimic.mp3";
 
 	public static final String GNOLLKING = "gnollking.png";
 	public static final String DRAGONKING = "dragonking.png";

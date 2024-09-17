@@ -28,6 +28,8 @@ public class CeramicsArmor extends NormalArmor {
 		STR += 1;
 		MAX = 18;
 		MIN = 4;
+		M_MIN = 0;
+		M_MAX = 0;
 	}
 
 	public CeramicsArmor() {

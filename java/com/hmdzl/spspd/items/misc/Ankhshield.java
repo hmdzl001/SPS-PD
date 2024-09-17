@@ -90,7 +90,7 @@ public class Ankhshield extends Item {
 			    for (Mob mob : Dungeon.depth.mobs.toArray(new Mob[0])) {
 			        if (Floor.fieldOfView[mob.pos]) {
 					    if (Floor.distance(hero.pos,mob.pos) < 4) {
-							mob.damage(5, this);
+							mob.damage(5, this,3);
 							Buff.prolong(mob, HolyStun.class, 3);
 						} else {
 							Buff.affect(mob, WatchOut.class,15f);

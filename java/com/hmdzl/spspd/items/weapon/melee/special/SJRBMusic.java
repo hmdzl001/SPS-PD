@@ -78,7 +78,7 @@ public class SJRBMusic extends MeleeWeapon {
 				} else {
 					Dungeon.depth.press(cell, attacker);
 				}
-				defender.damage(exdmg,this);
+				defender.damage(exdmg,this,3);
 			}
 	
 		int p = defender.pos;
@@ -86,7 +86,7 @@ public class SJRBMusic extends MeleeWeapon {
 			Char ch = Actor.findChar(n+p);
 			if (ch != null && ch != defender && ch != attacker && ch.isAlive()) {
 				int effectiveDamage = Math.max( exdmg, 0 );
-				ch.damage( effectiveDamage, attacker );
+				ch.damage( effectiveDamage, attacker,3 );
 			}
 		}
 		

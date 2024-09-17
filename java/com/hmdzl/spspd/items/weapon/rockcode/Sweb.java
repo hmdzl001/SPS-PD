@@ -27,7 +27,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.scenes.GameScene;
@@ -55,7 +54,7 @@ public class Sweb extends RockCode {
 		int damageRoll = Random.Int(Dungeon.hero.lvl,Dungeon.hero.lvl*3);
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
-			ch.damage( damageRoll,Dungeon.hero);
+			ch.damage( damageRoll,Dungeon.hero,1);
 		}
 
 		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
@@ -78,7 +77,7 @@ public class Sweb extends RockCode {
 		if ( Random.Int(10) == 1) {
 			Buff.affect(defender, Roots.class,3f);
 		}
-		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), Dungeon.hero);
+		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), Dungeon.hero,1);
 	}
 
 	

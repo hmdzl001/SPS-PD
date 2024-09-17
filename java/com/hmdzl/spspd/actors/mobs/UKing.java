@@ -162,7 +162,7 @@ public class UKing extends Mob {
     }	
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	
         dmg = (int)(dmg*0.4);
 
@@ -170,7 +170,7 @@ public class UKing extends Mob {
 
 		dmg = Math.min(dmg,20);
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}		
 	
 	@Override

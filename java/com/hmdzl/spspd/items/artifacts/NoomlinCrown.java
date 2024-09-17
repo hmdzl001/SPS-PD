@@ -11,6 +11,7 @@ public class NoomlinCrown extends Artifact {
 		//name = "AlienBag";
 		image = ItemSpriteSheet.CROWN;
 		//level = 1;
+		//level = 0;
 		levelCap = 1;
 	}
 

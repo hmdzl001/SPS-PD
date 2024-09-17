@@ -28,6 +28,8 @@ public class WoodenArmor extends NormalArmor {
 		STR += 1;
 		MAX = 6;
 		MIN = 2;
+		M_MIN = 0;
+		M_MAX = 0;
 	}
 
 	public WoodenArmor() {

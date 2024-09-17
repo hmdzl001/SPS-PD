@@ -38,7 +38,6 @@ import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.ui.QuickSlotButton;
 import com.hmdzl.spspd.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -127,7 +126,7 @@ public class EleKatana extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 		
 	    int DMG = damage;
-		defender.damage(Random.Int(DMG / 4, DMG / 2), this);
+		defender.damage(Random.Int(DMG / 4, DMG / 2), this,2);
 		charge++;
 		if (defender.buff(Shocked2.class) != null) {
 			damage = (int) (damage * 1.5);

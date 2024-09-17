@@ -107,7 +107,7 @@ public class UndeadBook extends Item {
 				case 2:
 					for (Mob mob : Dungeon.depth.mobs.toArray( new Mob[0] )) {
 						if (Floor.fieldOfView[mob.pos]) {
-							mob.damage(mob.HT/2, this );
+							mob.damage(mob.HT/2, this,3 );
 						}
 					}
 					break;

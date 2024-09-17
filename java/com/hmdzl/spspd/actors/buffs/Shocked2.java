@@ -21,8 +21,6 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.messages.Messages;
@@ -71,7 +69,7 @@ public class Shocked2 extends Buff implements Hero.Doom{
 			if (target.pos != pos) {
 				//pos = 0;
 				//if (target.pos != -1)  pos = target.pos;
-				target.damage(Math.min(1000,target.HT/20),this);
+				target.damage(Math.min(1000,target.HT/20),this,2);
 				Buff.affect(target,Roots.class,5f);
 				detach();
 			} 
@@ -92,7 +90,7 @@ public class Shocked2 extends Buff implements Hero.Doom{
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.STONE_ICE;
+		return BuffIndicator.SHOCK_2;
 	}
 	
 	@Override
@@ -124,7 +122,7 @@ public class Shocked2 extends Buff implements Hero.Doom{
 	public void onDeath() {
 
 		Badges.validateDeathFromFire();
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 
 	}	
 

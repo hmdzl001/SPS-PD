@@ -34,7 +34,7 @@ public class Feed extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.FEED;
+		return BuffIndicator.EATER_FEED;
 	}
 
 	@Override

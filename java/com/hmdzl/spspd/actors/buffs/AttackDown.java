@@ -27,6 +27,11 @@ public class AttackDown extends FlavourBuff {
 	private static final String LEVEL = "level";
 	protected float left;
 	private static final String LEFT = "left";
+
+	public String status() {
+		return level > 0 ? "*" + level  + "%" : null;
+	}
+
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
@@ -60,7 +65,7 @@ public class AttackDown extends FlavourBuff {
 	}
 	@Override
 	public int icon() {
-		return BuffIndicator.WEAKNESS;
+		return BuffIndicator.ATK_DOWN;
 	}
 
 	public int level() {

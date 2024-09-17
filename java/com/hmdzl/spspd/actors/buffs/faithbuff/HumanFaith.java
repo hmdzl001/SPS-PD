@@ -25,7 +25,7 @@ public class HumanFaith extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.HUMAN_FAITH;
+		return BuffIndicator.FAITH_HOLY;
 	}
 
 	@Override

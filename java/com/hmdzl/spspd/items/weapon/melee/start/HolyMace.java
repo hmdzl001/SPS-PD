@@ -21,11 +21,8 @@ import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.HTimprove;
 import com.hmdzl.spspd.actors.buffs.Light;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
@@ -33,7 +30,6 @@ import com.hmdzl.spspd.effects.Splash;
 import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.Torch;
-import com.hmdzl.spspd.items.medicine.Greaterpill;
 import com.hmdzl.spspd.items.misc.GunOfSoldier;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
@@ -179,7 +175,7 @@ public class HolyMace extends MeleeWeapon {
 
 		if (defender.properties().contains(Char.Property.DEMONIC) || defender.properties().contains(Char.Property.UNKNOW)
 		|| defender.properties().contains(Char.Property.UNDEAD) || defender.properties().contains(Char.Property.DRAGON))
-			defender.damage(damage/2,this);
+			defender.damage(damage/2,this,2);
 	
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);
@@ -228,7 +224,7 @@ public class HolyMace extends MeleeWeapon {
 		@Override
 		public void proc(Char attacker, Char defender, int damage) {
 
-			defender.damage(Math.max(defender.HT / 20+ uptime2,1), this);
+			defender.damage(Math.max(defender.HT / 20+ uptime2,1), this,3);
 			if (defender.HP < defender.HT/3 && !(defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS))){
 				defender.sprite.killAndErase();
 				defender.die(null);

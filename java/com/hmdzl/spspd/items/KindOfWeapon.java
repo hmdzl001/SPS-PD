@@ -31,6 +31,8 @@ public class KindOfWeapon extends EquipableItem {
 
 	public int MIN = 0;
 	public int MAX = 1;
+
+	public boolean magical = false;
    // public int durable = 10;
 
     @Override

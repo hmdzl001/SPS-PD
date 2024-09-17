@@ -2,7 +2,6 @@ package com.hmdzl.spspd.items.artifacts;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.BloodAngry;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -116,11 +115,11 @@ public class ChaliceOfBlood extends Artifact {
 			hero.sprite.emitter().burst( ShadowParticle.CURSE, 4+(damage/10) );
 		}
 		
-		hero.damage(damage, this);
+		hero.damage(damage, this,1);
 		Buff.affect(hero,Bleeding.class).set(level * level);
 
 		if (!hero.isAlive()) {
-			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 			//GLog.n("The Chalice sucks your life essence dry...");
 		} else {
 			upgrade();

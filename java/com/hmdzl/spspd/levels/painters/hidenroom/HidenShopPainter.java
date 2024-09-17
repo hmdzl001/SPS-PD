@@ -133,9 +133,9 @@ public class HidenShopPainter extends Painter {
 	private static void placeShopkeeper(Floor level, Room room) {
 
 		int pos;
-		do {
-			pos = room.random();
-		} while (level.heaps.get(pos) != null);
+
+		Point c = room.center();
+		pos = c.x + Floor.getWidth() * c.y;
 
 
 		switch (Random.Int(3)) {

@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.buffs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.particles.ShadowParticle;
 import com.hmdzl.spspd.messages.Messages;
@@ -75,22 +73,22 @@ public class ShadowCurse extends Buff {
 		if (target.isAlive()) {
 			if (target.isAlive()) {
 				if (first == true) {
-					target.damage(Math.min(1000, target.HT / 30), DARK_DAMAGE);
+					target.damage(Math.min(1000, target.HT / 30), DARK_DAMAGE,2);
 					first = false;
 				}
 			}
 			ticks++;
 			if (ticks>3){
 				target.sprite.emitter().burst(ShadowParticle.CURSE, 6);
-				target.damage(Math.round(target.HT / 10), DARK_DAMAGE);
+				target.damage(Math.round(target.HT / 10), DARK_DAMAGE,2);
 				detach();
 			}
 		}
 		
-		if (!target.isAlive() && target == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//if (!target.isAlive() && target == Dungeon.hero) {
+		//		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(TXT_HERO_KILLED, toString());
-		}
+		//}
 			
 		spend(TICK);	
 		

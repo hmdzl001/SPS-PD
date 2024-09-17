@@ -76,8 +76,8 @@ public class ErrorW extends MeleeWeapon {
         switch (Random.Int (10)) {
 		case 0 :
 			if (defender.properties().contains(Char.Property.BOSS) || defender.properties().contains(Char.Property.MINIBOSS)){
-            defender.damage(Random.Int(defender.HT/8, defender.HT/4), this);}
-			else defender.damage(Random.Int(defender.HT, defender.HT * 2), this);
+            defender.damage(Random.Int(defender.HT/8, defender.HT/4), this,3);}
+			else defender.damage(Random.Int(defender.HT, defender.HT * 2), this,3);
 			defender.sprite.emitter().burst(ShadowParticle.UP, 5);
 			if (!defender.isAlive() && attacker instanceof Hero) {
 				Badges.validateGrimWeapon();

@@ -42,7 +42,7 @@ public class SnipersMark extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.MARK;
+		return BuffIndicator.TARGET;
 	}
 
 	@Override

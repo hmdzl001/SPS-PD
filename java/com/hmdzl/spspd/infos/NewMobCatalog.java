@@ -95,7 +95,6 @@ import com.hmdzl.spspd.actors.mobs.npcs.Mtree;
 import com.hmdzl.spspd.actors.mobs.npcs.NYRDS;
 import com.hmdzl.spspd.actors.mobs.npcs.NewPlayer;
 import com.hmdzl.spspd.actors.mobs.npcs.NutPainter;
-import com.hmdzl.spspd.actors.mobs.npcs.OldNewStwist;
 import com.hmdzl.spspd.actors.mobs.npcs.Omicronrg9;
 import com.hmdzl.spspd.actors.mobs.npcs.OtilukeNPC;
 import com.hmdzl.spspd.actors.mobs.npcs.RENnpc;
@@ -123,7 +122,7 @@ import com.hmdzl.spspd.actors.mobs.npcs.Watabou;
 import com.hmdzl.spspd.actors.mobs.npcs.WhiteGhost;
 import com.hmdzl.spspd.actors.mobs.npcs.XixiZero;
 import com.hmdzl.spspd.actors.mobs.pets.Abi;
-import com.hmdzl.spspd.actors.mobs.pets.BlueDragon;
+import com.hmdzl.spspd.actors.mobs.pets.BatPet;
 import com.hmdzl.spspd.actors.mobs.pets.BlueGirl;
 import com.hmdzl.spspd.actors.mobs.pets.BugDragon;
 import com.hmdzl.spspd.actors.mobs.pets.Bunny;
@@ -157,7 +156,6 @@ import com.hmdzl.spspd.actors.mobs.pets.Stone;
 import com.hmdzl.spspd.actors.mobs.pets.Velocirooster;
 import com.hmdzl.spspd.actors.mobs.pets.VioletDragon;
 import com.hmdzl.spspd.actors.mobs.pets.YearPet;
-import com.hmdzl.spspd.items.misc.GunOfSoldier;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -601,6 +599,7 @@ public enum NewMobCatalog {
 		PET.seen.put( FrogPet.class , true);
 		PET.seen.put( StarKid.class , true);
 		PET.seen.put( LitDemon.class , true);
+		PET.seen.put( BatPet.class , true);
 	}
 
 }

@@ -202,6 +202,10 @@ public class TenguDenLevel extends RegularLevel {
 		return Patch.generate(0, 3);
 	}
 
+	protected boolean[] glass() {
+		return Patch.generate( 0, 4);
+	}
+
 	@Override
 	protected void decorate() {
 		int start = roomExit.top * getWidth() + roomExit.left + 1;

@@ -17,23 +17,14 @@
  */
 package com.hmdzl.spspd.items.weapon.melee.special;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Amok;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Charm;
 import com.hmdzl.spspd.actors.buffs.SelfDenial;
-import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.actors.buffs.Vertigo;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.KindOfWeapon;
-import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
-import com.watabou.utils.Bundle;
 
 public class FiveFlower extends MeleeWeapon {
 

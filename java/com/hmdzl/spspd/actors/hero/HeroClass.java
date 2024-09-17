@@ -42,6 +42,7 @@ import com.hmdzl.spspd.items.TriForce;
 import com.hmdzl.spspd.items.UnBlessAnkh;
 import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.armor.normalarmor.BaseArmor;
+import com.hmdzl.spspd.items.armor.normalarmor.BeginnerRobe;
 import com.hmdzl.spspd.items.armor.normalarmor.ClothArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.DiscArmor;
 import com.hmdzl.spspd.items.armor.normalarmor.LeatherArmor;
@@ -57,6 +58,7 @@ import com.hmdzl.spspd.items.armor.specialarmor.TestArmor;
 import com.hmdzl.spspd.items.artifacts.AlienBag;
 import com.hmdzl.spspd.items.artifacts.Artifact;
 import com.hmdzl.spspd.items.artifacts.CloakOfShadows;
+import com.hmdzl.spspd.items.artifacts.ClownDeck;
 import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.EtherealChains;
 import com.hmdzl.spspd.items.artifacts.FlyChains;
@@ -84,6 +86,7 @@ import com.hmdzl.spspd.items.challengelists.PrisonChallenge;
 import com.hmdzl.spspd.items.challengelists.SewerChallenge;
 import com.hmdzl.spspd.items.challengelists.WisdomChallenge;
 import com.hmdzl.spspd.items.eggs.AflyEgg;
+import com.hmdzl.spspd.items.eggs.BatPetEgg;
 import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.eggs.GoldDragonEgg;
 import com.hmdzl.spspd.items.eggs.randomone.RandomEgg;
@@ -104,6 +107,7 @@ import com.hmdzl.spspd.items.food.completefood.Vegetablekebab;
 import com.hmdzl.spspd.items.food.completefood.YearFood;
 import com.hmdzl.spspd.items.food.meatfood.IceMeat;
 import com.hmdzl.spspd.items.food.staplefood.Pasty;
+import com.hmdzl.spspd.items.food.vegetable.MotherRose;
 import com.hmdzl.spspd.items.food.vegetable.NutVegetable;
 import com.hmdzl.spspd.items.journalpages.EnergyCore;
 import com.hmdzl.spspd.items.journalpages.NewHome;
@@ -178,8 +182,8 @@ import com.hmdzl.spspd.items.rings.RingOfEnergy;
 import com.hmdzl.spspd.items.rings.RingOfEvasion;
 import com.hmdzl.spspd.items.rings.RingOfForce;
 import com.hmdzl.spspd.items.rings.RingOfFuror;
-import com.hmdzl.spspd.items.rings.RingOfKnowledge;
 import com.hmdzl.spspd.items.rings.RingOfHaste;
+import com.hmdzl.spspd.items.rings.RingOfKnowledge;
 import com.hmdzl.spspd.items.rings.RingOfMagic;
 import com.hmdzl.spspd.items.rings.RingOfMight;
 import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
@@ -196,15 +200,29 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfRegrowth;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRemoveCurse;
 import com.hmdzl.spspd.items.scrolls.ScrollOfTerror;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
-import com.hmdzl.spspd.items.food.vegetable.MotherRose;
 import com.hmdzl.spspd.items.summon.ActiveMrDestructo;
 import com.hmdzl.spspd.items.wands.CannonOfMage;
+import com.hmdzl.spspd.items.wands.WandOfAcid;
+import com.hmdzl.spspd.items.wands.WandOfBlood;
+import com.hmdzl.spspd.items.wands.WandOfCharm;
+import com.hmdzl.spspd.items.wands.WandOfDarkElement;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
+import com.hmdzl.spspd.items.wands.WandOfEarthElement;
+import com.hmdzl.spspd.items.wands.WandOfEnergyElement;
+import com.hmdzl.spspd.items.wands.WandOfFireElement;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
+import com.hmdzl.spspd.items.wands.WandOfFlock;
+import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.items.wands.WandOfIceElement;
 import com.hmdzl.spspd.items.wands.WandOfLight;
+import com.hmdzl.spspd.items.wands.WandOfLightElement;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
+import com.hmdzl.spspd.items.wands.WandOfMeteorite;
+import com.hmdzl.spspd.items.wands.WandOfShockElement;
+import com.hmdzl.spspd.items.wands.WandOfSwamp;
+import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.items.wands.WandOfTest;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.items.weapon.guns.GunA;
@@ -224,6 +242,8 @@ import com.hmdzl.spspd.items.weapon.melee.Triangolo;
 import com.hmdzl.spspd.items.weapon.melee.TrickSand;
 import com.hmdzl.spspd.items.weapon.melee.Whip;
 import com.hmdzl.spspd.items.weapon.melee.WoodenStaff;
+import com.hmdzl.spspd.items.weapon.melee.special.NinjaFan;
+import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.items.weapon.melee.start.BeastKnive;
 import com.hmdzl.spspd.items.weapon.melee.start.BraveBook;
 import com.hmdzl.spspd.items.weapon.melee.start.BunnyDagger;
@@ -232,11 +252,10 @@ import com.hmdzl.spspd.items.weapon.melee.start.DiamondPickaxe;
 import com.hmdzl.spspd.items.weapon.melee.start.EleKatana;
 import com.hmdzl.spspd.items.weapon.melee.start.HolyMace;
 import com.hmdzl.spspd.items.weapon.melee.start.LinkSword;
-import com.hmdzl.spspd.items.weapon.melee.special.NinjaFan;
-import com.hmdzl.spspd.items.weapon.melee.special.TestWeapon;
 import com.hmdzl.spspd.items.weapon.melee.start.PixelTorch;
 import com.hmdzl.spspd.items.weapon.melee.start.Whisk;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ElfBow;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
 import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
@@ -245,7 +264,6 @@ import com.hmdzl.spspd.items.weapon.missiles.TaurcenBow;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.BlindFruit;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.RocketMissile;
 import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.EmpBola;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.EscapeKnive;
 import com.hmdzl.spspd.items.weapon.missiles.throwing.PoisonDart;
@@ -257,7 +275,6 @@ import com.hmdzl.spspd.items.weapon.spammo.WoodenAmmo;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.plants.Dewcatcher;
 import com.hmdzl.spspd.plants.Seedpod;
-import com.hmdzl.spspd.plants.Sungrass;
 import com.hmdzl.spspd.sprites.HeroSkinSprite;
 import com.hmdzl.spspd.sprites.HeroSkinSpriteSheet;
 import com.watabou.noosa.Image;
@@ -488,7 +505,7 @@ public enum  HeroClass {
 			//new ErrorAmmo(20).collect();
 			new PowerHand().collect();
 			new TomeOfMastery().collect();
-			//new ShadowEater().collect();
+			//new TalismanOfForesight().collect();
 			new TestWeapon().identify().collect();
 
 			new EasterEgg().collect();
@@ -504,14 +521,16 @@ public enum  HeroClass {
 		//	new BlueDragonEgg().collect();
 			new PocketBall(10).collect();
 
+			//new ClownDeck().identify().collect();
+
 			//new KnowledgeBook().collect();
 
 		for(int i=0; i<199; i++){
 			//new ScrollOfMagicalInfusion().identify().collect();
-			//new ScrollOfTeleportation().identify().collect();
+			//new ScrollOfUpgrade().identify().collect();
 			new ScrollOfIdentify().identify().collect();
             new ScrollOfMagicMapping().identify().collect();
-			//new WaterItem().collect();
+			new ScrollOfMirrorImage().identify().collect();
 			new MoonCake().collect();
 			new PotionOfMindVision().identify().collect();
 			//new PotionOfStrength().identify().collect();
@@ -552,6 +571,21 @@ public enum  HeroClass {
 			new RingOfSharpshooting().upgrade(10).identify().collect();
 			new RingOfTenacity().upgrade(10).identify().collect();
 			new RingOfKnowledge().upgrade(10).identify().collect();
+
+			new WandOfMagicMissile().upgrade(10).identify().collect();
+			new WandOfDisintegration().upgrade(10).identify().collect();
+			new WandOfAcid().upgrade(10).identify().collect();
+			new WandOfSwamp().upgrade(10).identify().collect();
+			new WandOfFreeze().upgrade(10).identify().collect();
+			new WandOfFlow().upgrade(10).identify().collect();
+			new WandOfMeteorite().upgrade(10).identify().collect();
+			new WandOfFirebolt().upgrade(10).identify().collect();
+			new WandOfLightning().upgrade(10).identify().collect();
+			new WandOfTCloud().upgrade(10).identify().collect();
+			new WandOfLight().upgrade(10).identify().collect();
+			new WandOfCharm().upgrade(10).identify().collect();
+			new WandOfBlood().upgrade(10).identify().collect();
+			new WandOfFlock().upgrade(10).identify().collect();
 
 			//new SewerReward().collect();
 
@@ -675,6 +709,18 @@ public enum  HeroClass {
                 new SeriousPunch().collect();
                 new Ankhshield().collect();
                 new JumpW().collect();
+		} else if (Hero.skins == 7) {
+			(hero.belongings.weapon = new Dagger()).identify();
+			(hero.belongings.armor = new RubberArmor()).identify();
+
+			ClownDeck cldeck = new ClownDeck();
+			(hero.belongings.misc1 = cldeck).identify();
+			hero.belongings.misc1.activate(hero);
+
+			new BatPetEgg().collect();
+
+			new JumpR().collect();
+
 		} else {
 			(hero.belongings.weapon = new ShortSword()).identify();
 			(hero.belongings.armor = new WoodenArmor()).identify();
@@ -709,7 +755,7 @@ public enum  HeroClass {
 			hero.evadeSkill+=2;
 			hero.magicSkill+=3;
 			(hero.belongings.weapon = new Dagger()).identify();
-			(hero.belongings.armor = new VestArmor()).identify();
+			(hero.belongings.armor = new BeginnerRobe()).identify();
 			new WandOfFirebolt().upgrade(1).identify().collect();
 			new WandOfFreeze().upgrade(1).identify().collect();
 			new WandOfLightning().upgrade(1).identify().collect();
@@ -718,7 +764,7 @@ public enum  HeroClass {
 		}  else if (Hero.skins == 3) {
 
 			(hero.belongings.weapon = new WoodenStaff()).identify();
-			(hero.belongings.armor = new VestArmor()).identify();
+			(hero.belongings.armor = new BeginnerRobe()).identify();
 
 			new WandOfFirebolt().identify().collect();
 			new WandOfFreeze().identify().collect();
@@ -737,7 +783,7 @@ public enum  HeroClass {
 
         } else if (Hero.skins == 6) {
             (hero.belongings.weapon = new ShortSword()).identify();
-            (hero.belongings.armor = new ClothArmor()).identify();
+            (hero.belongings.armor = new BeginnerRobe()).identify();
 
             new GnollMark().collect();
             new WandOfLight().identify().collect();
@@ -748,9 +794,9 @@ public enum  HeroClass {
 
 		} else {
 			(hero.belongings.weapon = new MageBook()).identify();
-			(hero.belongings.armor = new ClothArmor()).identify();
+			(hero.belongings.armor = new BeginnerRobe()).identify();
 			new WandOfMagicMissile().identify().collect();
-			new WandOfDisintegration().identify().collect();
+			new WandOfEnergyElement().identify().collect();
 			new PotionOfMage().identify().collect();
 			new JumpM().collect();
 
@@ -759,6 +805,10 @@ public enum  HeroClass {
 		new Meatroll().identify().collect();
 		new ScrollOfIdentify().setKnown();
 		new PotionOfLiquidFlame().setKnown();
+
+		for(int i=0; i<100; i++){
+			new Dewcatcher.Seed().collect();
+		}
 	
 	}
 
@@ -809,7 +859,7 @@ public enum  HeroClass {
 		} else if (Hero.skins == 6) {
 
             (hero.belongings.weapon = new EleKatana()).identify();
-            (hero.belongings.armor = new ClothArmor()).identify();
+            (hero.belongings.armor = new BeginnerRobe()).identify();
 			(hero.belongings.weapon_two = new BeastKnive()).identify();
 
             CloakOfShadows cloak = new CloakOfShadows();
@@ -1104,6 +1154,9 @@ public enum  HeroClass {
 			AlienBag alienBag = new AlienBag();
 			(hero.belongings.misc1 = alienBag).identify();
 			hero.belongings.misc1.activate(hero);
+
+			new RocketMissile(3).collect();
+
 		} else {
 			(hero.belongings.weapon = new Sling()).identify();
 			(hero.belongings.armor = new VestArmor()).identify();
@@ -1282,6 +1335,14 @@ public enum  HeroClass {
 		new IceMeat().collect();
 		new IceMeat().collect();
 		new Pasty().collect();
+
+		new WandOfIceElement().identify().collect();
+		new WandOfFireElement().identify().collect();
+		new WandOfEarthElement().identify().collect();
+		new WandOfShockElement().identify().collect();
+		new WandOfLightElement().identify().collect();
+		new WandOfDarkElement().identify().collect();
+		new WandOfEnergyElement().identify().collect();
 		//Buff.affect(hero, MindVision.class, 5f);
 	}
 

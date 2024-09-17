@@ -89,25 +89,25 @@ public class WandOfTest extends DamageWand {
 		if (ch != null) {
 			switch (type) {
 				case 0:
-					ch.damage(damageRoll(), DamageType.ENERGY_DAMAGE);
+					ch.damage(damageRoll(), DamageType.ENERGY_DAMAGE,2);
 					break;
 				case 1:
-					ch.damage(damageRoll(), DamageType.FIRE_DAMAGE);
+					ch.damage(damageRoll(), DamageType.FIRE_DAMAGE,2);
 					break;
 				case 2:
-					ch.damage(damageRoll(), DamageType.ICE_DAMAGE);
+					ch.damage(damageRoll(), DamageType.ICE_DAMAGE,2);
 					break;
 				case 3:
-					ch.damage(damageRoll(), DamageType.SHOCK_DAMAGE);
+					ch.damage(damageRoll(), DamageType.SHOCK_DAMAGE,2);
 					break;
 				case 4:
-					ch.damage(damageRoll(), DamageType.EARTH_DAMAGE);
+					ch.damage(damageRoll(), DamageType.EARTH_DAMAGE,2);
 					break;
 				case 5:
-					ch.damage(damageRoll(), DamageType.LIGHT_DAMAGE);
+					ch.damage(damageRoll(), DamageType.LIGHT_DAMAGE,2);
 					break;
 				case 6:
-					ch.damage(damageRoll(), DamageType.DARK_DAMAGE);
+					ch.damage(damageRoll(), DamageType.DARK_DAMAGE,2);
 					break;
 
 			}

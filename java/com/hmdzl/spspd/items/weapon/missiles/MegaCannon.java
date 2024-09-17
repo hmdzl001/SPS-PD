@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.weapon.missiles;
 
-import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
@@ -36,9 +35,6 @@ import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.windows.WndBag;
-import com.hmdzl.spspd.windows.WndOptions;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -310,7 +306,7 @@ public class MegaCannon extends Weapon {
 		@Override
 		public void proc(Char attacker, Char defender, int damage) {
 			int dmg = MegaCannon.this.damageRoll2((Hero) attacker) * charge - defender.drRoll();
-			defender.damage(dmg, MegaCannon.class);
+			defender.damage(dmg, MegaCannon.class,1);
 			charge = 0;
 			updateQuickslot();
 

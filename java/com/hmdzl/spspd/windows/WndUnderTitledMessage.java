@@ -20,9 +20,7 @@ package com.hmdzl.spspd.windows;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.ui.RenderedTextMultiline;
-import com.hmdzl.spspd.ui.Window;
 import com.hmdzl.spspd.ui.WindowDown;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
 

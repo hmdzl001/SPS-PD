@@ -51,7 +51,7 @@ public class Lance extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 		int exdmg = Dungeon.hero.damageRoll();
 		if (Random.Int(4) == 0 ){
-		defender.damage(Random.Int(exdmg/4,exdmg/2), this);
+		defender.damage(Random.Int(exdmg/4,exdmg/2), this,3);
 		}
 		if (enchantment != null) {
 			enchantment.proc(this, attacker, defender, damage);		

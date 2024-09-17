@@ -20,10 +20,8 @@ package com.hmdzl.spspd.items.medicine;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.artifacts.TimeOclock;
-import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass.sandBag;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class Timepill2 extends Pill {

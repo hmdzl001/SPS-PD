@@ -28,7 +28,6 @@ import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.MindVision;
 import com.hmdzl.spspd.actors.buffs.Recharging;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.scrolls.ScrollOfRecharging;

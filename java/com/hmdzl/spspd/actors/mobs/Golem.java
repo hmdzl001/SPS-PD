@@ -81,11 +81,11 @@ public class Golem extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {	
+	public void damage(int dmg, Object src, int type) {
 		if (dmg > HT/8){
 			GameScene.add(Blob.seed(pos, 30, TarGas.class));
 			}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}		
 	
 	@Override

@@ -32,7 +32,6 @@ import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.ShootGun;
 import com.hmdzl.spspd.items.weapon.rockcode.RockCode;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 

@@ -24,7 +24,6 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
 import com.hmdzl.spspd.items.weapon.melee.special.WraithBreath;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Languages;
 import com.hmdzl.spspd.messages.Messages;
@@ -457,8 +456,8 @@ public class DriedRose extends Artifact {
 		protected boolean act() {
 			updateRose();
 			if (rose == null || !rose.isEquipped(Dungeon.hero)){
-				damage(5, this);
-			} else damage(1,this);
+				damage(5, this,3);
+			} else damage(1,this,3);
 			if (!isAlive())
 				return true;
 			if (!Dungeon.hero.isAlive()) {
@@ -528,9 +527,9 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, int type) {
 			//TODO improve this when I have proper damage source logic
-			super.damage( dmg, src );
+			super.damage( dmg, src,type );
 		}
 		
 		@Override
@@ -776,7 +775,7 @@ public class DriedRose extends Artifact {
 		protected boolean act() {
 			updateRose();
 			if (rose == null || !rose.isEquipped(Dungeon.hero)){
-				damage( 5, this);
+				damage( 5, this,3);
 			}
 			if (!isAlive())
 				return true;
@@ -847,9 +846,9 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, int type) {
 			//TODO improve this when I have proper damage source logic
-			super.damage( dmg, src );
+			super.damage( dmg, src ,type);
 		}
 		
 		@Override
@@ -982,9 +981,9 @@ public class DriedRose extends Artifact {
 						GameScene.selectItem(new WndBag.Listener() {
 							@Override
 							public void onSelect(Item item) {
-								if (!(item instanceof MeleeWeapon || item instanceof Boomerang || item instanceof ManyKnive)) {
+								if (!(item instanceof MeleeWeapon || item instanceof ManyKnive)) {
 									//do nothing, should only happen when window is cancelled
-								} else if (item.unique || item instanceof Boomerang) {
+								} else if (item.unique) {
 									GLog.w( Messages.get(WndGhostHero.class, "cant_unique"));
 									hide();
 								} else if (!item.isIdentified()) {

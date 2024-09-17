@@ -56,7 +56,7 @@ public class MaterialPainter extends Painter {
 
 		Point pot = room.center();
 
-		set(level, pot, Terrain.IRON_MAKER);
+		set(level, pot.x, pot.y, Terrain.IRON_MAKER);
 
 		int n = Random.IntRange(2, 3);
 		for (int i = 0; i < n; i++) {

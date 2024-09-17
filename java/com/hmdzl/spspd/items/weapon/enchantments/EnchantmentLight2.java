@@ -47,9 +47,9 @@ private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF44 );
 		FourClover.FourCloverBless fcb = attacker.buff(FourClover.FourCloverBless.class);
 		int level = Math.min(20, attacker.HT/10);
 		int maxdmg = level + weapon.level;
-		defender.damage((int)(Random.Int(level,maxdmg)*0.25), LIGHT_DAMAGE);
+		defender.damage((int)(Random.Int(level,maxdmg)*0.25), LIGHT_DAMAGE,2);
 		if(fcb != null && Random.Int(2) == 1){
-			defender.damage((int)(Random.Int(level,maxdmg)*0.50), LIGHT_DAMAGE);
+			defender.damage((int)(Random.Int(level,maxdmg)*0.50), LIGHT_DAMAGE,2);
 		}		
 		if (Random.Int(3) == 1) {
 		Buff.affect(defender, LightShootAttack.class).level(5);

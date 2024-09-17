@@ -34,7 +34,6 @@ import com.hmdzl.spspd.actors.buffs.Chill;
 import com.hmdzl.spspd.actors.buffs.Frost;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.SelfDestroy;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.StoneIce;
@@ -113,7 +112,7 @@ public class UIcecorps extends Mob {
 			Buff.affect(enemy, StoneIce.class).level(3);
 		}
 		
-		enemy.damage(damageRoll()/2, ICE_DAMAGE);
+		enemy.damage(damageRoll()/2, ICE_DAMAGE,2);
 		damage = damage/2;
 
 		return damage;
@@ -146,7 +145,7 @@ public class UIcecorps extends Mob {
     }	
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
         if (buff(BoxStar.class) != null && !(src instanceof StoneIce) )
 			dmg = 0;
         if (src instanceof StoneIce)
@@ -154,7 +153,7 @@ public class UIcecorps extends Mob {
 		if (dmg > 40)
 		   dmg = Random.Int(10, 40);
 		
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}		
 	
 	@Override

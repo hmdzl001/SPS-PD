@@ -104,7 +104,7 @@ public class MineSentinel extends Mob {
 				int p = pos + Floor.NEIGHBOURS8[i];
 				Char ch = Actor.findChar(p);
 				if (ch != null && ch instanceof MineSentinel &&  Random.Int(10)<2) {
-					ch.damage(1, this);
+					ch.damage(1, this,3);
 					if (((Mob)ch).state==PASSIVE){
 						((Mob)ch).state = HUNTING;
 					}
@@ -170,7 +170,7 @@ public class MineSentinel extends Mob {
 
 		int dmg = Random.IntRange(0, damage/3);
 		if (dmg > 0 && checkOtiluke()) {
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,1);
 		}
 
 		return super.defenseProc(enemy, damage);
@@ -211,13 +211,13 @@ public class MineSentinel extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
 		}
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 	
 

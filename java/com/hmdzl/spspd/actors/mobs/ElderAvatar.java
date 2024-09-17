@@ -191,14 +191,14 @@ public class ElderAvatar extends Mob {
     }
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type) {
 		if (dmg > this.HP && checkObelisk()) {
 			//dmg = Random.Int(this.HP);
 			//Buff.affect(this,EnergyArmor.class).level(100);
 			dmg=0;
 			this.HP = 30;
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
         }
 
 	@Override
@@ -350,8 +350,8 @@ public class ElderAvatar extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
-			super.damage(dmg, src);
+		public void damage(int dmg, Object src,int type) {
+			super.damage(dmg, src,type);
 			if (src instanceof ToxicGas) {
 				((ToxicGas) src).clear(pos);
 			}
@@ -426,9 +426,9 @@ public class ElderAvatar extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src,int type) {
 			dmg = dmg/2;
-			super.damage(dmg, src);
+			super.damage(dmg, src,type);
 		}
 
 		@Override
@@ -511,8 +511,8 @@ public class ElderAvatar extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
-			super.damage(dmg, src);
+		public void damage(int dmg, Object src,int type) {
+			super.damage(dmg, src,type);
 			if (src instanceof ToxicGas) {
 				((ToxicGas) src).clear(pos);
 			}
@@ -597,11 +597,6 @@ public class ElderAvatar extends Mob {
 		public int attackProc(Char enemy, int damage) {
 			Buff.affect(enemy, Burning.class).set(3f);
 			return damage;
-		}
-
-		@Override
-		public void damage(int dmg, Object src) {
-			super.damage(dmg, src);
 		}
 
 		@Override
@@ -723,11 +718,11 @@ public class ElderAvatar extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type ) {
 		if (checkElder()) {
 			yell(Messages.get(this, "impossible"));
 		} else  {
-			super.damage(dmg, src);
+			super.damage(dmg, src,type);
 		}
 	}
 	

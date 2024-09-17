@@ -22,7 +22,7 @@ import com.watabou.noosa.NinePatch;
 public class Chrome {
 
 	public enum Type {
-		TOAST, TOAST_TR, WINDOW, BUTTON, TAG, GEM, SCROLL, TAB_SET, TAB_SELECTED, TAB_UNSELECTED
+		TOAST, TOAST_TR, WINDOW, BUTTON, TAG, GEM, SCROLL, TAB_SET, TAB_SELECTED, TAB_UNSELECTED, STATE_BUTTON
 	}
 
     public static NinePatch get(Type type) {
@@ -36,6 +36,8 @@ public class Chrome {
 			return new NinePatch(Asset, 40, 0, 18, 18, 5);
 		case BUTTON:
 			return new NinePatch(Asset, 58, 0, 4, 4, 1);
+		case STATE_BUTTON:
+			return new NinePatch(Asset, 58, 4, 4, 4, 1);
 		case TAG:
 			return new NinePatch(Asset, 22, 18, 16, 14, 3);
 		case GEM:

@@ -27,7 +27,6 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.CellEmitter;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Heap;
-import com.hmdzl.spspd.items.food.vegetable.DreamLeaf;
 import com.hmdzl.spspd.items.food.vegetable.Marigold;
 import com.hmdzl.spspd.items.potions.PotionOfInvisibility;
 import com.hmdzl.spspd.items.weapon.missiles.arrows.BlindFruit;
@@ -88,6 +87,8 @@ public class Blindweed extends Plant {
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);
+
+			Dungeon.depth.drop(new Marigold(), pos).sprite.drop();
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){

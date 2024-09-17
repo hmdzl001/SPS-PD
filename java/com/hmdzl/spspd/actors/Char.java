@@ -19,8 +19,6 @@ package com.hmdzl.spspd.actors;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.HealLight;
 import com.hmdzl.spspd.actors.blobs.NmGas;
 import com.hmdzl.spspd.actors.blobs.SlowGas;
@@ -97,7 +95,6 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.actors.hero.HeroSubClass;
 import com.hmdzl.spspd.effects.FloatingText2;
-import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.armor.glyphs.Darkglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Earthglyph;
 import com.hmdzl.spspd.items.armor.glyphs.Electricityglyph;
@@ -108,15 +105,22 @@ import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.wands.WandOfAcid;
 import com.hmdzl.spspd.items.wands.WandOfBlood;
 import com.hmdzl.spspd.items.wands.WandOfCharm;
+import com.hmdzl.spspd.items.wands.WandOfDarkElement;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
+import com.hmdzl.spspd.items.wands.WandOfEarthElement;
+import com.hmdzl.spspd.items.wands.WandOfEnergyElement;
+import com.hmdzl.spspd.items.wands.WandOfFireElement;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.items.wands.WandOfIceElement;
 import com.hmdzl.spspd.items.wands.WandOfLight;
+import com.hmdzl.spspd.items.wands.WandOfLightElement;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
 import com.hmdzl.spspd.items.wands.WandOfMeteorite;
+import com.hmdzl.spspd.items.wands.WandOfShockElement;
 import com.hmdzl.spspd.items.wands.WandOfSwamp;
 import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
@@ -291,7 +295,7 @@ public abstract class Char extends Actor {
 			if (shake > 1f)
 				Camera.main.shake(GameMath.gate(1, shake, 5), 0.3f);
 
-			enemy.damage(effectiveDamage, this);
+			enemy.damage(effectiveDamage, this,1);
 
 			if (buff(FireImbue.class) != null)
 				buff(FireImbue.class).proc(enemy);
@@ -307,16 +311,16 @@ public abstract class Char extends Actor {
 			enemy.sprite.bloodBurstA(sprite.center(), effectiveDamage);
 			enemy.sprite.flash();
 
-			if (!enemy.isAlive() && visibleFight) {
-				if (enemy == Dungeon.hero) {
+			//if (!enemy.isAlive() && visibleFight) {
+			//	if (enemy == Dungeon.hero) {
 					//if (Bestiary.isUnique(this)) {
 						//Dungeon.fail(Messages.format(ResultDescriptions.UNIQUE));
 					//} else {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//}
 
-				} 
-			}
+			//	}
+			//}
 			return true;
 
 		} else {
@@ -367,6 +371,11 @@ public abstract class Char extends Actor {
 		return 0;
 	}
 
+	public int magicdrRoll() {
+		return 0;
+	}
+
+
 	public int damageRoll() {
 		return 1;
 	}
@@ -375,7 +384,7 @@ public abstract class Char extends Actor {
 		//if (buff(Shocked.class)!=null && Shocked.first == false){
 		//	Buff.detach(this,Shocked.class);
 		//	Buff.affect(this, Disarm.class,5f);
-       //     damage(this.HP/10,SHOCK_DAMAGE);
+       //     damage(this.HP/10,SHOCK_DAMAGE,2);
 	//	}
 
 		return damage;
@@ -413,111 +422,29 @@ public abstract class Char extends Actor {
 		
 	}
 
-	public void damage(int dmg, Object src) {
+	//type1 physical damage
+	//type2 magic damage
+	//type3 pure damage
 
-		if (this.buff(Frost.class) != null) {
-			Buff.detach(this, Frost.class);
-			dmg = (int) Math.ceil(dmg *1.5);
+	public void damage(int dmg, Object src, int type) {
+
+		if (!this.isAlive()){
+			return;
 		}
-		if (this.buff(MagicalSleep.class) != null) {
-			Buff.detach(this, MagicalSleep.class);
-			dmg = (int) Math.ceil(dmg *1.5);
-		}
+
 		
 		if (this.buff(ExProtect.class) != null) {
 			Buff.detach(this, ExProtect.class);
 			dmg = 0;
 			Buff.affect(this,BoxStar.class,3f);
-		}
-
-		ArmorBreak ab = buff(ArmorBreak.class);
-		if (buff(ArmorBreak.class) != null){
-			dmg= (int) Math.ceil(dmg *(ab.level()*0.01+1));
+			return;
 		}
 		
-        ParyAttack paryatk = buff(ParyAttack.class);
-		if (buff(ParyAttack.class) != null){
-			dmg= (int) Math.ceil(dmg *Math.max((1-paryatk.level()*0.02),0.5));
-		}		
-
-		if (buff(Hot.class) != null){
-			dmg = (int) Math.ceil(dmg * 1.2);
-		}
-
-        if (src instanceof Wand && Dungeon.hero.heroClass == HeroClass.MAGE && Hero.skins == 4) {
-			dmg = (int) Math.ceil(dmg * 1.5);
-		}
-
-		DefenceUp drup = buff(DefenceUp.class);
-		if (buff(DefenceUp.class) != null) {
-			dmg = (int) Math.ceil(dmg *(-drup.level()*0.01+1));
-		}
-
-		if (buff(GrowSeed.class) != null) {
-			dmg = (int) Math.ceil(dmg *0.8);
-		}
-
-		if (buff(MagicWeak.class) != null && src instanceof Wand) {
-			dmg = (int) Math.ceil(dmg *1.5);
-		}
-		
-		
-		if (buff(SoulMark.class) != null) {
-			dmg = (int) Math.ceil(dmg *1.5);
-		}
-
-		if (buff(BeTired.class) != null) {
-			BeTired.level++;
-		}
-
-
 		ShieldArmor sarmor = buff(ShieldArmor.class);
 		MagicArmor magicarmor = buff(MagicArmor.class);
 		MechArmor marmor = buff(MechArmor.class);
 		EnergyArmor earmor = buff(EnergyArmor.class);
-		if(!(src instanceof Hunger)) {
-			//if (!(src instanceof DamageType) && !(src instanceof Buff) && !(src instanceof Blob)
-					//&& !(src instanceof Wand) && !(src instanceof Weapon.Enchantment) && !(src instanceof MagicPlantArmor.Glyph)) {
-
-			//} else {
-
-			if (sarmor != null && src instanceof Char) {
-				dmg = sarmor.absorb(dmg);
-				//GLog.w(Messages.get(this, "htdown", src, dmg));
-			}
-		   if (magicarmor != null && (src instanceof DamageType || src instanceof Buff ||
-				src instanceof Blob || src instanceof Wand )){ dmg = magicarmor.absorb(dmg);
-			//GLog.w(Messages.get(this, "htdown",src,dmg));
-			}
-	//}
-			if (marmor != null ) {
-				dmg = marmor.absorb(dmg);
-			}
-
-		}
-
-		if (earmor != null ) {
-			dmg = earmor.absorb(dmg);
-		}
-
-		if(this.properties().contains(Property.UNKNOW)){
-			if (((src instanceof Char)&& ((Char) src).properties().contains(Property.MAGICER)) ||
-			src instanceof Buff || src instanceof DamageType ||
-			src instanceof Blob ||
-			src instanceof Wand) dmg = (int)(dmg*1.25);
-                else dmg = (int)(dmg*0.75);
-		}
-
-		if(this.properties().contains(Property.ELEMENT)){
-			if (((src instanceof Char)&& ((Char) src).properties().contains(Property.MAGICER)) ||
-
-			src instanceof Buff || src instanceof DamageType ||
-			src instanceof Blob ||
-			src instanceof Wand
-			) dmg = (int)(dmg*0.75);
-			else dmg = (int)(dmg*1.25);
-		}
-
+		
 		if(this.properties().contains(Property.TROLL)){
 			 dmg = (int)(dmg*0.6);
 		}
@@ -525,13 +452,120 @@ public abstract class Char extends Actor {
 		if(this.properties().contains(Property.ALIEN)){
 			dmg = (int)(dmg*1.4);
 		}
-
+		
 		Class<?> srcClass = src.getClass();
 		if (isImmune( srcClass )) {dmg = 0; sprite.showStatus(CharSprite.NULL_DAMAGE, "IMM" );}
 		if (isResist( srcClass )) {dmg = Random.IntRange(dmg/4, dmg*3/4);sprite.showStatus(CharSprite.NULL_DAMAGE, "RES");}
 		if (isWeak(srcClass)) {dmg = Random.IntRange(dmg + dmg / 2, 2 * dmg + dmg / 2);sprite.showStatus(CharSprite.NULL_DAMAGE, "WEK");}
 
+		
+        if (type == 1) {
+		   	if (this.buff(Frost.class) != null) {
+			Buff.detach(this, Frost.class);
+			dmg = (int) Math.ceil(dmg *1.5);
+			}
+			if (this.buff(MagicalSleep.class) != null) {
+			Buff.detach(this, MagicalSleep.class);
+			dmg = (int) Math.ceil(dmg *1.5);
+		    }
+			
+			ArmorBreak ab = buff(ArmorBreak.class);
+		    if (buff(ArmorBreak.class) != null){
+			dmg= (int) Math.ceil(dmg *(ab.level()*0.01+1));
+		    }
+			
+			if (buff(Hot.class) != null){
+			dmg = (int) Math.ceil(dmg * 1.2);
+		    }
+			
+		    DefenceUp drup = buff(DefenceUp.class);
+		    if (buff(DefenceUp.class) != null) {
+			dmg = (int) Math.ceil(dmg *(-drup.level()*0.01+1));
+		    }
+			
+			if(this.properties().contains(Property.UNKNOW)){
+		        dmg = (int)(dmg*0.75);
+			}
+			
+			if(this.properties().contains(Property.ELEMENT)){
+				dmg = (int)(dmg*1.25);
+			}
+			
+			if (sarmor != null) {
+				dmg = sarmor.absorb(dmg);
+			}
+			if (marmor != null ) {
+				dmg = marmor.absorb(dmg);
+			}
+	        if (earmor != null ) {
+			    dmg = earmor.absorb(dmg);
+		    }
 
+		   
+	    } else if(type == 2){
+			if (this.buff(Frost.class) != null) {
+			    Buff.detach(this, Frost.class);
+			}
+			
+			if (this.buff(MagicalSleep.class) != null) {
+			Buff.detach(this, MagicalSleep.class);
+			    dmg = (int) Math.ceil(dmg *1.5);
+		    }
+		    if (buff(Hot.class) != null){
+			    dmg = (int) Math.ceil(dmg * 1.2);
+		    }
+			
+			//if (buff(GrowSeed.class) != null) {
+			//dmg = (int) Math.ceil(dmg *0.8);
+			//}
+			
+			if (buff(MagicWeak.class) != null) {
+			    dmg = (int) Math.ceil(dmg *1.5);
+		    }
+			
+			if(this.properties().contains(Property.UNKNOW)){
+		        dmg = (int)(dmg*1.25);
+			}	
+			if(this.properties().contains(Property.ELEMENT)){
+				dmg = (int)(dmg*0.75);
+			}
+
+			if(this.isWeak(src.getClass())) {
+				dmg = Math.max(0, dmg);
+			}  else  {
+				dmg = Math.max(0, dmg - this.magicdrRoll());
+			}
+
+			if (magicarmor != null ){ 
+			    dmg = magicarmor.absorb(dmg);
+			}
+			if (marmor != null ) {
+				dmg = marmor.absorb(dmg);
+			}
+	        if (earmor != null ) {
+			    dmg = earmor.absorb(dmg);
+		    }
+
+		} else if (type == 3){
+
+	    }
+
+        ParyAttack paryatk = buff(ParyAttack.class);
+		if (buff(ParyAttack.class) != null){
+			dmg= (int) Math.ceil(dmg *Math.max((1-paryatk.level()*0.02),0.5));
+		}		
+
+        if (src instanceof Wand && Dungeon.hero.heroClass == HeroClass.MAGE && Hero.skins == 4) {
+			dmg = (int) Math.ceil(dmg * 1.5);
+		}
+
+		if (buff(SoulMark.class) != null) {
+			dmg = (int) Math.ceil(dmg *1.2);
+		}
+
+		if (buff(BeTired.class) != null) {
+			BeTired.level++;
+		}
 
 		if (buff(Paralysis.class) != null) {
 			if (Random.Int(dmg) >= Random.Int(HP)) {
@@ -550,27 +584,12 @@ public abstract class Char extends Actor {
 			}
 		}
 
-		if (HP <= 0 || dmg < 0) {
+		//if (HP <= 0 || dmg < 0) {
+		if(dmg < 0){
 			return;
 		}
 
-       //if (dmg > HP){
-		//Buff.detach(this,Corruption.class);}
 		HP -= dmg;
-
-		//if (dmg > 0) {
-			//if (src instanceof Hunger){
-			//	sprite.showStatus(CharSprite.NULL_DAMAGE, Integer.toString(dmg));
-			//} else if (src instanceof Char){
-			//	sprite.showStatus(CharSprite.MELEE_DAMAGE, Integer.toString(dmg));
-			//} else if (src instanceof DamageType || src instanceof Buff ||
-			//		src instanceof Blob || src instanceof Wand){
-			//	sprite.showStatus(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg));
-			//} else {
-			//	sprite.showStatus(CharSprite.NULL_DAMAGE, Integer.toString(dmg));
-			//}
-
-		//}
 
 		if (sprite != null && dmg > 0) {
 			//defaults to normal damage icon if no other ones apply
@@ -579,77 +598,97 @@ public abstract class Char extends Actor {
 			if (src instanceof Hunger) {
 				icon = FloatingText2.HUNGER;
 				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof SelfDestroy) {
 				icon = FloatingText2.SELF_DMG;
 				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof MeleeWeapon){
 				icon = FloatingText2.TRUE_DMG;
 				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof DamageType.EnergyDamage ||
 					src instanceof WandOfMagicMissile ||
 					src instanceof CannonOfMage ||
-					src instanceof WandOfDisintegration) {
+					src instanceof WandOfDisintegration ||
+			        src instanceof WandOfEnergyElement) {
 				icon = FloatingText2.MAGIC_DMG;
 				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 
 			if (src instanceof DamageType.FireDamage ||
 					src instanceof WandOfFirebolt ||
-					src instanceof WandOfMeteorite) {
+					src instanceof WandOfMeteorite ||
+					src instanceof WandOfFireElement) {
 				icon = FloatingText2.BURNING;
 				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof DamageType.IceDamage ||
 					src instanceof WandOfFlow ||
-					src instanceof WandOfFreeze) {
+					src instanceof WandOfFreeze ||
+					src instanceof WandOfIceElement) {
 				icon = FloatingText2.FROST;
 				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof DamageType.EarthDamage ||
 					src instanceof WandOfAcid ||
-					src instanceof WandOfSwamp) {
+					src instanceof WandOfSwamp ||
+					src instanceof WandOfEarthElement) {
 				icon = FloatingText2.OOZE;
 				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof DamageType.ShockDamage ||
 					src instanceof WandOfLightning ||
-					src instanceof WandOfTCloud) {
+					src instanceof WandOfTCloud ||
+					src instanceof WandOfShockElement) {
 				icon = FloatingText2.SHOCKING;
 				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof DamageType.LightDamage ||
 					src instanceof WandOfLight ||
-					src instanceof WandOfCharm) {
+					src instanceof WandOfCharm ||
+					src instanceof WandOfLightElement) {
 				icon = FloatingText2.EXPERIENCE;
 				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof DamageType.DarkDamage ||
 					src instanceof WandOfBlood ||
-					src instanceof WandOfFlock) {
+					src instanceof WandOfFlock ||
+					src instanceof WandOfDarkElement) {
 				icon = FloatingText2.CORRUPTION;
 				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof ToxicGas ||
 					src instanceof Poison ){
 				icon = FloatingText2.TOXIC;
 				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 
 			if (src instanceof Bleeding){
 				icon = FloatingText2.BLEEDING;
 			    sprite.showStatusWithIcon(CharSprite.MELEE_DAMAGE, Integer.toString(dmg), icon);
-		    }
+		    } else
 			if (src instanceof NmGas){
 				icon = FloatingText2.ROBOT;
 				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
 			if (src instanceof Chasm){
 				icon = FloatingText2.FALLING;
 				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
-			}
+			} else
+			if (type ==3 && icon == FloatingText2.PHYS_DMG){
+				icon = FloatingText2.TRUE_DMG;
+				sprite.showStatusWithIcon(CharSprite.NULL_DAMAGE, Integer.toString(dmg), icon);
+			} else
+			if (type ==2 && icon == FloatingText2.PHYS_DMG){
+				icon = FloatingText2.MAGIC_DMG;
+				sprite.showStatusWithIcon(CharSprite.MAGIC_DAMAGE, Integer.toString(dmg), icon);
+			} else
+
+			if (type ==1 && icon == FloatingText2.PHYS_DMG){
+				//icon = FloatingText2.FALLING;
+				sprite.showStatusWithIcon(CharSprite.MELEE_DAMAGE, Integer.toString(dmg), icon);
+			} else
 			if (icon == FloatingText2.PHYS_DMG) {
 				sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(dmg), icon);
 			}
@@ -987,42 +1026,45 @@ public abstract class Char extends Actor {
 				new HashSet<Class>( Arrays.asList(Roots.class)  ),
 				new HashSet<Class>( Arrays.asList(BeCorrupt.class,BeOld.class) )
 		),
-		FISHER( new HashSet<Class>( Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,ElectriShock.class,DamageType.ShockDamage.class,DamageType.IceDamage.class)),
+		FISHER( new HashSet<Class>( Arrays.asList(WandOfLightning.class,WandOfFreeze.class,WandOfFlow.class,
+				                                  ElectriShock.class,DamageType.ShockDamage.class,DamageType.IceDamage.class,
+		                                          WandOfShockElement.class, WandOfIceElement.class)
+		                           ),
 				new HashSet<Class>( ),
-				new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class,DamageType.FireDamage.class))
+				new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class,WandOfFireElement.class,DamageType.FireDamage.class))
 		),
 		ELF( new HashSet<Class>( Arrays.asList(BeOld.class) ),
 				new HashSet<Class>( ),
 				new HashSet<Class>( Arrays.asList(Vertigo.class,Blindness.class))
 		),
-		DWARF( new HashSet<Class>(  Arrays.asList(Paralysis.class , AcidOoze.class,GrowSeed.class,DamageType.EarthDamage.class ) ),
+		DWARF( new HashSet<Class>(  Arrays.asList(Paralysis.class , AcidOoze.class,GrowSeed.class,DamageType.EarthDamage.class,WandOfEarthElement.class ) ),
 				new HashSet<Class>( Arrays.asList(Cripple.class, Roots.class) ),
-				new HashSet<Class>(  Arrays.asList(ShadowCurse.class,DamageType.DarkDamage.class,Darkglyph.class,WandOfBlood.class))
+				new HashSet<Class>(  Arrays.asList(ShadowCurse.class,DamageType.DarkDamage.class,Darkglyph.class,WandOfBlood.class,WandOfDarkElement.class))
 		),
 		TROLL( new HashSet<Class>( ),
 				new HashSet<Class>( ),
 				new HashSet<Class>(  Arrays.asList(Buff.class) )
 		),
-		DEMONIC( new HashSet<Class>(Arrays.asList(ShadowCurse.class,DamageType.DarkDamage.class,Darkglyph.class,WandOfBlood.class) ),
+		DEMONIC( new HashSet<Class>(Arrays.asList(ShadowCurse.class,DamageType.DarkDamage.class,Darkglyph.class,WandOfBlood.class,WandOfDarkElement.class) ),
 				new HashSet<Class>( ),
-				new HashSet<Class>( Arrays.asList(WandOfLightning.class,DamageType.LightDamage.class,Lightglyph.class,LightShootAttack.class) )
+				new HashSet<Class>( Arrays.asList(WandOfLightning.class,DamageType.LightDamage.class,Lightglyph.class,LightShootAttack.class, WandOfLightElement.class) )
 		),
-		GOBLIN( new HashSet<Class>( Arrays.asList(WandOfLightning.class,ElectriShock.class,DamageType.ShockDamage.class,Shocked.class,Shocked2.class,Electricityglyph.class) ),
+		GOBLIN( new HashSet<Class>( Arrays.asList(WandOfShockElement.class,WandOfLightning.class,ElectriShock.class,DamageType.ShockDamage.class,Shocked.class,Shocked2.class,Electricityglyph.class) ),
 				new HashSet<Class>( ),
-				new HashSet<Class>( Arrays.asList(DamageType.EarthDamage.class,Earthglyph.class,WandOfSwamp.class,WandOfAcid.class ) )
+				new HashSet<Class>( Arrays.asList(DamageType.EarthDamage.class,Earthglyph.class,WandOfSwamp.class,WandOfAcid.class,WandOfEarthElement.class ) )
 		),
 
         BEAST( new HashSet<Class>( Arrays.asList(Hot.class,Cold.class,Dry.class,Wet.class)),
 				new HashSet<Class>(  ),
 				new HashSet<Class>( Arrays.asList( BeOld.class, DamageType.DarkDamage.class, Blindness.class) )
 		),
-		DRAGON( new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfMeteorite.class,DamageType.FireDamage.class) ),
+		DRAGON( new HashSet<Class>( Arrays.asList(Burning.class,WandOfFirebolt.class,WandOfFireElement.class,WandOfMeteorite.class,DamageType.FireDamage.class) ),
 				new HashSet<Class>(  Arrays.asList(BeCorrupt.class,BeOld.class,AttackDown.class) ),
-				new HashSet<Class>(  Arrays.asList(WandOfFreeze.class,WandOfFlow.class,DamageType.IceDamage.class) )
+				new HashSet<Class>(  Arrays.asList(WandOfFreeze.class,WandOfFlow.class,WandOfIceElement.class,DamageType.IceDamage.class) )
 		),
 		PLANT( new HashSet<Class>(Arrays.asList(Roots.class, Cripple.class, AcidOoze.class,DamageType.LightDamage.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class)),
-		        new HashSet<Class>( Arrays.asList(Burning.class, WandOfFirebolt.class,DamageType.FireDamage.class))
+		        new HashSet<Class>( Arrays.asList(Burning.class, WandOfFirebolt.class,WandOfMeteorite.class,WandOfFireElement.class,DamageType.FireDamage.class))
 				),
 		ELEMENT( new HashSet<Class>( ),
 				new HashSet<Class>( ),
@@ -1031,11 +1073,11 @@ public abstract class Char extends Actor {
 
 		MECH( new HashSet<Class>(  Arrays.asList(Fire.class, SlowGas.class, Frost.class,Burning.class)),
 				new HashSet<Class>( Arrays.asList(Charm.class, Terror.class) ),
-				new HashSet<Class>(  Arrays.asList(AcidOoze.class,WandOfAcid.class, WandOfSwamp.class,DamageType.EarthDamage.class))
+				new HashSet<Class>(  Arrays.asList(AcidOoze.class,WandOfAcid.class, WandOfSwamp.class, WandOfEarthElement.class,DamageType.EarthDamage.class))
 		),
 		UNDEAD( new HashSet<Class>( Arrays.asList(Cold.class, SlowGas.class, Frost.class,BeCorrupt.class)),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, HealLight.class, Poison.class,BeOld.class)),
-				new HashSet<Class>(Arrays.<Class>asList(Blindness.class, WandOfLight.class, DamageType.LightDamage.class))
+				new HashSet<Class>(Arrays.<Class>asList(Blindness.class, WandOfLight.class,  WandOfLightElement.class,DamageType.LightDamage.class))
 		),
 		ALIEN( new HashSet<Class>( Arrays.asList(Buff.class) ),
 				new HashSet<Class>( ),

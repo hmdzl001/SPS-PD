@@ -18,36 +18,22 @@
 package com.hmdzl.spspd.items.weapon.melee.start;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
-import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.actors.buffs.HTimprove;
-import com.hmdzl.spspd.actors.buffs.Light;
 import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.actors.buffs.Muscle;
 import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Silent;
 import com.hmdzl.spspd.actors.buffs.SuperArcane;
-import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.effects.Splash;
-import com.hmdzl.spspd.items.GreatRune;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.Torch;
 import com.hmdzl.spspd.items.medicine.Greaterpill;
-import com.hmdzl.spspd.items.misc.GunOfSoldier;
-import com.hmdzl.spspd.items.potions.Potion;
 import com.hmdzl.spspd.items.potions.PotionOfStrength;
 import com.hmdzl.spspd.items.weapon.melee.MeleeWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
-import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.CellSelector;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
@@ -172,14 +158,14 @@ public class BraveBook extends MeleeWeapon {
         charge++;
 
 		if(defender.buff(ShieldArmor.class) != null) {
-			defender.damage(damage,attacker);
+			defender.damage(damage,attacker,1);
 		} else if(defender.buff(MagicArmor.class) != null){
-			defender.damage(damage,attacker);
+			defender.damage(damage,attacker,2);
 		} else if (defender.buff(EnergyArmor.class) != null){
-			defender.damage(damage,attacker);
+			defender.damage(damage,attacker,2);
 		}
 		if (defender.buff(Silent.class) != null) {
-			defender.damage((int) (damage * 0.5),attacker);
+			defender.damage((int) (damage * 0.5),attacker,2);
 		} else {
 			Buff.affect(defender, Silent.class, 5f);
 		}

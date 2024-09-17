@@ -17,9 +17,7 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Cripple;
@@ -34,7 +32,6 @@ import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.GuardSprite;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -138,27 +135,27 @@ public class Guard extends Mob {
 
 		super.die(cause);
 
-		boolean heroKilled = false;
-		for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
-			Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
-			if (ch != null && ch.isAlive()) {
-				int damage = Math.max(0,
-						Random.NormalIntRange(3, 8) - Random.IntRange(0, ch.drRoll() / 2));
-				ch.damage(damage, this);
-				if (ch == Dungeon.hero && !ch.isAlive()) {
-					heroKilled = true;
-				}
-			}
-		}
+		//boolean heroKilled = false;
+		//for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
+		//	Char ch = findChar(pos + Floor.NEIGHBOURS8[i]);
+		//	if (ch != null && ch.isAlive()) {
+		//		int damage = Math.max(0,
+		//				Random.NormalIntRange(3, 8) - Random.IntRange(0, ch.drRoll() / 2));
+		//		ch.damage(damage, this);
+		//		if (ch == Dungeon.hero && !ch.isAlive()) {
+		//			heroKilled = true;
+		//		}
+		//	}
+		//}
 
-		if (Dungeon.visible[pos]) {
-			Sample.INSTANCE.play(Assets.SND_BONES);
-		}
+		//if (Dungeon.visible[pos]) {
+		//	Sample.INSTANCE.play(Assets.SND_BONES);
+		//}
 
-		if (heroKilled) {
-			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-			//GLog.n(Messages.get(this, "kill"));
-		}
+		//if (heroKilled) {
+		//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//	//GLog.n(Messages.get(this, "kill"));
+		//}
 	}
 
 	@Override

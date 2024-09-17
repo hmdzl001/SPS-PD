@@ -25,7 +25,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.FrostIce;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -52,7 +51,7 @@ public class Lbox extends RockCode {
 		int damageRoll = Random.Int(Dungeon.hero.lvl,Dungeon.hero.lvl*3);
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
-			ch.damage( damageRoll,ICE_DAMAGE );
+			ch.damage( damageRoll,ICE_DAMAGE,2 );
 			if (ch.isAlive()){
 				Buff.affect(ch, FrostIce.class).level(5);
 			}
@@ -73,7 +72,7 @@ public class Lbox extends RockCode {
 			Buff.affect(defender, FrostIce.class).level(5);
 		}
 
-		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), ICE_DAMAGE);
+		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), ICE_DAMAGE,2);
 	}
 
 	

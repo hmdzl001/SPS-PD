@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.levels.traps;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.npcs.Sheep;
@@ -86,9 +85,9 @@ public class FleecingTrap {
 
 				Camera.main.shake(2, 0.3f);
 
-				if (!ch.isAlive()) {
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
-				} 
+				//if (!ch.isAlive()) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//} 
 			}
 		}
 		

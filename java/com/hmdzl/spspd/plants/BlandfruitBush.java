@@ -59,6 +59,21 @@ public class BlandfruitBush extends Plant {
 		public void activate(Char ch) {
 			super.activate(ch);
 
+			switch (Random.Int(4)){
+				case 0:
+					Dungeon.depth.drop(new Blackberry(), pos).sprite.drop();
+					break;
+				case 1:
+					Dungeon.depth.drop(new Blueberry(), pos).sprite.drop();
+					break;
+				case 2:
+					Dungeon.depth.drop(new Cloudberry(), pos).sprite.drop();
+					break;
+				case 3:
+					Dungeon.depth.drop(new Moonberry(), pos).sprite.drop();
+					break;
+			}
+
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){
 				if (Floor.passable[pos+i]){

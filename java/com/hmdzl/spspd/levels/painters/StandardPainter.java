@@ -32,7 +32,6 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Room;
 import com.hmdzl.spspd.levels.Terrain;
-import com.hmdzl.spspd.levels.features.Maze;
 import com.hmdzl.spspd.levels.traps.ConfusionTrap;
 import com.hmdzl.spspd.levels.traps.DisintegrationTrap;
 import com.hmdzl.spspd.levels.traps.ExplosiveTrap;
@@ -441,17 +440,17 @@ public class StandardPainter extends Painter {
 			}
 		}
 		Point center = room.center();
-		set(level, center, Terrain.PEDESTAL);
+		set(level, center.x, center.y, Terrain.PEDESTAL);
 		if (Random.Int(2) != 0) {
 			Item prize = level.findPrizeItem();
 			if (prize != null) {
-				level.drop(prize, (room.center().x + center.y * Floor.getWidth()));
+				level.drop(prize, (room.center().x + room.center().y * Floor.getWidth()));
 				return;
 			}
 		}
 
 		level.drop(Generator.random(Random.oneOf(Generator.Category.POTION,
-				Generator.Category.SCROLL)), (room.center().x + center.y
+				Generator.Category.SCROLL)), (room.center().x + room.center().y
 				* Floor.getWidth()));
 				
 		if (Random.Int(5)==0){

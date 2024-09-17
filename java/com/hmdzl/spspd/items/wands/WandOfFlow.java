@@ -46,7 +46,7 @@ public class WandOfFlow extends DamageWand {
 
 	{
 		image = ItemSpriteSheet.WAND_FLOW;
-		collisionProperties = Ballistica.PROJECTILE;
+		//collisionProperties = Ballistica.PROJECTILE;
 	}
 	
 	public int min(int lvl){
@@ -67,7 +67,7 @@ public class WandOfFlow extends DamageWand {
 		Char ch = Actor.findChar(beam.collisionPos);
 		if (ch != null){
 			processSoulMark(ch, chargesPerCast());
-			ch.damage(damage, this);
+			ch.damage(damage, this,2);
 			Buff.affect(ch,Wet.class,5f);
 			if (ch.isAlive() && beam.path.size() > beam.dist+1) {
 				Ballistica trajectory = new Ballistica(ch.pos, beam.path.get(beam.dist + 1), Ballistica.MAGIC_BOLT);
@@ -122,7 +122,7 @@ public class WandOfFlow extends DamageWand {
 						ch instanceof SheepSokobanBlack) {
 					Dungeon.depth.mobPress((NPC) ch);
 				} else {if (ch.pos == trajectory.collisionPos ) {
-					ch.damage(Random.NormalIntRange((finalDist + 1) / 2, finalDist), this);
+					ch.damage(Random.NormalIntRange((finalDist + 1) / 2, finalDist), this,2);
 					Paralysis.prolong(ch, Paralysis.class, Random.NormalIntRange((finalDist + 1) / 2, finalDist));
 				} Dungeon.depth.press(ch.pos, ch);}
 				if (ch == hero){

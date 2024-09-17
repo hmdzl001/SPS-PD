@@ -75,7 +75,7 @@ public class RocketMissile extends Arrows {
 							int dmg = Random.NormalIntRange(minDamage, maxDamage)
 									- Math.max(ch.drRoll(),0);
 							if (dmg > 0) {
-								ch.damage(dmg, this);
+								ch.damage(dmg, this,1);
 							}
 					}
 				}
@@ -118,7 +118,7 @@ public class RocketMissile extends Arrows {
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
 							- Math.max(ch.drRoll(),0);
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,1);
 					}
 				}
 			}
@@ -135,7 +135,7 @@ public class RocketMissile extends Arrows {
 			int dmg = Random.NormalIntRange(minDamage, maxDamage)
 					- Math.max(defender.drRoll(),0);
 			if (dmg > 0) {
-				defender.damage(dmg, this);
+				defender.damage(dmg, this,1);
 			}
 		if (enchant != null)
 			enchant.proc(this, attacker, defender, damage);

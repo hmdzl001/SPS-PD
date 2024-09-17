@@ -87,7 +87,7 @@ public class StarKid extends PET {
 		} 
 		
 		damage = 0;
-		enemy.damage(damageRoll(), DamageType.LIGHT_DAMAGE);
+		enemy.damage(damageRoll(), DamageType.LIGHT_DAMAGE,2);
 
 		return damage;
 	}	

@@ -22,11 +22,10 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.HolyStun;
+import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -53,7 +52,7 @@ public class Ichain extends RockCode {
 
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
-			ch.damage( 2 * damageRoll, Dungeon.hero );
+			ch.damage( 2 * damageRoll, Dungeon.hero ,1);
 			if (ch.isAlive() && Random.Int(4) == 0){
 				Buff.affect(ch, HolyStun.class,3f);
 			}
@@ -74,7 +73,7 @@ public class Ichain extends RockCode {
 			Buff.affect(defender, Paralysis.class,3f);
 		}
 
-		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), Dungeon.hero);
+		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), Dungeon.hero,1);
 	}
 
 	

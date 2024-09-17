@@ -50,10 +50,10 @@ public class MoneyPack extends TossWeapon {
 		super.proc(attacker, defender, damage);
 		int moneyneed = defender.HP;
 		if (moneyneed < Dungeon.gold){
-		defender.damage(moneyneed,this);
+		defender.damage(moneyneed,this,3);
 		Dungeon.gold-=moneyneed;
 		} else {
-			defender.damage(Dungeon.gold,this);
+			defender.damage(Dungeon.gold,this,3);
 			Dungeon.gold=0;
 		}
 		

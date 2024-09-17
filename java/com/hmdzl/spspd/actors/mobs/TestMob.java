@@ -26,6 +26,7 @@ import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.buffs.Sleep;
 import com.hmdzl.spspd.actors.buffs.Terror;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
+import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.bags.HeartOfScarecrow;
 import com.hmdzl.spspd.sprites.ScarecrowSprite;
 import com.watabou.utils.Bundle;
@@ -60,9 +61,9 @@ public class TestMob extends Mob {
     }
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 		//if (dmg >5) Buff.affect(this,ShieldArmor.class).level(20);
 		//Buff.prolong(this,Levitation.class,10f);
 	}
@@ -99,6 +100,8 @@ public class TestMob extends Mob {
 
 		Dungeon.depth.drop(new HeartOfScarecrow(), pos).sprite.drop();
 		explodeDew(pos);
+
+		//Dungeon.depth.drop(new Gold(1), pos).sprite.drop();
 
 		//UIcecorps2.spawnAt(pos);
 

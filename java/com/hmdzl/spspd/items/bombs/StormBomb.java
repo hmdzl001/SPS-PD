@@ -73,7 +73,7 @@ public class StormBomb extends Bomb {
 					int dmg = Random.NormalIntRange(minDamage, maxDamage)
 							- Math.max(ch.drRoll(), 0);
 					if (dmg > 0) {
-						ch.damage(dmg, this);
+						ch.damage(dmg, this,2);
 
 					}
 				}

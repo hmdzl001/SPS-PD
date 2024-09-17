@@ -39,6 +39,7 @@ import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.misc.GnollMark;
 import com.hmdzl.spspd.items.rings.Ring;
 import com.hmdzl.spspd.items.rings.RingOfEnergy;
+import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -63,6 +64,7 @@ public abstract class Wand extends Item {
 	
 	public int maxCharges = initialCharges();
 	public int curCharges = maxCharges;
+	//public int mindistance = 1;
 	public float partialCharge = 0f;
 	
 	protected Charger charger;
@@ -248,6 +250,10 @@ public abstract class Wand extends Item {
 	protected int initialCharges() {
 		return 3;
 	}
+
+	protected int mindistance() {
+		return 1;
+	}
 	
 	protected int chargesPerCast() {
 		return 1;
@@ -359,7 +365,7 @@ public abstract class Wand extends Item {
 				final Ballistica shot = new Ballistica( curUser.pos, target, curWand.collisionProperties);
 				int cell = shot.collisionPos;
 
-				if (target == curUser.pos || cell == curUser.pos) {
+				if (target == curUser.pos || cell == curUser.pos || Floor.distance(curUser.pos, cell) < curWand.mindistance()) {
 					GLog.i( Messages.get(Wand.class, "self_target") );
 					return;
 				}

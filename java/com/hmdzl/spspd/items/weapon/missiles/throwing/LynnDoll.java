@@ -172,7 +172,7 @@ public class LynnDoll extends TossWeapon {
 				((Mob) enemy).aggro(this);
 			}
 
-			enemy.damage(dmg, ENERGY_DAMAGE);
+			enemy.damage(dmg, ENERGY_DAMAGE,2);
 			damage = 0;
 			if (dmg > enemy.HP){
 				destroy();

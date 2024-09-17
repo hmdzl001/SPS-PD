@@ -330,8 +330,8 @@ public class King extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
-			super.damage(dmg, src);
+		public void damage(int dmg, Object src, int type) {
+			super.damage(dmg, src,type);
 			if (src instanceof ToxicGas) {
 				((ToxicGas) src).clear(pos);
 			}
@@ -419,11 +419,11 @@ public class King extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		if(checkKing()){
 			yell(Messages.get(this , "impossible"));
 		} else {
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 		}
 	}
 

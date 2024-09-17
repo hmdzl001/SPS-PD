@@ -28,6 +28,8 @@ public class Buff extends Actor {
 
 	public Char target;
 
+	public String status() { return null; }
+
 	public enum buffType {POSITIVE, NEGATIVE, NEUTRAL, SILENT}
 
     public buffType type = buffType.SILENT;
@@ -86,7 +88,7 @@ public class Buff extends Actor {
 	public int icon() {
 		return BuffIndicator.NONE;
 	}
-	
+
 	public void fx(boolean on) {
 		//do nothing by default
 	}

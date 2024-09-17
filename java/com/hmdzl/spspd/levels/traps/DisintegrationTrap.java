@@ -23,7 +23,6 @@ package com.hmdzl.spspd.levels.traps;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.DungeonTilemap;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.Beam;
@@ -61,11 +60,11 @@ public class DisintegrationTrap extends Trap {
 
 		//Char ch = Actor.findChar(pos);
 		if (ch != null){
-			ch.damage( Math.max( ch.HT/5, Random.Int(ch.HP / 2, 2 * ch.HP / 3) ), this );
+			ch.damage( Math.max( ch.HT/5, Random.Int(ch.HP / 2, 2 * ch.HP / 3) ), this,2 );
 			if (ch == Dungeon.hero){
 				Hero hero = (Hero)ch;
 				if (!hero.isAlive()){
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n( Messages.get(this, "ondeath") );
 				} else {
 					Item item = hero.belongings.randomUnequipped();

@@ -17,10 +17,8 @@
  */
 package com.hmdzl.spspd.items.food.vegetable;
 
-import com.hmdzl.spspd.actors.buffs.BerryRegeneration;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.DefenceUp;
-import com.hmdzl.spspd.actors.buffs.MagicArmor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 
 public class IceMint extends Vegetable {

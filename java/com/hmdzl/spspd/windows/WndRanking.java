@@ -32,7 +32,6 @@ import com.hmdzl.spspd.ui.Icons;
 import com.hmdzl.spspd.ui.ItemSlot;
 import com.hmdzl.spspd.ui.RedButton;
 import com.hmdzl.spspd.ui.ScrollPane;
-import com.hmdzl.spspd.ui.Window;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -154,7 +153,7 @@ public class WndRanking extends WndTabbed {
 			title.icon(HeroSprite.avatar(Dungeon.hero.heroClass,
 					Dungeon.hero.useskin()));
 			title.label( Messages.get(this, "title", Dungeon.hero.lvl, heroClass ).toUpperCase( Locale.ENGLISH ) );
-			title.color(Window.SHPX_COLOR);
+			title.color(SHPX_COLOR);
 			title.setRect(0, 0, WIDTH, 0);
 			add(title);
 

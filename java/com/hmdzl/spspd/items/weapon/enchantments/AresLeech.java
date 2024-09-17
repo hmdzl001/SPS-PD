@@ -113,7 +113,7 @@ public class AresLeech extends Weapon.Enchantment {
 
         @Override
 		public int icon() {
-			return BuffIndicator.DEFERRED;
+			return BuffIndicator.DAMAGE_DELAY;
 		}
 
 		@Override

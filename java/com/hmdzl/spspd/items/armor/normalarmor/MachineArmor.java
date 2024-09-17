@@ -28,6 +28,8 @@ public class MachineArmor extends NormalArmor {
 		STR += 1;
 		MAX = 60;
 		MIN = 15;
+		M_MIN = 0;
+		M_MAX = 0;
 	}
 
 	public MachineArmor() {

@@ -19,12 +19,15 @@ package com.hmdzl.spspd.ui;
 
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
+import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.scenes.GameScene;
+import com.hmdzl.spspd.scenes.PixelScene;
 import com.hmdzl.spspd.windows.WndInfoBuff;
 import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
+import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.tweeners.AlphaTweener;
@@ -35,106 +38,108 @@ import com.watabou.utils.SparseArray;
 public class BuffIndicator extends Component {
 
 	public static final int NONE = -1;
-
-	public static final int MIND_VISION = 0;
-	public static final int LEVITATION = 1;
-	public static final int FIRE = 2;
-	public static final int POISON = 3;
-	public static final int PARALYSIS = 4;
-	public static final int HUNGER = 5;
-	public static final int STARVATION = 6;
-	public static final int SLOW = 7;
-	public static final int OOZE = 8;
-	public static final int AMOK = 9;
-	public static final int TERROR = 10;
-	public static final int ROOTS = 11;
-	public static final int INVISIBLE = 12;
-	public static final int SHADOWS = 13;
-	public static final int WEAKNESS = 14;
-	public static final int FROST = 15;
-	public static final int BLINDNESS = 16;
-	public static final int COMBO = 17;
+	public static final int OVERFEED = 0;
+	public static final int HUNGER = 1;
+	public static final int STARVATION = 2;
+	public static final int HT_UP = 3;
+	public static final int ATTACK_UP = 4;
+	public static final int DEFENCE_UP = 5;
+	public static final int MAGIC_UP = 6;
+	public static final int PHYSICS_SHIELD = 7;
+	public static final int MAGIC_SHIELD = 8;
+	public static final int ALL_SHIELD = 9;
+	public static final int MECH_ARMOR = 10;
+	public static final int STR_UP = 11;
+	public static final int FIRE_1 = 12;
+	public static final int ICE_1 = 13;
+	public static final int EARTH_1 = 14;
+	public static final int SHOCK_1 = 15;
+	public static final int LIGHT_1 = 16;
+	public static final int DARK_1 = 17;
+	
 	public static final int FURY = 18;
-	public static final int HEALING = 19;
-	public static final int ARMOR = 20;
-	public static final int HEART = 21;
-	public static final int LIGHT = 22;
-	public static final int CRIPPLE = 23;
-	public static final int BARKSKIN = 24;
-	public static final int IMMUNITY = 25;
+	public static final int STAR_BLESS = 19;
+	public static final int HASTE = 20;
+	public static final int DAMAGE_DELAY = 21;
+	public static final int ATK_DOWN = 22;
+	public static final int DEFENCE_DOWN = 23;
+	public static final int MAGIC_DOWN = 24;
+	public static final int POISON = 25;
 	public static final int BLEEDING = 26;
-	public static final int MARK = 27;
-	public static final int DEFERRED = 28;
-	public static final int DROWSY = 29;
-	public static final int MAGIC_SLEEP = 30;
-	public static final int THORNS = 31;
-	public static final int FORESIGHT = 32;
-	public static final int VERTIGO = 33;
-	public static final int RECHARGING 	= 34;
-	public static final int LOCKED_FLOOR= 35;
-	public static final int CORRUPT     = 36;
-	public static final int BLESS       = 37;
-	public static final int HASTE = 38;
-	public static final int REGEN = 39;
-	public static final int COUNTDOWN = 40;
-	public static final int MOON_FURY = 41;	
-	public static final int DEWCHARGE = 42;
-	public static final int DISPEL = 43;
-	public static final int PFIRE = 44;
-	public static final int PTOXIC = 45;
-	public static final int PEARTH = 46;
-	public static final int PBLOOD = 47;
-	public static final int SHIELDBLOCK = 48;
-	public static final int OVERFED = 49;
-	public static final int TAR = 50;
-	public static final int WET = 51;
-	public static final int HOT = 52;
-	public static final int COLD = 53;
-	public static final int DRY = 54;
+	public static final int BE_CORRUPT = 27;
+	public static final int BE_OLD = 28;
+	public static final int STR_DOWN = 29;
+	public static final int FIRE_2 = 30;
+	public static final int ICE_2 = 31;
+	public static final int EARTH_2 = 32;
+	public static final int SHOCK_2 = 33;
+	public static final int LIGHT_2 	= 34;
+	public static final int DARK_2   = 35;
+	
+	public static final int COMBO     = 36;
+	public static final int GLASS_SHIELD   = 37;
+	public static final int CHARM = 38;
+	public static final int REGEN_HEAL = 39;
+	public static final int INVISIBLE = 40;
+	public static final int MIND_VISION = 41;
+	public static final int NATURE_BLESS = 42;	
+	public static final int THORNS = 43;
+	public static final int NEEDLING = 44;
+	public static final int RECHARGING = 45;
+	public static final int NOTICE = 46;
+	public static final int DROWSY = 47;
+	public static final int FIRE_3 = 48;
+	public static final int ICE_3 = 49;
+	public static final int EARTH_3 = 50;
+	public static final int SHOCK_3 = 51;
+	public static final int LIGHT_3  = 52;
+	public static final int  DARK_3 = 53;
+	
+	public static final int SELF_DESTORY = 54;
 	public static final int SILENT = 55;
 	public static final int DISARM = 56;
-	public static final int GLASS_SHIELD = 57;
-	public static final int ARMOR_BREAK = 58;
-	public static final int TAUNT = 59;
-	public static final int GROW_SEED = 60;
-	public static final int ATTACK_UP = 61;
-	public static final int SHOCKED = 62;
-	public static final int RHYTHM = 63;
-	public static final int RHYTHM2 = 64;
-	public static final int ARCANE = 65;
-	public static final int NO_FUSHIGI = 66;
-	public static final int GOLDTOUCH = 67;
-	public static final int NEEDLING = 68;
-	public static final int FEED = 69;
-	public static final int NOTICE = 70;
-	public static final int BLOODANGRY = 71;
-	public static final int WARGROOVE = 72;
-	public static final int MECHARMOR = 73;
-	public static final int VOICE_UP = 74;
-	public static final int HIGH_ATTACK = 75;
-	public static final int SMASH = 76;
-	public static final int UNKNOW_BOX = 77;
-	public static final int MIRROR_SHIELD = 78;
-
-	public static final int HUMAN_FAITH = 79;
-	public static final int DEMON_FAITH = 80;
-	public static final int LIFE_FAITH = 81;
-	public static final int MECH_FAITH = 82;
-	public static final int BALANCE_FAITH = 83;
+	public static final int AMOK = 57;
+	public static final int TARGET = 58;
+	public static final int BLINDNESS = 59;
+	public static final int DEWCHARGE = 60;
+	public static final int FORESIGHT = 61;
+	public static final int VERTIGO = 62;
+	public static final int LOCKED = 63;
+	public static final int MAGIC_WEAK = 64;
+	public static final int MAGIC_SLEEP = 65;
+	public static final int TAROIL = 66;
+	public static final int ROOTS = 67;
+	public static final int NATURE_SHIELD = 68;
+	public static final int PARALYSIS = 69;
+	public static final int TORCH_LIGHT = 70;
+	public static final int COUNTDOWN = 71;
 	
-	public static final int STONE_ICE = 84;
-	public static final int MAGICWEAK = 85;
-	public static final int ICE_BITE = 86;
-	public static final int ZERO_DEW = 87;
-
-	public static final int FROST_BITE = 88;
-	public static final int INF_JUMP = 89;
-	public static final int LIGHT_ATK = 90;
-	public static final int BE_CORRUPT = 91;
-	public static final int BE_OLD = 92;
-	public static final int CRAZY_MIND = 93;
-	//public static final int ZERO_DEW = 94;
-
+	public static final int MAGIC_MIRROR = 72;
+	public static final int EX_PROTECT = 73;
+	public static final int SMASH_HIT = 74;
+	public static final int CLIMB_HIT = 75;
+	public static final int MUSIC_RHYTHM = 76;
+	public static final int MUSIC_RHYTHM2 = 77;
+	public static final int MUSIC_WARGROOVE = 78;
+	public static final int MUSIC_FLOWER = 79;
+	public static final int LEVITATION = 80;
+	public static final int BLOCK_SHIELD = 81;
+	public static final int NO_FUSHIGI = 82;
+	public static final int GOLDTOUCH = 83;
+	public static final int EATER_FEED = 84;
+	public static final int INF_JUMP = 85;
+	public static final int CRIPPLE = 86;
+	public static final int TAUNT = 87;
+	public static final int SLOW_SPEED = 88;
+	public static final int GAS_IMM = 89;
+	
+	public static final int FAITH_HOLY = 90;
+	public static final int FAITH_DEMON = 91;
+	public static final int FAITH_BALANCE = 92;
+	public static final int FAITH_NATURE = 93;
+	public static final int FAITH_MECH = 94;
+	public static final int CRAZY_MIND = 95;
+	public static final int FIGHT_MIND = 96;
 
 
 	public static final int SIZE = 7;
@@ -214,7 +219,7 @@ public class BuffIndicator extends Component {
 			heroInstance.layout();
 		}
 	}*/
-		private static BuffIndicator heroInstance;
+	private static BuffIndicator heroInstance;
 	
 	private SmartTexture texture;
 	private TextureFilm film;
@@ -252,20 +257,25 @@ public class BuffIndicator extends Component {
 		clear();
 		
 		SparseArray<BuffIcon> newIcons = new SparseArray<BuffIcon>();
-		
+
+		int maxIconsPerRow = ShatteredPixelDungeon.landscape() ? 12 : 6;
+
 		for (Buff buff : ch.buffs()) {
 			if (buff.icon() != NONE) {
 				BuffIcon icon = new BuffIcon( buff );
-				icon.setRect(x + members.size() * (SIZE + 2), y, 9, 12);
+				icon.setRect(x + (members.size() % maxIconsPerRow) * (SIZE + 2),
+						y + (members.size()/maxIconsPerRow) * (SIZE + 6),
+						9, 12);
 				add(icon);
 				newIcons.put( buff.icon(), icon );
 			}
 		}
-		
+
+
 		for (Integer key : icons.keyArray()) {
 			if (newIcons.get( key ) == null) {
 				Image icon = icons.get( key ).icon;
-				icon.origin.set( SIZE / 2 );
+				icon.origin.set( SIZE/2 );
 				add( icon );
 				add( new AlphaTweener( icon, 0, 0.6f ) {
 					@Override
@@ -276,7 +286,7 @@ public class BuffIndicator extends Component {
                 } );
 			}
 		}
-		
+
 		icons = newIcons;
 	}
 
@@ -285,6 +295,8 @@ public class BuffIndicator extends Component {
 		private Buff buff;
 
 		public Image icon;
+
+		private BitmapText BuffText;
 
 		public BuffIcon( Buff buff ){
 			super();
@@ -300,6 +312,26 @@ public class BuffIndicator extends Component {
 			super.layout();
 			icon.x = this.x+1;
 			icon.y = this.y+2;
+
+			BuffText = new BitmapText( PixelScene.font1x );
+			add( BuffText );
+
+		}
+
+		@Override
+		public void update() {
+			super.update();
+			String status = buff.status();
+			if (ch == Dungeon.hero && status != null) {
+				BuffText.scale.set(PixelScene.align(0.5f));
+				BuffText.x = icon.x + SIZE / 2 - BuffText.width() / 2;
+				BuffText.y = icon.y + SIZE;
+				BuffText.hardlight(0xCACFC2);
+				BuffText.text(status + "");
+				BuffText.visible = true;
+			} else {
+				BuffText.visible = false;
+			}
 		}
 
 		@Override

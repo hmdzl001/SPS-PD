@@ -23,13 +23,9 @@ import com.hmdzl.spspd.actors.buffs.Bless;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Drowsy;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.items.food.Food;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
 import com.watabou.utils.Random;
 
 public class PixieParasol extends Pill {

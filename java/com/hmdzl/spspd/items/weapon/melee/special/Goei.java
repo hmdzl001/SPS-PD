@@ -59,11 +59,11 @@ public class Goei extends MeleeWeapon {
     @Override
     public void proc(Char attacker, Char defender, int damage) {
 		if (charge >= 5) {
-            defender.damage(damage ,this);
+            defender.damage(damage ,this,2);
             charge = 0;
         }
 		if (defender.properties().contains(Char.Property.DEMONIC) || defender.properties().contains(Char.Property.UNDEAD)){
-            defender.damage((int)(damage*0.35),this);
+            defender.damage((int)(damage*0.35),this,2);
 		}
         if (enchantment != null) {
             enchantment.proc(this, attacker, defender, damage);

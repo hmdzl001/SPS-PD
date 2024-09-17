@@ -53,14 +53,14 @@ public class MirrorImage extends NPC {
 	private int damage;
 
 	private static final String SKIN = "skin";
-	private static final String ATTACK = "attack";
+	//private static final String ATTACK = "attack";
 	private static final String DAMAGE = "damage";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(SKIN, skin);
-		bundle.put(ATTACK, attack);
+		//bundle.put(ATTACK, attack);
 		bundle.put(DAMAGE, damage);
 	}
 
@@ -68,24 +68,30 @@ public class MirrorImage extends NPC {
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		skin = bundle.getInt(SKIN);
-		attack = bundle.getInt(ATTACK);
-		damage = bundle.getInt(DAMAGE);
+		//attack = bundle.getInt(ATTACK);
+	//	damage = bundle.getInt(DAMAGE);
 	}
 
 	public void duplicate(Hero hero) {
 		skin = hero.useskin();
-		attack = hero.hitSkill(hero);
-		damage = hero.damageRoll();
+		//attack = hero.hitSkill(hero);
+		//defence = hero.hitSkill(hero);
+		//damage = hero.damageRoll();
 	}
 
 	@Override
 	public int hitSkill(Char target) {
-		return attack;
+		return 1000;
 	}
+
+	//@Override
+	//public int Skill(Char target) {
+	//	return Dungeon.hero.hitSkill(Dungeon.hero);
+	//}
 
 	@Override
 	public int damageRoll() {
-		return damage;
+		return Dungeon.hero.damageRoll();
 	}
 
 	@Override

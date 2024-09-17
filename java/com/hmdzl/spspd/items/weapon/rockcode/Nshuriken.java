@@ -49,7 +49,7 @@ public class Nshuriken extends RockCode {
 		int damageRoll = Random.Int(Dungeon.hero.lvl,Dungeon.hero.lvl*3);
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
-			ch.damage( 3 * damageRoll,MegaCannon.class );
+			ch.damage( 3 * damageRoll,MegaCannon.class,2 );
 
 		}
 	}
@@ -64,8 +64,8 @@ public class Nshuriken extends RockCode {
 	@Override
 	public void onHit(XSaber megaCannon, Char attacker, Char defender, int damage) {
 
-		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), MegaCannon.class);
-		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), MegaCannon.class);
+		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), MegaCannon.class,2);
+		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), MegaCannon.class,2);
 	}
 
 	

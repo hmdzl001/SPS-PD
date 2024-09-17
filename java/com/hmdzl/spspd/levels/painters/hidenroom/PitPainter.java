@@ -66,8 +66,8 @@ public class PitPainter extends Painter {
 			sign = room.random();
 		}
 
-		level.map[sign] = Terrain.SIGN;
-		level.pitSign=sign;
+		//level.map[sign] = Terrain.SIGN;
+		//level.pitSign=sign;
 		
 		level.drop(new ScrollOfTeleportation(), remains).type = Type.SKELETON;
 		int loot = Random.Int(3);

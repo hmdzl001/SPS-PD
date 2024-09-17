@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.SwampGas;
@@ -52,8 +51,7 @@ public class ExBambooMob extends BambooMob {
 	
 	@Override
 	public boolean act() {
-
-		if (isAlive()) {
+		if (isAlive() && state != SLEEPING) {
 			for (int i = 0; i < Floor.NEIGHBOURS8.length; i++) {
 				GameScene.add(Blob.seed(pos + Floor.NEIGHBOURS8[i], 3, EarthEffectDamage.class));
 			}
@@ -110,7 +108,7 @@ public class ExBambooMob extends BambooMob {
 
 		int dmg = Random.IntRange(0, damage) - enemy.drRoll();
 		if (dmg > 0) {
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,1);
 			Wound.hit(enemy);
 		}
 
@@ -118,13 +116,13 @@ public class ExBambooMob extends BambooMob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type) {
 		 if(  1 > 2 * HP / HT && !skilluse ) {
 			dmg = 0;
 		} else if (dmg> HT/3) {
 			dmg =(int)Math.max(HT/3,1);
 		}
-		super.damage(dmg,src);
+		super.damage(dmg,src,type);
 	}
 
 	

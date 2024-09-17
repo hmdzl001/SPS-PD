@@ -27,7 +27,9 @@ public class HuntressArmor extends NormalArmor {
 	{
 		//name = "phantom armor";
 		image = ItemSpriteSheet.ARMOR_HUNTRESS;
-
+		M_MIN = 0;
+		M_MAX = 7;
+		magical = true;
 	}
 
 	public HuntressArmor() {
@@ -38,7 +40,7 @@ public class HuntressArmor extends NormalArmor {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		if (Random.Int(8) == 0) {
-			attacker.damage(damage,defender);
+			attacker.damage(damage,defender,1);
 		}
 
 		if (glyph != null) {

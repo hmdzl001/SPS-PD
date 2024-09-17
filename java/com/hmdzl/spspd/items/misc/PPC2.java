@@ -27,9 +27,12 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.mindbuff.AmokMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.CrazyMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.GoldMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.HarmMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.HopeMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.KeepMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.LoseMind;
+import com.hmdzl.spspd.actors.buffs.mindbuff.SleepMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.TerrorMind;
 import com.hmdzl.spspd.actors.buffs.mindbuff.WeakMind;
 import com.hmdzl.spspd.actors.hero.Hero;
@@ -77,8 +80,9 @@ public class PPC2 extends Item {
 		ArrayList<String> actions = super.actions( hero );
 	
 		actions.add(AC_TRY);
-		if (hero.spp > hero.lvl*2)
-		actions.add(AC_HEAL);
+		if (hero.spp > hero.lvl*2) {
+			actions.add(AC_HEAL);
+		}
 		actions.add(AC_MIND);
 		
         actions.remove( AC_THROW );
@@ -317,7 +321,7 @@ public class PPC2 extends Item {
 		
 		 if (action.equals(AC_HEAL)) {
 
-		 	    switch (Random.Int(8)){
+		 	    switch (Random.Int(11)){
 					case 0:
 						if (Dungeon.hero.buff(HopeMind.class) != null);
 						else {Buff.affect(Dungeon.hero,HopeMind.class);
@@ -346,7 +350,19 @@ public class PPC2 extends Item {
                         if (Dungeon.hero.buff(TerrorMind.class) != null);
                         else {Buff.affect(Dungeon.hero,TerrorMind.class);
                         break;}
-                    case 7:
+					case 7:
+						if (Dungeon.hero.buff(GoldMind.class) != null);
+						else {Buff.affect(Dungeon.hero, GoldMind.class);
+							break;}
+					case 8:
+						if (Dungeon.hero.buff(SleepMind.class) != null);
+						else {Buff.affect(Dungeon.hero, SleepMind.class);
+							break;}
+					case 9:
+						if (Dungeon.hero.buff(HarmMind.class) != null);
+						else {Buff.affect(Dungeon.hero, HarmMind.class);
+							break;}
+                    case 10:
                         Buff.affect(Dungeon.hero,Bless.class,20f);
                         break;
                 }
@@ -379,6 +395,14 @@ public class PPC2 extends Item {
 					Buff.detach(Dungeon.hero, LoseMind.class);
                     Dungeon.hero.HP += Dungeon.hero.HT / 5;
                     Dungeon.hero.spp += Dungeon.hero.lvl-1;
+				} else if (Dungeon.hero.buff(HarmMind.class) != null) {
+					Buff.detach(Dungeon.hero, HarmMind.class);
+					Dungeon.hero.HP += Dungeon.hero.HT / 5;
+					Dungeon.hero.spp += Dungeon.hero.lvl-1;
+				} else if (Dungeon.hero.buff(SleepMind.class) != null) {
+					Buff.detach(Dungeon.hero, SleepMind.class);
+					Dungeon.hero.HP += Dungeon.hero.HT / 5;
+					Dungeon.hero.spp += Dungeon.hero.lvl-1;
 				}
                 //Dungeon.level.drop(new MindArrow(5), hero.pos).sprite.drop();
 			} else {

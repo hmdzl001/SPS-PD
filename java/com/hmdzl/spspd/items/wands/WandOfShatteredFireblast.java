@@ -95,7 +95,7 @@ public class WandOfShatteredFireblast extends DamageWand {
 			if (ch != null) {
 
 				processSoulMark(ch, chargesPerCast());
-				ch.damage(damageRoll(), this);
+				ch.damage(damageRoll(), this,2);
 				Buff.affect( ch, Burning.class ).set(5f);
 				switch(chargesPerCast()){
 					case 1:

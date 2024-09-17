@@ -92,26 +92,26 @@ public class GoldDragon extends PET{
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		enemy.damage(damageRoll()/2, ENERGY_DAMAGE);
+		enemy.damage(damageRoll()/2, ENERGY_DAMAGE,2);
 		switch (Random.Int(6)){
-			case 0: enemy.damage(damageRoll()/2, FIRE_DAMAGE);
+			case 0: enemy.damage(damageRoll()/2, FIRE_DAMAGE,2);
 				break;
-			case 1: enemy.damage(damageRoll()/2, ICE_DAMAGE);
+			case 1: enemy.damage(damageRoll()/2, ICE_DAMAGE,2);
 				break;
-			case 2: enemy.damage(damageRoll()/2, SHOCK_DAMAGE);
+			case 2: enemy.damage(damageRoll()/2, SHOCK_DAMAGE,2);
 				break;
-			case 3: enemy.damage(damageRoll()/2, EARTH_DAMAGE);
+			case 3: enemy.damage(damageRoll()/2, EARTH_DAMAGE,2);
 				break;
-			case 4: enemy.damage(damageRoll()/2, LIGHT_DAMAGE);
+			case 4: enemy.damage(damageRoll()/2, LIGHT_DAMAGE,2);
 				break;
-			case 5: enemy.damage(damageRoll()/2, DARK_DAMAGE);
+			case 5: enemy.damage(damageRoll()/2, DARK_DAMAGE,2);
 				break;
 		}
 
 		damage = damage/2;
 		if (cooldown > 0) cooldown --;
 		if (cooldown==0 && enemy.isAlive()) {
-			enemy.damage(Math.max(1,(int)(enemy.HP/3)),Item.class);
+			enemy.damage(Math.max(1,(int)(enemy.HP/3)),Item.class,2);
 			cooldown = Math.max(9,30 - Dungeon.hero.petLevel);
 		}
 		return damage;

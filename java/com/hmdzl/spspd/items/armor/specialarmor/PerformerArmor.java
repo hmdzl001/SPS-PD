@@ -32,6 +32,9 @@ public class PerformerArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 10;
 		MIN = 0;
+		M_MIN = 0;
+		M_MAX = 7;
+		magical = true;
 	}
 
 	public PerformerArmor() {

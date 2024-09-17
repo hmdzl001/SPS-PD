@@ -27,6 +27,9 @@ public class BaseArmor extends NormalArmor {
 		image = ItemSpriteSheet.ERROR_ARMOR;
 		MAX = 0;
 		MIN = 0;
+
+		M_MIN = 0;
+		M_MAX = 0;
 	}
 
 	public BaseArmor() {

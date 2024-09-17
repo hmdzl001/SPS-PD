@@ -24,6 +24,8 @@ public class ScaleArmor extends NormalArmor {
 	{
 		//name = "scale armor";
 		image = ItemSpriteSheet.ARMOR_SCALE;
+		M_MIN = 0;
+		M_MAX = 6;
 	}
 
 	public ScaleArmor() {

@@ -47,7 +47,7 @@ public class TekkoKagi extends MeleeWeapon {
 	public void proc(Char attacker, Char defender, int damage) {
 
 		if (Random.Int(100) < 20 ) {
-			defender.damage(Random.Int(defender.HT/4, defender.HT/2), this);
+			defender.damage(Random.Int(defender.HT/4, defender.HT/2), this,3);
 			defender.sprite.emitter().burst(ShadowParticle.UP, 5);
 			if (!defender.isAlive() && attacker instanceof Hero) {
 				Badges.validateGrimWeapon();

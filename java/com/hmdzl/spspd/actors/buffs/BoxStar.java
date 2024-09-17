@@ -39,7 +39,7 @@ public class BoxStar extends FlavourBuff {
 		}
 		
 	public int icon() {
-		return BuffIndicator.UNKNOW_BOX;
+		return BuffIndicator.EX_PROTECT;
 	}
 
 	//@Override

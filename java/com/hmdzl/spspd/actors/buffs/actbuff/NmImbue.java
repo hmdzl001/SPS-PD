@@ -20,7 +20,6 @@ package com.hmdzl.spspd.actors.buffs.actbuff;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.NmGas;
@@ -101,7 +100,7 @@ public class NmImbue extends Buff implements Hero.Doom  {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.PTOXIC;
+		return BuffIndicator.NOTICE;
 	}
 
 	@Override
@@ -119,7 +118,7 @@ public class NmImbue extends Buff implements Hero.Doom  {
 
 		Badges.validateDeathFromFire();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n(TXT_BURNED_TO_DEATH);
 	}
 

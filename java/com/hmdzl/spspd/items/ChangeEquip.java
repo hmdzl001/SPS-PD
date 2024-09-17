@@ -17,27 +17,15 @@
  */
 package com.hmdzl.spspd.items;
 
-import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.Statistics;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.EnergyArmor;
-import com.hmdzl.spspd.actors.buffs.MagicArmor;
-import com.hmdzl.spspd.actors.buffs.MechArmor;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
-import com.hmdzl.spspd.effects.FloatingText2;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.weapon.Weapon;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
+import com.hmdzl.spspd.utils.BArray;
+import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;
 
@@ -67,6 +55,13 @@ public class ChangeEquip extends Item {
 	public void execute(Hero hero, String action) {
 
 		if (action.equals(AC_CHANGE)) {
+			//GameScene.dewpeek();
+			//for (int i = 0; i < PathFinder.distance.length; i++) {
+			//	if (Dungeon.depth.distance(Dungeon.hero.pos, i) <= 1) {
+			//		BArray.setFalse(Dungeon.depth.visited);
+			//		BArray.setFalse(Dungeon.depth.mapped);
+			//	}
+			//}
 			if (hero.belongings.weapon_two == null && hero.belongings.weapon !=null) {
 				hero.belongings.weapon_two = hero.belongings.weapon;
                 hero.belongings.weapon = null;

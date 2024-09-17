@@ -29,7 +29,7 @@ public class SoulBless extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.BLESS;
+		return BuffIndicator.STAR_BLESS;
 	}
 
 	@Override

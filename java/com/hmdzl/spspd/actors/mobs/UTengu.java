@@ -133,13 +133,13 @@ public class UTengu extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		dmg = Math.min(dmg,20);
 		if (dmg > 15){
 			GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 	@Override
 	public int defenseProc(Char enemy, int damage) {
@@ -148,7 +148,7 @@ public class UTengu extends Mob {
 				
 		if (breaks == 2){
 		    if (dmg > 0 || (Random.Int(3) == 0 )) {
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,1);
 		    }
         }
 		return super.defenseProc(enemy, damage);

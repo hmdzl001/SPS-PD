@@ -18,13 +18,11 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ConfusionGas;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Terror;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.effects.particles.SparkParticle;
 import com.hmdzl.spspd.items.RedDewdrop;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentDark;
@@ -87,7 +85,7 @@ public class LitTower extends Mob implements Callback {
 	
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	}
 	
 	@Override
@@ -142,7 +140,7 @@ public class LitTower extends Mob implements Callback {
 			  }
 			
 			  
-			  hero.damage(mobDmg,ENERGY_DAMAGE);
+			  hero.damage(mobDmg,ENERGY_DAMAGE,2);
 
 			  hero.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 			  hero.sprite.flash();

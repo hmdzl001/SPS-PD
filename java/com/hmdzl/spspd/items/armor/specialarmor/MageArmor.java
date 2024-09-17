@@ -28,6 +28,9 @@ public class MageArmor extends NormalArmor {
 	{
 		//name = "phantom armor";
 		image = ItemSpriteSheet.ARMOR_MAGE;
+		M_MIN = 7;
+		M_MAX = 14;
+		magical = true;
 
 	}
 

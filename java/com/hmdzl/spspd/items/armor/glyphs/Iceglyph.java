@@ -19,7 +19,6 @@ package com.hmdzl.spspd.items.armor.glyphs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Frost;
@@ -145,7 +144,7 @@ public class Iceglyph extends Glyph {
 
         @Override
 		public int icon() {
-			return BuffIndicator.DEFERRED;
+			return BuffIndicator.DAMAGE_DELAY;
 		}
 
 		@Override
@@ -158,11 +157,11 @@ public class Iceglyph extends Glyph {
 			if (target.isAlive()) {
 
 				int damageThisTick = Math.max(1, (int)(damage*0.1f));
-				target.damage( damageThisTick, this );
+				target.damage( damageThisTick, this ,3);
 				if (target == Dungeon.hero && !target.isAlive()) {
 
-					Glyph glyph = new Iceglyph();
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//Glyph glyph = new Iceglyph();
+					//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n("%s killed you...", glyph.name());
 
 					Badges.validateDeathFromGlyph();

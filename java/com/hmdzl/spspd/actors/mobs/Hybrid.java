@@ -126,7 +126,7 @@ public class Hybrid extends Mob {
 			state = FLEEING;
 		}
 
-		enemy.damage(damage/2, ENERGY_DAMAGE);
+		enemy.damage(damage/2, ENERGY_DAMAGE,2);
 		damage = damage/2;
 
 	
@@ -146,7 +146,7 @@ public class Hybrid extends Mob {
 	
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		if ( breaks > 2 && dmg > 5){
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			boolean[] passable = Floor.passable;
@@ -176,7 +176,7 @@ public class Hybrid extends Mob {
 			}
 		}
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 	@Override
@@ -310,7 +310,7 @@ public class Hybrid extends Mob {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 
-		enemy.damage(damage/4, SHOCK_DAMAGE);
+		enemy.damage(damage/4, SHOCK_DAMAGE,2);
 		damage = damage*3/4;
 
 		return damage;

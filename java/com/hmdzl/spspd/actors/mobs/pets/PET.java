@@ -37,7 +37,6 @@ import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.actors.mobs.npcs.NPC;
 import com.hmdzl.spspd.effects.Speck;
-import com.hmdzl.spspd.effects.particles.ElmoParticle;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
@@ -45,12 +44,10 @@ import com.hmdzl.spspd.items.scrolls.ScrollOfPsionicBlast;
 import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndBag;
 import com.hmdzl.spspd.windows.WndHero;
-import com.hmdzl.spspd.windows.WndPetInfo;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -169,7 +166,7 @@ public abstract class PET extends NPC {
 
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type) {
 		
 		if (src instanceof Hero || src instanceof Wand){
 			//goaways++;
@@ -181,7 +178,7 @@ public abstract class PET extends NPC {
 			dmg =(int)Math.max(HT/6,1);
 		}
 		
-		super.damage(dmg,src);
+		super.damage(dmg,src,type);
 		
 	}
 	

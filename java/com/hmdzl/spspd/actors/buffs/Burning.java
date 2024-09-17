@@ -19,7 +19,6 @@ package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.Blob;
 import com.hmdzl.spspd.actors.blobs.effectblobs.Fire;
@@ -80,7 +79,7 @@ public class Burning extends Buff implements Hero.Doom {
 				Buff.prolong(target, Light.class, TICK * 1.01f);
 			}
 
-			target.damage(Random.Int(1, Math.min(1000,target.HT/20)), FIRE_DAMAGE);
+			target.damage(Random.Int(1, Math.min(1000,target.HT/20)), FIRE_DAMAGE,2);
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero) {
@@ -141,7 +140,7 @@ public class Burning extends Buff implements Hero.Doom {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.FIRE;
+		return BuffIndicator.FIRE_1;
 	}
 
 	@Override
@@ -191,7 +190,7 @@ public class Burning extends Buff implements Hero.Doom {
 
 		Badges.validateDeathFromFire();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n(TXT_BURNED_TO_DEATH);
 	}
 }

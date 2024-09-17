@@ -74,7 +74,7 @@ public class FishProtector extends Mob {
 
 	@Override
 	public int attackProc(Char enemy, int damage) {
-		enemy.damage(damageRoll(), DamageType.ICE_DAMAGE);
+		enemy.damage(damageRoll(), DamageType.ICE_DAMAGE,2);
 		damage = 0;
 		return damage;
 	}
@@ -96,9 +96,9 @@ public class FishProtector extends Mob {
 			}
 		} else if (buff instanceof Tar) {
 			if (Floor.water[this.pos])
-				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 			else
-				damage(Random.NormalIntRange(HT / 2, HT), buff);
+				damage(Random.NormalIntRange(HT / 2, HT), buff,3);
 		} else {
 			super.add(buff);
 		}

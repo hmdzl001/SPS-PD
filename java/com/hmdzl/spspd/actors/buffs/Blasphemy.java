@@ -48,7 +48,7 @@ public class Blasphemy extends Buff {
 	}
 	@Override
 	public int icon() {
-		return BuffIndicator.DEMON_FAITH;
+		return BuffIndicator.TAUNT;
 	}
 
 	public int level() {

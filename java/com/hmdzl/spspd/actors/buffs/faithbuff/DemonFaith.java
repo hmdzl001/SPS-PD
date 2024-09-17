@@ -25,7 +25,7 @@ public class DemonFaith extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.DEMON_FAITH;
+		return BuffIndicator.FAITH_DEMON;
 	}
 
 	@Override

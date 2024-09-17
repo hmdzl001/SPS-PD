@@ -30,7 +30,7 @@ public class Locked extends FlavourBuff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.LOCKED_FLOOR;
+		return BuffIndicator.LOCKED;
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class SpeedImbue extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.FIRE;
+		return BuffIndicator.HASTE;
 	}
 
 

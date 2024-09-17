@@ -23,7 +23,6 @@ import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.bombs.MiniBomb;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -65,7 +64,7 @@ public class Bmech extends RockCode {
 			new MiniBomb().explode(defender.pos);
 		}
 
-		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), ENERGY_DAMAGE);
+		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), ENERGY_DAMAGE,2);
 	}
 
 	

@@ -32,6 +32,8 @@ public class WarriorArmor extends NormalArmor {
 		image = ItemSpriteSheet.ARMOR_WARRIOR;
 		MAX = 40;
 		MIN = 20;
+		M_MIN = 0;
+		M_MAX = 7;
 	}
 
 	public WarriorArmor() {

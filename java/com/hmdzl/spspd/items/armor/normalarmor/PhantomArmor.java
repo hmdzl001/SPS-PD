@@ -28,6 +28,9 @@ public class PhantomArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 35;
 		MIN = 0;
+		M_MAX = 7;
+		M_MIN = 0;
+		
 	}
 
 	public PhantomArmor() {
@@ -37,6 +40,7 @@ public class PhantomArmor extends NormalArmor {
 	@Override
 	public Item upgrade(boolean hasglyph) {
 		MIN -= 1;
+		M_MAX += 1;
 		return super.upgrade(hasglyph);
 	}
 }

@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.food.completefood;
 
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.watabou.utils.Random;

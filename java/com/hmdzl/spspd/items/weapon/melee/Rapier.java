@@ -66,10 +66,10 @@ public class Rapier extends MeleeWeapon {
 				} else {
 					Dungeon.depth.press(cell, attacker);
 				}
-				defender.damage(exdmg,this);
+				defender.damage(exdmg,this,3);
 			}
 			if (Random.Int(100) < 75) {
-				defender.damage(Random.Int(exdmg / 4, exdmg / 2), this);
+				defender.damage(Random.Int(exdmg / 4, exdmg / 2), this,3);
 			}
 
 		if (enchantment != null) {

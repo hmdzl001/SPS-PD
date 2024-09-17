@@ -123,7 +123,7 @@ public class AdultDragonViolet extends Mob implements Callback{
 		if (hit(this, enemy, true)) {			
 
 			int dmg = damageRoll();
-			enemy.damage(dmg, this);
+			enemy.damage(dmg, this,2);
 			
 			//Buff.affect(enemy,Poison.class).set(Random.Int(10, 20));
 			Buff.affect(enemy,BeOld.class).set(20);

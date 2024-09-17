@@ -12,8 +12,11 @@ public class MagicArmor extends Buff {
 
 		private int level;
 
+	public String status() {
+		return level > 0 ? Integer.toString( level ) : null;
+	}
 
-		@Override
+	@Override
 		public boolean act() {
 			spend(STEP);
 			return true;
@@ -40,7 +43,7 @@ public class MagicArmor extends Buff {
 
 		@Override
 		public int icon() {
-			return BuffIndicator.ARMOR;
+			return BuffIndicator.MAGIC_SHIELD;
 		}
 
 		@Override

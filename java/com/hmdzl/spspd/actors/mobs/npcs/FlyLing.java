@@ -23,9 +23,7 @@ import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.medicine.LingPotion;
-import com.hmdzl.spspd.items.weapon.missiles.buildblock.PlantPotBlock;
 import com.hmdzl.spspd.messages.Messages;
-import com.hmdzl.spspd.sprites.DachhackSprite;
 import com.hmdzl.spspd.sprites.WhiteLingSprite;
 import com.watabou.utils.Random;
 
@@ -58,7 +56,7 @@ public class FlyLing extends NPC {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	}
 
 	@Override

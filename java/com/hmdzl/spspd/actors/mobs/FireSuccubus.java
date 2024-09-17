@@ -68,12 +68,12 @@ public class FireSuccubus extends Succubus {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src,int type) {
 		if (dmg> HT/6) {
 			dmg =(int)Math.max(HT/6,1);
 		}
 		Buff.affect(this, AttackUp.class,10f).level(30);
-		super.damage(dmg,src);
+		super.damage(dmg,src,type);
 
 	}
 

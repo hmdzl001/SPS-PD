@@ -30,7 +30,7 @@ public class Rhythm2 extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.RHYTHM2;
+		return BuffIndicator.MUSIC_RHYTHM2;
 	}
 
 	@Override

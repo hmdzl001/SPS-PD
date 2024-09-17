@@ -40,7 +40,7 @@ public class WandOfLight extends DamageWand {
 
 	{
 		image = ItemSpriteSheet.WAND_LIGHT;
-		collisionProperties = Ballistica.GLASSPASS;
+		collisionProperties = Ballistica.PASS_LIGHT | Ballistica.STOP_TARGET;
 	}
 
 	public int min(int lvl){
@@ -83,11 +83,11 @@ public class WandOfLight extends DamageWand {
 			ch.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+level() );
 			Sample.INSTANCE.play(Assets.SND_BURNING);
 
-			ch.damage(Math.round(dmg*1.333f), this);
+			ch.damage(Math.round(dmg*1.333f), this,2);
 		} else {
 			ch.sprite.centerEmitter().burst( RainbowParticle.BURST, 10+level() );
 
-			ch.damage(dmg, this);
+			ch.damage(dmg, this,2);
 		}
 
 	}	

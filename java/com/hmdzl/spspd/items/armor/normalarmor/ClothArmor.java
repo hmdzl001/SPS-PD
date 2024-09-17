@@ -24,6 +24,8 @@ public class ClothArmor extends NormalArmor {
 	{
 		//name = "cloth armor";
 		image = ItemSpriteSheet.ARMOR_CLOTH;
+		M_MIN = 0;
+		M_MAX = 2;
 	}
 
 	public ClothArmor() {

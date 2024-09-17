@@ -23,7 +23,6 @@ import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -57,13 +56,13 @@ public class Mlaser extends RockCode {
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
 			int mixdamage = (int)Math.max(damageRoll/6,1);
-			ch.damage( mixdamage,ENERGY_DAMAGE );
-			ch.damage( mixdamage,EARTH_DAMAGE );
-			ch.damage( mixdamage,FIRE_DAMAGE );
-			ch.damage( mixdamage,ICE_DAMAGE );
-			ch.damage( mixdamage,SHOCK_DAMAGE );
-			ch.damage( mixdamage,LIGHT_DAMAGE );
-			ch.damage( mixdamage,DARK_DAMAGE );
+			ch.damage( mixdamage,ENERGY_DAMAGE,2 );
+			ch.damage( mixdamage,EARTH_DAMAGE ,2);
+			ch.damage( mixdamage,FIRE_DAMAGE,2 );
+			ch.damage( mixdamage,ICE_DAMAGE ,2);
+			ch.damage( mixdamage,SHOCK_DAMAGE,2 );
+			ch.damage( mixdamage,LIGHT_DAMAGE,2 );
+			ch.damage( mixdamage,DARK_DAMAGE,2 );
 		}
 	}
 	
@@ -78,13 +77,13 @@ public class Mlaser extends RockCode {
 	public void onHit(XSaber megaCannon, Char attacker, Char defender, int damage) {
 
 		if ( Random.Int(10) == 1 ) {
-			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), ENERGY_DAMAGE);
-			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), EARTH_DAMAGE);
-			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), FIRE_DAMAGE);
-			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), ICE_DAMAGE);
-			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), SHOCK_DAMAGE);
-			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), LIGHT_DAMAGE);
-			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), DARK_DAMAGE);
+			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), ENERGY_DAMAGE,2);
+			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), EARTH_DAMAGE,2);
+			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), FIRE_DAMAGE,2);
+			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), ICE_DAMAGE,2);
+			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), SHOCK_DAMAGE,2);
+			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), LIGHT_DAMAGE,2);
+			defender.damage(Random.Int( 1,megaCannon.damageRoll(hero)/6 ), DARK_DAMAGE,2);
 
 		}
 	}

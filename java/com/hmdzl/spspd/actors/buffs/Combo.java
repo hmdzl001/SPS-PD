@@ -29,6 +29,10 @@ public class Combo extends Buff {
 
 	public int count = 0;
 
+	public String status() {
+		return count > 0 ? Integer.toString( count ) : null;
+	}
+
 	@Override
 	public int icon() {
 		return BuffIndicator.COMBO;
@@ -47,7 +51,7 @@ public class Combo extends Buff {
 
 			Badges.validateMasteryCombo(count);
 
-			GLog.p( Messages.get(this, "combo", count));
+			//GLog.p( Messages.get(this, "combo", count));
 			postpone(1.41f - Math.min(0.8f,count / 20f));
 			return (int) (damage * (count - 2) / 10f);
 

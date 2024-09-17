@@ -18,8 +18,6 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
@@ -67,7 +65,7 @@ public class LightShootAttack extends Buff {
 		if (target.isAlive()) {
 			int dist = Floor.distance(target.pos, pos);
 			if (dist < 3) {
-				target.damage(Math.min(500,(int)(target.HT/30)),LIGHT_DAMAGE);
+				target.damage(Math.min(500,(int)(target.HT/30)),LIGHT_DAMAGE,2);
 			} else detach();
 			
             //Buff.detach( target, Burning.class);
@@ -88,7 +86,7 @@ public class LightShootAttack extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.LIGHT_ATK;
+		return BuffIndicator.LIGHT_1;
 	}
 	
 	@Override
@@ -123,7 +121,7 @@ public class LightShootAttack extends Buff {
 	public void onDeath() {
 
 		Badges.validateDeathFromFire();
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 
 	}	
 	

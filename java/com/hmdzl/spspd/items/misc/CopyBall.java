@@ -168,7 +168,7 @@ public class CopyBall extends Item {
 
 		@Override
 		public void proc(Char attacker, Char defender, int damage) {
-			defender.damage(attacker.damageRoll()+10, Hunger.class);
+			defender.damage(attacker.damageRoll()+10, Hunger.class,3);
 			CopyBall.shattercopy(null,defender.pos);
 
 			super.proc(attacker, defender, damage);
@@ -249,11 +249,15 @@ public class CopyBall extends Item {
 
 		public void spawn() {
 			HT = 100;
-			evadeSkill = Dungeon.hero.evadeSkill;
+			//evadeSkill = Dungeon.hero.evadeSkill;
 		}
 		@Override
 		public int hitSkill(Char target) {
 			return Dungeon.hero.hitSkill;
+		}
+
+		public int defenseSkill(Char enemy) {
+			return Dungeon.hero.evadeSkill;
 		}
 
 		@Override
@@ -261,9 +265,11 @@ public class CopyBall extends Item {
 			return 0;
 		}
 
+
+
 		@Override
 		public int attackProc(Char enemy, int damage) {
-			enemy.damage((int)(Dungeon.hero.damageRoll()/3), Hunger.class);
+			enemy.damage((int)(Dungeon.hero.damageRoll()/3), Hunger.class,3);
 			return damage;
 		}
 

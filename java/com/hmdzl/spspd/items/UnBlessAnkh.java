@@ -68,7 +68,7 @@ public class UnBlessAnkh extends Item {
 
 			DewVial vial = hero.belongings.getItem(DewVial.class);
 			if (vial != null) {
-				detach(curUser.belongings.backpack);
+				this.detach(hero.belongings.backpack);
                 new Ankh().collect();
 				vial.upbook(100);
 				GLog.p(Messages.get(this, "bless"));

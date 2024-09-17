@@ -33,7 +33,7 @@ public class BloodAngry extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.BLOODANGRY;
+		return BuffIndicator.FURY;
 	}
 
 	@Override

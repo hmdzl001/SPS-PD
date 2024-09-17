@@ -25,7 +25,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.EnergyArmor;
 import com.hmdzl.spspd.effects.MagicMissile;
 import com.hmdzl.spspd.items.weapon.melee.start.XSaber;
-import com.hmdzl.spspd.items.weapon.missiles.MegaCannon;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -52,7 +51,7 @@ public class Zshield extends RockCode {
 		int damageRoll = Random.Int(Dungeon.hero.lvl,Dungeon.hero.lvl*3);
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null) {
-			ch.damage( damageRoll,DARK_DAMAGE );
+			ch.damage( damageRoll,DARK_DAMAGE,2 );
 			Buff.affect(hero, EnergyArmor.class).level(Dungeon.hero.lvl*5);
 
 		}
@@ -72,7 +71,7 @@ public class Zshield extends RockCode {
 			Buff.affect(hero, EnergyArmor.class).level(Dungeon.hero.lvl*3);
 		}
 
-		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), DARK_DAMAGE);
+		defender.damage(Random.Int( megaCannon.damageRoll(hero) ), DARK_DAMAGE,2);
 	}
 
 	

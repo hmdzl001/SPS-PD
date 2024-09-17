@@ -5,7 +5,6 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.ArmorBreak;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Drowsy;
 import com.hmdzl.spspd.actors.buffs.HasteBuff;
 import com.hmdzl.spspd.actors.buffs.Hunger;
 import com.hmdzl.spspd.actors.buffs.Paralysis;
@@ -18,12 +17,10 @@ import com.hmdzl.spspd.items.keys.Key;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;
-import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 import com.hmdzl.spspd.utils.GLog;
 import com.hmdzl.spspd.windows.WndOptions;
 import com.watabou.noosa.Game;
-import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -44,7 +41,7 @@ public class TimeOclock extends Artifact {
 
 	{
 		//name = "Timekeeper's Hourglass";
-		image = ItemSpriteSheet.ARTIFACT_HOURGLASS;
+		image = ItemSpriteSheet.ARTIFACT_TIME_OCLOCK;
 
 		level = 0;
 		levelCap = 5;

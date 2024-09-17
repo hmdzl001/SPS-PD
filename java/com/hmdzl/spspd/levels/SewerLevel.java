@@ -31,6 +31,7 @@ import com.hmdzl.spspd.levels.traps.DewTrap;
 import com.hmdzl.spspd.levels.traps.FlockTrap;
 import com.hmdzl.spspd.levels.traps.KnowledgeTrap;
 import com.hmdzl.spspd.levels.traps.ToxicTrap;
+import com.hmdzl.spspd.levels.traps.WornTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.DarkBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.EarthBuffTrap;
 import com.hmdzl.spspd.levels.traps.bufftrap.FireBuffTrap;
@@ -80,22 +81,32 @@ public class SewerLevel extends RegularLevel {
 		return Patch.generate(feeling == Feeling.CHASM ? 0.30f : 0.35f, 4);
 	}
 
+	protected boolean[] glass() {
+		return Patch.generate( 0.35f, 4);
+	}
+
 	@Override
 	protected Class<?>[] trapClasses() {
-		return Dungeon.dungeondepth == 1 ?
-				new Class<?>[]{KnowledgeTrap.class} :
+		return
+				Dungeon.dungeondepth == 1 ?
+				new Class<?>[]{WornTrap.class}
+				:
 				new Class<?>[]{ToxicTrap.class, AlarmTrap.class, FlockTrap.class, BoundTrap.class, DewTrap.class, KnowledgeTrap.class,
 				        FireBuffTrap.class, IceBuffTrap.class, ShockBuffTrap.class, EarthBuffTrap.class,
-						LightBuffTrap.class, DarkBuffTrap.class};
+					LightBuffTrap.class, DarkBuffTrap.class}
+			    ;
 }
 
 	@Override
 	protected float[] trapChances() {
-		return Dungeon.dungeondepth == 1 ?
-				new float[]{1} :
+		return
+				Dungeon.dungeondepth == 1 ?
+				new float[]{1}
+		:
 				new float[]{3, 3, 3, 6, 3, 1,
 			            2, 2, 2,
-						2, 2, 2};
+						2, 2, 2}
+				;
 	}
 	
 	@Override
@@ -143,13 +154,13 @@ public class SewerLevel extends RegularLevel {
 			}
 		}
 
-		while (true) {
-			int pos = roomEntrance.random();
-			if (pos != entrance) {
-				map[pos] = Terrain.SIGN;
-				break;	
-			}			
-		}
+		//while (true) {
+		//	int pos = roomEntrance.random();
+		//	if (pos != entrance) {
+		//		map[pos] = Terrain.SIGN;
+		//		break;	
+		//	}			
+		//}
 		//if (Dungeon.depth > 1) {
 		//	while (true) {
 		//		int pos = roomEntrance.random();

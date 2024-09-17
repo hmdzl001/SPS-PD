@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
 import com.hmdzl.spspd.actors.buffs.Amok;
@@ -39,7 +38,6 @@ import com.hmdzl.spspd.items.wands.CannonOfMage;
 import com.hmdzl.spspd.items.weapon.enchantments.EnchantmentEnergy;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.OtilukeSprite;
 import com.watabou.utils.Callback;
@@ -88,7 +86,7 @@ public class Otiluke extends Mob implements Callback {
 	}
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
@@ -99,7 +97,7 @@ public class Otiluke extends Mob implements Callback {
 			for (Mob mob : Dungeon.depth.mobs) {
 				if (mob != null && mob instanceof MineSentinel &&  Random.Int(20)<2) {
 					if (mob.state==PASSIVE){
-						mob.damage(1, this);
+						mob.damage(1, this,3);
 						mob.state = HUNTING;
 					}
 					break;
@@ -107,14 +105,14 @@ public class Otiluke extends Mob implements Callback {
 		  }
 		}
 
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 	
 	
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(damageRoll()/2, ENERGY_DAMAGE);
+		enemy.damage(damageRoll()/2, ENERGY_DAMAGE,2);
 		damage = damage/2;
 
 		return damage;
@@ -158,12 +156,12 @@ public class Otiluke extends Mob implements Callback {
 			}
 
 			int dmg = Random.Int(100, 160+adj(0));
-			enemy.damage(dmg,EnchantmentEnergy.class);
+			enemy.damage(dmg,EnchantmentEnergy.class,2);
 
-			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(Messages.get(this, "kill"));
-			}
+			//}
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
 		}

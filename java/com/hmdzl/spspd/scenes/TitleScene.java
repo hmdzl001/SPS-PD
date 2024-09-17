@@ -31,7 +31,6 @@ import com.hmdzl.spspd.ui.Archs;
 import com.hmdzl.spspd.ui.ChangesButton;
 import com.hmdzl.spspd.ui.CrashReportButton;
 import com.hmdzl.spspd.ui.ExitButton;
-import com.hmdzl.spspd.ui.GiftButton;
 import com.hmdzl.spspd.ui.LanguageButton;
 import com.hmdzl.spspd.ui.LearnButton;
 import com.hmdzl.spspd.ui.PrefsButton;

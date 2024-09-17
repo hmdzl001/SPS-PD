@@ -458,7 +458,8 @@ public class GameScene extends PixelScene {
 		switch (InterlevelScene.mode){
 			//case FALL:
 			case DESCEND:
-				/*switch (Random.Int(6)){
+				if (ShatteredPixelDungeon.showup()){
+				switch (Random.Int(5)){
 					case 0:
 					AppearAction.heroLife();
 					break;
@@ -474,9 +475,8 @@ public class GameScene extends PixelScene {
 					case 4:
 						AppearAction.heroRoll();
 						break;
-					case 5:
-						break;
-				}*/
+				    }
+				}
 				Camera.main.snapTo(hero.center().x, hero.center().y - DungeonTilemap.SIZE * (defaultZoom/Camera.main.zoom));
 				break;
 			case CONTINUE:
@@ -847,6 +847,45 @@ public class GameScene extends PixelScene {
 			scene.showBanner(levelCleared);
 
 			Sample.INSTANCE.play(Assets.SND_BADGE);
+			GLog.p(Messages.get(GameScene.class,"collectdew"));
+
+			for (int i = 0; i < Floor.getLength(); i++) {
+				Heap heap = Dungeon.depth.heaps.get(i);
+				if (heap != null) {
+					heap.collectdewauto();
+				}
+			}
+			//for (int i = 0; i < Floor.LENGTH; i++) {
+			//	Heap heap = Dungeon.depth.heaps.get(i);
+			//	if (heap != null) {
+			//		heap.dryup();
+			//	}
+			//}
+		}
+	}
+
+	public static void dewpeek() {
+		if (Dungeon.hero.isAlive()) {
+			Banner dewpeek = new Banner(
+					BannerSprites.get(BannerSprites.Type.DEW_PEEK));
+			dewpeek.show(0xFFFFFF, 0.3f, 5f);
+			scene.showBanner(dewpeek);
+
+			Sample.INSTANCE.play(Assets.SND_BADGE);
+			GLog.p(Messages.get(GameScene.class,"collectdew"));
+
+			for (int i = 0; i < Floor.getLength(); i++) {
+				Heap heap = Dungeon.depth.heaps.get(i);
+				if (heap != null) {
+					heap.collectdewauto();
+				}
+			}
+			//for (int i = 0; i < Floor.LENGTH; i++) {
+			//	Heap heap = Dungeon.depth.heaps.get(i);
+			//	if (heap != null) {
+			//		heap.dryup();
+			//	}
+			//}
 		}
 	}
 

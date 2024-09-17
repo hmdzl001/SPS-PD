@@ -122,13 +122,13 @@ public class UYog extends Mob {
     }	
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		dmg = Math.min(dmg,20);
 		if (dmg > 15){
 			GameScene.add(Blob.seed(pos, 30, CorruptGas.class));
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}		
 	
 	@Override

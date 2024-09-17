@@ -24,6 +24,8 @@ public class MailArmor extends NormalArmor {
 	{
 		//name = "mail armor";
 		image = ItemSpriteSheet.ARMOR_MAIL;
+		M_MIN = 0;
+		M_MAX = 5;
 	}
 
 	public MailArmor() {

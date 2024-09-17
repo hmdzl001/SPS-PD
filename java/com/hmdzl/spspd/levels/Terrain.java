@@ -99,11 +99,10 @@ public class Terrain {
 	public static final int AVOID = 0x20;
 	public static final int LIQUID = 0x40;
 	public static final int PIT = 0x80;
-    public static final int WALLS = 0x200;
-
 	public static final int UNSTITCHABLE = 0x100;
-	
-	
+	public static final int WALLS = 0x200;
+
+	public static final int LIGHTPASS = 0x400;
 
 	public static final int[] flags = new int[256];
 	static {
@@ -114,7 +113,7 @@ public class Terrain {
 		flags[WATER] = PASSABLE | LIQUID | UNSTITCHABLE ;
 		flags[WALL] = LOS_BLOCKING | SOLID | UNSTITCHABLE | WALLS;
 		flags[WALL_SP] = flags[WALL];
-		flags[GLASS_WALL] = SOLID | UNSTITCHABLE ;
+		flags[GLASS_WALL] =/* | SOLID */ UNSTITCHABLE | LIGHTPASS ;
 		flags[DOOR] = PASSABLE | LOS_BLOCKING | FLAMABLE | SOLID | UNSTITCHABLE | WALLS ;
 		flags[OPEN_DOOR] = PASSABLE | FLAMABLE | UNSTITCHABLE;
 		flags[ENTRANCE] = PASSABLE/* | SOLID */;
@@ -153,9 +152,9 @@ public class Terrain {
 		flags[EMPTY_DECO] = flags[EMPTY];
 		flags[LOCKED_EXIT] = SOLID;
 		flags[UNLOCKED_EXIT] = PASSABLE;
-		flags[SIGN] = PASSABLE | FLAMABLE;
+		flags[SIGN] =  AVOID | FLAMABLE;
 		flags[WELL] = AVOID;
-		flags[STATUE] = SOLID;
+		flags[STATUE] =/* | SOLID */ LIGHTPASS;
 		flags[STATUE_SP] = flags[STATUE] | UNSTITCHABLE;
 		flags[BROKEN_DOOR] = flags[STATUE] | UNSTITCHABLE;
 		flags[BOOKSHELF] = flags[BARRICADE] | LOS_BLOCKING | UNSTITCHABLE  | WALLS;

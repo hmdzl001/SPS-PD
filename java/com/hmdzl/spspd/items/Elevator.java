@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.scenes.InterlevelScene;

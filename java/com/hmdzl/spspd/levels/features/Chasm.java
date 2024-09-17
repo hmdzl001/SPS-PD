@@ -20,7 +20,6 @@ package com.hmdzl.spspd.levels.features;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Badges;
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.buffs.Bleeding;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Cripple;
@@ -28,7 +27,6 @@ import com.hmdzl.spspd.actors.buffs.HolyStun;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.effects.Wound;
-import com.hmdzl.spspd.items.Gold;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.levels.Terrain;
@@ -77,7 +75,7 @@ public class Chasm {
 			Buff.affect( hero, Bleeding.class).set(damage);
 		    Buff.affect( hero, HolyStun.class,3f);
 			Buff.affect( hero, Cripple.class,5f);
-		    hero.damage(Random.IntRange(hero.HT/4, hero.HT/3), new Chasm()
+		    hero.damage(Random.IntRange(hero.HT/4, hero.HT/3), new Chasm(),3
 					//new Hero.Doom() {
 			//@Override
 			//public void onDeath() {
@@ -92,7 +90,7 @@ public class Chasm {
 			hero.interrupt();
 		} else {
 			hero.sprite.visible = false;
-			Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		}
 	}
 	
@@ -111,10 +109,10 @@ public class Chasm {
 			@Override
 			public void onDeath() {
 				Badges.validateDeathFromFalling();
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n("You fell to death...");
 			}
-		});
+		},3);
 	}
 
 	public static void mobFall(Mob mob) {
@@ -124,7 +122,7 @@ public class Chasm {
 		Buff.affect( mob, HolyStun.class,5f);
 		Buff.affect( mob, Cripple.class,10f);
 		Wound.hit( mob );
-		mob.damage(mob.HT/5, new Chasm());
+		mob.damage(mob.HT/5, new Chasm(),3);
 		Dungeon.depth.setTrap( new PitfallTrap().hide(), mob.pos );
 		Floor.set( mob.pos, Terrain.SECRET_TRAP);
 		GameScene.updateMap( mob.pos);

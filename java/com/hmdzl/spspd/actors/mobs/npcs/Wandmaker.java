@@ -29,15 +29,22 @@ import com.hmdzl.spspd.items.wands.Wand;
 import com.hmdzl.spspd.items.wands.WandOfAcid;
 import com.hmdzl.spspd.items.wands.WandOfBlood;
 import com.hmdzl.spspd.items.wands.WandOfCharm;
+import com.hmdzl.spspd.items.wands.WandOfDarkElement;
 import com.hmdzl.spspd.items.wands.WandOfDisintegration;
+import com.hmdzl.spspd.items.wands.WandOfEarthElement;
+import com.hmdzl.spspd.items.wands.WandOfEnergyElement;
+import com.hmdzl.spspd.items.wands.WandOfFireElement;
 import com.hmdzl.spspd.items.wands.WandOfFirebolt;
 import com.hmdzl.spspd.items.wands.WandOfFlock;
 import com.hmdzl.spspd.items.wands.WandOfFlow;
 import com.hmdzl.spspd.items.wands.WandOfFreeze;
+import com.hmdzl.spspd.items.wands.WandOfIceElement;
 import com.hmdzl.spspd.items.wands.WandOfLight;
+import com.hmdzl.spspd.items.wands.WandOfLightElement;
 import com.hmdzl.spspd.items.wands.WandOfLightning;
 import com.hmdzl.spspd.items.wands.WandOfMagicMissile;
 import com.hmdzl.spspd.items.wands.WandOfMeteorite;
+import com.hmdzl.spspd.items.wands.WandOfShockElement;
 import com.hmdzl.spspd.items.wands.WandOfSwamp;
 import com.hmdzl.spspd.items.wands.WandOfTCloud;
 import com.hmdzl.spspd.levels.PrisonLevel;
@@ -75,7 +82,7 @@ public class Wandmaker extends NPC {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	}
 
 	@Override
@@ -130,11 +137,14 @@ public class Wandmaker extends NPC {
 		public static Wand wand1;
 		public static Wand wand2;
 
+		public static Wand wand3;
+
 		public static void reset() {
 			spawned = false;
 
 			wand1 = null;
 			wand2 = null;
+			wand3 = null;
 		}
 
 		private static final String NODE = "wandmaker";
@@ -144,6 +154,7 @@ public class Wandmaker extends NPC {
 		private static final String GIVEN = "given";
 		private static final String WAND1 = "wand1";
 		private static final String WAND2 = "wand2";
+		private static final String WAND3 = "wand3";
 
 		public static void storeInBundle(Bundle bundle) {
 
@@ -159,6 +170,7 @@ public class Wandmaker extends NPC {
 
 				node.put(WAND1, wand1);
 				node.put(WAND2, wand2);
+				node.put(WAND3, wand3);
 			}
 
 			bundle.put(NODE, node);
@@ -176,6 +188,7 @@ public class Wandmaker extends NPC {
 
 				wand1 = (Wand) node.get(WAND1);
 				wand2 = (Wand) node.get(WAND2);
+				wand3 = (Wand) node.get(WAND3);
 			} else {
 				reset();
 			}
@@ -248,13 +261,35 @@ public class Wandmaker extends NPC {
 						wand2 = new WandOfTCloud();
 						break;
 					case 6:
-						wand2 = new WandOfFlow();
-						break;
-					case 7:
 						wand2 = new WandOfMagicMissile();
 						break;
 				}
 				wand2.random().upgrade();
+
+				switch (Random.Int(7)) {
+					case 0:
+						wand3 = new WandOfFireElement();
+						break;
+					case 1:
+						wand3 = new WandOfIceElement();
+						break;
+					case 2:
+						wand3 = new WandOfShockElement();
+						break;
+					case 3:
+						wand3 = new WandOfEarthElement();
+						break;
+					case 4:
+						wand3 = new WandOfLightElement();
+						break;
+					case 5:
+						wand3 = new WandOfDarkElement();
+						break;
+					case 6:
+						wand3 = new WandOfEnergyElement();
+						break;
+				}
+				wand3.random().upgrade();
 			}
 		}
 
@@ -304,6 +339,7 @@ public class Wandmaker extends NPC {
 		public static void complete() {
 			wand1 = null;
 			wand2 = null;
+			wand3 = null;
 
 			Journal.remove(Journal.Feature.WANDMAKER);
 		}

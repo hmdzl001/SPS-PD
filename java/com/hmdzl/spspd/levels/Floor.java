@@ -60,12 +60,13 @@ import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.armor.Armor;
 import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.artifacts.TimekeepersHourglass;
+import com.hmdzl.spspd.items.food.fruit.Blueberry;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
 import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
 import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.levels.features.Chasm;
-import com.hmdzl.spspd.levels.features.DewBlessRoom;
+import com.hmdzl.spspd.levels.features.DewBlessPlace;
 import com.hmdzl.spspd.levels.features.Door;
 import com.hmdzl.spspd.levels.features.HighGrass;
 import com.hmdzl.spspd.levels.features.OldHighGrass;
@@ -194,6 +195,7 @@ public abstract class Floor implements Bundlable {
 	public static boolean[] avoid = new boolean[getLength()];
 	public static boolean[] water = new boolean[getLength()];
 	public static boolean[] pit = new boolean[getLength()];
+	public static boolean[] lightpass = new boolean[getLength()];
 
 	public static boolean[] discoverable = new boolean[getLength()];
 	
@@ -203,7 +205,7 @@ public abstract class Floor implements Bundlable {
 	public int entrance;
 	public int exit;
 
-	public int pitSign;
+	//public int pitSign;
 	public int tent;
 
 	// when a boss level has become locked.
@@ -253,55 +255,25 @@ public abstract class Floor implements Bundlable {
 	
 	public void create() {
 
-		resizingNeeded = false;		
-		
-		map = new int[getLength()];
-		visited = new boolean[getLength()];
-		Arrays.fill(visited, false);
-		mapped = new boolean[getLength()];
-		Arrays.fill(mapped, false);
-
-		mobs = new HashSet<Mob>();
-		heaps = new SparseArray<Heap>();
-		blobs = new HashMap<Class<? extends Blob>, Blob>();
-		plants = new SparseArray<Plant>();
-		traps = new SparseArray<>();
-		customTiles = new HashSet<>();
+		resizingNeeded = false;
 
 		if (!Dungeon.bossLevel()) {
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
+
 			addItemToSpawn(new ScrollOfUpgrade());
 
-			if (Random.Int(2) == 0) {
+			if (Random.Int(3) != 0) {
 				addItemToSpawn(new Stylus());
 				addItemToSpawn(new Weightstone());
+			} else {
+				addItemToSpawn(new ScrollOfMagicalInfusion());
+				addItemToSpawn(new PotionOfOverHealing());
 			}
 
 			if (Dungeon.posNeeded() && !Dungeon.shopOnLevel()) {
 				addSpecialItemToSpawn(new StrBottle());
 				Dungeon.LimitedDrops.strengthPotions.count++;
-			}
-
-			int bonus = 0;
-			LuckyBadge luckyBadge = Dungeon.hero.belongings.getItem(LuckyBadge.class);
-			if(luckyBadge != null){
-				bonus += luckyBadge.level;
-			}
-			if (Dungeon.hero.heroClass == HeroClass.SOLDIER) {
-				bonus += 5;
-			}
-			if (Dungeon.hero.subClass == HeroSubClass.SUPERSTAR) {
-				bonus += 3;
-			}
-			for (Buff buff : Dungeon.hero.buffs(AflyBless.class)) {
-			bonus += 3;
-		}	
-			if (Random.Float() > Math.pow(0.95, bonus)) {
-				if (Random.Int(2) == 0)
-					addItemToSpawn(new ScrollOfMagicalInfusion());
-				else
-					addItemToSpawn(new PotionOfOverHealing());
 			}
 
 			DriedRose rose = Dungeon.hero.belongings.getItem(DriedRose.class);
@@ -323,45 +295,50 @@ public abstract class Floor implements Bundlable {
 
 			if (Dungeon.dungeondepth > 3 && Dungeon.dungeondepth < 21) {
 				switch (Random.Int(8)) {
-				case 0:
-					feeling = Feeling.CHASM;
-					break;
-				case 1:
-					feeling = Feeling.WATER;
-					break;
-				case 2: 
-					feeling = Feeling.GRASS;
-					break;
-				case 3:
-					feeling = Feeling.DARK;
-					addItemToSpawn(new Torch());
-					addItemToSpawn(new Torch());
-					addItemToSpawn(new Torch());
-					viewDistance = (int) Math.ceil(viewDistance / 3f);
-					break;
-                case 4:
-                     feeling = Feeling.SPECIAL_FLOOR;
-                      break;
+					case 0:
+						feeling = Feeling.CHASM;
+						break;
+					case 1:
+						feeling = Feeling.WATER;
+						break;
+					case 2:
+						feeling = Feeling.GRASS;
+						break;
+					case 3:
+						feeling = Feeling.DARK;
+						addItemToSpawn(new Blueberry());
+						//addItemToSpawn(new Torch());
+						//addItemToSpawn(new Torch());
+						//viewDistance = (int) Math.ceil(viewDistance / 3f);
+						break;
+					case 4:
+						feeling = Feeling.SPECIAL_FLOOR;
+						break;
+					default:
+						break;
+
 				}
 			} else if (Dungeon.dungeondepth > 20 && Dungeon.dungeondepth < 26) {
 				switch (Random.Int(8)) {
-				case 0:
-					feeling = Feeling.DARK;
-					addItemToSpawn(new Torch());
-					addItemToSpawn(new Torch());
-					addItemToSpawn(new Torch());
-					viewDistance = (int) Math.ceil(viewDistance / 3f);
-					break;
-				case 1:
-					feeling = Feeling.WATER;
-					break;
-				case 2: 
-					feeling = Feeling.GRASS;
-					break;
-				case 3:
-                    feeling = Feeling.SPECIAL_FLOOR;
-                    break;
-				
+					case 0: case 4: case 5:
+						feeling = Feeling.DARK;
+						addItemToSpawn(new Blueberry());
+						//addItemToSpawn(new Torch());
+						//addItemToSpawn(new Torch());
+						//viewDistance = (int) Math.ceil(viewDistance / 3f);
+						break;
+					case 1:
+						feeling = Feeling.WATER;
+						break;
+					case 2:
+						feeling = Feeling.GRASS;
+						break;
+					case 3:
+						feeling = Feeling.SPECIAL_FLOOR;
+						break;
+					default:
+						break;
+
 				}
 			} else if (Dungeon.dungeondepth ==31) {
 				feeling = Feeling.DARK;
@@ -372,24 +349,28 @@ public abstract class Floor implements Bundlable {
 				feeling = Feeling.TRAP;
 			}else if (Dungeon.dungeondepth >55) {
 				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
-				addItemToSpawn(new StoneOre());
 			}
-			
 		}
+		
+		map = new int[getLength()];
+		visited = new boolean[getLength()];
+		Arrays.fill(visited, false);
+		mapped = new boolean[getLength()];
+		Arrays.fill(mapped, false);
 
+		mobs = new HashSet<Mob>();
+		heaps = new SparseArray<Heap>();
+		blobs = new HashMap<Class<? extends Blob>, Blob>();
+		plants = new SparseArray<Plant>();
+		traps = new SparseArray<>();
+		customTiles = new HashSet<>();
 
 		do {
 			Arrays.fill(map, feeling == Feeling.CHASM ? Terrain.CHASM
 					: (feeling == Feeling.TRAP ? Terrain.CHASM : Terrain.WALL));
 					//: (feeling == Feeling.SPECIAL_FLOOR ? Terrain.GLASS_WALL : Terrain.WALL)));
 		} while (!build());
+
 		decorate();
 
 		buildFlagMaps();
@@ -426,7 +407,7 @@ public abstract class Floor implements Bundlable {
 
 		entrance = bundle.getInt(ENTRANCE);
 		exit = bundle.getInt(EXIT);
-		pitSign = bundle.getInt(PITSIGN);
+		//pitSign = bundle.getInt(PITSIGN);
 		tent = bundle.getInt(TENT);
 		currentmoves = bundle.getInt(MOVES);
 
@@ -517,7 +498,7 @@ public abstract class Floor implements Bundlable {
 		bundle.put(MOBS, mobs);
 		bundle.put(BLOBS, blobs.values());
 		bundle.put(FEELING, feeling);
-		bundle.put(PITSIGN, pitSign);
+		//bundle.put(PITSIGN, pitSign);
 		bundle.put(TENT, tent);
 		bundle.put(MOVES, currentmoves);
 		bundle.put(CLEARED, cleared);
@@ -985,6 +966,7 @@ public abstract class Floor implements Bundlable {
 			avoid[i] = (flags & Terrain.AVOID) != 0;
 			water[i] = (flags & Terrain.LIQUID) != 0;
 			pit[i] = (flags & Terrain.PIT) != 0;
+			lightpass[i] = (flags & Terrain.LIGHTPASS) != 0;
 		}
 
 		int lastRow = getLength() - getWidth();
@@ -1100,6 +1082,7 @@ public abstract class Floor implements Bundlable {
 		solid[cell] = (flags & Terrain.SOLID) != 0;
 		avoid[cell] = (flags & Terrain.AVOID) != 0;
 		pit[cell] = (flags & Terrain.PIT) != 0;
+		lightpass[cell] = (flags & Terrain.LIGHTPASS) != 0;
 		water[cell] = terrain == Terrain.WATER	|| (terrain >= Terrain.WATER_TILES && terrain<Terrain.WOOL_RUG);
 	}
 
@@ -1297,13 +1280,15 @@ public abstract class Floor implements Bundlable {
 		case Terrain.HIGH_GRASS:
 			HighGrass.trample(this, cell, ch);
 			break;
-	     case Terrain.OLD_HIGH_GRASS:
+		case Terrain.OLD_HIGH_GRASS:
 			OldHighGrass.trample(this, cell, ch);
 			break;
-		 case Terrain.DEW_BLESS:
-			DewBlessRoom.trample(this, cell, ch);
-			break;	
-			
+		case Terrain.DEW_BLESS:
+			DewBlessPlace.trample(this, cell, ch);
+			break;
+		//case Terrain.SIGN:
+		//	Sign.read(cell);
+		//	break;
 		case Terrain.WELL:
 			WellWater.affectCell(cell);
 			break;

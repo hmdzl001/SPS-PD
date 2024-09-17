@@ -21,9 +21,7 @@ package com.hmdzl.spspd.actors.mobs.npcs;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.actors.mobs.TestMob;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.PuddingCup;
@@ -36,7 +34,6 @@ import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CoconutSprite;
 import com.hmdzl.spspd.windows.WndNewNpcMessage;
-import com.hmdzl.spspd.windows.WndQuest;
 
 public class Leadercn extends NPC {
 
@@ -69,7 +66,7 @@ public class Leadercn extends NPC {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	}
 
 	@Override

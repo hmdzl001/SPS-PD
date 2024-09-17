@@ -29,12 +29,21 @@ import com.hmdzl.spspd.actors.mobs.Mob;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Heap;
 import com.hmdzl.spspd.items.Item;
+import com.hmdzl.spspd.items.StoneOre;
+import com.hmdzl.spspd.items.StrBottle;
+import com.hmdzl.spspd.items.Stylus;
+import com.hmdzl.spspd.items.Torch;
+import com.hmdzl.spspd.items.Weightstone;
 import com.hmdzl.spspd.items.YellowDewdrop;
+import com.hmdzl.spspd.items.artifacts.DriedRose;
 import com.hmdzl.spspd.items.food.meatfood.SmallMeat;
 import com.hmdzl.spspd.items.keys.GoldenKey;
 import com.hmdzl.spspd.items.misc.LuckyBadge;
+import com.hmdzl.spspd.items.potions.PotionOfOverHealing;
 import com.hmdzl.spspd.items.reward.BoundReward;
 import com.hmdzl.spspd.items.scrolls.Scroll;
+import com.hmdzl.spspd.items.scrolls.ScrollOfMagicalInfusion;
+import com.hmdzl.spspd.items.scrolls.ScrollOfUpgrade;
 import com.hmdzl.spspd.levels.Room.Type;
 import com.hmdzl.spspd.levels.painters.Painter;
 import com.hmdzl.spspd.levels.painters.ShopPainter;
@@ -53,6 +62,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.hmdzl.spspd.Dungeon.shopOnLevel;
 import static com.hmdzl.spspd.items.Heap.Type.HEAP;
 
 public abstract class  RegularLevel extends Floor {
@@ -138,7 +148,7 @@ public abstract class  RegularLevel extends Floor {
 			}
 		}
 
-		if (Dungeon.shopOnLevel()) {
+		if (shopOnLevel()) {
 			Room shop = null;
 			for (Room r : roomEntrance.connected.keySet()) {
 				if (r.connected.size() == 1
@@ -168,21 +178,21 @@ public abstract class  RegularLevel extends Floor {
 			//specials.remove(Room.Type.GARDEN);
 		//}
 		
-		if (Dungeon.dungeondepth > 50 && Dungeon.dungeondepth < 100) {
-			specials.remove(Room.Type.RUIN_ROOM);
-			specials.remove(Room.Type.MATERIAL);
-			specials.remove(Room.Type.CRYPT);
-			specials.remove(Room.Type.GARDEN);
-			specials.remove(Room.Type.COOKING);
-			specials.remove(Room.Type.LIBRARY);
-			specials.remove(Room.Type.MAGIC_WELL);
-			specials.remove(Room.Type.POOL);
-			specials.remove(Room.Type.STATUE);
-			specials.remove(Room.Type.STORAGE);
-			specials.remove(Room.Type.TRAPS);
-			specials.remove(Room.Type.JUNGLE);
-			specials.remove(Room.Type.VAULT);
-	}
+		//if (Dungeon.dungeondepth > 50 && Dungeon.dungeondepth < 100) {
+		//	specials.remove(Room.Type.RUIN_ROOM);
+		//	specials.remove(Room.Type.MATERIAL);
+		//	specials.remove(Room.Type.CRYPT);
+		//	specials.remove(Room.Type.GARDEN);
+		//	specials.remove(Room.Type.COOKING);
+		//	specials.remove(Room.Type.LIBRARY);
+		//	specials.remove(Room.Type.MAGIC_WELL);
+		//	specials.remove(Room.Type.POOL);
+		//	specials.remove(Room.Type.STATUE);
+		//	specials.remove(Room.Type.STORAGE);
+		//	specials.remove(Room.Type.TRAPS);
+		//	specials.remove(Room.Type.JUNGLE);
+		//	specials.remove(Room.Type.VAULT);
+	//}
 		
 		
 		if (!assignRoomType())
@@ -192,8 +202,14 @@ public abstract class  RegularLevel extends Floor {
 		paintWater();
 		paintGrass();
 		paintChasm();
+		paintGlass();
 		placeTraps();
+		
+		placeSign();
 
+		if(!shopOnLevel()) {
+			placeDewBless();
+		}
 		return true;
 	}
 
@@ -206,11 +222,21 @@ public abstract class  RegularLevel extends Floor {
 			}
 		}
 	}
+
+	protected void placeDewBless(){
+		while (true) {
+			int pos = roomEntrance.random();
+			if (pos != entrance && traps.get(pos) == null && findMob(pos) == null && map[pos] != Terrain.SIGN) {
+				map[pos] = Terrain.DEW_BLESS;
+				break;
+			}
+		}
+	}
 	
 	protected boolean initRooms() {
 
 		rooms = new HashSet<Room>();
-		split(new Rect(0, 0, getWidth() - 1, HEIGHT - 1));
+		split(new Rect(1, 1, getWidth() - 1, HEIGHT - 1));
 
 		if (rooms.size() < 20) {
 			return false;
@@ -340,7 +366,18 @@ public abstract class  RegularLevel extends Floor {
 				map[i] = Terrain.CHASM;
 			}
 		}
+	}
 
+	protected void paintGlass() {
+		boolean[] glass = glass();
+		for (int i = 0; i < getLength(); i++) {
+			if (map[i] == Terrain.WALL && glass[i] &&  Floor.insideMap(i)) {
+				map[i] = Terrain.GLASS_WALL;
+			}
+			if (map[i] == Terrain.CHASM && glass[i] &&  Floor.insideMap(i)) {
+				map[i] = Terrain.GLASS_WALL;
+			}
+		}
 	}
 
 	protected void paintGrass() {
@@ -382,6 +419,8 @@ public abstract class  RegularLevel extends Floor {
 	protected abstract boolean[] grass();
 	
 	protected abstract boolean[] chasm();
+
+	protected abstract boolean[] glass();
 
 	protected void placeTraps() {
 		
@@ -749,51 +788,51 @@ public abstract class  RegularLevel extends Floor {
 			drop(Generator.random(), randomDropCell()).type = type;
 		}
 		
-		for (int r = 0; r < 10; r++) {
-			Heap.Type type = Heap.Type.E_DUST;
+		for (int r = 0; r < 8; r++) {
+			Heap.Type type1 = Heap.Type.E_DUST;
 			if (Random.Int(5)==0)
-			   drop(Generator.random(), randomDropCell()).type = type;
-			else drop(new YellowDewdrop(), randomDropCell()).type = type;
+			   drop(Generator.random(), randomDropCell()).type = type1;
+			else drop(new YellowDewdrop(), randomDropCell()).type = type1;
 		}
 
 		for (int r = 0; r < 3; r++) {
-			Heap.Type type = Heap.Type.M_WEB;
+			Heap.Type type2 = Heap.Type.M_WEB;
 			if (Random.Int(3)==0)
 			   drop(Generator.random(Random.oneOf(Generator.Category.ARMOR,
 					   Generator.Category.MELEEWEAPON,
 					   Generator.Category.ARTIFACT,
-					   Generator.Category.RING)), randomDropCell()).type = type;
-			else drop(new SmallMeat(), randomDropCell()).type = type;
-		}		
+					   Generator.Category.RING)), randomDropCell()).type = type2;
+			else drop(new SmallMeat(), randomDropCell()).type = type2;
+		}
+
 		
 //for (int x = 0; x < 20; x++) {
 		if (Random.Int(5)>0){
-			Heap.Type type = Heap.Type.LOCKED_CHEST;
+			Heap.Type type3 = Heap.Type.LOCKED_CHEST;
 			drop(new GoldenKey(Dungeon.dungeondepth),randomDropCell()).type = HEAP;
 			switch (Random.Int(20)) {
 				case 0: case 1: case 2: case 3:
-					drop(new BoundReward(), randomDropCell()).type = type;
+					drop(new BoundReward(), randomDropCell()).type = type3;
 					break;
 				case 4:case 5: case 6:
-					drop(Generator.random(Generator.Category.HIGHFOOD), randomDropCell()).type = type;
+					drop(Generator.random(Generator.Category.HIGHFOOD), randomDropCell()).type = type3;
 					break;
 				case 7:case 8:case 9:case 10:case 11:case 12:
-					drop(Generator.random(Generator.Category.NORNSTONE), randomDropCell()).type = type;
+					drop(Generator.random(Generator.Category.NORNSTONE), randomDropCell()).type = type3;
 					break;
 				case 13: case 14: case 15:case 16:
-					drop(Generator.random(Generator.Category.PILL), randomDropCell()).type = type;
+					drop(Generator.random(Generator.Category.PILL), randomDropCell()).type = type3;
 					break;
 				case 17:case 18:
-					drop(Generator.random(Generator.Category.SUMMONED), randomDropCell()).type = type;
+					drop(Generator.random(Generator.Category.SUMMONED), randomDropCell()).type = type3;
 					break;
 				case 19:
-					drop(Generator.random(Generator.Category.EGGS), randomDropCell()).type = type;
+					drop(Generator.random(Generator.Category.EGGS), randomDropCell()).type = type3;
 					break;
 				default:
-					drop(new BoundReward(), randomDropCell()).type = type;
+					drop(new BoundReward(), randomDropCell()).type = type3;
 					break;
 			}
-
 		} else {
 		    Heap.Type type = Heap.Type.G_MIMIC;
 			switch (Random.Int(5)) {
@@ -819,20 +858,21 @@ public abstract class  RegularLevel extends Floor {
 //}
 		for (Item item : itemsToSpawn) {
 			int cell = randomDropCell();
-			if (item instanceof Scroll) {
-				while (map[cell] == Terrain.TRAP
-						|| map[cell] == Terrain.SECRET_TRAP
-						&& traps.get( cell ) instanceof FireDamageTrap) {
-					cell = randomDropCell();
-				}
-			}
+
+			do {
+				cell = randomDropCell();
+			} while (map[cell] == Terrain.TRAP || map[cell] == Terrain.SECRET_TRAP) ;
+
+
+
 			drop(item, cell).type = HEAP;
 		}
 		
 		for (Item item : itemsSpecialToSpawn) {
-			int cell = randomSpecialDropCell();
+			int cell = randomDropCell();
 			drop(item, cell).type = HEAP;
 		}
+
 	}
 
 	protected Room randomRoom(Room.Type type, int tries) {
@@ -876,27 +916,13 @@ public abstract class  RegularLevel extends Floor {
 						pos = room.random();
 					} while (heaps.get(pos) != null);
 				}
-				if (passable[pos]) {
-					return pos;
-				}
-			}
-		}
-	}
-
-
-	protected int randomSpecialDropCell() {
-		while (true) {
-			Room room = randomNormalRoom(Room.Type.STANDARD, 1);
-			if (room != null) {
-				int pos = room.random();
-				if (heaps.get(pos) != null) {
+				if (!passable[pos]) {
 					do {
 						pos = room.random();
-					} while (heaps.get(pos) != null);
+					} while (!passable[pos]);
+
 				}
-				if (passable[pos]) {
-					return pos;
-				}
+				return pos;
 			}
 		}
 	}

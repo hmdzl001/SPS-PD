@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.items.food.fruit;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
 

@@ -17,10 +17,6 @@
  */
 package com.hmdzl.spspd.actors.damagetype;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
-import com.hmdzl.spspd.messages.Messages;
-
 public class DamageType {
 
 	public static final EnergyDamage ENERGY_DAMAGE = new EnergyDamage();
@@ -65,9 +61,9 @@ public class DamageType {
 
 	}
 
-	public void onDeath() {
+	//public void onDeath() {
 
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+	//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n(TXT_DEATH);
-	}
+	//}
 }

@@ -75,14 +75,14 @@ public class LitDemon extends PET {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 		
-		enemy.damage(Random.Int(1,(int)(damage/5)),Item.class);
+		enemy.damage(Random.Int(1,(int)(damage/5)),Item.class,1);
 		
 		if (cooldown == 0 && enemy.isAlive()) {
-			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class);
-			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class);
-			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class);
-			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class);
-			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class);
+			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class,1);
+			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class,1);
+			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class,1);
+			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class,1);
+			enemy.damage(Random.Int(1,(int)(damage/5)),Item.class,1);
 			cooldown = Math.max(6,26 - hero.petLevel);
 		}
         if (cooldown > 0) {

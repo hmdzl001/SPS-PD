@@ -61,12 +61,12 @@ public class TestMob2 extends Mob {
     }
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 		//Buff.prolong(this,Levitation.class,10f);
 		//Buff.prolong(this,ArmorBreak.class,10f).level(50);
 	}

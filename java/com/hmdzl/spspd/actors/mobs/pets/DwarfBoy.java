@@ -89,10 +89,10 @@ public class DwarfBoy extends PET {
 	@Override
 	public int defenseProc(Char enemy, int damage) {
 
-		enemy.damage(hero.petLevel, this);
+		enemy.damage(hero.petLevel, this,1);
 		cooldown--;
 		if (cooldown == 0) {
-			enemy.damage(hero.petLevel*2, this);
+			enemy.damage(hero.petLevel*2, this,1);
 			cooldown = Math.max(10,30 - hero.petLevel);
 		} 
 

@@ -43,7 +43,7 @@ public class AlarmTrap extends Trap {
 		super.activate(ch);
 
 		for (Mob mob : Dungeon.depth.mobs) {
-				mob.beckon( pos );
+			mob.beckon(pos);
 		}
 
 		if (Dungeon.visible[pos]) {

@@ -21,7 +21,6 @@ import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
-import com.hmdzl.spspd.items.eggs.EasterEgg;
 import com.hmdzl.spspd.items.food.completefood.PetFood;
 import com.hmdzl.spspd.items.food.fruit.Fruit;
 import com.hmdzl.spspd.items.food.vegetable.Vegetable;

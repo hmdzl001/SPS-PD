@@ -90,7 +90,7 @@ public class AttackShoes extends Item {
 							 Char mob = Actor.findChar(curUser.pos
 									 + Floor.NEIGHBOURS8[i]);
 								if (mob != null && mob != curUser && mob.isAlive()) {
-									mob.damage(30 + Dungeon.hero.lvl * 3, this);
+									mob.damage(30 + Dungeon.hero.lvl * 3, this,3);
 								}
 						 }
 

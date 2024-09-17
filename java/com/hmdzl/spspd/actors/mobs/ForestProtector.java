@@ -17,8 +17,6 @@
  */
 package com.hmdzl.spspd.actors.mobs;
 
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.Statistics;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.buffs.Silent;
@@ -26,7 +24,6 @@ import com.hmdzl.spspd.actors.damagetype.DamageType;
 import com.hmdzl.spspd.items.VioletDewdrop;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.mechanics.Ballistica;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ForestProtectorSprite;
 import com.watabou.utils.Callback;
@@ -77,7 +74,7 @@ public class ForestProtector extends Mob implements Callback {
 	@Override
 	public int attackProc(Char enemy, int damage) {
 
-		enemy.damage(damageRoll()/2, EARTH_DAMAGE);
+		enemy.damage(damageRoll()/2, EARTH_DAMAGE,2);
 		damage = damage*3;
 		return damage;
 	}
@@ -112,11 +109,11 @@ public class ForestProtector extends Mob implements Callback {
 		spend(TIME_TO_ZAP);
 		if (hit(this, enemy, true)) {
 			int dmg = Random.Int(5+Math.round(Statistics.archersKilled/10), 10+Math.round(Statistics.archersKilled/5));
-			enemy.damage(dmg, EARTH_DAMAGE);
-			if (!enemy.isAlive() && enemy == Dungeon.hero) {
-				Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+			enemy.damage(dmg, EARTH_DAMAGE,2);
+			//if (!enemy.isAlive() && enemy == Dungeon.hero) {
+			//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 				//GLog.n(Messages.get(this, "kill"));
-			}
+			//}
 		} else {
 			enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
 		}

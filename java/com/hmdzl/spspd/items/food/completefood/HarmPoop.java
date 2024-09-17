@@ -18,16 +18,9 @@
 package com.hmdzl.spspd.items.food.meatfood;
 
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.Burning;
-import com.hmdzl.spspd.actors.buffs.Paralysis;
 import com.hmdzl.spspd.actors.buffs.Poison;
-import com.hmdzl.spspd.actors.buffs.Roots;
 import com.hmdzl.spspd.actors.buffs.Slow;
-import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
-import com.hmdzl.spspd.utils.GLog;
-import com.watabou.utils.Random;
 
 public class HarmPoop extends MeatFood {
 

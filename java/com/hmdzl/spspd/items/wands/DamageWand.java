@@ -25,7 +25,6 @@ import com.hmdzl.spspd.actors.buffs.Arcane;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.rings.RingOfKnowledge;
-import com.hmdzl.spspd.items.rings.RingOfSharpshooting;
 import com.hmdzl.spspd.messages.Messages;
 import com.watabou.utils.Random;
 

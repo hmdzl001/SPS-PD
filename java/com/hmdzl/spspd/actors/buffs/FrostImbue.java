@@ -42,7 +42,7 @@ public class FrostImbue extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.FROST;
+		return BuffIndicator.ICE_3;
 	}
 
 	@Override

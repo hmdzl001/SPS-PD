@@ -104,9 +104,9 @@ public class SandMob extends Mob {
 			}
 		} else if (buff instanceof Vertigo) {
 			if (Floor.water[this.pos])
-				damage(Random.NormalIntRange(HT / 2, HT), buff);
+				damage(Random.NormalIntRange(HT / 2, HT), buff,3);
 			else
-				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 		} else {
 			super.add(buff);
 		}
@@ -194,9 +194,9 @@ public class SandMob extends Mob {
 		public void add(Buff buff) {
 			 if (buff instanceof Vertigo) {
 				if (Floor.water[this.pos])
-					damage(Random.NormalIntRange(HT / 2, HT), buff);
+					damage(Random.NormalIntRange(HT / 2, HT), buff,3);
 				else
-					damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+					damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 			} else {
 				super.add(buff);
 			}

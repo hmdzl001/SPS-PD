@@ -19,7 +19,6 @@ package com.hmdzl.spspd.levels.painters.hidenroom;
 
 import com.hmdzl.spspd.actors.mobs.Bestiary;
 import com.hmdzl.spspd.actors.mobs.Mob;
-import com.hmdzl.spspd.actors.mobs.npcs.Hmdzl001;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.levels.Floor;
@@ -77,7 +76,7 @@ public class WishPoolPainter extends Painter {
 
     private static void placeHMDZL(Floor level, Room room) {
         Point center = room.center();
-        int pos = room.center().x + center.y * Floor.getWidth();
+        int pos = room.center().x + room.center().y * Floor.getWidth();
 
         Mob hmdzl = Bestiary.exmob( 55 ) ;
         hmdzl.pos = pos;

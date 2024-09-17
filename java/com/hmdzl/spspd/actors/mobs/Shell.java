@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
@@ -89,9 +88,9 @@ public class Shell extends Mob implements Callback {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		if(shellCharge>0){zapAround(1);}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 	
 	@Override
@@ -150,7 +149,7 @@ public class Shell extends Mob implements Callback {
 				if (Floor.water[enemy.pos] && !enemy.flying) {
 					dmg *= 1.5f;
 				}
-				enemy.damage(dmg, this);
+				enemy.damage(dmg, this,2);
 
 				enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				enemy.sprite.flash();
@@ -159,10 +158,10 @@ public class Shell extends Mob implements Callback {
 
 					Camera.main.shake(2, 0.3f);
 
-					if (!enemy.isAlive()) {
-						Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+					//if (!enemy.isAlive()) {
+					//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 						//GLog.n(Messages.get(this, "kill"));
-					}
+					//}
 				}
 			} else {
 				enemy.sprite
@@ -193,7 +192,7 @@ public class Shell extends Mob implements Callback {
 				sprite.zap(mob.pos);
 			  }
 
-			  mob.damage(mobDmg, this);
+			  mob.damage(mobDmg, this,2);
 
 			  mob.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 			  mob.sprite.flash();
@@ -217,7 +216,7 @@ public class Shell extends Mob implements Callback {
 		heroDmg = Random.Int(Math.round(shellCharge/4), Math.round(shellCharge/2));
 		shellCharge-=heroDmg;
 
-		hero.damage(heroDmg, this);
+		hero.damage(heroDmg, this,2);
 
 		hero.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 		hero.sprite.flash();
@@ -251,7 +250,7 @@ public void zapAround(int dmg){
 			  if (Floor.water[ch.pos] && !ch.flying) {
 				  mobDmg *= 1.5f;
 			  }
-			  ch.damage(mobDmg, this);
+			  ch.damage(mobDmg, this,2);
 
 			  ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 			  ch.sprite.flash();
@@ -275,7 +274,7 @@ public void zapAround(int dmg){
 					sprite.zap(ch.pos);
 				  }
 
-				ch.damage(heroDmg, this);
+				ch.damage(heroDmg, this,2);
 
 				ch.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);
 				ch.sprite.flash();

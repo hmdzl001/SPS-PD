@@ -47,7 +47,7 @@ public class DustElement extends Mob {
 		EXP = 2;
 		maxLvl = 8;
 
-		//baseSpeed = 1/0;
+		flying = true;
 
 		loot = Generator.random(Generator.Category.SEED);
 		lootChance = 0.5f;
@@ -78,7 +78,7 @@ public class DustElement extends Mob {
 			//Dungeon.observe();
 		}
 
-		enemy.damage(damageRoll(), EARTH_DAMAGE);
+		enemy.damage(damageRoll(), EARTH_DAMAGE,2);
 		damage = 0;
 		return damage;
 	}
@@ -97,9 +97,9 @@ public class DustElement extends Mob {
 			}
 		} else if (buff instanceof Wet) {
 			if (Floor.water[this.pos])
-				damage(Random.NormalIntRange(HT / 2, HT), buff);
+				damage(Random.NormalIntRange(HT / 2, HT), buff,3);
 			else
-				damage(Random.NormalIntRange(1, HT * 2 / 3), buff);
+				damage(Random.NormalIntRange(1, HT * 2 / 3), buff,3);
 		} else {
 			super.add(buff);
 		}

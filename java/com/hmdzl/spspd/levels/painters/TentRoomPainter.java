@@ -45,6 +45,7 @@ public class TentRoomPainter extends Painter {
 		set(level, new Point(room.left + 2, room.bottom - 2), Terrain.TENT);
 
 		Point c = room.center();
+		int statepos = c.x + Floor.getWidth() * c.y;
 		set(level, c.x, c.y, Terrain.STATUE_SP);
 
 		Point p = new Point(room.right - 2, room.top + 2);
@@ -62,13 +63,16 @@ public class TentRoomPainter extends Painter {
 			Buff.affect(mob2, ExProtect.class);
 		}
 
-		int i;
+		int[] cells = { statepos - 1, statepos + 1, statepos - Floor.getWidth(),
+				statepos + Floor.getWidth(), statepos - 1 - Floor.getWidth(),
+				statepos - 1 + Floor.getWidth(), statepos + 1 - Floor.getWidth(),
+				statepos + 1 + Floor.getWidth() };
+
+		int i = cells[Random.Int(cells.length)];
 		int j;
 		do {
-			i = room.random();
-			j = room.random();
-		} while (level.map[i] != Terrain.EMBERS || level.map[j] != Terrain.EMBERS || i == j );
-
+			 j = cells[Random.Int(cells.length)];
+		} while ( j == i);
 		mob1.pos = i;
 		level.mobs.add(mob1);
 		//Actor.occupyCell(mob1);

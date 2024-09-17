@@ -29,7 +29,7 @@ public class RingOfMagic extends Ring {
 
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", Math.min(30,level));
+			return Messages.get(this, "stats", Math.min(15,(int)level/2));
 		} else {
 			return "???";
 		}

@@ -35,7 +35,7 @@ public class Muscle extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.PBLOOD;
+		return BuffIndicator.STR_UP;
 	}
 
 	@Override

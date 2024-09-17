@@ -46,7 +46,7 @@ public class ExProtect extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.MAGIC_SLEEP;
+		return BuffIndicator.EX_PROTECT;
 	}
 
 	@Override

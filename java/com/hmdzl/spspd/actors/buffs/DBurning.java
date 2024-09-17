@@ -18,8 +18,6 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.CharSprite;
@@ -63,7 +61,7 @@ public class DBurning extends Buff implements Hero.Doom {
 				Buff.prolong(target, Light.class, TICK * 1.01f);
 			}
 
-			target.damage(Random.Int(1, Math.min(1000,target.HT/10)), this);
+			target.damage(Random.Int(1, Math.min(1000,target.HT/10)), this,2);
 			Buff.detach( target, Chill.class);
 
 		} else {
@@ -83,7 +81,7 @@ public class DBurning extends Buff implements Hero.Doom {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.FIRE;
+		return BuffIndicator.FIRE_2;
 	}
 
 	public void set(float duration) {
@@ -125,7 +123,7 @@ public class DBurning extends Buff implements Hero.Doom {
 
 		Badges.validateDeathFromFire();
 
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 		//GLog.n(TXT_BURNED_TO_DEATH);
 	}
 }

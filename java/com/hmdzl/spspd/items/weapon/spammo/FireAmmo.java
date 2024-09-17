@@ -5,8 +5,8 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.Burning;
 import com.hmdzl.spspd.effects.particles.FlameParticle;
 import com.hmdzl.spspd.items.weapon.guns.GunWeapon;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.ManyKnive;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.sprites.ItemSprite;
 import com.hmdzl.spspd.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -28,7 +28,7 @@ public class FireAmmo extends SpAmmo {
 		defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		if (Random.Int(5) == 4 ) {
 			Buff.affect(defender, Burning.class).set(5f);
-		} else defender.damage((int)(0.25*damage), FIRE_DAMAGE);
+		} else defender.damage((int)(0.25*damage), FIRE_DAMAGE,2);
 
 	}
 
@@ -38,7 +38,7 @@ public class FireAmmo extends SpAmmo {
 		defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		if (Random.Int(5) == 4 ) {
 			Buff.affect(defender, Burning.class).set(5f);
-		} else defender.damage((int)(0.25*damage), FIRE_DAMAGE);
+		} else defender.damage((int)(0.25*damage), FIRE_DAMAGE,2);
 
 	}
 	@Override
@@ -47,7 +47,7 @@ public class FireAmmo extends SpAmmo {
 		defender.sprite.emitter().burst(FlameParticle.FACTORY, 5);
 		if (Random.Int(5) == 4 ) {
 			Buff.affect(defender, Burning.class).set(5f);
-		} else defender.damage((int)(0.25*damage), FIRE_DAMAGE);
+		} else defender.damage((int)(0.25*damage), FIRE_DAMAGE,2);
 
 	}	
 	

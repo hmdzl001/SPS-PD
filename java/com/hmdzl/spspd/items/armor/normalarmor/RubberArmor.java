@@ -28,6 +28,8 @@ public class RubberArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 8;
 		MIN = 0;
+		M_MAX = 3;
+		M_MIN = 0;
 	}
 
 	public RubberArmor() {
@@ -38,6 +40,7 @@ public class RubberArmor extends NormalArmor {
 	public Item upgrade(boolean hasglyph) {
 		MIN -= 1;
 		MAX -= 2;
+		M_MAX += 1;
 		return super.upgrade(hasglyph);
 	}
 }

@@ -18,18 +18,7 @@
 package com.hmdzl.spspd.items;
 
 import com.hmdzl.spspd.Assets;
-import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ShatteredPixelDungeon;
-import com.hmdzl.spspd.Statistics;
-import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.buffs.EnergyArmor;
-import com.hmdzl.spspd.actors.buffs.MagicArmor;
-import com.hmdzl.spspd.actors.buffs.MechArmor;
-import com.hmdzl.spspd.actors.buffs.ShieldArmor;
 import com.hmdzl.spspd.actors.hero.Hero;
-import com.hmdzl.spspd.actors.hero.HeroClass;
-import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.GameScene;
 import com.hmdzl.spspd.sprites.CharSprite;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -38,7 +27,6 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
-import java.util.prefs.Preferences;
 
 public class SpecialCoin extends Item {
 

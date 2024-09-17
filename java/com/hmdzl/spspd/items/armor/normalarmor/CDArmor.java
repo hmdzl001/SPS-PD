@@ -28,6 +28,8 @@ public class CDArmor extends NormalArmor {
 		STR -= 1;
 		MAX = 15;
 		MIN = 0;
+		M_MAX = 4;
+		M_MIN = 0;
 	}
 
 	public CDArmor() {
@@ -38,6 +40,7 @@ public class CDArmor extends NormalArmor {
 	public Item upgrade(boolean hasglyph) {
 		MIN -= 1;
 		MAX -= 1;
+		M_MAX += 1;
 		return super.upgrade(hasglyph);
 	}
 }

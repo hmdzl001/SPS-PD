@@ -166,7 +166,7 @@ public class YearBeast2 extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 		if(src instanceof Wand) {
 			dmg = dmg/3;
@@ -179,7 +179,7 @@ public class YearBeast2 extends Mob {
 	    if (times > 50)
 		times-=3;
 	
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 	}
 
 

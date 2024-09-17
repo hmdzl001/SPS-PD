@@ -55,6 +55,7 @@ public class StatusPane extends Component {
 	private int lastTier = 0;
 
 	private Image hp;
+	private BitmapText hpText;
 	private Image exp;
 
 	private int lastLvl = -1;
@@ -121,6 +122,9 @@ public class StatusPane extends Component {
 		hp = new Image(Assets.HP_BAR);
 		add(hp);
 
+		hpText = new BitmapText(PixelScene.font1x);
+		add(hpText);
+
 		exp = new Image(Assets.XP_BAR);
 		add(exp);
 
@@ -182,6 +186,12 @@ public class StatusPane extends Component {
 		hp.x = 30;
 		hp.y = 3;
 
+		hpText.scale.set(PixelScene.align(0.5f));
+		hpText.x = hp.x + 1;
+		hpText.y = hp.y + (hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
+		hpText.y -= 0.001f; //prefer to be slightly higher
+		PixelScene.align(hpText);
+
 		depth.x = width - 24 - depth.width() - 18;
 		depth.y = 6;
 
@@ -228,6 +238,8 @@ public class StatusPane extends Component {
 		hp.scale.x = health;
 		exp.scale.x = (width / exp.width) * hero.exp
 				/ hero.maxExp();
+
+		hpText.text(hero.HP  +  "/" + hero.HT);
 
 		if (hero.lvl != lastLvl) {
 

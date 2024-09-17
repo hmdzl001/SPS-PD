@@ -108,7 +108,7 @@ public class PerformerSkill extends ClassSkill {
 				int dmg = (int) (base * improve);
 				mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
 
-				mob.damage(Math.max(1, dmg), DamageType.ENERGY_DAMAGE);
+				mob.damage(Math.max(1, dmg), DamageType.ENERGY_DAMAGE,2);
 
 				Dungeon.depth.plant((Plant.Seed) (Generator.random(Generator.Category.SEED)), mob.pos);
 

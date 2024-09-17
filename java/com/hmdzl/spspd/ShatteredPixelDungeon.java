@@ -84,7 +84,7 @@ public class ShatteredPixelDungeon extends Game {
 				Assets.SND_DEGRADE, Assets.SND_MIMIC);
 				
 		if (!SPSSettings.systemFont()) {
-			RenderedText.setFont("pixelfont.ttf");
+			RenderedText.setFont("txttheme/pixelfont.ttf");
 		} else {
 			RenderedText.setFont( null );
 		}
@@ -235,6 +235,28 @@ public class ShatteredPixelDungeon extends Game {
 
 	public static boolean soundFx() {
 		return Preferences.INSTANCE.getBoolean(Preferences.KEY_SOUND_FX, true);
+	}
+
+	public static void picktype(boolean value) {
+		SPSSettings.put(SPSSettings.KEY_PICKTYPE, value);
+	}
+	public static boolean picktype() {
+		return SPSSettings.getBoolean(SPSSettings.KEY_PICKTYPE, true);
+	}
+
+	public static void showup(boolean value) {
+		SPSSettings.put(SPSSettings.KEY_SHOWUP, value);
+	}
+	public static boolean showup() {
+		return SPSSettings.getBoolean(SPSSettings.KEY_SHOWUP, true);
+	}
+
+	public static void allin(boolean value) {
+		SPSSettings.put(SPSSettings.KEY_ALLIN, value);
+	}
+
+	public static boolean allin() {
+		return SPSSettings.getBoolean(SPSSettings.KEY_ALLIN, true);
 	}
 
 	public static void brightness(boolean value) {

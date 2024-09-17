@@ -1,5 +1,7 @@
 package com.hmdzl.spspd.items.artifacts;
 
+import android.annotation.SuppressLint;
+
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.Dungeon;
 import com.hmdzl.spspd.actors.buffs.Awareness;
@@ -41,6 +43,7 @@ public class TalismanOfForesight extends Artifact {
 	public static final String AC_SCRY = "SCRY";
 	public static final String AC_NOTICE = "NOTICE";
 
+	@SuppressLint("SuspiciousIndentation")
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
@@ -126,7 +129,9 @@ public class TalismanOfForesight extends Artifact {
 		@Override
 		public boolean act() {
 			spend(TICK);
-
+			if (Dungeon.canseehp == false && !cursed) {
+				Dungeon.canseehp = true;
+			}
 			boolean smthFound = false;
 
 			int distance = 3;

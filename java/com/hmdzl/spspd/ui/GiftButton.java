@@ -23,7 +23,6 @@ package com.hmdzl.spspd.ui;
 import com.hmdzl.spspd.Assets;
 import com.hmdzl.spspd.ShatteredPixelDungeon;
 import com.hmdzl.spspd.scenes.GiftshopScene;
-import com.hmdzl.spspd.scenes.WelcomeScene;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Button;

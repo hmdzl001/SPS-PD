@@ -19,7 +19,6 @@ package com.hmdzl.spspd.items.food.meatfood;
 
 import com.hmdzl.spspd.actors.buffs.Barkskin;
 import com.hmdzl.spspd.actors.buffs.Buff;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;

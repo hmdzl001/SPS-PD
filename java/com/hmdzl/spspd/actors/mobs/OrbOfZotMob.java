@@ -18,7 +18,6 @@
 package com.hmdzl.spspd.actors.mobs;
 
 import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Actor;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.actors.blobs.ToxicGas;
@@ -159,8 +158,8 @@ public class OrbOfZotMob extends Mob {
 			}
 
 			if (hit(this, ch, true)) {
-				ch.damage(Random.NormalIntRange(100, 200), this);
-				damage(Random.NormalIntRange(10, 20), this);
+				ch.damage(Random.NormalIntRange(100, 200), this,2);
+				damage(Random.NormalIntRange(10, 20), this,3);
 
 
 				if (Dungeon.visible[pos]) {
@@ -169,10 +168,10 @@ public class OrbOfZotMob extends Mob {
 							Random.IntRange(1, 2));
 				}
 
-				if (!ch.isAlive() && ch == Dungeon.hero) {
-					Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+				//if (!ch.isAlive() && ch == Dungeon.hero) {
+				//	Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 					//GLog.n(Messages.get(this, "kill"));
-				}
+				//}
 			} else {
 				ch.sprite.showStatus(CharSprite.NEUTRAL, ch.defenseVerb());
 			}

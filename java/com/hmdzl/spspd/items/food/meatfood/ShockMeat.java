@@ -25,7 +25,6 @@ import com.hmdzl.spspd.actors.buffs.Poison;
 import com.hmdzl.spspd.actors.buffs.STRdown;
 import com.hmdzl.spspd.actors.buffs.Slow;
 import com.hmdzl.spspd.actors.buffs.Vertigo;
-import com.hmdzl.spspd.actors.hero.Hero;
 import com.hmdzl.spspd.items.food.Food;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.sprites.ItemSprite;

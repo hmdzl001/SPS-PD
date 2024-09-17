@@ -122,7 +122,7 @@ public class ShadowYog extends Mob  {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 
 			//for (Mob mob : Dungeon.level.mobs) {
 			 //	mob.beckon(pos);
@@ -143,7 +143,7 @@ public class ShadowYog extends Mob  {
 		if (Dungeon.depth.mobs.size()<Dungeon.hero.lvl*2){
 			Fiend.spawnAroundChance(pos);
 		}
-			super.damage(dmg, src);
+			super.damage(dmg, src,type);
 	}
 
 	@Override

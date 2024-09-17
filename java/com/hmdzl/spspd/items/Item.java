@@ -28,9 +28,9 @@ import com.hmdzl.spspd.actors.hero.HeroClass;
 import com.hmdzl.spspd.effects.Speck;
 import com.hmdzl.spspd.items.bags.Bag;
 import com.hmdzl.spspd.items.eggs.Egg;
+import com.hmdzl.spspd.items.weapon.missiles.Boomerang;
 import com.hmdzl.spspd.items.weapon.missiles.MissileWeapon;
 import com.hmdzl.spspd.items.weapon.missiles.meleethrow.MeleeThrowWeapon;
-import com.hmdzl.spspd.items.weapon.missiles.throwing.Boomerang;
 import com.hmdzl.spspd.mechanics.Ballistica;
 import com.hmdzl.spspd.messages.Messages;
 import com.hmdzl.spspd.scenes.CellSelector;
@@ -575,7 +575,10 @@ public class Item implements Bundlable {
 			}
 		}
 	}
-	
+	public int targetingPos( Hero user, int dst ){
+		return throwPos( user, dst );
+	}
+
 	public int throwPos( Hero user, int dst){
 		return new Ballistica( user.pos, dst, Ballistica.PROJECTILE ).collisionPos;
 	}	

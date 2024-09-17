@@ -24,7 +24,6 @@ import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.MoonFury;
 import com.hmdzl.spspd.items.Generator;
 import com.hmdzl.spspd.items.food.vegetable.BattleFlower;
-import com.hmdzl.spspd.items.food.vegetable.RootRadish;
 import com.hmdzl.spspd.items.potions.PotionOfExperience;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;
@@ -66,6 +65,8 @@ public class Starflower extends Plant {
 		@Override
 		public void activate(Char ch) {
 			super.activate(ch);
+
+			Dungeon.depth.drop(new BattleFlower(), pos).sprite.drop();
 
 			ArrayList<Integer> candidates = new ArrayList<Integer>();
 			for (int i : Floor.NEIGHBOURS8){

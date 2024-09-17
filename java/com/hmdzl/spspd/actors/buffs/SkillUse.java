@@ -28,7 +28,7 @@ public class SkillUse extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.TAR;
+		return BuffIndicator.MAGIC_WEAK;
 	}
 
 	@Override

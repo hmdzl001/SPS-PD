@@ -29,7 +29,7 @@ public class HighVoice extends FlavourBuff {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.VOICE_UP;
+		return BuffIndicator.MUSIC_FLOWER;
 	}
 
 	@Override

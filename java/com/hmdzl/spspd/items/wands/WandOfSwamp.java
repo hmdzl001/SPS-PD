@@ -35,7 +35,7 @@ public class WandOfSwamp extends DamageWand {
 
 	{
 		image = ItemSpriteSheet.WAND_POISON;
-		collisionProperties = Ballistica.MAGIC_BOLT;
+		collisionProperties = Ballistica.PROJECTILE;
 	}
 
 	public int min(int lvl){
@@ -55,7 +55,7 @@ public class WandOfSwamp extends DamageWand {
 
 			processSoulMark(ch, chargesPerCast());
 			
-		    ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this);			
+		    ch.damage((int)( damageRoll() * (1 + 0.1 * Dungeon.hero.magicSkill())), this,2);
 
 		}	   
 		

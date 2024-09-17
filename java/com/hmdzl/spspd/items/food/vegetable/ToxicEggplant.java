@@ -17,7 +17,6 @@
  */
 package com.hmdzl.spspd.items.food.vegetable;
 
-import com.hmdzl.spspd.actors.buffs.AttackUp;
 import com.hmdzl.spspd.actors.buffs.Buff;
 import com.hmdzl.spspd.actors.buffs.ToxicImbue;
 import com.hmdzl.spspd.sprites.ItemSpriteSheet;

@@ -18,8 +18,6 @@
 package com.hmdzl.spspd.actors.buffs;
 
 import com.hmdzl.spspd.Badges;
-import com.hmdzl.spspd.Dungeon;
-import com.hmdzl.spspd.ResultDescriptions;
 import com.hmdzl.spspd.actors.Char;
 import com.hmdzl.spspd.levels.Floor;
 import com.hmdzl.spspd.messages.Messages;
@@ -67,13 +65,13 @@ public class FrostIce extends Buff {
 
 		if (target.isAlive()) {
             if (first == true) {
-                target.damage(Math.min(1000, target.HT / 30), ICE_DAMAGE);
+                target.damage(Math.min(1000, target.HT / 30), ICE_DAMAGE,2);
                 first = false;
             }
 			if (target.pos != pos) {
 				pos = 0;
 				if (target.pos != -1)  pos = target.pos;
-				target.damage(Math.min(500,(int)(target.HT/30)),ICE_DAMAGE);
+				target.damage(Math.min(500,(int)(target.HT/30)),ICE_DAMAGE,2);
 			} 
 			
             Buff.detach( target, Burning.class);
@@ -94,7 +92,7 @@ public class FrostIce extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.FROST_BITE;
+		return BuffIndicator.ICE_1;
 	}
 	
 	@Override
@@ -129,7 +127,7 @@ public class FrostIce extends Buff {
 	public void onDeath() {
 
 		Badges.validateDeathFromFire();
-		Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
+		//Dungeon.fail(Messages.format(ResultDescriptions.LOSE));
 
 	}	
 	

@@ -38,7 +38,6 @@ import com.hmdzl.spspd.items.Item;
 import com.hmdzl.spspd.items.StoneOre;
 import com.hmdzl.spspd.items.artifacts.GlassTotem;
 import com.hmdzl.spspd.items.bombs.AddBomb;
-import com.hmdzl.spspd.items.bombs.DungeonBomb;
 import com.hmdzl.spspd.items.bombs.XBomb;
 import com.hmdzl.spspd.items.journalpages.Sokoban4;
 import com.hmdzl.spspd.items.keys.SkeletonKey;
@@ -56,10 +55,7 @@ import com.hmdzl.spspd.sprites.LichDancerSprite;
 import com.hmdzl.spspd.sprites.SeekingBombSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 import static com.hmdzl.spspd.actors.damagetype.DamageType.ENERGY_DAMAGE;
 
@@ -169,7 +165,7 @@ public class LichDancer extends Mob {
 			Buff.prolong(enemy, Vertigo.class,3f);
 		}
 		
-		enemy.damage(damageRoll()/2, ENERGY_DAMAGE);
+		enemy.damage(damageRoll()/2, ENERGY_DAMAGE,2);
 		damage = damage/2;
 
         return damage;
@@ -236,12 +232,12 @@ public class LichDancer extends Mob {
     }	
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 		if (checkBattery()) {
 			dmg = Random.Int(10);
 			//Buff.affect(this,ShieldArmor.class).level(100);
 		}
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
         }	
 	
 	@Override
@@ -317,9 +313,9 @@ public class LichDancer extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void damage(int dmg, Object src, int type) {
 	    if ( dmg > 50 ) dmg = 50;
-		super.damage(dmg, src);
+		super.damage(dmg, src,type);
 
 	}
 }
@@ -350,9 +346,9 @@ public class LichDancer extends Mob {
         }
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, int type) {
 			if (!(src instanceof SelfDestroy) ) dmg = 0;
-			super.damage(dmg, src);
+			super.damage(dmg, src,type);
 		}
 
 		public void die(Object cause) {
@@ -396,9 +392,9 @@ public class LichDancer extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void damage(int dmg, Object src, int type) {
 			if (!(src instanceof SelfDestroy) ) dmg = 0;
-			super.damage(dmg, src);
+			super.damage(dmg, src,type);
 		}
 
 		public void die(Object cause) {

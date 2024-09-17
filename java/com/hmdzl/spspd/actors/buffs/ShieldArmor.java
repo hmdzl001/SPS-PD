@@ -12,8 +12,13 @@ public class ShieldArmor extends Buff {
 
 		private int level;
 
+	public String status() {
+		return level > 0 ? Integer.toString( level ) : null;
+	}
 
-		@Override
+
+
+	@Override
 		public boolean act() {
 			spend(STEP);
 			return true;
@@ -40,8 +45,9 @@ public class ShieldArmor extends Buff {
 
 		@Override
 		public int icon() {
-			return BuffIndicator.ARMOR;
+			return BuffIndicator.PHYSICS_SHIELD;
 		}
+
 
 		@Override
 		public String toString() {

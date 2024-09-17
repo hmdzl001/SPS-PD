@@ -55,7 +55,7 @@ public class Wave extends TossWeapon {
 		super.proc(attacker, defender, damage);
 		Buff.affect(defender, Amok.class,10f);
 		Buff.affect(defender, Charm.class,5f).object=attacker.id();
-		defender.damage(defender.HP/4,defender);
+		defender.damage(defender.HP/4,defender,2);
 	}	
 	
 	@Override

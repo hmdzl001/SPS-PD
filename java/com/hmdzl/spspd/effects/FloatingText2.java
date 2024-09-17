@@ -31,7 +31,6 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.TextureFilm;
-import com.watabou.utils.Callback;
 import com.watabou.utils.SparseArray;
 
 import java.util.ArrayList;

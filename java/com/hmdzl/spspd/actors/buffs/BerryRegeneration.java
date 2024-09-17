@@ -53,7 +53,7 @@ public class BerryRegeneration extends Buff {
 
 	@Override
 	public int icon() {
-		return BuffIndicator.REGEN;
+		return BuffIndicator.REGEN_HEAL;
 	}
 
 	@Override

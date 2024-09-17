@@ -42,7 +42,7 @@ public class CromLuck extends Weapon.Enchantment {
 		}
 
 		if (dmg > damage) {
-			defender.damage(dmg - damage, weapon);
+			defender.damage(dmg - damage, weapon,3);
 			return true;
 		} else {
 			return false;
